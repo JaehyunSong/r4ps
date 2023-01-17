@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第13回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">第13回講義資料</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/introduction.html" class="sidebar-item-text sidebar-link">第1回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/r.html" class="sidebar-item-text sidebar-link">第2回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/basic.html" class="sidebar-item-text sidebar-link">第3回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/programming.html" class="sidebar-item-text sidebar-link">第4回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/rmarkdown.html" class="sidebar-item-text sidebar-link">第5回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/dataset.html" class="sidebar-item-text sidebar-link">第6回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datatype.html" class="sidebar-item-text sidebar-link">第7回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datastructure.html" class="sidebar-item-text sidebar-link">第8回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling1.html" class="sidebar-item-text sidebar-link">第9回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling2.html" class="sidebar-item-text sidebar-link">第10回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling3.html" class="sidebar-item-text sidebar-link">第11回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization1.html" class="sidebar-item-text sidebar-link">第12回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization2.html" class="sidebar-item-text sidebar-link active">第13回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization3.html" class="sidebar-item-text sidebar-link">第14回講義資料</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#スライド" id="toc-スライド" class="nav-link active" data-scroll-target="#スライド">スライド</a></li>
+  <li><a href="#グラフ作成の手順" id="toc-グラフ作成の手順" class="nav-link" data-scroll-target="#グラフ作成の手順">グラフ作成の手順</a></li>
+  <li><a href="#棒グラフ" id="toc-棒グラフ" class="nav-link" data-scroll-target="#棒グラフ">棒グラフ</a>
+  <ul class="collapse">
+  <li><a href="#棒グラフの作成" id="toc-棒グラフの作成" class="nav-link" data-scroll-target="#棒グラフの作成">棒グラフの作成</a></li>
+  <li><a href="#次元の追加" id="toc-次元の追加" class="nav-link" data-scroll-target="#次元の追加">次元の追加</a></li>
+  </ul></li>
+  <li><a href="#図の保存" id="toc-図の保存" class="nav-link" data-scroll-target="#図の保存">図の保存</a></li>
+  <li><a href="#ヒストグラム" id="toc-ヒストグラム" class="nav-link" data-scroll-target="#ヒストグラム">ヒストグラム</a>
+  <ul class="collapse">
+  <li><a href="#変数の分布" id="toc-変数の分布" class="nav-link" data-scroll-target="#変数の分布">変数の分布</a></li>
+  <li><a href="#ヒストグラムの作成" id="toc-ヒストグラムの作成" class="nav-link" data-scroll-target="#ヒストグラムの作成">ヒストグラムの作成</a></li>
+  <li><a href="#次元の追加-1" id="toc-次元の追加-1" class="nav-link" data-scroll-target="#次元の追加-1">次元の追加</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">第13回講義資料</h1>
+<p class="subtitle lead">可視化 (2)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="スライド" class="level2">
+<h2 class="anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/micro/visualization2.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/micro/visualization2.html" width="100%" style="aspect-ratio: 16 / 9.5;"></iframe>
+</section>
+<section id="グラフ作成の手順" class="level2">
+<h2 class="anchored" data-anchor-id="グラフ作成の手順">グラフ作成の手順</h2>
+<p>　{ggplot2}を用いた作図は以下の手順で行われる。</p>
+<ol type="1">
+<li>作成したいグラフを決める</li>
+<li>作成したいグラフの完成図を想像する or 描いてみる</li>
+<li>グラフ上の要素（点、線、面）が持つ情報を考える</li>
+<li>3の情報が一つの変数（列）と対応するような整然データを作成する</li>
+<li>{ggplot2}で作図</li>
+<li>図のカスタマイズ</li>
+<li>図の保存</li>
+</ol>
+<p>　今回は第9回の実習用データ（<code>countries.csv</code>）を使用する。{tidyverse}パッケージを読み込んだ後、<code>read_csv()</code>関数でデータを読み込む。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="棒グラフ" class="level2">
+<h2 class="anchored" data-anchor-id="棒グラフ">棒グラフ</h2>
+<p>　まずは、棒グラフについて解説する。ここに紙と鉛筆があるとし、棒グラフを描くとしよう。棒グラフは適当なもので良い。棒グラフには通常、2つ以上の棒が並んでいる。それぞれの棒から我々は何が分かるだろうか。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　この棒から分かるのは「ある<strong>人</strong>の<strong>成績</strong>」である。成績は棒の高さで分かり、それが誰の成績なのかは棒の横軸上の位置から分かる。つまり、棒グラフには棒の横軸上の位置、高さといった2つの次元で構成され、それぞれ人と成績に対応する。この位置と高さは棒グラフを作成する際に必要な<strong>最低限</strong>の情報である。むろん、以下の <a href="#fig-bar-comparison-2">図&nbsp;1 (b)</a> のように位置を縦軸上の位置に、人間開発指数の平均値を棒の長さとして定義することできる。いずれにせよ、以下のような棒グラフを作成するためには「大陸」と「人間開発指数の平均値」といった2つの変数が必要だ。</p>
+<div id="fig-bar-comparison" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-bar-comparison-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/fig-bar-comparison-1.png" class="img-fluid figure-img" data-ref-parent="fig-bar-comparison" width="750"></p>
+<p></p><figcaption class="figure-caption">(a) xが大陸、yが人間開発指数</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-bar-comparison-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/fig-bar-comparison-2.png" class="img-fluid figure-img" data-ref-parent="fig-bar-comparison" width="750"></p>
+<p></p><figcaption class="figure-caption">(b) yが大陸、xが人間開発指数</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">図&nbsp;1: 2つの棒グラフ</figcaption><p></p>
+</figure>
+</div>
+<section id="棒グラフの作成" class="level3">
+<h3 class="anchored" data-anchor-id="棒グラフの作成">棒グラフの作成</h3>
+<p>　それではデータを作成してみよう。{dplyr}を使用し、大陸 (<code>Continent</code>)ごとの人間開発指数 (<code>HDI_2018</code>)の平均値を計算し、<code>df2</code>という名で格納しておく。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>   <span class="fu">group_by</span>(Continent) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>   <span class="fu">summarise</span>(<span class="at">HDI =</span> <span class="fu">mean</span>(HDI_2018, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Continent   HDI
+  &lt;chr&gt;     &lt;dbl&gt;
+1 Africa    0.553
+2 America   0.742
+3 Asia      0.723
+4 Europe    0.861
+5 Oceania   0.782</code></pre>
+</div>
+</div>
+<p>　棒グラフに必要な2つの変数が揃った。ただし、データがこの2つの変数<strong>のみ</strong>で構成される必要はない。含まれていれば問題ない。それでは作図に移ろう。棒グラフを作成するときに使用する幾何オブジェクト<code>geom_bar()</code>である。また、<code>aes()</code>内に指定するマッピングは棒の横軸上の位置を意味する<code>x</code>と棒の高さを意味する<code>y</code>である。そして、棒の横軸上の位置は大陸 (<code>Continent</code>)、棒の高さは人間開発指数の平均値 (<code>HDI</code>)なので、マッピングは<code>x = Continent, y = HDI</code>となる。もし、<a href="#fig-bar-comparison-2">図&nbsp;1 (b)</a> のような図を作成するなら、<code>x</code>と<code>y</code>を逆にすれば良い。最後に、<code>geom_bar()</code>内、かつ<code>aes()</code>の外に<code>stat = "identity"</code>と描く。<code>stat</code>引数は初心者には難しい引数なので、ここでは説明を割愛する。</p>
+<p>　それでは図を作成し<code>bar_plot1</code>という名のオブジェクトとして格納しておこう。格納された図を出力する場合はオブジェクト名のみ入力すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>bar_plot1 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent, <span class="at">y =</span> HDI), <span class="at">stat =</span> <span class="st">"identity"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>bar_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　もし、論文・レポートの使用言語が日本語であるなら図表も日本語にする必要がある。<code>bar_plot1</code>を日本語にする場合、修正が必要な箇所は大陸名とそれぞれの軸のタイトルである。まず、<code>df2</code>の<code>Continent</code>列を日本語にリコーディングし、<code>Continent_J</code>という名の列として追加する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">case_when</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>    <span class="sc">~</span> <span class="st">"アジア"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                                  Continent <span class="sc">==</span> <span class="st">"Africa"</span>  <span class="sc">~</span> <span class="st">"アフリカ"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>                                  Continent <span class="sc">==</span> <span class="st">"America"</span> <span class="sc">~</span> <span class="st">"アメリカ"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                                  Continent <span class="sc">==</span> <span class="st">"Europe"</span>  <span class="sc">~</span> <span class="st">"ヨーロッパ"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>                                  <span class="cn">TRUE</span>                   <span class="sc">~</span> <span class="st">"オセアニア"</span>))</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  Continent   HDI Continent_J
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;      
+1 Africa    0.553 アフリカ   
+2 America   0.742 アメリカ   
+3 Asia      0.723 アジア     
+4 Europe    0.861 ヨーロッパ 
+5 Oceania   0.782 オセアニア </code></pre>
+</div>
+</div>
+<p>　作図の際、<code>Continent</code>の代わりに<code>Continent_J</code>を使用する。また、X軸とY軸のタイトルを修正するために<code>labs()</code>レイヤーを追加し、軸のタイトルを指定する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df2 <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　NIIオンライン分析システムを使用する場合、以上のような図が得られるはずである。しかし、自分のPCにインストールしたR/RStudioを使用する場合、文字化けは生じる可能性がある。この場合、<code>theme_*()</code>レイヤーを追加し、引数として<code>base_family = "日本語フォント"</code>を指定する必要がある。<code>theme_*()</code>は<code>theme_</code>で始まる関数の総称であり、<code>theme_gray()</code>（{ggplot2}のデフォルトテーマ）、<code>theme_bw()</code>、<code>theme_minimal()</code>などがある。日本語フォントは好きなものを使えば良いが、macOSの場合は<code>"HiraginoSans-W3"</code>、Windowsの場合は<code>"Yu Gothic"</code>が無難だろう。以下のコードはmacOSで文字化けが生じた場合のコードの改善例である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df2 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>   <span class="fu">theme_gray</span>(<span class="at">base_family =</span> <span class="st">"HiraginoSans-W3"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　先ほどのグラフを見ると、大陸がアジア、アフリカ、アメリカ、オセアニア、ヨーロッパ順となっている。これをアルファベット順に並べ替える、つまり、アフリカ、アメリカ、アジア、ヨーロッパ、オセアニアの順番にするにはどうすれば良いだろうか。答えは<code>Continet_J</code>列をfactor化し、アフリカ、アメリカ、アジア、ヨーロッパ、オセアニア順にすることだ。<code>df2</code>を<code>ggplot()</code>関数に渡す前に<code>mutate()</code>を入れ、そこで<code>Continent_J</code>列をfactor化すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>df2 <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">factor</span>(Continent_J, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"アフリカ"</span>, <span class="st">"アメリカ"</span>, <span class="st">"アジア"</span>, </span>
+<span id="cb9-4"><a href="#cb9-4"></a>                                          <span class="st">"ヨーロッパ"</span>, <span class="st">"オセアニア"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>   <span class="fu">theme_bw</span>() <span class="co"># Black and Whiteテーマも使ってみよう</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ただし、<code>df2</code>を見ると表の順番はアルファベット順になっている。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  Continent   HDI Continent_J
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;      
+1 Africa    0.553 アフリカ   
+2 America   0.742 アメリカ   
+3 Asia      0.723 アジア     
+4 Europe    0.861 ヨーロッパ 
+5 Oceania   0.782 オセアニア </code></pre>
+</div>
+</div>
+<p>　このように表で表示されている順番は作図の際の順番は一致しない場合がある。この順番を調整するためには、当該変数を予めfactor化しておく必要がある。</p>
+<p>　ここで一つ便利な関数を紹介しよう。それは<code>fct_inorder()</code>関数だ。この関数は{forcats}パッケージに含まれている関数であり、{tidyverse}を読み込む際、一緒に読み込まれるので{tidyverse}を読み込んだら別途読み込む必要はない。この<code>fct_inorder()</code>は<code>()</code>内の変数をfactor化し、各要素順番を<strong>表で登場した順番</strong>にしてくれる関数だ。現在、<code>df2</code>はアルファベット順になっているので、この表の順番通りに<code>Continent_J</code>の要素の順番が固定される。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>df2 <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">fct_inorder</span>(Continent_J)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI), </span>
+<span id="cb12-5"><a href="#cb12-5"></a>            <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="次元の追加" class="level3">
+<h3 class="anchored" data-anchor-id="次元の追加">次元の追加</h3>
+<p>　通常の棒グラフはX軸とY軸のみで構成される2次元グラフである。棒グラフ上の棒には「<strong>ある大陸</strong> (X軸) の<strong>HDIの平均値</strong> (Y軸)」といった2つの情報が含まれている。つまり、一部の例外を除き、グラフの次元数は情報量を意味し、これは{ggplot2}の幾何オブジェクト内の<code>aes()</code>内で指定する引数の数でもある。以下では次元を増やす方法について紹介する。</p>
+<p>　まず、各政治体制（<code>Polity_Type</code>）に属する国家数の棒グラフを作ってみよう。作図に必要なdata.frameを<code>df3</code>として用意しておく。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>   <span class="fu">drop_na</span>(Polity_Type) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>   <span class="fu">mutate</span>(<span class="at">Polity_Type =</span> <span class="fu">factor</span>(Polity_Type,</span>
+<span id="cb13-4"><a href="#cb13-4"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Autocracy"</span>, <span class="st">"Closed Anocracy"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5"></a>                                          <span class="st">"Open Anocracy"</span>, <span class="st">"Democracy"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>                                          <span class="st">"Full Democracy"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>   <span class="fu">group_by</span>(Polity_Type) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>   <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>())</span>
+<span id="cb13-9"><a href="#cb13-9"></a></span>
+<span id="cb13-10"><a href="#cb13-10"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Polity_Type         N
+  &lt;fct&gt;           &lt;int&gt;
+1 Autocracy          19
+2 Closed Anocracy    23
+3 Open Anocracy      20
+4 Democracy          65
+5 Full Democracy     31</code></pre>
+</div>
+</div>
+<p>　棒グラフの作り方はこれまでのやり方と同じである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df3 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>   <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N), <span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　この棒グラフが持つ情報は2つである。まず、<code>x</code>で指定した政治体制のタイプ (<code>Polity_Type</code>)、そして<code>y</code>で指定した国家数 (<code>N</code>)だ。ここに更にもう一つの次元を使いすると使用。たとえば、もう一つの次元として大陸（<code>Continent</code>）を使いするとしよう。この場合、作図に使用するデータには大陸の変数（列）も必要だ。一方、先ほど作成した<code>df3</code>には大陸の情報がない。まずは、政治体制<span class="math inline">\(\times\)</span>大陸ごとの国家数を計算し、<code>df4</code>として格納しておく。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df4 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>   <span class="fu">drop_na</span>(Polity_Type) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>   <span class="fu">mutate</span>(<span class="at">Polity_Type =</span> <span class="fu">factor</span>(Polity_Type,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Autocracy"</span>, <span class="st">"Closed Anocracy"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>                                          <span class="st">"Open Anocracy"</span>, <span class="st">"Democracy"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>                                          <span class="st">"Full Democracy"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>   <span class="fu">group_by</span>(Polity_Type, Continent) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>   <span class="fu">summarise</span>(<span class="at">N       =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-9"><a href="#cb16-9"></a>             <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10"></a></span>
+<span id="cb16-11"><a href="#cb16-11"></a>df4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 3
+   Polity_Type     Continent     N
+   &lt;fct&gt;           &lt;chr&gt;     &lt;int&gt;
+ 1 Autocracy       Africa        3
+ 2 Autocracy       Asia         14
+ 3 Autocracy       Europe        2
+ 4 Closed Anocracy Africa       14
+ 5 Closed Anocracy America       2
+ 6 Closed Anocracy Asia          6
+ 7 Closed Anocracy Europe        1
+ 8 Open Anocracy   Africa       12
+ 9 Open Anocracy   America       4
+10 Open Anocracy   Europe        2
+11 Open Anocracy   Oceania       2
+12 Democracy       Africa       18
+13 Democracy       America      16
+14 Democracy       Asia         15
+15 Democracy       Europe       16
+16 Full Democracy  Africa        1
+17 Full Democracy  America       5
+18 Full Democracy  Asia          3
+19 Full Democracy  Europe       20
+20 Full Democracy  Oceania       2</code></pre>
+</div>
+</div>
+<p>　次元を追加するときには<code>aes()</code>内に引数を追加すれば良い。棒グラフの棒に更に情報を持たせるのであれば、どうすれば良いだろうか。棒は点・線・面のうち、面に該当する。面であるならば、面の色（<code>fill</code>）、枠線の色（<code>color</code>）、枠線のタイプ（<code>linetype</code>）、透明度（<code>alpha</code>）などがある。<code>x</code>と<code>y</code>のみと構成された多くの図において、もう一つの次元を追加するのであれば、定番は色である。棒グラフの場合、面の色と枠線の色をそれぞれ指定することができるが、ここでは面の色（<code>fill</code>）にマッピングする。やり方は<code>aes()</code>内に<code>fill = Continent</code>を追加するだけだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df4 <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent), <span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　このような図を想像した人もいれば、少し違うと思う人もいるだろう。沖積されている形の棒グラフは世の中でそこそこ見るものであるが、実は分かりにくい図でもある。たとえば、民主主義（Democracy）の国の中で最も国家数が多い大陸はどこだろうか。この図ではどの大陸もだいたい同じ国家数にも見える。したがって、色分けした棒グラフは通所湯、棒の位置をずらす必要がある。ずらす方法は<code>geom_bar()</code>内に<code>position = "dodge"</code>を指定するだけだ。注意する点は<code>aes()</code>の中でなく、外に指定することだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df4 <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent), <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　あとは図を少しずつ調整してだけであるが、ここでは凡例の位置を変更する方法について紹介する。グラフ全体の見た目などを細かく調整するレイヤーは<code>theme()</code>である。この<code>theme()</code>内に<code>legend.position = "bottom"</code>を指定すると、凡例が図の下段へ移動する。デフォルトは<code>"right"</code>であり、 　<code>"top"</code>は上段、<code>"none"</code>は削除を意味する。<code>"left"</code>も可能だが、あまり使われない。この<code>theme()</code>はかなり奥深く、コンソール上で<code>?theme</code>を入力してみれば分かるだろうが、引数の数も数十種類以上だ。これをすべて覚えて使う人は少数だろう。多分、これは{ggplot2}の開発者にとっても同じはずである。必要に応じてヘルプやインターネット検索を活用すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 15</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>df4 <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent), <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　続いて、全く同じ情報を持つグラフでありながら、だいぶ印象が変わるものを紹介しよう。これまで作成した棒グラフは「ある政治体制内の大陸の分布」を知ることに特化している。つまり、「権威主義国家内にはアフリカがXカ国、アジアが…」といったメッセージを伝えるに効果的である。一方、「ある大陸内の政治体制の分布」を見るにはどうすれば良いだろうか。つまり、「アフリカには権威主義がXカ国、民主主義が…」のメッセージを伝えることである。いずれも必要な変数は同じはずである。異なるのはマッピングだけである。たとえば、<code>x</code>と<code>fill</code>を交換してみよう。厳密に言えば棒を並び替えただけなのに、かなり印象が変わってくる。可視化は「伝えたいメッセージを効果的に伝える」ことが重要であり、そのためには試行錯誤が必要だろう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>df4 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent, <span class="at">y =</span> N, <span class="at">fill =</span> Polity_Type), <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>, <span class="at">fill =</span> <span class="st">"Polity Type"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　最後に次元を追加するもう一つの方法として、ファセット（facet）分割について紹介する。これは色分けを出来る限り抑えたい時に効果的である。特に白黒印刷の場合、識別可能な色は白・グレー・黒の3つくらいだろう。しかし、色の種類は増えると、白黒印刷では識別するのが難しくなる。この場合、プロットの面（=ファセット）を分割することで色の増加が抑制できる。使い方は<code>facet_wrap(~ 分割の基準となる変数名)</code>のレイヤーを入れるだけだ。<code>df4</code>を使い、政治体制ごとの国家数の棒グラフを作成する。ただし、それぞれの棒グラフは大陸ごとに独立したファセットを持つとする。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>bar_plot2 <span class="ot">&lt;-</span> df4 <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Continent, <span class="at">ncol =</span> <span class="dv">5</span>) <span class="co"># ncol/nrowで列/行数の指定が可能</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a></span>
+<span id="cb22-6"><a href="#cb22-6"></a>bar_plot2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ただし、この<code>bar_plot2</code>は値のラベルが重なっており、非常に読みにくい。この場合、ラベルを回転すると読みやすくなるだろう。横軸の目盛りラベルを修正するためには<code>theme()</code>レイヤーを追加し、<code>axis.text.x</code>を指定する必要がある。しかし、<code>theme()</code>レイヤーの中身はかなり複雑であるため、これを覚える必要はない。必要に応じてググれば良いだろう。今後、ラベルの回転が必要な場合は以下のコードから<code>angle</code>だけを修正すれば良い。以下の例は35度回転の例である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>bar_plot3 <span class="ot">&lt;-</span> bar_plot2 <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Countries"</span>, <span class="at">y =</span> <span class="st">"Poltiy Type"</span>) <span class="sc">+</span> <span class="co"># ラベル修正</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>   <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># テーマを変えてみよう</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>   <span class="fu">theme</span>(<span class="at">axis.text.x        =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">35</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="co"># 35度回転</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>         <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="co"># 横軸のグリッドを削除するおまじない</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a></span>
+<span id="cb23-7"><a href="#cb23-7"></a>bar_plot3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　もう一つの方法としてマッピング交換が考えられる。今の横軸を縦軸にすれば、長い文字列でも問題なく出力できるだろう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 19</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>bar_plot4 <span class="ot">&lt;-</span> df4 <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> N, <span class="at">y =</span> Polity_Type), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Countries"</span>, <span class="at">y =</span> <span class="st">"Poltiy Type"</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Continent, <span class="at">ncol =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="co"># 5列のファセット分割</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span>     <span class="co"># フォントサイズの調整も可能</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>()) <span class="co"># 縦軸のグリッドを削除するおまじない</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>   </span>
+<span id="cb24-9"><a href="#cb24-9"></a>bar_plot4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="図の保存" class="level2">
+<h2 class="anchored" data-anchor-id="図の保存">図の保存</h2>
+<p>　作成した図をファイルとして保存する時には、まずベクトルとビットマップ、どのフォーマットで保存するかを考える必要がある。ベクトル画像（ <a href="#fig-pdf-png-1">図&nbsp;2 (a)</a> ）の拡張子は<code>.pdf</code>（推奨）、<code>.svg</code>などがあり、これらのファイルは図をいくら拡大しても図が綺麗なままだという利点がある。また、複雑な図（例えば、点が数百万個ある散布図など）でないなら、ファイルサイズも比較的小さい。ビットマップ画像（ <a href="#fig-pdf-png-2">図&nbsp;2 (b)</a> ）の拡張子は<code>.png</code>（推奨）、<code>.bmp</code>、<code>.jpg</code>（= <code>.jpeg</code>）などがあり、図がいくら複雑でもファイルサイズが安定するといったメリットがある。しかし、拡大すると図がカクカクする場合がある。高い解像度（DPI）にすると、拡大しても綺麗だが、ファイルサイズに注意する必要がある。基本的にベクトル画像を推奨するが、使用するワードソフトによってはPDFの図の埋め込みができない場合もある。ビートマップ画像はどのソフトでも確実に埋め込める。</p>
+<div id="fig-pdf-png" class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 49.0%;justify-content: center;">
+<div id="fig-pdf-png-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Figs/visual2/PDF_Example.png" class="img-fluid figure-img" data-ref-parent="fig-pdf-png" width="300"></p>
+<p></p><figcaption class="figure-caption">(a) ベクトル画像</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 49.0%;justify-content: center;">
+<div id="fig-pdf-png-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Figs/visual2/PNG_Example.png" class="img-fluid figure-img" data-ref-parent="fig-pdf-png" width="300"></p>
+<p></p><figcaption class="figure-caption">(b) ビットマップ画像</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">図&nbsp;2: ベクトル画像とビットマップ画像</figcaption><p></p>
+</figure>
+</div>
+<p>　ここでは<code>bar_plot3</code>を高解像度の<code>.png</code>形式で保存する方法について解説する。{ggplot2}で作図した図の保存には<code>ggsave()</code>関数が便利だ。たとえば、作業フォルダー内の<code>Figs</code>フォルダに<code>Figure1.png</code>という名で<code>bar_plot3</code>を保存するとしよう。ただし、予め作業フォルダー内に<code>Figs</code>フォルダーを作成しておく必要がある。図のサイズは幅6<strong>インチ</strong>、高さ3<strong>インチ</strong>とし、解像度（DPI）は400とする。解像度が高いほどファイルサイズは大きくなるため、適切な解像度を選ぶのが重要だ。モニター画面に表示するだけなら最低150、印刷目的なら最低300はほしい。また、図の保存時、文字化けを防いでくれる{ragg}パッケージがあるが、これも予めインストールしておこう（NIIオンライン分析システムでは導入済み）。<code>ggsave()</code>の使い方の例は以下の通りである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 20</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"Figs/Figure1.png"</span>, <span class="co"># 保存先とファイル名</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>       <span class="at">plot     =</span> bar_plot3,          <span class="co"># 保存する図のオブジェクト名</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>       <span class="at">width    =</span> <span class="dv">6</span>,                  <span class="co"># 図の幅 (インチ)</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>       <span class="at">height   =</span> <span class="dv">3</span>,                  <span class="co"># 図の高さ (インチ)</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>       <span class="at">dpi      =</span> <span class="dv">400</span>,                <span class="co"># 解像度</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>       <span class="at">device   =</span> ragg<span class="sc">::</span>agg_png)      <span class="co"># 文字化け防止</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="ヒストグラム" class="level2">
+<h2 class="anchored" data-anchor-id="ヒストグラム">ヒストグラム</h2>
+<section id="変数の分布" class="level3">
+<h3 class="anchored" data-anchor-id="変数の分布">変数の分布</h3>
+<p>　ヒストグラムは<strong>連続変数</strong>（=間隔尺度と比率尺度）の分布を確認する普遍的な可視化方法です。実習用データの例だと、大陸（<code>Continent</code>）列は<strong>離散変数</strong>（=名目尺度と順序尺度）であり、名目変数の分布は「アジアはXXカ国、アフリカはXXカ国、…」といった形で示され、これまで見てきた棒グラフで可視化する事ができる。一方、変数が連続変数の場合はヒストグラムと箱ひげ図が頻繁に使われる。</p>
+<p>　以上の例はあくまでも<strong>一つ</strong>の変数の分布を確認するものである。変数が2つになると、分布よりも2つの変数間の<strong>関係</strong>を確認することとなる。これは次回に紹介する散布図（連続変数<span class="math inline">\(\times\)</span>連続変数）と折れ線グラフ（順序変数<span class="math inline">\(\times\)</span>連続変数）で可視化することができる<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+</section>
+<section id="ヒストグラムの作成" class="level3">
+<h3 class="anchored" data-anchor-id="ヒストグラムの作成">ヒストグラムの作成</h3>
+<p>　ヒストグラムの見た目は棒グラフと非常に似ている。棒グラフとヒストグラムの違いは棒と棒の間に隙間があるかないかである。棒グラフの場合は隙間がある。横軸が大陸の棒グラフの場合、アフリカとアジアの間の値というものは存在しない。なぜなら、名目尺度はそもそも数字でないか、数値であってもその数値の値に意味がないからだ。また、順序変数の場合、1位と2位の間の値は存在しない。つまり、1.5位といった順位は存在しない。一方、人間開発指数のような連続変数は0.1と0.2の間には無数の値が存在する。棒を並べるとしたら隙間なく棒を並べる必要があろう。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　それでも見た目は棒グラフと非常に似ているため、それぞれの棒には棒の横軸上の位置と高さという情報が含まれている。ただし、{ggplot2}を使ったヒストグラムの作成は非常に簡単である。{ggplot2}では<code>geom_histogram()</code>を使用するが、ヒストグラムを出力する変数を<code>x</code>にマッピングするだけで、棒の高さは自動的に計算される。つまり、<code>y</code>に対してマッピングを行う必要はなく、<code>x</code>のみで十分である。それでは<code>df</code>内の人間開発指数（<code>HDI_2018</code>）のヒストグラムを作成してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 21</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018)) <span class="co"># HDI_2018のヒストグラム</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ヒストグラムは連続変数の分布を素早く確認することが目的である。たとえば、分布において峰がいくつか、峰がある場合、どの辺が最も度数/密度が高いかを素早く判断できれば良いヒストグラムと言えよう。棒の数を調整する。</p>
+<p>　以下の3つのヒストグラムを比較してみよう。 <a href="#fig-hist-comparison-1">図&nbsp;3 (a)</a> はヒストグラムが非常にギザギザしている。峰が10個くらいはありそうだ。一方、 <a href="#fig-hist-comparison-2">図&nbsp;3 (b)</a> だと0.5と0.8周辺に大きな2つの峰があるように見える。最後に <a href="#fig-hist-comparison-3">図&nbsp;3 (c)</a> では0.8周辺に1つの峰が確認できる。</p>
+<div id="fig-hist-comparison" class="cell quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-hist-comparison-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/fig-hist-comparison-1.png" class="img-fluid figure-img" data-ref-parent="fig-hist-comparison" width="600"></p>
+<p></p><figcaption class="figure-caption">(a) 棒の幅が狭いヒストグラム</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-hist-comparison-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/fig-hist-comparison-2.png" class="img-fluid figure-img" data-ref-parent="fig-hist-comparison" width="600"></p>
+<p></p><figcaption class="figure-caption">(b) 棒の幅が中程度のヒストグラム</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-hist-comparison-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/fig-hist-comparison-3.png" class="img-fluid figure-img" data-ref-parent="fig-hist-comparison" width="600"></p>
+<p></p><figcaption class="figure-caption">(c) 棒の幅が広いヒストグラム</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">図&nbsp;3: 3つのヒストグラム</figcaption><p></p>
+</figure>
+</div>
+<p>　この3つの図の中で、良い図はなんだろうか。まず、 <a href="#fig-hist-comparison-3">図&nbsp;3 (c)</a> はあまりにも多くの情報が失われている。たとえば、0.5周辺の峰という情報がない。一方、 <a href="#fig-hist-comparison-2">図&nbsp;3 (b)</a> は情報が多すぎる。その意味で <a href="#fig-hist-comparison-2">図&nbsp;3 (b)</a> が適切だろう。しかし、これは作図する側の人が決めるものであり、いくつかの図を出して比較してみるのが良いだろう。以上の3つの図は、ヒストグラムの棒の数を調整したものである。棒の数は<code>geom_histogram()</code>内、<code>aes()</code>の外に<code>bins</code>引数を指定することで変更することができる。たとえば、 <a href="#fig-hist-comparison-2">図&nbsp;3 (b)</a> は棒が10本のヒストグラムである<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。これを再現するためには<code>bins = 10</code>を指定すれば良い<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。ちなみに、デフォルトは<code>bins = 30</code>となっている。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 22</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">bins =</span> <span class="dv">10</span>) <span class="co"># 棒を10本にする</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　棒の本数が少ないことは、棒の幅が広いことを意味する。これは棒の数でなく、棒の幅から見た目を調整することもできることを意味し、<code>geom_histogram()</code>内、<code>aes()</code>の外に<code>binwidth</code>引数を指定することで調整可能である。注意点としては<code>bins</code>と<code>binswidth</code>は片方のみ指定可能で両方指定することは出来ないことだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 23</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="co"># 棒の幅を0.05にする</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ヒストグラムをより見やすくするコツとして、棒の枠線を追加することも考えられる。データ・インク比の観点から見ると枠線という視覚情報が追加されるので余計なものかも知れないが、枠線を入れるかどうかは作図する側が判断すれば良い。棒の枠線は<code>geom_histogram()</code>内、<code>aes()</code>の外に<code>color</code>引数を指定可能であり、棒の面の色が黒に近いので枠線は白（<code>"white"</code>）に指定してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 24</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>hist_plot1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5"></a></span>
+<span id="cb29-6"><a href="#cb29-6"></a>hist_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　最後に、横軸の目盛りを変更してみよう。今は目盛りが0.4、0.6、0.8、1.0の0.2kあん描くとなっている。この目盛りを調整するレイヤーはX軸の場合は<code>scale_x_*()</code>、Y軸の場合は<code>scale_y_*()</code>を使う。<code>*</code>の箇所には各軸の尺度を指定する。ヒストグラムは横軸も縦軸も連続した値であるので、<code>scale_x_continuous()</code>、<code>scale_y_continuous()</code>を使う。ここではX軸の目盛りを変更するので<code>scale_x_continuous()</code>を使ってみよう。必要な引数は目盛りの位置を指定する<code>breaks</code>引数、目盛りのラベルを意味する<code>labels</code>引数だ。それぞれ長さ1以上のベクトルを指定すれば良いが、<code>breaks</code>と<code>labels</code>に使用する実引数（=ベクトル）の長さは同じ長さである必要がある。また、<code>labels</code>にはcharacter型ベクトルを指定することもできる。</p>
+<p>　先ほど作成した<code>hist_plot1</code>に目盛り変更のレイヤを追加してみよう。目盛りは0.4から1.0まで0.1間隔で付け、目盛りラベルもそれぞれ対応する値を指定する。公差0.1の等差数列ベクトルなので<code>seq()</code>関数が便利だろう。目盛り調整済みのヒストグラムは<code>hist_plot2</code>として格納、出力してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 25</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>hist_plot2 <span class="ot">&lt;-</span> hist_plot1 <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.4</span>, <span class="fl">1.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb30-3"><a href="#cb30-3"></a>                      <span class="at">labels =</span> <span class="fu">seq</span>(<span class="fl">0.4</span>, <span class="fl">1.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span>
+<span id="cb30-4"><a href="#cb30-4"></a></span>
+<span id="cb30-5"><a href="#cb30-5"></a>hist_plot2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="次元の追加-1" class="level3">
+<h3 class="anchored" data-anchor-id="次元の追加-1">次元の追加</h3>
+<p>　ヒストグラムにもう一つの次元を追加する場合、棒グラフと同じ技が使える。つまり、面の色分け、またはファセット分割である。棒グラフと異なる点は色分けよりもファセット分割の方が圧倒的に推奨される点だ。</p>
+<p>　まずはファセット分割から見よう。<code>hist_plot2</code>のヒストグラムは大陸（<code>Continent</code>）ごとに分ける場合、棒グラフと同様<code>facet_wrap(~Continent)</code>で分割できる。今回は2行3列で出力してみよう。<code>facet_wrap()</code>内に<code>nrow = 2</code>、または<code>ncol = 3</code>を追加するだけだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 26</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>hist_plot2 <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Continent, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　それでは色分けの例を見てみよう。棒グラフと同様、<code>aes()</code>内に<code>fill</code>を指定すれば良いが、注意すべき点としては棒グラフのように<code>position = "identity"</code>を追加する必要がある点だ。それでは<code>df</code>の<code>OECD</code>をリコーディング（1なら<code>"OECD Members"</code>、それ以外は<code>"Others"</code>）し、<code>OECD</code>の値ごとにヒストグラムの色分けをしてみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 27</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"OECD Members"</span>, <span class="st">"Others"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> OECD), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　このヒストグラムには深刻な問題がある。それはOECD加盟国の棒が非加盟国の棒の後ろに存在するため、一部の棒が消えているということだ。これを避けるためには棒をやや透明にする必要がある。透明度の調整は<code>alpha</code>で引数で行う。今回は全ての棒に対して適用するので<code>aes()</code>の外側に<code>alpha</code>を指定する。<code>alpha</code>が1なら不透明、0なら透明となる。今回は<code>alpha = 0.5</code>程度に調整してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 28</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"OECD Members"</span>, <span class="st">"Others"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> OECD), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　このように非加盟国の棒の後ろに加盟国の棒が隠されていることが分かる。人によってはこのような色分けヒストグラムでも良いと思うかも知れない。しかし、色分けのヒストグラムはせいぜい2色までが限界である。もし、3色以上ならどうなるだろうか。たとえば、大陸（<code>Continent</code>）の値ごとに色分けをすればどうなるだろうか。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 29</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　我々はこのヒストグラムから一体どのような情報が読み取れるだろうか。</p>
+<p>　ちなみに、<code>position = "identity"</code>がない場合、一つのヒストグラムのうち、各大陸が占める割合を見せることができる。ただし、これも読みづらい図であることには変わりない。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 30</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), </span>
+<span id="cb35-4"><a href="#cb35-4"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　どうしても3つ以上のグループの分布を一つのファセットでオーバーラップしたい場合は、<code>geom_histogram()</code>の代わりに<code>geom_density()</code>の使用を推奨する。これは密度曲線を出力する幾何オブジェクトであり、マッピングはヒストグラムと同じである。ただし、ヒストグラムではないため<code>binwidth</code>や<code>bins</code>引数は不要であり、代わりに<code>adjust</code>引数を使う。デフォルトは1であるが、小さいほどギザギザの密度曲線が、大きいほど滑らかな密度曲線になる。また、縦軸が数（count）でなく、密度（density）になるため、解釈の際は注意が必要だ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 31</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a>   <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), </span>
+<span id="cb36-4"><a href="#cb36-4"></a>                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization2_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">注</h2>
+
+<ol>
+<li id="fn1"><p>他にも離散変数<span class="math inline">\(\times\)</span>離散変数に使用するモザイク図がある。モザイク図については<a href="https://www.jaysong.net/RBook/visualization4.html#visual4-mosaic">教科書の第20.16章</a>を参照すること。また、名目尺度<span class="math inline">\(\times\)</span>連続変数は棒グラフが有効である。大陸ごとの人間開発指数の平均値を示した棒グラフがその例である。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>ちなみに、 <a href="#fig-hist-comparison-1">図&nbsp;3 (a)</a> は50本、 <a href="#fig-hist-comparison-3">図&nbsp;3 (c)</a> は5本である。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>厳密に言えば、棒が10本ではなく、区間が10個になることを意味する。分布を確認する変数を最小値と最大値までの範囲を10個の区間に分割し、それぞれの区間に属するケース数が表示される。したがって、特定の区間にケースがない場合は、棒の数は10本未満になる可能性がある。むろん、10本より多くなることはない。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

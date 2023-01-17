@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - セッション情報</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">セッション情報</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus/syllabus_micro.html" class="sidebar-item-text sidebar-link">[前期] ミクロ政治データ分析実習</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus/syllabus_macro.html" class="sidebar-item-text sidebar-link">[後期] マクロ政治データ分析実習</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../syllabus/session.html" class="sidebar-item-text sidebar-link active">セッション情報</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">セッション情報</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="session-infromation" class="level2">
+<h2 class="anchored" data-anchor-id="session-infromation">Session Infromation</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.2.2 (2022-10-31)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur ... 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] gt_0.8.0        forcats_0.5.2   stringr_1.5.0   dplyr_1.0.10   
+ [5] purrr_1.0.1     readr_2.1.3     tidyr_1.2.1     tibble_3.1.8   
+ [9] ggplot2_3.4.0   tidyverse_1.3.2
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.0    xfun_0.36           haven_2.5.1        
+ [4] gargle_1.2.1        colorspace_2.0-3    vctrs_0.5.1        
+ [7] generics_0.1.3      htmltools_0.5.4     yaml_2.3.6         
+[10] utf8_1.2.2          rlang_1.0.6         pillar_1.8.1       
+[13] withr_2.5.0         glue_1.6.2          DBI_1.1.3          
+[16] dbplyr_2.2.1        readxl_1.4.1        modelr_0.1.10      
+[19] lifecycle_1.0.3     munsell_0.5.0       gtable_0.3.1       
+[22] cellranger_1.1.0    rvest_1.0.3         htmlwidgets_1.6.1  
+[25] evaluate_0.19       knitr_1.41          tzdb_0.3.0         
+[28] fastmap_1.1.0       fansi_1.0.3         broom_1.0.2        
+[31] backports_1.4.1     scales_1.2.1        googlesheets4_1.0.1
+[34] jsonlite_1.8.4      fs_1.5.2            hms_1.1.2          
+[37] digest_0.6.31       stringi_1.7.12      grid_4.2.2         
+[40] cli_3.6.0           tools_4.2.2         magrittr_2.0.3     
+[43] pacman_0.5.1        crayon_1.5.2        pkgconfig_2.0.3    
+[46] ellipsis_0.3.2      xml2_1.3.3          reprex_2.0.2       
+[49] googledrive_2.0.0   lubridate_1.9.0     timechange_0.2.0   
+[52] assertthat_0.2.1    rmarkdown_2.19      httr_1.4.4         
+[55] rstudioapi_0.14     R6_2.5.1            compiler_4.2.2     </code></pre>
+</div>
+</div>
+</section>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="utlxaubihi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#utlxaubihi) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#utlxaubihi) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#utlxaubihi) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#utlxaubihi) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#utlxaubihi) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#utlxaubihi) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#utlxaubihi) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#utlxaubihi) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#utlxaubihi) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#utlxaubihi) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#utlxaubihi) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#utlxaubihi) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#utlxaubihi) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#utlxaubihi) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#utlxaubihi) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#utlxaubihi) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#utlxaubihi) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#utlxaubihi) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#utlxaubihi) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#utlxaubihi) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#utlxaubihi) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#utlxaubihi) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#utlxaubihi) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#utlxaubihi) .gt_left {
+  text-align: left;
+}
+
+:where(#utlxaubihi) .gt_center {
+  text-align: center;
+}
+
+:where(#utlxaubihi) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#utlxaubihi) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#utlxaubihi) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#utlxaubihi) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#utlxaubihi) .gt_super {
+  font-size: 65%;
+}
+
+:where(#utlxaubihi) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#utlxaubihi) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#utlxaubihi) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#utlxaubihi) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#utlxaubihi) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#utlxaubihi) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#utlxaubihi) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Package">Package</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Version">Version</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Package" class="gt_row gt_left">abind</td>
+<td headers="Version" class="gt_row gt_right">1.4-5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">AER</td>
+<td headers="Version" class="gt_row gt_right">1.2-10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">aod</td>
+<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">arm</td>
+<td headers="Version" class="gt_row gt_right">1.13-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">AsioHeaders</td>
+<td headers="Version" class="gt_row gt_right">1.22.1-2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">askpass</td>
+<td headers="Version" class="gt_row gt_right">1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">assertthat</td>
+<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">attempt</td>
+<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">backports</td>
+<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">BalanceR</td>
+<td headers="Version" class="gt_row gt_right">0.7.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">base</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">base64enc</td>
+<td headers="Version" class="gt_row gt_right">0.1-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bayestestR</td>
+<td headers="Version" class="gt_row gt_right">0.13.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">beautifyR</td>
+<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">BH</td>
+<td headers="Version" class="gt_row gt_right">1.78.0-0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bibtex</td>
+<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bigD</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bit</td>
+<td headers="Version" class="gt_row gt_right">4.0.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bit64</td>
+<td headers="Version" class="gt_row gt_right">4.0.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bitops</td>
+<td headers="Version" class="gt_row gt_right">1.0-7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">blob</td>
+<td headers="Version" class="gt_row gt_right">1.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">blogdown</td>
+<td headers="Version" class="gt_row gt_right">1.16</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bookdown</td>
+<td headers="Version" class="gt_row gt_right">0.31</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Boom</td>
+<td headers="Version" class="gt_row gt_right">0.9.11</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">BoomSpikeSlab</td>
+<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">boot</td>
+<td headers="Version" class="gt_row gt_right">1.3-28.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">brew</td>
+<td headers="Version" class="gt_row gt_right">1.0-8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">brio</td>
+<td headers="Version" class="gt_row gt_right">1.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">broom</td>
+<td headers="Version" class="gt_row gt_right">1.0.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">broom.helpers</td>
+<td headers="Version" class="gt_row gt_right">1.11.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bslib</td>
+<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">bsts</td>
+<td headers="Version" class="gt_row gt_right">0.9.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cachem</td>
+<td headers="Version" class="gt_row gt_right">1.0.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">callr</td>
+<td headers="Version" class="gt_row gt_right">3.7.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">car</td>
+<td headers="Version" class="gt_row gt_right">3.1-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">carData</td>
+<td headers="Version" class="gt_row gt_right">3.0-5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">CausalImpact</td>
+<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cellranger</td>
+<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">checkmate</td>
+<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">chromote</td>
+<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cjoint</td>
+<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">class</td>
+<td headers="Version" class="gt_row gt_right">7.3-20</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">classInt</td>
+<td headers="Version" class="gt_row gt_right">0.4-8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cli</td>
+<td headers="Version" class="gt_row gt_right">3.6.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">clipr</td>
+<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cluster</td>
+<td headers="Version" class="gt_row gt_right">2.1.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cobalt</td>
+<td headers="Version" class="gt_row gt_right">4.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">coda</td>
+<td headers="Version" class="gt_row gt_right">0.19-4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">codetools</td>
+<td headers="Version" class="gt_row gt_right">0.2-18</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">collections</td>
+<td headers="Version" class="gt_row gt_right">0.3.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">colorspace</td>
+<td headers="Version" class="gt_row gt_right">2.0-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">colourpicker</td>
+<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">commonmark</td>
+<td headers="Version" class="gt_row gt_right">1.8.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">compiler</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">config</td>
+<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">corpcor</td>
+<td headers="Version" class="gt_row gt_right">1.6.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">corrplot</td>
+<td headers="Version" class="gt_row gt_right">0.92</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">countrycode</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cowplot</td>
+<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cpp11</td>
+<td headers="Version" class="gt_row gt_right">0.4.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cranlogs</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">crayon</td>
+<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">credentials</td>
+<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cregg</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">crosstalk</td>
+<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">crul</td>
+<td headers="Version" class="gt_row gt_right">1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cshapes</td>
+<td headers="Version" class="gt_row gt_right">2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cubature</td>
+<td headers="Version" class="gt_row gt_right">2.0.4.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">curl</td>
+<td headers="Version" class="gt_row gt_right">5.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">cyclocomp</td>
+<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dad</td>
+<td headers="Version" class="gt_row gt_right">4.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dagitty</td>
+<td headers="Version" class="gt_row gt_right">0.3-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">data.table</td>
+<td headers="Version" class="gt_row gt_right">1.14.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">data.tree</td>
+<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">DataCombine</td>
+<td headers="Version" class="gt_row gt_right">0.2.21</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">datasets</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">datawizard</td>
+<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">DBI</td>
+<td headers="Version" class="gt_row gt_right">1.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dbplyr</td>
+<td headers="Version" class="gt_row gt_right">2.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dcurver</td>
+<td headers="Version" class="gt_row gt_right">0.9.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">deldir</td>
+<td headers="Version" class="gt_row gt_right">1.0-6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">democracyData</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dendextend</td>
+<td headers="Version" class="gt_row gt_right">1.16.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Deriv</td>
+<td headers="Version" class="gt_row gt_right">4.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">desc</td>
+<td headers="Version" class="gt_row gt_right">1.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">DescTools</td>
+<td headers="Version" class="gt_row gt_right">0.99.47</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">devtools</td>
+<td headers="Version" class="gt_row gt_right">2.4.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">diffobj</td>
+<td headers="Version" class="gt_row gt_right">0.3.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">digest</td>
+<td headers="Version" class="gt_row gt_right">0.6.31</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">directlabels</td>
+<td headers="Version" class="gt_row gt_right">2021.1.13</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">doMC</td>
+<td headers="Version" class="gt_row gt_right">1.3.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">doParallel</td>
+<td headers="Version" class="gt_row gt_right">1.0.17</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">doRNG</td>
+<td headers="Version" class="gt_row gt_right">1.8.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">downlit</td>
+<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dplyr</td>
+<td headers="Version" class="gt_row gt_right">1.0.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">DT</td>
+<td headers="Version" class="gt_row gt_right">0.26</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">dtplyr</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">e1071</td>
+<td headers="Version" class="gt_row gt_right">1.7-12</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ellipsis</td>
+<td headers="Version" class="gt_row gt_right">0.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">estimatr</td>
+<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">evaluate</td>
+<td headers="Version" class="gt_row gt_right">0.19</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Exact</td>
+<td headers="Version" class="gt_row gt_right">3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">expm</td>
+<td headers="Version" class="gt_row gt_right">0.999-7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">extrafont</td>
+<td headers="Version" class="gt_row gt_right">0.18</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">extrafontdb</td>
+<td headers="Version" class="gt_row gt_right">1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fansi</td>
+<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">farver</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fastDummies</td>
+<td headers="Version" class="gt_row gt_right">1.6.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fastmap</td>
+<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fastmatch</td>
+<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">FNN</td>
+<td headers="Version" class="gt_row gt_right">1.1.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fontawesome</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">forcats</td>
+<td headers="Version" class="gt_row gt_right">0.5.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">foreach</td>
+<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">foreign</td>
+<td headers="Version" class="gt_row gt_right">0.8-84</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">formatR</td>
+<td headers="Version" class="gt_row gt_right">1.13</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">formattable</td>
+<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Formula</td>
+<td headers="Version" class="gt_row gt_right">1.2-4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fs</td>
+<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">future</td>
+<td headers="Version" class="gt_row gt_right">1.30.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">fuzzyjoin</td>
+<td headers="Version" class="gt_row gt_right">0.1.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gamlss.dist</td>
+<td headers="Version" class="gt_row gt_right">6.0-5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gapminder</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gargle</td>
+<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gdtools</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">generics</td>
+<td headers="Version" class="gt_row gt_right">0.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geojson</td>
+<td headers="Version" class="gt_row gt_right">0.3.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geojsonio</td>
+<td headers="Version" class="gt_row gt_right">0.10.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geojsonlint</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geojsonsf</td>
+<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geometries</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">geosphere</td>
+<td headers="Version" class="gt_row gt_right">1.5-18</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gert</td>
+<td headers="Version" class="gt_row gt_right">1.9.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gfonts</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggalluvial</td>
+<td headers="Version" class="gt_row gt_right">0.12.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">GGally</td>
+<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gganimate</td>
+<td headers="Version" class="gt_row gt_right">1.0.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggbump</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggdag</td>
+<td headers="Version" class="gt_row gt_right">0.2.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggdendro</td>
+<td headers="Version" class="gt_row gt_right">0.1.23</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggExtra</td>
+<td headers="Version" class="gt_row gt_right">0.10.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggfittext</td>
+<td headers="Version" class="gt_row gt_right">0.9.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggforce</td>
+<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggh4x</td>
+<td headers="Version" class="gt_row gt_right">0.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gghighlight</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggmosaic</td>
+<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggplot2</td>
+<td headers="Version" class="gt_row gt_right">3.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggpubr</td>
+<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggraph</td>
+<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggrepel</td>
+<td headers="Version" class="gt_row gt_right">0.9.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggridges</td>
+<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggsci</td>
+<td headers="Version" class="gt_row gt_right">2.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggsignif</td>
+<td headers="Version" class="gt_row gt_right">0.6.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ggstance</td>
+<td headers="Version" class="gt_row gt_right">0.3.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gh</td>
+<td headers="Version" class="gt_row gt_right">1.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ghibli</td>
+<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gitcreds</td>
+<td headers="Version" class="gt_row gt_right">0.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gld</td>
+<td headers="Version" class="gt_row gt_right">2.6.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">globals</td>
+<td headers="Version" class="gt_row gt_right">0.16.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">glue</td>
+<td headers="Version" class="gt_row gt_right">1.6.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">golem</td>
+<td headers="Version" class="gt_row gt_right">0.3.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">googledrive</td>
+<td headers="Version" class="gt_row gt_right">2.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">googlePolylines</td>
+<td headers="Version" class="gt_row gt_right">0.8.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">googlesheets4</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">GPArotation</td>
+<td headers="Version" class="gt_row gt_right">2022.10-2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">graphics</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">graphlayouts</td>
+<td headers="Version" class="gt_row gt_right">0.8.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">grDevices</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">grid</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gridExtra</td>
+<td headers="Version" class="gt_row gt_right">2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gsynth</td>
+<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gt</td>
+<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gtable</td>
+<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">gtsummary</td>
+<td headers="Version" class="gt_row gt_right">1.7.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">haven</td>
+<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">here</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">highr</td>
+<td headers="Version" class="gt_row gt_right">0.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Hmisc</td>
+<td headers="Version" class="gt_row gt_right">4.7-2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">hms</td>
+<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">hrbrthemes</td>
+<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">htmlTable</td>
+<td headers="Version" class="gt_row gt_right">2.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">htmltools</td>
+<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">htmlwidgets</td>
+<td headers="Version" class="gt_row gt_right">1.6.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">httpcode</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">httpuv</td>
+<td headers="Version" class="gt_row gt_right">1.6.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">httr</td>
+<td headers="Version" class="gt_row gt_right">1.4.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">icons</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ids</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">igraph</td>
+<td headers="Version" class="gt_row gt_right">1.3.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ini</td>
+<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">inline</td>
+<td headers="Version" class="gt_row gt_right">0.3.19</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">insight</td>
+<td headers="Version" class="gt_row gt_right">0.18.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">interactionTest</td>
+<td headers="Version" class="gt_row gt_right">1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">interp</td>
+<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">interplot</td>
+<td headers="Version" class="gt_row gt_right">0.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">isoband</td>
+<td headers="Version" class="gt_row gt_right">0.2.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ISOcodes</td>
+<td headers="Version" class="gt_row gt_right">2022.09.29</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">iterators</td>
+<td headers="Version" class="gt_row gt_right">1.0.14</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jpeg</td>
+<td headers="Version" class="gt_row gt_right">0.1-10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jpmesh</td>
+<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jpndistrict</td>
+<td headers="Version" class="gt_row gt_right">0.3.9.9000</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jqr</td>
+<td headers="Version" class="gt_row gt_right">1.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jquerylib</td>
+<td headers="Version" class="gt_row gt_right">0.1.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jsonify</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jsonlite</td>
+<td headers="Version" class="gt_row gt_right">1.8.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">jsonvalidate</td>
+<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">juicyjuice</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">kableExtra</td>
+<td headers="Version" class="gt_row gt_right">1.3.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">keras</td>
+<td headers="Version" class="gt_row gt_right">2.11.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">kernlab</td>
+<td headers="Version" class="gt_row gt_right">0.9-31</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">KernSmooth</td>
+<td headers="Version" class="gt_row gt_right">2.23-20</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">kldtools</td>
+<td headers="Version" class="gt_row gt_right">1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">knitr</td>
+<td headers="Version" class="gt_row gt_right">1.41</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">labeling</td>
+<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">labelled</td>
+<td headers="Version" class="gt_row gt_right">2.10.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">languageserver</td>
+<td headers="Version" class="gt_row gt_right">0.3.15</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">later</td>
+<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">latex2exp</td>
+<td headers="Version" class="gt_row gt_right">0.9.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lattice</td>
+<td headers="Version" class="gt_row gt_right">0.20-45</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">latticeExtra</td>
+<td headers="Version" class="gt_row gt_right">0.6-30</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lazyeval</td>
+<td headers="Version" class="gt_row gt_right">0.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">leaflet</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">leaflet.providers</td>
+<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">learnr</td>
+<td headers="Version" class="gt_row gt_right">0.11.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lfe</td>
+<td headers="Version" class="gt_row gt_right">2.8-8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lifecycle</td>
+<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lintr</td>
+<td headers="Version" class="gt_row gt_right">3.0.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">list</td>
+<td headers="Version" class="gt_row gt_right">9.2.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">listenv</td>
+<td headers="Version" class="gt_row gt_right">0.9.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lme4</td>
+<td headers="Version" class="gt_row gt_right">1.1-31</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lmom</td>
+<td headers="Version" class="gt_row gt_right">2.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lmtest</td>
+<td headers="Version" class="gt_row gt_right">0.9-40</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lobstr</td>
+<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">locpol</td>
+<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">loo</td>
+<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">LowRankQP</td>
+<td headers="Version" class="gt_row gt_right">1.0.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lpdensity</td>
+<td headers="Version" class="gt_row gt_right">2.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">lubridate</td>
+<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">magic</td>
+<td headers="Version" class="gt_row gt_right">1.6-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">magick</td>
+<td headers="Version" class="gt_row gt_right">2.7.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">magrittr</td>
+<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mapproj</td>
+<td headers="Version" class="gt_row gt_right">1.2.11</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">maps</td>
+<td headers="Version" class="gt_row gt_right">3.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">maptools</td>
+<td headers="Version" class="gt_row gt_right">1.1-6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">marginaleffects</td>
+<td headers="Version" class="gt_row gt_right">0.8.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">margins</td>
+<td headers="Version" class="gt_row gt_right">0.3.26</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">markdown</td>
+<td headers="Version" class="gt_row gt_right">1.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">MASS</td>
+<td headers="Version" class="gt_row gt_right">7.3-58.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">MatchIt</td>
+<td headers="Version" class="gt_row gt_right">4.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Matrix</td>
+<td headers="Version" class="gt_row gt_right">1.5-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">MatrixModels</td>
+<td headers="Version" class="gt_row gt_right">0.5-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">matrixStats</td>
+<td headers="Version" class="gt_row gt_right">0.63.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">memoise</td>
+<td headers="Version" class="gt_row gt_right">2.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">metathis</td>
+<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">methods</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mgcv</td>
+<td headers="Version" class="gt_row gt_right">1.8-41</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mime</td>
+<td headers="Version" class="gt_row gt_right">0.12</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">miniUI</td>
+<td headers="Version" class="gt_row gt_right">0.1.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">minqa</td>
+<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mirt</td>
+<td headers="Version" class="gt_row gt_right">1.37.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mitools</td>
+<td headers="Version" class="gt_row gt_right">2.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mnormt</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">modelr</td>
+<td headers="Version" class="gt_row gt_right">0.1.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">modelsummary</td>
+<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">munsell</td>
+<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">mvtnorm</td>
+<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">naniar</td>
+<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">nlme</td>
+<td headers="Version" class="gt_row gt_right">3.1-161</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">nloptr</td>
+<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">nnet</td>
+<td headers="Version" class="gt_row gt_right">7.3-18</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">norm</td>
+<td headers="Version" class="gt_row gt_right">1.0-10.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">np</td>
+<td headers="Version" class="gt_row gt_right">0.60-16</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">nsyllable</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">numDeriv</td>
+<td headers="Version" class="gt_row gt_right">2016.8-1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">openssl</td>
+<td headers="Version" class="gt_row gt_right">2.0.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">openxlsx</td>
+<td headers="Version" class="gt_row gt_right">4.2.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">optimx</td>
+<td headers="Version" class="gt_row gt_right">2022-4.30</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">packageRank</td>
+<td headers="Version" class="gt_row gt_right">0.7.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">packrat</td>
+<td headers="Version" class="gt_row gt_right">0.9.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pacman</td>
+<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pagedown</td>
+<td headers="Version" class="gt_row gt_right">0.20</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pander</td>
+<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">panelView</td>
+<td headers="Version" class="gt_row gt_right">1.1.11</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">parallel</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">parallelly</td>
+<td headers="Version" class="gt_row gt_right">1.34.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">parameters</td>
+<td headers="Version" class="gt_row gt_right">0.20.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">parsedate</td>
+<td headers="Version" class="gt_row gt_right">1.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pbapply</td>
+<td headers="Version" class="gt_row gt_right">1.7-0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pbkrtest</td>
+<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">performance</td>
+<td headers="Version" class="gt_row gt_right">0.10.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">permute</td>
+<td headers="Version" class="gt_row gt_right">0.9-7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pillar</td>
+<td headers="Version" class="gt_row gt_right">1.8.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pkgbuild</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pkgconfig</td>
+<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pkgdown</td>
+<td headers="Version" class="gt_row gt_right">2.0.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pkgload</td>
+<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pkgsearch</td>
+<td headers="Version" class="gt_row gt_right">3.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">plotly</td>
+<td headers="Version" class="gt_row gt_right">4.10.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">plyr</td>
+<td headers="Version" class="gt_row gt_right">1.8.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">png</td>
+<td headers="Version" class="gt_row gt_right">0.1-8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">polyclip</td>
+<td headers="Version" class="gt_row gt_right">1.10-4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">polynom</td>
+<td headers="Version" class="gt_row gt_right">1.4-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ppcor</td>
+<td headers="Version" class="gt_row gt_right">1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">praise</td>
+<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">PRcalc</td>
+<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">prediction</td>
+<td headers="Version" class="gt_row gt_right">0.3.14</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">prettyunits</td>
+<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">prismatic</td>
+<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">processx</td>
+<td headers="Version" class="gt_row gt_right">3.8.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">productplots</td>
+<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">profvis</td>
+<td headers="Version" class="gt_row gt_right">0.3.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">progress</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">promises</td>
+<td headers="Version" class="gt_row gt_right">1.2.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">protolite</td>
+<td headers="Version" class="gt_row gt_right">2.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">proxy</td>
+<td headers="Version" class="gt_row gt_right">0.4-27</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">proxyC</td>
+<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pryr</td>
+<td headers="Version" class="gt_row gt_right">0.1.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ps</td>
+<td headers="Version" class="gt_row gt_right">1.7.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">psData</td>
+<td headers="Version" class="gt_row gt_right">0.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">psych</td>
+<td headers="Version" class="gt_row gt_right">2.2.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">purrr</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">pwr</td>
+<td headers="Version" class="gt_row gt_right">1.3-0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">q2c</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">qrcode</td>
+<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">quadprog</td>
+<td headers="Version" class="gt_row gt_right">1.5-8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">qualtRics</td>
+<td headers="Version" class="gt_row gt_right">3.1.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">quanteda</td>
+<td headers="Version" class="gt_row gt_right">3.2.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">quanteda.textstats</td>
+<td headers="Version" class="gt_row gt_right">0.96</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">quantreg</td>
+<td headers="Version" class="gt_row gt_right">5.94</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">quarto</td>
+<td headers="Version" class="gt_row gt_right">1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R.cache</td>
+<td headers="Version" class="gt_row gt_right">0.16.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R.methodsS3</td>
+<td headers="Version" class="gt_row gt_right">1.8.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R.oo</td>
+<td headers="Version" class="gt_row gt_right">1.25.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R.utils</td>
+<td headers="Version" class="gt_row gt_right">2.12.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R6</td>
+<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">R7</td>
+<td headers="Version" class="gt_row gt_right">0.0.0.9000</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">ragg</td>
+<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rapidjsonr</td>
+<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rappdirs</td>
+<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rapportools</td>
+<td headers="Version" class="gt_row gt_right">1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">raster</td>
+<td headers="Version" class="gt_row gt_right">3.6-13</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rcmdcheck</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RColorBrewer</td>
+<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Rcpp</td>
+<td headers="Version" class="gt_row gt_right">1.0.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RcppArmadillo</td>
+<td headers="Version" class="gt_row gt_right">0.11.4.3.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RcppEigen</td>
+<td headers="Version" class="gt_row gt_right">0.3.3.9.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RcppParallel</td>
+<td headers="Version" class="gt_row gt_right">5.1.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RcppProgress</td>
+<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RcppTOML</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RCurl</td>
+<td headers="Version" class="gt_row gt_right">1.98-1.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rdd</td>
+<td headers="Version" class="gt_row gt_right">0.57</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rddensity</td>
+<td headers="Version" class="gt_row gt_right">2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rddtools</td>
+<td headers="Version" class="gt_row gt_right">1.6.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rdrobust</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">readr</td>
+<td headers="Version" class="gt_row gt_right">2.1.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">readxl</td>
+<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">RefManageR</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rematch</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rematch2</td>
+<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">remotes</td>
+<td headers="Version" class="gt_row gt_right">2.4.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">renv</td>
+<td headers="Version" class="gt_row gt_right">0.16.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">reprex</td>
+<td headers="Version" class="gt_row gt_right">2.0.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">reshape</td>
+<td headers="Version" class="gt_row gt_right">0.8.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">reshape2</td>
+<td headers="Version" class="gt_row gt_right">1.4.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">reticulate</td>
+<td headers="Version" class="gt_row gt_right">1.27</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rex</td>
+<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rgenoud</td>
+<td headers="Version" class="gt_row gt_right">5.9-0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rgeos</td>
+<td headers="Version" class="gt_row gt_right">0.6-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rio</td>
+<td headers="Version" class="gt_row gt_right">0.5.29</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rJava</td>
+<td headers="Version" class="gt_row gt_right">1.0-6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rlang</td>
+<td headers="Version" class="gt_row gt_right">1.0.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rmapshaper</td>
+<td headers="Version" class="gt_row gt_right">0.4.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rmarkdown</td>
+<td headers="Version" class="gt_row gt_right">2.19</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rmdja</td>
+<td headers="Version" class="gt_row gt_right">0.4.6.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rnaturalearth</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rnaturalearthdata</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rnaturalearthhires</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rngtools</td>
+<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rootSolve</td>
+<td headers="Version" class="gt_row gt_right">1.8.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">roxygen2</td>
+<td headers="Version" class="gt_row gt_right">7.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rpart</td>
+<td headers="Version" class="gt_row gt_right">4.1.19</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rprojroot</td>
+<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rqog</td>
+<td headers="Version" class="gt_row gt_right">0.4.2022</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rsconnect</td>
+<td headers="Version" class="gt_row gt_right">0.8.29</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rstan</td>
+<td headers="Version" class="gt_row gt_right">2.21.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rstatix</td>
+<td headers="Version" class="gt_row gt_right">0.7.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rstudioapi</td>
+<td headers="Version" class="gt_row gt_right">0.14</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Rttf2pt1</td>
+<td headers="Version" class="gt_row gt_right">1.3.11</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rversions</td>
+<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">rvest</td>
+<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">s2</td>
+<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sandwich</td>
+<td headers="Version" class="gt_row gt_right">3.0-2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sass</td>
+<td headers="Version" class="gt_row gt_right">0.4.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">scales</td>
+<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">selectr</td>
+<td headers="Version" class="gt_row gt_right">0.4-2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">servr</td>
+<td headers="Version" class="gt_row gt_right">0.25</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sessioninfo</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sf</td>
+<td headers="Version" class="gt_row gt_right">1.0-9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sfheaders</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">shades</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">shiny</td>
+<td headers="Version" class="gt_row gt_right">1.7.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">shiny.i18n</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">shinyBS</td>
+<td headers="Version" class="gt_row gt_right">0.61.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">shinyjs</td>
+<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">SimpleConjoint</td>
+<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sjlabelled</td>
+<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">SnowballC</td>
+<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sourcetools</td>
+<td headers="Version" class="gt_row gt_right">0.1.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sp</td>
+<td headers="Version" class="gt_row gt_right">1.5-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">SparseM</td>
+<td headers="Version" class="gt_row gt_right">1.81</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">spatial</td>
+<td headers="Version" class="gt_row gt_right">7.3-15</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">splines</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">StanHeaders</td>
+<td headers="Version" class="gt_row gt_right">2.21.0-7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stargazer</td>
+<td headers="Version" class="gt_row gt_right">5.2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stats</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stats4</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stopwords</td>
+<td headers="Version" class="gt_row gt_right">2.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stringdist</td>
+<td headers="Version" class="gt_row gt_right">0.9.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stringi</td>
+<td headers="Version" class="gt_row gt_right">1.7.12</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">stringr</td>
+<td headers="Version" class="gt_row gt_right">1.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">styler</td>
+<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sugrrants</td>
+<td headers="Version" class="gt_row gt_right">0.2.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">summarytools</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">survey</td>
+<td headers="Version" class="gt_row gt_right">4.1-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">survival</td>
+<td headers="Version" class="gt_row gt_right">3.5-0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">svglite</td>
+<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">Synth</td>
+<td headers="Version" class="gt_row gt_right">1.1-6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">sys</td>
+<td headers="Version" class="gt_row gt_right">3.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">systemfonts</td>
+<td headers="Version" class="gt_row gt_right">1.0.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tables</td>
+<td headers="Version" class="gt_row gt_right">0.9.10</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tcltk</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tcltk2</td>
+<td headers="Version" class="gt_row gt_right">1.2-11</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tensorflow</td>
+<td headers="Version" class="gt_row gt_right">2.11.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">terra</td>
+<td headers="Version" class="gt_row gt_right">1.6-47</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">testthat</td>
+<td headers="Version" class="gt_row gt_right">3.1.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">textshaping</td>
+<td headers="Version" class="gt_row gt_right">0.3.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tfautograph</td>
+<td headers="Version" class="gt_row gt_right">0.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tfprobability</td>
+<td headers="Version" class="gt_row gt_right">0.15.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tfruns</td>
+<td headers="Version" class="gt_row gt_right">1.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tibble</td>
+<td headers="Version" class="gt_row gt_right">3.1.8</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tidyfast</td>
+<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tidygraph</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tidyr</td>
+<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tidyselect</td>
+<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tidyverse</td>
+<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">timechange</td>
+<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tinytex</td>
+<td headers="Version" class="gt_row gt_right">0.43</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">titanic</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tools</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">treemapify</td>
+<td headers="Version" class="gt_row gt_right">2.5.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">triebeard</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tweenr</td>
+<td headers="Version" class="gt_row gt_right">2.0.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">tzdb</td>
+<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">units</td>
+<td headers="Version" class="gt_row gt_right">0.8-1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">UpSetR</td>
+<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">urlchecker</td>
+<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">urlshorteneR</td>
+<td headers="Version" class="gt_row gt_right">1.5.7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">urltools</td>
+<td headers="Version" class="gt_row gt_right">1.7.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">usethis</td>
+<td headers="Version" class="gt_row gt_right">2.1.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">usmap</td>
+<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">usmapdata</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">utf8</td>
+<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">utils</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">uuid</td>
+<td headers="Version" class="gt_row gt_right">1.1-0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">V8</td>
+<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">vctrs</td>
+<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">vdemdata</td>
+<td headers="Version" class="gt_row gt_right">3.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">vegan</td>
+<td headers="Version" class="gt_row gt_right">2.6-4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">VGAM</td>
+<td headers="Version" class="gt_row gt_right">1.1-7</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">viridis</td>
+<td headers="Version" class="gt_row gt_right">0.6.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">viridisLite</td>
+<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">visdat</td>
+<td headers="Version" class="gt_row gt_right">0.5.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">vroom</td>
+<td headers="Version" class="gt_row gt_right">1.6.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">waldo</td>
+<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">webshot</td>
+<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">websocket</td>
+<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">WeightIt</td>
+<td headers="Version" class="gt_row gt_right">0.13.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">whisker</td>
+<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">withr</td>
+<td headers="Version" class="gt_row gt_right">2.5.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">wk</td>
+<td headers="Version" class="gt_row gt_right">0.7.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">woRdle</td>
+<td headers="Version" class="gt_row gt_right">0.0.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xaringan</td>
+<td headers="Version" class="gt_row gt_right">0.28</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xaringanBuilder</td>
+<td headers="Version" class="gt_row gt_right">0.0.9</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xaringanExtra</td>
+<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xfun</td>
+<td headers="Version" class="gt_row gt_right">0.36</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xlsx</td>
+<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xlsxjars</td>
+<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xml2</td>
+<td headers="Version" class="gt_row gt_right">1.3.3</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xmlparsedata</td>
+<td headers="Version" class="gt_row gt_right">1.0.5</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xopen</td>
+<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xtable</td>
+<td headers="Version" class="gt_row gt_right">1.8-4</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">xts</td>
+<td headers="Version" class="gt_row gt_right">0.12.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">yaml</td>
+<td headers="Version" class="gt_row gt_right">2.3.6</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">zeallot</td>
+<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">zip</td>
+<td headers="Version" class="gt_row gt_right">2.2.2</td></tr>
+    <tr><td headers="Package" class="gt_row gt_left">zoo</td>
+<td headers="Version" class="gt_row gt_right">1.8-11</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

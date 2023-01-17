@@ -1,0 +1,545 @@
+---
+subtitle: "第9回 線形回帰分析（2）"
+date: "1986/10/08"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 授業開始前に
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, modelsummary,
+               latex2exp, prediction,
+               fastDummies)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. NIIオンライン分析システムのRStudioを起動しておいてください。
+2. 本日授業用のプロジェクトを作成してください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(fastDummies)
+library(summarytools)
+library(modelsummary)
+
+jes_df  <- read_csv("Data/JES6_W1.csv")
+```
+
+* トラブルが生じた場合、速やかにTAを読んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
+# 回帰分析による統計的推定
+
+## 回帰分析における仮説検定
+
+問い: **説明変数Xは応答変数Yの変化をもたらすか。**
+
+* 例1) 気温が上がればビールの売上も上がる。
+   * ビールの売上 = $\alpha$ + $\beta$ $\times$ 気温
+* 例2) 高齢者の割合が上がれば自民党の得票率も上がる。
+   * 自民党の得票率 = $\alpha$ + $\beta$ $\times$ 高齢者の割合
+* 例3) 都道府県の投票率が上がれば、その都道府県がもらう補助金額も上がる。
+   * 補助金額 = $\alpha$ + $\beta$ $\times$ 投票率
+
+<br/>
+
+* $\beta = 0$ の場合、説明変数は応答変数の変化をもたらすとは言えない
+
+## 帰無仮説と対立仮説
+
+例) 他の条件が同じ場合、高齢者の割合が上がれば自民党の得票率も上がる。
+
+<center>
+自民党の得票率 = $\alpha$ + $\beta_1$ $\times$ 高齢者の割合 + $\beta_2$ $\times$ 財政力指数
+</center>
+
+* **帰無仮説** ( $H_0$ ): 高齢者の割合は自民党の得票率を変化させない。
+   * 「高齢者の割合」の傾き係数 ( $\beta_1$ )は0である ( $\beta_1 = 0$ )。
+* **対立仮説** ( $H_a$ ): 高齢者の割合は自民党の得票率を変化させる。 
+   * 「高齢者の割合」の傾き係数 ( $\beta_1$ )は0ではない ( $\beta_1 \neq 0$ )。
+
+<br/>
+
+* **傾きの係数が0か否かを検証**する。
+   * 使用する確率分布は自由度 $n - k - 1$ の $t$ 分布
+      * $n$ は標本サイズ、 $k$ は説明変数の数
+   * 第13講で紹介するロジスティック回帰分析の場合は正規分布を使用
+      * ただし、 $n$ が十分大きい場合、 $t$ 分布は正規分布に近似する。
+
+## 検定統計量
+
+::::{.columns}
+
+:::{.column width=55%}
+`lm()`で回帰分析を行うと、以下のような推定結果が得られる。
+
+```{r}
+#| echo: false
+pref_df <- read_csv("Data/PrefData.csv")
+lm(Jimin ~ Over65 + Zaisei, data = pref_df) %>%
+  broom::tidy() %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 4) %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = 2))
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=43%}
+* `estimate`: 切片・傾きの推定値（$\hat{\alpha}$、$\hat{\beta_1}$、$\hat{\beta_2}$）
+* `std.error`: 推定値の標準誤差
+* `statistic`: 検定統計量（$T$統計量）
+
+```{r}
+0.8810 / 0.3366 # 係数を標準誤差で割る
+```
+
+* `p.value`: $p$値
+   * $p < \alpha$の場合、帰無仮説を棄却
+   * $p \geq \alpha$の場合、帰無仮説を受容
+:::
+
+::::
+
+* $\alpha = 0.05$を仮定
+   * $p$値は約0.0121であり、$p < \alpha$であるため、帰無仮説を棄却する。したがって、他の条件が同じであれば、高齢者の割合は自民党の得票率を変化させると言える (or 高齢者の割合が高い都道府県ほど自民党の得票率も上がる)。
+
+# 名目変数の利用
+
+## 実習用データ
+
+```{r}
+jes_df <- read_csv("Data/JES6_W1.csv")
+
+jes_df
+```
+
+## データの概要
+
+```{r}
+#| echo: false
+tibble(Cov  = names(jes_df),
+       Desc = c("立憲民主党に対する感情温度",
+                "回答者のイデオロギー",
+                "回答者の政治関心",
+                "回答者の性別",
+                "回答者の年齢",
+                "回答者の最終学歴",
+                "回答者の職業",
+                "回答者の世帯収入"),
+       Etc  = c("高いほど好感", "高いほど保守", "高いほど無関心",
+                "1: 男性 / 2: 女性",
+                "", 
+                "1: 中卒以下 / 2: 高校卒 / 3: 高専・短大卒 / 4: 大卒以上",
+                "1: 勤め / 2: 自営業 / 3: 学生  / 4: 専業主婦・主夫 / 5: 無職 / 6: その他",
+                "円")) %>%
+  gt() %>%
+  cols_label("Cov" = "変数名", "Desc" = "説明", "Etc" = "備考")
+```
+
+## 記述統計
+
+* 名目変数（`Gender`と`Job`）はダミー変数に変換
+
+```{r}
+jes_df %>%
+  dummy_cols(c("Gender", "Job")) %>%
+  relocate(Gender_1:Gender_2, .before = Gender) %>% # Gender_1と_2列をGenderの前に
+  relocate(Job_1:Job_6, .before = Job) %>%          # Job_1から_6列をJobの前に
+  select(-c(Gender, Job)) %>%                       # GenderとJob列を除外してからdscer()に渡す
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+## 記述統計
+
+論文・レポートに掲載する際には、読者に読みやすく加工すること。
+
+* とりわけ、読者から見れば`Job_1`とか`Job_2`は意味がわからない
+
+|変数|平均値|標準偏差|最小値|最大値|有効ケース数|
+|:---|---:|---:|---:|---:|---:|
+|立憲民主党に対する感情温度|34.25|25.95|0|100|3000|
+|イデオロギー|6.34|2.10|1|11|3000|
+|政治関心|2.26|0.83|1|4|3000|
+|性別：男性|0.50|0.50|0|1|3000|
+|性別：女性|0.50|0.50|0|1|3000|
+|年齢|47.34|15.63|18|75|3000|
+|最終学歴|3.11|0.89|1|4|3000|
+|職業：勤め|0.50|0.50|0|1|3000|
+|職業：自営業|0.08|0.28|0|1|3000|
+|職業：学生|0.05|0.21|0|1|3000|
+|職業：専業主婦（夫）|0.20|0.40|0|1|3000|
+|職業：無職・引退|0.15|0.35|0|1|3000|
+|職業：その他|0.02|0.14|0|1|3000|
+|世帯収入|6190334.00|4233639.26|643629|25286751|3000|
+
+## 回帰モデルに名目変数を投入する方法（1）
+
+`lm()`関数内のformulaにfactor化した名目変数を追加するだけ
+
+* factor型変数が説明変数として投入されると、自動的にダミー変数に変換されてから投入される。
+   * **注意:** ただし、全てのダミー変数が投入されるわけではなく、$k-1$個のダミー変数が投入される（$k$は当該factor型変数の水準数）。
+      * 性別の場合、2つのダミー変数になるが、1つのみ投入される。
+      * 職業の場合、6つのダミー変数になるが、5つのみ投入される。
+   * 除外されたカテゴリーは「ベース・カテゴリー (base category)」、「参照カテゴリー/レファレンス・カテゴリー (reference category)」、「ベースライン (baseline)」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述）。
+   * 解釈は「$\bigcirc\bigcirc$ (ベース・カテゴリー)に比べ、〜」となる。
+
+```{r}
+jes_df <- jes_df %>%
+  mutate(Gender = factor(Gender, levels = 1:2, labels = c("Male", "Female")),
+         Job    = factor(Job, levels = 1:6, labels = c("Salary", "Self", "Student", "House",
+                                                       "Retire", "Etc")))
+
+dummy_fit1 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income, 
+                 data = jes_df)
+```
+
+## 推定結果
+
+::::{.columns}
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(dummy_fit1)
+```
+
+```{r}
+#| echo: false
+broom::tidy(dummy_fit1) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_label("term" = "", "estimate" = "係数", "std.error" = "標準誤差",
+             "statistic" = "t統計量", "p.value" = "p値") %>%
+  tab_options(table.font.size = 14)
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+* `Ideology`: 保守的であるほど、立民に対する感情温度が低くなる。
+   * イデオロギーが1単位上がると、立民に対する感情温度は約2.113度下がる。
+* `Interest`: 政治関心がないほど、立民に対する感情温度が低くなる。
+* `Age`: 年齢が高いほど、立民に対する感情温度が高くなる。
+* `Education`: 高学歴ほど、立民に対する感情温度が低くなる。
+:::
+
+::::
+
+## ダミー変数の解釈
+
+#### 解釈の例
+
+* `Gender`変数：投入されなかったのは女性ダミー（`GenderFemale`）であるため、男性ダミー（`GenderMale`）がベース・カテゴリー
+   * 解釈の際は「男性に比べ〜」
+   * `GenderFemale`：**男性に比べ**、女性は立民に対する感情温度が約3.4度高い。
+* `Job`変数：投入されなかったのは勤めダミー（`JobSalary`）であるため、勤めダミー（`JobSalary`）がベース・カテゴリー
+   * 解釈の際は「勤めの人に比べ〜」
+   * `JobSelf`：**勤めの人に比べ**、自営業の人は立民に対する感情温度が約2.2度低い。
+   * `JobStudent`：**勤めの人に比べ**、学生は立民に対する感情温度が約5.8度高い。
+
+<br/>
+
+* ダミー変数はベース・カテゴリーによって統計的有意性が変わり得る。
+   * 統制変数として投入しただけであれば、そもそも解釈は不要
+   * 研究において主要説明変数であれば、ベース・カテゴリーの設定は慎重に行う。
+      * 「何と何を比べたいか」に注目
+
+## ベース・カテゴリーの話
+
+* Factor型変数の最初の水準（level）がベース・カテゴリーとなる。
+
+```{r}
+levels(jes_df$Gender) # jes_dfのGender列の水準
+levels(jes_df$Job) # jes_dfのJob列の水準
+```
+
+<br/>
+
+#### ベース・カテゴリーの変更
+
+* Factor型変数の特定の水準を最初の水準にする場合は、`fct_relevel()`を使用
+   * Factor化済みの変数に使用
+   * 2番目以降の水準は既存の順番そのまま
+
+```{r}
+jes_df2 <- jes_df %>%
+  mutate(Gender = fct_relevel(Gender, "Female"), # Femaleを第1水準に
+         Job    = fct_relevel(Job, "Etc"))       # Etcを第1水準に
+
+levels(jes_df2$Gender) # jes_dfのGender列の水準
+levels(jes_df2$Job) # jes_dfのJob列の水準
+```
+
+## ベース・カテゴリーと推定結果
+
+ダミー変数の係数のみ変化することに注目（切片も変わるものの、切片はそもそも解釈しない）
+
+```{r}
+dummy_fit2 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income, 
+                 data = jes_df2)
+```
+
+::::{.columns}
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(dummy_fit1)
+```
+
+```{r}
+#| echo: false
+tidy(dummy_fit1) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = c(1, 4, 6:10)))
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(dummy_fit2)
+```
+
+```{r}
+#| echo: false
+tidy(dummy_fit2) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = c(1, 4, 6:10)))
+```
+:::
+
+::::
+
+# 線形変換: 単位変換
+
+## 線形変換
+
+ある変数を1次関数を用いて変換すること。
+
+* 主な使い道は「説明変数をある定数で割る/引く」
+   * 例) 1円単位で測定された所得を100万円単位に変換する (= 所得を100万で割る)。
+      * **説明変数の単位が変わる**。 
+   * 例) 1、2、3、4で測定された変数を5から引く。
+      * 説明変数のスケールが逆転される。
+* 線形変換を行うと、より解釈しやすくなる。
+
+## 結果の解釈
+
+`dummy_fit1`の世帯収入（`Income`）の傾き係数は約-1.538790e-07
+
+* -1.538790e-07 = -1.538790 $\times$ 10<sup>-7</sup> = -1.538790 $\times$ 0.0000001 = -0.000000153879
+   * 参考）10<sup>-1</sup> = 0.1 / 10<sup>-2</sup> = 0.01 / ...
+
+### 問題点
+
+* 係数の解釈1: 「世帯収入が**1円**上がると、立憲民主党への感情温度が約0.000000153879度下がる。」
+   * `Income`の単位は**1円**であるため、そのまま解釈可能
+   * これで良いのか???
+* 係数の解釈2: 「世帯収入が**100万円**上がると、立憲民主党への感情温度が-0.154度下がる。」
+   * `Income`の単位は**1円**であるため、係数に100万をかける。
+      * -0.000000153879 $\times$ 1000000 = -0.153879
+   * まだこっちの方がマシ
+   * ただ、毎回、係数に100万をかけて解釈する必要がある。$\rightarrow$ 面倒
+      * `Income`の単位を100万円に変えてしまったらいいんじゃない?
+
+## 単位変換
+
+* `Income`を100万単位にするためには、`Income`を100万で割るだけで良い
+
+```{r}
+# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。
+# 変数名は何でも良いが、ここではmillionの頭文字を使用
+jes_df3 <- jes_df %>%
+  mutate(Income_m = Income / 1000000)
+
+# 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入
+fit3 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income_m, 
+           data = jes_df3)
+```
+
+## 結果の比較
+
+**他の係数は一切変わらず**、線形変換された変数の係数（と標準誤差）のみ変わる。
+
+::::{.columns}
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+# 世帯収入が1円単位の場合
+summary(dummy_fit1)
+```
+
+```{r}
+#| echo: false
+tidy(dummy_fit1) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = (term == "Income")))
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+# 世帯収入が100万円単位の場合
+summary(fit3)
+```
+
+```{r}
+#| echo: false
+tidy(fit3) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = (term == "Income_m")))
+```
+:::
+
+::::
+
+# 線形変換: スケールの逆転
+
+## 結果の解釈
+
+`dummy_fit1`の政治関心の傾き係数は約-1.404
+
+### 問題点
+
+* 係数の解釈1: 「`Interest`が1単位上がると、立憲民主党への感情温度が約1.404度下がる。」
+   * これだけだと「政治関心が高い人ほど、立憲民主党に反感を持つ」イメージ
+   * しかし、政治関心（`Interest`）の値は`1`が関心あり、`2`がやや関心あり、...、`4`が関心なし
+   * つまり、「`Interest`が1単位上がる」ということは、「政治関心が1単位下がる」ことを意味する。
+   * したがって、「`Interest`が1単位上がると、立憲民主党への感情温度が約1.404度下がる。」の意味は...
+      * 政治関心が1単位下がると、立憲民主党への感情温度が約1.404度下がる。
+      * 政治関心が1単位上がると、立憲民主党への感情温度が約1.404度上がる。
+   * $\Rightarrow$ ややこしい
+      * **最初から`Interest`の値を逆転させておけば良いのでは??**
+
+## スケールの逆転
+
+* 1〜$m$のスケールで測定された変数は$m + 1$から引くと、逆転される。
+   * `Interest`は1〜4であるため、5から引く
+   * 「5 - 1 = 4」、「5 - 2 = 3」、「5 - 3 = 2」、「5 - 4 = 1」
+* 0〜$m$のスケールで測定された変数は$m$から引くと、逆転される。
+* $-m$〜$m$のスケールで測定された変数は-1をかけると、逆転される。
+
+```{r}
+# jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。
+# 変数名は何でも良いが、ここではreverseの頭文字を使用
+jes_df3 <- jes_df3 %>%
+  mutate(Interest_r = 5 - Interest)
+
+# 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入
+fit4 <- lm(Temp_Rikken ~ Ideology + Interest_r + Gender + Age + Education + Job + Income_m, 
+           data = jes_df3)
+```
+
+## 結果の比較
+
+**他の係数は一切変わらず**、線形変換された変数の係数（と標準誤差）の**符号**のみ変わる。
+
+::::{.columns}
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+# スケール逆転前
+summary(fit3)
+```
+
+```{r}
+#| echo: false
+tidy(fit3) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = (term == "Interest")))
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+# スケール逆転後
+summary(fit4)
+```
+
+```{r}
+#| echo: false
+tidy(fit4) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right") %>%
+  tab_style(style = cell_fill(color = "#F7EFB2"),
+            locations = cells_body(rows = (term == "Interest_r")))
+```
+:::
+
+::::
+
+## その他の線形変換
+
+いずれもデータ分析の場面ではよく使われる方法
+
+* **単位変換**
+* スケールの変換
+   * **スケールの逆転**
+   * $\frac{x - \mbox{min}(x)}{\mbox{max}(x) - \mbox{min}(x)}$をすると、最小値0、最大値1となる（$x \geq 0$の場合）。
+      * 係数の解釈は「$x$が最小値から最大値へ変化した場合...」となる。
+* 中心化と標準化
+   * 中心化: ある変数の値からその変数の平均値を引く
+   * 標準化: 中心化した変数を更に標準偏差で割る
+* 対数変数
+
+# 課題
+
+## 課題
+
+* 教科書（『Rによる計量政治学』）を読む
+   * 第10〜13章
+   * 第12章では回帰分析の信頼性/妥当性に関わる非常に重要な内容
+   * 第13章では本講義で紹介しなかった線形変換の一つである「中心化」を紹介
+* 本講義は「90分の授業でRでデータ分析ができるようになる」ことを想定していない。「Rでデータ分析ができるようになる」には
+   * 講義の受講と課題の提出
+   * 教科書の熟読とコードの実行
+   * サポートページを活用した予習 or 復習
+      * 予習は授業/実習をスムーズにしてくれる。
+      * 復習はh授業内容を頭に定着させてくれる。
+      * 予習/復習両方することをおすすめはするが、少なくとも片方はしよう。

@@ -1,0 +1,466 @@
+---
+subtitle: "第11回 ロジスティック回帰分析"
+date: "1986/10/08"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 授業開始前に
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, modelsummary,
+               latex2exp, prediction,
+               fastDummies)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. NIIオンライン分析システムのRStudioを起動しておいてください。
+2. 本日授業用のプロジェクトを作成してください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(summarytools)
+library(marginaleffects)
+
+df <- read_csv("Data/Hino_Song.csv")
+```
+
+* トラブルが生じた場合、速やかにTAを読んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
+# ロジスティック関数
+
+## 実習用データ
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+library(tidyverse)
+library(marginaleffects)
+df <- read_csv("Data/Hino_Song.csv")
+
+df
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=48%}
+```{r}
+#| echo: false
+tibble(Cov  = names(df),
+       Desc = c("2019参院選の投票参加 (0:棄権 / 1:投票)",
+                "女性ダミー (0: 男性 / 1: 女性)",
+                "回答者の年齢",
+                "回答者の学歴(1: 中卒以下; 2: 高卒; 3: 短大卒; 4: 大卒以上)",
+                "回答者の主観的な政治知識 (高いほど知識あり)",
+                "回答者のイデオロギー(0:革新〜5:中道〜10:保守)")) %>%
+  gt() %>%
+  cols_label("Cov" = "変数名", "Desc" = "説明")
+```
+:::
+::::
+
+## 問題設定
+
+> 　有権者の投票参加を規定する要因を調べたい。投票所に足を運ぶには予め投票先を決めておく必要があろう。しかし、数多い選択肢（候補者、政党）の中から自分の望みを実現してくれそうな選択肢を見つけることは簡単な作業ではない。政治に関する知識があれば、比較的簡単に見つかるため、投票参加しやすいと考えられる。一方、そうでない有権者は自分にとっても最適な選択肢を見つけることを諦め、棄権するだろう。これは本当だろうか。
+
+* 応答変数: 投票参加（`Voted`）
+   * 「投票（= 1）」と「棄権（= 0）」の値のみを取るダミー変数（= **二値変数**、**バイナリー変数**）
+   * 説明変数として0/1の値を取る変数は「ダミー変数」と呼ぶが、応答変数として使われる場合も「バイナリー変数」、または「二値変数」の方がより一般的
+* 主な説明変数: 回答者の主観的な政治知識（`Knowledge`）
+* 統制変数: 性別（`Female`）、年齢（`Age`）、学歴（`Educ`）、イデオロギー（`Ideology`）
+
+## モデル
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 2.5
+tibble(x = c(1, 1, 1, 1, 1),
+       xend = c(2, 2, 2, 2, 2),
+       y = c(5, 4, 3, 2, 1),
+       yend = c(5, 5, 5, 5, 5)) %>%
+  ggplot() +
+  geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
+               arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
+  geom_label(aes(x = c(1, 1, 1, 1, 1), y = c(5, 4, 3, 2, 1), 
+                 label = c("主観的な政治知識",
+                           "女性ダミー",
+                           "年齢",
+                           "学歴",
+                           "イデオロギー")), hjust = 1) +
+  geom_label(aes(x = 2, y = 5, label = "投票参加"), hjust = 0) +
+  coord_cartesian(xlim = c(0.5, 2.2)) +
+  theme_void()
+```
+
+## 記述統計
+
+```{r}
+df %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+## 線形確率モデル
+
+バイナリー変数を応答変数とする線形回帰モデル: **線形確率モデル** (linear probability model; LPM)
+
+```{r}
+lm_fit <- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)
+```
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+#| echo: false
+broom::tidy(lm_fit) %>%
+  mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
+         term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
+                  "学歴", "イデオロギー")) %>%
+  gt() %>%
+  cols_label(term = "", estimate = "係数", std.error = "標準誤差",
+             statistic = "検定統計量", p.value = "p値") %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  fmt_missing(columns = 5, missing_text = "< 0.001") %>%
+  cols_align(columns = 2:5, align = "right")
+```
+:::
+
+:::{.column width=50%}
+* 政治知識の係数は約0.119
+   * 政治知識が1上がると、投票に参加する確率は約11.9%p上がる。
+   * 分かりやすい解釈であるものの、一つ、深刻な問題がある。
+   * たとえば?
+:::
+::::
+
+## 線形確率モデルの限界 
+
+主観的政治知識が5、男性、86歳、教育水準が4、イデオロギーが10の回答者がいる場合、投票に参加する確率の予測値は?
+
+```{r}
+-0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10
+```
+
+* 投票参加確率の予測値は1.07141 $\rightarrow$ 107.141%
+* 確率は0以上、1以下 (0%〜100%)であるものの、あり得ない予測値が出る。
+* 他にも線形確率モデルにはいくつかの問題がある (分散の不均一性など)。
+
+<br/>
+
+* 参考) 応答変数がバイナリー変数であっても、線形確率モデルが推奨される場合もある。
+   * Freedman, David A.. 2008. "[Randomization Does Not Justify Logistic Regression](https://www.jstor.org/stable/27645896)," *Statistical Science,*
+23 (2): 237-249.
+
+## ロジスティック関数
+
+$$
+\mbox{logistic}(x) = \frac{1}{1 + e^{-x}}
+$$
+
+* $e$はネイピア数: $e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + ... \frac{1}{\infty!}$ = 2.71828184590...
+* $x$は$-\infty \sim \infty$の値を取り得る。
+   * $x$が$-\infty$の場合、$e^{-x}$は$e^{-(-\infty)} = \infty$、$x$が$\infty$の場合、$e^{-x}$は$e^{-(\infty)} = 0$
+   * $\rightarrow$ $e^{-x}$ は$0 \sim \infty$
+* $e^{-x}$ は $0 \sim \infty$ の値をとる。
+   * $e^{-x}$が0の場合、$\mbox{logistic}(x)$は1、$e^{-x}$が$\infty$の場合、$\mbox{logistic}(x)$は0
+   * $\rightarrow$ $\mbox{logistic}(x)$は0以上、1以下
+   * $\rightarrow$ $x$の値が大きいほど、$\mbox{logistic}(x)$は1へ近づく
+
+## ロジスティック関数 (図)
+
+```{r, fig.width = 8, fig.height = 3.75, echo = FALSE}
+tibble(x = seq(-10, 10, 0.1)) %>%
+  mutate(y = 1 / (1 + exp(-x))) %>%
+  ggplot() +
+  geom_line(aes(x = x, y = y), size = 2) +
+  labs(x = "x", y = "logistic(x)") +
+  theme_bw()
+```
+
+## ロジスティック回帰分析
+
+ロジスティック関数の$x$の部分が回帰式となる回帰分析
+
+$$
+\mbox{Pr}(y = 1) = \frac{1}{1 + e^{-(\alpha + \beta_1 X_1 + \beta_2 X_2 + ...)}}
+$$
+
+* $\mbox{Pr}(y = 1)$は$y$が1を取る確率
+* $\alpha + \beta_1 X_1 + \beta_2 X_2 + ...$は**線形予測子**（linear predictor）と呼ばれる。
+   * 線形予測子は$-\infty \sim \infty$の値を取り得る。
+   * 線形予測子がどのような値をとってもロジスティック関数を経由することで、必ず0以上1以下の値に収まる。
+
+<br/>
+
+ロジスティック回帰分析は線形予測子内の$\alpha$、$\beta_1$、...を推定する手法
+
+* 最小二乗法（OLS）を使わず、**最尤推定法**（maximum likelihood estimation; MLE）を使用
+* 詳細は割愛
+
+# ロジスティック回帰分析
+
+## ロジスティック回帰分析の実装 (使い方)
+
+`glm()`関数を使用
+
+* `lm()`関数とほぼ同じ書き方であるが、`family`引数を指定する必要がある。
+   * 参考) `family = gaussian("identity")`にすると`lm()`と同じ結果が得られる。
+
+```{r}
+#| eval: false
+glm(応答変数 ~ 説明変数, data = データ名, family = binomial("logit"))
+```
+
+実装例
+
+```{r}
+fit1 <- glm(Voted ~ Knowledge + Female + Age + Educ + Ideology, 
+            data = df, family = binomial("logit"))
+```
+
+$$
+\mbox{Pr}(\mbox{Voted} = 1) = \frac{1}{1 + e^{-(\alpha + \beta_1 \mbox{Knowledge} + \beta_2 \mbox{Female} + \beta_3 \mbox{Age} + \beta_4 \mbox{Educ} + \beta_5 \mbox{Ideology})}}
+$$
+
+## ロジスティック回帰分析の実装
+
+```{r, eval = FALSE}
+summary(fit1)
+```
+
+```{r, echo = FALSE}
+broom::tidy(fit1) %>%
+  mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
+         term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
+                  "学歴", "イデオロギー")) %>%
+  gt() %>%
+  cols_label(term = "", estimate = "係数", std.error = "標準誤差",
+             statistic = "検定統計量", p.value = "p値") %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  fmt_missing(columns = 5, missing_text = "< 0.001")
+```
+
+* ロジスティック回帰分析の場合、決定係数（$R^2$）は表示されない。
+   * 類似した概念として「疑似決定係数（Pseudo$R^2$）」がある）あまり使われない）。
+   * ロジスティック回帰分析のモデル間比較はAIC、BIC、AUCなどを使用する。
+
+```{r}
+# 予め{DescTools}をインストールしておくこと (コンソール上でinstall.packages("DescTools"))
+DescTools::PseudoR2(fit1) # McFaddenの疑似決定係数
+```
+
+## 係数の解釈
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+#| eval: false
+summary(fit1)
+```
+
+```{r}
+#| echo: false
+broom::tidy(fit1) %>%
+  mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
+         term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
+                  "学歴", "イデオロギー")) %>%
+  gt() %>%
+  cols_label(term = "", estimate = "係数", std.error = "標準誤差",
+             statistic = "検定統計量", p.value = "p値") %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  fmt_missing(columns = 5, missing_text = "< 0.001")
+```
+:::
+
+:::{.column width=50%}
+* 政治知識の$p$値は0.001未満
+   * 主観的な政治知識と投票参加の間には統計的に有意な関係がある。
+   * 主観的な政治知識が高くなると、投票に参加する確率も上がる。
+   * $\rightarrow$ **正しい解釈**
+   * 具体的にどれくらい上がるか。$\leftarrow$ 係数?
+
+<br/>
+
+* 政治知識の係数は約0.593
+   * 主観的な政治知識が1上がると、投票参加の確率が0.593%p上がる?
+   * $\rightarrow$ **間違った解釈**
+   * どう解釈するか。
+:::
+::::
+
+# ロジスティック回帰分析の解釈
+
+## 予測値を計算する方法 (1)
+
+* 主観的政治知識が3（`Knowledge` = 3）、女性（`Female` = 1）、20歳（`Age` = 20）、学歴が大卒（`Educ` = 4）、イデオロギーが中道（`Ideology` = 5）の場合の投票参加の予測確率
+
+```{r}
+fit1_coef <- coef(fit1) # coef()関数で係数のみを抽出する
+fit1_coef
+
+# 線形予測子の計算（1）
+fit1_coef[1] + fit1_coef[2] * 3 + fit1_coef[3] * 1 + fit1_coef[4] * 20 + fit1_coef[5] * 4 + fit1_coef[6] * 5
+
+# 線形予測子の計算（2）
+sum(coef(fit1) * c(1, 3, 1, 20, 4, 5))
+
+1 / (1 + exp(-(-0.3602094))) # 予測確率の計算
+```
+
+* 投票参加の予測確率は約41%
+
+## 予測値を計算する方法（1）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4.3
+tibble(x = seq(-10, 10, 0.1)) %>%
+  mutate(y = 1 / (1 + exp(-x))) %>%
+  ggplot() +
+  geom_line(aes(x = x, y = y), size = 2) +
+  geom_vline(xintercept = -0.3602094, color = "red") +
+  geom_hline(yintercept = 0.4109089, color = "red") +
+  labs(x = "x", y = expression(frac(1, (1+e^-x)))) +
+  scale_y_continuous(breaks = c(0, 0.25, 0.41, 0.50, 0.75, 1.00),
+                     labels = c(0, 0.25, 0.41, 0.50, 0.75, 1.00)) +
+  scale_x_continuous(breaks = c(-10, -5, -0.36, 0, 5, 10),
+                     labels = c(-10, -5, -0.36, "", 5, 10)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+## 予測値を計算する方法（2）
+
+{marginaleffects}パッケージの`predictions()`関数の利用
+
+```{r}
+#| eval: false
+predictions(回帰分析オブジェクト名, 
+            newdata = datagrid(説明変数名1 = 値,
+                               説明変数名2 = 値,
+                               ...))
+```
+
+* `newdata`で指定されなかった説明変数は平均値に固定される。
+   * 論文、レポートでは「XXは1、ZZは5、...に固定し、その他の説明変数は平均値に固定した予測値を算出した」と書く。
+   
+## {marginaleffects}を使った予測値の計算（例）
+
+先ほどの手計算（?）の結果を{marginaleffects}の`predictions()`関数で再現
+
+```{r}
+# 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、
+# イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率
+predictions(fit1, newdata = datagrid(Knowledge = 3, 
+                                     Female = 1,
+                                     Age = 20, 
+                                     Educ = 4, 
+                                     Ideology = 5))
+```
+
+* `predicted`列の値が予測確率: 0.4109（約41%）
+
+## {marginaleffects}を使った予測値の計算
+
+`Knowledge`が1〜5の場合の投票参加確率の予測値
+
+```{r}
+fit1_pred <- predictions(fit1, newdata = datagrid(Knowledge = 1:5))
+fit1_pred %>%
+  select(Knowledge, predicted, std.error, conf.low, conf.high)
+```
+
+* `Knowledge`が`Voted`に与える影響は一定ではない。
+   * `Knowledge`の値が1の場合: 投票に参加する確率は32.94%
+   * `Knowledge`の値が2の場合: 投票に参加する確率は47.05% (14.11%p増加)
+   * `Knowledge`の値が3の場合: 投票に参加する確率は61.65% (14.60%p増加)
+   * `Knowledge`の値が4の場合: 投票に参加する確率は74.42% (12.77%p増加)
+   * `Knowledge`の値が5の場合: 投票に参加する確率は84.03% (9.61%p増加)
+
+## 予測値の可視化
+
+* 可視化は第14回で解説
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4.1
+fit1_pred %>%
+  ggplot() +
+  geom_pointrange(aes(x = Knowledge, y = predicted, 
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "主観的な政治知識", 
+       y = "投票に参加する確率の予測値") +
+  theme_bw(base_size = 14)
+```
+
+## 説明変数が連続変数の場合
+
+* 説明変数がダミー変数、順序変数ならこれまでのやり方で可視化すると良い
+* 説明変数が連続変数の場合、取りうる値は無数にあるため、これまでの図は読みにくい。
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.8
+predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
+  ggplot() +
+  geom_pointrange(aes(x = Age, y = predicted, 
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
+  scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), 
+                     labels = c(20, 30, 40, 50, 60, 70, 80)) +
+  theme_bw(base_size = 14)
+```
+
+## 予測値の可視化 (説明変数が連続変数)
+
+* 折れ線グラフ (`geom_line()`)とリボン (`geom_ribbon()`)を使用する。
+
+```{r}
+#| echo: false
+fit1_pred2 <- predictions(fit1, newdata = datagrid(Age = 18:86))
+
+fit1_pred2 %>%
+  ggplot() +
+  geom_ribbon(aes(x = Age, ymin = conf.low, ymax = conf.high), 
+              fill = "gray80") + 
+  geom_line(aes(x = Age, y = predicted)) +
+  labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
+  scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), labels = c(20, 30, 40, 50, 60, 70, 80)) +
+  theme_bw(base_size = 14)
+```
+
+## 参考) 4分の1ルール
+
+**4分の1ルール** (divide by 4 rule)
+
+* 係数の値を4分の1にすると、予測値の**だいたい**の変化量が分かる。
+
+<br/>
+
+* 例) 政治知識の係数は約0.593
+   * 4分の1は約0.148
+   * 政治知識が1から2へ変化した場合: 予測値は0.135上がる。
+   * 政治知識が2から3へ変化した場合: 予測値は0.139上がる。
+   * 政治知識が3から4へ変化した場合: 予測値は0.124上がる。
+   * 政治知識が4から5へ変化した場合: 予測値は0.096上がる。
+
+<br/>
+
+* 予測値を計算する前の大雑把な計算としては便利であるものの、常に使える技（?）ではない。
+   * 係数の値が大きい場合はズレが大きくなる。
+   * なるべく{marginaleffects}などで予測値を計算すること。

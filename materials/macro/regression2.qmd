@@ -1,0 +1,368 @@
+---
+title: "第9回講義資料"
+subtitle: "線形回帰分析（2）"
+toc: true
+metadata-files: 
+  - _material.yml
+---
+
+## スライド {.unlisted}
+
+<a href="../../slides/macro/regression2.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a>
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/macro/regression2.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+```
+
+## セットアップ
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, modelsummary,
+               latex2exp, prediction,
+               fastDummies)
+```
+
+　本日使用する3つのパッケージとデータ（`JES6_W1.csv`; LMSからダウンロード）を読み込む。読み込んだデータは`jes_df`と名付けて作業スペース内に格納する。
+
+```{r}
+#| filename: "Code 01"
+library(tidyverse)
+library(fastDummies)
+library(modelsummary)
+
+jes_df  <- read_csv("Data/JES6_W1.csv")
+
+jes_df
+```
+
+　つづいて、データの大きさと変数名を確認する。
+
+```{r}
+#| filename: "Code 02"
+dim(jes_df) # jes_dfの大きさ（行数と列数）
+```
+
+```{r}
+#| filename: "Code 03"
+names(jes_df) # jes_df内の変数名
+```
+
+　各変数の詳細は以下の通りである。
+
+|変数名|説明|備考|
+|:---|:------|:------------|
+|`Temp_Rikken`|立憲民主党に対する感情温度|高いほど好感|
+|`Ideology`|回答者のイデオロギー|高いほど保守|
+|`Interest`|回答者の政治関心|高いほど無関心|
+|`Gender`|回答者の性別|1: 男性 / 2: 女性|
+|`Age`|回答者の年齢||
+|`Education`|回答者の最終学歴|1: 中卒以下 / 2: 高校卒 / 3: 高専・短大卒 / 4: 大卒以上|
+|`Job`|回答者の職業|1: 勤め / 2: 自営業 / 3: 学生  / 4: 専業主婦・主夫 / 5: 無職 / 6: その他|
+|`Income`|回答者の世帯収入|円|
+
+## 記述統計
+
+　分析の前に名目変数（`Gender`と`Job`）はダミー変数に変換する。`Gender`と`Job`はデータ上は数値型であるため、平均値や標準偏差などの記述統計量は計算できるものの、数字そのものの意味はない。たとえば、`Gender`の場合1は男性、2は女性であるが、別に1が女性、2が男性でも関係なく、1が女性、99が男性でも回答者の性別を識別するには問題ない。
+
+　このような名目変数は`dummy_cols()`関数（{fastDummies}パッケージを予め読み込んでおくこと）を使用してダミー変数に変換してから記述統計量を計算する必要がある。生成されるダミー変数の名前は「`元の変数名_値`」である。たとえば、`Gender`列は`1`と`2`で構成されているため、`Gender_1`、`Gender_2`列が追加される。また、新しく生成されたダミー変数はデータセットの右端に追加される。これらの変数の位置を調整するためには`relocate()`関数を使う。第1引数は位置を変更する列名（複数であれば、`c()`や`:`を使用）、第2引数は`.before`、または`.after`である。`.before = Gender`は`Gender`列より前（=左）、`.after = Gender`は`Gender`列より後ろ（=右）である。最後に`descr()`関数に渡す前に、記述統計量の計算が不要な`Gender`列と`Job`列を除外する。
+
+```{r}
+#| filename: "Code 04"
+jes_df %>%
+   dummy_cols(c("Gender", "Job")) %>%
+   # Gender_1と_2列をGenderの前に
+   relocate(c(Gender_1, Gender_2), .before = Gender) %>% 
+   # Job_1から_6列をJobの前に
+   relocate(Job_1:Job_6, .before = Job) %>%          
+   # GenderとJob列を除外してからdscer()に渡す
+   select(-c(Gender, Job)) %>%
+   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+　自分で記述統計量を確認するためにはこれでも良いが、論文・レポートに掲載する際には、必ず読者に読みやすく加工する必要がある。とりわけ、読者から見れば`Job_1`とか`Job_2`は意味がわからないだろう。初見の読者さんも読みやすくするために表内の変数名を以下のように変えよう。
+
+|変数|平均値|標準偏差|最小値|最大値|有効ケース数|
+|:---|---:|---:|---:|---:|---:|
+|立憲民主党に対する感情温度|34.25|25.95|0|100|3000|
+|イデオロギー|6.34|2.10|1|11|3000|
+|政治関心|2.26|0.83|1|4|3000|
+|性別：男性|0.50|0.50|0|1|3000|
+|性別：女性|0.50|0.50|0|1|3000|
+|年齢|47.34|15.63|18|75|3000|
+|最終学歴|3.11|0.89|1|4|3000|
+|職業：勤め|0.50|0.50|0|1|3000|
+|職業：自営業|0.08|0.28|0|1|3000|
+|職業：学生|0.05|0.21|0|1|3000|
+|職業：専業主婦（夫）|0.20|0.40|0|1|3000|
+|職業：無職・引退|0.15|0.35|0|1|3000|
+|職業：その他|0.02|0.14|0|1|3000|
+|世帯収入|6190334.00|4233639.26|643629|25286751|3000|
+
+## 名目変数と使い方
+
+　それでは名目変数を含む重回帰分析を実装してみよう。重回帰モデルに名目変数を投入する方法する方法は実は簡単だ。それは`lm()`関数内のformulaに**factor化した**名目変数を追加するだけである。Factor型変数が説明変数として投入されると、自動的にダミー変数に変換されてから投入される（つまり、ダミー変数に変換して一つ一つ投入しても問題ないということ）。ただし、全てのダミー変数が投入されるわけではなく、$k-1$個のダミー変数が投入されることには注意すること（$k$は当該factor型変数の水準数）。たとえば、性別（`Gender`）の場合、2つ値で構成されている変数であるため、ダミー変数も2つになるが、1つのみ投入される。同様に、職業（`Job`）変数も、1から6までの6つの値で構成されているため、ダミー変数も6つになるが、5つのみ投入される。ここで除外されたカテゴリーは「ベース・カテゴリー (base category)」、「参照カテゴリー/レファレンス・カテゴリー (reference category)」、「ベースライン (baseline)」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述する）。
+
+　それでは実装してみよう。`Gender`と`Job`変数はデータ上、まだ数値型変数であるため、これらをfactor化する。また、単純にfactor化するだけでなく、値にラベルも割り当てよう。`factor()`関数の第1引数はfactor化する変数名を入れる。第2引数以降は`levels`と`labels`を指定する（引数名を明記するため、順番は関係ない）。`levels`は元の値、`labels`にはそれぞれの値に割り当てるラベルである。
+
+```{r}
+#| filename: "Code 05"
+jes_df <- jes_df %>%
+  mutate(Gender = factor(Gender, levels = 1:2, labels = c("Male", "Female")),
+         Job    = factor(Job, levels = 1:6, labels = c("Salary", "Self", "Student", 
+                                                       "House", "Retire", "Etc")))
+
+jes_df
+```
+
+　Factor化が済んだら、回帰分析を行い、推定結果は`dummy_fit1`という名のオブジェクトとして格納する。
+
+```{r}
+#| filename: "Code 06"
+dummy_fit1 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + 
+                    Education + Job + Income, data = jes_df)
+```
+
+　`summary()`関数で推定結果を確認してみよう。
+
+```{r}
+#| filename: "Code 07"
+summary(dummy_fit1)
+```
+
+　連続変数の場合、これまでの解釈と同じである。たとえば、回答者のイデオロギー（`Ideology`）の係数を解釈してみよう。係数は約2.117であり、$p < 0.05$から統計的に有意である。これは`Ideology`の値が上がると立民に対する感情温度が低くなることを意味する。`Ideology`の値が上がるということは、より保守的なイデオロギーを持つことを意味し、言い換えれば、保守的な回答者ほど、立民に対する感情温度が低いことを意味する。具体的に係数を解釈するならば、「イデオロギーが1単位上がると（= 有権者が1単位保守的になると）、立民に対する感情温度は約2.113度下がる」ということになる。
+
+　問題はダミー変数の解釈である。ダミー変数の解釈は「ベース・カテゴリーに比べ、〜」といった解釈となる。性別（`Gender`）変数の場合、投入されなかったのは女性ダミー（`GenderFemale`）であるため、男性ダミー（`GenderMale`）がベース・カテゴリーとなる。この場合、係数の解釈は「男性に比べ〜」となる。`GenderFemale`の係数が約3.395ということは、「**男性に比べ**、女性は立民に対する感情温度が約3.395度高い」ことを意味する。
+
+　回答者の職業（`Job`）についても同じことが言える。投入されなかったのは勤めダミー（`JobSalary`）であるため、勤めダミー（`JobSalary`）がベース・カテゴリーとなる。自営業ダミー（`JobSelf`）の係数は約-2.187であるが、これは「**勤めの人に比べ**、自営業の人は立民に対する感情温度が約2.187度低い」。ただし、$p = 0.208$ということで統計的に有意な関係はないため、具体的な係数を解釈する必要はなく、この場合は「**勤めの人に比べ**、自営業の人は立民に対する感情温度が異なるとは言えない」程度で十分である。一方、学生ダミー（`JobStudent`）の場合、係数は約5.775で、統計的に有意でもある。解釈は「**勤めの人に比べ**、学生は立民に対する感情温度が約5.8度高い」で良いだろう。
+
+　一つ注意すべき点としては、ダミー変数はベース・カテゴリーによって統計的有意性が変わり得ることだ。名目変数を統制変数として投入しただけであれば、そもそも解釈は不要であるが、研究において主要説明変数であれば、ベース・カテゴリーの設定は慎重に行う必要がある。、「どのカテゴリー間を比べたいか」に注目することで設定すべきベース・カテゴリーが決まるだろう。
+
+　今回は男性ダミーと勤めダミーが自動的にベース・カテゴリーになったが、このベース・カテゴリーは何によって決まるだろうか。その仕組は簡単である。**Factor型変数の最初の水準（level）がベース・カテゴリーになる**。あるfactor型変数の水準の順番を確認するためには`levels()`関数を使用する。
+
+```{r}
+#| filename: "Code 08"
+levels(jes_df$Gender) # jes_dfのGender列の水準
+```
+
+```{r}
+#| filename: "Code 09"
+levels(jes_df$Job) # jes_dfのJob列の水準
+```
+
+　つまり、`Gender`と`Job`の水準の順番を変えるとベース・カテゴリーが変更できる。Factor型変数の特定の水準を最初の水準にする場合は、Factor化済みの変数に対し、`fct_relevel()`を使用する。第1引数は水準の順番を変更する変数名を、第2引数には最初の水準にしたい水準名を`"`で囲んで入力する。これを`Gender`と`Job`列に対して適用し、それぞれ最初の水準を`"Male"`と`"Etc"`にする。列の操作後、`jes_df`は上書きせず、`jes_df2`と新しい名のオブジェクトとして格納し、`jes_df2`の`Gender`列と`Job`列の水準を出力する。
+
+```{r}
+#| filename: "Code 10"
+jes_df2 <- jes_df %>%
+  mutate(Gender = fct_relevel(Gender, "Female"), # Femaleを第1水準に
+         Job    = fct_relevel(Job, "Etc"))       # Etcを第1水準に
+
+levels(jes_df2$Gender) # jes_df2のGender列の水準
+```
+
+```{r}
+#| filename: "Code 11"
+levels(jes_df2$Job) # jes_df2のJob列の水準
+```
+
+　最初の水準が変更され、2番目以降の水準は既存の順番そのままになっていることが分かる。それでは`jes_df2`を用い、`dummy_fit1`と同じ推定をやってみよう。推定結果は`dummy_fit2`に格納し、`summary()`推定結果を確認してみよう。
+
+```{r}
+#| filename: "Code 12"
+dummy_fit2 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + 
+                    Education + Job + Income, data = jes_df2)
+summary(dummy_fit2)
+```
+
+　2つ以上のモデルを比較する際は推定結果を横に並べるとより見やすくなる。`modelsummary()`関数で2つのモデルを比較する際に非常に便利だ（予め{modelsummary}パッケージを読み込んでおくこと）。
+
+```{r}
+#| filename: "Code 13"
+modelsummary(list(dummy_fit1, dummy_fit2))
+```
+
+　表が縦長なので、標準誤差と係数を同じ行にしてみよう。コードは覚える必要がなく、必要に応じてこのサポートページを参照するか、Google大先生に聞いてみれば良い。
+
+```{r}
+#| filename: "Code 14"
+#| eval: false
+modelsummary(list(dummy_fit1, dummy_fit2),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL)
+```
+
+```{r}
+#| echo: false
+modelsummary(list(dummy_fit1, dummy_fit2),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL,
+             output    = "gt") %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 4, columns = c(1, 2))) %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 13, columns = c(1, 3))) %>% 
+   tab_style(style     = cell_fill(color = "lightpink"),
+             locations = cells_body(rows = 7:10, columns = 1:3)) %>% 
+   tab_style(style     = cell_fill(color = "lightpink"),
+             locations = cells_body(rows = 11, columns = c(1, 2))) %>% 
+   tab_style(style     = cell_fill(color = "lightpink"),
+             locations = cells_body(rows = 14, columns = c(1, 3)))
+```
+
+　比較の結果から分かるのは、**ダミー変数の係数のみ変化**したことである。つまり、ダミー変数以外の変数の係数は少しも変わっていない（切片も変わるものの、切片は通常、解釈しない）。性別（`Gender`）のように2つ値のみ取る（= 1つのダミー変数だけ投入される）変数の係数は大きさは同じで符号だけが逆転される。また、標準誤差も同じであるため、統計的有意性も変わらない。したがって、解釈の変化も直感的である。
+
+* `dummy_fit1`：**男性**に比べ、**女性**の立民に対する感情温度が約3.395度**高い**。
+* `dummy_fit2`：**女性**に比べ、**男性**の立民に対する感情温度が約3.395度**低い**。
+
+　一方、職業（`Job`）のように3つ以上の値のみ取る変数の係数は大きく変わる場合がある。たとえば、学生（`JobStudent`）の係数を解釈する場合は、以下のようになる。
+
+* `dummy_fit1`：**勤めの人**に比べ、学生の立民に対する感情温度が**約5.775度高い**。
+* `dummy_fit2`：**その他の職業の人**に比べ、学生の立民に対する感情温度が**約6.582度高い**ものの、統計的に有意な差はない。
+
+　ベース・カテゴリーが変わったということは比較対象が変わったことを意味し、係数も当然ながら変わる。それでも各係数間の差は同じである。たとえば、`dummy_fit1`の場合、学生ダミー（`JobStudent`）の係数は5.775、その他ダミー（`JobEtc`）の係数は−0.807である。こと差は5.775 - (-0.807) = 6.582である。つまり、どのモデルでも「学生」の方が「その他」より、立民に対する感情温度が約6.582度高いことは変わらない。ただし、「学生 - 勤め」の差は統計的有意であるものの、「学生 - その他」の差は統計的有意ではなかっただけだ。
+
+## 線形変換
+
+### 単位変換
+
+　もう一度、`dummy_fit1`の推定結果に戻ってみよう。今回注目する係数は世帯収入（`Income`）の係数である。推定モデルの係数のみ見たい時には`coef()`関数が便利だ。
+
+```{r}
+#| filename: "Code 15"
+coef(dummy_fit1)
+```
+
+　`Income`の傾き係数は約-1.538790e-07である。`e-07`は「$\times$ 10<sup>-7</sup>」を意味し、ちなみに10<sup>-1</sup>は0.1、10<sup>-2</sup>は0.01である。つまり、-1.538790e-07は-1.538790e-07 = -1.538790 $\times$ 10<sup>-7</sup> = -0.000000153879である。この係数は「世帯収入が**1円**上がると、立憲民主党への感情温度が約0.000000153879度下がる」ことを意味する。`Income`の単位は**1円**であるため、係数そのまま解釈できる。しかし、これで良いだろうか。世帯収入（しかも年収）における1円の変動は無視できる微々たるものである。むしろ、1円の増加よりも100万円の増加の方が、より現実的な解釈であろう。この場合の解釈は「世帯収入が**100万円**上がると、立憲民主党への感情温度が-0.154度下がる」こととなる。`Income`の単位は**1円**であるため、係数に100万をかけるだけで良い（-0.000000153879 $\times$ 1000000 = -0.153879）。しかし、解釈のたびに係数に100万をかけて解釈する必要があるのは非常に面倒であるし、0が多い分、計算ミスも生じやすい。したがって、`Income`の単位を予め100万円に変えておいた方が安全だろう。つまり、3000000（300万）を3に、12000000（1200万）を12に変換することである。
+
+　`Income`を100万単位にするためには、`Income`を100万で割るだけで良い。ここでは`jes_df`の`Income`の値を100万で割り、`Income_m`という新しい変数として追加し、`jes_df3`という新しいデータフレームを作成。新しく追加される変数名は何でも良いが、ここでは**m**illionの頭文字を使用する。
+
+```{r}
+#| filename: "Code 16"
+jes_df3 <- jes_df %>%
+  mutate(Income_m = Income / 1000000)
+
+jes_df3
+```
+
+　それでは`dummy_fit1`と同じ推定をしてみよう。ただし、使用するデータは`jes_df`でなく、`jes_df3`を使用する。また、世帯年収も`Income`の代わりに`Income_m`を使う。推定結果は`fit3`という名のオブジェクトとして作業スペースに格納する。
+
+```{r}
+#| filename: "Code 17"
+fit3 <- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + 
+              Education + Job + Income_m, data = jes_df3)
+```
+
+　それでは`modelsummary()`を使って`dummy_fit1`と`fit3`の結果を比較してみよう。**他の係数は一切変わらず**、線形変換された変数の係数（と標準誤差）のみ変わったことが確認できる。`Income_m`の単位は100万円であるため、係数の解釈は「世帯収入が**100万円**上がる（= `Income_m`の値が1上がる）と、立憲民主党への感情温度が-0.154度下がる」になり、より解釈しやすくなる。
+
+```{r}
+#| filename: "Code 18"
+#| eval: false
+modelsummary(list(dummy_fit1, fit3),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL)
+```
+
+```{r}
+#| echo: false
+modelsummary(list(dummy_fit1, fit3),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL,
+             output    = "gt") %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 12, columns = c(1, 2))) %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 13, columns = c(1, 3)))
+```
+
+### スケールの逆転
+
+　今回注目する係数は`dummy_fit1`の政治関心（`Intrest`）の係数である。政治関心の傾き係数は約-1.404であり、これは「`Interest`が1単位上がると、立憲民主党への感情温度が約1.404度下がる」と解釈できる。ただし、これだと「政治関心が高い人ほど、立憲民主党に反感を持つ」といったイメージを漂わせる。しかし、政治関心（`Interest`）の値は`1`が「関心あり」、`2`が「やや関心あり」、`3`が「やや関心なし」、`4`が「関心なし」という点に注意する必要がある。つまり、「`Interest`が1単位上がる」ということは、「政治関心が1単位下がる」ことを意味する。したがって、「`Interest`が1単位上がると、立憲民主党への感情温度が約1.404度下がる。」の意味は、「政治関心が1単位下がると、立憲民主党への感情温度が約1.404度下がる」か「政治関心が1単位上がると、立憲民主党への感情温度が約1.404度上がる」である。要は「`Intrest`と立民感情温度」は負の関係になるが、「政治関心と立民感情温度」は正の関係があることである。これは非常にややこしいし、解釈の際、ミスの原因にもなり得る。この問題を解決するためには、最初から`Interest`の値を逆転させることが有効だろう。つまり、`Intrest`の値が大きいほど政治関心が高まるようにすれば良い。
+
+　このようなスケールの逆転は単なる引き算や掛け算でできる。
+
+* **ケース1：** 1〜$m$のスケールで測定された変数は$m + 1$から引くと、逆転される。今回の例がこれに該当する。`Interest`は1〜4であるため、5から引けばよい。
+
+```{r}
+#| filename: "Code 19"
+x1 <- c(1, 2, 3, 4) # x1 <- 1:4 でもOK
+x1
+```
+
+```{r}
+#| filename: "Code 20"
+5 - x1
+```
+
+　他にも変数の範囲（range）によって逆転の仕方が異なる。
+
+* **ケース2：** 0〜$m$のスケールで測定された変数は$m$から引くと、逆転される。
+
+```{r}
+#| filename: "Code 21"
+x2 <- c(0, 1, 2, 3, 4, 5, 6) # x23 <- 0:6 でもOK
+x2
+```
+
+```{r}
+#| filename: "Code 22"
+6 - x2
+```
+
+* **ケース3：** $-m$〜$m$のスケールで測定された変数は-1をかけると、逆転される。
+
+```{r}
+#| filename: "Code 23"
+x3 <- c(-3, -2, -1, 0, 1, 2, 3) # x3 <- -3:3 でもOK
+x3
+```
+
+```{r}
+#| filename: "Code 24"
+x3 * (-1)
+```
+
+　それでは`Intrest`を逆転して、もう一度推定してみよう。`jes_df3`の`Interest`の値を5から引き、`Interest_r`という新しい変数として追加し、`jes_df3`を上書きする。変数名は何でも良いが、ここでは**r**everseの頭文字を使うとする。
+
+```{r}
+#| filename: "Code 25"
+jes_df3 <- jes_df3 %>%
+  mutate(Interest_r = 5 - Interest)
+
+jes_df3
+```
+
+　続いて`fit3`と同じ推定を行う。ただし、`Intrest`の代わりに`Intrest_r`を使用し、推定結果は`fit4`に格納する。
+
+```{r}
+#| filename: "Code 26"
+fit4 <- lm(Temp_Rikken ~ Ideology + Interest_r + Gender + Age +
+              Education + Job + Income_m, data = jes_df3)
+
+summary(fit4)
+```
+
+　それでは、`fit3`と`fit4`の結果を比較してみよう。
+
+```{r}
+#| filename: "Code 27"
+#| eval: false
+modelsummary(list(fit3, fit4),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL)
+```
+
+```{r}
+#| echo: false
+modelsummary(list(fit3, fit4),
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL,
+             output    = "gt") %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 3, columns = c(1, 2))) %>% 
+   tab_style(style     = cell_fill(color = "lightblue"),
+             locations = cells_body(rows = 13, columns = c(1, 3)))
+```
+
+　**他の係数は一切変わらず**、線形変換された変数の係数（と標準誤差）の**符号**のみ変わることが確認できる。`Intrest_r`は高いほど政治に関心があることを意味するので、「政治関心が1単位上がると、立憲民主党に対する感情温度は約1.404度上がる」と解釈できるようになる。社会調査（世論調査）の場合、このような5件法、7件法で測定された変数がほとんどである（このような尺度を「リッカート尺度」と呼ぶ）。また、これらは最初の選択肢が「そう思う」や「とても当てはまる」など、ポジティブなものになっているケースが多いため、このようなミスはよく生じる。データ分析とはパソコン/ソフトウェアスキルだけでなく、このようにデータを読み取る能力も重要だ。

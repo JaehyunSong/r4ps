@@ -1,0 +1,661 @@
+---
+subtitle: "第8回 線形回帰分析（1）"
+date: "1986/10/08"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 授業開始前に
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, latex2exp)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. RStudioを起動しておいてください。
+2. 本日授業用のプロジェクトを作成してください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(modelsummary)
+
+beer_df <- read_csv("Data/Beer.csv")
+pref_df <- read_csv("Data/PrefData.csv")
+```
+
+* トラブルが生じた場合、速やかにTAを読んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
+# 線形回帰: 散布図への直線の当てはめ
+
+## サンプルデータの読み込み
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+library(tidyverse)
+beer_df <- read_csv("Data/Beer.csv")
+
+beer_df
+```
+:::
+
+:::{.column width=50%}
+|変数|説明|
+|:---|:---|
+|`Year`|年|
+|`Month`|月|
+|`Temperature`|東京都の平均気温 (℃)|
+|`Icecream`|一人あたりアイスクリーム支出額 (円)|
+|`Beer`|アサヒ・スーパードライの販売量 (万箱)|
+:::
+::::
+
+## 気温とビール売上の関係
+
+`Temperature`と`Beer`の相関係数（$\alpha$ = 0.05）
+
+```{r}
+cor.test(beer_df$Temperature, beer_df$Beer)
+```
+
+* 相関係数は約0.25であり、$p$値は0.04であるため、統計的に有意な正の相関関係があると判断できる。
+
+## 気温とビール売上の関係
+
+::::{.columns}
+:::{.column width=50%}
+`Temperature`と`Beer`の散布図
+
+* 原因と考えられる変数を横軸（`x`）にマッピング
+* 結果と考えられる変数を横軸（`y`）にマッピング
+
+```{r}
+#| eval: false
+beer_df %>%
+  ggplot(aes(x = Temperature, y = Beer)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "気温 (摂氏)", 
+       y = "アサヒ・スーパードライ販売量 (万箱)")
+```
+:::
+
+:::{.column width=50%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+beer_df %>%
+  ggplot(aes(x = Temperature, y = Beer)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "気温 (摂氏)", y = "アサヒ・スーパードライ販売量 (万箱)")
+```
+:::
+::::
+
+```{r, include = FALSE}
+lm(Beer ~ Temperature, data = beer_df) %>%
+  summary()
+```
+
+## 回帰直線
+
+**回帰直線**（regression line）: 二変数の散布図を描く場合、その関係も最も正確に表す直線
+
+* 前ページの青い直線（一次関数）
+  * 切片が576.227、傾きが7.355の直線
+  * ビールの販売量 = 576.227 + 7.355 $\times$ 気温
+
+<br/>
+
+回帰直線の特徴
+
+* 二次元平面上に描ける直線は無数にあるが、回帰直線は「直線と点のズレが最も小さい」直線
+* **説明変数**（原因）が変わると**応答変数**（結果）はどう変化するかを示す。
+* 回帰直線は必ず（説明変数の平均値, 応答変数の平均値）を通過する
+
+## 一次関数
+
+$y = \alpha + \beta x$ の一次関数
+
+* $\alpha$: 切片（$x$ = 0の場合の$y$の値）
+* $\beta$: 傾き（$x$が1増加した場合の$y$の増加量）
+
+```{r, cache = TRUE, echo = FALSE, fig.width = 8, fig.height = 3.5}
+beer_df %>%
+  ggplot(aes(x = Temperature, y = Beer)) +
+  geom_vline(xintercept = 10) +
+  geom_hline(yintercept = 625) +
+  geom_segment(aes(x = 20, xend = 20, y = 686.552, yend = 723.327),
+               linetype = 2) +
+  geom_segment(aes(x = 15, xend = 20, y = 686.552, yend = 686.552),
+               linetype = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_segment(aes(x = 10, xend = 10, y = 625, yend = 649.777),
+               arrow = arrow(length = unit(0.1, "inches"),
+                             ends = "both", type = "closed"),
+               color = "red") +
+  geom_segment(aes(x = 15, xend = 20, y = 686.552-7, yend = 686.552-7),
+               arrow = arrow(length = unit(0.1, "inches"),
+                             ends = "both", type = "closed"),
+               color = "red") +
+  geom_segment(aes(x = 20.5, xend = 20.5, y = 686.552, yend = 723.327),
+               arrow = arrow(length = unit(0.1, "inches"),
+                             ends = "both", type = "closed"),
+               color = "red") +
+  annotate("text", x = 10.7, y = 637, label = expression(alpha), size = 10) +
+  annotate("text", x = 17.5, y = 686.552-20, label = "1", size = 10) +
+  annotate("text", x = 21.2, y = 705, label = expression(beta), size = 10) +
+  labs(x = "説明変数", y = "応答変数") +
+  scale_x_continuous(breaks = 10, labels = "0") +
+  scale_y_continuous(breaks = 625, labels = "0") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+## 回帰直線を引くことは
+
+* 一次関数 ( $y = \alpha + \beta x$ )において $x$ と $y$ がそれぞれ説明変数、応答変数の場合、点とのズレが最も小さい直線が描ける $\alpha$ と $\beta$ の値を明らかにする (=推定)すること
+   * $\rightarrow$ **回帰分析** (regression analysis)
+* どのように $\alpha$ と $\beta$ の値を推定するか
+   * **最小二乗法** (least squares methods)
+   * ordinary least suqaresの略、**OLS**と呼ばれることも多い
+
+# 最小二乗法 (OLS)
+
+## 残差
+
+二変数の相関係数が1、または-1の場合、散布図上の点は**すべて**直線上に乗る
+
+* しかし、実際の場合、多くの点が直線上に乗らない。
+
+<br/>
+
+#### 観測値、予測値、残差
+
+* **観測値**: 実際に観察されている値
+   * 2016年5月 (`beer_df`の5行目)の「気温は20.2度であり、ビールの販売量は794万箱」である。
+   * $x_5$ = 20.2 / $y_5$ = 794
+* **予測値**: 推定された一次関数に観測値における説明変数を代入した場合に得られる値
+   * 「ビールの販売量の予測値 = 576.227 + 7.355$\times$気温」であるため、気温20.2度を外挿すると、約725万箱となる
+      * 576.227 + 7.355 $\times$ 20.2 = 724.798
+   * 794は応答変数の**観測値**（=$y$）であり、724.798は**予測値**であり、主に$\hat{y}$（ワイ・ハット）と表記する。
+   * 予測値は回帰直線によって予測された値であるため、必ず回帰直線上に乗る
+      * 回帰直線は予測値の集合として考えることも可能
+* **残差** (residual): 残差と予測値の距離（$e_i = y_i - \hat{y}_i$）
+
+## 観測値、予測値、残差
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+beer_df %>%
+  filter(Year == 2020) %>%
+  mutate(Obs = ifelse(Year == 2020 & Month == 7, "1", "0")) %>%
+  ggplot(aes(x = Temperature, y = Beer)) +
+  geom_segment(aes(x = 0, xend = 24.3, y = 702, yend = 702),
+               linetype = 2) +
+  geom_segment(aes(x = 24.3, xend = 24.3, y = 702, yend = 0),
+               linetype = 2) +
+  geom_point(aes(color = Obs), size = 5) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1.5) +
+  geom_segment(aes(x = 0, xend = 24.3, y = 565.6986, yend = 565.6986),
+               linetype = 2) +
+  annotate("text", x = 25, y = 702, 
+           label = TeX("$(x_i, y_i)$ = 観測値"),
+           size = 5, hjust = 0) +
+  annotate("text", x = 26, y = 520, 
+           label = TeX("$(x_i, \\hat{y}_i)$ = 予測値"),
+           size = 5, hjust = 0) +
+  annotate("text", x = 24.5, y = 634, 
+           label = TeX("$e_i$ = 残差"),
+           size = 5, hjust = 0) +
+  geom_segment(aes(x = 26, xend = 24.3, y = 525, yend = 565.6986),
+               arrow = arrow(length = unit(0.075, "inches"), type = "closed")) +
+  geom_segment(aes(x = 24.3, xend = 24.3, y = 702, yend = 565.6986),
+               arrow = arrow(length = unit(0.1, "inches"), 
+                             ends = "both", type = "closed"),
+               color = "red") +
+  geom_point(aes(x = 24.3, y = 565.6986), size = 2, shape = 1) +
+  coord_cartesian(ylim = c(400, 780), xlim = c(7, 30)) +
+  scale_y_continuous(breaks = c(565.6986, 702), 
+                     labels = c(TeX("$\\hat{y}_i$"), TeX("$y_i$"))) +
+  scale_x_continuous(breaks = 24.3, 
+                     labels = TeX("$x_i$")) +
+  labs(x = "説明変数", y = "応答変数") +
+  theme_bw(base_size = 16) +
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
+```
+
+## 最小二乗法
+
+すべての観測値とそれぞれの予測値との距離（=残差; $e_i$）の**二乗和**が最も小さくなる直線を推定
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.5
+beer_df %>%
+  filter(Year == 2020, Beer >= 400, Beer <= 780) %>%
+  mutate(Pred = 406.50 + 7.19 * Temperature) %>%
+  select(Year, Month, Temperature, Beer, Pred) %>%
+  ggplot(aes(x = Temperature, y = Beer)) +
+  geom_segment(aes(x = Temperature, xend = Temperature,
+                   y = Beer, yend = Pred), linetype = 2) +
+  geom_point(size = 5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "説明変数", y = "応答変数") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")
+```
+
+## 推定方法
+
+残差（$e_i$）の二乗和が最小となる$\alpha$と$\beta$を推定する方法
+
+* 行列で解く: $(X^{\top}X)^{-1}X^{\top}y$
+* 微分方程式で解く
+* (説明変数が一つのみの場合) 公式で解く
+   * $\beta = \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})} = \frac{\text{Cov}_{x, y}}{u_x}$ ; $\alpha = \bar{y} - \beta \bar{x}$
+   * 回帰直線は必ず$(\bar{x}, \bar{y})$を通過する特徴を利用
+* いずれも面倒なので、パソコンに任せる (`lm()`関数の利用)
+
+## `lm()`関数の利用
+
+::::{.columns}
+:::{.column width=40%}
+* 第一引数はformula
+   * `応答変数 ~ 説明変数`
+   * 応答変数と説明変数はチルダ (`~`)で区切る
+* 第二引数は`data = データオブジェクト名`
+* 推定した結果を別途のオブジェクトとして格納
+   * 以下の例では`beer_fit`
+* 推定結果を確認するには`summary()`関数を使用
+:::
+
+:::{.column width=60%}
+```{r}
+# 応答変数 (結果): ビールの販売量
+# 説明変数 (原因): 気温
+beer_fit <- lm(Beer ~ Temperature, data = beer_df)
+summary(beer_fit)
+```
+:::
+::::
+
+## 結果の解釈
+
+* `(Intercept)`: 切片 = $\alpha$
+   * 点推定値は576.227
+* `Temperature`: 傾き = $\beta$
+   * 点推定値は7.335
+
+<center>
+ビール販売量の予測値 = 576.227 + 7.355 $\times$ 気温
+</center>
+
+* 意味：気温が1度上がると、ビールの販売量は7.355万箱上がる。
+   * 単位に注意：`Beer`は「万箱」単位であるため、「`Beer`の値が1上がる」ことは「ビール販売量の予測値が1万箱上がる」ことを意味する。
+
+# 単回帰と重回帰
+
+## 実習データの読み込み
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+pref_df <- read_csv("Data/PrefData.csv")
+
+pref_df
+```
+:::
+
+:::{.column width=50%}
+|変数|説明|
+|:---|:---|
+|`ID`|都道府県ID|
+|`Pref`|都道府県名|
+|`Jimin`|2016年参院選の自民得票率 (比例)|
+|`Zaisei`|2016年度財政力指数|
+|`Over65`|65歳以上人口割合|
+|`Primary`|第一次産業従事者割合|
+:::
+::::
+
+## 重回帰分析
+
+**重回帰分析** (multiple regression): 説明変数が**2つ以上**の回帰分析
+
+* **単回帰分析** (single regression): 説明変数が**1のみ**回帰分析
+* 単回帰分析同様、`lm()`関数を使用するが、説明変数を`+`でつなぐ
+* 応答変数が$y$、説明変数が$x$と$z$の場合の回帰式
+
+$$
+\hat{y} = \alpha + \beta_1 x + \beta_2 z
+$$
+
+* 単回帰分析同様、残差（$e$）の自乗和が最小となる$\alpha$、$\beta_1$、$\beta_2$を推定
+
+:::{.callout-note icon=false}
+## 参考）単回帰分析と重回帰分析の違い
+
+　単回帰分析において残差は「観測値と回帰**直線**間の距離」であるが、重回帰分析の場合、「観測値と回帰**平面**間の距離」が残差となる。説明変数が2つの場合は、回帰平面、3つ以上の場合は回帰超平面となる。
+:::
+
+## 問題設定
+
+> 　2016年行われた参院選における自民党の得票率（都道府県）はどのような要因で説明出来るだろうか。財政的に豊かではない地域が国からの補助金への依存度が高く、高齢者ほど保守的であることは先行研究において指摘されている。ならば、自民党の得票率は、その都道府県の財政力指数と高齢者の割合で説明できるだろうか。
+
+* 応答変数（結果）: 2016年参院選における都道府県ごとの自民党得票率（比例区）
+* 説明変数1（原因1）: 2016年度の都道府県ごとの財政力指数
+* 説明変数2（原因2）: 2015年度の都道府県ごとの65歳以上人口の割合
+
+<center>
+自民党の得票率の予測値 = $\alpha$ + $\beta_1$ $\times$ 財政力指数 + $\beta_2$ $\times$ 65歳以上人口の割合
+</center>
+
+* 残差（$e = y - \hat{y}$）の自乗和が最小となる$\alpha$、$\beta_1$、$\beta_2$を推定
+
+## `lm()`関数による重回帰分析
+
+複数の説明変数を`+`で区切るだけ
+
+```{r}
+jimin_fit1 <- lm(Jimin ~ Zaisei + Over65, data = pref_df)
+summary(jimin_fit1)
+```
+
+## 結果の解釈
+
+自民党の得票率の予測値 = 15.891 - 4.547 $\times$ 財政力指数 + 0.881 $\times$ 65歳以上人口の割合
+
+::::{.columns}
+:::{.column width=45%}
+```{r}
+#| eval: false
+summary(jimin_fit1)
+```
+
+```{r}
+#| echo: false
+broom::tidy(jimin_fit1) %>%
+  select(-statistic) %>%
+  gt() %>%
+  fmt_number(columns = 2:4, decimals = 3)
+```
+:::
+
+:::{.column width=1%}
+:::
+
+:::{.column width=54%}
+* **切片**の係数: 15.891
+   * 財政力指数が0、かつ65歳以上人口の割合が0%の都道府県の場合、自民党得票率の予測値は15.891%である。
+   * ただし、財政力指数が0、65歳以上人口の割合が0%の都道府県はあり得ため、この15.891%に大きな意味はない。
+* **財政力指数**の係数: -4.547
+   * 財政力指数が1上がると、その都道府県の自民党得票率の予測値は4.547%p下がる。
+   * 参考) 財政力指数の最小値は0.252、最大値は1.101
+* **65歳以上人口の割合**の係数: 0.881
+   * 65歳以上人口の割合が1%p上がると、その都道府県の自民党得票率の予測値は0.881%p上がる。
+   * 「1%」でなく「1%**ポイント**」であることに注意
+:::
+::::
+
+## 係数間の比較はダメ!
+
+財政力指数の係数は-4.547、65歳以上人口の割合の係数は0.881
+
+* 係数の大きさ（=絶対値）は「財政力指数」の方が大きい
+* この結果から「高齢者割合よりも、その都道府県の財政力指数の方が、自民得票率に与える影響が大きい」と解釈出来るだろうか。
+   * $\rightarrow$ **できない**
+   * -4.547は財政力指数が1上がる場合の自民得票率の変化量
+   * 0.881は65歳以上人口の割合が1%p上がる場合の自民得票率の変化量
+* なぜ?
+   * 2つの説明変数の単位は異なるため、直接比較することはできない。
+   * 「財政力指数が1上がる」ことと、「65歳以上人口の割合が1%p上がる」ことの意味は大きく異る。
+      * 財政力指数が1上がることは島根(0.252)の財政状況が東京(1.100)並に改善されること。
+      * **高齢者の割合が1%p増えることはあり得るが、財政力指数が1上がることはなかなかあり得ない。**
+
+## 単回帰と重回帰の違い
+
+```{r}
+jimin_fit1 <- lm(Jimin ~ Zaisei + Over65, data = pref_df) # 重回帰分析
+jimin_fit2 <- lm(Jimin ~ Zaisei, data = pref_df) # 単回帰分析 1
+jimin_fit3 <- lm(Jimin ~ Over65, data = pref_df) # 単回帰分析 2
+```
+
+<br/>
+
+::::{.columns}
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(jimin_fit1)
+```
+
+```{r}
+#| echo: false
+broom::tidy(jimin_fit1) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right")
+```
+:::
+
+:::{.column width=1%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(jimin_fit2)
+```
+
+```{r}
+#| echo: false
+broom::tidy(jimin_fit2) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right")
+```
+:::
+::::
+
+<br/>
+
+::::{.columns}
+:::{.column width=49%}
+```{r}
+#| eval: false
+summary(jimin_fit3)
+```
+
+```{r}
+#| echo: false
+broom::tidy(jimin_fit3) %>%
+  gt() %>%
+  fmt_number(columns = 2:5, decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right")
+```
+:::
+
+:::{.column width=1%}
+:::
+
+:::{.column width=49%}
+:::
+::::
+
+## 重回帰分析 $\neq$ 複数の単回帰分析
+
+||モデル1|モデル2|モデル3|
+|:---|---:|---:|---:|
+|切片（`Intercept`）|15.819|45.291|7.518|
+|財政力指数（`Zaisei`）|-4.547|-13.012||
+|65歳以上人口の割合（`Over65`）|0.881||1.094|
+
+**モデル1:** 自民党の得票率の予測値 = 15.891 - 4.547 $\times$ 財政力指数 + 0.881 $\times$ 65歳以上人口の割合
+
+**モデル2:** 自民党の得票率の予測値 = 45.291 - 13.012 $\times$ 財政力指数
+
+**モデル3:** 自民党の得票率の予測値 = 7.518 + 1.094 $\times$ 65歳以上人口の割合
+
+* 単回帰分析における係数と重回帰分析の係数は一致しない。
+* 重回帰分析の係数は「**他の説明変数を一定に保ったとき、ある説明変数の増加が応答変数の値をどの程度変化させるか**」を示す
+   * 他の説明変数を**コントロール (統制)**したときに説明変数が応答変数に与える影響
+   * リサーチデザインの講義における「原因以外の重要な要因」(第2・3回)
+* 具体的な意味は教科書pp.215-218を参照
+
+## 変数の統制
+
+```{r}
+#| echo: false
+#| message: false
+#| dpi: 150
+#| fig-width: 4
+#| fig-height: 2.5
+pacman::p_load(dagitty, ggdag)
+
+dagify(X ~ Z,
+       Y ~ X + Z,
+       exposure = "X",
+       outcome  = "Y",
+       coords   = list(x = c(X = 1, Y = 3, Z = 2),
+                  y = c(X = 1, Y = 1, Z = 2))) %>%
+  ggdag(node_size = 9, text_size = 7) +
+  coord_cartesian(ylim = c(0.5, 2.5)) +
+  theme_dag_blank()
+```
+
+* Y: 自民党の得票率
+* X: 財政力指数
+* Z: 65歳以上人口の割合
+* 財政力指数が高い地域において自民得票率が低い場合、それは財政力指数の影響でなく、高齢者割合の影響かも知れない。
+* **高齢者割合が同じ場合**、財政力指数が自民得票率に与える影響は?
+   * =「高齢者割合を統制する」
+
+# 決定係数
+
+## 決定係数
+
+モデルの当てはまりの良さを評価する指標
+
+* 決定係数 ( $R^2$ )、または自由度調整済み決定係数 (adjusted $R^2$ )
+
+$$
+R^2 = \frac{\sum(\hat{y}_i - \bar{y})^2}{\sum(y_i - \bar{y})^2} = \frac{\text{回帰変動}}{\text{全変動}}
+$$
+
+* 観測された応答変数のばらつき (全変動)のうち何％が予測値のばらつき (回帰変動)で説明されるか。
+   * 予測値の分散を観測値の分散で割った値と一致
+   * 分子の $\bar{y}$ は $\bar{\hat{y}}$ にしても良いが、 $\bar{\hat{y}} = \bar{y}$
+* 予測値の変動が観測値の変動と一致する場合、 $R^2$ は1となる。
+   * 「このモデルで応答変数の変動を完璧に説明できる。」
+* 決定係数が0.7なら...
+   * 「このモデルで応答変数の変動の約70%が説明できる。」
+* 決定係数は0以上1以下
+
+## 決定係数の計算方法 (1)
+
+```{r}
+y_bar <- mean(pref_df$Jimin)
+y_bar # 応答変数の「平均値」
+y <- pref_df$Jimin
+head(y) # 応答変数の「観測値」の最初の6つだけ出力
+y_hat <- predict(jimin_fit1)
+head(y_hat) # 応答変数の「予測値」の最初の6つだけ出力
+R_2 <- sum((y_hat - y_bar)^2) / sum((y - y_bar)^2)
+R_2 # 決定係数
+```
+
+## 決定係数の計算方法 (2)
+
+```{r}
+var_y_hat <- var(predict(jimin_fit1)) # 予測値の分散
+var_y_hat
+var_y <- var(pref_df$Jimin) # 観測値の分散 
+var_y
+var_y_hat / var_y # 決定係数
+```
+
+## 参考) 自由度調整済み決定係数
+
+**説明変数が増えると決定係数は必ず大きくなる**ため、説明変数の数で決定係数にペナルティーを与える。
+
+* 回帰分析のモデルを評価する際、決定係数よりも以下の自由度調整済み決定係数を用いる。
+
+$$
+\text{Adjusted } R^2 = 1 - \frac{(1 - R^2)(n - 1)}{(n - k - 1)}
+$$
+
+* $R^2$ は決定係数、 $n$ は標本サイズ、 $k$ は説明変数の数
+
+```{r}
+1 - (((1 - R_2) * (47 - 1)) / (47 - 2 - 1))
+```
+
+## 決定係数の確認方法
+
+::::{.columns}
+:::{.column width=50%}
+```{r}
+summary(jimin_fit1)
+```
+:::
+
+:::{.column width=50%}
+`summary()`関数から出力される推定結果の下段
+
+* 決定係数: 0.3135
+   * Multiple R-squared
+* 自由度調整済み決定係数: 0.2823
+   * Adjusted R-squared
+* 説明変数が多くなると「Multiple R-squared（決定係数）」は必ず大きくなる
+   * 応答変数と無関係な説明変数を入れても必ず大きくなるため、あまり参考にならない
+   * 「Adjusted R-squared」を利用する
+* 財政力指数と高齢者の割合を説明変数とした場合、自民得票率の約28%が説明できる。
+:::
+::::
+
+## 「望ましい」決定係数は存在しない
+
+「決定係数は0.XX以上が望ましい」といった基準は存在しない
+
+* 自然科学、経済学などにおける時系列分析の場合、0.9を超える場合も多くある。
+* 国、人間などを扱う社会科学の場合、0.1程度やその以下もしばしばある。
+   * **近年**の社会科学では決定係数をあまり重要視しない
+   * 調整済み決定係数が負になる場合もあるが、さすがにこれは良くないかも
+* モデルを評価する一つの目安に過ぎないことに注意すること。
+   * 応答変数が同じ複数のモデルがある場合、比較の指標としては意義があるものの、決定係数以外にも様々な指標がある（AIC、BIC、WAIC、Cohenの$\kappa$など）。
+
+## モデル間比較（{modelsummary}パッケージ）
+
+```{r}
+library(modelsummary) # ない場合はinstall.packages("modelsummary")でインストール
+modelsummary(list(jimin_fit1, jimin_fit2, jimin_fit3))
+```
+
+```{r}
+#| include: false
+modelsummary(list(jimin_fit1, jimin_fit2, jimin_fit3),
+             output = "gt", estimate = "{estimate}", gof_omit = "^(?!R2|Num)",
+             coef_rename = c("(Intercept)" = "切片",
+                             "Zaisei" = "財政力指数",
+                             "Over65" = "65歳以上人口の割合"),
+             notes = "注: カッコ内は各推定値の標準誤差")
+```

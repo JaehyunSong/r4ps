@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第12回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">第12回講義資料</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/introduction.html" class="sidebar-item-text sidebar-link">第1回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/research_design.html" class="sidebar-item-text sidebar-link">第2・3回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/descriptive_statistics.html" class="sidebar-item-text sidebar-link">第4回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/inference.html" class="sidebar-item-text sidebar-link">第5回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/nhts.html" class="sidebar-item-text sidebar-link">第6回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/association.html" class="sidebar-item-text sidebar-link">第7回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression1.html" class="sidebar-item-text sidebar-link">第8回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression2.html" class="sidebar-item-text sidebar-link">第9回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression3.html" class="sidebar-item-text sidebar-link">第10回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">第11回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/interaction.html" class="sidebar-item-text sidebar-link active">第12回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link">第13回講義資料</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#セットアップ" id="toc-セットアップ" class="nav-link active" data-scroll-target="#セットアップ">セットアップ</a></li>
+  <li><a href="#交互作用とは" id="toc-交互作用とは" class="nav-link" data-scroll-target="#交互作用とは">交互作用とは</a></li>
+  <li><a href="#推定" id="toc-推定" class="nav-link" data-scroll-target="#推定">推定</a>
+  <ul class="collapse">
+  <li><a href="#モデル1の解釈" id="toc-モデル1の解釈" class="nav-link" data-scroll-target="#モデル1の解釈">モデル1の解釈</a></li>
+  <li><a href="#モデル2の解釈" id="toc-モデル2の解釈" class="nav-link" data-scroll-target="#モデル2の解釈">モデル2の解釈</a></li>
+  </ul></li>
+  <li><a href="#限界効果の話" id="toc-限界効果の話" class="nav-link" data-scroll-target="#限界効果の話">限界効果の話</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">第12回講義資料</h1>
+<p class="subtitle lead">交互作用</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="スライド" class="level2 unlisted">
+<h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/macro/interaction.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/macro/interaction.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+</section>
+<section id="セットアップ" class="level2">
+<h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
+<p>　本日の実習用データ（LMSからダウンロード可能）と必要なパッケージ（{tidyverse}、{summarytools}、{marginaleffects}）を読み込む。ただし、{marginaleffects}がインストールされていない場合は、コンソール上に<code>install.packages("marginaleffects")</code>を入力し、インストールしておくこと。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1_2.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="交互作用とは" class="level2">
+<h2 class="anchored" data-anchor-id="交互作用とは">交互作用とは</h2>
+<p>　以下の図のように主な説明変数（<span class="math inline">\(X\)</span>）と応答変数（<span class="math inline">\(Y\)</span>）の関係において、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響がその他の変数（<span class="math inline">\(Z\)</span>）の影響を受ける場合を考えてみよう。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/01.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p>　これは<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は一定ではないことを意味する（= <span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>に依存する）。ここで、<span class="math inline">\(Z\)</span>は<strong>調整変数</strong> (moderation variable; moderator)と呼ばれる。調整変数はダミー変数でも、連続変数でも可能だ。</p>
+<p>　この交互作用を実際の回帰式として表すと以下のようになる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/02.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p><span id="eq-01"><span class="math display">\[
+\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
+\tag{1}\]</span></span></p>
+<p>　ここで説明変数に調整変数をかけた変数（<span class="math inline">\(X \cdot Z\)</span>）は<strong>交差項</strong> (interaction term)と呼ばれる。これまでの（重）回帰分析では変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は<span class="math inline">\(\beta_1\)</span>であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において<span class="math inline">\(X\)</span>は<span class="math inline">\(\beta_3\)</span>にも登場するからである。これは <a href="#eq-01">式&nbsp;1</a> を変形してみると分かりやすい。</p>
+<p><span id="eq-02"><span class="math display">\[
+\hat{Y} = \alpha + (\beta_1 + \beta_3 Z) X + \beta_2 Z
+\tag{2}\]</span></span></p>
+<p>　<a href="#eq-02">式&nbsp;2</a> によると、変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果、つまり<span class="math inline">\(X\)</span>の傾き係数は<span class="math inline">\(\beta_1\)</span>でなく、<span class="math inline">\(\beta_1 + \beta_3 Z\)</span>だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。</p>
+<p>　まず、調整変数<span class="math inline">\(Z\)</span>が0、または1の値のみをとるダミー変数の場合（<span class="math inline">\(Z \in \{0, 1\}\)</span>）だ。回帰分析の結果、以下のような1次関数が得られたとしよう。</p>
+<p><span id="eq-03"><span class="math display">\[
+\begin{align}
+\hat{Y} &amp; = 3 + 2 X + 1 Z + 3 X \cdot Z \\
+&amp; = 3 + (2 + 3Z) X + 1 Z
+\end{align}
+\tag{3}\]</span></span></p>
+<p>　解釈する場合は<span class="math inline">\(Z = 0\)</span>の場合と<span class="math inline">\(Z = 1\)</span>の場合に分けて解釈する。まず、<span class="math inline">\(Z = 0\)</span>の場合、<span class="math inline">\(\hat{Y} = 3 + (2 + 3\cdot0) X + 1 Z = 3 + 2X + 1Z\)</span>となり、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は2となる。一方、<span class="math inline">\(Z = 1\)</span>の場合は<span class="math inline">\(\hat{Y} = 3 + (2 + 3\cdot1) X + 1 Z = 3 + 5X + 1Z\)</span>となり、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は5となる。これを可視化すると以下のようになる。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　調整変数<span class="math inline">\(Z\)</span>が0になると傾きが2の回帰直線（赤）が、1になると傾きが5の回帰直線（青）が得られる。</p>
+<p>　続いて、調整変数<span class="math inline">\(Z\)</span>が無数の値をとる連続変数の場合を考えてみよう。回帰分析の結果、以下のような1次関数が得られたとしよう。</p>
+<p><span id="eq-04"><span class="math display">\[
+\begin{align}
+\hat{Y} &amp; = 2 + 3 X + 2 Z - 1 X \cdot Z \\
+&amp; = 2 + (3 - 1Z) X + 2 Z
+\end{align}
+\tag{4}\]</span></span></p>
+<p>　ここで<span class="math inline">\(Z = -1\)</span>の場合、<span class="math inline">\(\hat{Y} = 2 + (3 - 1\cdot(-1)) X + 2 Z = 3 + 4X + 1Z\)</span>となり、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は4となる。また、<span class="math inline">\(Z = 2\)</span>の場合は<span class="math inline">\(\hat{Y} = 2 + (3 - 1\cdot2) X + 2 Z = 3 + 1X + 1Z\)</span>となり、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は1となる。<span class="math inline">\(Z\)</span>が3.5の場合は<span class="math inline">\(\hat{Y} = 2 + (3 - 1\cdot3.5) X + 2 Z = 3 - 0.5X + 1Z\)</span>となり、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は-0.5となる。これを可視化すると以下のようになる。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ただし、調整変数が連続変数の場合は、-1、2、3.5以外の値を取ることもできる。<span class="math inline">\(Z\)</span>が取り得るすべての値に対して回帰直線を計算することは出来ないため、いくつかの代表的な値に絞って計算する必要があろう。</p>
+</section>
+<section id="推定" class="level2">
+<h2 class="anchored" data-anchor-id="推定">推定</h2>
+<p>　それでは実際に推定してみよう。まず、実習データの中身を確認してみる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>jes_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 6
+   TempKyosan Female   Age Satisfaction Interest Ideology
+        &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1         20      1    69            4        4        9
+ 2         20      1    47            1        1        7
+ 3          0      1    37            3        3       11
+ 4          0      0    51            4        3       11
+ 5         20      0    38            2        3        7
+ 6          0      0    71            5        4       11
+ 7         10      0    47            3        3        9
+ 8          0      0    71            4        4       11
+ 9         25      0    75            3        4        9
+10         40      1    66            2        3        6
+# … with 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　各変数の説明は以下の通りだ。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">変数</th>
+<th style="text-align: left;">説明</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>TempKyosan</code></td>
+<td style="text-align: left;">日本共産党に対する感情温度</td>
+<td style="text-align: left;">高いほど好感</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Female</code></td>
+<td style="text-align: left;">女性ダミー</td>
+<td style="text-align: left;">0: 男性 / 1: 女性</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Age</code></td>
+<td style="text-align: left;">回答者の年齢</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Satisfaction</code></td>
+<td style="text-align: left;">政治満足度</td>
+<td style="text-align: left;">高いほど満足</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Interest</code></td>
+<td style="text-align: left;">回答者の政治関心</td>
+<td style="text-align: left;">高いほど関心あり</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Ideology</code></td>
+<td style="text-align: left;">回答者のイデオロギー</td>
+<td style="text-align: left;">高いほど保守的</td>
+</tr>
+</tbody>
+</table>
+<p>　データ分析の前に<code>jes_df</code>の記述統計量を確認する。今回のデータはすべて連続変数扱いとなるため、前処理は不要だ。性別は名目変数であるが、既にダミー変数に変換済みである。ダミー変数の記述統計量は連続変数と同じ扱いで問題ないため、データをそのまま{summarytools}パッケージの<code>descr()</code>関数に渡せば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>jes_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+jes_df  
+N: 3000  
+
+                      Mean   Std.Dev     Min      Max   N.Valid
+------------------ ------- --------- ------- -------- ---------
+        TempKyosan   26.88     24.95    0.00   100.00   3000.00
+            Female    0.50      0.50    0.00     1.00   3000.00
+               Age   47.34     15.63   18.00    75.00   3000.00
+      Satisfaction    2.45      1.08    1.00     5.00   3000.00
+          Interest    2.74      0.83    1.00     4.00   3000.00
+          Ideology    6.34      2.10    1.00    11.00   3000.00</code></pre>
+</div>
+</div>
+<p>　このデータを用い、以下の問いに答えるとする。</p>
+<blockquote class="blockquote">
+<p>　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。</p>
+</blockquote>
+<p>　この問いにおける応答変数は「共産党に対する感情温度（<code>TempKyosan</code>）」、主な説明変数は「政治満足度（<code>Satisfaction</code>）」だ。ただし、政治満足度が共産感情温度に与える影響は性別（<code>Female</code>）や年齢（<code>Age</code>）に依存する可能性がある。調整変数が2つであるため、ここでは2つのモデルを作成する。</p>
+<p><strong>モデル1</strong></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">変数</th>
+<th style="text-align: left;">変数名</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">主な説明変数</td>
+<td style="text-align: left;">政治満足度</td>
+<td style="text-align: left;"><code>Satisfaction</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">応答変数</td>
+<td style="text-align: left;">共産党に対する感情温度</td>
+<td style="text-align: left;"><code>TempKoysan</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">調整変数</td>
+<td style="text-align: left;"><strong>女性ダミー</strong></td>
+<td style="text-align: left;"><code>Female</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">統制変数</td>
+<td style="text-align: left;">政治関心、イデオロギー、年齢</td>
+<td style="text-align: left;"><code>Interest</code>、<code>Ideology</code>、<code>Age</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>モデル2</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 40%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">変数</th>
+<th style="text-align: left;">変数名</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">主な説明変数</td>
+<td style="text-align: left;">政治満足度</td>
+<td style="text-align: left;"><code>Satisfaction</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">応答変数</td>
+<td style="text-align: left;">共産党に対する感情温度</td>
+<td style="text-align: left;"><code>TempKoysan</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">調整変数</td>
+<td style="text-align: left;"><strong>年齢</strong></td>
+<td style="text-align: left;"><code>Age</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">統制変数</td>
+<td style="text-align: left;">政治関心、イデオロギー、女性ダミー</td>
+<td style="text-align: left;"><code>Interest</code>、<code>Ideology</code>、<code>Female</code></td>
+</tr>
+</tbody>
+</table>
+<p>　モデル1は政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は性別（= <strong>調整変数</strong>）に依存することを意味し、以下のような図として表現できる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/03.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p>　これを回帰式にする場合、 <a href="#eq-05">式&nbsp;5</a> のような1次関数になる（以下の図参照）。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/04.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p><span id="eq-05"><span class="math display">\[
+\widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Female} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Age} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Female})
+\tag{5}\]</span></span></p>
+<p>　つづいて、モデル2は政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は年齢（= <strong>調整変数</strong>）に依存することを意味し以下のような図として表現できる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/05.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p>　これを回帰式にする場合、 <a href="#eq-06">式&nbsp;6</a> のような1次関数になる（以下の図参照）。</p>
+<p><span id="eq-06"><span class="math display">\[
+\widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
+\tag{6}\]</span></span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/12/06.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+<p>　推定にはこれまでと同様、<code>lm()</code>関数を使用する。注意するところは第1引数である回帰式（formula）であり、交互作用が存在すると考えられる2つの変数を<code>+</code>でなく、<code>*</code>でつなぐだけだ。ここで<code>A * B</code>の意味は<code>A</code><span class="math inline">\(\times\)</span><code>b</code>だけでなく、<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>が同時に投入することを意味する。</p>
+<p>　モデル1と2をそれぞれ<code>fit1</code>、<code>fit2</code>に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Female <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Age, </span>
+<span id="cb6-2"><a href="#cb6-2"></a>           <span class="at">data =</span> jes_df)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Age <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Female <span class="sc">+</span> Age, </span>
+<span id="cb6-4"><a href="#cb6-4"></a>           <span class="at">data =</span> jes_df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　2つのモデルの推定結果を横に並べるために{modelsummary}と<code>modelsummary()</code>関数を使用する。2つのモデルオブジェクトは<code>list()</code>関数でまとめることを忘れずに。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> &nbsp;(1) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(2) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> 49.275 </td>
+   <td style="text-align:center;"> 28.250 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (2.587) </td>
+   <td style="text-align:center;"> (4.164) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Satisfaction </td>
+   <td style="text-align:center;"> −4.732 </td>
+   <td style="text-align:center;"> 3.308 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.561) </td>
+   <td style="text-align:center;"> (1.354) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Female </td>
+   <td style="text-align:center;"> 2.752 </td>
+   <td style="text-align:center;"> 5.061 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (2.186) </td>
+   <td style="text-align:center;"> (0.888) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Interest </td>
+   <td style="text-align:center;"> 0.217 </td>
+   <td style="text-align:center;"> −0.118 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.571) </td>
+   <td style="text-align:center;"> (0.570) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Ideology </td>
+   <td style="text-align:center;"> −1.887 </td>
+   <td style="text-align:center;"> −1.690 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.214) </td>
+   <td style="text-align:center;"> (0.215) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Age </td>
+   <td style="text-align:center;"> −0.040 </td>
+   <td style="text-align:center;"> 0.357 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.030) </td>
+   <td style="text-align:center;"> (0.073) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Satisfaction × Female </td>
+   <td style="text-align:center;"> 0.902 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.817) </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Satisfaction × Age </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> −0.157 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (0.026) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 3000 </td>
+   <td style="text-align:center;"> 3000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.086 </td>
+   <td style="text-align:center;"> 0.096 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.084 </td>
+   <td style="text-align:center;"> 0.094 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 27560.1 </td>
+   <td style="text-align:center;"> 27526.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 27608.1 </td>
+   <td style="text-align:center;"> 27574.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −13772.027 </td>
+   <td style="text-align:center;"> −13755.176 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 46.763 </td>
+   <td style="text-align:center;"> 52.927 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 23.85 </td>
+   <td style="text-align:center;"> 23.72 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<section id="モデル1の解釈" class="level3">
+<h3 class="anchored" data-anchor-id="モデル1の解釈">モデル1の解釈</h3>
+<p>　モデル1（<code>fit1</code>）から得られた回帰式は以下の通りである。</p>
+<p>共産に対する感情温度の予測値 = 49.28 - 4.73 <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 2.75 <span class="math inline">\(\times\)</span> 女性ダミー + 0.22 <span class="math inline">\(\times\)</span> 政治関心 - 1.89 <span class="math inline">\(\times\)</span> イデオロギー - 0.04 <span class="math inline">\(\times\)</span> 年齢 + 0.90 <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> <span class="math inline">\(\times\)</span> 女性ダミー</p>
+<p>　これを政治満足度でまとめると、</p>
+<p>共産に対する感情温度の予測値 = 49.28 - (4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミー) <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 2.75 <span class="math inline">\(\times\)</span> 女性ダミー + 0.22 <span class="math inline">\(\times\)</span> 政治関心 - 1.89 <span class="math inline">\(\times\)</span> イデオロギー - 0.04 <span class="math inline">\(\times\)</span> 年齢</p>
+<p>になる。つまり、政治満足度が共産感情温度に与える影響は「-(4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミーの値)」だ。女性ダミーが取り得る値は0（男性）か1（女性）しかないので、ここでは2つのケースにおける政治満足度が共産感情温度に与える影響を計算してみよう。</p>
+<p>　まず、男性の場合（<code>Female</code>の値 = 0）、政治満足度が共産感情温度に与える影響は約-4.73（= -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 0) ）である。これは男性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる」と解釈できる。また、女性の場合（<code>Female</code>の値 = 1）、政治満足度が共産感情温度に与える影響は約-3.83（= -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 1) ）である。これもまた、女性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる」と解釈できる。</p>
+<p>　以上の結果を回帰直線で示したものが以下の図である。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="モデル2の解釈" class="level3">
+<h3 class="anchored" data-anchor-id="モデル2の解釈">モデル2の解釈</h3>
+<p>　モデル2（<code>fit2</code>）に対しても同じことが言える。まずは回帰式をまとめてみよう。</p>
+<p>共産に対する感情温度の予測値 = 28.25 + 3.31 <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 0.36 <span class="math inline">\(\times\)</span> 年齢 - 0.12 <span class="math inline">\(\times\)</span> 政治関心 - 1.69 <span class="math inline">\(\times\)</span> イデオロギー + 5.06 <span class="math inline">\(\times\)</span> 女性ダミー - 0.16 <span class="math inline">\(\times\)</span> 政治満足度 <span class="math inline">\(\times\)</span> 年齢</p>
+<p>　これを政治満足度でまとめると、</p>
+<p>共産に対する感情温度の予測値 = 28.25 + (3.31 - 0.16 <span class="math inline">\(\times\)</span> 年齢) <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 0.36 <span class="math inline">\(\times\)</span> 年齢 - 0.12 <span class="math inline">\(\times\)</span> 政治関心 - 1.69 <span class="math inline">\(\times\)</span> イデオロギー + 5.06 <span class="math inline">\(\times\)</span> 女性ダミー</p>
+<p>になる。つまり、政治満足度が共産感情温度に与える影響は「(3.31 - 0.16 <span class="math inline">\(\times\)</span> 年齢の値)」だ。年齢は18、19、20、…など様々な値を取り得る。これら全てに対して計算することは効率的ではないため、ここでは年齢が20歳、40歳、60歳の場合に絞って政治満足度が共産感情温度に与える影響を計算してみよう。</p>
+<p>　まず、20歳の場合（<code>Age</code>の値 = 20）、政治満足度が共産感情温度に与える影響は約0.11（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 20）である（小数点7桁まで計算すると約0.1724813）。これは「20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる」ことを意味する。つづいて、40歳の場合（<code>Age</code>の値 = 40）、政治満足度が共産感情温度に与える影響は約-3.09（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 40）である（小数点7桁まで計算すると約-2.962879）。これは「40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる」ことを意味する。最後に60歳の場合（<code>Age</code>の値 = 60）、政治満足度が共産感情温度に与える影響は約-6.29（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 60）だ（小数点7桁まで計算すると約-6.098239）。これは「60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる」ことを意味する。</p>
+<p>　以上の結果を回帰直線で示したものが以下の図である。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　今回は計算を簡単にするために小数点2桁目まで丸めた係数を用いたが、より性格に計算するためには<code>coef()</code>関数から抽出した係数を用いた方が良い。<code>fit2</code>の係数を抽出してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">coef</span>(fit2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     (Intercept)     Satisfaction              Age         Interest 
+      28.2497444        3.3078413        0.3572177       -0.1180184 
+        Ideology           Female Satisfaction:Age 
+      -1.6902682        5.0610601       -0.1567680 </code></pre>
+</div>
+</div>
+<p>　ここで政治満足度（<code>Satisfication</code>）の係数は2番目であるため、<code>coef(fit2)</code>の後ろに<code>[2]</code>を付けると2番目の要素のみ抽出できる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">2</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Satisfaction 
+    3.307841 </code></pre>
+</div>
+</div>
+<p>　同じく交差項の係数は7番目であるため、<code>coef(fit2)[7]</code>で抽出できる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">7</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Satisfaction:Age 
+       -0.156768 </code></pre>
+</div>
+</div>
+<p>　この数値を使えば、政治満足度が共産感情温度に与える影響をより正確な数値で計算できる。たとえば、60歳における政治満足度が共産感情温度に与える影響は</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(fit2)[<span class="dv">7</span>] <span class="sc">*</span> <span class="dv">60</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Satisfaction 
+   -6.098239 </code></pre>
+</div>
+</div>
+<p>のように計算できる。</p>
+</section>
+</section>
+<section id="限界効果の話" class="level2">
+<h2 class="anchored" data-anchor-id="限界効果の話">限界効果の話</h2>
+<p>　交互作用とは説明変数<span class="math inline">\(X\)</span>が応答変数<span class="math inline">\(Y\)</span>に与える影響が調整変数<span class="math inline">\(Z\)</span>の値に依存することを意味する。この場合、「説明変数<span class="math inline">\(X\)</span>が応答変数<span class="math inline">\(Y\)</span>に与える影響」の統計的有意性はどうだろうか。<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響の統計的有意性を検定する際に用いられる検定統計量は「<span class="math inline">\(X\)</span>の係数 / <span class="math inline">\(X\)</span>の標準誤差」である。しかし、ここでの<span class="math inline">\(X\)</span>の係数（と標準誤差）は<span class="math inline">\(Z\)</span>の値によって変わる。これは<span class="math inline">\(Z\)</span>の値によって<span class="math inline">\(X \rightarrow Y\)</span>の統計的有意性は変わることを意味する。</p>
+<p>　したがって、<span class="math inline">\(Z\)</span>の値ごとに、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響（= <strong>限界効果</strong>; marginal effects）を計算するだけでなく、95%信頼区間 or <span class="math inline">\(p\)</span>値も示す必要がある。95%信頼区間内に0が含まれないことは、<span class="math inline">\(p &lt; 0.05\)</span>を意味するため、統計的に有意な関連があると判断する。</p>
+<p>　限界効果の計算方法については解説済みである。しかし、統計的有意性に関しては説明がやや難しくなるため、これはRパッケージにお任せするとしよう。もし、数学的な背景に関心のある履修者は<a href="https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B">Brambor (2006)</a>を参照されたい。</p>
+<p>　今回使用するパッケージ&amp;関数は、冒頭で読み込んだ{marginaleffect}パッケージの<code>marginaleffects()</code>関数だ。これは回帰モデルの限界効果と統計的有意性検定までやってくれる大変便利なパッケージである。使い方は以下の通り。</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">marginaleffects</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
+<span id="cb16-2"><a href="#cb16-2"></a>                <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>　<code>fit1</code>の場合、<code>Female</code>の値が0と1の場合の<code>Satisfacton</code>の限界効果を求めることになる。したがって、回帰オブジェクト名は<code>fit1</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Female = 0:1</code>または<code>Female = c(0, 1)</code>だ。計算結果を<code>fit1_ame</code>に格納し、中身を確認する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rowid     type         term      dydx std.error statistic      p.value
+1     1 response Satisfaction -4.731682 0.5613401 -8.429261 3.478550e-17
+2     2 response Satisfaction -3.830102 0.6110043 -6.268535 3.644599e-10
+   conf.low conf.high predicted predicted_hi predicted_lo TempKyosan
+1 -5.831888 -3.631476  24.41332     24.41143     24.41332     26.882
+2 -5.027648 -2.632555  29.37297     29.37144     29.37297     26.882
+  Satisfaction Interest Ideology   Age Female   eps
+1        2.449 2.736333 6.340667 47.34      0 4e-04
+2        2.449 2.736333 6.340667 47.34      1 4e-04</code></pre>
+</div>
+</div>
+<p>　非常に多くの情報が出力されるが、ここで興味のある列は<code>Female</code>の値（<code>Female</code>列）と、<code>Satisfaction</code>の限界効果（<code>dydx</code>列）、<span class="math inline">\(p\)</span>値（<code>p.value</code>列）、95%信頼区間（<code>conf.low</code>列と<code>conf.high</code>列）である。それでは、<code>select()</code>関数で<code>fit1_ame</code>からこれらの列のみ出力してみよう。</p>
+<p>　一つ注意してほしいのは<code>select()</code>関数の呼び出し方である。Rでは同じ名前を持つ関数が複数のパッケージで提供される場合がある。これまで使ってきた<code>select()</code>関数は{dplyr}パッケージの<code>select()</code>関数だ。「え、私は{dplyr}パッケージなんか読み込んだ覚えないぞ」という人もいるかと思うが、{tidyverse}を読み込むと{dplyr}も読み込まれる（この場合、{tidyverse}は{dplyr}に依存すると言う）。しかし、<code>select()</code>関数は{MASS}というパッケージでも提供されており、これは{dplyr}の<code>select()</code>関数とは別物である。実は、{marginaleffects}パッケージは{MASS}パッケージに依存している。したがって、「どのパッケージの<code>select()</code>か」を具体的に指定しないと、Rは混乱してしまう。特定のパッケージの関数を指定するためには<code>パッケージ名::関数()</code>と表記する。{MASS}も幅広くに使われ、多くのパッケージが{MASS}に依存する。したがって、<code>select()</code>関数は衝突しやすい関数であるため、普段から<code>dplyr::select()</code>という書き方をした方が良いかも知れない。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="co"># p.value, conf.low, conf.high は隣接した列なので p.value:conf.high でOK</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, dydx, p.value, conf.low, conf.high)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Female      dydx      p.value  conf.low conf.high
+1      0 -4.731682 3.478550e-17 -5.831888 -3.631476
+2      1 -3.830102 3.644599e-10 -5.027648 -2.632555</code></pre>
+</div>
+</div>
+<p>　<code>Female = 0</code>の場合の<code>Satisfaction</code>の限界効果は約-4.732、<code>Female = 1</code>の場合のそれは約-3.830である。また、いずれも<span class="math inline">\(p\)</span>値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。</p>
+<p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<div id="gkihyucnjw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#gkihyucnjw) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#gkihyucnjw) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#gkihyucnjw) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#gkihyucnjw) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#gkihyucnjw) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#gkihyucnjw) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#gkihyucnjw) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#gkihyucnjw) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#gkihyucnjw) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#gkihyucnjw) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#gkihyucnjw) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#gkihyucnjw) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#gkihyucnjw) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#gkihyucnjw) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#gkihyucnjw) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#gkihyucnjw) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#gkihyucnjw) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#gkihyucnjw) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#gkihyucnjw) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#gkihyucnjw) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#gkihyucnjw) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#gkihyucnjw) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#gkihyucnjw) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#gkihyucnjw) .gt_left {
+  text-align: left;
+}
+
+:where(#gkihyucnjw) .gt_center {
+  text-align: center;
+}
+
+:where(#gkihyucnjw) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#gkihyucnjw) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#gkihyucnjw) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#gkihyucnjw) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#gkihyucnjw) .gt_super {
+  font-size: 65%;
+}
+
+:where(#gkihyucnjw) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#gkihyucnjw) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#gkihyucnjw) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#gkihyucnjw) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#gkihyucnjw) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#gkihyucnjw) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#gkihyucnjw) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="性別">性別</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="平均限界効果">平均限界効果</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="p値">p値</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="95%信頼区間">
+        <span class="gt_column_spanner">95%信頼区間</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="下限">下限</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="上限">上限</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Female" class="gt_row gt_left">男性</td>
+<td headers="dydx" class="gt_row gt_right">−4.732</td>
+<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
+<td headers="conf.low" class="gt_row gt_right">−5.832</td>
+<td headers="conf.high" class="gt_row gt_right">−3.631</td></tr>
+    <tr><td headers="Female" class="gt_row gt_left">女性</td>
+<td headers="dydx" class="gt_row gt_right">−3.830</td>
+<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
+<td headers="conf.low" class="gt_row gt_right">−5.028</td>
+<td headers="conf.high" class="gt_row gt_right">−2.633</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ。結果を出力する際、今回は<code>round()</code>関数を使って<span class="math inline">\(p\)</span>値を小数点3桁までにまとめてみよう。<code>round()</code>の第1引数は丸めたい変数名、第2引数は小数点の桁数である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a>fit2_ame <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, dydx, p.value, conf.low, conf.high) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="co"># p値を小数点3桁で丸める</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Age        dydx p.value   conf.low   conf.high
+1   18  0.48601719   0.594  -1.303101  2.27513577
+2   19  0.32924919   0.711  -1.413868  2.07236610
+3   20  0.17248118   0.842  -1.524974  1.86993684
+4   21  0.01571317   0.985  -1.636448  1.66787385
+5   22 -0.14105484   0.863  -1.748323  1.46621293
+6   23 -0.29782284   0.709  -1.860632  1.26498639
+7   24 -0.45459085   0.557  -1.973416  1.06423447
+8   25 -0.61135886   0.417  -2.086713  0.86399499
+9   26 -0.76812687   0.293  -2.200571  0.66431691
+10  27 -0.92489487   0.192  -2.315040  0.46525006
+11  28 -1.08166288   0.116  -2.430183  0.26685679
+12  29 -1.23843089   0.063  -2.546063  0.06920099
+13  30 -1.39519890   0.031  -2.662747 -0.12765044
+14  31 -1.55196690   0.013  -2.780317 -0.32361652
+15  32 -1.70873491   0.005  -2.898858 -0.51861172
+16  33 -1.86550292   0.002  -3.018471 -0.71253512
+17  34 -2.02227093   0.000  -3.139260 -0.90528203
+18  35 -2.17903894   0.000  -3.261345 -1.09673307
+19  36 -2.33580694   0.000  -3.384850 -1.28676404
+20  37 -2.49257495   0.000  -3.509917 -1.47523333
+21  38 -2.64934296   0.000  -3.636693 -1.66199246
+22  39 -2.80611097   0.000  -3.765345 -1.84687694
+23  40 -2.96287897   0.000  -3.896040 -2.02971777
+24  41 -3.11964698   0.000  -4.028951 -2.21034272
+25  42 -3.27641499   0.000  -4.164259 -2.38857123
+26  43 -3.43318300   0.000  -4.302139 -2.56422714
+27  44 -3.58995100   0.000  -4.442765 -2.73713655
+28  45 -3.74671901   0.000  -4.586295 -2.90714257
+29  46 -3.90348702   0.000  -4.732869 -3.07410516
+30  47 -4.06025503   0.000  -4.882597 -3.23791326
+31  48 -4.21702303   0.000  -5.035562 -3.39848441
+32  49 -4.37379104   0.000  -5.191808 -3.55577396
+33  50 -4.53055905   0.000  -5.351344 -3.70977442
+34  51 -4.68732706   0.000  -5.514135 -3.86051920
+35  52 -4.84409507   0.000  -5.680111 -4.00807938
+36  53 -5.00086307   0.000  -5.849168 -4.15255820
+37  54 -5.15763108   0.000  -6.021175 -4.29408711
+38  55 -5.31439909   0.000  -6.195979 -4.43281922
+39  56 -5.47116710   0.000  -6.373412 -4.56892224
+40  57 -5.62793510   0.000  -6.553297 -4.70257280
+41  58 -5.78470311   0.000  -6.735457 -4.83394883
+42  59 -5.94147112   0.000  -6.919714 -4.96322790
+43  60 -6.09823913   0.000  -7.105898 -5.09058066
+44  61 -6.25500713   0.000  -7.293842 -5.21617238
+45  62 -6.41177514   0.000  -7.483393 -5.34015699
+46  63 -6.56854315   0.000  -7.674411 -5.46267557
+47  64 -6.72531116   0.000  -7.866761 -5.58386096
+48  65 -6.88207916   0.000  -8.060326 -5.70383261
+49  66 -7.03884717   0.000  -8.254991 -5.82270311
+50  67 -7.19561518   0.000  -8.450659 -5.94057103
+51  68 -7.35238319   0.000  -8.647238 -6.05752826
+52  69 -7.50915119   0.000  -8.844649 -6.17365348
+53  70 -7.66591920   0.000  -9.042817 -6.28902160
+54  71 -7.82268721   0.000  -9.241677 -6.40369745
+55  72 -7.97945522   0.000  -9.441167 -6.51774362
+56  73 -8.13622323   0.000  -9.641234 -6.63121250
+57  74 -8.29299123   0.000  -9.841828 -6.74415400
+58  75 -8.44975924   0.000 -10.042910 -6.85660863</code></pre>
+</div>
+</div>
+<p>　中級者以上の場合、<code>mutate()</code>内に<code>across()</code>と<code>where()</code>を組み合わせて「<strong>数値型の列全て</strong>に対し、<code>round(変数, 3)</code>を適用する」といった処理もできる。覚える必要はないが、「Rを勉強していくと、コードがより効率的に書けるようになる」ということだけ覚えておこう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>fit2_ame <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, dydx<span class="sc">:</span>conf.high) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">3</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Age   dydx std.error statistic p.value conf.low conf.high
+1   18  0.486     0.913     0.532   0.594   -1.303     2.275
+2   19  0.329     0.889     0.370   0.711   -1.414     2.072
+3   20  0.172     0.866     0.199   0.842   -1.525     1.870
+4   21  0.016     0.843     0.019   0.985   -1.636     1.668
+5   22 -0.141     0.820    -0.172   0.863   -1.748     1.466
+6   23 -0.298     0.797    -0.374   0.709   -1.861     1.265
+7   24 -0.455     0.775    -0.587   0.557   -1.973     1.064
+8   25 -0.611     0.753    -0.812   0.417   -2.087     0.864
+9   26 -0.768     0.731    -1.051   0.293   -2.201     0.664
+10  27 -0.925     0.709    -1.304   0.192   -2.315     0.465
+11  28 -1.082     0.688    -1.572   0.116   -2.430     0.267
+12  29 -1.238     0.667    -1.856   0.063   -2.546     0.069
+13  30 -1.395     0.647    -2.157   0.031   -2.663    -0.128
+14  31 -1.552     0.627    -2.476   0.013   -2.780    -0.324
+15  32 -1.709     0.607    -2.814   0.005   -2.899    -0.519
+16  33 -1.866     0.588    -3.171   0.002   -3.018    -0.713
+17  34 -2.022     0.570    -3.548   0.000   -3.139    -0.905
+18  35 -2.179     0.552    -3.946   0.000   -3.261    -1.097
+19  36 -2.336     0.535    -4.364   0.000   -3.385    -1.287
+20  37 -2.493     0.519    -4.802   0.000   -3.510    -1.475
+21  38 -2.649     0.504    -5.259   0.000   -3.637    -1.662
+22  39 -2.806     0.489    -5.734   0.000   -3.765    -1.847
+23  40 -2.963     0.476    -6.223   0.000   -3.896    -2.030
+24  41 -3.120     0.464    -6.724   0.000   -4.029    -2.210
+25  42 -3.276     0.453    -7.233   0.000   -4.164    -2.389
+26  43 -3.433     0.443    -7.744   0.000   -4.302    -2.564
+27  44 -3.590     0.435    -8.251   0.000   -4.443    -2.737
+28  45 -3.747     0.428    -8.747   0.000   -4.586    -2.907
+29  46 -3.903     0.423    -9.225   0.000   -4.733    -3.074
+30  47 -4.060     0.420    -9.677   0.000   -4.883    -3.238
+31  48 -4.217     0.418   -10.098   0.000   -5.036    -3.398
+32  49 -4.374     0.417   -10.480   0.000   -5.192    -3.556
+33  50 -4.531     0.419   -10.819   0.000   -5.351    -3.710
+34  51 -4.687     0.422   -11.111   0.000   -5.514    -3.861
+35  52 -4.844     0.427   -11.357   0.000   -5.680    -4.008
+36  53 -5.001     0.433   -11.554   0.000   -5.849    -4.153
+37  54 -5.158     0.441   -11.706   0.000   -6.021    -4.294
+38  55 -5.314     0.450   -11.815   0.000   -6.196    -4.433
+39  56 -5.471     0.460   -11.885   0.000   -6.373    -4.569
+40  57 -5.628     0.472   -11.920   0.000   -6.553    -4.703
+41  58 -5.785     0.485   -11.925   0.000   -6.735    -4.834
+42  59 -5.941     0.499   -11.904   0.000   -6.920    -4.963
+43  60 -6.098     0.514   -11.861   0.000   -7.106    -5.091
+44  61 -6.255     0.530   -11.801   0.000   -7.294    -5.216
+45  62 -6.412     0.547   -11.727   0.000   -7.483    -5.340
+46  63 -6.569     0.564   -11.642   0.000   -7.674    -5.463
+47  64 -6.725     0.582   -11.548   0.000   -7.867    -5.584
+48  65 -6.882     0.601   -11.448   0.000   -8.060    -5.704
+49  66 -7.039     0.620   -11.344   0.000   -8.255    -5.823
+50  67 -7.196     0.640   -11.237   0.000   -8.451    -5.941
+51  68 -7.352     0.661   -11.129   0.000   -8.647    -6.058
+52  69 -7.509     0.681   -11.020   0.000   -8.845    -6.174
+53  70 -7.666     0.703   -10.912   0.000   -9.043    -6.289
+54  71 -7.823     0.724   -10.805   0.000   -9.242    -6.404
+55  72 -7.979     0.746   -10.699   0.000   -9.441    -6.518
+56  73 -8.136     0.768   -10.596   0.000   -9.641    -6.631
+57  74 -8.293     0.790   -10.494   0.000   -9.842    -6.744
+58  75 -8.450     0.813   -10.395   0.000  -10.043    -6.857</code></pre>
+</div>
+</div>
+<p>　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、<span class="math inline">\(p \geq 0.05\)</span>）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、<span class="math inline">\(p &lt; 0.05\)</span>）。</p>
+<p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。回帰分析の結果の可視化は第14回で解説するが、ここでは限界効果のグラフの読み方を紹介しよう。</p>
+<p>　以下の図は<code>fit1</code>における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Female =</span> <span class="fu">factor</span>(Female, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
+<span id="cb25-3"><a href="#cb25-3"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> dydx, </span>
+<span id="cb25-7"><a href="#cb25-7"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　続いて、<code>fit2</code>における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>コード</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit2_ame <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> dydx)) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

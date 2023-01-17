@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - ファイル管理</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">ファイル管理</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/install.html" class="sidebar-item-text sidebar-link">Rの導入</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/rstudio.html" class="sidebar-item-text sidebar-link">RStudioの設定</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/project.html" class="sidebar-item-text sidebar-link">プロジェクト管理</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/file.html" class="sidebar-item-text sidebar-link active">ファイル管理</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/filesystem.html" class="sidebar-item-text sidebar-link">ファイル管理術</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/packages.html" class="sidebar-item-text sidebar-link">パッケージ</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/homework.html" class="sidebar-item-text sidebar-link">課題の取り組み方</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/faq.html" class="sidebar-item-text sidebar-link">この授業の「あるある」</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#フォルダーの管理" id="toc-フォルダーの管理" class="nav-link active" data-scroll-target="#フォルダーの管理">フォルダーの管理</a>
+  <ul class="collapse">
+  <li><a href="#フォルダーの作成" id="toc-フォルダーの作成" class="nav-link" data-scroll-target="#フォルダーの作成">フォルダーの作成</a></li>
+  <li><a href="#フォルダーの削除" id="toc-フォルダーの削除" class="nav-link" data-scroll-target="#フォルダーの削除">フォルダーの削除</a></li>
+  </ul></li>
+  <li><a href="#ファイルの管理" id="toc-ファイルの管理" class="nav-link" data-scroll-target="#ファイルの管理">ファイルの管理</a>
+  <ul class="collapse">
+  <li><a href="#ファイルのアップロード" id="toc-ファイルのアップロード" class="nav-link" data-scroll-target="#ファイルのアップロード">ファイルのアップロード</a></li>
+  <li><a href="#ファイルのダウンロード" id="toc-ファイルのダウンロード" class="nav-link" data-scroll-target="#ファイルのダウンロード">ファイルのダウンロード</a></li>
+  <li><a href="#ファイルの削除" id="toc-ファイルの削除" class="nav-link" data-scroll-target="#ファイルの削除">ファイルの削除</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">ファイル管理</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+「ファイル管理術」も合わせて読もう！
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>　本ページの内容を読んだ後、ファイルシステムの詳細などを解説した「<a href="../intro/filesystem.html">本講義のためのファイル管理術</a>」も合わせて読むことを強く推奨する。</p>
+</div>
+</div>
+<p>　フォルダー/ファイルの管理はJupyterHub内でも、RStudio内でもできるが、ここではRStudio側で管理する方法を紹介する。RStudioを起動し、作業するプロジェクトを開き、Filesペインを確認しよう。RStudioを経由したフォルダー/ファイルの管理は全てFilesペイン上で行われる。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Filesペインはどこ?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="rstudio.html">宋が推奨する設定</a>の場合、Filesペインは画面の右下領域にある。Environment、History、Files、Plotsなど様々なタブがあるが、FilesをクリックするとFilesペインが表示される。RStudioではこれらの領域のことをペイン（pane）と呼ぶ。</p>
+</div>
+</div>
+<section id="フォルダーの管理" class="level2">
+<h2 class="anchored" data-anchor-id="フォルダーの管理">フォルダーの管理</h2>
+<p>　講義、または課題ごとのプロジェクトを作ったら、JupyterHubにプロジェクトのフォルダーが生成される。各プロジェクトごとにRスクリプト、Markdownファイル、出力物（図、文書など）が管理できるが、プロジェクト内のファイルが多くなる可能性もある。この場合、プロジェクト・フォルダー内に更に下位フォルダーを作成し、ファイルを管理した方が望ましい。</p>
+<section id="フォルダーの作成" class="level3">
+<h3 class="anchored" data-anchor-id="フォルダーの作成">フォルダーの作成</h3>
+<p><strong>手順1:</strong> 現在、Filesペインで表示されているフォルダーがプロジェクトの最上位フォルダーであることを確認する。「Home &gt; プロジェクト名」と表示されていれば問題ない。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Create1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順2:</strong> New Folderをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Create2.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順3:</strong> 作成するフォルダーの名前を入力する。ここではデータなどを集めておく<code>Data</code>という名のフォルダーを作成する。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Create3.png" class="img-fluid figure-img" style="width:45.0%"></p>
+</figure>
+</div>
+<p><strong>手順4:</strong> 正しくフォルダーが作成されているかを確認する。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Create4.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+フォルダー名の付け方
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>フォルダー名には<strong>ローマ字、数字のみ</strong>を使おう。スペースもなるべく使わず、空白を入れたい場合はスペースの代わりにアンダースコア（<code>_</code>）を使おう。</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+フォルダー in フォルダー
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>フォルダー内に更にフォルダーを作成することもできる。一つのフォルダー内にファイルが多すぎる場合、更にフォルダー分けして管理した方が効率的だろう。</p>
+</div>
+</div>
+</section>
+<section id="フォルダーの削除" class="level3">
+<h3 class="anchored" data-anchor-id="フォルダーの削除">フォルダーの削除</h3>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+フォルダーの削除は慎重に!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>フォルダーを削除するとフォルダー内のファイルも全て削除される。削除する前には慎重にフォルダー内のファイルを確認しておくこと。</p>
+</div>
+</div>
+<p><strong>手順1:</strong> 削除するフォルダーの左にチェックを付け、Deleteをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Delete1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順2:</strong> Yesをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/Folder_Delete2.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="ファイルの管理" class="level2">
+<h2 class="anchored" data-anchor-id="ファイルの管理">ファイルの管理</h2>
+<p>　分析に使用するデータセットを自分のPCにダウンロードしてもそのままNIIオンライン分析システムで使うことはできない。NIIオンライン分析システムで使用するためには、ファイルをアップロードする必要がある。これはデータだけでなく、本講義の課題用ファイルについても同様である。</p>
+<section id="ファイルのアップロード" class="level3">
+<h3 class="anchored" data-anchor-id="ファイルのアップロード">ファイルのアップロード</h3>
+<p><strong>手順1:</strong> ファイルをアップロードしたいフォルダーへ移動する。</p>
+<ul>
+<li>下位フォルダーへの移動: フォルダー名をクリックする。</li>
+<li>上位フォルダーへの移動: 「<i class="bi bi-arrow-90deg-up"></i>..」をクリックするか、パスが表示されているバーで移動先をクリックする。</li>
+</ul>
+<p><strong>手順2:</strong> ファイルのアップロード先が正しいかを確認し、Uploadをクリックする。</p>
+<ul>
+<li>以下の例は<code>Homework_01</code>プロジェクト・フォルダー内の<code>Data</code>フォルダーがアップロード先である。</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Upload1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順3:</strong> File to upload:でアップロードしたいファイルを選択する。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Upload2.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+複数のファイルをアップロードしたい場合
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>RStudio上でファイルは一度の一つしかアップロードできない。複数のファイルを同時にアップロードしたい場合は、この作業を繰り返すか、JupyterHubのホーム画面でアップロードする必要がある。</p>
+</div>
+</div>
+<p><strong>手順4:</strong> アップロードするファイルをダブルクリックする。</p>
+<ul>
+<li>以下では<code>Prev_Vote.csv</code>というファイルをアップロードする例である。</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Upload3.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順5:</strong> OKをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Upload4.png" class="img-fluid figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+<p><strong>手順6:</strong> 正しくファイルがアップロードされているかを確認する。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Upload5.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</section>
+<section id="ファイルのダウンロード" class="level3">
+<h3 class="anchored" data-anchor-id="ファイルのダウンロード">ファイルのダウンロード</h3>
+<p>　作成した図表をLaTex/Microsoft Word/Powerpoint/Pages/Keynoteなどで使うためには、その図表を自分のPCにダウンロードする必要がある。同様に、課題の出力物をLMSに提出するためにも、出力物を一旦自分のPCにダウンロードしてから提出する必要がある。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+複数ファイルのダウンロード
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>アップロードは一度ごとに一つのファイルしかアップロードできないが、ダウンロードは複数のファイルを同時にダウンロードできる。ただし、個別のファイルがダウンロードされるのではなく、一つのファイルととして圧縮（zip形式）されてからダウンロードされる。ダウンロード後はファイルを解凍すること。</p>
+</div>
+</div>
+<p><strong>手順1:</strong> ダウンロードするファイル名の左にチェックを付ける。</p>
+<ul>
+<li>以下では<code>Micro_HW01.html</code>というファイルをダウンロードする例である。</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Download1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順2:</strong> More &gt; Export…をクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Download2.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順3:</strong> Downloadをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/Files/File_Download3.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+課題の出力物は提出する前に必ず確認を!!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>LMSで課題を提出するためには出力物を提出する必要があるが、提出する前にダウンロードしたファイルを必ず確認しよう。間違ったファイルを提出した場合でも提出期限内なら差し替え可能だが、期限が過ぎた場合、理由を問わず差し替えは認めない。また、間違ったファイルが提出されたことを宋が個別に知らせることもないため注意しよう。</p>
+</div>
+</div>
+</section>
+<section id="ファイルの削除" class="level3">
+<h3 class="anchored" data-anchor-id="ファイルの削除">ファイルの削除</h3>
+<p>フォルダーの削除と同じ手順で削除できる。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+ファイルの場所が分からない
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fileペインではファイルの一覧が確認できる。しかし、これらのファイルがどのフォルダーに入っているかが分からない場合もあろう。この場合、Fileペインの上段バーを確認すること。そこに現在表示されているファイルのパスが表示されている。「Home&gt;プロジェクト名」と表示されている場合、Fileペインに見えるファイルはプロジェクト・フォルダ―直に入っていることを意味する（右上のプロジェクト名とFileペインのプロジェクト名が一致しているか確認すること）。これらのファイルのパスは<code>"ファイル名"</code>のみで良い。上段バーのパスが「Home&gt;プロジェクト名&gt;Data」になっている場合、表示されているファイルはプロジェクト・フォルダー内の<code>Data</code>フォルダーに入っていることを意味する。これらのファイルのパスは<code>"Data/ファイル名"</code>となる。</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

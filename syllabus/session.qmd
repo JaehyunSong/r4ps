@@ -1,0 +1,24 @@
+---
+title: "セッション情報"
+---
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt)
+```
+
+## Session Infromation
+
+```{r}
+#| echo: false
+sessionInfo()
+```
+
+## Packages
+
+```{r}
+#| echo: false
+tibble(Package = names(installed.packages()[,3]),
+       Version = unname(installed.packages()[,3])) %>%
+  gt()
+```

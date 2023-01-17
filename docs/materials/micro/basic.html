@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第3回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">第3回講義資料</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/introduction.html" class="sidebar-item-text sidebar-link">第1回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/r.html" class="sidebar-item-text sidebar-link">第2回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/basic.html" class="sidebar-item-text sidebar-link active">第3回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/programming.html" class="sidebar-item-text sidebar-link">第4回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/rmarkdown.html" class="sidebar-item-text sidebar-link">第5回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/dataset.html" class="sidebar-item-text sidebar-link">第6回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datatype.html" class="sidebar-item-text sidebar-link">第7回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datastructure.html" class="sidebar-item-text sidebar-link">第8回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling1.html" class="sidebar-item-text sidebar-link">第9回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling2.html" class="sidebar-item-text sidebar-link">第10回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling3.html" class="sidebar-item-text sidebar-link">第11回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization1.html" class="sidebar-item-text sidebar-link">第12回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization2.html" class="sidebar-item-text sidebar-link">第13回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization3.html" class="sidebar-item-text sidebar-link">第14回講義資料</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#スライド" id="toc-スライド" class="nav-link active" data-scroll-target="#スライド">スライド</a></li>
+  <li><a href="#電卓としてのr" id="toc-電卓としてのr" class="nav-link" data-scroll-target="#電卓としてのr">電卓としてのR</a></li>
+  <li><a href="#コメント" id="toc-コメント" class="nav-link" data-scroll-target="#コメント">コメント</a></li>
+  <li><a href="#算術演算子" id="toc-算術演算子" class="nav-link" data-scroll-target="#算術演算子">算術演算子</a></li>
+  <li><a href="#論理演算子" id="toc-論理演算子" class="nav-link" data-scroll-target="#論理演算子">論理演算子</a></li>
+  <li><a href="#代入とベクトル" id="toc-代入とベクトル" class="nav-link" data-scroll-target="#代入とベクトル">代入とベクトル</a>
+  <ul class="collapse">
+  <li><a href="#ベクトル" id="toc-ベクトル" class="nav-link" data-scroll-target="#ベクトル">ベクトル</a></li>
+  <li><a href="#ベクトル同士の計算" id="toc-ベクトル同士の計算" class="nav-link" data-scroll-target="#ベクトル同士の計算">ベクトル同士の計算</a></li>
+  <li><a href="#要素の抽出" id="toc-要素の抽出" class="nav-link" data-scroll-target="#要素の抽出">要素の抽出</a></li>
+  </ul></li>
+  <li><a href="#表データの読み込み" id="toc-表データの読み込み" class="nav-link" data-scroll-target="#表データの読み込み">表データの読み込み</a>
+  <ul class="collapse">
+  <li><a href="#文字化けが生じる場合" id="toc-文字化けが生じる場合" class="nav-link" data-scroll-target="#文字化けが生じる場合">文字化けが生じる場合</a></li>
+  <li><a href="#excel形式ファイルの読み込み" id="toc-excel形式ファイルの読み込み" class="nav-link" data-scroll-target="#excel形式ファイルの読み込み">Excel形式ファイルの読み込み</a></li>
+  </ul></li>
+  <li><a href="#教科書" id="toc-教科書" class="nav-link" data-scroll-target="#教科書">教科書</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">第3回講義資料</h1>
+<p class="subtitle lead">Rの基本的な操作</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="スライド" class="level2">
+<h2 class="anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/micro/basic.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/micro/basic.html" width="100%" style="aspect-ratio: 16 / 9.5;"></iframe>
+</section>
+<section id="電卓としてのr" class="level2">
+<h2 class="anchored" data-anchor-id="電卓としてのr">電卓としてのR</h2>
+<p><strong>手順1:</strong> File &gt; New File &gt; R Scriptをクリックする。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/basic/Script_1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順2:</strong> Sourceペインのペイン最大化ポタンをクリックし、Sourceペインの大きさ最大化する。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/basic/Script_2.png" class="img-fluid figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>手順3:</strong> Sourceペインに以下の内容を入力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><strong>手順4:</strong> コードの行にカーソルをおいたままCmd + Return（Windowsの場合、Control (Ctrl) + Enter）を入力する。これはカーソルが位置する行のコードを実行するコマンドである。</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+カーソルって…?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>カーソル (cursor)とは文字の入力位置を意味する。RStudioのテーマによって色は異なるが、Sourceペイン、またはConsoleペインなど、何らかの文字が入力できる箇所において点滅する「<code>|</code>」がカーソルです。</p>
+</div>
+</div>
+<p><strong>手順5:</strong> Consoleペインに結果が表示される。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>　これくらいの計算はConsoleペインで直接打ち込んでも良いが、自分がこれまで書いたコードを残すという意味でSourceペインに入力することを推奨する。R Scriptを保存しておけばいつでも開いて前回のコードを再現できる。</p>
+</section>
+<section id="コメント" class="level2">
+<h2 class="anchored" data-anchor-id="コメント">コメント</h2>
+<p>　Rのスクリプトを作成する際、何かのメモを書いておきたいケースが多々ある。コードが長くなったり、複雑になったりすると、自分が書いたコードでも意味がよく分からないケースも多く発生する。これはデータ分析のプロでも例外でなく、宋も同じである。この場合、スクリプト内にこまめにメモを書いておくと、このコードが何のためのコードかなどが素早く把握できる。</p>
+<p>　Rにおけるコメントは<code>#</code>を使用する。同じ行における<code>#</code>以降の内容は処理に影響を与えない。たとえば、以下のコードだと<code># 12345と12345の積</code>は処理に影響を与えない</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># 12345と12345の積</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="dv">12345</span> <span class="sc">*</span> <span class="dv">12345</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 152399025</code></pre>
+</div>
+</div>
+<p>　また、コードと同じ行にコメントを書くこともできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">12345</span> <span class="sc">*</span> <span class="dv">12345</span> <span class="co"># 12345と12345の積</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 152399025</code></pre>
+</div>
+</div>
+<p>　コードにこまめにコメントを書くのは意外と面倒な作業であるが、コメントに「書きすぎ」は存在しない。書けば書くほど未来の自分から感謝されるだろう。</p>
+</section>
+<section id="算術演算子" class="level2">
+<h2 class="anchored" data-anchor-id="算術演算子">算術演算子</h2>
+<p>　算術演算子は数字と数字の間に入力し、結果として何らかの<strong>数字</strong>が返される演算子である。先ほどの<code>+</code>や<code>*</code>も算術演算子（足し算と掛け算）である。ここでは良く使う算術演算子7つを紹介する。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">演算子</th>
+<th>意味</th>
+<th>例</th>
+<th style="text-align: right;">結果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>+</code></td>
+<td>和</td>
+<td><code>2 + 5</code></td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>-</code></td>
+<td>差</td>
+<td><code>2 - 8</code></td>
+<td style="text-align: right;">-6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>*</code></td>
+<td>積</td>
+<td><code>7 * 3</code></td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>/</code></td>
+<td>商</td>
+<td><code>16 / 5</code></td>
+<td style="text-align: right;">3.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>^</code>、<code>**</code></td>
+<td>累乗（べき乗）</td>
+<td><code>2^3</code>または<code>2 ** 3</code></td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>%%</code></td>
+<td>剰余 (モジュロ)</td>
+<td><code>18 %% 7</code></td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>%/%</code></td>
+<td>整数商</td>
+<td><code>18 %/% 7</code></td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<p>　例を見てみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">5</span>  <span class="co"># 足し算</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="dv">3</span> <span class="sc">-</span> <span class="dv">10</span> <span class="co"># 引き算</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -7</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="dv">19</span> <span class="sc">*</span> <span class="dv">2</span> <span class="co"># 掛け算</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 38</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="dv">13</span> <span class="sc">/</span> <span class="dv">7</span> <span class="co"># 割り算</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.857143</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="dv">5</span><span class="sc">^</span><span class="dv">3</span>    <span class="co"># 5の3乗</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 125</code></pre>
+</div>
+</div>
+<p>　これは義務ではないがないが、累乗（<code>^</code>）を除き、演算子の前後にはスペースを入れるのがRの流儀であり、コードが読みやすくなる。以下のコードを比べてみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># 読みにくい例</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>(((<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>)<span class="sc">*</span><span class="dv">4</span>)<span class="sc">+</span>((<span class="dv">5</span><span class="sc">%%</span><span class="dv">2</span>)<span class="sc">+</span><span class="dv">3</span>))<span class="sc">^</span><span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1296</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># 読みやすい例</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>(((<span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">*</span> <span class="dv">4</span>) <span class="sc">+</span> ((<span class="dv">5</span> <span class="sc">%%</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="dv">3</span>))<span class="sc">^</span><span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1296</code></pre>
+</div>
+</div>
+<p>　結果は同じだが、後者の方が読みやすいだろう。これから紹介する論理演算子でも共通する内容であるが、「累乗（<code>^</code>）を除き、演算子の前後にはスペースを入れる」ことを覚えておこう。ちなみにカッコ（<code>(</code>と<code>)</code>）は演算子ではないため、スペースは不要である。</p>
+</section>
+<section id="論理演算子" class="level2">
+<h2 class="anchored" data-anchor-id="論理演算子">論理演算子</h2>
+<p>　算術演算子は結果として数値が返ってくるが、論理演算子は真（<code>TRUE</code>）か偽（<code>FALSE</code>）のいずれかの値を返す演算子である。ここではまず、大小関係を判定する論理演算子を紹介する。</p>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 35%">
+<col style="width: 43%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>演算子</th>
+<th>意味</th>
+<th>例</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x &lt; y</code></td>
+<td><code>x</code>は<code>y</code>より小さい</td>
+<td><code>3 &lt; 1</code></td>
+<td><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td><code>x &lt;= y</code></td>
+<td><code>x</code>は<code>y</code>と等しいか、小さい</td>
+<td><code>2 &lt;= 2</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td><code>x &gt; y</code></td>
+<td><code>x</code>は<code>y</code>より大きい</td>
+<td><code>6 &gt; 5</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td><code>x &gt;= y</code></td>
+<td><code>x</code>は<code>y</code>と等しいか、大きい</td>
+<td><code>4 &gt;= 5</code></td>
+<td><code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td><code>x == y</code></td>
+<td><code>x</code>と<code>y</code>は等しい</td>
+<td><code>(2 + 3) == (4 + 1)</code></td>
+<td><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td><code>x != y</code></td>
+<td><code>x</code>と<code>y</code>は等しくない</td>
+<td><code>((2 * 3) + 1) != (2 * (3 + 1))</code></td>
+<td><code>TRUE</code></td>
+</tr>
+</tbody>
+</table>
+<p>　一つ注意すべき点は「等しい」を意味する論理演算子は<code>=</code>でなく、<code>==</code>だということだ<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="co"># 3は2より大きいの?</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="dv">5</span> <span class="sc">&lt;=</span> <span class="dv">10</span> <span class="co"># 5は10と同じか小さいの?</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">1</span> <span class="co"># 2と3の和は1なの?</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">!=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span> <span class="co"># 2と2の和は2と2の積と同じなの?</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>　算術演算子は一行に何回も使えるが、通常、論理演算子は一行に一つしか使えない。複数の論理演算子を使うためには、<code>&amp;</code>（AND演算子）と<code>|</code>（OR演算子）を使う必要がある。</p>
+<p>　AND演算子<code>&amp;</code>は、<code>&amp;</code>を挟む左右の<strong>両側</strong>が<code>TRUE</code>の場合のみ<code>TRUE</code>を返す演算子である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 15</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># TRUE and FALSEだから... FALSE!</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">6</span>) <span class="co"># TRUE and TRUEだから... TRUE!</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>　OR演算子<code>|</code>は、<code>|</code>を挟む左右の<strong>片側、あるいは両側</strong>が<code>TRUE</code>の場合のみ<code>TRUE</code>を返す論理演算子である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># TRUE or FALSEだから... TRUE!</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">6</span>) <span class="co"># TRUE or TRUEだから... TRUE!</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 19</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>(<span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># FALSE or FALSEだから... FALSE!</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>　論理演算子には他にもいくつかあるが、説明は割愛する。</p>
+<ul>
+<li><code>!</code>: 否定演算子（<code>TRUE</code>なら<code>FALSE</code>、<code>FALSE</code>なら<code>TRUE</code>が返ってくる。意外と良く使う）</li>
+<li><code>&amp;&amp;</code>: <code>&amp;</code>と同じ</li>
+<li><code>||</code>: <code>|</code>と同じ</li>
+<li><code>xor()</code>: 排他的論理和（<code>xor(FALSE, TRUE)</code>と<code>xor(TRUE, FALSE)</code>の場合のみ<code>TRUE</code>が返ってくる。論理回路に興味あれば重要な演算子だが、実際に使うケースはあまりない。）</li>
+</ul>
+<p>　論理演算子が活躍するのはデータ加工（データハンドリング）の時である。何かの条件を指定して、その行件に合致するケースのみを抽出する場合は、これらの論理演算子の使用が必須である。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+マッチング演算子: <code>%in%</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>もう一つ便利な論理演算子としてマッチング演算子<code>%in%</code>がある。これについてはデータハンドリングの講義で解説する。</p>
+</div>
+</div>
+</section>
+<section id="代入とベクトル" class="level2">
+<h2 class="anchored" data-anchor-id="代入とベクトル">代入とベクトル</h2>
+<p>　まず、以下のような例を考えてみよう。</p>
+<ul>
+<li>123454321 <span class="math inline">\(\times\)</span> 2を計算してみよう</li>
+<li>123454321 <span class="math inline">\(\times\)</span> 3を計算してみよう</li>
+<li>123454321 <span class="math inline">\(\times\)</span> 4を計算してみよう</li>
+<li>…</li>
+<li>123454321 <span class="math inline">\(\times\)</span> 200を計算してみよう</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 20</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a>(省略)</span>
+<span id="cb39-6"><a href="#cb39-6"></a></span>
+<span id="cb39-7"><a href="#cb39-7"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">198</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">199</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">200</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　このように199行のコードを書く必要がある。もう少し効率的な方法はないだろうか。まず、この<code>123454321</code>を書く手間をなんとかしてみよう。</p>
+<ul>
+<li><strong>方法1:</strong> <code>123454321</code>をコピーし貼り付けながら計算を繰り返す</li>
+<li><strong>方法2:</strong> <code>123454321</code>に<code>x</code>という名前を付けて、<code>x * 1</code>のように表記する（<strong>ここが重要</strong>）</li>
+</ul>
+<p>　いずれも有効な方法であるが、方法1には致命的なデメリットがある。それは修正が面倒だという点である。もし「あ、ごめん！123454321じゃなくて、23235211だったわ！コード直してもらえる？」と言われたら、199行のコードをすべて修正する必要がある。一方、方法2を使えば、「<code>123454321</code>に<code>x</code>という名前を付ける」コードのみを修正すれば良い。このように何かの数字、文字列などに名前を付けて後から使えるようにする作業を<strong>代入</strong>（assignment）と呼ぶ。</p>
+<section id="ベクトル" class="level3">
+<h3 class="anchored" data-anchor-id="ベクトル">ベクトル</h3>
+<p>　代入の話をする前にRにおけるデータ構造の一種である<strong>ベクトル</strong>（vector）の話をしなければならない。ベクトルは<strong>Rにけるデータの最小単位</strong>である。Rには様々なデータ構造があるが、これらはすべてベクトルの集合と言っても過言ではない。このベクトルには以下のような特徴がある。</p>
+<p><strong>ベクトルの特徴</strong></p>
+<ul>
+<li>ベクトルの長さは1以上である。
+<ul>
+<li><code>1</code>や<code>"Cat"</code>は長さ1のベクトル</li>
+<li>長さ1のベクトルは原子ベクトル（atomic vector）とも呼ばれる。</li>
+</ul></li>
+<li>一つのベクトル同じデータ型（数値、文字列など）で構成される。
+<ul>
+<li>数値と文字列が混在するベクトルは作成できない。</li>
+</ul></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+データ型? データ構造?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>データ型とデータ構造については今後の講義で解説する。</p>
+</div>
+</div>
+<p>　まずはこの2つだけ覚えておけば問題ない。重要なのはベクトルの作り方であるが、長さ1のベクトルであれば、<code>1</code>、<code>"Cat"</code>などで十分である。もし、ながさ2以上のベクトルを作る場合は<code>c()</code>関数を使う。<code>()</code>内にコンマ区切りの要素 (element)を入れるだけである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 21</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="dv">19861008</span> <span class="co"># 長さ1の数値型ベクトル</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19861008</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 22</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">c</span>(<span class="dv">1986</span>, <span class="dv">10</span>, <span class="dv">8</span>) <span class="co"># 長さ3の数値型ベクトル</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1986   10    8</code></pre>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>,</code>の後にはスペースを入れよう！
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>コードの可読性の観点から見ると、<code>c(1986,10,8)</code>より<code>c(1986, 10, 8)</code>の方が読みやすい。</p>
+</div>
+</div>
+</section>
+<section id="ベクトル同士の計算" class="level3">
+<h3 class="anchored" data-anchor-id="ベクトル同士の計算">ベクトル同士の計算</h3>
+<p>　それでは、（原子ベクトルを含む）ベクトルに名前を付ける方法について紹介する。それは代入演算子<code>&lt;-</code>である。<code>x &lt;- 123454321</code>は<code>x</code>という器に<code>123454321</code>という数字を入れることを意味する。ここでいう「器」のことを<strong>オブジェクト</strong>（object）と呼ぶ。オブジェクトに関する説明は今後の講義で解説する。オブジェクトの内容を確認するためにはオブジェクトの名前のみを入力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 23</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>x <span class="ot">&lt;-</span> <span class="dv">123454321</span> <span class="co"># xに123454321を代入</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>x</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 123454321</code></pre>
+</div>
+</div>
+<p>　先ほどの作業は以下のように簡略化することができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 24</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>x <span class="ot">&lt;-</span> <span class="dv">123454321</span> <span class="co"># xに123454321を代入</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>x <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>x <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>x <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a></span>
+<span id="cb46-6"><a href="#cb46-6"></a>(省略)</span>
+<span id="cb46-7"><a href="#cb46-7"></a></span>
+<span id="cb46-8"><a href="#cb46-8"></a>x <span class="sc">*</span> <span class="dv">198</span></span>
+<span id="cb46-9"><a href="#cb46-9"></a>x <span class="sc">*</span> <span class="dv">199</span></span>
+<span id="cb46-10"><a href="#cb46-10"></a>x <span class="sc">*</span> <span class="dv">200</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　これを使えば、もし修正要請があったとしても<code>x &lt;- 123454321</code>の部分だけ修正すれば良いだろう。ただ、それでも200行のコード（代入で1行、計算で199行）を書くことには代わりがない。これをなんとか出来ないだろうか。以上のコードは1〜3行にまとめることができる。そのためにベクトル同士の計算について考える必要がある。同じ長さのベクトル同士の計算の場合、同じ位置の要素同士の計算が行われる。以下の例を考えてみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 25</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>my_vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb47-3"><a href="#cb47-3"></a>my_vec1 <span class="sc">*</span> my_vec2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  2  6  0  5 12</code></pre>
+</div>
+</div>
+<p>　上記のコードは以下のように表すことができる。</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ベクトル/位置</th>
+<th style="text-align: center;">1番目</th>
+<th style="text-align: center;">2番目</th>
+<th style="text-align: center;">3番目</th>
+<th style="text-align: center;">4番目</th>
+<th style="text-align: center;">5番目</th>
+<th style="text-align: center;">6番目</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>my_vec1</code></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\times\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>my_vec2</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td>結果</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">12</td>
+</tr>
+</tbody>
+</table>
+<p>　もし、ベクトルの長さが一致しない場合はどうなるだろうか。この場合、短い方のベクトルが繰り返されることとなり、これを<strong>ベクトル・リサイクル</strong>（vector recycle）と呼ぶ。以下の例では<code>my_vec4</code>の方が短いため、<code>3 * 2</code>までの計算が終わったあと、もう一回<code>my_vec4</code>の1番目の要素、<code>0</code>が使われることになる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 26</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>my_vec3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb49-2"><a href="#cb49-2"></a>my_vec4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb49-3"><a href="#cb49-3"></a>my_vec3 <span class="sc">*</span> my_vec4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  2  6  0  5 12</code></pre>
+</div>
+</div>
+<p>　このベクトル・リサイクルを利用すれば簡単に199行のコードを簡略化できよう。ただし、2から200まで格納されている長さ199のベクトルを作るのが面倒かも知れない。2, 3, 4, …, 199, 200は公差1の等差数列であり、Rでは<code>seq()</code>関数を使うことで等差数列を簡単に作ることができる。たとえば、2から10までの公差1の等差数列であれば、以下のように作れる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 27</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>) <span class="co"># 2から10までの公差1の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+<p>　公差1でなく公差2であれば、<code>by = 1</code>を<code>by = 2</code>に修正する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 28</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="co"># 2から10までの公差2の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10</code></pre>
+</div>
+</div>
+<p>　また、公差1の等差数列であれば、<code>:</code>演算子を使うこともできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 29</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="dv">2</span><span class="sc">:</span><span class="dv">10</span> <span class="co"># 2から10までの公差1の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+</div>
+<p>　これで199行のコードを簡略化する準備は整った。まずは3行に簡略化した例を見てみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 30</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="co"># 3行の例</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a>x <span class="ot">&lt;-</span> <span class="dv">123454321</span></span>
+<span id="cb57-3"><a href="#cb57-3"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">200</span> <span class="co"># または、y &lt;- seq(2, 200, by = 1)</span></span>
+<span id="cb57-4"><a href="#cb57-4"></a>x <span class="sc">*</span> y</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]   246908642   370362963   493817284   617271605   740725926   864180247
+  [7]   987634568  1111088889  1234543210  1357997531  1481451852  1604906173
+ [13]  1728360494  1851814815  1975269136  2098723457  2222177778  2345632099
+ [19]  2469086420  2592540741  2715995062  2839449383  2962903704  3086358025
+ [25]  3209812346  3333266667  3456720988  3580175309  3703629630  3827083951
+ [31]  3950538272  4073992593  4197446914  4320901235  4444355556  4567809877
+ [37]  4691264198  4814718519  4938172840  5061627161  5185081482  5308535803
+ [43]  5431990124  5555444445  5678898766  5802353087  5925807408  6049261729
+ [49]  6172716050  6296170371  6419624692  6543079013  6666533334  6789987655
+ [55]  6913441976  7036896297  7160350618  7283804939  7407259260  7530713581
+ [61]  7654167902  7777622223  7901076544  8024530865  8147985186  8271439507
+ [67]  8394893828  8518348149  8641802470  8765256791  8888711112  9012165433
+ [73]  9135619754  9259074075  9382528396  9505982717  9629437038  9752891359
+ [79]  9876345680  9999800001 10123254322 10246708643 10370162964 10493617285
+ [85] 10617071606 10740525927 10863980248 10987434569 11110888890 11234343211
+ [91] 11357797532 11481251853 11604706174 11728160495 11851614816 11975069137
+ [97] 12098523458 12221977779 12345432100 12468886421 12592340742 12715795063
+[103] 12839249384 12962703705 13086158026 13209612347 13333066668 13456520989
+[109] 13579975310 13703429631 13826883952 13950338273 14073792594 14197246915
+[115] 14320701236 14444155557 14567609878 14691064199 14814518520 14937972841
+[121] 15061427162 15184881483 15308335804 15431790125 15555244446 15678698767
+[127] 15802153088 15925607409 16049061730 16172516051 16295970372 16419424693
+[133] 16542879014 16666333335 16789787656 16913241977 17036696298 17160150619
+[139] 17283604940 17407059261 17530513582 17653967903 17777422224 17900876545
+[145] 18024330866 18147785187 18271239508 18394693829 18518148150 18641602471
+[151] 18765056792 18888511113 19011965434 19135419755 19258874076 19382328397
+[157] 19505782718 19629237039 19752691360 19876145681 19999600002 20123054323
+[163] 20246508644 20369962965 20493417286 20616871607 20740325928 20863780249
+[169] 20987234570 21110688891 21234143212 21357597533 21481051854 21604506175
+[175] 21727960496 21851414817 21974869138 22098323459 22221777780 22345232101
+[181] 22468686422 22592140743 22715595064 22839049385 22962503706 23085958027
+[187] 23209412348 23332866669 23456320990 23579775311 23703229632 23826683953
+[193] 23950138274 24073592595 24197046916 24320501237 24443955558 24567409879
+[199] 24690864200</code></pre>
+</div>
+</div>
+<p>　これを2行にまとめる場合は、<code>x</code>と<code>y</code>いずれかをベクトルとして格納し、もう片方は格納せずそのまま計算に使う（結果は省略）。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 31</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="co"># 2行の例 (1)</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a>x <span class="ot">&lt;-</span> <span class="dv">123454321</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a>x <span class="sc">*</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">200</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 32</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="co"># 2行の例 (2)</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">200</span></span>
+<span id="cb60-3"><a href="#cb60-3"></a><span class="dv">123454321</span> <span class="sc">*</span> x</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　究極のやり方は<code>x</code>も<code>y</code>も格納せずそのまま使う方法であり、これなら1行にまとめることができる（結果は省略）。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 33</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># 1行の例</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">200</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="要素の抽出" class="level3">
+<h3 class="anchored" data-anchor-id="要素の抽出">要素の抽出</h3>
+<p>　最後にベクトルから任意の要素を抽出する2つの方法について紹介する。</p>
+<p><strong>方法1</strong>: 抽出する要素の位置を指定する。</p>
+<p>　要素の抽出する基本的な方法は<code>ベクトル名[抽出する要素の位置]</code>である。たとえば、<code>my_vec5</code>という11から20までの公差1の等差数列のベクトルがあるとする。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 34</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>my_vec5 <span class="ot">&lt;-</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span> <span class="co"># my_vec &lt;- seq(11, 20, by = 1) と同じ</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>my_vec5</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 11 12 13 14 15 16 17 18 19 20</code></pre>
+</div>
+</div>
+<p>　この<code>my_vec5</code>から3番目の要素は13であり、この値を抽出するためには<code>my_vec5[3]</code>と入力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 35</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>my_vec5[<span class="dv">3</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+</div>
+<p>　複数の要素を抽出したい場合は、<code>[]</code>内にベクトルを入れる。たとえば、<code>my_vec5</code>から2、3、4、5番目の要素を抽出する場合は、<code>[]</code>内に<code>c(2, 3, 4, 5)</code>を入力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 36</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>my_vec5[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12 13 14 15</code></pre>
+</div>
+</div>
+<p>　この<code>c(2, 3, 4, 5)</code>は2から5までの公差1の等差数列であるため、<code>c(2, 3, 4, 5)</code>の代わりに<code>seq(2, 5, by = 1)</code>を使用しても良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 37</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>my_vec5[<span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">1</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12 13 14 15</code></pre>
+</div>
+</div>
+<p>　むろん、公差1の等差数列を使う<code>:</code>を使用し、<code>[]</code>内に<code>2:5</code>を指定した方がより効率的であろう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 38</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>my_vec5[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12 13 14 15</code></pre>
+</div>
+</div>
+<p><strong>方法2</strong>: 論理演算子を利用する。</p>
+<p>　もう一つは<code>[]</code>内に<code>TRUE</code>か<code>FALSE</code>を入れる方法である。位置を指定す方法では抽出したい要素の位置のみを指定するだけであったが、この方法はすべての要素に対して、抽出するか（<code>TRUE</code>）しないか（<code>FALSE</code>）を指定する必要がある。たとえば、<code>my_vec5</code>の1、4、7、9、10番目の要素を抽出したい場合は<code>my_vec5[c(1, 4, 7, 9, 10)]</code>でも良いが、以下のように抽出する箇所に<code>TRUE</code>、抽出しない箇所に<code>FALSE</code>を指定することもできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 39</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>my_vec5[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11 14 17 19 20</code></pre>
+</div>
+</div>
+<p>　<code>[]</code>内にベクトルの長さ分のベクトルを更に入力する必要がある。<code>my_vec5</code>のように長さ10のベクトルなら問題ないだろうが、長さが数千のベクトルも稀ではない。これを考えると、一つ一つの要素に対して<code>TRUE</code>、<code>FALSE</code>を指定することは非効率的である。</p>
+<p>　しかし、我々はすでに論理演算子を使えば<code>TRUE</code>、または<code>FALSE</code>のベクトルを作れることを知っている。たとえば、<code>my_vec5</code>から奇数のみを抽出したいとする。奇数は2で割って1が余る数字である。余りを計算する算術演算子は<code>%%</code>であり、この余りが1かどうかを判定すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 40</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>my_vec5 <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+</div>
+</div>
+<p>　この論理演算子が含まれた判定文を<code>[]</code>内に入れることで、<code>my_vec5</code>から奇数のみを抽出することができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 41</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>my_vec5[my_vec5 <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11 13 15 17 19</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="表データの読み込み" class="level2">
+<h2 class="anchored" data-anchor-id="表データの読み込み">表データの読み込み</h2>
+<p>　データ分析に用いられるデータの形式は表、文字列、画像、音声など様々であるが、本講義では表形式のデータのみを扱う。ここでは表形式データの読み込み方法について紹介する。表形式データにはエクセル形式（<code>.xlsx</code>）がおなじみであろうが、データ分析の業界においてはカンマ区切る形式（<code>.csv</code>）が標準である。</p>
+<p>　csvファイルの読み込みにはR内蔵関数<code>read.csv()</code>関数が使えるが、本講義では{tidyverse}パッケージが提供する<code>read_csv()</code>関数を使用する。データ読み込みの前にまず{tidyverse}パッケージを読み込む。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 42</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　読み込み方法は<code>read_csv("読み込むファイルのパス")</code>である。プロジェクト・フォルダー内に<code>Data</code>フォルダーがあり、そこに<code>Pref_Vote.csv</code>というファイルがあれば、<code>read_csv("Data/Pref_Vote.csv")</code>となる。もし、プロジェクト・フォルダー直にデータが入っているのであれば、<code>read_csv("Pref_Vote.csv")</code>となる。ただし、<code>read_csv()</code>だけだとデータの中身が出力されるだけであり、作業環境内に格納されない。代入演算子<code>&lt;-</code>を使って作業環境内にデータを入れておく必要がある。ここでは<code>my_data</code>という名のオブジェクトを作成する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 43</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="co"># 以下のデータはLMSから入手可能</span></span>
+<span id="cb79-2"><a href="#cb79-2"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Pref_Vote.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　ちなみに現在の作業環境内に、どのようなオブジェクトが存在するかを確認するためにはConsoleペイン上で<code>ls()</code>を入力する<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 44</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="fu">ls</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "my_data" "my_vec1" "my_vec2" "my_vec3" "my_vec4" "my_vec5" "x"      
+[8] "y"      </code></pre>
+</div>
+</div>
+<p>　問題なく<code>my_data</code>というオブジェクトが生成されていることが分かる。それではデータの中身を確認してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 45</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>my_data <span class="co"># または、print(my_data)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 47 × 13
+      ID Pref   Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin
+   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1     1 北海道  0.419   29.1    24.7  32.8    30.6 13.4    3.43 11.4    1.68
+ 2     2 青森県  0.332   30.1    23.9  40.4    24.6 12.8    3.82  8.92   3.41
+ 3     3 岩手県  0.341   30.4    24.5  34.9    22.4  8.61   5.16 11.2    5.29
+ 4     4 宮城県  0.596   25.8    27.3  36.7    25.4 13.4    3.97  9.99   3.62
+ 5     5 秋田県  0.299   33.8    21.4  43.5    22.7 11.2    5.17  7.56   5.12
+ 6     6 山形県  0.342   30.8    24.8  42.5    21.5 11.8    4.3   7.6    5.2 
+ 7     7 福島県  0.509   28.7    25.2  33.8    28.3 11.0    3.43 10.4    3.24
+ 8     8 茨城県  0.633   26.8    26.6  40.6    19.0 15.0    6.67 10.1    2.88
+ 9     9 栃木県  0.622   25.9    26.8  38.8    21.6 12.4   10.9   7      2.05
+10    10 群馬県  0.603   27.6    26.6  42.1    19.3 13.8    5.61 10      2.44
+# … with 37 more rows, and 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>　この画面からデータの中身以外にもいくつかの情報が読み取れる。たとえば、1行目には以下のような内容が入っている。</p>
+<pre><code># A tibble: 47 × 16</code></pre>
+<p>　これは47行16列のデータであることを意味する。しかし、数えてみれば、どうみても47行13列には見えない。見えるのは10行12列のみである。ちなみに、自分が使用するPCのモニターが大きいか、文字の大きさが小さい場合は最初から16列が表示される場合もあり、12列より少なく表示される場合もある。表示しきれなかったものについては一番下の行を参照すれば良い。</p>
+<pre><code># … with 37 more rows, and 4 more variables: Reiwa &lt;dbl&gt;, NHK &lt;dbl&gt;,
+#   Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;</code></pre>
+<p>　これは出力された内容以外にも36行が更にあり（つまり、36行は省略されているだけである）、<code>Reiwa</code>、<code>NHK</code>、<code>Region2</code>と<code>Region6</code>という名の列も更にあることを意味する。データは問題なく47行13列であることが分かる。</p>
+<p>　もし、20行を出力したい場合は<code>print(オブジェクト名, n = 20)</code>と入力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 46</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">print</span>(my_data, <span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 47 × 13
+      ID Pref     Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin
+   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1     1 北海道    0.419   29.1    24.7  32.8    30.6 13.4    3.43 11.4    1.68
+ 2     2 青森県    0.332   30.1    23.9  40.4    24.6 12.8    3.82  8.92   3.41
+ 3     3 岩手県    0.341   30.4    24.5  34.9    22.4  8.61   5.16 11.2    5.29
+ 4     4 宮城県    0.596   25.8    27.3  36.7    25.4 13.4    3.97  9.99   3.62
+ 5     5 秋田県    0.299   33.8    21.4  43.5    22.7 11.2    5.17  7.56   5.12
+ 6     6 山形県    0.342   30.8    24.8  42.5    21.5 11.8    4.3   7.6    5.2 
+ 7     7 福島県    0.509   28.7    25.2  33.8    28.3 11.0    3.43 10.4    3.24
+ 8     8 茨城県    0.633   26.8    26.6  40.6    19.0 15.0    6.67 10.1    2.88
+ 9     9 栃木県    0.622   25.9    26.8  38.8    21.6 12.4   10.9   7      2.05
+10    10 群馬県    0.603   27.6    26.6  42.1    19.3 13.8    5.61 10      2.44
+11    11 埼玉県    0.765   24.8    27.7  32.3    20.4 16      7.23 13.9    1.91
+12    12 千葉県    0.777   25.9    26.7  37.8    21.7 14.0    5.46 11.3    2.01
+13    13 東京都    1.00    22.7    27.4  34.4    19.8 11.4    7.34 14.2    2.82
+14    14 神奈川県  0.917   23.9    27.8  34.9    21.5 12.2    7.77 12.5    2.79
+15    15 新潟県    0.435   29.9    25.2  43.7    25.2  8.27   4.39  8      3.76
+16    16 富山県    0.453   30.5    24.9  44.2    24.2  9.81   5.06  5.79   5.02
+17    17 石川県    0.468   27.9    27.2  48.1    18.5 11      6.36  7.07   2.36
+18    18 福井県    0.378   28.6    26.7  45.3    17.5 10.9   13.1   5.66   2.09
+19    19 山梨県    0.379   28.4    26.4  37.4    28.0 12.8    4.32  9.2    1.67
+20    20 長野県    0.476   30.1    25.5  35.3    27.7 10.7    4.23 12.6    3.59
+# … with 27 more rows, and 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>　最初の6行のみを出力する場合は<code>head()</code>、最後の6行を出力する場合は<code>tail()</code>を使う。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 47</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="co"># my_dataの最初の6行を出力</span></span>
+<span id="cb88-2"><a href="#cb88-2"></a><span class="fu">head</span>(my_data) <span class="co"># print(my_data, n = 6) と同じ </span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+     ID Pref   Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin
+  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     1 北海道  0.419   29.1    24.7  32.8    30.6 13.4    3.43 11.4    1.68
+2     2 青森県  0.332   30.1    23.9  40.4    24.6 12.8    3.82  8.92   3.41
+3     3 岩手県  0.341   30.4    24.5  34.9    22.4  8.61   5.16 11.2    5.29
+4     4 宮城県  0.596   25.8    27.3  36.7    25.4 13.4    3.97  9.99   3.62
+5     5 秋田県  0.299   33.8    21.4  43.5    22.7 11.2    5.17  7.56   5.12
+6     6 山形県  0.342   30.8    24.8  42.5    21.5 11.8    4.3   7.6    5.2 
+# … with 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 48</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="fu">tail</span>(my_data) <span class="co"># my_dataの最後の6行を出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+     ID Pref     Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin
+  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1    42 長崎県    0.316   29.6    25.8  41.7    20.7  16.9   5.12  6.27   3.48
+2    43 熊本県    0.387   28.8    27.2  46.5    19.3  15.3   4.53  6.32   2.6 
+3    44 大分県    0.358   30.4    25.6  39.4    18.4  13.3   4.42  6.85  13.0 
+4    45 宮崎県    0.320   29.5    26.3  40.1    14.5  17.1   5.74  7.27   6.81
+5    46 鹿児島県  0.321   29.4    26.0  46.0    16.2  14.5   6.47  6.52   3.62
+6    47 沖縄県    0.315   19.6    33.4  27.8    13.3  15.1   7.66 15.6   12.1 
+# … with 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>　6行でなく、任意の行数を指定したい場合は<code>head()</code>、または<code>tail()</code>内に<code>n = ...</code>を追加する。このような表形式のデータをRでは<strong>データフレーム</strong>（data.frame）と呼び、ベクトル、リストと共に最も頻繁に使うデータ構造である。これらについては「<a href="../../materials/micro/datastructure.html">第8回: データ構造</a>」で解説する。</p>
+<section id="文字化けが生じる場合" class="level3">
+<h3 class="anchored" data-anchor-id="文字化けが生じる場合">文字化けが生じる場合</h3>
+<p>　本講義ではNIIオンライン分析システムを利用する場合、宋が提供した資料と同じ結果が得られることが保証されている。しかし、自分のPCにRをインストールして使用する場合、文字化けが生じる可能性がある。これは文字のロケール（locale）が原因である（具体的には世界標準のUTF-8を使用するmacOS/Linuxと日本語表示に独自仕様を使用するWindowsの違い）。この場合、自分のPCのOSによって対処方法が異なる。ここでは<code>read_csv()</code>で表形式データを読み込む際、文字化けに対処する方法を紹介する。</p>
+<p><strong>ケース1:</strong> 自分のPCがWindowsの場合</p>
+<p>　自分のPCが日本語Windowsの場合、世界標準ロケールであるUTF-8を正しく認識できない可能性がある。この場合、<code>read_csv()</code>内に<code>locale = locale(encoding = "UTF-8")</code>を追加する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 49</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="fu">read_csv</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><strong>ケース2:</strong> 自分のPCがmacOS/Linuxの場合</p>
+<p>　これは主にWindowsで作成されたデータを読み込む際に生じる。日本語Windowsで作成されたデータの場合、ロケールがShift-JISである可能性が高い。とりわけ日本政府/自治体が作成・公開するデータの多くが未だShift-JISである。この場合、<code>read_csv()</code>内に<code>locale = locale(encoding = "Shift_JIS")</code>を追加する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 50</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">read_csv</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"Shift_JIS"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　ちなみに、2022年中、リリース予定のR 4.2からはWindows版RでもUTF-8に対応されると知られている。この場合、Windowsで文字化けが生じる場合でもケース2と同じ手順でデータを開く必要があるだろう（<del>MacかLinuxを使いましょう</del>）。</p>
+</section>
+<section id="excel形式ファイルの読み込み" class="level3">
+<h3 class="anchored" data-anchor-id="excel形式ファイルの読み込み">Excel形式ファイルの読み込み</h3>
+<p>　本講義ではExcelで作成されたデータ（<code>.xlsx</code>ファイル）を使わないが、<code>.xlsx</code>ファイルを読み込む場合は{readxl}パッケージの<code>read_excel()</code>関数を使用すれば良い。ここではコードの例のみ掲載する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 51</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="co"># {readxl}パッケージがない場合、install.packages("readxl")でインストールしておく。</span></span>
+<span id="cb94-2"><a href="#cb94-2"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb94-3"><a href="#cb94-3"></a></span>
+<span id="cb94-4"><a href="#cb94-4"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">sheet =</span> シートの番号)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="教科書" class="level2">
+<h2 class="anchored" data-anchor-id="教科書">教科書</h2>
+<ul>
+<li>『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/rbasic.html">第6章: 基本的な操作</a></li>
+<li>『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/datastructure.html#structure-vector">第9章: データ構造（第2節）</a></li>
+<li>『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/io.html">第7章: データの入出力</a></li>
+<li>『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/datatype.html#type-numeric">第8章: データ型（第3節）</a></li>
+</ul>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">注</h2>
+
+<ol>
+<li id="fn1"><p>他のプログラミング言語の経験があれば分かるだろうが、ほとんどのプログラミング言語において<code>=</code>は「代入」を意味し、Rも例外ではない。ただし、Rにおける代入には<code>=</code>と<code>&lt;-</code>の2つの方法があり、後者が推奨される。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>実は数戦以上のオブジェクトがあるはずだが、ここでは自分が作成したオブジェクトのみ表示される。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,889 @@
+---
+subtitle: "第14回 可視化 (3)"
+date: "2023/7/13"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 期末テスト
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, qrcode)
+df <- read_csv("Data/countries.csv")
+```
+
+* 2022年7月21日14時40分〜16時10分
+* **指定席**に着席すること
+* 通常の課題と同じ手順
+* 16時10分まで出来たところまでLMSに提出（`.html`形式）
+   * 16時10分を過ぎると、提出窓口ページを開いていても提出できない。
+   * 残りは持ち帰って2022年7月21日23時59分まで再提出
+* 採点
+   * 持ち帰り分は5割減点
+   * 4限中に7問以上回答して提出すること（全て正解である必要はない）
+   * 各問題の配点は履修者の正解率に応じて調整する。
+* 詳細はサポートページ > 課題 > [期末テスト実施要領](https://www.jaysong.net/micro-book/HW/Final.html)を参照
+* 不正行為禁止
+
+## 授業アンケート（任意）
+
+* <https://ctl.jm.kansai-u.ac.jp/q/Ans?ms&cd=13495_22s>から回答可能
+
+::::{.columns}
+
+:::{.column width=45%}
+```{r}
+#| echo: false
+qr_code("https://ctl.jm.kansai-u.ac.jp/q/Ans?ms&cd=13495_22s") %>%
+  plot()
+```
+:::
+
+:::{.column width=55%}
+### よくある質問
+
+* この授業のシラバスは?
+   * <https://bit.ly/3RttGEE>
+   * ほぼシラバス通りだが、課題の回数に変更あり（8 $\rightarrow$ 5）
+* 本講義の到達目標が分かりません...
+   * 以下の一つでも達成できたらOK
+      1. Rがある程度、使えるようになった。
+      2. 今は苦手だけど、もっとRを勉強してみたいと思うようになった。
+      3. Rは使えないし、使う予定は（多分）ないけど、Rで何が出来るかが分かった。
+      4. 自分にRは無理だということが分かった。
+   * つまり、履修前と比べ「何かが分かった」のであれば達成
+:::
+
+::::
+
+# 代表的な5種類のグラフ
+
+## 5 Named Graphs (5NG)
+
+* 棒グラフ (bar plot)
+   * `geom_bar()`
+* ヒストグラム (histogram)
+   * `geom_histogram()`
+* **箱ひげ図** (box plot / box-and-whisker plot)
+   * `geom_boxplot()`
+* **散布図** (scatter plot)
+   * `geom_point()`
+* **折れ線グラフ** (line plot)
+   * `geom_line()`
+
+# 散布図
+
+## 散布図の必須要素
+
+散布図を作成する際に必要な**最低限**の情報
+
+:::: {.columns}
+
+::: {.column width=49%}
+データにフリーダムハウス・スコアと人間開発指数の**列**が必要
+
+* `x`: 点の横軸上の位置
+   * フリーダムハウス・スコア
+* `y`: 点の縦軸上の位置
+   * 人間開発指数
+* 原因と結果の関係（因果関係）が考えられる2変数の場合、**原因を横軸**、**結果を縦軸**にする。
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+#| warning: false
+df %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018)) +
+   labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)") +
+   theme_gray(base_family = "HiraKakuProN-W3",
+              base_size   = 14)
+```
+:::
+
+::::
+
+## データの読み込み
+
+第9回実習用データ（`countries.csv`）を使用
+
+```{r}
+#| eval: false
+library(tidyverse)
+df <- read_csv("Data/countries.csv")
+```
+
+## 散布図の作成 (1)
+
+幾何オブジェクトは`geom_point()`を使用
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+df %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018))
+```
+
+## 散布図の作成 (2)
+
+ラベル修正 / 必要に応じてカスタマイズ
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+df %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018), color = "royalblue") +
+   labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)")
+```
+
+## 次元の追加
+
+散布図における次元の追加
+
+* それぞれの点は各国の (1) フリーダムハウス・スコアと (2) 人間開発指数の情報を持つ
+   * = 2次元
+* 更に情報を持たせるためには...
+   * 色分け: `color`
+   * 大きさ: `size`
+   * 形: `shape`
+   * 透明度(非推奨): `alpha` 
+   * ファセット分割
+* 5次元以上のグラフも可能だが、3次元までを推奨
+   * 一つのグラフの情報が多すぎると読みにくくなる
+   * 4次元以上になりそうならファセット分割で対応
+   * 3次元の場合、色分け（`color`）を推奨するが、白黒の図を作成する場合は形（`shape`）を使う。
+
+## 5次元の散布図
+
+各点はフリーダムハウス・スコア、人間開発指数、人口（対数変換）、大陸、OECD加盟有無の情報を持つ
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+df %>%
+   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018, color = Continent,
+                  size = Population, shape = OECD), alpha = 0.65) +
+   scale_size_continuous(trans = "log10") +
+   labs(x = "Freedom House Score", y = "Human Development Index (2018)",
+        size = "Population (log)") +
+   theme_gray()
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+#| warning: false
+df %>%
+   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018, color = Continent,
+                  size = Population, shape = OECD), alpha = 0.65) +
+   scale_size_continuous(trans = "log10") +
+   labs(x = "Freedom House Score", y = "Human Development Index (2018)",
+        size = "Population (log)") +
+   theme_gray(base_family = "HiraKakuProN-W3")
+```
+:::
+
+## 色分けの例
+
+`aes()`の内部に`color = 色分けする変数`を指定
+
+* `HighIncome`変数を作成し、`PPP_per_capita`が2万以上なら`"高"`、未満なら`"低"`
+* `HighIncome`値に応じて点の色分けを行う（`color = HighIncome`）
+* 点の大きさは2とする（全体に適用させるため、`aes()`の外側に指定）
+* `labs()`内で凡例タイトルを修正; 凡例を下側へ移動
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+scatter_plot1 <- df %>%
+   drop_na(FH_Total, HDI_2018, PPP_per_capita) %>%
+   mutate(HighIncome = if_else(PPP_per_capita >= 20000, "高", "低")) %>%
+   ggplot() +
+   geom_point(aes(x = FH_Total, y = HDI_2018, color = HighIncome), 
+              size = 2) +
+   labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)",
+        color = "一人当たりPPP GDP") +
+   theme(legend.position = "bottom")
+```
+
+### 結果
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3.5
+#| warning: false
+scatter_plot1
+```
+:::
+
+## 色のカスタマイズ
+
+`color`にマッピングされている変数（`HighIncome`）が離散変数
+
+* `scale_color_manual()`を使用
+* 引数: `values = c("値1" = "色1", "値2" = "色2", ...)`
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3.5
+#| warning: false
+scatter_plot1 +
+   scale_color_manual(values = c("低" = "orange", "高" = "royalblue"))
+```
+
+## {ggplot2}で使える色
+
+* 文字列で指定
+   * `"red"`、`"blue"`、`"royalblue"`など（全657種類）
+   * Googleなどで「ggplot2 color」で検索（[例](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)）
+* RGBカラー（HEXコード）で指定
+   * 細かく調整可能（16,777,216種類の色）
+   * 例) `"#FF0000"`: 赤、`"#4169E1"`: ロイヤルブルー
+
+## 色の見本 (一部)
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 6.2
+data.frame(c=colors()) %>%
+   mutate(Num = grepl(x = c, pattern = "[0-9]$")) %>%
+   filter(Num == FALSE) %>%
+   mutate(y = seq(0, length(c) - 1) %% 18,
+          x = seq(0, length(c) - 1) %/% 18) %>%
+   ggplot() +
+   scale_x_continuous(name="", breaks=NULL, expand=c(0, 0)) +
+   scale_y_continuous(name="", breaks=NULL, expand=c(0, 0)) +
+   scale_fill_identity() +
+   geom_rect(aes(xmin=x, xmax=x+1, ymin=y, ymax=y+1), fill="white") +
+   geom_rect(aes(xmin=x+0.05, xmax=x+0.95, ymin=y+0.5, ymax=y+1, fill=c)) +
+   geom_text(aes(x=x+0.5, y=y+0.5, label=c), colour="black", hjust=0.5, vjust=1, size=4)
+```
+
+## `shape`の見本
+
+`shape`で指定（デフォルトは`shape = 19`）
+
+* 黒の部分は`color`、グレーの部分は`fill`（または`bg`）で調整
+   * 21と22の場合、枠線は`color`、内側の色塗りは`fill`
+* 0〜14の場合、中身が透明
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 2.8
+tibble(x = rep(1:5, 5),
+       y = rep(1:5, each = 5)) %>%
+   filter(!(y == 1 & x >= 4)) %>%
+   arrange(desc(y), x) %>%
+   mutate(pch = as.character(0:22)) %>%
+   ggplot(aes(x = x, y = y)) +
+   geom_point(aes(shape = pch), 
+              color = "black", bg = "gray", size = 3) +
+   geom_text(aes(y = y + 0.25, label = pch), size = 5) +
+   scale_shape_manual(values = c("1"  =  1,  "2" =  2, "3"  =  3, "4"  =  4,
+                                 "5"  =  5,  "6" =  6, "7"  =  7, "8"  =  8,
+                                 "9"  =  5, "10" = 10, "11" = 11, "12" = 12,
+                                 "13" = 13, "14" = 14, "15" = 15, "16" = 16,
+                                 "17" = 17, "18" = 18, "19" = 19, "20" = 20,
+                                 "21" = 21, "22" = 22, "0"  = 0)) +
+   theme_minimal() +
+   theme(panel.grid.minor = element_blank(),
+         axis.line = element_blank(),
+         axis.title = element_blank(),
+         axis.text = element_blank(),
+         legend.position = "none")
+```
+
+# 折れ線グラフ
+
+## 折れ線グラフの必須要素
+
+折れ線グラフを作成する際に必要な**最低限**の情報
+
+:::: {.columns}
+
+::: {.column width=49%}
+データに日と新規感染者数の**列**が必要
+
+* `x`: 線の傾きが変化し得る点の横軸上の位置
+   * 日
+* `y`: 線の傾きが変化し得る点の縦軸上の位置
+   * 100万人当たり新規感染者数
+* 散布図とほぼ同じ
+* ただし、線が2つ以上の場合`groups`が必要
+   * 点をグループ化しないと、どの点を繋げば良いかが分からないため
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 5
+#| warning: false
+COVID_df <- read_csv("Data/covid_2022_06.csv")
+COVID_df %>%
+   ggplot(aes(x = Day, y = NewCases)) +
+   geom_line(aes(group = Country)) +
+   geom_point(size = 3) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)") +
+   theme_bw(base_size   = 14)
+```
+:::
+
+::::
+
+## データの用意
+
+授業サポートページから実習用データ（`covid_2022_06.csv`）をダウンロード
+
+* 整然データとして加工済み
+* `Day`: 日付（2022年6月）; `NewCases`: 100万人当りCOVID-19新規感染者数
+
+```{r}
+COVID_df <- read_csv("Data/covid_2022_06.csv")
+COVID_df
+```
+
+## 線が一本の場合
+
+`geom_line()`幾何オブジェクトを使用
+
+* `x`: 点の傾きが変化し得る点の横軸上の位置
+* `y`: 点の傾きが変化し得る点の縦軸上の位置
+* 日本の行のみを抽出し、横軸を日、縦軸を100万人当たり新規感染者数とした折れ線グラフを作成
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+COVID_df %>%
+   filter(Country == "Japan") %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases)) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+COVID_df %>%
+   filter(Country == "Japan") %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases)) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
+```
+
+:::
+
+## よく出るメッセージ
+
+折れ線グラフを作成する際、以下のようなエラーメッセージが表示され、グラフが出力されない場合がある。
+
+* 原因は不明
+
+```
+geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?
+```
+
+<br/>
+
+**【解決策】** このようなメッセージが出た場合は、`aes()`の中に`group = 1`を追加すると解決できる。
+
+* 普段から付けておく習慣を付けた方が良い。
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4"
+COVID_df %>%
+   filter(Country == "Japan") %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = 1)) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
+```
+
+## 線が二本以上の場合
+
+`group`に線のグループ変数を指定
+
+* 国別の折れ線グラフの場合、国変数を指定
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+COVID_df <- COVID_df %>%
+   mutate(Country = case_when(Country == "Japan" ~ "日本",
+                              Country == "Korea" ~ "韓国",
+                              TRUE               ~ "台湾"),
+          Country = factor(Country, levels = c("日本", "韓国", "台湾")))
+
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country)) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
+```
+
+### 結果
+
+各線がどの国を示すのかが分からない...
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.5
+COVID_df <- COVID_df %>%
+   mutate(Country = case_when(Country == "Japan" ~ "日本",
+                              Country == "Korea" ~ "韓国",
+                              TRUE               ~ "台湾"),
+          Country = factor(Country, levels = c("日本", "韓国", "台湾")))
+
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country)) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
+```
+
+:::
+
+## 線が二本以上の場合
+
+`color`で色分け: 国別の折れ線グラフの場合、国変数を指定
+
+* 線をやや太め（1.5）にする
+   * `size`: 全線に適用させるために`aes()`の外側に
+   * 線が細すぎると色が区別しにくい
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country, 
+                 color = Country), size = 1.5) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        color = "国")
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.5
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country, color = Country), 
+             size = 1.5) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        color = "国")
+```
+
+:::
+
+## 次元の追加
+
+多くの折れ線グラフは既に3次元
+
+* 日（`x`）、新規感染者数（`y`）、国（`group` or `color`）
+* これ以上次元を増やすならファセット分割で対応するのが賢明
+* ファセット分割せずに次元を増やすなら...
+   * `size`: 線の太さ
+   * `linetype`: 線のタイプ（1 = 実線、2 = 破線、3 = 点線、...）
+      * 白黒図の場合、`color`でなく、`linetype`
+   * `alpha`: 透明度
+
+## 線のタイプ
+
+* 主に白黒図で使用
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country, linetype = Country),
+             size = 1) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        linetype = "国")
+```
+
+自分で線のタイプを指定したい場合は
+
+```{r}
+#| eval: false
+#| code-line-numbers: "4"
+データ %>%
+  ggplot() +
+  ... +
+  scale_linetype_manual(values = c("日本" = 1, "韓国" = 2, "台湾" = 3))
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.5
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country, 
+                 linetype = Country), size = 1) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        linetype = "国") 
+```
+
+:::
+
+## `linetype`の見本
+
+種類が多くなると区別しにくいため、最大3つ程度
+
+* 実線（1）、破線（2）、点線（3）
+* 一つ面に登場する線は3〜4本程度まで（色分けも同様）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 2.5
+tibble(x = rep(1, 6),
+       xend = rep(5, 6),
+       y = 1:6,
+       yend = 1:6,
+       type = c("6", "5", "4", "3", "2", "1")) %>%
+   ggplot() +
+   geom_segment(aes(x = x, xend = xend, 
+                    y = y, yend = yend, linetype = type)) +
+   scale_y_continuous(breaks = 1:6, labels = 6:1) +
+   scale_linetype_manual(values = c("1" = 1, "2" = 2, "3" = 3, 
+                                    "4" = 4, "5" = 5, "6" = 6)) +
+   labs(y = "linetypeの値") +
+   theme_minimal(base_size = 14) +
+   theme(panel.grid = element_blank(),
+         axis.title.x = element_blank(),
+         axis.text.x = element_blank(),
+         legend.position = "none")
+```
+
+## 折れ線グラフ + 散布図（コード）
+
+`geom_point()`と`geom_line()`を重ねる
+
+* 後（先）に書いたレイヤーが前面（背面）に
+* 傾きの変化が激しくない場合に有効
+* 点は線より大きめに
+* 白黒印刷に備え、点の形分けも可能
+
+```{r}
+#| eval: false
+COVID_df %>%
+   ggplot(aes(x = Day, y = NewCases, color = Country)) +
+   geom_point(aes(shape = Country), size = 3) +
+   geom_line(aes(group = Country), size = 1) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        color = "国", shape = "国") +
+   theme_bw()
+```
+
+## 折れ線グラフ + 散布図（図）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+COVID_df %>%
+   ggplot(aes(x = Day, y = NewCases, color = Country)) +
+   geom_point(aes(shape = Country), size = 3) +
+   geom_line(aes(group = Country), size = 1) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        color = "国", shape = "国") +
+   theme_bw()
+```
+
+# 箱ひげ図
+
+## 箱ひげ図とは
+
+:::: {.columns}
+
+::: {.column width=49%}
+変数の分布を示す方法の一つ
+
+* 最小値、最大値
+   * ひげの両端
+* 第一四分位数、第三四分位数
+   * 箱の上限と下限
+* 中央値（第二四分位数）
+   * 箱内の線
+* 外れ値がある場合、点
+
+変数の分布を**グループごと**に見る時に有効
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+#| warning: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(x = 1, y = HDI_2018), width = 0.5) +
+   annotate("text", x = 1.3, y = 0.7325, label = "中央値", hjust = 0) +
+   annotate("text", x = 1.3, y = 0.5870, label = "第一四分位数", hjust = 0) +
+   annotate("text", x = 1.3, y = 0.8347, label = "第三四分位数", hjust = 0) +
+   annotate("text", x = 1.05, y = 0.3770, label = "最小値", hjust = 0) +
+   annotate("text", x = 1.05, y = 0.9540, label = "最大値", hjust = 0) +
+   labs(x = "", y = "人間開発指数 (2018)") +
+   coord_cartesian(xlim = c(0.75, 1.5)) +
+   theme_minimal() +
+   theme(axis.text.x = element_blank())
+```
+:::
+
+::::
+
+## 箱ひげ図の作成
+
+人間開発指数 (`HDI_2018`) の箱ひげ図
+
+* `x`、または`y`に分布を確認した変数をマッピングする
+   * `x`にマッピングするか、`y`にするかによって箱の向きが変わる
+
+:::: {.columns}
+
+::: {.column width=52%}
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018)) +
+   labs(x = "", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+:::
+
+::: {.column width=1%}
+:::
+
+::: {.column width=47%}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 4.2
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018)) +
+   labs(x = "", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+:::
+
+::::
+
+## 次元の追加
+
+`y`にしかマッピングされているため、まだ次元追加の余地が残っている
+
+* `x`にマッピング（大陸ごとの`HDI_2018`の箱ひげ図）
+* 更に次元を追加したい場合は、ファセット分割
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent)) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent)) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+:::
+
+## カスタマイズ（色）
+
+箱の色を変える
+
+* すべての色を変える場合、`aes()`の**外側**に`fill`
+* 箱ごとにの色を変える場合、`aes()`の内側に`fill`
+
+::: {.panel-tabset}
+### コード (1)
+
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent), fill = "cornsilk") +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+
+### 結果 (1)
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent), fill = "cornsilk") +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw()
+```
+
+### コード (2)
+
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent, fill = Continent)) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw() +
+   theme(legend.position = "none") # 凡例の削除
+```
+
+### 結果 (2)
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent, fill = Continent)) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw() +
+   theme(legend.position = "none")
+```
+:::
+
+## カスタマイズ（箱の幅）
+
+* `aes()`の**外側**に`width`を指定
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent), width = 0.5) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw() +
+   theme(legend.position = "none")
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.25
+df %>%
+   ggplot() +
+   geom_boxplot(aes(y = HDI_2018, x = Continent), width = 0.5) +
+   labs(x = "大陸", y = "人間開発指数 (2018)") +
+   theme_bw() +
+   theme(legend.position = "none")
+```
+
+:::
+
+## 横軸と縦軸の交換
+
+箱が多すぎて読みにくい場合、`x`と`y`を交換も良い
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+df %>%
+   ggplot() +
+   geom_boxplot(aes(x = HDI_2018, y = Continent)) +
+   labs(x = "人間開発指数 (2018)", y = "大陸") +
+   theme_bw(base_size = 14) +
+   theme(legend.position = "none")
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.25
+df %>%
+   ggplot() +
+   geom_boxplot(aes(x = HDI_2018, y = Continent)) +
+   labs(x = "人間開発指数 (2018)", y = "大陸") +
+   theme_bw(base_size = 14) +
+   theme(legend.position = "none")
+```
+
+:::
+
+## 最後に
+
+* 散布図の作成: [教科書第18.6章](https://www.jaysong.net/RBook/visualization2.html#visual2-scatter)
+* 折れ線グラフの作成: [教科書第18.7章](https://www.jaysong.net/RBook/visualization2.html#visual2-line)
+* 箱ひげ図: [教科書第18.5章](https://www.jaysong.net/RBook/visualization2.html#visual2-box)
+* グラフのカスタマイズ: [教科書第19章](https://www.jaysong.net/RBook/visualization3.html)
+
+### その他のグラフ
+
+* [教科書第20章](https://www.jaysong.net/RBook/visualization4.html)
+* [The R Graph Gallery](https://www.r-graph-gallery.com/)

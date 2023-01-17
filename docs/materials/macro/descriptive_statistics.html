@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第4回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">第4回講義資料</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/introduction.html" class="sidebar-item-text sidebar-link">第1回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/research_design.html" class="sidebar-item-text sidebar-link">第2・3回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/descriptive_statistics.html" class="sidebar-item-text sidebar-link active">第4回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/inference.html" class="sidebar-item-text sidebar-link">第5回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/nhts.html" class="sidebar-item-text sidebar-link">第6回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/association.html" class="sidebar-item-text sidebar-link">第7回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression1.html" class="sidebar-item-text sidebar-link">第8回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression2.html" class="sidebar-item-text sidebar-link">第9回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression3.html" class="sidebar-item-text sidebar-link">第10回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">第11回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/interaction.html" class="sidebar-item-text sidebar-link">第12回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link">第13回講義資料</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#セットアップ" id="toc-セットアップ" class="nav-link active" data-scroll-target="#セットアップ">セットアップ</a></li>
+  <li><a href="#データハンドリング" id="toc-データハンドリング" class="nav-link" data-scroll-target="#データハンドリング">データハンドリング</a></li>
+  <li><a href="#記述統計" id="toc-記述統計" class="nav-link" data-scroll-target="#記述統計">記述統計</a>
+  <ul class="collapse">
+  <li><a href="#名目変数の場合" id="toc-名目変数の場合" class="nav-link" data-scroll-target="#名目変数の場合">名目変数の場合</a></li>
+  <li><a href="#fastdummiesの利用" id="toc-fastdummiesの利用" class="nav-link" data-scroll-target="#fastdummiesの利用">{fastDummies}の利用</a></li>
+  </ul></li>
+  <li><a href="#summarytoolsの利用" id="toc-summarytoolsの利用" class="nav-link" data-scroll-target="#summarytoolsの利用">{summarytools}の利用</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">第4回講義資料</h1>
+<p class="subtitle lead">記述統計</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="スライド" class="level2 unlisted">
+<h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/macro/descriptive_statistics.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/macro/descriptive_statistics.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+</section>
+<section id="セットアップ" class="level2">
+<h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
+<p>　まず、本日の実習で使用するパッケージを読み込む。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(summarytools)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　当該パッケージがインストールされていない場合、以下のようなメッセージが出力される。</p>
+<pre><code>Error in library(パッケージ名) : there is no package called ‘パッケージ名’</code></pre>
+<p>　この場合、<code>install.packages("パッケージ名")</code>でパッケージをインストールしてから読み込もう。</p>
+<p>　ただし、当該パッケージがインストールされているかが分からない場合もあろう。あるいは、インストールされているにも関わらず、再インストールしてしまう可能性もある。パッケージによってはインストールに数分かかる場合もあるのでこれは非常に非効率的である。ここで便利なものが{pacman}パッケージだ。{pacman}パッケージがインストールされている場合、<code>p_load()</code>関数でパッケージを読み込むことができる。<code>p_load()</code>関数は{pacman}パッケージが提供する関数であるため、予め<code>library(pacman)</code>で{pacman}パッケージを読み込む必要があるが、<code>パッケージ名::関数名()</code>でパッケージを読み込まずに特定パッケージ内の関数を呼び出すこともできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># {pacman}パッケージがインストールされていない場合、</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># install.packages("pacman") でインストールしておく。</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, fastDummies, summartools)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　一つの関数内に複数のパッケージが同時に読み込めるといったメリットも大きいが、{pacman}最大の特徴は「インストールされていない場合、インストールしてから読み込む」ことだ。一旦、{pacman}をインストールしておけば大変便利になる。</p>
+<p>　続いてデータを読み込もう。実習に使用するデータは<code>descstat_data.csv</code>であり、LMSから入手可能だ。<code>.csv</code>形式データを読み込む関数は<code>read_csv()</code>であり、<code>()</code>内には<strong>パスを含むファイル名</strong>を入力する。パス+ファイル名は必ず<code>"</code>で囲むこと。たとえば、プロジェクト・フォルダー内の<code>Data</code>フォルダー内の<code>descstat_data.csv</code>ファイルなら、<code>"Data/descstat_data.csv"</code>と入力する。また、<code>read_csv()</code>だけだとデータが読み込まれて出力されるだけで終わる。つまり、現在の作業環境内に残らない。作業環境にデータを格納するためには<code>&lt;-</code>演算子を使用する。ここではデータを読み込み、<code>raw_df</code>という名のオブジェクトとして作業環境内に格納しておこう。</p>
+<p>　パス（path）とは何かについてよく分からない人は授業後でも良いので<strong>必ず</strong>「<a href="../../intro/filesystem.html">本講義のためのファイル管理術</a>」を精読すること。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>raw_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/descstat_data.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　データの中身を見るためにはオブジェクト名のみ入力すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>raw_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 272
+   USER_ID    Q1    Q2    Q3    Q4  Q5_1  Q5_2  Q5_3  Q5_4  Q5_5  Q5_6  Q5_7
+     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1       1     3     3     1     1    80    80    70    50    40    20    50
+ 2       2     2     2     2     8     0    25    30    30    60    30    10
+ 3       3     3     1     1     8    80    10     0     0     0     0    75
+ 4       4     3     3     1     1   100    50     0     0    50     0   100
+ 5       5     3     3     2     3    70    40    40    50    30    20    70
+ 6       6     3     1     1     1   100     0     0     0     0     0   100
+ 7       7     3     3     1     6   100    10    20    10    10    10    50
+ 8       8     3     1     1     6    80     0    60    55     0     0    90
+ 9       9     3     1     1     1   100    50   100    75    50    25   100
+10      10     3     3     1     8    25    25    25    25    55    50    50
+# … with 2,990 more rows, and 260 more variables: Q5_8 &lt;dbl&gt;, Q5_9 &lt;dbl&gt;,
+#   Q5_10 &lt;dbl&gt;, Q5_11 &lt;dbl&gt;, Q5_12 &lt;dbl&gt;, Q6_1 &lt;dbl&gt;, Q6_2 &lt;dbl&gt;, Q6_3 &lt;dbl&gt;,
+#   Q6_4 &lt;dbl&gt;, Q6_5 &lt;dbl&gt;, Q7 &lt;dbl&gt;, Q8 &lt;dbl&gt;, Q9 &lt;dbl&gt;, Q10_1 &lt;dbl&gt;,
+#   Q10_2 &lt;dbl&gt;, Q10_3 &lt;dbl&gt;, Q10_4 &lt;dbl&gt;, Q10_5 &lt;dbl&gt;, Q10_6 &lt;dbl&gt;,
+#   Q10_7 &lt;dbl&gt;, Q10_8 &lt;dbl&gt;, Q11 &lt;dbl&gt;, Q12 &lt;dbl&gt;, Q12S1 &lt;dbl&gt;, Q13 &lt;dbl&gt;,
+#   Q13S1 &lt;dbl&gt;, Q13S2 &lt;dbl&gt;, Q14 &lt;dbl&gt;, Q14S1 &lt;dbl&gt;, Q15 &lt;dbl&gt;, Q15S1 &lt;dbl&gt;,
+#   Q15S2 &lt;dbl&gt;, Q16 &lt;dbl&gt;, Q16S1 &lt;dbl&gt;, Q16S2 &lt;dbl&gt;, Q17_1 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>　出力画面の最上段には<code>raw_df</code>の大きさが出力される。<code>3,000 × 272</code>は「3000行、272列」の表形式データであることを意味する。非常に大きなデータであるため、この内容が一画面に収めることはできないだろう。<code>read_csv()</code>で読み込まれたデータは画面に表示可能な範囲内でデータを出力してくれる。省略された列は出力画面の下段を見れば分かる。</p>
+<p>　<code>raw_df</code>の変数名（列名）を確認するためには、<code>names()</code>関数を使用する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">names</span>(raw_df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "USER_ID" "Q1"      "Q2"      "Q3"      "Q4"      "Q5_1"    "Q5_2"   
+  [8] "Q5_3"    "Q5_4"    "Q5_5"    "Q5_6"    "Q5_7"    "Q5_8"    "Q5_9"   
+ [15] "Q5_10"   "Q5_11"   "Q5_12"   "Q6_1"    "Q6_2"    "Q6_3"    "Q6_4"   
+ [22] "Q6_5"    "Q7"      "Q8"      "Q9"      "Q10_1"   "Q10_2"   "Q10_3"  
+ [29] "Q10_4"   "Q10_5"   "Q10_6"   "Q10_7"   "Q10_8"   "Q11"     "Q12"    
+ [36] "Q12S1"   "Q13"     "Q13S1"   "Q13S2"   "Q14"     "Q14S1"   "Q15"    
+ [43] "Q15S1"   "Q15S2"   "Q16"     "Q16S1"   "Q16S2"   "Q17_1"   "Q17_2"  
+ [50] "Q17_3"   "Q17_4"   "Q17_5"   "Q17_6"   "Q17_7"   "Q17_8"   "Q18S1"  
+ [57] "Q19S1"   "Q20S1"   "Q20S2"   "Q20S3_1" "Q20S3_2" "Q20S3_3" "Q20S3_4"
+ [64] "Q20S3_5" "Q20S3_6" "Q21S1"   "Q21S2"   "Q21S3_1" "Q21S3_2" "Q21S3_3"
+ [71] "Q21S3_4" "Q21S3_5" "Q21S3_6" "Q22S1"   "Q22S2"   "Q22S3_1" "Q22S3_2"
+ [78] "Q22S3_3" "Q22S3_4" "Q22S3_5" "Q22S3_6" "Q23S1"   "Q23S2"   "Q23S3_1"
+ [85] "Q23S3_2" "Q23S3_3" "Q23S3_4" "Q23S3_5" "Q23S3_6" "Q24S1"   "Q24S2"  
+ [92] "Q24S3_1" "Q24S3_2" "Q24S3_3" "Q24S3_4" "Q24S3_5" "Q24S3_6" "Q25S1"  
+ [99] "Q25S2"   "Q25S3_1" "Q25S3_2" "Q25S3_3" "Q25S3_4" "Q25S3_5" "Q25S3_6"
+[106] "Q26S1"   "Q26S2"   "Q26S3_1" "Q26S3_2" "Q26S3_3" "Q26S3_4" "Q26S3_5"
+[113] "Q26S3_6" "Q27S1"   "Q27S2"   "Q27S3_1" "Q27S3_2" "Q27S3_3" "Q27S3_4"
+[120] "Q27S3_5" "Q27S3_6" "Q28_1"   "Q29"     "Q30"     "Q31"     "Q32"    
+[127] "Q33"     "Q34"     "Q35_1"   "Q35_2"   "Q35_3"   "Q35_4"   "Q35_5"  
+[134] "Q35_6"   "Q35_7"   "Q35_8"   "Q35_9"   "Q35_10"  "Q35_11"  "Q35_12" 
+[141] "Q35_13"  "Q35_14"  "Q35_15"  "Q36S1"   "Q36S2"   "Q36S3"   "Q36S4"  
+[148] "Q36S5"   "Q36S6"   "Q36S7"   "Q36S8"   "Q36S9"   "Q37"     "Q38"    
+[155] "Q39"     "Q40S1"   "Q40S2"   "Q40S3"   "Q40S4"   "Q40S5"   "Q41_1"  
+[162] "Q41_2"   "Q41_3"   "Q41_4"   "Q41_5"   "Q41_6"   "Q42"     "Q43"    
+[169] "Q44"     "Q45"     "Q46"     "Q47_1"   "Q47_2"   "Q47_3"   "Q47_4"  
+[176] "Q47_5"   "Q47_6"   "Q47_7"   "Q47_8"   "Q47_9"   "Q47_10"  "Q47_11" 
+[183] "Q47_12"  "Q47_13"  "Q47_14"  "Q47_15"  "Q47_16"  "Q47_17"  "Q48_1"  
+[190] "Q48_2"   "Q48_3"   "Q48_4"   "Q48_5"   "Q48_6"   "Q49_1"   "Q49_2"  
+[197] "Q49_3"   "Q50_1"   "Q50_2"   "Q50_3"   "Q50_4"   "Q50_5"   "Q50_6"  
+[204] "Q51_1"   "Q51_2"   "Q51_3"   "Q51_4"   "Q51_5"   "Q51_6"   "Q51_7"  
+[211] "Q51_8"   "Q51_9"   "Q51_10"  "Q51_11"  "Q51_12"  "Q51_13"  "Q51_14" 
+[218] "Q51_15"  "Q52"     "Q53"     "Q54"     "Q55"     "Q56_1"   "Q56_2"  
+[225] "Q56_3"   "Q56_4"   "Q56_5"   "Q56_6"   "Q56_7"   "Q57"     "Q58_1"  
+[232] "Q58_2"   "Q58_3"   "Q58_4"   "Q58_5"   "Q58_6"   "Q58_7"   "Q58_8"  
+[239] "Q58_9"   "Q58_10"  "Q58_11"  "Q58_12"  "Q58_13"  "Q58_14"  "Q58_15" 
+[246] "Q58_16"  "Q59"     "Q59_1"   "Q59_2"   "Q59_3"   "Q59_4"   "X2_1"   
+[253] "X2_2"    "X2_3"    "Q60"     "Q60S1"   "Q61"     "Q62S1"   "Q62S2"  
+[260] "Q62S4"   "Q63"     "Q63S1"   "Q63S2"   "Q63S4"   "Q64"     "Q65"    
+[267] "seg"     "sex"     "age"     "chiiki"  "QVOTES"  "QVOTEP" </code></pre>
+</div>
+</div>
+<p>　また、データの大きさは<code>dim()</code>関数でも確認することができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">dim</span>(raw_df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3000  272</code></pre>
+</div>
+</div>
+<p>　最後に出力される画面の行数についてだが、デフォルトでは10行出力となっている。もし、15行を出力したい場合は<code>print()</code>関数を使用し、<code>n</code>引数で指定することができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">print</span>(raw_df, <span class="at">n =</span> <span class="dv">15</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 272
+   USER_ID    Q1    Q2    Q3    Q4  Q5_1  Q5_2  Q5_3  Q5_4  Q5_5  Q5_6  Q5_7
+     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1       1     3     3     1     1    80    80    70    50    40    20    50
+ 2       2     2     2     2     8     0    25    30    30    60    30    10
+ 3       3     3     1     1     8    80    10     0     0     0     0    75
+ 4       4     3     3     1     1   100    50     0     0    50     0   100
+ 5       5     3     3     2     3    70    40    40    50    30    20    70
+ 6       6     3     1     1     1   100     0     0     0     0     0   100
+ 7       7     3     3     1     6   100    10    20    10    10    10    50
+ 8       8     3     1     1     6    80     0    60    55     0     0    90
+ 9       9     3     1     1     1   100    50   100    75    50    25   100
+10      10     3     3     1     8    25    25    25    25    55    50    50
+11      11     1     2     2     3    60    30    25    10    10     0    60
+12      12     2     2     2     6    50    50    50    50    50    50    50
+13      13     3     1     1     3   100     5    30     5     0     0   100
+14      14     3     3     2     8    60    70    70    50    70    50    50
+15      15     2     3     3     7    50    50    50    50    50    50    50
+# … with 2,985 more rows, and 260 more variables: Q5_8 &lt;dbl&gt;, Q5_9 &lt;dbl&gt;,
+#   Q5_10 &lt;dbl&gt;, Q5_11 &lt;dbl&gt;, Q5_12 &lt;dbl&gt;, Q6_1 &lt;dbl&gt;, Q6_2 &lt;dbl&gt;, Q6_3 &lt;dbl&gt;,
+#   Q6_4 &lt;dbl&gt;, Q6_5 &lt;dbl&gt;, Q7 &lt;dbl&gt;, Q8 &lt;dbl&gt;, Q9 &lt;dbl&gt;, Q10_1 &lt;dbl&gt;,
+#   Q10_2 &lt;dbl&gt;, Q10_3 &lt;dbl&gt;, Q10_4 &lt;dbl&gt;, Q10_5 &lt;dbl&gt;, Q10_6 &lt;dbl&gt;,
+#   Q10_7 &lt;dbl&gt;, Q10_8 &lt;dbl&gt;, Q11 &lt;dbl&gt;, Q12 &lt;dbl&gt;, Q12S1 &lt;dbl&gt;, Q13 &lt;dbl&gt;,
+#   Q13S1 &lt;dbl&gt;, Q13S2 &lt;dbl&gt;, Q14 &lt;dbl&gt;, Q14S1 &lt;dbl&gt;, Q15 &lt;dbl&gt;, Q15S1 &lt;dbl&gt;,
+#   Q15S2 &lt;dbl&gt;, Q16 &lt;dbl&gt;, Q16S1 &lt;dbl&gt;, Q16S2 &lt;dbl&gt;, Q17_1 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="データハンドリング" class="level2">
+<h2 class="anchored" data-anchor-id="データハンドリング">データハンドリング</h2>
+<p>　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期の「<a href="https://www.jaysong.net/micro-book/">ミクロ政治データ分析実習</a>」の「データハンドリング」、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">12</a>、<a href="https://www.jaysong.net/RBook/datahandling2.html">13</a>、<a href="https://www.jaysong.net/RBook/factor.html">14</a>、<a href="https://www.jaysong.net/RBook/tidydata.html">15</a>章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを<code>df</code>という名の新しいオブジェクトとして作業環境内に格納する。<code>select()</code>関数の使い方は『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">12</a>章を参照すること。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="ot">&lt;-</span> raw_df <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">select</span>(<span class="at">ID           =</span> USER_ID, <span class="co"># 回答者ID</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>         <span class="at">Gender       =</span> sex,     <span class="co"># 性別</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>         <span class="at">Age          =</span> age,     <span class="co"># 年齢</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>         <span class="at">Education    =</span> Q61,     <span class="co"># 最終学歴</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>         <span class="at">Voted        =</span> Q15,     <span class="co"># 投票参加 (2016参院選)</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>         <span class="at">VotedParty   =</span> Q15S2,   <span class="co"># 投票先 (2016参院選)</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>         <span class="at">T_Jimin      =</span> Q5_7,    <span class="co"># 自民に対する感情温度</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>         <span class="at">T_Minshin    =</span> Q5_11)   <span class="co"># 民進に対する感情温度</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a></span>
+<span id="cb13-11"><a href="#cb13-11"></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 8
+      ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1      2    69         4     1          7      50        30
+ 2     2      2    47         3     2         NA      10        50
+ 3     3      2    37         2     1          1      75         0
+ 4     4      1    51         4     1          1     100        50
+ 5     5      1    38         4     2         NA      70        30
+ 6     6      1    71         2     1          1     100         0
+ 7     7      1    47         3     1          7      50        10
+ 8     8      1    71         2     1          1      90         0
+ 9     9      1    75         4     1          1     100        50
+10    10      2    66         3     1          2      50        55
+# … with 2,990 more rows</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">mutate</span>(<span class="at">Voted =</span> <span class="fu">if_else</span>(Voted <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 8
+      ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1      2    69         4     1          7      50        30
+ 2     2      2    47         3     0         NA      10        50
+ 3     3      2    37         2     1          1      75         0
+ 4     4      1    51         4     1          1     100        50
+ 5     5      1    38         4     0         NA      70        30
+ 6     6      1    71         2     1          1     100         0
+ 7     7      1    47         3     1          7      50        10
+ 8     8      1    71         2     1          1      90         0
+ 9     9      1    75         4     1          1     100        50
+10    10      2    66         3     1          2      50        55
+# … with 2,990 more rows</code></pre>
+</div>
+</div>
+<p>それではこの変数らの記述統計量を計算してみよう。</p>
+</section>
+<section id="記述統計" class="level2">
+<h2 class="anchored" data-anchor-id="記述統計">記述統計</h2>
+<p>　記述統計量（descriptive statistics）とは<strong>ある変数が持つ情報を要約した数値</strong>である。例えば、<code>df</code>の<code>Age</code>列は回答者の年齢の変数である。この回答者たちの年齢について語る時、「このデータの回答者の年齢は69、47、37、51、…、18歳ですよ」という人はいないだろう。4-5人分のデータならまだしも、3000人の回答者ならあり得ない。我々は普段、「このデータの回答者の年齢はだいたいXX歳ですよ」とか、「真ん中の年齢はYY歳ですよ」と言うだろう。また、年齢の格差/ばらつきを語るときも標準偏差や範囲（「18歳から75歳までいますよ」など）を言うのが普通であろう。このように元の長い情報を一つの数値として要約したものが記述統計量である。</p>
+<p>　Rには記述統計量を計算するいくつかの関数が用意されている。</p>
+<ul>
+<li><code>mean()</code>: 平均値</li>
+<li><code>median()</code>: 中央値</li>
+<li><code>var()</code>: 不偏分散</li>
+<li><code>sd()</code>: 不偏標準偏差</li>
+<li><code>min()</code>、<code>max()</code>: 最小値と最大値</li>
+</ul>
+<p>　たとえば、<code>df</code>の<code>Age</code>列（<code>df$Age</code>）の平均値は以下のように計算する。<code>na.rm = TRUE</code>は「もし<code>df$Age</code>に欠損値がある場合、それは除外して平均値を計算する」ことを意味する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 47.34</code></pre>
+</div>
+</div>
+<p>　同じやり方で中央値（<code>median()</code>）、最小値（<code>min()</code>）、最大値（<code>max()</code>）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の<code>summarise()</code>関数を使用する。<code>summarise()</code>関数の詳細については、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling2.html">13</a>章を参照すること。ここでは<code>Age</code>変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ<code>Mean</code>、<code>Median</code>、<code>SD</code>、<code>Min</code>、<code>Max</code>、<code>N</code>という名の列として出力してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">summarise</span>(<span class="at">Mean   =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-3"><a href="#cb19-3"></a>            <span class="at">Median =</span> <span class="fu">median</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-4"><a href="#cb19-4"></a>            <span class="at">SD     =</span> <span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-5"><a href="#cb19-5"></a>            <span class="at">Min    =</span> <span class="fu">min</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-6"><a href="#cb19-6"></a>            <span class="at">Max    =</span> <span class="fu">min</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-7"><a href="#cb19-7"></a>            <span class="at">N      =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Age)))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+   Mean Median    SD   Min   Max     N
+  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1  47.3     47  15.6    18    18  3000</code></pre>
+</div>
+</div>
+<p>　有効ケース数（欠損していないケースの数）を計算する方法がやや面倒である。これはまず<code>is.na()</code>関数を使って、当該変数が欠損していれば<code>TRUE</code>、そうでなければ<code>FALSE</code>と判定する。そして<code>is.na()</code>の前には否定演算子<code>!</code>が付いている。つまり、<code>is.na()</code>から得られた結果が逆となり、欠損していれば<code>FALSE</code>、値があれば<code>TRUE</code>になる。Rにおいて<code>TRUE</code>は1、<code>FALSE</code>は0扱いとなるので、この合計（<code>sum()</code>）を求めることで欠損していないケースの数が計算できるようになる。</p>
+<section id="名目変数の場合" class="level3">
+<h3 class="anchored" data-anchor-id="名目変数の場合">名目変数の場合</h3>
+<p>　これまでの内容は変数が連続変数（continuous variable）に限った話である。名目変数（categorical variable）の場合、平均値などは存在しない。100円と1万円の平均値は計算できるものの、男性と女性の平均値や北海道と鹿児島の平均値などはあり得ないからだ。しかし、名目変数でもデータ分析に使われる場面は多く、分析に使われる以上、記述統計量をしっかりと掲載すべきである。</p>
+<p>　名目変数の記述する簡単な方法としては度数分布表がある。たとえば、<code>df</code>の場合、性別（<code>Gender</code>）は男性（=1）と女性（=2）で構成されている。つまり、2つの要素（levels）で構成される変数だ。度数分布表は各要素がいくつあるかを示したものであり、<code>table()</code>関数で簡単に確認することができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">table</span>(df<span class="sc">$</span>Gender)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   1    2 
+1492 1508 </code></pre>
+</div>
+</div>
+<p>　また、{dplyr}を使う場合、<code>count()</code>関数を使用すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">count</span>(Gender)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Gender     n
+   &lt;dbl&gt; &lt;int&gt;
+1      1  1492
+2      2  1508</code></pre>
+</div>
+</div>
+<p>　しかし、連続変数用の記述統計表と名目変数用の度数分布表を分けることは非効率的である。分析に用いられる名目変数が数が多いと尚更だ。できれば名目変数も連続変数と同じ表で記述統計量を出した方が良いだろう。そのためには名目変数をダミー変数として変換すれば、平均値や標準偏差などが計算できるようになる。</p>
+<p>　ダミー変数は0と1のみで構成される変数である。たとえば、性別変数（<code>Gender</code>列）は名目変数であるが、現在、1（男性）と2（女性）の2つの値で構成されている。この変数を男性ダミー変数と女性ダミー変数といった2つの変数に変換することである。男性ダミー変数は<code>Gender</code>の値が1なら、つまり当該回答者が男性（=1）なら1の値を、それ以外の場合は0の値をとる。女性ダミー変数の場合、当該回答者が女性（=2）なら1の値を、それ以外の場合は0の値をとる。<code>if_else()</code>関数を使って男性ダミー変数（<code>Male</code>）と女性ダミー変数（<code>Female</code>）を作ってみよう。このダミー変数は<code>Gender</code>列の後ろにし、<code>df2</code>という名のオブジェクトとして格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Male   =</span> <span class="fu">if_else</span>(Gender <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb25-3"><a href="#cb25-3"></a>         <span class="at">Female =</span> <span class="fu">if_else</span>(Gender <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb25-4"><a href="#cb25-4"></a>         <span class="at">.after =</span> Gender)</span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 10
+      ID Gender  Male Female   Age Education Voted VotedParty T_Jimin T_Minshin
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1      2     0      1    69         4     1          7      50        30
+ 2     2      2     0      1    47         3     0         NA      10        50
+ 3     3      2     0      1    37         2     1          1      75         0
+ 4     4      1     1      0    51         4     1          1     100        50
+ 5     5      1     1      0    38         4     0         NA      70        30
+ 6     6      1     1      0    71         2     1          1     100         0
+ 7     7      1     1      0    47         3     1          7      50        10
+ 8     8      1     1      0    71         2     1          1      90         0
+ 9     9      1     1      0    75         4     1          1     100        50
+10    10      2     0      1    66         3     1          2      50        55
+# … with 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　<code>df2</code>にはもう一つの名目変数がある。それは投票先を意味する<code>VotedParty</code>変数だ。<code>VotedParty</code>は1から7までの整数で構成されている。<code>VotedParty</code>の値が1なら自民党に投票、2なら民進党に投票、…といった変数であり、これは計7個のダミー変数となる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 15</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">mutate</span>(<span class="at">VotedParty_Jimin   =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-3"><a href="#cb27-3"></a>         <span class="at">VotedParty_Minshin =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-4"><a href="#cb27-4"></a>         <span class="at">VotedParty_Komei   =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-5"><a href="#cb27-5"></a>         <span class="at">VotedParty_Ishin   =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-6"><a href="#cb27-6"></a>         <span class="at">VotedParty_Kyosan  =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-7"><a href="#cb27-7"></a>         <span class="at">VotedParty_Etc     =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-8"><a href="#cb27-8"></a>         <span class="at">VotedParty_DK      =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb27-9"><a href="#cb27-9"></a>         <span class="at">.after             =</span> VotedParty)</span>
+<span id="cb27-10"><a href="#cb27-10"></a></span>
+<span id="cb27-11"><a href="#cb27-11"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 17
+      ID Gender  Male Female   Age Educa…¹ Voted Voted…² Voted…³ Voted…⁴ Voted…⁵
+   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1      2     0      1    69       4     1       7       0       0       0
+ 2     2      2     0      1    47       3     0      NA      NA      NA      NA
+ 3     3      2     0      1    37       2     1       1       1       0       0
+ 4     4      1     1      0    51       4     1       1       1       0       0
+ 5     5      1     1      0    38       4     0      NA      NA      NA      NA
+ 6     6      1     1      0    71       2     1       1       1       0       0
+ 7     7      1     1      0    47       3     1       7       0       0       0
+ 8     8      1     1      0    71       2     1       1       1       0       0
+ 9     9      1     1      0    75       4     1       1       1       0       0
+10    10      2     0      1    66       3     1       2       0       1       0
+# … with 2,990 more rows, 6 more variables: VotedParty_Ishin &lt;dbl&gt;,
+#   VotedParty_Kyosan &lt;dbl&gt;, VotedParty_Etc &lt;dbl&gt;, VotedParty_DK &lt;dbl&gt;,
+#   T_Jimin &lt;dbl&gt;, T_Minshin &lt;dbl&gt;, and abbreviated variable names ¹​Education,
+#   ²​VotedParty, ³​VotedParty_Jimin, ⁴​VotedParty_Minshin, ⁵​VotedParty_Komei</code></pre>
+</div>
+</div>
+<p>　あとは<code>Gender</code>と<code>VotedParty</code>列は不要なので、こちらを除外する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, VotedParty))</span>
+<span id="cb29-3"><a href="#cb29-3"></a></span>
+<span id="cb29-4"><a href="#cb29-4"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 15
+      ID  Male Female   Age Education Voted VotedParty…¹ Voted…² Voted…³ Voted…⁴
+   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1     0      1    69         4     1            0       0       0       0
+ 2     2     0      1    47         3     0           NA      NA      NA      NA
+ 3     3     0      1    37         2     1            1       0       0       0
+ 4     4     1      0    51         4     1            1       0       0       0
+ 5     5     1      0    38         4     0           NA      NA      NA      NA
+ 6     6     1      0    71         2     1            1       0       0       0
+ 7     7     1      0    47         3     1            0       0       0       0
+ 8     8     1      0    71         2     1            1       0       0       0
+ 9     9     1      0    75         4     1            1       0       0       0
+10    10     0      1    66         3     1            0       1       0       0
+# … with 2,990 more rows, 5 more variables: VotedParty_Kyosan &lt;dbl&gt;,
+#   VotedParty_Etc &lt;dbl&gt;, VotedParty_DK &lt;dbl&gt;, T_Jimin &lt;dbl&gt;, T_Minshin &lt;dbl&gt;,
+#   and abbreviated variable names ¹​VotedParty_Jimin, ²​VotedParty_Minshin,
+#   ³​VotedParty_Komei, ⁴​VotedParty_Ishin</code></pre>
+</div>
+</div>
+<p>　これで名目変数も連続変数と同じやり方で記述統計量が計算できる。</p>
+</section>
+<section id="fastdummiesの利用" class="level3">
+<h3 class="anchored" data-anchor-id="fastdummiesの利用">{fastDummies}の利用</h3>
+<p>　しかし、以上の作業はかなり面倒だろう。7個の変数でも大変だが、たとえば回答者の都道府県があれば、計47行のコードを書く必要がある。このように面倒なダミー変数の作成を{fastuDummies}パッケージを使えばたった数行のコードでダミー化ができる。手順は以下の通りである。</p>
+<ol type="1">
+<li>名目変数をfactor型変数へ変換する。</li>
+<li>{fastDummies}パッケージの<code>dummy_cols()</code>関数でダミー化する。</li>
+<li>生成された列を適宜修正する（変数名や位置など）。</li>
+</ol>
+<p>　それではまず、<code>df</code>の<code>Gender</code>と<code>VotedParty</code>列をfactor化してみよう。<code>Gender</code>の場合、値が1なら<code>"Male"</code>、2なら<code>"Female"</code>を付ける。<code>VotedParty</code>は値が1なら<code>"Jimin"</code>、2なら<code>"Minshin"</code>、3なら<code>"Komei"</code>、4なら<code>"Ishin"</code>、5なら<code>"Kyosan"</code>、6なら<code>"Etc"</code>（その他の政党）、7なら<code>"DK"</code>（覚えていない/答えたくない）とする。修正後、<code>df</code>は<code>df3</code>という名の新しいオブジェクトとして作業環境内に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender     =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb31-3"><a href="#cb31-3"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb31-4"><a href="#cb31-4"></a>         <span class="at">VotedParty =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
+<span id="cb31-5"><a href="#cb31-5"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Jimin"</span>, <span class="st">"Minshin"</span>, <span class="st">"Komei"</span>, <span class="st">"Ishin"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6"></a>                                        <span class="st">"Kyosan"</span>, <span class="st">"Etc"</span>, <span class="st">"DK"</span>))) </span>
+<span id="cb31-7"><a href="#cb31-7"></a></span>
+<span id="cb31-8"><a href="#cb31-8"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 8
+      ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin
+   &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+ 1     1 Female    69         4     1 DK              50        30
+ 2     2 Female    47         3     0 &lt;NA&gt;            10        50
+ 3     3 Female    37         2     1 Jimin           75         0
+ 4     4 Male      51         4     1 Jimin          100        50
+ 5     5 Male      38         4     0 &lt;NA&gt;            70        30
+ 6     6 Male      71         2     1 Jimin          100         0
+ 7     7 Male      47         3     1 DK              50        10
+ 8     8 Male      71         2     1 Jimin           90         0
+ 9     9 Male      75         4     1 Jimin          100        50
+10    10 Female    66         3     1 Minshin         50        55
+# … with 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　続いて、{fastDummies}の<code>dummy_cols()</code>関数で<code>Gender</code>と<code>VotedParty</code>をダミー変数に変換する。第一引数はダミー変数にしたい変数の名前を<code>"</code>で囲んだものを入れる。2つ以上の変数をダミー化するなら<code>c()</code>でまとめる。続いて、<code>ignore_na = TRUE</code>を指定する。これを指定しない場合、「欠損か否か」のダミー変数まで作成される。つづいて、元の変数（<code>Gender</code>と<code>VotedParty</code>）を除外する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, VotedParty))</span>
+<span id="cb33-4"><a href="#cb33-4"></a></span>
+<span id="cb33-5"><a href="#cb33-5"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 15
+      ID   Age Education Voted T_Jimin T_Minshin Gende…¹ Gende…² Voted…³ Voted…⁴
+   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+ 1     1    69         4     1      50        30       0       1       0       0
+ 2     2    47         3     0      10        50       0       1      NA      NA
+ 3     3    37         2     1      75         0       0       1       1       0
+ 4     4    51         4     1     100        50       1       0       1       0
+ 5     5    38         4     0      70        30       1       0      NA      NA
+ 6     6    71         2     1     100         0       1       0       1       0
+ 7     7    47         3     1      50        10       1       0       0       0
+ 8     8    71         2     1      90         0       1       0       1       0
+ 9     9    75         4     1     100        50       1       0       1       0
+10    10    66         3     1      50        55       0       1       0       1
+# … with 2,990 more rows, 5 more variables: VotedParty_Komei &lt;int&gt;,
+#   VotedParty_Ishin &lt;int&gt;, VotedParty_Kyosan &lt;int&gt;, VotedParty_Etc &lt;int&gt;,
+#   VotedParty_DK &lt;int&gt;, and abbreviated variable names ¹​Gender_Male,
+#   ²​Gender_Female, ³​VotedParty_Jimin, ⁴​VotedParty_Minshin</code></pre>
+</div>
+</div>
+<p>　これでダミー化は完了だ。ここで更に変数名を変更し、位置を調整してみよう。たとえば、<code>Gender_Male</code>は<code>Male</code>に、<code>Gender_Female</code>は<code>Female</code>に変更し、<code>ID</code>列の後ろへ移動させるとしよう。この場合、<code>relocate()</code>関数を使用する。列名を変更する場合は<code>新しい変数名 = 既存の変数名</code>と指定し、<code>.after</code>、あるいは<code>.before</code>で位置を指定する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 19</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
+<span id="cb35-3"><a href="#cb35-3"></a>           <span class="at">Female =</span> Gender_Female,</span>
+<span id="cb35-4"><a href="#cb35-4"></a>           <span class="at">.after =</span> ID)</span>
+<span id="cb35-5"><a href="#cb35-5"></a></span>
+<span id="cb35-6"><a href="#cb35-6"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 15
+      ID  Male Female   Age Education Voted T_Jimin T_Minshin VotedPar…¹ Voted…²
+   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt;
+ 1     1     0      1    69         4     1      50        30          0       0
+ 2     2     0      1    47         3     0      10        50         NA      NA
+ 3     3     0      1    37         2     1      75         0          1       0
+ 4     4     1      0    51         4     1     100        50          1       0
+ 5     5     1      0    38         4     0      70        30         NA      NA
+ 6     6     1      0    71         2     1     100         0          1       0
+ 7     7     1      0    47         3     1      50        10          0       0
+ 8     8     1      0    71         2     1      90         0          1       0
+ 9     9     1      0    75         4     1     100        50          1       0
+10    10     0      1    66         3     1      50        55          0       1
+# … with 2,990 more rows, 5 more variables: VotedParty_Komei &lt;int&gt;,
+#   VotedParty_Ishin &lt;int&gt;, VotedParty_Kyosan &lt;int&gt;, VotedParty_Etc &lt;int&gt;,
+#   VotedParty_DK &lt;int&gt;, and abbreviated variable names ¹​VotedParty_Jimin,
+#   ²​VotedParty_Minshin</code></pre>
+</div>
+</div>
+<p>　続いて、<code>VotedParty_Jimin</code>から<code>VotedParty_DK</code>までの列を<code>Voted</code>列の後ろへ動かしてみよう。変数選択の場合、<code>:</code>演算子を使うと「〜から〜まで」の指定ができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 20</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">relocate</span>(VotedParty_Jimin<span class="sc">:</span>VotedParty_DK, <span class="at">.after =</span> Voted)</span>
+<span id="cb37-3"><a href="#cb37-3"></a></span>
+<span id="cb37-4"><a href="#cb37-4"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 15
+      ID  Male Female   Age Education Voted VotedParty…¹ Voted…² Voted…³ Voted…⁴
+   &lt;dbl&gt; &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+ 1     1     0      1    69         4     1            0       0       0       0
+ 2     2     0      1    47         3     0           NA      NA      NA      NA
+ 3     3     0      1    37         2     1            1       0       0       0
+ 4     4     1      0    51         4     1            1       0       0       0
+ 5     5     1      0    38         4     0           NA      NA      NA      NA
+ 6     6     1      0    71         2     1            1       0       0       0
+ 7     7     1      0    47         3     1            0       0       0       0
+ 8     8     1      0    71         2     1            1       0       0       0
+ 9     9     1      0    75         4     1            1       0       0       0
+10    10     0      1    66         3     1            0       1       0       0
+# … with 2,990 more rows, 5 more variables: VotedParty_Kyosan &lt;int&gt;,
+#   VotedParty_Etc &lt;int&gt;, VotedParty_DK &lt;int&gt;, T_Jimin &lt;dbl&gt;, T_Minshin &lt;dbl&gt;,
+#   and abbreviated variable names ¹​VotedParty_Jimin, ²​VotedParty_Minshin,
+#   ³​VotedParty_Komei, ⁴​VotedParty_Ishin</code></pre>
+</div>
+</div>
+<p>　むろん、<code>:</code>ではなく、<code>starts_with()</code>関数で変数選択もできる。いずれも<code>"VotedParty_"</code>で始まる変数名なので、<code>starts_with("VotedParty_")</code>と書けば、<code>VotedParty_</code>で始まる全変数が選択される。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 21</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df3 <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="summarytoolsの利用" class="level2">
+<h2 class="anchored" data-anchor-id="summarytoolsの利用">{summarytools}の利用</h2>
+<p>　記述統計量は実証分析の論文において必須であり、多くの場合、最初の表として登場する。人によっては記述統計量の表を<em>Table One</em>とも呼ぶのもこれが理由である。記述統計量を示すことが重要だというのは、表作成の需要が高いことを意味し、高い需要はかならず供給を生み出す。Rにおいても簡単に記述統計量をまとめてくれるパッケージが多数あり、ここでは{summarytools}パッケージをを紹介する。</p>
+<p>　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは<code>descr()</code>関数を使用する。使い方は非常に単純で、<code>()</code>内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（<code>%&gt;%</code>または<code>|&gt;</code>）も使える。パイプ演算子は今後毎回登場するので、忘れた人はミクロ政治データ分析実習の<a href="https://www.jaysong.net/micro-book/materials/handling1.html">第9回講義資料</a>、または『私たちのR』の<a href="https://www.jaysong.net/RBook/datahandling1.html">第12章</a>を参照すること。。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 22</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">descr</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 3000  
+
+                        Age   Education    Gender        ID   T_Jimin   T_Minshin     Voted   VotedParty
+----------------- --------- ----------- --------- --------- --------- ----------- --------- ------------
+             Mean     47.34        3.11      1.50   1500.50     41.13       34.25      0.74         2.94
+          Std.Dev     15.63        0.89      0.50    866.17     28.02       25.95      0.44         2.21
+              Min     18.00        1.00      1.00      1.00      0.00        0.00      0.00         1.00
+               Q1     34.00        2.00      1.00    750.50     20.00       10.00      0.00         1.00
+           Median     47.00        3.00      2.00   1500.50     50.00       40.00      1.00         2.00
+               Q3     61.00        4.00      2.00   2250.50     60.00       50.00      1.00         5.00
+              Max     75.00        4.00      2.00   3000.00    100.00      100.00      1.00         7.00
+              MAD     19.27        1.48      0.00   1111.95     29.65       29.65      0.00         1.48
+              IQR     27.00        2.00      1.00   1499.50     40.00       40.00      1.00         4.00
+               CV      0.33        0.29      0.33      0.58      0.68        0.76      0.60         0.75
+         Skewness     -0.03       -0.38     -0.01      0.00      0.02        0.16     -1.07         0.82
+      SE.Skewness      0.04        0.04      0.04      0.04      0.04        0.04      0.04         0.05
+         Kurtosis     -1.14       -1.28     -2.00     -1.20     -0.83       -0.81     -0.85        -0.82
+          N.Valid   3000.00     3000.00   3000.00   3000.00   3000.00     3000.00   3000.00      2208.00
+        Pct.Valid    100.00      100.00    100.00    100.00    100.00      100.00    100.00        73.60</code></pre>
+</div>
+</div>
+<p>　よく使う平均値（Mean）、標準偏差（Std.Dev）など以外にも第一四分位数（Q1）や四分位範囲（IQR）、歪度（Skewness）などまで出力される。実際はこれら全てを掲載するケースはあまりない。ここでは平均値（<code>"mean"</code>）、標準偏差（<code>"sd"</code>）、最小値（<code>"min"</code>）、最大値（<code>"max"</code>）、有効ケース数（<code>"n.vailid"</code>）のみに絞ってみよう。出力する記述統計量は<code>stats</code>引数で指定できる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 23</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 3000  
+
+                    Age   Education    Gender        ID   T_Jimin   T_Minshin     Voted   VotedParty
+------------- --------- ----------- --------- --------- --------- ----------- --------- ------------
+         Mean     47.34        3.11      1.50   1500.50     41.13       34.25      0.74         2.94
+      Std.Dev     15.63        0.89      0.50    866.17     28.02       25.95      0.44         2.21
+          Min     18.00        1.00      1.00      1.00      0.00        0.00      0.00         1.00
+          Max     75.00        4.00      2.00   3000.00    100.00      100.00      1.00         7.00
+      N.Valid   3000.00     3000.00   3000.00   3000.00   3000.00     3000.00   3000.00      2208.00</code></pre>
+</div>
+</div>
+<p>　ただし、まだ気になる点がある。それは行と列が普段見る記述統計量の表と逆だということだ。これは<code>transpose = TRUE</code>を追加することで対応できる。また、変数の順番も<code>df</code>内の順番でなく、勝手にアルファベット順になっている。これを<code>df</code>内の順番にするためには<code>sort = "p"</code>を追加すれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 24</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb44-3"><a href="#cb44-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 3000  
+
+                      Mean   Std.Dev     Min       Max   N.Valid
+---------------- --------- --------- ------- --------- ---------
+              ID   1500.50    866.17    1.00   3000.00   3000.00
+          Gender      1.50      0.50    1.00      2.00   3000.00
+             Age     47.34     15.63   18.00     75.00   3000.00
+       Education      3.11      0.89    1.00      4.00   3000.00
+           Voted      0.74      0.44    0.00      1.00   3000.00
+      VotedParty      2.94      2.21    1.00      7.00   2208.00
+         T_Jimin     41.13     28.02    0.00    100.00   3000.00
+       T_Minshin     34.25     25.95    0.00    100.00   3000.00</code></pre>
+</div>
+</div>
+<p>　最後に<code>ID</code>行の記述統計量を削除してみよう。これは回答者の識別番号であって、その平均値や標準偏差はどうでもいい。そのためには<code>df</code>を<code>descr()</code>を渡す前に<code>select()</code>関数を使って<code>ID</code>列を除外してから渡せば良いだろう。<code>Gender</code>と<code>VotedParty</code>もまた名目変数であるが、ここではとりあえず放置しておく。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 25</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb46-4"><a href="#cb46-4"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 3000  
+
+                    Mean   Std.Dev     Min      Max   N.Valid
+---------------- ------- --------- ------- -------- ---------
+          Gender    1.50      0.50    1.00     2.00   3000.00
+             Age   47.34     15.63   18.00    75.00   3000.00
+       Education    3.11      0.89    1.00     4.00   3000.00
+           Voted    0.74      0.44    0.00     1.00   3000.00
+      VotedParty    2.94      2.21    1.00     7.00   2208.00
+         T_Jimin   41.13     28.02    0.00   100.00   3000.00
+       T_Minshin   34.25     25.95    0.00   100.00   3000.00</code></pre>
+</div>
+</div>
+<p>　それでは名目変数を含めた記述統計表を作成してみよう。<code>df</code>ダミー化を済ませてから<code>descr()</code>に渡せば良い。記述統計表は<code>desc_stat</code>という名のオブジェクトとして作業環境内に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 26</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>desc_stat <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender     =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb48-3"><a href="#cb48-3"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb48-4"><a href="#cb48-4"></a>         <span class="at">VotedParty =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
+<span id="cb48-5"><a href="#cb48-5"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Jimin"</span>, <span class="st">"Minshin"</span>, <span class="st">"Komei"</span>, <span class="st">"Ishin"</span>,</span>
+<span id="cb48-6"><a href="#cb48-6"></a>                                        <span class="st">"Kyosan"</span>, <span class="st">"Etc"</span>, <span class="st">"DK"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb48-7"><a href="#cb48-7"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb48-8"><a href="#cb48-8"></a>             <span class="co"># 以下の引数を追加すると元の変数が自動的に削除される</span></span>
+<span id="cb48-9"><a href="#cb48-9"></a>             <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-10"><a href="#cb48-10"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
+<span id="cb48-11"><a href="#cb48-11"></a>           <span class="at">Female =</span> Gender_Female,</span>
+<span id="cb48-12"><a href="#cb48-12"></a>           <span class="at">.after =</span> ID) <span class="sc">%&gt;%</span></span>
+<span id="cb48-13"><a href="#cb48-13"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted) <span class="sc">%&gt;%</span></span>
+<span id="cb48-14"><a href="#cb48-14"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
+<span id="cb48-15"><a href="#cb48-15"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb48-16"><a href="#cb48-16"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span>
+<span id="cb48-17"><a href="#cb48-17"></a></span>
+<span id="cb48-18"><a href="#cb48-18"></a>desc_stat</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 3000  
+
+                            Mean   Std.Dev     Min      Max   N.Valid
+------------------------ ------- --------- ------- -------- ---------
+                    Male    0.50      0.50    0.00     1.00   3000.00
+                  Female    0.50      0.50    0.00     1.00   3000.00
+                     Age   47.34     15.63   18.00    75.00   3000.00
+               Education    3.11      0.89    1.00     4.00   3000.00
+                   Voted    0.74      0.44    0.00     1.00   3000.00
+        VotedParty_Jimin    0.40      0.49    0.00     1.00   2208.00
+      VotedParty_Minshin    0.20      0.40    0.00     1.00   2208.00
+        VotedParty_Komei    0.05      0.22    0.00     1.00   2208.00
+        VotedParty_Ishin    0.10      0.30    0.00     1.00   2208.00
+       VotedParty_Kyosan    0.08      0.27    0.00     1.00   2208.00
+          VotedParty_Etc    0.01      0.10    0.00     1.00   2208.00
+           VotedParty_DK    0.16      0.37    0.00     1.00   2208.00
+                 T_Jimin   41.13     28.02    0.00   100.00   3000.00
+               T_Minshin   34.25     25.95    0.00   100.00   3000.00</code></pre>
+</div>
+</div>
+<p>　{gt}パッケージを使えば、よりまとまった表として出力できる。興味のある履修者はやってみよう。{gt}パッケージのチュートリアルおよびレファレンスは<a href="https://gt.rstudio.com/">公式ページ</a>を参照すること。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 27</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(gt) <span class="co"># or pacman::p_load(gt)</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a></span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="fu">gt</span>(desc_stat, </span>
+<span id="cb50-4"><a href="#cb50-4"></a>   <span class="at">rownames_to_stub =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="co"># 行の名前（変数の名前）を1列目に出力</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="co"># 2列、3列の値は小数点3桁まで</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+
+<div id="nmgwevjwul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#nmgwevjwul) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#nmgwevjwul) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#nmgwevjwul) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#nmgwevjwul) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#nmgwevjwul) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#nmgwevjwul) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#nmgwevjwul) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#nmgwevjwul) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#nmgwevjwul) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#nmgwevjwul) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#nmgwevjwul) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#nmgwevjwul) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#nmgwevjwul) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#nmgwevjwul) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#nmgwevjwul) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#nmgwevjwul) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#nmgwevjwul) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#nmgwevjwul) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#nmgwevjwul) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#nmgwevjwul) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#nmgwevjwul) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#nmgwevjwul) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#nmgwevjwul) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#nmgwevjwul) .gt_left {
+  text-align: left;
+}
+
+:where(#nmgwevjwul) .gt_center {
+  text-align: center;
+}
+
+:where(#nmgwevjwul) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#nmgwevjwul) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#nmgwevjwul) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#nmgwevjwul) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#nmgwevjwul) .gt_super {
+  font-size: 65%;
+}
+
+:where(#nmgwevjwul) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#nmgwevjwul) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#nmgwevjwul) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#nmgwevjwul) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#nmgwevjwul) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#nmgwevjwul) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#nmgwevjwul) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Mean">Mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Std.Dev">Std.Dev</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Min">Min</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Max">Max</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="N.Valid">N.Valid</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub">Male</th>
+<td headers="stub_1_1 Mean" class="gt_row gt_right">0.497</td>
+<td headers="stub_1_1 Std.Dev" class="gt_row gt_right">0.500</td>
+<td headers="stub_1_1 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_1 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_1 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub">Female</th>
+<td headers="stub_1_2 Mean" class="gt_row gt_right">0.503</td>
+<td headers="stub_1_2 Std.Dev" class="gt_row gt_right">0.500</td>
+<td headers="stub_1_2 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_2 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_2 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_left gt_stub">Age</th>
+<td headers="stub_1_3 Mean" class="gt_row gt_right">47.340</td>
+<td headers="stub_1_3 Std.Dev" class="gt_row gt_right">15.628</td>
+<td headers="stub_1_3 Min" class="gt_row gt_right">18</td>
+<td headers="stub_1_3 Max" class="gt_row gt_right">75</td>
+<td headers="stub_1_3 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_left gt_stub">Education</th>
+<td headers="stub_1_4 Mean" class="gt_row gt_right">3.114</td>
+<td headers="stub_1_4 Std.Dev" class="gt_row gt_right">0.892</td>
+<td headers="stub_1_4 Min" class="gt_row gt_right">1</td>
+<td headers="stub_1_4 Max" class="gt_row gt_right">4</td>
+<td headers="stub_1_4 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_5" scope="row" class="gt_row gt_left gt_stub">Voted</th>
+<td headers="stub_1_5 Mean" class="gt_row gt_right">0.736</td>
+<td headers="stub_1_5 Std.Dev" class="gt_row gt_right">0.441</td>
+<td headers="stub_1_5 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_5 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_5 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_left gt_stub">VotedParty_Jimin</th>
+<td headers="stub_1_6 Mean" class="gt_row gt_right">0.399</td>
+<td headers="stub_1_6 Std.Dev" class="gt_row gt_right">0.490</td>
+<td headers="stub_1_6 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_6 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_6 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_left gt_stub">VotedParty_Minshin</th>
+<td headers="stub_1_7 Mean" class="gt_row gt_right">0.199</td>
+<td headers="stub_1_7 Std.Dev" class="gt_row gt_right">0.399</td>
+<td headers="stub_1_7 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_7 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_7 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_8" scope="row" class="gt_row gt_left gt_stub">VotedParty_Komei</th>
+<td headers="stub_1_8 Mean" class="gt_row gt_right">0.051</td>
+<td headers="stub_1_8 Std.Dev" class="gt_row gt_right">0.220</td>
+<td headers="stub_1_8 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_8 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_8 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_9" scope="row" class="gt_row gt_left gt_stub">VotedParty_Ishin</th>
+<td headers="stub_1_9 Mean" class="gt_row gt_right">0.100</td>
+<td headers="stub_1_9 Std.Dev" class="gt_row gt_right">0.300</td>
+<td headers="stub_1_9 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_9 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_9 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_10" scope="row" class="gt_row gt_left gt_stub">VotedParty_Kyosan</th>
+<td headers="stub_1_10 Mean" class="gt_row gt_right">0.078</td>
+<td headers="stub_1_10 Std.Dev" class="gt_row gt_right">0.269</td>
+<td headers="stub_1_10 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_10 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_10 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_11" scope="row" class="gt_row gt_left gt_stub">VotedParty_Etc</th>
+<td headers="stub_1_11 Mean" class="gt_row gt_right">0.011</td>
+<td headers="stub_1_11 Std.Dev" class="gt_row gt_right">0.104</td>
+<td headers="stub_1_11 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_11 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_11 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_12" scope="row" class="gt_row gt_left gt_stub">VotedParty_DK</th>
+<td headers="stub_1_12 Mean" class="gt_row gt_right">0.163</td>
+<td headers="stub_1_12 Std.Dev" class="gt_row gt_right">0.369</td>
+<td headers="stub_1_12 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_12 Max" class="gt_row gt_right">1</td>
+<td headers="stub_1_12 N.Valid" class="gt_row gt_right">2208</td></tr>
+    <tr><th id="stub_1_13" scope="row" class="gt_row gt_left gt_stub">T_Jimin</th>
+<td headers="stub_1_13 Mean" class="gt_row gt_right">41.130</td>
+<td headers="stub_1_13 Std.Dev" class="gt_row gt_right">28.015</td>
+<td headers="stub_1_13 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_13 Max" class="gt_row gt_right">100</td>
+<td headers="stub_1_13 N.Valid" class="gt_row gt_right">3000</td></tr>
+    <tr><th id="stub_1_14" scope="row" class="gt_row gt_left gt_stub">T_Minshin</th>
+<td headers="stub_1_14 Mean" class="gt_row gt_right">34.248</td>
+<td headers="stub_1_14 Std.Dev" class="gt_row gt_right">25.947</td>
+<td headers="stub_1_14 Min" class="gt_row gt_right">0</td>
+<td headers="stub_1_14 Max" class="gt_row gt_right">100</td>
+<td headers="stub_1_14 N.Valid" class="gt_row gt_right">3000</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

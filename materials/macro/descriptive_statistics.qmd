@@ -1,0 +1,355 @@
+---
+title: "第4回講義資料"
+subtitle: "記述統計"
+toc: true
+metadata-files: 
+  - _material.yml
+---
+
+## スライド {.unlisted}
+
+<a href="../../slides/macro/descriptive_statistics.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a>
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/macro/descriptive_statistics.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+```
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, fastDummies)
+raw_df <- read_csv("Data/descstat_data.csv")
+```
+
+## セットアップ
+
+　まず、本日の実習で使用するパッケージを読み込む。
+
+```{r}
+#| filename: "Code 01"
+#| eval: false
+library(tidyverse)
+library(fastDummies)
+library(summarytools)
+```
+
+　当該パッケージがインストールされていない場合、以下のようなメッセージが出力される。
+
+```
+Error in library(パッケージ名) : there is no package called ‘パッケージ名’
+```
+
+　この場合、`install.packages("パッケージ名")`でパッケージをインストールしてから読み込もう。
+
+　ただし、当該パッケージがインストールされているかが分からない場合もあろう。あるいは、インストールされているにも関わらず、再インストールしてしまう可能性もある。パッケージによってはインストールに数分かかる場合もあるのでこれは非常に非効率的である。ここで便利なものが{pacman}パッケージだ。{pacman}パッケージがインストールされている場合、`p_load()`関数でパッケージを読み込むことができる。`p_load()`関数は{pacman}パッケージが提供する関数であるため、予め`library(pacman)`で{pacman}パッケージを読み込む必要があるが、`パッケージ名::関数名()`でパッケージを読み込まずに特定パッケージ内の関数を呼び出すこともできる。
+
+```{r}
+#| filename: "Code 02"
+#| eval: false
+# {pacman}パッケージがインストールされていない場合、
+# install.packages("pacman") でインストールしておく。
+pacman::p_load(tidyverse, fastDummies, summartools)
+```
+
+　一つの関数内に複数のパッケージが同時に読み込めるといったメリットも大きいが、{pacman}最大の特徴は「インストールされていない場合、インストールしてから読み込む」ことだ。一旦、{pacman}をインストールしておけば大変便利になる。
+
+　続いてデータを読み込もう。実習に使用するデータは`descstat_data.csv`であり、LMSから入手可能だ。`.csv`形式データを読み込む関数は`read_csv()`であり、`()`内には**パスを含むファイル名**を入力する。パス+ファイル名は必ず`"`で囲むこと。たとえば、プロジェクト・フォルダー内の`Data`フォルダー内の`descstat_data.csv`ファイルなら、`"Data/descstat_data.csv"`と入力する。また、`read_csv()`だけだとデータが読み込まれて出力されるだけで終わる。つまり、現在の作業環境内に残らない。作業環境にデータを格納するためには`<-`演算子を使用する。ここではデータを読み込み、`raw_df`という名のオブジェクトとして作業環境内に格納しておこう。
+
+　パス（path）とは何かについてよく分からない人は授業後でも良いので**必ず**「[本講義のためのファイル管理術](../../intro/filesystem.qmd)」を精読すること。
+
+```{r}
+#| filename: "Code 03"
+raw_df <- read_csv("Data/descstat_data.csv")
+```
+
+　データの中身を見るためにはオブジェクト名のみ入力すれば良い。
+
+```{r}
+#| filename: "Code 04"
+raw_df
+```
+
+　出力画面の最上段には`raw_df`の大きさが出力される。`3,000 × 272`は「3000行、272列」の表形式データであることを意味する。非常に大きなデータであるため、この内容が一画面に収めることはできないだろう。`read_csv()`で読み込まれたデータは画面に表示可能な範囲内でデータを出力してくれる。省略された列は出力画面の下段を見れば分かる。
+
+　`raw_df`の変数名（列名）を確認するためには、`names()`関数を使用する。
+
+```{r}
+#| filename: "Code 05"
+names(raw_df)
+```
+
+　また、データの大きさは`dim()`関数でも確認することができる。
+
+```{r}
+#| filename: "Code 06"
+dim(raw_df)
+```
+
+　最後に出力される画面の行数についてだが、デフォルトでは10行出力となっている。もし、15行を出力したい場合は`print()`関数を使用し、`n`引数で指定することができる。
+
+```{r}
+#| filename: "Code 07"
+print(raw_df, n = 15)
+```
+
+## データハンドリング
+
+　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期の「[ミクロ政治データ分析実習](https://www.jaysong.net/micro-book/)」の「データハンドリング」、『[私たちのR](https://www.jaysong.net/RBook/)』の第[12](https://www.jaysong.net/RBook/datahandling1.html)、[13](https://www.jaysong.net/RBook/datahandling2.html)、[14](https://www.jaysong.net/RBook/factor.html)、[15](https://www.jaysong.net/RBook/tidydata.html)章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを`df`という名の新しいオブジェクトとして作業環境内に格納する。`select()`関数の使い方は『[私たちのR](https://www.jaysong.net/RBook/)』の第[12](https://www.jaysong.net/RBook/datahandling1.html)章を参照すること。
+
+```{r}
+#| filename: "Code 08"
+df <- raw_df %>%
+  select(ID           = USER_ID, # 回答者ID
+         Gender       = sex,     # 性別
+         Age          = age,     # 年齢
+         Education    = Q61,     # 最終学歴
+         Voted        = Q15,     # 投票参加 (2016参院選)
+         VotedParty   = Q15S2,   # 投票先 (2016参院選)
+         T_Jimin      = Q5_7,    # 自民に対する感情温度
+         T_Minshin    = Q5_11)   # 民進に対する感情温度
+
+df
+```
+
+```{r}
+#| filename: "Code 09"
+df <- df %>%
+  mutate(Voted = if_else(Voted == 1, 1, 0))
+
+df
+```
+
+ それではこの変数らの記述統計量を計算してみよう。
+
+## 記述統計
+
+　記述統計量（descriptive statistics）とは**ある変数が持つ情報を要約した数値**である。例えば、`df`の`Age`列は回答者の年齢の変数である。この回答者たちの年齢について語る時、「このデータの回答者の年齢は69、47、37、51、...、18歳ですよ」という人はいないだろう。4-5人分のデータならまだしも、3000人の回答者ならあり得ない。我々は普段、「このデータの回答者の年齢はだいたいXX歳ですよ」とか、「真ん中の年齢はYY歳ですよ」と言うだろう。また、年齢の格差/ばらつきを語るときも標準偏差や範囲（「18歳から75歳までいますよ」など）を言うのが普通であろう。このように元の長い情報を一つの数値として要約したものが記述統計量である。
+
+　Rには記述統計量を計算するいくつかの関数が用意されている。
+
+* `mean()`: 平均値
+* `median()`: 中央値
+* `var()`: 不偏分散
+* `sd()`: 不偏標準偏差
+* `min()`、`max()`: 最小値と最大値
+
+　たとえば、`df`の`Age`列（`df$Age`）の平均値は以下のように計算する。`na.rm = TRUE`は「もし`df$Age`に欠損値がある場合、それは除外して平均値を計算する」ことを意味する。
+
+```{r}
+#| filename: "Code 10"
+mean(df$Age, na.rm = TRUE)
+```
+
+　同じやり方で中央値（`median()`）、最小値（`min()`）、最大値（`max()`）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の`summarise()`関数を使用する。`summarise()`関数の詳細については、『[私たちのR](https://www.jaysong.net/RBook/)』の第[13](https://www.jaysong.net/RBook/datahandling2.html)章を参照すること。ここでは`Age`変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ`Mean`、`Median`、`SD`、`Min`、`Max`、`N`という名の列として出力してみよう。
+
+```{r}
+#| filename: "Code 11"
+df %>%
+  summarise(Mean   = mean(Age, na.rm = TRUE),
+            Median = median(Age, na.rm = TRUE),
+            SD     = sd(Age, na.rm = TRUE),
+            Min    = min(Age, na.rm = TRUE),
+            Max    = min(Age, na.rm = TRUE),
+            N      = sum(!is.na(Age)))
+```
+
+　有効ケース数（欠損していないケースの数）を計算する方法がやや面倒である。これはまず`is.na()`関数を使って、当該変数が欠損していれば`TRUE`、そうでなければ`FALSE`と判定する。そして`is.na()`の前には否定演算子`!`が付いている。つまり、`is.na()`から得られた結果が逆となり、欠損していれば`FALSE`、値があれば`TRUE`になる。Rにおいて`TRUE`は1、`FALSE`は0扱いとなるので、この合計（`sum()`）を求めることで欠損していないケースの数が計算できるようになる。
+
+### 名目変数の場合
+
+　これまでの内容は変数が連続変数（continuous variable）に限った話である。名目変数（categorical variable）の場合、平均値などは存在しない。100円と1万円の平均値は計算できるものの、男性と女性の平均値や北海道と鹿児島の平均値などはあり得ないからだ。しかし、名目変数でもデータ分析に使われる場面は多く、分析に使われる以上、記述統計量をしっかりと掲載すべきである。
+
+　名目変数の記述する簡単な方法としては度数分布表がある。たとえば、`df`の場合、性別（`Gender`）は男性（=1）と女性（=2）で構成されている。つまり、2つの要素（levels）で構成される変数だ。度数分布表は各要素がいくつあるかを示したものであり、`table()`関数で簡単に確認することができる。
+
+```{r}
+#| filename: "Code 12"
+table(df$Gender)
+```
+
+　また、{dplyr}を使う場合、`count()`関数を使用すれば良い。
+
+```{r}
+#| filename: "Code 13"
+df %>%
+  count(Gender)
+```
+
+　しかし、連続変数用の記述統計表と名目変数用の度数分布表を分けることは非効率的である。分析に用いられる名目変数が数が多いと尚更だ。できれば名目変数も連続変数と同じ表で記述統計量を出した方が良いだろう。そのためには名目変数をダミー変数として変換すれば、平均値や標準偏差などが計算できるようになる。
+
+　ダミー変数は0と1のみで構成される変数である。たとえば、性別変数（`Gender`列）は名目変数であるが、現在、1（男性）と2（女性）の2つの値で構成されている。この変数を男性ダミー変数と女性ダミー変数といった2つの変数に変換することである。男性ダミー変数は`Gender`の値が1なら、つまり当該回答者が男性（=1）なら1の値を、それ以外の場合は0の値をとる。女性ダミー変数の場合、当該回答者が女性（=2）なら1の値を、それ以外の場合は0の値をとる。`if_else()`関数を使って男性ダミー変数（`Male`）と女性ダミー変数（`Female`）を作ってみよう。このダミー変数は`Gender`列の後ろにし、`df2`という名のオブジェクトとして格納する。
+
+```{r}
+#| filename: "Code 14"
+df2 <- df %>%
+  mutate(Male   = if_else(Gender == 1, 1, 0),
+         Female = if_else(Gender == 2, 1, 0),
+         .after = Gender)
+
+df2
+```
+
+　`df2`にはもう一つの名目変数がある。それは投票先を意味する`VotedParty`変数だ。`VotedParty`は1から7までの整数で構成されている。`VotedParty`の値が1なら自民党に投票、2なら民進党に投票、...といった変数であり、これは計7個のダミー変数となる。
+
+```{r}
+#| filename: "Code 15"
+df2 <- df2 %>%
+  mutate(VotedParty_Jimin   = if_else(VotedParty == 1, 1, 0),
+         VotedParty_Minshin = if_else(VotedParty == 2, 1, 0),
+         VotedParty_Komei   = if_else(VotedParty == 3, 1, 0),
+         VotedParty_Ishin   = if_else(VotedParty == 4, 1, 0),
+         VotedParty_Kyosan  = if_else(VotedParty == 5, 1, 0),
+         VotedParty_Etc     = if_else(VotedParty == 6, 1, 0),
+         VotedParty_DK      = if_else(VotedParty == 7, 1, 0),
+         .after             = VotedParty)
+
+df2
+```
+
+　あとは`Gender`と`VotedParty`列は不要なので、こちらを除外する。
+
+```{r}
+#| filename: "Code 16"
+df2 <- df2 %>%
+  select(-c(Gender, VotedParty))
+
+df2
+```
+
+　これで名目変数も連続変数と同じやり方で記述統計量が計算できる。
+
+### {fastDummies}の利用
+
+　しかし、以上の作業はかなり面倒だろう。7個の変数でも大変だが、たとえば回答者の都道府県があれば、計47行のコードを書く必要がある。このように面倒なダミー変数の作成を{fastuDummies}パッケージを使えばたった数行のコードでダミー化ができる。手順は以下の通りである。
+
+1. 名目変数をfactor型変数へ変換する。
+2. {fastDummies}パッケージの`dummy_cols()`関数でダミー化する。
+3. 生成された列を適宜修正する（変数名や位置など）。
+
+　それではまず、`df`の`Gender`と`VotedParty`列をfactor化してみよう。`Gender`の場合、値が1なら`"Male"`、2なら`"Female"`を付ける。`VotedParty`は値が1なら`"Jimin"`、2なら`"Minshin"`、3なら`"Komei"`、4なら`"Ishin"`、5なら`"Kyosan"`、6なら`"Etc"`（その他の政党）、7なら`"DK"`（覚えていない/答えたくない）とする。修正後、`df`は`df3`という名の新しいオブジェクトとして作業環境内に格納する。
+
+```{r}
+#| filename: "Code 17"
+df3 <- df %>%
+  mutate(Gender     = factor(Gender, levels = c(1, 2), 
+                             labels = c("Male", "Female")),
+         VotedParty = factor(VotedParty, levels = 1:7,
+                             labels = c("Jimin", "Minshin", "Komei", "Ishin",
+                                        "Kyosan", "Etc", "DK"))) 
+
+df3
+```
+
+　続いて、{fastDummies}の`dummy_cols()`関数で`Gender`と`VotedParty`をダミー変数に変換する。第一引数はダミー変数にしたい変数の名前を`"`で囲んだものを入れる。2つ以上の変数をダミー化するなら`c()`でまとめる。続いて、`ignore_na = TRUE`を指定する。これを指定しない場合、「欠損か否か」のダミー変数まで作成される。つづいて、元の変数（`Gender`と`VotedParty`）を除外する。
+
+```{r}
+#| filename: "Code 18"
+df3 <- df3 %>%
+  dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE) %>%
+  select(-c(Gender, VotedParty))
+
+df3
+```
+
+　これでダミー化は完了だ。ここで更に変数名を変更し、位置を調整してみよう。たとえば、`Gender_Male`は`Male`に、`Gender_Female`は`Female`に変更し、`ID`列の後ろへ移動させるとしよう。この場合、`relocate()`関数を使用する。列名を変更する場合は`新しい変数名 = 既存の変数名`と指定し、`.after`、あるいは`.before`で位置を指定する。
+
+```{r}
+#| filename: "Code 19"
+df3 <- df3 %>%
+  relocate(Male   = Gender_Male,
+           Female = Gender_Female,
+           .after = ID)
+
+df3
+```
+
+　続いて、`VotedParty_Jimin`から`VotedParty_DK`までの列を`Voted`列の後ろへ動かしてみよう。変数選択の場合、`:`演算子を使うと「〜から〜まで」の指定ができる。
+
+```{r}
+#| filename: "Code 20"
+df3 <- df3 %>%
+  relocate(VotedParty_Jimin:VotedParty_DK, .after = Voted)
+
+df3
+```
+
+　むろん、`:`ではなく、`starts_with()`関数で変数選択もできる。いずれも`"VotedParty_"`で始まる変数名なので、`starts_with("VotedParty_")`と書けば、`VotedParty_`で始まる全変数が選択される。
+
+```{r}
+#| filename: "Code 21"
+#| eval: false
+df3 %>%
+  relocate(starts_with("VotedParty"), .after = Voted)
+```
+
+## {summarytools}の利用
+
+　記述統計量は実証分析の論文において必須であり、多くの場合、最初の表として登場する。人によっては記述統計量の表を*Table One*とも呼ぶのもこれが理由である。記述統計量を示すことが重要だというのは、表作成の需要が高いことを意味し、高い需要はかならず供給を生み出す。Rにおいても簡単に記述統計量をまとめてくれるパッケージが多数あり、ここでは{summarytools}パッケージをを紹介する。
+
+　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは`descr()`関数を使用する。使い方は非常に単純で、`()`内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（`%>%`または`|>`）も使える。パイプ演算子は今後毎回登場するので、忘れた人はミクロ政治データ分析実習の[第9回講義資料](https://www.jaysong.net/micro-book/materials/handling1.html)、または『私たちのR』の[第12章](https://www.jaysong.net/RBook/datahandling1.html)を参照すること。。
+
+```{r}
+#| filename: "Code 22"
+df %>%
+  descr()
+```
+
+　よく使う平均値（Mean）、標準偏差（Std.Dev）など以外にも第一四分位数（Q1）や四分位範囲（IQR）、歪度（Skewness）などまで出力される。実際はこれら全てを掲載するケースはあまりない。ここでは平均値（`"mean"`）、標準偏差（`"sd"`）、最小値（`"min"`）、最大値（`"max"`）、有効ケース数（`"n.vailid"`）のみに絞ってみよう。出力する記述統計量は`stats`引数で指定できる。
+
+```{r}
+#| filename: "Code 23"
+df %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"))
+```
+
+　ただし、まだ気になる点がある。それは行と列が普段見る記述統計量の表と逆だということだ。これは`transpose = TRUE`を追加することで対応できる。また、変数の順番も`df`内の順番でなく、勝手にアルファベット順になっている。これを`df`内の順番にするためには`sort = "p"`を追加すれば良い。
+
+```{r}
+#| filename: "Code 24"
+df %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+　最後に`ID`行の記述統計量を削除してみよう。これは回答者の識別番号であって、その平均値や標準偏差はどうでもいい。そのためには`df`を`descr()`を渡す前に`select()`関数を使って`ID`列を除外してから渡せば良いだろう。`Gender`と`VotedParty`もまた名目変数であるが、ここではとりあえず放置しておく。
+
+```{r}
+#| filename: "Code 25"
+df %>%
+  select(-ID) %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+　それでは名目変数を含めた記述統計表を作成してみよう。`df`ダミー化を済ませてから`descr()`に渡せば良い。記述統計表は`desc_stat`という名のオブジェクトとして作業環境内に格納する。
+
+```{r}
+#| filename: "Code 26"
+desc_stat <- df %>%
+  mutate(Gender     = factor(Gender, levels = c(1, 2), 
+                             labels = c("Male", "Female")),
+         VotedParty = factor(VotedParty, levels = 1:7,
+                             labels = c("Jimin", "Minshin", "Komei", "Ishin",
+                                        "Kyosan", "Etc", "DK"))) %>%
+  dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE,
+             # 以下の引数を追加すると元の変数が自動的に削除される
+             remove_selected_columns = TRUE) %>%
+  relocate(Male   = Gender_Male,
+           Female = Gender_Female,
+           .after = ID) %>%
+  relocate(starts_with("VotedParty"), .after = Voted) %>%
+  select(-ID) %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+
+desc_stat
+```
+
+　{gt}パッケージを使えば、よりまとまった表として出力できる。興味のある履修者はやってみよう。{gt}パッケージのチュートリアルおよびレファレンスは[公式ページ](https://gt.rstudio.com/)を参照すること。
+
+```{r}
+#| filename: "Code 27"
+library(gt) # or pacman::p_load(gt)
+
+gt(desc_stat, 
+   rownames_to_stub = TRUE) %>% # 行の名前（変数の名前）を1列目に出力
+  fmt_number(columns = 2:3, decimals = 3) # 2列、3列の値は小数点3桁まで
+```

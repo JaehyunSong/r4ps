@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第11回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル管理術</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/rmarkdown.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
+ <span class="dropdown-text">[前期] 第13回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
+ <span class="dropdown-text">[前期] 第14回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"><i class="bi bi-terminal" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"><i class="bi bi-book" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">第11回講義資料</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/introduction.html" class="sidebar-item-text sidebar-link">第1回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/r.html" class="sidebar-item-text sidebar-link">第2回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/basic.html" class="sidebar-item-text sidebar-link">第3回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/programming.html" class="sidebar-item-text sidebar-link">第4回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/rmarkdown.html" class="sidebar-item-text sidebar-link">第5回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/dataset.html" class="sidebar-item-text sidebar-link">第6回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datatype.html" class="sidebar-item-text sidebar-link">第7回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/datastructure.html" class="sidebar-item-text sidebar-link">第8回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling1.html" class="sidebar-item-text sidebar-link">第9回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling2.html" class="sidebar-item-text sidebar-link">第10回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/handling3.html" class="sidebar-item-text sidebar-link active">第11回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization1.html" class="sidebar-item-text sidebar-link">第12回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization2.html" class="sidebar-item-text sidebar-link">第13回講義資料</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/micro/visualization3.html" class="sidebar-item-text sidebar-link">第14回講義資料</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#スライド" id="toc-スライド" class="nav-link active" data-scroll-target="#スライド">スライド</a></li>
+  <li><a href="#データの結合" id="toc-データの結合" class="nav-link" data-scroll-target="#データの結合">データの結合</a>
+  <ul class="collapse">
+  <li><a href="#行の結合" id="toc-行の結合" class="nav-link" data-scroll-target="#行の結合">行の結合</a></li>
+  <li><a href="#列の結合" id="toc-列の結合" class="nav-link" data-scroll-target="#列の結合">列の結合</a></li>
+  </ul></li>
+  <li><a href="#整然データ構造" id="toc-整然データ構造" class="nav-link" data-scroll-target="#整然データ構造">整然データ構造</a>
+  <ul class="collapse">
+  <li><a href="#つの原則" id="toc-つの原則" class="nav-link" data-scroll-target="#つの原則">4つの原則</a></li>
+  <li><a href="#tidyrパッケージ" id="toc-tidyrパッケージ" class="nav-link" data-scroll-target="#tidyrパッケージ">{tidyr}パッケージ</a></li>
+  <li><a href="#tidyrとdplyr" id="toc-tidyrとdplyr" class="nav-link" data-scroll-target="#tidyrとdplyr">{tidyr}と{dplyr}</a></li>
+  </ul></li>
+  <li><a href="#教科書" id="toc-教科書" class="nav-link" data-scroll-target="#教科書">教科書</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">第11回講義資料</h1>
+<p class="subtitle lead">データハンドリング (3)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="スライド" class="level2">
+<h2 class="anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/micro/handling3.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/micro/handling3.html" width="100%" style="aspect-ratio: 16 / 9.5;"></iframe>
+</section>
+<section id="データの結合" class="level2">
+<h2 class="anchored" data-anchor-id="データの結合">データの結合</h2>
+<p>　実習に使用する{tidyverse}パッケージも読み込んでおく。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<section id="行の結合" class="level3">
+<h3 class="anchored" data-anchor-id="行の結合">行の結合</h3>
+<p>　複数のdata.frameを縦に結合する場合は、<code>bind_rows()</code>を利用する。たとえば、以下のような2つのdata.frameがあるとする。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, </span>
+<span id="cb2-2"><a href="#cb2-2"></a>                    <span class="at">Name  =</span> <span class="fu">c</span>(<span class="st">"Aさん"</span>, <span class="st">"Bさん"</span>, <span class="st">"Cさん"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                    <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">89</span>, <span class="dv">41</span>))</span>
+<span id="cb2-4"><a href="#cb2-4"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID    =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>                    <span class="at">Name  =</span> <span class="fu">c</span>(<span class="st">"Xさん"</span>, <span class="st">"Yさん"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6"></a>                    <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">98</span>, <span class="dv">78</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID  Name Score
+1  1 Aさん    77
+2  2 Bさん    89
+3  3 Cさん    41</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID  Name Score
+1  4 Xさん    98
+2  5 Yさん    78</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　2つのdata.frameは同じ変数名を共有しているため、縦に積み重ねることができる。このようにデータを縦に結合する時にはそれぞれのdata.frameの変数名が一致する必要がある。今回の例では以下の例はいずれのdata.frameも<code>ID</code>、<code>Name</code>、<code>Score</code>で構成されている。ただし、<code>ID</code>、<code>Name</code>、<code>Score</code>の順番は一致しなくても良いが、上のdata.frameの順番に調整される。<code>bind_rows()</code>の使い方は簡単である。<code>bind_rows()</code>の中に結合するdata.frameのオブジェクト名を入れるだけだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">bind_rows</span>(Data1, Data2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID  Name Score
+1  1 Aさん    77
+2  2 Bさん    89
+3  3 Cさん    41
+4  4 Xさん    98
+5  5 Yさん    78</code></pre>
+</div>
+</div>
+<p>　この<code>Data1</code>と<code>Data2</code>がそれぞれ1組と2組の学生データだとしよう。結合後はどの生徒がどの組に所属しているかが分からない。結合と同時に各data.frameの識別変数を追加するためには結合するデータを<code>list()</code>でまとめ、<code>.id</code>引数を追加する。ただし、<code>list()</code>の内部では以下のように<code>"識別変数の値" = 結合するデータ</code>と定義する必要がある。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(<span class="st">"1組"</span> <span class="ot">=</span> Data1, <span class="st">"2組"</span> <span class="ot">=</span> Data2),</span>
+<span id="cb9-2"><a href="#cb9-2"></a>          <span class="at">.id =</span> <span class="st">"Class"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Class ID  Name Score
+1   1組  1 Aさん    77
+2   1組  2 Bさん    89
+3   1組  3 Cさん    41
+4   2組  4 Xさん    98
+5   2組  5 Yさん    78</code></pre>
+</div>
+</div>
+<p>　<code>.id</code>で指定した名前の変数が第1列として追加され、それぞれどの組のデータであるかが分かるようになる。</p>
+</section>
+<section id="列の結合" class="level3">
+<h3 class="anchored" data-anchor-id="列の結合">列の結合</h3>
+<p>一方、データを横に結合することはいくつかのバリエーションがある。これらの作業は<code>*_join()</code>関数を使用する。ここで重要なのは結合に使う識別用の変数（<strong>キー変数</strong>）が必要ということであり、以下の例では<code>City</code>はキー変数である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
+<span id="cb11-2"><a href="#cb11-2"></a>                    <span class="at">Pop   =</span> <span class="fu">c</span>(<span class="dv">927</span>, <span class="dv">148</span>, <span class="dv">76</span>),</span>
+<span id="cb11-3"><a href="#cb11-3"></a>                    <span class="at">Area  =</span> <span class="fu">c</span>(<span class="dv">2194</span>, <span class="dv">828</span>, <span class="dv">7104</span>))</span>
+<span id="cb11-4"><a href="#cb11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Kochi"</span>, <span class="st">"Osaka"</span>, <span class="st">"Tokyo"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6"></a>                    <span class="at">Food  =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   City Pop Area
+1 Tokyo 927 2194
+2 Osaka 148  828
+3 Kochi  76 7104</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   City     Food
+1 Kochi   Katsuo
+2 Osaka Takoyaki
+3 Tokyo    Ramen</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　この2つのデータを結合する時には<code>left_join()</code>、<code>right_join()</code>、<code>inner_join()</code>、<code>full_join()</code>などを使用するが、いずれも使い方は同じである。まず、結合する2つのdata.frameのオブジェクト名を入力し、<code>by = "キー変数名"</code>の引数を追加する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="st">"City"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   City Pop Area     Food
+1 Tokyo 927 2194    Ramen
+2 Osaka 148  828 Takoyaki
+3 Kochi  76 7104   Katsuo</code></pre>
+</div>
+</div>
+<p>　ただし、キー変数は両データに含まれているが、一致しないケースがある。たとえば、以下の例では<code>City</code>と<code>Toshi</code>がキー変数である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
+<span id="cb18-2"><a href="#cb18-2"></a>                    <span class="at">Pop   =</span> <span class="fu">c</span>(<span class="dv">927</span>, <span class="dv">148</span>, <span class="dv">76</span>),</span>
+<span id="cb18-3"><a href="#cb18-3"></a>                    <span class="at">Area  =</span> <span class="fu">c</span>(<span class="dv">2194</span>, <span class="dv">828</span>, <span class="dv">7104</span>))</span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Toshi    =</span> <span class="fu">c</span>(<span class="st">"Kochi"</span>, <span class="st">"Osaka"</span>, <span class="st">"Tokyo"</span>),</span>
+<span id="cb18-6"><a href="#cb18-6"></a>                    <span class="at">Tabemono =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   City Pop Area
+1 Tokyo 927 2194
+2 Osaka 148  828
+3 Kochi  76 7104</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Toshi Tabemono
+1 Kochi   Katsuo
+2 Osaka Takoyaki
+3 Tokyo    Ramen</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　この場合、<code>by = c("データ1のキー変数名" = "データ2のキー変数名")</code>と指定する必要がある。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"City"</span> <span class="ot">=</span> <span class="st">"Toshi"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   City Pop Area Tabemono
+1 Tokyo 927 2194    Ramen
+2 Osaka 148  828 Takoyaki
+3 Kochi  76 7104   Katsuo</code></pre>
+</div>
+</div>
+<p>　それでは4種類の<code>*_join()</code>関数についてそれぞれの特徴を見てみよう。</p>
+<p>　まず、<code>left_join()</code>はデータ1を温存させる関数である。たとえば、上の例だと、データ1には東京、大阪、高知が、データ2には高知、大阪、京都のデータが含まれている。大阪と高知は問題なく結合できるが、余っているデータ1の東京、データ2の京都はどうなるだろうか。<code>left_join()</code>を使う場合、データ1の東京が温存される。ただし、データ2に東京のデータがないため、東京の<code>Tabemono</code>は欠損値（<code>NA</code>）で埋められる。</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/Merge_Left.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/left-join.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>　一方、<code>right_join()</code>はデータ2が温存される。つまり、京都の行が残り、京都の<code>Pop</code>と<code>Area</code>は欠損値となる。</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/Merge_Right.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/right-join.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>　<code>inner_join()</code>は両データに同時に存在する行のみが結合対象となるため、大阪と高知の行のみが結合される。</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/Merge_Inner.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/inner-join.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>　最後に、<code>full_join()</code>はデータ1とデータ2すべてを温存させ、欠損しているセルは欠損値（<code>NA</code>）で埋められる。</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/Merge_Full.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/full-join.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>それでは以下のデータで実際に比較してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"京都"</span>),</span>
+<span id="cb25-2"><a href="#cb25-2"></a>              <span class="at">Score =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="dv">4</span>, <span class="fl">4.2</span>))</span>
+<span id="cb25-3"><a href="#cb25-3"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"高知"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4"></a>              <span class="at">N     =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">1325</span>, <span class="dv">111</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pref  Score
+  &lt;chr&gt; &lt;dbl&gt;
+1 東京    3.5
+2 大阪    4  
+3 京都    4.2</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pref      N
+  &lt;chr&gt; &lt;dbl&gt;
+1 東京   3220
+2 大阪   1325
+3 高知    111</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　それぞれの<code>*_join()</code>関数の動きを実際に確認してみよう。</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  Pref  Score     N
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 東京    3.5  3220
+2 大阪    4    1325
+3 京都    4.2    NA</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">right_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  Pref  Score     N
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 東京    3.5  3220
+2 大阪    4    1325
+3 高知   NA     111</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14-c</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">inner_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Pref  Score     N
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 東京    3.5  3220
+2 大阪    4    1325</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14-d</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Pref  Score     N
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 東京    3.5  3220
+2 大阪    4    1325
+3 京都    4.2    NA
+4 高知   NA     111</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　キー変数が複数あることもある。たとえば、以下のように分析の単位（=行）が地域<span class="math inline">\(\times\)</span>年度である可能性もあろう。</p>
+<div class="columns">
+<div class="column" style="width:49%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 1b-a</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, </span>
+<span id="cb38-2"><a href="#cb38-2"></a>                          <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>                          <span class="st">"C"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>),</span>
+<span id="cb38-4"><a href="#cb38-4"></a>              <span class="at">Year    =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, </span>
+<span id="cb38-5"><a href="#cb38-5"></a>                          <span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>,</span>
+<span id="cb38-6"><a href="#cb38-6"></a>                          <span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>),</span>
+<span id="cb38-7"><a href="#cb38-7"></a>              <span class="at">GDP     =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>,</span>
+<span id="cb38-8"><a href="#cb38-8"></a>                          <span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">120</span>,</span>
+<span id="cb38-9"><a href="#cb38-9"></a>                          <span class="dv">200</span>, <span class="dv">180</span>, <span class="dv">90</span>))</span>
+<span id="cb38-10"><a href="#cb38-10"></a></span>
+<span id="cb38-11"><a href="#cb38-11"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  Country  Year   GDP
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 A        2020   100
+2 A        2021   150
+3 A        2022   200
+4 B        2020   100
+5 B        2021   120
+6 B        2022   120
+7 C        2020   200
+8 C        2021   180
+9 C        2022    90</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:49%;">
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 15-b</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, </span>
+<span id="cb40-2"><a href="#cb40-2"></a>                          <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,</span>
+<span id="cb40-3"><a href="#cb40-3"></a>                          <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),</span>
+<span id="cb40-4"><a href="#cb40-4"></a>              <span class="at">Year    =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, </span>
+<span id="cb40-5"><a href="#cb40-5"></a>                          <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>,</span>
+<span id="cb40-6"><a href="#cb40-6"></a>                          <span class="dv">2022</span>, <span class="dv">2022</span>, <span class="dv">2022</span>),</span>
+<span id="cb40-7"><a href="#cb40-7"></a>              <span class="at">Pop     =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">8000</span>, <span class="dv">5000</span>,</span>
+<span id="cb40-8"><a href="#cb40-8"></a>                          <span class="dv">1100</span>, <span class="dv">7000</span>, <span class="dv">6000</span>,</span>
+<span id="cb40-9"><a href="#cb40-9"></a>                          <span class="dv">1100</span>, <span class="dv">8000</span>, <span class="dv">7800</span>))</span>
+<span id="cb40-10"><a href="#cb40-10"></a></span>
+<span id="cb40-11"><a href="#cb40-11"></a>df4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  Country  Year   Pop
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1 A        2020  1000
+2 B        2020  8000
+3 C        2020  5000
+4 A        2021  1100
+5 B        2021  7000
+6 C        2021  6000
+7 A        2022  1100
+8 B        2022  8000
+9 C        2022  7800</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>　この場合、<code>Country</code>、または<code>Year</code>のみをキー変数として使うのではなく、両方をキー変数として使う必要がある。複数のキー変数を指定するときには<code>by = c("キー変数1", "キー変数2")</code>のように指定する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">left_join</span>(df3, df4, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Year"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  Country  Year   GDP   Pop
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 A        2020   100  1000
+2 A        2021   150  1100
+3 A        2022   200  1100
+4 B        2020   100  8000
+5 B        2021   120  7000
+6 B        2022   120  8000
+7 C        2020   200  5000
+8 C        2021   180  6000
+9 C        2022    90  7800</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="整然データ構造" class="level2">
+<h2 class="anchored" data-anchor-id="整然データ構造">整然データ構造</h2>
+<p>　Tidy dataとはHadley Wickhamが提唱した<strong>データ分析に適したデータ構造</strong>であり、日本語では<strong>整然データ</strong>、または簡潔データとも訳される。整然データはパソコンにとって読みやすいデータであり、Rにおける多くの分析はこの整然データを基づいて行われる。ただし、パソコンにとって読みやすいデータが必ずしも人間にとって読みやすいデータであることを意味するわけではない。2つが一致する場合もあれば、一致しない場合もある。{tidyr}パッケージは整然ではないデータ（=雑然データ）を整然データへ変形するパッケージであり、次回紹介する{ggplot2}は整然データを前提として開発されたパッケージである。</p>
+<section id="つの原則" class="level3">
+<h3 class="anchored" data-anchor-id="つの原則">4つの原則</h3>
+<p>　整然データには4つの原則がある。</p>
+<ol type="1">
+<li>1つの列は、1つの変数を表す</li>
+<li>1つの行は、1つの観測を表す</li>
+<li>1つのセルは、1つの値を表す</li>
+<li>1つの表は、1つの観測単位をもつ</li>
+</ol>
+<p>　以下ではそれぞれの原則について解説する。</p>
+<p><strong>原則1: 1列1変数</strong></p>
+<p>　これは1つの列は1つの変数を意味するといった、一見当たり前のように見える原則であるが、実は雑然データのほとんどは、この原則1を満たしていない。たとえば、以下のようなデータを考えてみよう。これは3人の被験者に対し、薬を飲む前後の数学成績を測定したデータである。このデータを構成する変数は、被験者名、処置の前後、数学成績の3つである。薬を飲む前の数学関席は<code>Control</code>列、薬を飲んだ後の数学成績が<code>Treatment</code>列である。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData1.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>　このデータの問題は「数学成績」といった一つの変数が2列に分かれていることである。実はこのデータは以下の原則2も満たしてない。原則2を満たしていないデータはほとんど原則1を満たしていないケースが多い。</p>
+<p><strong>原則2: 1行1観察</strong></p>
+<p>　1行に1つの観察が入るということも当たり前のように思える。しかし、「1つの観察 = 1つの値」を意味するわけではない。先ほどのデータもそれぞれのセルには1つの値のみ入っている。ここでの「観察」とは観察単位ごとに測定された<strong>値の集合</strong>であり、<strong>観察単位</strong>は人、企業、国、時間などがある。このデータの観察単位は「人」ではない。今回のデータにおける観察単位は「人 <span class="math inline">\(\times\)</span> 時間」である。たとえば、「投薬前のXさんの数学成績」が一つの観察である。しかし、以下の左側のデータは一つの行にある学生の投薬前の数学成績と投薬後の数学成績、つまり2つの観察が混じっていることとなる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData2.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p><strong>原則3: 1セル1値</strong></p>
+<p>　1つのセルに1つの値のみが含まれるといった原則3は、これに反するケースは多くない。以下のように「Hadleyさんは投薬前後で数学成績が変わらないから、一つのセルにまとめよう」といったことはめったにないだろう。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData3.png" class="img-fluid figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData3.png" class="img-fluid figure-img" width="400"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　しかし、一部の例外も存在する。たとえば、1つのセルに<code>2020/8/24</code>という値があるとしよう。このセルには「年」と「月」、「日」といった3つの値が含まれている。分析の目的によっては年月日を全て異なるセルに割り当てる必要もあるが、このままで問題とならないケースもある。分析単位が日であれば、このままで問題ないが、分析単位が「年<span class="math inline">\(\times\)</span>月<span class="math inline">\(\times\)</span>日」であれば、3つのセルに分ける必要があろう。</p>
+<p><strong>原則4: 1表1単位</strong></p>
+<p>　最後の原則4は1つの表は1単位を表すことである。実は1つの表に複数の分析単位が含まれるケースがかなり多い。以下の図は政府統計の例であるが、1つの表に「国」、「都道府県」、「市区町村」、「行政区」の単位が混在していることが分かる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData4.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>　また、最後の行に「合計」や「平均」が入るケースも多い。最後の行以外は個人が単位であるが、最後の行のみクラスになっている。「1表1単位」原則を満たさない場合、<code>filter()</code>関数等で、異なる単位の行を除外することができる。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/TidyData5.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</section>
+<section id="tidyrパッケージ" class="level3">
+<h3 class="anchored" data-anchor-id="tidyrパッケージ">{tidyr}パッケージ</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/tidyr.png" class="img-fluid figure-img" style="width:25.0%"></p>
+</figure>
+</div>
+<p>　{tidyr}パッケージは雑然データから整然データへ変形をサポートするパッケージである。主に使う関数は以下の3つである。</p>
+<ul>
+<li><code>pivot_longer()</code>: Wide型データ<span class="math inline">\(\rightarrow\)</span>Long型データ</li>
+<li><code>pivot_wider()</code>: Long型データ<span class="math inline">\(\rightarrow\)</span>Wide型データ</li>
+<li><code>separate()</code>: セルの分割（例:「年月日」から「年」、「月」、「日」へ）</li>
+</ul>
+<p>　それでは、サポートページの「データ州」実習用データ（<code>covid_sample.csv</code>）をダウンロードし、読み込んでみよう。このデータは中国、日本、韓国、モンゴル、台湾（アルファベット順）の5日間COVID-19新規感染者数データであり、<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a>から入手したものである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>COVID_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+1 China    1447470092          819          848         1114         990     957
+2 Japan     126476461        16788        15584        15338       13381    7942
+3 Korea      51269185         9304         8428         7382        3828    9768
+4 Mongolia    3278290            0            0            0           0    1055
+5 Taiwan     23816775        72846        68293        79616       50567   45100
+# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+</div>
+</div>
+<p>　このデータは整然データだろうか、あるいは雑然データだろうか。まずは、本データの観察単位を明らかにする必要がある。これらのデータは「<strong>時点</strong>XにおけるY<strong>地域</strong>の<strong>新規感染者数</strong>と<strong>人口</strong>」を測定したものである。したがって、このデータの観察単位は「地域<span class="math inline">\(\times\)</span>時間」であり、測定されたものは新規感染者数と人口である。したがって、整然データであるためには、「地域名」、「時間」、「人口」、「新規感染者数」の4つの変数で構成される必要がある。一方、現在のデータでは新規感染者数が5列に渡って格納されており、計7列のデータである。</p>
+<p>　このデータを整然データに変えるには、7列のデータを4列のデータに変形する必要がある。2つのデータが同じ情報を持つのであれば、列が多いデータは行が少なく、行が多いデータは列が少なくなるはずである。ここで相対的な横長のデータをwide型、縦長のデータをlong型と呼ぶ。今回の場合はwide型データをlong型データへ変換する必要があり、多くの雑然データの扱いはwide型<span class="math inline">\(\rightarrow\)</span>long型の整形が必要となる。</p>
+<p>　ここで使う関数が<code>pivot_longer()</code>関数である。使い方は以下の通りである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>データ <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> 変数が格納されている列,</span>
+<span id="cb46-3"><a href="#cb46-3"></a>               <span class="at">names_to  =</span> <span class="st">"元の列名が入る変数名"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4"></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　我々がやりたい作業は<code>2022/06/09</code>列から<code>2022/06/13</code>列までの5列を1つの列としてまとめることである。まとめる列は<code>cols</code>引数で指定する。そして、これまで変数名だったもの（たとえば、<code>2022/06/11</code>など）が入る新しい列名と、値が入る新しい列名を、それぞれ<code>names_to</code>と<code>values_to</code>で指定する。ここでは時点は<code>Date</code>、新規感染者数は<code>New_Cases</code>という列として格納するとしよう。注意すべき点としては、これらの新しい変数名は<code>"</code>で囲むことである。</p>
+<p>　ただし、<code>cols</code>の場合、<code>"</code>で囲んでも、囲まなくても良い。ただし、列名に記号が入っていたり、数字で始まる列名は<code>"</code>で囲む必要がある。また、<code>cols</code>では隣接した列を選択する<code>:</code>や<code>starts_with()</code>なども使用可能である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 19</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>COVID_Long <span class="ot">&lt;-</span> COVID_df <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="co"># cols = starts_with("2022") でも良い</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6"></a>COVID_Long</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 4
+   Country Population Date       New_Cases
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
+ 1 China   1447470092 2022/06/09       819
+ 2 China   1447470092 2022/06/10       848
+ 3 China   1447470092 2022/06/11      1114
+ 4 China   1447470092 2022/06/12       990
+ 5 China   1447470092 2022/06/13       957
+ 6 Japan    126476461 2022/06/09     16788
+ 7 Japan    126476461 2022/06/10     15584
+ 8 Japan    126476461 2022/06/11     15338
+ 9 Japan    126476461 2022/06/12     13381
+10 Japan    126476461 2022/06/13      7942
+# … with 15 more rows</code></pre>
+</div>
+</div>
+<p>逆に、long型データをwide型データへ整形する際は<code>pivot_wider()</code>を使用する。雑然データはwide型データが多いとは既に説明したが、雑然データの方が<strong>人間にとっては</strong>読みやすい場合もある。上の新型コロナのデータもwide型の方が読みやすい人もいるだろう。データ分析に適したデータは整然データであるが、報告に適したデータとしては必ずしもこの関係は成立しない。図表を作成する際は常に読む側の立場から考える必要があろう。</p>
+<p>　この<code>pivot_wider()</code>関数の使い方は<code>pivot_longer()</code>の類似している。<code>names_to</code>と<code>values_to</code>がそれぞれ<code>naems_from</code>と<code>values_from</code>に変わっただけである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 20</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>COVID_Long <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb49-3"><a href="#cb49-3"></a>              <span class="at">values_from =</span> <span class="st">"New_Cases"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+1 China    1447470092          819          848         1114         990     957
+2 Japan     126476461        16788        15584        15338       13381    7942
+3 Korea      51269185         9304         8428         7382        3828    9768
+4 Mongolia    3278290            0            0            0           0    1055
+5 Taiwan     23816775        72846        68293        79616       50567   45100
+# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+</div>
+</div>
+<p>　最後にセルの値を分割する<code>separate()</code>関数について解説する。たとえば、月や曜日ごとの新規感染者数をまとめようとした場合、時点の列が「YYYY年MM月DD日」になっていては困る。これらの年、月、日に分割する必要があろう。先ほど作成した<code>COVID_Long</code>の<code>Date</code>列を<code>Year</code>、<code>Month</code>、<code>Day</code>に分けてみよう。</p>
+<p>　<code>col</code>は分割する列の名前を、<code>into</code>には分割後の列名を、<code>sep</code>は分割の区切りとなる記号などを指定する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 21</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>データ <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"分割する列名"</span>,</span>
+<span id="cb51-3"><a href="#cb51-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"分割後の列名1"</span>, <span class="st">"分割後の列名2"</span>, ...),</span>
+<span id="cb51-4"><a href="#cb51-4"></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　<code>"2022/10/08"</code>の場合、<code>"/"</code>で分ければ、<code>"2022"</code>、<code>"10"</code>、<code>"08"</code>に分割されるだろう。これあらをそれぞれ、<code>Year</code>、<code>Month</code>、<code>Day</code>といった3つの列に分割してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 22</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>COVID_Long <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb52-3"><a href="#cb52-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Month"</span>, <span class="st">"Day"</span>),</span>
+<span id="cb52-4"><a href="#cb52-4"></a>           <span class="at">sep  =</span> <span class="st">"/"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 6
+   Country Population Year  Month Day   New_Cases
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1 China   1447470092 2022  06    09          819
+ 2 China   1447470092 2022  06    10          848
+ 3 China   1447470092 2022  06    11         1114
+ 4 China   1447470092 2022  06    12          990
+ 5 China   1447470092 2022  06    13          957
+ 6 Japan    126476461 2022  06    09        16788
+ 7 Japan    126476461 2022  06    10        15584
+ 8 Japan    126476461 2022  06    11        15338
+ 9 Japan    126476461 2022  06    12        13381
+10 Japan    126476461 2022  06    13         7942
+# … with 15 more rows</code></pre>
+</div>
+</div>
+<p>　もし、区切りとなる記号が存在しない場合は、<strong>正則表現（regular expression）</strong>の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 23</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>City_Data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">City =</span> <span class="fu">c</span>(<span class="st">"北海道音威子府村"</span>,</span>
+<span id="cb54-2"><a href="#cb54-2"></a>                             <span class="st">"大阪府高槻市"</span>,</span>
+<span id="cb54-3"><a href="#cb54-3"></a>                             <span class="st">"広島県府中市"</span>,</span>
+<span id="cb54-4"><a href="#cb54-4"></a>                             <span class="st">"鹿児島県指宿市"</span>),</span>
+<span id="cb54-5"><a href="#cb54-5"></a>                    <span class="at">Pop  =</span> <span class="fu">c</span>(<span class="dv">693</span>, <span class="dv">347424</span>, <span class="dv">36471</span>, <span class="dv">38207</span>))</span>
+<span id="cb54-6"><a href="#cb54-6"></a></span>
+<span id="cb54-7"><a href="#cb54-7"></a>City_Data</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  City                Pop
+  &lt;chr&gt;             &lt;dbl&gt;
+1 北海道音威子府村    693
+2 大阪府高槻市     347424
+3 広島県府中市      36471
+4 鹿児島県指宿市    38207</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 24</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>City_Data <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a>   <span class="co"># 任意の2文字の後に「都道府県」のいずれかが来るか、</span></span>
+<span id="cb56-3"><a href="#cb56-3"></a>   <span class="co"># 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a>   <span class="co"># Cityの値を「ブロック1-ブロック2」に置換する</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a>   <span class="fu">mutate</span>(<span class="at">City =</span> <span class="fu">str_replace</span>(City, <span class="st">"^(.{2}[都道府県]|.{3}県)(.+)"</span>, </span>
+<span id="cb56-6"><a href="#cb56-6"></a>                             <span class="st">"</span><span class="sc">\\</span><span class="st">1-</span><span class="sc">\\</span><span class="st">2"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-7"><a href="#cb56-7"></a>   <span class="co"># 「-」を基準に列を分割</span></span>
+<span id="cb56-8"><a href="#cb56-8"></a>   <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"City"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Pref"</span>, <span class="st">"City"</span>), <span class="at">sep  =</span> <span class="st">"-"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Pref     City          Pop
+  &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;
+1 北海道   音威子府村    693
+2 大阪府   高槻市     347424
+3 広島県   府中市      36471
+4 鹿児島県 指宿市      38207</code></pre>
+</div>
+</div>
+</section>
+<section id="tidyrとdplyr" class="level3">
+<h3 class="anchored" data-anchor-id="tidyrとdplyr">{tidyr}と{dplyr}</h3>
+<p>　これまでの例で見てきたように、{tidyr}の各関数を通して得られた結果はいずれもdata.frame（厳密にはtibble）構造である。また、{tidyr}の各関数の第一引数はdata.frameである。これは{tidyr}と{dplyr}を組み合わせることが可能であることを意味する。つまり、{tidyr}の関数から{dplyr}の関数、またがその逆の方向でパイプ演算子を使うこともできる。たとえば、今回の実習データをlong型へ整形し、100万人当たりの新規感染者数を<code>New_Case_per_1M</code>という列として格納し、国・地域（<code>Country</code>）ごとに<code>New_Case_per_1M</code>の平均とを計算する作業を、全てパイプで繋ぐこともできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 25</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>COVID_df <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="co"># Wide to Long</span></span>
+<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
+<span id="cb58-4"><a href="#cb58-4"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb58-5"><a href="#cb58-5"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-6"><a href="#cb58-6"></a>  <span class="co"># 新規感染者数を人口であり、100万をかける</span></span>
+<span id="cb58-7"><a href="#cb58-7"></a>  <span class="fu">mutate</span>(<span class="at">New_Case_per_1M =</span> New_Cases <span class="sc">/</span> Population <span class="sc">*</span> <span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-8"><a href="#cb58-8"></a>  <span class="co"># Countryでグルーピング</span></span>
+<span id="cb58-9"><a href="#cb58-9"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb58-10"><a href="#cb58-10"></a>  <span class="co"># New_Case_per_1Mの平均値を計算</span></span>
+<span id="cb58-11"><a href="#cb58-11"></a>  <span class="fu">summarise</span>(<span class="at">New_Case_per_1M =</span> <span class="fu">mean</span>(New_Case_per_1M))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Country  New_Case_per_1M
+  &lt;chr&gt;              &lt;dbl&gt;
+1 China              0.653
+2 Japan            109.   
+3 Korea            151.   
+4 Mongolia          64.4  
+5 Taiwan          2657.   </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="教科書" class="level2">
+<h2 class="anchored" data-anchor-id="教科書">教科書</h2>
+<ul>
+<li>データの結合: 『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-merge">第13.5章</a></li>
+<li>整然データ構造: 『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/tidydata.html">第15章</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/https:\/\/www\.jaysong\.net\/r4ps\//);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

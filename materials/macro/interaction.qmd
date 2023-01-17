@@ -1,0 +1,437 @@
+---
+title: "第12回講義資料"
+subtitle: "交互作用"
+toc: true
+metadata-files: 
+  - _material.yml
+---
+
+## スライド {.unlisted}
+
+<a href="../../slides/macro/interaction.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a>
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/macro/interaction.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+```
+
+## セットアップ
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools, modelsummary,
+               marginaleffects)
+# jes_df <- read_csv("slides/Data/JES6_W1_2.csv")
+jes_df <- read_csv("Data/JES6_W1_2.csv")
+```
+
+　本日の実習用データ（LMSからダウンロード可能）と必要なパッケージ（{tidyverse}、{summarytools}、{marginaleffects}）を読み込む。ただし、{marginaleffects}がインストールされていない場合は、コンソール上に`install.packages("marginaleffects")`を入力し、インストールしておくこと。
+
+```{r}
+#| filename: "Code 01"
+library(tidyverse)
+library(summarytools)
+library(marginaleffects)
+
+jes_df <- read_csv("Data/JES6_W1_2.csv")
+```
+
+## 交互作用とは
+
+　以下の図のように主な説明変数（$X$）と応答変数（$Y$）の関係において、$X$が$Y$に与える影響がその他の変数（$Z$）の影響を受ける場合を考えてみよう。
+
+![](Figs/12/01.png){fig-align="center" width=50%}
+
+　これは$X$が$Y$に与える影響は一定ではないことを意味する（= $X$が$Y$に与える影響は$Z$に依存する）。ここで、$Z$は**調整変数** (moderation variable; moderator)と呼ばれる。調整変数はダミー変数でも、連続変数でも可能だ。
+
+　この交互作用を実際の回帰式として表すと以下のようになる。
+
+![](Figs/12/02.png){fig-align="center" width=50%}
+
+$$
+\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
+$$ {#eq-01}
+
+　ここで説明変数に調整変数をかけた変数（$X \cdot Z$）は**交差項** (interaction term)と呼ばれる。これまでの（重）回帰分析では変数$X$が$Y$に与える効果は$\beta_1$であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において$X$は$\beta_3$にも登場するからである。これは @eq-01 を変形してみると分かりやすい。
+
+$$
+\hat{Y} = \alpha + (\beta_1 + \beta_3 Z) X + \beta_2 Z
+$$ {#eq-02}
+
+　@eq-02 によると、変数$X$が$Y$に与える効果、つまり$X$の傾き係数は$\beta_1$でなく、$\beta_1 + \beta_3 Z$だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。
+
+　まず、調整変数$Z$が0、または1の値のみをとるダミー変数の場合（$Z \in \{0, 1\}$）だ。回帰分析の結果、以下のような1次関数が得られたとしよう。
+
+$$
+\begin{align}
+\hat{Y} & = 3 + 2 X + 1 Z + 3 X \cdot Z \\
+& = 3 + (2 + 3Z) X + 1 Z
+\end{align}
+$$ {#eq-03}
+
+　解釈する場合は$Z = 0$の場合と$Z = 1$の場合に分けて解釈する。まず、$Z = 0$の場合、$\hat{Y} = 3 + (2 + 3\cdot0) X + 1 Z = 3 + 2X + 1Z$となり、$X$が$Y$に与える影響は2となる。一方、$Z = 1$の場合は$\hat{Y} = 3 + (2 + 3\cdot1) X + 1 Z = 3 + 5X + 1Z$となり、$X$が$Y$に与える影響は5となる。これを可視化すると以下のようになる。
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+set.seed(1986)
+tibble(X = rnorm(100),
+       Z = sample(0:1, 100, replace = TRUE)) %>%
+  mutate(Y = 3 + 2 * X + 1 * Z + 3 * X * Z + rnorm(1, 0, 2)) %>%
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  geom_point(aes(x = X, y = Y), alpha = 0) +
+  geom_abline(aes(slope = 2, intercept = 3, color = "Z = 0の場合"), 
+              linewidth = 1.5) +
+  geom_abline(aes(slope = 5, intercept = 3, color = "Z = 1の場合"), 
+              linewidth = 1.5) +
+  labs(color = "") +
+  coord_cartesian(xlim = c(-2, 3), ylim = c(-8, 12)) +
+  scale_x_continuous(breaks = -2:3, labels = -2:3) +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+　調整変数$Z$が0になると傾きが2の回帰直線（赤）が、1になると傾きが5の回帰直線（青）が得られる。
+
+　続いて、調整変数$Z$が無数の値をとる連続変数の場合を考えてみよう。回帰分析の結果、以下のような1次関数が得られたとしよう。
+
+$$
+\begin{align}
+\hat{Y} & = 2 + 3 X + 2 Z - 1 X \cdot Z \\
+& = 2 + (3 - 1Z) X + 2 Z
+\end{align}
+$$ {#eq-04}
+
+　ここで$Z = -1$の場合、$\hat{Y} = 2 + (3 - 1\cdot(-1)) X + 2 Z = 3 + 4X + 1Z$となり、$X$が$Y$に与える影響は4となる。また、$Z = 2$の場合は$\hat{Y} = 2 + (3 - 1\cdot2) X + 2 Z = 3 + 1X + 1Z$となり、$X$が$Y$に与える影響は1となる。$Z$が3.5の場合は$\hat{Y} = 2 + (3 - 1\cdot3.5) X + 2 Z = 3 - 0.5X + 1Z$となり、$X$が$Y$に与える影響は-0.5となる。これを可視化すると以下のようになる。
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+set.seed(1986)
+tibble(X = rnorm(100),
+       Z = sample(0:1, 100, replace = TRUE)) %>%
+  mutate(Y = 5 + 3 * X + 2 * Z - 1 * X * Z + rnorm(1, 0, 2)) %>%
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  geom_point(aes(x = X, y = Y), alpha = 0) +
+  geom_abline(aes(slope = 4, intercept = 5, color = "Z = -1の場合"), 
+              linewidth = 1.5) +
+  geom_abline(aes(slope = 1, intercept = 5, color = "Z = 2の場合"), 
+              linewidth = 1.5) +
+  geom_abline(aes(slope = -0.5, intercept = 5, color = "Z = 3.5の場合"), 
+              linewidth = 1.5) +
+  labs(color = "") +
+  coord_cartesian(xlim = c(-2, 3), ylim = c(-5, 12)) +
+  scale_x_continuous(breaks = -2:3, labels = -2:3) +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+　ただし、調整変数が連続変数の場合は、-1、2、3.5以外の値を取ることもできる。$Z$が取り得るすべての値に対して回帰直線を計算することは出来ないため、いくつかの代表的な値に絞って計算する必要があろう。
+
+## 推定
+
+　それでは実際に推定してみよう。まず、実習データの中身を確認してみる。
+
+```{r}
+#| filename: "Code 02"
+jes_df
+```
+
+　各変数の説明は以下の通りだ。
+
+|変数|説明|備考|
+|:---|:---|:---|
+|`TempKyosan`|日本共産党に対する感情温度|高いほど好感|
+|`Female`|女性ダミー|0: 男性 / 1: 女性|
+|`Age`|回答者の年齢||
+|`Satisfaction`|政治満足度|高いほど満足|
+|`Interest`|回答者の政治関心|高いほど関心あり|
+|`Ideology`|回答者のイデオロギー|高いほど保守的|
+
+　データ分析の前に`jes_df`の記述統計量を確認する。今回のデータはすべて連続変数扱いとなるため、前処理は不要だ。性別は名目変数であるが、既にダミー変数に変換済みである。ダミー変数の記述統計量は連続変数と同じ扱いで問題ないため、データをそのまま{summarytools}パッケージの`descr()`関数に渡せば良い。
+
+```{r}
+#| filename: "Code 03"
+jes_df %>%
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+　このデータを用い、以下の問いに答えるとする。
+
+> 　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。
+
+　この問いにおける応答変数は「共産党に対する感情温度（`TempKyosan`）」、主な説明変数は「政治満足度（`Satisfaction`）」だ。ただし、政治満足度が共産感情温度に与える影響は性別（`Female`）や年齢（`Age`）に依存する可能性がある。調整変数が2つであるため、ここでは2つのモデルを作成する。
+
+**モデル1**
+
+|種類|変数|変数名|
+|:---|:--------|:--------|
+|主な説明変数|政治満足度|`Satisfaction`|
+|応答変数|共産党に対する感情温度|`TempKoysan`|
+|調整変数|**女性ダミー**|`Female`|
+|統制変数|政治関心、イデオロギー、年齢|`Interest`、`Ideology`、`Age`|
+
+**モデル2**
+
+|種類|変数|変数名|
+|:---|:--------|:--------|
+|主な説明変数|政治満足度|`Satisfaction`|
+|応答変数|共産党に対する感情温度|`TempKoysan`|
+|調整変数|**年齢**|`Age`|
+|統制変数|政治関心、イデオロギー、女性ダミー|`Interest`、`Ideology`、`Female`|
+
+　モデル1は政治満足度（= **説明変数**）が共産党に対する感情温度（= **応答変数**）に与える影響は性別（= **調整変数**）に依存することを意味し、以下のような図として表現できる。
+
+![](Figs/12/03.png){fig-align="center" width=50%}
+
+　これを回帰式にする場合、 @eq-05 のような1次関数になる（以下の図参照）。
+
+![](Figs/12/04.png){fig-align="center" width=50%}
+
+$$
+\widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Female} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Age} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Female})
+$$ {#eq-05}
+
+　つづいて、モデル2は政治満足度（= **説明変数**）が共産党に対する感情温度（= **応答変数**）に与える影響は年齢（= **調整変数**）に依存することを意味し以下のような図として表現できる。
+
+![](Figs/12/05.png){fig-align="center" width=50%}
+
+　これを回帰式にする場合、 @eq-06 のような1次関数になる（以下の図参照）。
+
+$$
+\widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
+$$ {#eq-06}
+
+![](Figs/12/06.png){fig-align="center" width=50%}
+
+　推定にはこれまでと同様、`lm()`関数を使用する。注意するところは第1引数である回帰式（formula）であり、交互作用が存在すると考えられる2つの変数を`+`でなく、`*`でつなぐだけだ。ここで`A * B`の意味は`A`$\times$`b`だけでなく、`A`、`B`、`A`$\times$`B`が同時に投入することを意味する。
+
+　モデル1と2をそれぞれ`fit1`、`fit2`に格納する。
+
+```{r}
+#| filename: "Code 04"
+fit1 <- lm(TempKyosan ~ Satisfaction * Female + Interest + Ideology + Age, 
+           data = jes_df)
+fit2 <- lm(TempKyosan ~ Satisfaction * Age + Interest + Ideology + Female + Age, 
+           data = jes_df)
+```
+
+　2つのモデルの推定結果を横に並べるために{modelsummary}と`modelsummary()`関数を使用する。2つのモデルオブジェクトは`list()`関数でまとめることを忘れずに。
+
+```{r}
+#| filename: "Code 05"
+modelsummary(list(fit1, fit2))
+```
+
+### モデル1の解釈
+
+　モデル1（`fit1`）から得られた回帰式は以下の通りである。
+
+共産に対する感情温度の予測値 = 49.28 - 4.73 $\times$ **政治満足度** + 2.75 $\times$ 女性ダミー + 0.22 $\times$ 政治関心 - 1.89 $\times$ イデオロギー - 0.04 $\times$ 年齢 + 0.90 $\times$ **政治満足度** $\times$ 女性ダミー
+
+　これを政治満足度でまとめると、
+
+共産に対する感情温度の予測値 = 49.28 - (4.73 - 0.90 $\times$ 女性ダミー) $\times$ **政治満足度** + 2.75 $\times$ 女性ダミー + 0.22 $\times$ 政治関心 - 1.89 $\times$ イデオロギー - 0.04 $\times$ 年齢
+
+になる。つまり、政治満足度が共産感情温度に与える影響は「-(4.73 - 0.90 $\times$ 女性ダミーの値)」だ。女性ダミーが取り得る値は0（男性）か1（女性）しかないので、ここでは2つのケースにおける政治満足度が共産感情温度に与える影響を計算してみよう。
+
+　まず、男性の場合（`Female`の値 = 0）、政治満足度が共産感情温度に与える影響は約-4.73（= -(4.73 - 0.90 $\times$ 0) ）である。これは男性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる」と解釈できる。また、女性の場合（`Female`の値 = 1）、政治満足度が共産感情温度に与える影響は約-3.83（= -(4.73 - 0.90 $\times$ 1) ）である。これもまた、女性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる」と解釈できる。
+
+　以上の結果を回帰直線で示したものが以下の図である。
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) %>%
+  mutate(Female = factor(Female, levels = 0:1, 
+                         labels = c("男性 (女性ダミーの値 = 0)", 
+                                    "女性 (女性ダミーの値 = 1)"))) %>%
+  ggplot() +
+  geom_line(aes(x = Satisfaction, y = predicted, color = Female),
+            linewidth = 1) +
+  labs(x = "政治満足度", y = "共産感情温度の予測値 (度)", color = "") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+### モデル2の解釈
+
+　モデル2（`fit2`）に対しても同じことが言える。まずは回帰式をまとめてみよう。
+
+共産に対する感情温度の予測値 = 28.25 + 3.31 $\times$ **政治満足度** + 0.36 $\times$ 年齢 - 0.12 $\times$ 政治関心 - 1.69 $\times$ イデオロギー + 5.06 $\times$ 女性ダミー - 0.16 $\times$ 政治満足度 $\times$ 年齢
+
+　これを政治満足度でまとめると、
+
+共産に対する感情温度の予測値 = 28.25 + (3.31 - 0.16 $\times$ 年齢) $\times$ **政治満足度** + 0.36 $\times$ 年齢 - 0.12 $\times$ 政治関心 - 1.69 $\times$ イデオロギー + 5.06 $\times$ 女性ダミー
+
+になる。つまり、政治満足度が共産感情温度に与える影響は「(3.31 - 0.16 $\times$ 年齢の値)」だ。年齢は18、19、20、...など様々な値を取り得る。これら全てに対して計算することは効率的ではないため、ここでは年齢が20歳、40歳、60歳の場合に絞って政治満足度が共産感情温度に与える影響を計算してみよう。
+
+　まず、20歳の場合（`Age`の値 = 20）、政治満足度が共産感情温度に与える影響は約0.11（= 3.31 - 0.16 $\times$ 20）である（小数点7桁まで計算すると約0.1724813）。これは「20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる」ことを意味する。つづいて、40歳の場合（`Age`の値 = 40）、政治満足度が共産感情温度に与える影響は約-3.09（= 3.31 - 0.16 $\times$ 40）である（小数点7桁まで計算すると約-2.962879）。これは「40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる」ことを意味する。最後に60歳の場合（`Age`の値 = 60）、政治満足度が共産感情温度に与える影響は約-6.29（= 3.31 - 0.16 $\times$ 60）だ（小数点7桁まで計算すると約-6.098239）。これは「60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる」ことを意味する。
+
+　以上の結果を回帰直線で示したものが以下の図である。
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+predictions(fit2, newdata = datagrid(Satisfaction = 1:5, 
+                                     Age          = c(20, 40, 60))) %>%
+  mutate(Age = factor(Age, levels = c(20, 40, 60),
+                      labels = c("20歳", "40歳", "60歳"))) %>%
+  ggplot() +
+  geom_line(aes(x = Satisfaction, y = predicted, color = Age), 
+            linewidth = 1) +
+  labs(x = "政治満足度", y = "共産感情温度の予測値 (度)", color = "年齢") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+　今回は計算を簡単にするために小数点2桁目まで丸めた係数を用いたが、より性格に計算するためには`coef()`関数から抽出した係数を用いた方が良い。`fit2`の係数を抽出してみよう。
+
+```{r}
+#| filename: "Code 06"
+coef(fit2)
+```
+
+　ここで政治満足度（`Satisfication`）の係数は2番目であるため、`coef(fit2)`の後ろに`[2]`を付けると2番目の要素のみ抽出できる。
+
+```{r}
+#| filename: "Code 07"
+coef(fit2)[2]
+```
+
+　同じく交差項の係数は7番目であるため、`coef(fit2)[7]`で抽出できる。
+
+```{r}
+#| filename: "Code 08"
+coef(fit2)[7]
+```
+
+　この数値を使えば、政治満足度が共産感情温度に与える影響をより正確な数値で計算できる。たとえば、60歳における政治満足度が共産感情温度に与える影響は
+
+```{r}
+#| filename: "Code 09"
+coef(fit2)[2] + coef(fit2)[7] * 60
+```
+
+のように計算できる。
+
+## 限界効果の話
+
+　交互作用とは説明変数$X$が応答変数$Y$に与える影響が調整変数$Z$の値に依存することを意味する。この場合、「説明変数$X$が応答変数$Y$に与える影響」の統計的有意性はどうだろうか。$X$が$Y$に与える影響の統計的有意性を検定する際に用いられる検定統計量は「$X$の係数 / $X$の標準誤差」である。しかし、ここでの$X$の係数（と標準誤差）は$Z$の値によって変わる。これは$Z$の値によって$X \rightarrow Y$の統計的有意性は変わることを意味する。
+
+　したがって、$Z$の値ごとに、$X$が$Y$に与える影響（= **限界効果**; marginal effects）を計算するだけでなく、95%信頼区間 or $p$値も示す必要がある。95%信頼区間内に0が含まれないことは、$p < 0.05$を意味するため、統計的に有意な関連があると判断する。
+
+　限界効果の計算方法については解説済みである。しかし、統計的有意性に関しては説明がやや難しくなるため、これはRパッケージにお任せするとしよう。もし、数学的な背景に関心のある履修者は[Brambor (2006)](https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B)を参照されたい。
+
+　今回使用するパッケージ&関数は、冒頭で読み込んだ{marginaleffect}パッケージの`marginaleffects()`関数だ。これは回帰モデルの限界効果と統計的有意性検定までやってくれる大変便利なパッケージである。使い方は以下の通り。
+
+```{r}
+#| eval: false
+marginaleffects(回帰オブジェクト名, variables = "説明変数名", 
+                newdata = datagrid(調整変数名 = 調整変数の値))
+```
+
+　`fit1`の場合、`Female`の値が0と1の場合の`Satisfacton`の限界効果を求めることになる。したがって、回帰オブジェクト名は`fit1`、`variables`の実引数は`"Satisfaction"`（`"`で囲む）、`datagrid()`の中身は`Female = 0:1`または`Female = c(0, 1)`だ。計算結果を`fit1_ame`に格納し、中身を確認する。
+
+```{r}
+#| filename: "Code 10"
+fit1_ame <- marginaleffects(fit1, variables = "Satisfaction", 
+                            newdata = datagrid(Female = c(0, 1)))
+
+fit1_ame
+```
+
+　非常に多くの情報が出力されるが、ここで興味のある列は`Female`の値（`Female`列）と、`Satisfaction`の限界効果（`dydx`列）、$p$値（`p.value`列）、95%信頼区間（`conf.low`列と`conf.high`列）である。それでは、`select()`関数で`fit1_ame`からこれらの列のみ出力してみよう。
+
+　一つ注意してほしいのは`select()`関数の呼び出し方である。Rでは同じ名前を持つ関数が複数のパッケージで提供される場合がある。これまで使ってきた`select()`関数は{dplyr}パッケージの`select()`関数だ。「え、私は{dplyr}パッケージなんか読み込んだ覚えないぞ」という人もいるかと思うが、{tidyverse}を読み込むと{dplyr}も読み込まれる（この場合、{tidyverse}は{dplyr}に依存すると言う）。しかし、`select()`関数は{MASS}というパッケージでも提供されており、これは{dplyr}の`select()`関数とは別物である。実は、{marginaleffects}パッケージは{MASS}パッケージに依存している。したがって、「どのパッケージの`select()`か」を具体的に指定しないと、Rは混乱してしまう。特定のパッケージの関数を指定するためには`パッケージ名::関数()`と表記する。{MASS}も幅広くに使われ、多くのパッケージが{MASS}に依存する。したがって、`select()`関数は衝突しやすい関数であるため、普段から`dplyr::select()`という書き方をした方が良いかも知れない。
+
+```{r}
+#| filename: "Code 11"
+fit1_ame %>%
+  # p.value, conf.low, conf.high は隣接した列なので p.value:conf.high でOK
+  dplyr::select(Female, dydx, p.value, conf.low, conf.high)
+```
+
+　`Female = 0`の場合の`Satisfaction`の限界効果は約-4.732、`Female = 1`の場合のそれは約-3.830である。また、いずれも$p$値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。
+
+　これらの結果を表でまとめると以下のようになる。表で$p$値を報告する場合、$p$値が非常に小さいケースがある（たとえば、$p$ = 0.0000000235）。この場合、「$p$ = 0.000」と表記せず、「$p$ < 0.001」と表記すること。$p$値がぴったり0になることは実質的にあり得ない。
+
+```{r}
+#| echo: false
+fit1_ame %>%
+  dplyr::select(Female, dydx, p.value, conf.low, conf.high) %>%
+  mutate(Female = if_else(Female == 0, "男性", "女性"),
+         p.value = "< 0.001") %>%
+  gt() %>%
+  cols_label("Female" = "性別", "dydx" = "平均限界効果", "p.value" = "p値",
+             "conf.low" = "下限", "conf.high" = "上限") %>%
+  tab_spanner(columns = 4:5, label = "95%信頼区間") %>%
+  fmt_number(columns = c(2, 4, 5), decimals = 3) %>%
+  cols_align(columns = 2:5, align = "right")
+```
+
+　続いて、`fit2`の場合の`Age`の値が18、19、20、...、75の場合の`Satisfaction`の限界効果を求めるてみよう。回帰オブジェクト名は`fit2`、`variables`の実引数は`"Satisfaction"`（`"`で囲む）、`datagrid()`の中身は`Age = 18:75`だ。結果を出力する際、今回は`round()`関数を使って$p$値を小数点3桁までにまとめてみよう。`round()`の第1引数は丸めたい変数名、第2引数は小数点の桁数である。
+
+
+```{r}
+#| filename: "Code 12"
+fit2_ame <- marginaleffects(fit2, variables = "Satisfaction", 
+                            newdata = datagrid(Age = 18:75))
+
+fit2_ame %>%
+  dplyr::select(Age, dydx, p.value, conf.low, conf.high) %>%
+  mutate(p.value = round(p.value, 3)) # p値を小数点3桁で丸める
+```
+
+　中級者以上の場合、`mutate()`内に`across()`と`where()`を組み合わせて「**数値型の列全て**に対し、`round(変数, 3)`を適用する」といった処理もできる。覚える必要はないが、「Rを勉強していくと、コードがより効率的に書けるようになる」ということだけ覚えておこう。
+
+```{r}
+#| filename: "Code 13"
+fit2_ame %>%
+  dplyr::select(Age, dydx:conf.high) %>%
+  mutate(across(where(is.numeric), round, 3))
+```
+
+　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、$p \geq 0.05$）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、$p < 0.05$）。
+
+　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。回帰分析の結果の可視化は第14回で解説するが、ここでは限界効果のグラフの読み方を紹介しよう。
+
+　以下の図は`fit1`における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。
+
+```{r}
+#| code-fold: true
+#| fig-width: 4
+#| fig-height: 4
+fit1_ame %>%
+  mutate(Female = factor(Female, levels = 0:1, 
+                         labels = c("男性", "女性"))) %>%
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_pointrange(aes(x = Female, y = dydx, 
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "性別", y = "政治満足度の平均限界効果と95%信頼区間") +
+  theme_bw()
+```
+
+　続いて、`fit2`における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に感情温度は下がる」ことを意味する。
+
+```{r}
+#| code-fold: true
+#| fig-width: 4
+#| fig-height: 4
+fit2_ame %>%
+  ggplot(aes(x = Age)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
+  geom_hline(yintercept = 0) +
+  geom_line(aes(y = dydx)) +
+  labs(x = "年齢", y = "政治満足度の平均限界効果と95%信頼区間") +
+  theme_bw()
+```
