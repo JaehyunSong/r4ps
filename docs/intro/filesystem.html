@@ -271,31 +271,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  <span class="menu-text">課題</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li>
+    <a class="dropdown-item" href="../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">ミクロ</li>
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_HW05.html">
- <span class="dropdown-text">[前期] 第5回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_HW10.html">
- <span class="dropdown-text">[前期] 第10回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_HW11.html">
- <span class="dropdown-text">[前期] 第11回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_HW13.html">
- <span class="dropdown-text">[前期] 第13回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_HW14.html">
- <span class="dropdown-text">[前期] 第14回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../HW/Micro_Final.html">
- <span class="dropdown-text">[前期] 期末レポート</span></a>
-  </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
     </ul>
@@ -562,7 +543,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　もし、自分がこれから全ての作業を<code>Day03</code>という名のフォルダー内で完結するとする。つまり、保存するスクリプト（たとえば、<code>Script.R</code>）も<code>Day03</code>に保存し、図（たとえば、<code>FigureA.png</code>）は<code>Day03</code>の<code>Figs</code>フォルダーに、読み込む表形式データ（たとえば、<code>Day03_Data.csv</code>）も<code>Day03</code>の中の<code>Data</code>フォルダーに入れるとする。この場合、それぞれのファイルのパスは<code>Day03/Script.R</code>、<code>Day03/Figs/FigureA.png</code>、<code>Day03/Data/Day03_Data.csv</code>となる（作業フォルダーが<code>~/</code>であるため、<code>~/</code>は省略可能）。全ての作業が同じフォルダー（とその下位フォルダー）内で行うとしたら、パス名に<code>Day03</code>も不要な気がする。そこで必要なのがRStudioのプロジェクト機能である。</p>
 <p>　RStudioで<code>Day03</code>というプロジェクトを作成すると、<code>Day03</code>フォルダーが自動的に生成され、<code>Day03.Rproj</code>というファイルも生成される。プロジェクトを最上位フォルダーに作成したのであれば、<code>~/Day03/Day03.Rproj</code>ファイルが生成されるのである。ここでRStudioのFile &gt; Open Projectでこの<code>Day03.Rproj</code>ファイルを開くとRStudio画面の右上にプロジェクト名が表示され、<strong>作業フォルダーが<code>Day03.Rproj</code>が保存されているフォルダー、つまり<code>~/Day03</code>へ変更される</strong>（プロジェクトが開かれていな場合は「Project: (None)」と表示される）。実際、NIIオンライン分析システムで<code>XXX</code>という名前のプロジェクトを生成し、そのプロジェクトを開けば作業フォルダーは<code>/home/joyvan/XXX/</code>（=<code>~/XXX/</code>）になる（<code>getwd()</code>で確認可能）。これは大変便利な機能である。なぜなら作業フォルダーまでのパスは全て省略可能だからだ。これまで<code>Day03/Script.R</code>、<code>Day03/Figs/FigureA.png</code>、<code>Day03/Data/Day03_Data.csv</code>だったパスが、それぞれ<code>Script.R</code>、<code>Figs/FigureA.png</code>、<code>Data/Day03_Data.csv</code>になる。</p>
 <p>　また、何らかの理由で<code>Day03</code>フォルダーの名前を<code>Day05</code>に変更したとしよう。もし、プロジェクト機能を使っていないのであれば、パスの<code>Day03</code>を全て<code>Day05</code>に変更する必要がある。しかし、プロジェクト機能を使っているのであれば、<code>.Rproj</code>ファイルが存在するフォルダーが作業フォルダーになるため、そもそもパスに<code>Day03</code>は存在しない。つまり、修正不要ということだ。ちなみに、プロジェクトを一旦作成したら、そのプロジェクトのフォルダー名や<code>.Rproj</code>ファイルの名前は自由に修正しても良いし、フォルダー名と<code>.Rproj</code>ファイルの名前が一致しなくても良い。</p>
-<p>　以上の内容をまた住所と郵便の話で例えるとしよう。社内でも郵便物の行き来は頻繁に行われる。とりわけ面積が広く、キャンパスも複数ある大学なら尚更だ。たとえば、「大阪府吹田市山手町3-3-35 関西大学 ラーメン学部」の宋が「大阪府吹田市山手町3-3-35 関西大学 ラーメン研究支援課」の金に郵便を送る場合、同じ大学であるにも関わらず、住所を全て書くのは面倒なことであろう。ここで関西大学専用の郵便局を作れば問題は解決される（「学内便」と呼ばれる）。そうすれば差出人は「ラーメン学部　宋」、受取人は「ラーメン研究支援課　金」と書くだけで郵便物は届く。つまり、「大阪府吹田市山手町3-3-35 関西大学」は省略できる（同じ市区町村内の引っ越した際、転入・転出届けの住所欄に市区町村名までは省略できるのと同じ）。また、関西大学がなぜかキャンパスを沖縄に移転した場合を考えてみよう。学内便がなければ、郵便物の住所を全て「沖縄県〜」に変えなければならない。しかし、学内便が存在すればこれまで使ってきた「ラーメン学部　宋」という表記は有効であろう。</p>
+<p>　以上の内容をまた住所と郵便の話で例えるとしよう。社内でも郵便物の行き来は頻繁に行われる。とりわけ面積が広く、キャンパスも複数ある大学なら尚更だ。たとえば、「大阪府吹田市山手町3-3-35 関西大学 ラーメン学部」の宋が「大阪府吹田市山手町3-3-35 関西大学 ラーメン研究支援課」の金に郵便を送る場合、同じ大学であるにも関わらず、住所を全て書くのは面倒なことであろう。ここで関西大学専用の郵便局を作れば問題は解決される（「学内便」と呼ばれる）。そうすれば差出人は「ラーメン学部　宋」、受取人は「ラーメン研究支援課　金」と書くだけで郵便物は届く。つまり、「大阪府吹田市山手町3-3-35 関西大学」は省略できる（同じ市区町村内の引っ越した際、転入・転出届けの住所欄に市区町村名までは省略できるのと同じ）。また、関西大学がなぜかキャンパスを沖縄に移転した場合を考えてみよう（もはや<strong>関西</strong>大学ではないが…）。学内便がなければ、郵便物の住所を全て「沖縄県〜」に変えなければならない。しかし、学内便が存在すればこれまで使ってきた「ラーメン学部　宋」という表記は有効であろう。</p>
 <p>　このように<strong>RStudioのプロジェクト機能は必須</strong>といっても過言ではない。簡単な計算目的として使う場合は問題ないが、何かの分析をする時、授業の実習時、課題時には必ずRStudioの右上が「Project: (None)」になっていないことを確認しよう。</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
