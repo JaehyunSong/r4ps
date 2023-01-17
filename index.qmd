@@ -3,6 +3,16 @@ toc: false
 link-external-icon: false
 ---
 
+```{r}
+ff_ver <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applications/Firefox.app/Contents/Info.plist -o -', intern = TRUE) |>
+   stringr::str_extract("[0-9]+\\.[0-9]+\\.[0-9]+")
+
+rs_ver1 <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applications/RStudio.app/Contents/Info.plist -o -', intern = TRUE) |>
+   stringr::str_extract("[0-9]+\\.[0-9]+\\.[0-9]+\\+[0-9]+")
+
+macos_ver <- system('sw_vers -productVersion', intern = TRUE)
+```
+
 本ウェブサイトは関西大学総合情報学部「**ミクロ政治データ分析実習**」および「**マクロ政治データ分析実習**」のサポートページです。本ページはPC画面での閲覧を推奨します。
 
 :::{.callout-important}
@@ -53,10 +63,10 @@ print("Hello!")
 
 * 最終更新日: `r format(Sys.Date(), "%Y年%m月%d日")`
 * 開発環境
-   * macOS 13.0.1 "Ventura"
-   * Firefox 107.0.0
+   * macOS `r macos_ver` "Ventura"
+   * Firefox `r ff_ver`
    * `r version$version.string`
-   * RStudio 2022.07.2+576 "Spotted Wakerobin"
+   * RStudio `r rs_ver1`
    * Quarto `r quarto::quarto_inspect()$quarto$version`
    * R package {quarto} `r packageVersion("quarto")`
 :::
