@@ -21,7 +21,7 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 
 ## 概要
 
-* **日時:** 2022年7月21日（木）4限（14時40分〜16時10分）
+* **日時:** 2022年7月20日（木）4限（14時40分〜16時10分）
    * 宋から開始の合図があれば開始
 * **場所:** TC302教室（**指定席**; 座席表は授業日までにLMSで公開する）
 * **持参物:** 学生証のみ。
@@ -86,9 +86,9 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 
 ## 成績の例
 
-* 期限内に24点相当を提出し、20点正解
-* 期限外に16点相当を提出し、12点正解
-* 20点 + 12点 $\times$ 0.5 = 26点
+* 期限内に18点相当を提出し、15点正解（100%反映）
+* 期限外に12点相当を提出し、9点正解（50%反映）
+* 15点 + (9点 $\times$ 0.5) = 19.5点
 * 各問題の配点は難易度に応じて調整される。
 
 ```{r}
@@ -96,37 +96,37 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 #| fig-width: 10
 #| fig-height: 5
 tibble(y = c(1, 1, 1, 1),
-       x = c(4, 20, 12, 4),
+       x = c(3, 15, 9, 3),
        z = c("不正解（期限内）", "正解（期限内）",
              "正解（持ち帰り）", "不正解（持ち帰り）")) %>%
    mutate(z = fct_inorder(z),
           z = fct_rev(z)) %>%
    ggplot() +
    geom_bar(aes(x = y, y = x, fill = z), stat = "identity") +
-   geom_segment(aes(y = 0, yend = 40, x = 1.25, xend = 1.25),
+   geom_segment(aes(y = 0, yend = 30, x = 1.25, xend = 1.25),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 0, yend = 24, x = 1.1, xend = 1.1),
+   geom_segment(aes(y = 0, yend = 18, x = 1.1, xend = 1.1),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 24, yend = 40, x = 1.1, xend = 1.1),
+   geom_segment(aes(y = 18, yend = 30, x = 1.1, xend = 1.1),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 4, yend = 24, x = 1, xend = 1),
+   geom_segment(aes(y = 3, yend = 18, x = 1, xend = 1),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 24, yend = 36, x = 1, xend = 1),
+   geom_segment(aes(y = 18, yend = 27, x = 1, xend = 1),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 24, yend = 30, x = 0.9, xend = 0.9),
+   geom_segment(aes(y = 18, yend = 22.5, x = 0.9, xend = 0.9),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 4, yend = 30, x = 0.75, xend = 0.75),
+   geom_segment(aes(y = 3, yend = 27, x = 0.75, xend = 0.75),
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_hline(yintercept = 30, linetype = 2) +
-   annotate("label", x = 1.25, y = 20, label = "40点満点", size = 5) +
-   annotate("label", x = 1.1, y = 12, label = "期限内提出 (24点)", size = 5) +
-   annotate("label", x = 1.1, y = 32, label = "期限外提出 (16点)", size = 5) +
-   annotate("label", x = 1, y = 14, label = "正解 (20点)", size = 5,
+   geom_hline(yintercept = 22.5, linetype = 2) +
+   annotate("label", x = 1.25, y = 15, label = "40点満点", size = 5) +
+   annotate("label", x = 1.1, y = 9, label = "期限内提出 (18点)", size = 5) +
+   annotate("label", x = 1.1, y = 24, label = "期限外提出 (12点)", size = 5) +
+   annotate("label", x = 1, y = 10.5, label = "正解 (15点)", size = 5,
             color = "red") +
-   annotate("label", x = 1, y = 30, label = "正解 (12点)", size = 5) +
-   annotate("label", x = 0.9, y = 27, label = "補正後\n(6点)", size = 5,
+   annotate("label", x = 1, y = 22.5, label = "正解 (9点)", size = 5) +
+   annotate("label", x = 0.9, y = 20.25, label = "補正後\n(4.5点)", size = 5,
             color = "red") +
-   annotate("label", x = 0.75, y = 17, label = "成績 (26点)", size = 5) +
+   annotate("label", x = 0.75, y = 15, label = "成績 (19.5点)", size = 5) +
    coord_flip() +
    labs(fill = "") +
    guides(fill = guide_legend(reverse = TRUE)) +
