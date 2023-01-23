@@ -848,7 +848,218 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <p>　しかし、連続変数用の記述統計表と名目変数用の度数分布表を分けることは非効率的である。分析に用いられる名目変数が数が多いと尚更だ。できれば名目変数も連続変数と同じ表で記述統計量を出した方が良いだろう。そのためには名目変数をダミー変数として変換すれば、平均値や標準偏差などが計算できるようになる。</p>
-<p>　ダミー変数は0と1のみで構成される変数である。たとえば、性別変数（<code>Gender</code>列）は名目変数であるが、現在、1（男性）と2（女性）の2つの値で構成されている。この変数を男性ダミー変数と女性ダミー変数といった2つの変数に変換することである。男性ダミー変数は<code>Gender</code>の値が1なら、つまり当該回答者が男性（=1）なら1の値を、それ以外の場合は0の値をとる。女性ダミー変数の場合、当該回答者が女性（=2）なら1の値を、それ以外の場合は0の値をとる。<code>if_else()</code>関数を使って男性ダミー変数（<code>Male</code>）と女性ダミー変数（<code>Female</code>）を作ってみよう。このダミー変数は<code>Gender</code>列の後ろにし、<code>df2</code>という名のオブジェクトとして格納する。</p>
+<p>　ダミー変数は0と1のみで構成される変数である。たとえば、性別変数（<code>Gender</code>列）は名目変数であるが、現在、1（男性）と2（女性）の2つの値で構成されている。この変数を男性ダミー変数と女性ダミー変数といった2つの変数に変換することである。男性ダミー変数は<code>Gender</code>の値が1なら、つまり当該回答者が男性（=1）なら1の値を、それ以外の場合は0の値をとる。女性ダミー変数の場合、当該回答者が女性（=2）なら1の値を、それ以外の場合は0の値をとる。以下の <a href="#tbl-dummy">表&nbsp;1</a> はダミー変数のイメージである。 <a href="#tbl-dummy1">表&nbsp;1 (a)</a> の「出身」変数は普通の文字型変数であるが、この変数をダミー変数にすると <a href="#tbl-dummy2">表&nbsp;1 (b)</a> の「早稲田」、「学習院」のようなダミー変数である。このようにダミー変数は0と1のみで構成される変数であり、通常、一つのダミー変数が1であれば他のダミー変数は0となる。</p>
+<div id="tbl-dummy" class="tbl-parent quarto-layout-panel anchored">
+<div class="panel-caption table-caption">
+<p>表&nbsp;1: ダミー変数の例</p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-dummy1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-dummy" style="flex-basis: 33.0%;justify-content: center;">
+<table class="table">
+<caption>(a) 「出身」変数をダミー化する前</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">氏名</th>
+<th style="text-align: left;">出身</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">橋本</td>
+<td style="text-align: left;">慶應</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">小渕</td>
+<td style="text-align: left;">早稲田</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">森</td>
+<td style="text-align: left;">早稲田</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">小泉</td>
+<td style="text-align: left;">慶應</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">安倍</td>
+<td style="text-align: left;">成蹊</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">福田</td>
+<td style="text-align: left;">早稲田</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">麻生</td>
+<td style="text-align: left;">学習院</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">鳩山</td>
+<td style="text-align: left;">東京</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">菅</td>
+<td style="text-align: left;">東工</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">野田</td>
+<td style="text-align: left;">早稲田</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">菅</td>
+<td style="text-align: left;">法政</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">岸田</td>
+<td style="text-align: left;">早稲田</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 2.0%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div id="tbl-dummy2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-dummy" style="flex-basis: 65.0%;justify-content: center;">
+<table class="table">
+<caption>(b) 「出身」変数をダミー化した後</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">氏名</th>
+<th style="text-align: right;">早稲田</th>
+<th style="text-align: right;">慶應</th>
+<th style="text-align: right;">学習院</th>
+<th style="text-align: right;">東京</th>
+<th style="text-align: right;">東工</th>
+<th style="text-align: right;">成蹊</th>
+<th style="text-align: right;">法政</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">橋本</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">小渕</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">森</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">小泉</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">安倍</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">福田</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">麻生</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">鳩山</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">菅</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">野田</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">菅</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">岸田</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>　それでは、<code>if_else()</code>関数を使って男性ダミー変数（<code>Male</code>）と女性ダミー変数（<code>Female</code>）を作ってみよう。このダミー変数は<code>Gender</code>列の後ろにし、<code>df2</code>という名のオブジェクトとして格納する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1272,12 +1483,12 @@ N: 3000
 </div>
 <div class="cell-output-display">
 
-<div id="xlplxmmqsu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bnpzhcvhqh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#xlplxmmqsu) .gt_table {
+:where(#bnpzhcvhqh) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1302,7 +1513,7 @@ N: 3000
   border-left-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_heading {
+:where(#bnpzhcvhqh) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1314,12 +1525,12 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_caption {
+:where(#bnpzhcvhqh) .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-:where(#xlplxmmqsu) .gt_title {
+:where(#bnpzhcvhqh) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1331,7 +1542,7 @@ N: 3000
   border-bottom-width: 0;
 }
 
-:where(#xlplxmmqsu) .gt_subtitle {
+:where(#bnpzhcvhqh) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1343,13 +1554,13 @@ N: 3000
   border-top-width: 0;
 }
 
-:where(#xlplxmmqsu) .gt_bottom_border {
+:where(#bnpzhcvhqh) .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_col_headings {
+:where(#bnpzhcvhqh) .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1364,7 +1575,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_col_heading {
+:where(#bnpzhcvhqh) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1384,7 +1595,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-:where(#xlplxmmqsu) .gt_column_spanner_outer {
+:where(#bnpzhcvhqh) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1396,15 +1607,15 @@ N: 3000
   padding-right: 4px;
 }
 
-:where(#xlplxmmqsu) .gt_column_spanner_outer:first-child {
+:where(#bnpzhcvhqh) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#xlplxmmqsu) .gt_column_spanner_outer:last-child {
+:where(#bnpzhcvhqh) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#xlplxmmqsu) .gt_column_spanner {
+:where(#bnpzhcvhqh) .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1416,7 +1627,7 @@ N: 3000
   width: 100%;
 }
 
-:where(#xlplxmmqsu) .gt_group_heading {
+:where(#bnpzhcvhqh) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1442,7 +1653,7 @@ N: 3000
   text-align: left;
 }
 
-:where(#xlplxmmqsu) .gt_empty_group_heading {
+:where(#bnpzhcvhqh) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1457,15 +1668,15 @@ N: 3000
   vertical-align: middle;
 }
 
-:where(#xlplxmmqsu) .gt_from_md > :first-child {
+:where(#bnpzhcvhqh) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#xlplxmmqsu) .gt_from_md > :last-child {
+:where(#bnpzhcvhqh) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#xlplxmmqsu) .gt_row {
+:where(#bnpzhcvhqh) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1484,7 +1695,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-:where(#xlplxmmqsu) .gt_stub {
+:where(#bnpzhcvhqh) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1497,7 +1708,7 @@ N: 3000
   padding-right: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_stub_row_group {
+:where(#bnpzhcvhqh) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1511,11 +1722,11 @@ N: 3000
   vertical-align: top;
 }
 
-:where(#xlplxmmqsu) .gt_row_group_first td {
+:where(#bnpzhcvhqh) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#xlplxmmqsu) .gt_summary_row {
+:where(#bnpzhcvhqh) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1525,16 +1736,16 @@ N: 3000
   padding-right: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_first_summary_row {
+:where(#bnpzhcvhqh) .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_first_summary_row.thick {
+:where(#bnpzhcvhqh) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#xlplxmmqsu) .gt_last_summary_row {
+:where(#bnpzhcvhqh) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1544,7 +1755,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_grand_summary_row {
+:where(#bnpzhcvhqh) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1554,7 +1765,7 @@ N: 3000
   padding-right: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_first_grand_summary_row {
+:where(#bnpzhcvhqh) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1564,11 +1775,11 @@ N: 3000
   border-top-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_striped {
+:where(#bnpzhcvhqh) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#xlplxmmqsu) .gt_table_body {
+:where(#bnpzhcvhqh) .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1577,7 +1788,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_footnotes {
+:where(#bnpzhcvhqh) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1591,7 +1802,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_footnote {
+:where(#bnpzhcvhqh) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1600,7 +1811,7 @@ N: 3000
   padding-right: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_sourcenotes {
+:where(#bnpzhcvhqh) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1614,7 +1825,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-:where(#xlplxmmqsu) .gt_sourcenote {
+:where(#bnpzhcvhqh) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1622,64 +1833,64 @@ N: 3000
   padding-right: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_left {
+:where(#bnpzhcvhqh) .gt_left {
   text-align: left;
 }
 
-:where(#xlplxmmqsu) .gt_center {
+:where(#bnpzhcvhqh) .gt_center {
   text-align: center;
 }
 
-:where(#xlplxmmqsu) .gt_right {
+:where(#bnpzhcvhqh) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#xlplxmmqsu) .gt_font_normal {
+:where(#bnpzhcvhqh) .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#xlplxmmqsu) .gt_font_bold {
+:where(#bnpzhcvhqh) .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#xlplxmmqsu) .gt_font_italic {
+:where(#bnpzhcvhqh) .gt_font_italic {
   font-style: italic;
 }
 
-:where(#xlplxmmqsu) .gt_super {
+:where(#bnpzhcvhqh) .gt_super {
   font-size: 65%;
 }
 
-:where(#xlplxmmqsu) .gt_footnote_marks {
+:where(#bnpzhcvhqh) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#xlplxmmqsu) .gt_asterisk {
+:where(#bnpzhcvhqh) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#xlplxmmqsu) .gt_indent_1 {
+:where(#bnpzhcvhqh) .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#xlplxmmqsu) .gt_indent_2 {
+:where(#bnpzhcvhqh) .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#xlplxmmqsu) .gt_indent_3 {
+:where(#bnpzhcvhqh) .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#xlplxmmqsu) .gt_indent_4 {
+:where(#bnpzhcvhqh) .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#xlplxmmqsu) .gt_indent_5 {
+:where(#bnpzhcvhqh) .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
