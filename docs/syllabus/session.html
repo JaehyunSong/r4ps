@@ -68,6 +68,9 @@ gtag('js', new Date());
 gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </script>
 
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -404,8 +407,28 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </header>
 
-<section id="session-infromation" class="level2">
-<h2 class="anchored" data-anchor-id="session-infromation">Session Infromation</h2>
+<section id="作成環境" class="level2">
+<h2 class="anchored" data-anchor-id="作成環境">作成環境</h2>
+<div class="callout-note callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li>macOS 13.1 “Ventura”</li>
+<li>Firefox 109.0</li>
+<li>R version 4.2.2 (2022-10-31)</li>
+<li>RStudio 2023.03.0+265</li>
+<li>Quarto 1.2.313</li>
+<li>R package {quarto} 1.2</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="セッション情報" class="level2">
+<h2 class="anchored" data-anchor-id="セッション情報">セッション情報</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.2.2 (2022-10-31)
@@ -422,1456 +445,2017 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
- [1] gt_0.8.0        forcats_0.5.2   stringr_1.5.0   dplyr_1.0.10   
- [5] purrr_1.0.1     readr_2.1.3     tidyr_1.2.1     tibble_3.1.8   
- [9] ggplot2_3.4.0   tidyverse_1.3.2
-
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.0    xfun_0.36           haven_2.5.1        
- [4] gargle_1.2.1        colorspace_2.0-3    vctrs_0.5.1        
- [7] generics_0.1.3      htmltools_0.5.4     yaml_2.3.6         
-[10] utf8_1.2.2          rlang_1.0.6         pillar_1.8.1       
-[13] withr_2.5.0         glue_1.6.2          DBI_1.1.3          
-[16] dbplyr_2.2.1        readxl_1.4.1        modelr_0.1.10      
-[19] lifecycle_1.0.3     munsell_0.5.0       gtable_0.3.1       
-[22] cellranger_1.1.0    rvest_1.0.3         htmlwidgets_1.6.1  
-[25] evaluate_0.19       knitr_1.41          tzdb_0.3.0         
-[28] fastmap_1.1.0       fansi_1.0.3         broom_1.0.2        
-[31] backports_1.4.1     scales_1.2.1        googlesheets4_1.0.1
-[34] jsonlite_1.8.4      fs_1.5.2            hms_1.1.2          
-[37] digest_0.6.31       stringi_1.7.12      grid_4.2.2         
-[40] cli_3.6.0           tools_4.2.2         magrittr_2.0.3     
-[43] pacman_0.5.1        crayon_1.5.2        pkgconfig_2.0.3    
-[46] ellipsis_0.3.2      xml2_1.3.3          reprex_2.0.2       
-[49] googledrive_2.0.0   lubridate_1.9.0     timechange_0.2.0   
-[52] assertthat_0.2.1    rmarkdown_2.19      httr_1.4.4         
-[55] rstudioapi_0.14     R6_2.5.1            compiler_4.2.2     </code></pre>
+ [1] Rcpp_1.0.10       ps_1.7.2          later_1.3.0       digest_0.6.31    
+ [5] lifecycle_1.0.3   jsonlite_1.8.4    magrittr_2.0.3    evaluate_0.20    
+ [9] rlang_1.0.6       stringi_1.7.12    cli_3.6.0         rstudioapi_0.14  
+[13] vctrs_0.5.2       rmarkdown_2.20    tools_4.2.2       stringr_1.5.0    
+[17] glue_1.6.2        htmlwidgets_1.6.1 processx_3.8.0    xfun_0.36        
+[21] yaml_2.3.7        fastmap_1.1.0     compiler_4.2.2    htmltools_0.5.4  
+[25] knitr_1.42        quarto_1.2       </code></pre>
 </div>
 </div>
 </section>
-<section id="packages" class="level2">
-<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<section id="パッケージ" class="level2">
+<h2 class="anchored" data-anchor-id="パッケージ">パッケージ</h2>
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="qwnqkuhcdh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-:where(#qwnqkuhcdh) .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-:where(#qwnqkuhcdh) .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-:where(#qwnqkuhcdh) .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-:where(#qwnqkuhcdh) .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-:where(#qwnqkuhcdh) .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-:where(#qwnqkuhcdh) .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-:where(#qwnqkuhcdh) .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-:where(#qwnqkuhcdh) .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-:where(#qwnqkuhcdh) .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-:where(#qwnqkuhcdh) .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-:where(#qwnqkuhcdh) .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-:where(#qwnqkuhcdh) .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-:where(#qwnqkuhcdh) .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_left {
-  text-align: left;
-}
-
-:where(#qwnqkuhcdh) .gt_center {
-  text-align: center;
-}
-
-:where(#qwnqkuhcdh) .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-:where(#qwnqkuhcdh) .gt_font_normal {
-  font-weight: normal;
-}
-
-:where(#qwnqkuhcdh) .gt_font_bold {
-  font-weight: bold;
-}
-
-:where(#qwnqkuhcdh) .gt_font_italic {
-  font-style: italic;
-}
-
-:where(#qwnqkuhcdh) .gt_super {
-  font-size: 65%;
-}
-
-:where(#qwnqkuhcdh) .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 75%;
-  vertical-align: 0.4em;
-}
-
-:where(#qwnqkuhcdh) .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-:where(#qwnqkuhcdh) .gt_indent_1 {
-  text-indent: 5px;
-}
-
-:where(#qwnqkuhcdh) .gt_indent_2 {
-  text-indent: 10px;
-}
-
-:where(#qwnqkuhcdh) .gt_indent_3 {
-  text-indent: 15px;
-}
-
-:where(#qwnqkuhcdh) .gt_indent_4 {
-  text-indent: 20px;
-}
-
-:where(#qwnqkuhcdh) .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table">
-  
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Package">Package</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Version">Version</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Package" class="gt_row gt_left">abind</td>
-<td headers="Version" class="gt_row gt_right">1.4-5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">AER</td>
-<td headers="Version" class="gt_row gt_right">1.2-10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">aod</td>
-<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">arm</td>
-<td headers="Version" class="gt_row gt_right">1.13-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">AsioHeaders</td>
-<td headers="Version" class="gt_row gt_right">1.22.1-2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">askpass</td>
-<td headers="Version" class="gt_row gt_right">1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">assertthat</td>
-<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">attempt</td>
-<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">backports</td>
-<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">BalanceR</td>
-<td headers="Version" class="gt_row gt_right">0.7.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">base</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">base64enc</td>
-<td headers="Version" class="gt_row gt_right">0.1-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bayestestR</td>
-<td headers="Version" class="gt_row gt_right">0.13.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">beautifyR</td>
-<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">BH</td>
-<td headers="Version" class="gt_row gt_right">1.78.0-0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bibtex</td>
-<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bigD</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bit</td>
-<td headers="Version" class="gt_row gt_right">4.0.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bit64</td>
-<td headers="Version" class="gt_row gt_right">4.0.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bitops</td>
-<td headers="Version" class="gt_row gt_right">1.0-7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">blob</td>
-<td headers="Version" class="gt_row gt_right">1.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">blogdown</td>
-<td headers="Version" class="gt_row gt_right">1.16</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bookdown</td>
-<td headers="Version" class="gt_row gt_right">0.31</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Boom</td>
-<td headers="Version" class="gt_row gt_right">0.9.11</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">BoomSpikeSlab</td>
-<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">boot</td>
-<td headers="Version" class="gt_row gt_right">1.3-28.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">brew</td>
-<td headers="Version" class="gt_row gt_right">1.0-8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">brio</td>
-<td headers="Version" class="gt_row gt_right">1.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">broom</td>
-<td headers="Version" class="gt_row gt_right">1.0.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">broom.helpers</td>
-<td headers="Version" class="gt_row gt_right">1.11.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bslib</td>
-<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">bsts</td>
-<td headers="Version" class="gt_row gt_right">0.9.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cachem</td>
-<td headers="Version" class="gt_row gt_right">1.0.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">callr</td>
-<td headers="Version" class="gt_row gt_right">3.7.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">car</td>
-<td headers="Version" class="gt_row gt_right">3.1-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">carData</td>
-<td headers="Version" class="gt_row gt_right">3.0-5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">CausalImpact</td>
-<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cellranger</td>
-<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">checkmate</td>
-<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">chromote</td>
-<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cjoint</td>
-<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">class</td>
-<td headers="Version" class="gt_row gt_right">7.3-20</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">classInt</td>
-<td headers="Version" class="gt_row gt_right">0.4-8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cli</td>
-<td headers="Version" class="gt_row gt_right">3.6.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">clipr</td>
-<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cluster</td>
-<td headers="Version" class="gt_row gt_right">2.1.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cobalt</td>
-<td headers="Version" class="gt_row gt_right">4.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">coda</td>
-<td headers="Version" class="gt_row gt_right">0.19-4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">codetools</td>
-<td headers="Version" class="gt_row gt_right">0.2-18</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">collections</td>
-<td headers="Version" class="gt_row gt_right">0.3.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">colorspace</td>
-<td headers="Version" class="gt_row gt_right">2.0-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">colourpicker</td>
-<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">commonmark</td>
-<td headers="Version" class="gt_row gt_right">1.8.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">compiler</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">config</td>
-<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">corpcor</td>
-<td headers="Version" class="gt_row gt_right">1.6.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">corrplot</td>
-<td headers="Version" class="gt_row gt_right">0.92</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">countrycode</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cowplot</td>
-<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cpp11</td>
-<td headers="Version" class="gt_row gt_right">0.4.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cranlogs</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">crayon</td>
-<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">credentials</td>
-<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cregg</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">crosstalk</td>
-<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">crul</td>
-<td headers="Version" class="gt_row gt_right">1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cshapes</td>
-<td headers="Version" class="gt_row gt_right">2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cubature</td>
-<td headers="Version" class="gt_row gt_right">2.0.4.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">curl</td>
-<td headers="Version" class="gt_row gt_right">5.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">cyclocomp</td>
-<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dad</td>
-<td headers="Version" class="gt_row gt_right">4.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dagitty</td>
-<td headers="Version" class="gt_row gt_right">0.3-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">data.table</td>
-<td headers="Version" class="gt_row gt_right">1.14.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">data.tree</td>
-<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">DataCombine</td>
-<td headers="Version" class="gt_row gt_right">0.2.21</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">datasets</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">datawizard</td>
-<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">DBI</td>
-<td headers="Version" class="gt_row gt_right">1.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dbplyr</td>
-<td headers="Version" class="gt_row gt_right">2.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dcurver</td>
-<td headers="Version" class="gt_row gt_right">0.9.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">deldir</td>
-<td headers="Version" class="gt_row gt_right">1.0-6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">democracyData</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dendextend</td>
-<td headers="Version" class="gt_row gt_right">1.16.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Deriv</td>
-<td headers="Version" class="gt_row gt_right">4.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">desc</td>
-<td headers="Version" class="gt_row gt_right">1.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">DescTools</td>
-<td headers="Version" class="gt_row gt_right">0.99.47</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">devtools</td>
-<td headers="Version" class="gt_row gt_right">2.4.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">diffobj</td>
-<td headers="Version" class="gt_row gt_right">0.3.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">digest</td>
-<td headers="Version" class="gt_row gt_right">0.6.31</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">directlabels</td>
-<td headers="Version" class="gt_row gt_right">2021.1.13</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">doMC</td>
-<td headers="Version" class="gt_row gt_right">1.3.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">doParallel</td>
-<td headers="Version" class="gt_row gt_right">1.0.17</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">doRNG</td>
-<td headers="Version" class="gt_row gt_right">1.8.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">downlit</td>
-<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dplyr</td>
-<td headers="Version" class="gt_row gt_right">1.0.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">DT</td>
-<td headers="Version" class="gt_row gt_right">0.26</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">dtplyr</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">e1071</td>
-<td headers="Version" class="gt_row gt_right">1.7-12</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ellipsis</td>
-<td headers="Version" class="gt_row gt_right">0.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">estimatr</td>
-<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">evaluate</td>
-<td headers="Version" class="gt_row gt_right">0.19</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Exact</td>
-<td headers="Version" class="gt_row gt_right">3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">expm</td>
-<td headers="Version" class="gt_row gt_right">0.999-7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">extrafont</td>
-<td headers="Version" class="gt_row gt_right">0.18</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">extrafontdb</td>
-<td headers="Version" class="gt_row gt_right">1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fansi</td>
-<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">farver</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fastDummies</td>
-<td headers="Version" class="gt_row gt_right">1.6.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fastmap</td>
-<td headers="Version" class="gt_row gt_right">1.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fastmatch</td>
-<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">FNN</td>
-<td headers="Version" class="gt_row gt_right">1.1.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fontawesome</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">forcats</td>
-<td headers="Version" class="gt_row gt_right">0.5.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">foreach</td>
-<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">foreign</td>
-<td headers="Version" class="gt_row gt_right">0.8-84</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">formatR</td>
-<td headers="Version" class="gt_row gt_right">1.13</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">formattable</td>
-<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Formula</td>
-<td headers="Version" class="gt_row gt_right">1.2-4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fs</td>
-<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">future</td>
-<td headers="Version" class="gt_row gt_right">1.30.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">fuzzyjoin</td>
-<td headers="Version" class="gt_row gt_right">0.1.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gamlss.dist</td>
-<td headers="Version" class="gt_row gt_right">6.0-5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gapminder</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gargle</td>
-<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gdtools</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">generics</td>
-<td headers="Version" class="gt_row gt_right">0.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geojson</td>
-<td headers="Version" class="gt_row gt_right">0.3.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geojsonio</td>
-<td headers="Version" class="gt_row gt_right">0.10.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geojsonlint</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geojsonsf</td>
-<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geometries</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">geosphere</td>
-<td headers="Version" class="gt_row gt_right">1.5-18</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gert</td>
-<td headers="Version" class="gt_row gt_right">1.9.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gfonts</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggalluvial</td>
-<td headers="Version" class="gt_row gt_right">0.12.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">GGally</td>
-<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gganimate</td>
-<td headers="Version" class="gt_row gt_right">1.0.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggbump</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggdag</td>
-<td headers="Version" class="gt_row gt_right">0.2.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggdendro</td>
-<td headers="Version" class="gt_row gt_right">0.1.23</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggExtra</td>
-<td headers="Version" class="gt_row gt_right">0.10.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggfittext</td>
-<td headers="Version" class="gt_row gt_right">0.9.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggforce</td>
-<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggh4x</td>
-<td headers="Version" class="gt_row gt_right">0.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gghighlight</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggmosaic</td>
-<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggplot2</td>
-<td headers="Version" class="gt_row gt_right">3.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggpubr</td>
-<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggraph</td>
-<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggrepel</td>
-<td headers="Version" class="gt_row gt_right">0.9.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggridges</td>
-<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggsci</td>
-<td headers="Version" class="gt_row gt_right">2.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggsignif</td>
-<td headers="Version" class="gt_row gt_right">0.6.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ggstance</td>
-<td headers="Version" class="gt_row gt_right">0.3.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gh</td>
-<td headers="Version" class="gt_row gt_right">1.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ghibli</td>
-<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gitcreds</td>
-<td headers="Version" class="gt_row gt_right">0.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gld</td>
-<td headers="Version" class="gt_row gt_right">2.6.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">globals</td>
-<td headers="Version" class="gt_row gt_right">0.16.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">glue</td>
-<td headers="Version" class="gt_row gt_right">1.6.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">golem</td>
-<td headers="Version" class="gt_row gt_right">0.3.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">googledrive</td>
-<td headers="Version" class="gt_row gt_right">2.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">googlePolylines</td>
-<td headers="Version" class="gt_row gt_right">0.8.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">googlesheets4</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">GPArotation</td>
-<td headers="Version" class="gt_row gt_right">2022.10-2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">graphics</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">graphlayouts</td>
-<td headers="Version" class="gt_row gt_right">0.8.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">grDevices</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">grid</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gridExtra</td>
-<td headers="Version" class="gt_row gt_right">2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gsynth</td>
-<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gt</td>
-<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gtable</td>
-<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">gtsummary</td>
-<td headers="Version" class="gt_row gt_right">1.7.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">haven</td>
-<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">here</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">highr</td>
-<td headers="Version" class="gt_row gt_right">0.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Hmisc</td>
-<td headers="Version" class="gt_row gt_right">4.7-2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">hms</td>
-<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">hrbrthemes</td>
-<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">htmlTable</td>
-<td headers="Version" class="gt_row gt_right">2.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">htmltools</td>
-<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">htmlwidgets</td>
-<td headers="Version" class="gt_row gt_right">1.6.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">httpcode</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">httpuv</td>
-<td headers="Version" class="gt_row gt_right">1.6.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">httr</td>
-<td headers="Version" class="gt_row gt_right">1.4.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">icons</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ids</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">igraph</td>
-<td headers="Version" class="gt_row gt_right">1.3.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ini</td>
-<td headers="Version" class="gt_row gt_right">0.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">inline</td>
-<td headers="Version" class="gt_row gt_right">0.3.19</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">insight</td>
-<td headers="Version" class="gt_row gt_right">0.18.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">interactionTest</td>
-<td headers="Version" class="gt_row gt_right">1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">interp</td>
-<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">interplot</td>
-<td headers="Version" class="gt_row gt_right">0.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">isoband</td>
-<td headers="Version" class="gt_row gt_right">0.2.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ISOcodes</td>
-<td headers="Version" class="gt_row gt_right">2022.09.29</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">iterators</td>
-<td headers="Version" class="gt_row gt_right">1.0.14</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jpeg</td>
-<td headers="Version" class="gt_row gt_right">0.1-10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jpmesh</td>
-<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jpndistrict</td>
-<td headers="Version" class="gt_row gt_right">0.3.9.9000</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jqr</td>
-<td headers="Version" class="gt_row gt_right">1.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jquerylib</td>
-<td headers="Version" class="gt_row gt_right">0.1.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jsonify</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jsonlite</td>
-<td headers="Version" class="gt_row gt_right">1.8.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">jsonvalidate</td>
-<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">juicyjuice</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">kableExtra</td>
-<td headers="Version" class="gt_row gt_right">1.3.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">keras</td>
-<td headers="Version" class="gt_row gt_right">2.11.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">kernlab</td>
-<td headers="Version" class="gt_row gt_right">0.9-31</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">KernSmooth</td>
-<td headers="Version" class="gt_row gt_right">2.23-20</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">kldtools</td>
-<td headers="Version" class="gt_row gt_right">1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">knitr</td>
-<td headers="Version" class="gt_row gt_right">1.41</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">labeling</td>
-<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">labelled</td>
-<td headers="Version" class="gt_row gt_right">2.10.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">languageserver</td>
-<td headers="Version" class="gt_row gt_right">0.3.15</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">later</td>
-<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">latex2exp</td>
-<td headers="Version" class="gt_row gt_right">0.9.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lattice</td>
-<td headers="Version" class="gt_row gt_right">0.20-45</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">latticeExtra</td>
-<td headers="Version" class="gt_row gt_right">0.6-30</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lazyeval</td>
-<td headers="Version" class="gt_row gt_right">0.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">leaflet</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">leaflet.providers</td>
-<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">learnr</td>
-<td headers="Version" class="gt_row gt_right">0.11.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lfe</td>
-<td headers="Version" class="gt_row gt_right">2.8-8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lifecycle</td>
-<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lintr</td>
-<td headers="Version" class="gt_row gt_right">3.0.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">list</td>
-<td headers="Version" class="gt_row gt_right">9.2.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">listenv</td>
-<td headers="Version" class="gt_row gt_right">0.9.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lme4</td>
-<td headers="Version" class="gt_row gt_right">1.1-31</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lmom</td>
-<td headers="Version" class="gt_row gt_right">2.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lmtest</td>
-<td headers="Version" class="gt_row gt_right">0.9-40</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lobstr</td>
-<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">locpol</td>
-<td headers="Version" class="gt_row gt_right">0.8.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">loo</td>
-<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">LowRankQP</td>
-<td headers="Version" class="gt_row gt_right">1.0.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lpdensity</td>
-<td headers="Version" class="gt_row gt_right">2.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">lubridate</td>
-<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">magic</td>
-<td headers="Version" class="gt_row gt_right">1.6-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">magick</td>
-<td headers="Version" class="gt_row gt_right">2.7.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">magrittr</td>
-<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mapproj</td>
-<td headers="Version" class="gt_row gt_right">1.2.11</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">maps</td>
-<td headers="Version" class="gt_row gt_right">3.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">maptools</td>
-<td headers="Version" class="gt_row gt_right">1.1-6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">marginaleffects</td>
-<td headers="Version" class="gt_row gt_right">0.8.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">margins</td>
-<td headers="Version" class="gt_row gt_right">0.3.26</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">markdown</td>
-<td headers="Version" class="gt_row gt_right">1.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">MASS</td>
-<td headers="Version" class="gt_row gt_right">7.3-58.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">MatchIt</td>
-<td headers="Version" class="gt_row gt_right">4.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Matrix</td>
-<td headers="Version" class="gt_row gt_right">1.5-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">MatrixModels</td>
-<td headers="Version" class="gt_row gt_right">0.5-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">matrixStats</td>
-<td headers="Version" class="gt_row gt_right">0.63.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">memoise</td>
-<td headers="Version" class="gt_row gt_right">2.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">metathis</td>
-<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">methods</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mgcv</td>
-<td headers="Version" class="gt_row gt_right">1.8-41</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mime</td>
-<td headers="Version" class="gt_row gt_right">0.12</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">miniUI</td>
-<td headers="Version" class="gt_row gt_right">0.1.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">minqa</td>
-<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mirt</td>
-<td headers="Version" class="gt_row gt_right">1.37.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mitools</td>
-<td headers="Version" class="gt_row gt_right">2.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mnormt</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">modelr</td>
-<td headers="Version" class="gt_row gt_right">0.1.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">modelsummary</td>
-<td headers="Version" class="gt_row gt_right">1.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">munsell</td>
-<td headers="Version" class="gt_row gt_right">0.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">mvtnorm</td>
-<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">naniar</td>
-<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">nlme</td>
-<td headers="Version" class="gt_row gt_right">3.1-161</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">nloptr</td>
-<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">nnet</td>
-<td headers="Version" class="gt_row gt_right">7.3-18</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">norm</td>
-<td headers="Version" class="gt_row gt_right">1.0-10.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">np</td>
-<td headers="Version" class="gt_row gt_right">0.60-16</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">nsyllable</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">numDeriv</td>
-<td headers="Version" class="gt_row gt_right">2016.8-1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">openssl</td>
-<td headers="Version" class="gt_row gt_right">2.0.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">openxlsx</td>
-<td headers="Version" class="gt_row gt_right">4.2.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">optimx</td>
-<td headers="Version" class="gt_row gt_right">2022-4.30</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">packageRank</td>
-<td headers="Version" class="gt_row gt_right">0.7.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">packrat</td>
-<td headers="Version" class="gt_row gt_right">0.9.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pacman</td>
-<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pagedown</td>
-<td headers="Version" class="gt_row gt_right">0.20</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pander</td>
-<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">panelView</td>
-<td headers="Version" class="gt_row gt_right">1.1.11</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">parallel</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">parallelly</td>
-<td headers="Version" class="gt_row gt_right">1.34.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">parameters</td>
-<td headers="Version" class="gt_row gt_right">0.20.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">parsedate</td>
-<td headers="Version" class="gt_row gt_right">1.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pbapply</td>
-<td headers="Version" class="gt_row gt_right">1.7-0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pbkrtest</td>
-<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">performance</td>
-<td headers="Version" class="gt_row gt_right">0.10.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">permute</td>
-<td headers="Version" class="gt_row gt_right">0.9-7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pillar</td>
-<td headers="Version" class="gt_row gt_right">1.8.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pkgbuild</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pkgconfig</td>
-<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pkgdown</td>
-<td headers="Version" class="gt_row gt_right">2.0.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pkgload</td>
-<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pkgsearch</td>
-<td headers="Version" class="gt_row gt_right">3.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">plotly</td>
-<td headers="Version" class="gt_row gt_right">4.10.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">plyr</td>
-<td headers="Version" class="gt_row gt_right">1.8.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">png</td>
-<td headers="Version" class="gt_row gt_right">0.1-8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">polyclip</td>
-<td headers="Version" class="gt_row gt_right">1.10-4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">polynom</td>
-<td headers="Version" class="gt_row gt_right">1.4-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ppcor</td>
-<td headers="Version" class="gt_row gt_right">1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">praise</td>
-<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">PRcalc</td>
-<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">prediction</td>
-<td headers="Version" class="gt_row gt_right">0.3.14</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">prettyunits</td>
-<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">prismatic</td>
-<td headers="Version" class="gt_row gt_right">1.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">processx</td>
-<td headers="Version" class="gt_row gt_right">3.8.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">productplots</td>
-<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">profvis</td>
-<td headers="Version" class="gt_row gt_right">0.3.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">progress</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">promises</td>
-<td headers="Version" class="gt_row gt_right">1.2.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">protolite</td>
-<td headers="Version" class="gt_row gt_right">2.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">proxy</td>
-<td headers="Version" class="gt_row gt_right">0.4-27</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">proxyC</td>
-<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pryr</td>
-<td headers="Version" class="gt_row gt_right">0.1.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ps</td>
-<td headers="Version" class="gt_row gt_right">1.7.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">psData</td>
-<td headers="Version" class="gt_row gt_right">0.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">psych</td>
-<td headers="Version" class="gt_row gt_right">2.2.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">purrr</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">pwr</td>
-<td headers="Version" class="gt_row gt_right">1.3-0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">q2c</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">qrcode</td>
-<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">quadprog</td>
-<td headers="Version" class="gt_row gt_right">1.5-8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">qualtRics</td>
-<td headers="Version" class="gt_row gt_right">3.1.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">quanteda</td>
-<td headers="Version" class="gt_row gt_right">3.2.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">quanteda.textstats</td>
-<td headers="Version" class="gt_row gt_right">0.96</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">quantreg</td>
-<td headers="Version" class="gt_row gt_right">5.94</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">quarto</td>
-<td headers="Version" class="gt_row gt_right">1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R.cache</td>
-<td headers="Version" class="gt_row gt_right">0.16.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R.methodsS3</td>
-<td headers="Version" class="gt_row gt_right">1.8.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R.oo</td>
-<td headers="Version" class="gt_row gt_right">1.25.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R.utils</td>
-<td headers="Version" class="gt_row gt_right">2.12.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R6</td>
-<td headers="Version" class="gt_row gt_right">2.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">R7</td>
-<td headers="Version" class="gt_row gt_right">0.0.0.9000</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">ragg</td>
-<td headers="Version" class="gt_row gt_right">1.2.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rapidjsonr</td>
-<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rappdirs</td>
-<td headers="Version" class="gt_row gt_right">0.3.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rapportools</td>
-<td headers="Version" class="gt_row gt_right">1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">raster</td>
-<td headers="Version" class="gt_row gt_right">3.6-13</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rcmdcheck</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RColorBrewer</td>
-<td headers="Version" class="gt_row gt_right">1.1-3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Rcpp</td>
-<td headers="Version" class="gt_row gt_right">1.0.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RcppArmadillo</td>
-<td headers="Version" class="gt_row gt_right">0.11.4.3.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RcppEigen</td>
-<td headers="Version" class="gt_row gt_right">0.3.3.9.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RcppParallel</td>
-<td headers="Version" class="gt_row gt_right">5.1.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RcppProgress</td>
-<td headers="Version" class="gt_row gt_right">0.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RcppTOML</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RCurl</td>
-<td headers="Version" class="gt_row gt_right">1.98-1.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rdd</td>
-<td headers="Version" class="gt_row gt_right">0.57</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rddensity</td>
-<td headers="Version" class="gt_row gt_right">2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rddtools</td>
-<td headers="Version" class="gt_row gt_right">1.6.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rdrobust</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">readr</td>
-<td headers="Version" class="gt_row gt_right">2.1.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">readxl</td>
-<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">RefManageR</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rematch</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rematch2</td>
-<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">remotes</td>
-<td headers="Version" class="gt_row gt_right">2.4.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">renv</td>
-<td headers="Version" class="gt_row gt_right">0.16.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">reprex</td>
-<td headers="Version" class="gt_row gt_right">2.0.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">reshape</td>
-<td headers="Version" class="gt_row gt_right">0.8.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">reshape2</td>
-<td headers="Version" class="gt_row gt_right">1.4.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">reticulate</td>
-<td headers="Version" class="gt_row gt_right">1.27</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rex</td>
-<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rgenoud</td>
-<td headers="Version" class="gt_row gt_right">5.9-0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rgeos</td>
-<td headers="Version" class="gt_row gt_right">0.6-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rio</td>
-<td headers="Version" class="gt_row gt_right">0.5.29</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rJava</td>
-<td headers="Version" class="gt_row gt_right">1.0-6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rlang</td>
-<td headers="Version" class="gt_row gt_right">1.0.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rmapshaper</td>
-<td headers="Version" class="gt_row gt_right">0.4.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rmarkdown</td>
-<td headers="Version" class="gt_row gt_right">2.19</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rmdja</td>
-<td headers="Version" class="gt_row gt_right">0.4.6.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rnaturalearth</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rnaturalearthdata</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rnaturalearthhires</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rngtools</td>
-<td headers="Version" class="gt_row gt_right">1.5.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rootSolve</td>
-<td headers="Version" class="gt_row gt_right">1.8.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">roxygen2</td>
-<td headers="Version" class="gt_row gt_right">7.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rpart</td>
-<td headers="Version" class="gt_row gt_right">4.1.19</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rprojroot</td>
-<td headers="Version" class="gt_row gt_right">2.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rqog</td>
-<td headers="Version" class="gt_row gt_right">0.4.2022</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rsconnect</td>
-<td headers="Version" class="gt_row gt_right">0.8.29</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rstan</td>
-<td headers="Version" class="gt_row gt_right">2.21.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rstatix</td>
-<td headers="Version" class="gt_row gt_right">0.7.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rstudioapi</td>
-<td headers="Version" class="gt_row gt_right">0.14</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Rttf2pt1</td>
-<td headers="Version" class="gt_row gt_right">1.3.11</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rversions</td>
-<td headers="Version" class="gt_row gt_right">2.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">rvest</td>
-<td headers="Version" class="gt_row gt_right">1.0.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">s2</td>
-<td headers="Version" class="gt_row gt_right">1.1.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sandwich</td>
-<td headers="Version" class="gt_row gt_right">3.0-2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sass</td>
-<td headers="Version" class="gt_row gt_right">0.4.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">scales</td>
-<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">selectr</td>
-<td headers="Version" class="gt_row gt_right">0.4-2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">servr</td>
-<td headers="Version" class="gt_row gt_right">0.25</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sessioninfo</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sf</td>
-<td headers="Version" class="gt_row gt_right">1.0-9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sfheaders</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">shades</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">shiny</td>
-<td headers="Version" class="gt_row gt_right">1.7.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">shiny.i18n</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">shinyBS</td>
-<td headers="Version" class="gt_row gt_right">0.61.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">shinyjs</td>
-<td headers="Version" class="gt_row gt_right">2.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">SimpleConjoint</td>
-<td headers="Version" class="gt_row gt_right">0.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sjlabelled</td>
-<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">SnowballC</td>
-<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sourcetools</td>
-<td headers="Version" class="gt_row gt_right">0.1.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sp</td>
-<td headers="Version" class="gt_row gt_right">1.5-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">SparseM</td>
-<td headers="Version" class="gt_row gt_right">1.81</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">spatial</td>
-<td headers="Version" class="gt_row gt_right">7.3-15</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">splines</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">StanHeaders</td>
-<td headers="Version" class="gt_row gt_right">2.21.0-7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stargazer</td>
-<td headers="Version" class="gt_row gt_right">5.2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stats</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stats4</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stopwords</td>
-<td headers="Version" class="gt_row gt_right">2.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stringdist</td>
-<td headers="Version" class="gt_row gt_right">0.9.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stringi</td>
-<td headers="Version" class="gt_row gt_right">1.7.12</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">stringr</td>
-<td headers="Version" class="gt_row gt_right">1.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">styler</td>
-<td headers="Version" class="gt_row gt_right">1.9.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sugrrants</td>
-<td headers="Version" class="gt_row gt_right">0.2.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">summarytools</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">survey</td>
-<td headers="Version" class="gt_row gt_right">4.1-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">survival</td>
-<td headers="Version" class="gt_row gt_right">3.5-0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">svglite</td>
-<td headers="Version" class="gt_row gt_right">2.1.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">Synth</td>
-<td headers="Version" class="gt_row gt_right">1.1-6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">sys</td>
-<td headers="Version" class="gt_row gt_right">3.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">systemfonts</td>
-<td headers="Version" class="gt_row gt_right">1.0.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tables</td>
-<td headers="Version" class="gt_row gt_right">0.9.10</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tcltk</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tcltk2</td>
-<td headers="Version" class="gt_row gt_right">1.2-11</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tensorflow</td>
-<td headers="Version" class="gt_row gt_right">2.11.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">terra</td>
-<td headers="Version" class="gt_row gt_right">1.6-47</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">testthat</td>
-<td headers="Version" class="gt_row gt_right">3.1.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">textshaping</td>
-<td headers="Version" class="gt_row gt_right">0.3.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tfautograph</td>
-<td headers="Version" class="gt_row gt_right">0.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tfprobability</td>
-<td headers="Version" class="gt_row gt_right">0.15.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tfruns</td>
-<td headers="Version" class="gt_row gt_right">1.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tibble</td>
-<td headers="Version" class="gt_row gt_right">3.1.8</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tidyfast</td>
-<td headers="Version" class="gt_row gt_right">0.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tidygraph</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tidyr</td>
-<td headers="Version" class="gt_row gt_right">1.2.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tidyselect</td>
-<td headers="Version" class="gt_row gt_right">1.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tidyverse</td>
-<td headers="Version" class="gt_row gt_right">1.3.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">timechange</td>
-<td headers="Version" class="gt_row gt_right">0.2.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tinytex</td>
-<td headers="Version" class="gt_row gt_right">0.43</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">titanic</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tools</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">treemapify</td>
-<td headers="Version" class="gt_row gt_right">2.5.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">triebeard</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tweenr</td>
-<td headers="Version" class="gt_row gt_right">2.0.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">tzdb</td>
-<td headers="Version" class="gt_row gt_right">0.3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">units</td>
-<td headers="Version" class="gt_row gt_right">0.8-1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">UpSetR</td>
-<td headers="Version" class="gt_row gt_right">1.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">urlchecker</td>
-<td headers="Version" class="gt_row gt_right">1.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">urlshorteneR</td>
-<td headers="Version" class="gt_row gt_right">1.5.7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">urltools</td>
-<td headers="Version" class="gt_row gt_right">1.7.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">usethis</td>
-<td headers="Version" class="gt_row gt_right">2.1.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">usmap</td>
-<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">usmapdata</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">utf8</td>
-<td headers="Version" class="gt_row gt_right">1.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">utils</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">uuid</td>
-<td headers="Version" class="gt_row gt_right">1.1-0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">V8</td>
-<td headers="Version" class="gt_row gt_right">4.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">vctrs</td>
-<td headers="Version" class="gt_row gt_right">0.5.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">vdemdata</td>
-<td headers="Version" class="gt_row gt_right">3.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">vegan</td>
-<td headers="Version" class="gt_row gt_right">2.6-4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">VGAM</td>
-<td headers="Version" class="gt_row gt_right">1.1-7</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">viridis</td>
-<td headers="Version" class="gt_row gt_right">0.6.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">viridisLite</td>
-<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">visdat</td>
-<td headers="Version" class="gt_row gt_right">0.5.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">vroom</td>
-<td headers="Version" class="gt_row gt_right">1.6.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">waldo</td>
-<td headers="Version" class="gt_row gt_right">0.4.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">webshot</td>
-<td headers="Version" class="gt_row gt_right">0.5.4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">websocket</td>
-<td headers="Version" class="gt_row gt_right">1.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">WeightIt</td>
-<td headers="Version" class="gt_row gt_right">0.13.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">whisker</td>
-<td headers="Version" class="gt_row gt_right">0.4.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">withr</td>
-<td headers="Version" class="gt_row gt_right">2.5.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">wk</td>
-<td headers="Version" class="gt_row gt_right">0.7.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">woRdle</td>
-<td headers="Version" class="gt_row gt_right">0.0.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xaringan</td>
-<td headers="Version" class="gt_row gt_right">0.28</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xaringanBuilder</td>
-<td headers="Version" class="gt_row gt_right">0.0.9</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xaringanExtra</td>
-<td headers="Version" class="gt_row gt_right">0.7.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xfun</td>
-<td headers="Version" class="gt_row gt_right">0.36</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xlsx</td>
-<td headers="Version" class="gt_row gt_right">0.6.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xlsxjars</td>
-<td headers="Version" class="gt_row gt_right">0.6.1</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xml2</td>
-<td headers="Version" class="gt_row gt_right">1.3.3</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xmlparsedata</td>
-<td headers="Version" class="gt_row gt_right">1.0.5</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xopen</td>
-<td headers="Version" class="gt_row gt_right">1.0.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xtable</td>
-<td headers="Version" class="gt_row gt_right">1.8-4</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">xts</td>
-<td headers="Version" class="gt_row gt_right">0.12.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">yaml</td>
-<td headers="Version" class="gt_row gt_right">2.3.6</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">zeallot</td>
-<td headers="Version" class="gt_row gt_right">0.1.0</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">zip</td>
-<td headers="Version" class="gt_row gt_right">2.2.2</td></tr>
-    <tr><td headers="Package" class="gt_row gt_left">zoo</td>
-<td headers="Version" class="gt_row gt_right">1.8-11</td></tr>
-  </tbody>
-  
-  
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Package </th>
+   <th style="text-align:left;"> Version </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> abind </td>
+   <td style="text-align:left;"> 1.4-5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AER </td>
+   <td style="text-align:left;"> 1.2-10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> aod </td>
+   <td style="text-align:left;"> 1.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> arm </td>
+   <td style="text-align:left;"> 1.13-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AsioHeaders </td>
+   <td style="text-align:left;"> 1.22.1-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> askpass </td>
+   <td style="text-align:left;"> 1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> assertthat </td>
+   <td style="text-align:left;"> 0.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> attempt </td>
+   <td style="text-align:left;"> 0.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> backports </td>
+   <td style="text-align:left;"> 1.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BalanceR </td>
+   <td style="text-align:left;"> 0.7.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> base </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> base64enc </td>
+   <td style="text-align:left;"> 0.1-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bayestestR </td>
+   <td style="text-align:left;"> 0.13.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> beautifyR </td>
+   <td style="text-align:left;"> 0.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BH </td>
+   <td style="text-align:left;"> 1.81.0-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bibtex </td>
+   <td style="text-align:left;"> 0.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bigD </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bit </td>
+   <td style="text-align:left;"> 4.0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bit64 </td>
+   <td style="text-align:left;"> 4.0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bitops </td>
+   <td style="text-align:left;"> 1.0-7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> blob </td>
+   <td style="text-align:left;"> 1.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> blogdown </td>
+   <td style="text-align:left;"> 1.16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bookdown </td>
+   <td style="text-align:left;"> 0.32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Boom </td>
+   <td style="text-align:left;"> 0.9.11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BoomSpikeSlab </td>
+   <td style="text-align:left;"> 1.2.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> boot </td>
+   <td style="text-align:left;"> 1.3-28.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> brew </td>
+   <td style="text-align:left;"> 1.0-8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> brio </td>
+   <td style="text-align:left;"> 1.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> broom </td>
+   <td style="text-align:left;"> 1.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> broom.helpers </td>
+   <td style="text-align:left;"> 1.11.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bslib </td>
+   <td style="text-align:left;"> 0.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> bsts </td>
+   <td style="text-align:left;"> 0.9.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cachem </td>
+   <td style="text-align:left;"> 1.0.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> callr </td>
+   <td style="text-align:left;"> 3.7.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> car </td>
+   <td style="text-align:left;"> 3.1-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> carData </td>
+   <td style="text-align:left;"> 3.0-5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CausalImpact </td>
+   <td style="text-align:left;"> 1.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cellranger </td>
+   <td style="text-align:left;"> 1.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> checkmate </td>
+   <td style="text-align:left;"> 2.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> chromote </td>
+   <td style="text-align:left;"> 0.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cjoint </td>
+   <td style="text-align:left;"> 2.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> class </td>
+   <td style="text-align:left;"> 7.3-21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> classInt </td>
+   <td style="text-align:left;"> 0.4-8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cli </td>
+   <td style="text-align:left;"> 3.6.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> clipr </td>
+   <td style="text-align:left;"> 0.8.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cluster </td>
+   <td style="text-align:left;"> 2.1.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cobalt </td>
+   <td style="text-align:left;"> 4.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> coda </td>
+   <td style="text-align:left;"> 0.19-4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> codetools </td>
+   <td style="text-align:left;"> 0.2-18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> collections </td>
+   <td style="text-align:left;"> 0.3.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> colorspace </td>
+   <td style="text-align:left;"> 2.1-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> colourpicker </td>
+   <td style="text-align:left;"> 1.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> commonmark </td>
+   <td style="text-align:left;"> 1.8.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> compiler </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> config </td>
+   <td style="text-align:left;"> 0.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> corpcor </td>
+   <td style="text-align:left;"> 1.6.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> corrplot </td>
+   <td style="text-align:left;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> countrycode </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cowplot </td>
+   <td style="text-align:left;"> 1.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cpp11 </td>
+   <td style="text-align:left;"> 0.4.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cranlogs </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> crayon </td>
+   <td style="text-align:left;"> 1.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> credentials </td>
+   <td style="text-align:left;"> 1.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cregg </td>
+   <td style="text-align:left;"> 0.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> crosstalk </td>
+   <td style="text-align:left;"> 1.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> crul </td>
+   <td style="text-align:left;"> 1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cshapes </td>
+   <td style="text-align:left;"> 2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cubature </td>
+   <td style="text-align:left;"> 2.0.4.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> curl </td>
+   <td style="text-align:left;"> 5.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cyclocomp </td>
+   <td style="text-align:left;"> 1.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dad </td>
+   <td style="text-align:left;"> 4.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dagitty </td>
+   <td style="text-align:left;"> 0.3-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> data.table </td>
+   <td style="text-align:left;"> 1.14.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> data.tree </td>
+   <td style="text-align:left;"> 1.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DataCombine </td>
+   <td style="text-align:left;"> 0.2.21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> datasets </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> datawizard </td>
+   <td style="text-align:left;"> 0.6.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DBI </td>
+   <td style="text-align:left;"> 1.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dbplyr </td>
+   <td style="text-align:left;"> 2.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dcurver </td>
+   <td style="text-align:left;"> 0.9.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> deldir </td>
+   <td style="text-align:left;"> 1.0-6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> democracyData </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dendextend </td>
+   <td style="text-align:left;"> 1.16.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Deriv </td>
+   <td style="text-align:left;"> 4.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> desc </td>
+   <td style="text-align:left;"> 1.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DescTools </td>
+   <td style="text-align:left;"> 0.99.47 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> devtools </td>
+   <td style="text-align:left;"> 2.4.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> diffobj </td>
+   <td style="text-align:left;"> 0.3.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> digest </td>
+   <td style="text-align:left;"> 0.6.31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> directlabels </td>
+   <td style="text-align:left;"> 2021.1.13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> doMC </td>
+   <td style="text-align:left;"> 1.3.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> doParallel </td>
+   <td style="text-align:left;"> 1.0.17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> doRNG </td>
+   <td style="text-align:left;"> 1.8.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> downlit </td>
+   <td style="text-align:left;"> 0.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dplyr </td>
+   <td style="text-align:left;"> 1.0.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DT </td>
+   <td style="text-align:left;"> 0.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> dtplyr </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> e1071 </td>
+   <td style="text-align:left;"> 1.7-12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ellipsis </td>
+   <td style="text-align:left;"> 0.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> estimatr </td>
+   <td style="text-align:left;"> 1.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> evaluate </td>
+   <td style="text-align:left;"> 0.20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Exact </td>
+   <td style="text-align:left;"> 3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> expm </td>
+   <td style="text-align:left;"> 0.999-7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> extrafont </td>
+   <td style="text-align:left;"> 0.19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> extrafontdb </td>
+   <td style="text-align:left;"> 1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fansi </td>
+   <td style="text-align:left;"> 1.0.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> farver </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fastDummies </td>
+   <td style="text-align:left;"> 1.6.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fastmap </td>
+   <td style="text-align:left;"> 1.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fastmatch </td>
+   <td style="text-align:left;"> 1.1-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> FNN </td>
+   <td style="text-align:left;"> 1.1.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fontawesome </td>
+   <td style="text-align:left;"> 0.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> forcats </td>
+   <td style="text-align:left;"> 0.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> foreach </td>
+   <td style="text-align:left;"> 1.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> foreign </td>
+   <td style="text-align:left;"> 0.8-84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> formatR </td>
+   <td style="text-align:left;"> 1.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> formattable </td>
+   <td style="text-align:left;"> 0.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Formula </td>
+   <td style="text-align:left;"> 1.2-4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fs </td>
+   <td style="text-align:left;"> 1.6.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> future </td>
+   <td style="text-align:left;"> 1.30.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> fuzzyjoin </td>
+   <td style="text-align:left;"> 0.1.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gamlss.dist </td>
+   <td style="text-align:left;"> 6.0-5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gapminder </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gargle </td>
+   <td style="text-align:left;"> 1.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gdtools </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> generics </td>
+   <td style="text-align:left;"> 0.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geojson </td>
+   <td style="text-align:left;"> 0.3.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geojsonio </td>
+   <td style="text-align:left;"> 0.10.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geojsonlint </td>
+   <td style="text-align:left;"> 0.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geojsonsf </td>
+   <td style="text-align:left;"> 2.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geometries </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> geosphere </td>
+   <td style="text-align:left;"> 1.5-18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gert </td>
+   <td style="text-align:left;"> 1.9.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gfonts </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggalluvial </td>
+   <td style="text-align:left;"> 0.12.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GGally </td>
+   <td style="text-align:left;"> 2.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gganimate </td>
+   <td style="text-align:left;"> 1.0.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggbump </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggdag </td>
+   <td style="text-align:left;"> 0.2.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggdendro </td>
+   <td style="text-align:left;"> 0.1.23 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggExtra </td>
+   <td style="text-align:left;"> 0.10.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggfittext </td>
+   <td style="text-align:left;"> 0.9.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggforce </td>
+   <td style="text-align:left;"> 0.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggh4x </td>
+   <td style="text-align:left;"> 0.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gghighlight </td>
+   <td style="text-align:left;"> 0.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggmosaic </td>
+   <td style="text-align:left;"> 0.3.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggplot2 </td>
+   <td style="text-align:left;"> 3.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggpubr </td>
+   <td style="text-align:left;"> 0.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggraph </td>
+   <td style="text-align:left;"> 2.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggrepel </td>
+   <td style="text-align:left;"> 0.9.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggridges </td>
+   <td style="text-align:left;"> 0.5.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggsci </td>
+   <td style="text-align:left;"> 2.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggsignif </td>
+   <td style="text-align:left;"> 0.6.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ggstance </td>
+   <td style="text-align:left;"> 0.3.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gh </td>
+   <td style="text-align:left;"> 1.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ghibli </td>
+   <td style="text-align:left;"> 0.3.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gitcreds </td>
+   <td style="text-align:left;"> 0.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gld </td>
+   <td style="text-align:left;"> 2.6.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> globals </td>
+   <td style="text-align:left;"> 0.16.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> glue </td>
+   <td style="text-align:left;"> 1.6.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> golem </td>
+   <td style="text-align:left;"> 0.3.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> googledrive </td>
+   <td style="text-align:left;"> 2.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> googlePolylines </td>
+   <td style="text-align:left;"> 0.8.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> googlesheets4 </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GPArotation </td>
+   <td style="text-align:left;"> 2022.10-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> graphics </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> graphlayouts </td>
+   <td style="text-align:left;"> 0.8.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> grDevices </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> grid </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gridExtra </td>
+   <td style="text-align:left;"> 2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gsynth </td>
+   <td style="text-align:left;"> 1.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gt </td>
+   <td style="text-align:left;"> 0.8.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gtable </td>
+   <td style="text-align:left;"> 0.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gtsummary </td>
+   <td style="text-align:left;"> 1.7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> haven </td>
+   <td style="text-align:left;"> 2.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> here </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> highr </td>
+   <td style="text-align:left;"> 0.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hmisc </td>
+   <td style="text-align:left;"> 4.7-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hms </td>
+   <td style="text-align:left;"> 1.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hrbrthemes </td>
+   <td style="text-align:left;"> 0.8.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> htmlTable </td>
+   <td style="text-align:left;"> 2.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> htmltools </td>
+   <td style="text-align:left;"> 0.5.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> htmlwidgets </td>
+   <td style="text-align:left;"> 1.6.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> httpcode </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> httpuv </td>
+   <td style="text-align:left;"> 1.6.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> httr </td>
+   <td style="text-align:left;"> 1.4.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> icons </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ids </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> igraph </td>
+   <td style="text-align:left;"> 1.3.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ini </td>
+   <td style="text-align:left;"> 0.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> inline </td>
+   <td style="text-align:left;"> 0.3.19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> insight </td>
+   <td style="text-align:left;"> 0.18.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> interactionTest </td>
+   <td style="text-align:left;"> 1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> interp </td>
+   <td style="text-align:left;"> 1.1-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> interplot </td>
+   <td style="text-align:left;"> 0.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> isoband </td>
+   <td style="text-align:left;"> 0.2.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ISOcodes </td>
+   <td style="text-align:left;"> 2022.09.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> iterators </td>
+   <td style="text-align:left;"> 1.0.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jpeg </td>
+   <td style="text-align:left;"> 0.1-10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jpmesh </td>
+   <td style="text-align:left;"> 2.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jpndistrict </td>
+   <td style="text-align:left;"> 0.3.9.9000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jqr </td>
+   <td style="text-align:left;"> 1.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jquerylib </td>
+   <td style="text-align:left;"> 0.1.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jsonify </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jsonlite </td>
+   <td style="text-align:left;"> 1.8.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jsonvalidate </td>
+   <td style="text-align:left;"> 1.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> juicyjuice </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> kableExtra </td>
+   <td style="text-align:left;"> 1.3.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> keras </td>
+   <td style="text-align:left;"> 2.11.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> kernlab </td>
+   <td style="text-align:left;"> 0.9-31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> KernSmooth </td>
+   <td style="text-align:left;"> 2.23-20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> kldtools </td>
+   <td style="text-align:left;"> 1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> knitr </td>
+   <td style="text-align:left;"> 1.42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> labeling </td>
+   <td style="text-align:left;"> 0.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> labelled </td>
+   <td style="text-align:left;"> 2.10.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> languageserver </td>
+   <td style="text-align:left;"> 0.3.15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> later </td>
+   <td style="text-align:left;"> 1.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> latex2exp </td>
+   <td style="text-align:left;"> 0.9.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lattice </td>
+   <td style="text-align:left;"> 0.20-45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> latticeExtra </td>
+   <td style="text-align:left;"> 0.6-30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lazyeval </td>
+   <td style="text-align:left;"> 0.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> leaflet </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> leaflet.providers </td>
+   <td style="text-align:left;"> 1.9.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> learnr </td>
+   <td style="text-align:left;"> 0.11.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lfe </td>
+   <td style="text-align:left;"> 2.8-8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lifecycle </td>
+   <td style="text-align:left;"> 1.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lintr </td>
+   <td style="text-align:left;"> 3.0.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> list </td>
+   <td style="text-align:left;"> 9.2.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> listenv </td>
+   <td style="text-align:left;"> 0.9.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lme4 </td>
+   <td style="text-align:left;"> 1.1-31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lmom </td>
+   <td style="text-align:left;"> 2.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lmtest </td>
+   <td style="text-align:left;"> 0.9-40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lobstr </td>
+   <td style="text-align:left;"> 1.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> locpol </td>
+   <td style="text-align:left;"> 0.8.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> loo </td>
+   <td style="text-align:left;"> 2.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> LowRankQP </td>
+   <td style="text-align:left;"> 1.0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lpdensity </td>
+   <td style="text-align:left;"> 2.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> lubridate </td>
+   <td style="text-align:left;"> 1.9.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> magic </td>
+   <td style="text-align:left;"> 1.6-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> magick </td>
+   <td style="text-align:left;"> 2.7.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> magrittr </td>
+   <td style="text-align:left;"> 2.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mapproj </td>
+   <td style="text-align:left;"> 1.2.11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> maps </td>
+   <td style="text-align:left;"> 3.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> maptools </td>
+   <td style="text-align:left;"> 1.1-6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> marginaleffects </td>
+   <td style="text-align:left;"> 0.8.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> margins </td>
+   <td style="text-align:left;"> 0.3.26 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> markdown </td>
+   <td style="text-align:left;"> 1.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MASS </td>
+   <td style="text-align:left;"> 7.3-58.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MatchIt </td>
+   <td style="text-align:left;"> 4.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Matrix </td>
+   <td style="text-align:left;"> 1.5-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MatrixModels </td>
+   <td style="text-align:left;"> 0.5-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> matrixStats </td>
+   <td style="text-align:left;"> 0.63.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> memoise </td>
+   <td style="text-align:left;"> 2.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> metathis </td>
+   <td style="text-align:left;"> 1.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> methods </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mgcv </td>
+   <td style="text-align:left;"> 1.8-41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mime </td>
+   <td style="text-align:left;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> miniUI </td>
+   <td style="text-align:left;"> 0.1.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> minqa </td>
+   <td style="text-align:left;"> 1.2.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mirt </td>
+   <td style="text-align:left;"> 1.37.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mitools </td>
+   <td style="text-align:left;"> 2.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mnormt </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> modelr </td>
+   <td style="text-align:left;"> 0.1.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> modelsummary </td>
+   <td style="text-align:left;"> 1.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> munsell </td>
+   <td style="text-align:left;"> 0.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mvtnorm </td>
+   <td style="text-align:left;"> 1.1-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> naniar </td>
+   <td style="text-align:left;"> 0.6.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nlme </td>
+   <td style="text-align:left;"> 3.1-161 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nloptr </td>
+   <td style="text-align:left;"> 2.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nnet </td>
+   <td style="text-align:left;"> 7.3-18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> norm </td>
+   <td style="text-align:left;"> 1.0-10.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> np </td>
+   <td style="text-align:left;"> 0.60-16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nsyllable </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> numDeriv </td>
+   <td style="text-align:left;"> 2016.8-1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> openssl </td>
+   <td style="text-align:left;"> 2.0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> openxlsx </td>
+   <td style="text-align:left;"> 4.2.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> optimx </td>
+   <td style="text-align:left;"> 2022-4.30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> packageRank </td>
+   <td style="text-align:left;"> 0.7.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> packrat </td>
+   <td style="text-align:left;"> 0.9.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pacman </td>
+   <td style="text-align:left;"> 0.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pagedown </td>
+   <td style="text-align:left;"> 0.20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pander </td>
+   <td style="text-align:left;"> 0.6.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> panelView </td>
+   <td style="text-align:left;"> 1.1.11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> parallel </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> parallelly </td>
+   <td style="text-align:left;"> 1.34.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> parameters </td>
+   <td style="text-align:left;"> 0.20.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> parsedate </td>
+   <td style="text-align:left;"> 1.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pbapply </td>
+   <td style="text-align:left;"> 1.7-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pbkrtest </td>
+   <td style="text-align:left;"> 0.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> performance </td>
+   <td style="text-align:left;"> 0.10.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> permute </td>
+   <td style="text-align:left;"> 0.9-7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pillar </td>
+   <td style="text-align:left;"> 1.8.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgbuild </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgconfig </td>
+   <td style="text-align:left;"> 2.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgdown </td>
+   <td style="text-align:left;"> 2.0.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgload </td>
+   <td style="text-align:left;"> 1.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pkgsearch </td>
+   <td style="text-align:left;"> 3.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> plotly </td>
+   <td style="text-align:left;"> 4.10.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> plyr </td>
+   <td style="text-align:left;"> 1.8.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> png </td>
+   <td style="text-align:left;"> 0.1-8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> polyclip </td>
+   <td style="text-align:left;"> 1.10-4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> polynom </td>
+   <td style="text-align:left;"> 1.4-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ppcor </td>
+   <td style="text-align:left;"> 1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> praise </td>
+   <td style="text-align:left;"> 1.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PRcalc </td>
+   <td style="text-align:left;"> 0.7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> prediction </td>
+   <td style="text-align:left;"> 0.3.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> prettyunits </td>
+   <td style="text-align:left;"> 1.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> prismatic </td>
+   <td style="text-align:left;"> 1.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> processx </td>
+   <td style="text-align:left;"> 3.8.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> productplots </td>
+   <td style="text-align:left;"> 0.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> profvis </td>
+   <td style="text-align:left;"> 0.3.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> progress </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> promises </td>
+   <td style="text-align:left;"> 1.2.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> protolite </td>
+   <td style="text-align:left;"> 2.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> proxy </td>
+   <td style="text-align:left;"> 0.4-27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> proxyC </td>
+   <td style="text-align:left;"> 0.3.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pryr </td>
+   <td style="text-align:left;"> 0.1.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ps </td>
+   <td style="text-align:left;"> 1.7.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> psData </td>
+   <td style="text-align:left;"> 0.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> psych </td>
+   <td style="text-align:left;"> 2.2.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> purrr </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> pwr </td>
+   <td style="text-align:left;"> 1.3-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> q2c </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qrcode </td>
+   <td style="text-align:left;"> 0.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> quadprog </td>
+   <td style="text-align:left;"> 1.5-8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qualtRics </td>
+   <td style="text-align:left;"> 3.1.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> quanteda </td>
+   <td style="text-align:left;"> 3.2.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> quanteda.textstats </td>
+   <td style="text-align:left;"> 0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> quantreg </td>
+   <td style="text-align:left;"> 5.94 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> quarto </td>
+   <td style="text-align:left;"> 1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R.cache </td>
+   <td style="text-align:left;"> 0.16.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R.methodsS3 </td>
+   <td style="text-align:left;"> 1.8.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R.oo </td>
+   <td style="text-align:left;"> 1.25.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R.utils </td>
+   <td style="text-align:left;"> 2.12.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R6 </td>
+   <td style="text-align:left;"> 2.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R7 </td>
+   <td style="text-align:left;"> 0.0.0.9000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ragg </td>
+   <td style="text-align:left;"> 1.2.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rapidjsonr </td>
+   <td style="text-align:left;"> 1.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rappdirs </td>
+   <td style="text-align:left;"> 0.3.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rapportools </td>
+   <td style="text-align:left;"> 1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> raster </td>
+   <td style="text-align:left;"> 3.6-14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rcmdcheck </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RColorBrewer </td>
+   <td style="text-align:left;"> 1.1-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rcpp </td>
+   <td style="text-align:left;"> 1.0.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RcppArmadillo </td>
+   <td style="text-align:left;"> 0.11.4.3.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RcppEigen </td>
+   <td style="text-align:left;"> 0.3.3.9.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RcppParallel </td>
+   <td style="text-align:left;"> 5.1.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RcppProgress </td>
+   <td style="text-align:left;"> 0.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RcppTOML </td>
+   <td style="text-align:left;"> 0.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RCurl </td>
+   <td style="text-align:left;"> 1.98-1.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rdd </td>
+   <td style="text-align:left;"> 0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rddensity </td>
+   <td style="text-align:left;"> 2.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rddtools </td>
+   <td style="text-align:left;"> 1.6.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rdrobust </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> readr </td>
+   <td style="text-align:left;"> 2.1.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> readxl </td>
+   <td style="text-align:left;"> 1.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RefManageR </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rematch </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rematch2 </td>
+   <td style="text-align:left;"> 2.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> remotes </td>
+   <td style="text-align:left;"> 2.4.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> renv </td>
+   <td style="text-align:left;"> 0.16.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reprex </td>
+   <td style="text-align:left;"> 2.0.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reshape </td>
+   <td style="text-align:left;"> 0.8.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reshape2 </td>
+   <td style="text-align:left;"> 1.4.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> reticulate </td>
+   <td style="text-align:left;"> 1.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rex </td>
+   <td style="text-align:left;"> 1.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rgenoud </td>
+   <td style="text-align:left;"> 5.9-0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rgeos </td>
+   <td style="text-align:left;"> 0.6-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rio </td>
+   <td style="text-align:left;"> 0.5.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rJava </td>
+   <td style="text-align:left;"> 1.0-6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rlang </td>
+   <td style="text-align:left;"> 1.0.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rmapshaper </td>
+   <td style="text-align:left;"> 0.4.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rmarkdown </td>
+   <td style="text-align:left;"> 2.20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rmdja </td>
+   <td style="text-align:left;"> 0.4.6.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rnaturalearth </td>
+   <td style="text-align:left;"> 0.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rnaturalearthdata </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rnaturalearthhires </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rngtools </td>
+   <td style="text-align:left;"> 1.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rootSolve </td>
+   <td style="text-align:left;"> 1.8.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> roxygen2 </td>
+   <td style="text-align:left;"> 7.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rpart </td>
+   <td style="text-align:left;"> 4.1.19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rprojroot </td>
+   <td style="text-align:left;"> 2.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rqog </td>
+   <td style="text-align:left;"> 0.4.2022 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rsconnect </td>
+   <td style="text-align:left;"> 0.8.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rstan </td>
+   <td style="text-align:left;"> 2.21.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rstatix </td>
+   <td style="text-align:left;"> 0.7.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rstudioapi </td>
+   <td style="text-align:left;"> 0.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rttf2pt1 </td>
+   <td style="text-align:left;"> 1.3.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rversions </td>
+   <td style="text-align:left;"> 2.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rvest </td>
+   <td style="text-align:left;"> 1.0.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> s2 </td>
+   <td style="text-align:left;"> 1.1.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sandwich </td>
+   <td style="text-align:left;"> 3.0-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sass </td>
+   <td style="text-align:left;"> 0.4.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scales </td>
+   <td style="text-align:left;"> 1.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> selectr </td>
+   <td style="text-align:left;"> 0.4-2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> servr </td>
+   <td style="text-align:left;"> 0.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sessioninfo </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sf </td>
+   <td style="text-align:left;"> 1.0-9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sfheaders </td>
+   <td style="text-align:left;"> 0.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shades </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shiny </td>
+   <td style="text-align:left;"> 1.7.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shiny.i18n </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shinyBS </td>
+   <td style="text-align:left;"> 0.61.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shinyjs </td>
+   <td style="text-align:left;"> 2.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SimpleConjoint </td>
+   <td style="text-align:left;"> 0.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sjlabelled </td>
+   <td style="text-align:left;"> 1.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SnowballC </td>
+   <td style="text-align:left;"> 0.7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sourcetools </td>
+   <td style="text-align:left;"> 0.1.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sp </td>
+   <td style="text-align:left;"> 1.6-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SparseM </td>
+   <td style="text-align:left;"> 1.81 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> spatial </td>
+   <td style="text-align:left;"> 7.3-16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> splines </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> StanHeaders </td>
+   <td style="text-align:left;"> 2.21.0-7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stargazer </td>
+   <td style="text-align:left;"> 5.2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stats </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stats4 </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stopwords </td>
+   <td style="text-align:left;"> 2.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stringdist </td>
+   <td style="text-align:left;"> 0.9.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stringi </td>
+   <td style="text-align:left;"> 1.7.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> stringr </td>
+   <td style="text-align:left;"> 1.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> styler </td>
+   <td style="text-align:left;"> 1.9.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sugrrants </td>
+   <td style="text-align:left;"> 0.2.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> summarytools </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> survey </td>
+   <td style="text-align:left;"> 4.1-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> survival </td>
+   <td style="text-align:left;"> 3.5-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> svglite </td>
+   <td style="text-align:left;"> 2.1.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Synth </td>
+   <td style="text-align:left;"> 1.1-6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sys </td>
+   <td style="text-align:left;"> 3.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> systemfonts </td>
+   <td style="text-align:left;"> 1.0.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tables </td>
+   <td style="text-align:left;"> 0.9.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tcltk </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tcltk2 </td>
+   <td style="text-align:left;"> 1.2-11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tensorflow </td>
+   <td style="text-align:left;"> 2.11.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> terra </td>
+   <td style="text-align:left;"> 1.7-3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> testthat </td>
+   <td style="text-align:left;"> 3.1.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> textshaping </td>
+   <td style="text-align:left;"> 0.3.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tfautograph </td>
+   <td style="text-align:left;"> 0.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tfprobability </td>
+   <td style="text-align:left;"> 0.15.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tfruns </td>
+   <td style="text-align:left;"> 1.5.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tibble </td>
+   <td style="text-align:left;"> 3.1.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyfast </td>
+   <td style="text-align:left;"> 0.2.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidygraph </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyr </td>
+   <td style="text-align:left;"> 1.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyselect </td>
+   <td style="text-align:left;"> 1.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tidyverse </td>
+   <td style="text-align:left;"> 1.3.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> timechange </td>
+   <td style="text-align:left;"> 0.2.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tinytex </td>
+   <td style="text-align:left;"> 0.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> titanic </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tools </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> treemapify </td>
+   <td style="text-align:left;"> 2.5.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> triebeard </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tweenr </td>
+   <td style="text-align:left;"> 2.0.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tzdb </td>
+   <td style="text-align:left;"> 0.3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> units </td>
+   <td style="text-align:left;"> 0.8-1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> UpSetR </td>
+   <td style="text-align:left;"> 1.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> urlchecker </td>
+   <td style="text-align:left;"> 1.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> urlshorteneR </td>
+   <td style="text-align:left;"> 1.5.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> urltools </td>
+   <td style="text-align:left;"> 1.7.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> usethis </td>
+   <td style="text-align:left;"> 2.1.6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> usmap </td>
+   <td style="text-align:left;"> 0.6.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> usmapdata </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> utf8 </td>
+   <td style="text-align:left;"> 1.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> utils </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> uuid </td>
+   <td style="text-align:left;"> 1.1-0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> V8 </td>
+   <td style="text-align:left;"> 4.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vctrs </td>
+   <td style="text-align:left;"> 0.5.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vdemdata </td>
+   <td style="text-align:left;"> 3.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vegan </td>
+   <td style="text-align:left;"> 2.6-4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> VGAM </td>
+   <td style="text-align:left;"> 1.1-7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> viridis </td>
+   <td style="text-align:left;"> 0.6.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> viridisLite </td>
+   <td style="text-align:left;"> 0.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> visdat </td>
+   <td style="text-align:left;"> 0.5.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vroom </td>
+   <td style="text-align:left;"> 1.6.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> waldo </td>
+   <td style="text-align:left;"> 0.4.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> webshot </td>
+   <td style="text-align:left;"> 0.5.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> websocket </td>
+   <td style="text-align:left;"> 1.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> WeightIt </td>
+   <td style="text-align:left;"> 0.13.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> whisker </td>
+   <td style="text-align:left;"> 0.4.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> withr </td>
+   <td style="text-align:left;"> 2.5.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> wk </td>
+   <td style="text-align:left;"> 0.7.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> woRdle </td>
+   <td style="text-align:left;"> 0.0.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xaringan </td>
+   <td style="text-align:left;"> 0.28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xaringanBuilder </td>
+   <td style="text-align:left;"> 0.0.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xaringanExtra </td>
+   <td style="text-align:left;"> 0.7.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xfun </td>
+   <td style="text-align:left;"> 0.36 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xlsx </td>
+   <td style="text-align:left;"> 0.6.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xlsxjars </td>
+   <td style="text-align:left;"> 0.6.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xml2 </td>
+   <td style="text-align:left;"> 1.3.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xmlparsedata </td>
+   <td style="text-align:left;"> 1.0.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xopen </td>
+   <td style="text-align:left;"> 1.0.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xtable </td>
+   <td style="text-align:left;"> 1.8-4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> xts </td>
+   <td style="text-align:left;"> 0.12.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> yaml </td>
+   <td style="text-align:left;"> 2.3.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> zeallot </td>
+   <td style="text-align:left;"> 0.1.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> zip </td>
+   <td style="text-align:left;"> 2.2.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> zoo </td>
+   <td style="text-align:left;"> 1.8-11 </td>
+  </tr>
+</tbody>
 </table>
-</div>
+
 </div>
 </div>
 
