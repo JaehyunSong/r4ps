@@ -586,7 +586,17 @@ my_data %>%
   replace_with_na(list(Age = 999, HighEduc = 9))
 ```
 
-　他にも似たような関数として{expss}の`na_if()`関数などがあるが、自分が使いやすいものを使えば良い。
+　他にも似たような関数として、{expss}パッケージの`na_if()`関数などがあるが、自分が使いやすいものを使えば良い。以下のコードは、{expss}の`na_if()`関数を使って上記のコードを再現したものである[^expss]。
+
+[^expss]: {naniar}パッケージの`replace_with_na()`関数は欠損値に該当する値が複数指定できる。たとえば、`Age`変数の888か999が欠損値を意味する場合、`list(Age = c(888, 999))`のように指定できる。一方、{expss}パッケージの`na_if()`は欠損値に該当する値を1つしかしてできない。
+
+```{r}
+#| filename: "Code 52"
+library(expss) # 事前に install.package(expss) でインストール
+my_data %>%
+  mutate(Age      = na_if(Age, 999),
+         HighEduc = na_if(HighEduc, 9))
+```
 
 ## 教科書
 

@@ -1592,7 +1592,33 @@ Caused by error in `case_when()`:</code></pre>
 10    10    67       NA</code></pre>
 </div>
 </div>
-<p>　他にも似たような関数として{expss}の<code>na_if()</code>関数などがあるが、自分が使いやすいものを使えば良い。</p>
+<p>　他にも似たような関数として、{expss}パッケージの<code>na_if()</code>関数などがあるが、自分が使いやすいものを使えば良い。以下のコードは、{expss}の<code>na_if()</code>関数を使って上記のコードを再現したものである<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 52</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a><span class="fu">library</span>(expss) <span class="co"># 事前に install.package(expss) でインストール</span></span>
+<span id="cb98-2"><a href="#cb98-2"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb98-3"><a href="#cb98-3"></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">na_if</span>(Age, <span class="dv">999</span>),</span>
+<span id="cb98-4"><a href="#cb98-4"></a>         <span class="at">HighEduc =</span> <span class="fu">na_if</span>(HighEduc, <span class="dv">9</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+      ID   Age HighEduc
+   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1     1    32        1
+ 2     2    35        0
+ 3     3    57        0
+ 4     4    NA        1
+ 5     5    74        0
+ 6     6    66       NA
+ 7     7    NA        1
+ 8     8    49        1
+ 9     9    78       NA
+10    10    67       NA</code></pre>
+</div>
+</div>
 </section>
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
@@ -1613,6 +1639,7 @@ Caused by error in `case_when()`:</code></pre>
 
 <ol>
 <li id="fn1"><p><code>relocate()</code>同様、<code>.before</code>や<code>.after</code>で指定することもできる。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>{naniar}パッケージの<code>replace_with_na()</code>関数は欠損値に該当する値が複数指定できる。たとえば、<code>Age</code>変数の888か999が欠損値を意味する場合、<code>list(Age = c(888, 999))</code>のように指定できる。一方、{expss}パッケージの<code>na_if()</code>は欠損値に該当する値を1つしかしてできない。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
