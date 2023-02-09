@@ -321,7 +321,135 @@ ci95_df %>%
 pt(-1 * abs(0.7888289), df = 4771) * 2
 ```
 
-　後ほど説明するが$p$値は統計的仮説検定において非常に便利な指標であるものの、よく誤解される概念である。とりわけ「$p$値 = 帰無仮説が棄却される確率」と誤解する人が多いが、これは完全に間違いである。
+### $p$値に関する誤解
+
+　後ほど説明するが$p$値は統計的仮説検定において非常に便利な指標であるものの、よく誤解される概念である。とりわけ「$p$値 = 帰無仮説が棄却される確率」と誤解する人が多いが、これは完全に間違いである。しかし、このような説明をする人も少なからずいる。最近はYouTube等で大変分かりやすい動画が散見されるが、それらが正しい知識を伝えているとは限らない。宋の個人的な立場としては、「少なくともYouTube等で統計的仮説検定に関する講座は見ない」ことを推奨する。研究者（含む大学教員）が運営するならまだ良いかも知れないが、得体の知らないYouTuberには注意しよう。これから示す2つの画像は某学習系YouTuberの動画の一部だ。
+
+![$p$値に関する間違った講座動画（1）](Figs/nhts/p_value1.jpg){#fig-p-misunderstanding1}
+
+　@fig-p-misunderstanding1 のような説明は大変分かりやすい。ただし、間違った内容だ。正確に言えば、「帰無仮説が正しい確率は常に0%」である。ならば疑問を持つ人もいるだろう。「帰無仮説が正しい確率が0%なら、対立仮説が正しい確率は100%なのではないか」と。問題はそう単純ではない。帰無仮説が正しいということは$T$統計量が**ぴったり**0であることを意味する。しかし、（$t$分布や正規分布など）連続確率分布においてある統計量が特定の値を取る確率は常に0である。その意味で以下の @fig-p-misunderstanding2 も間違った内容である[^p-misunderstand]。
+
+[^p-misunderstand]: そもそも「$t$検定の計算」$\rightarrow$「その答えが$t$値」という記述もおかしい。むしろ逆の方が**まだ**正しい。なぜなら、計算から得られた$t$値を使って$t$検定を行うからだ。
+
+![$p$値に関する間違った講座動画（2）](Figs/nhts/p_value2.jpg){#fig-p-misunderstanding2}
+
+　「今回得られた$t$統計量がX.XXXである確率」も常に0%だ。積分の知識が少しでもあれば、これは当たり前であろう。たとえば、$t$分布において$T$統計量が-0.5以上、0.5以下の値を取る確率を計算したいとしよう。以下の図の網掛けの領域の面積が「$T$統計量が-0.5以上、0.5以下の値を取る確率」だ。
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 3.5
+ci95_df %>%
+  ggplot() +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, (T >= -0.5 & T <= 0.5)),
+            aes(x = T, y = density), alpha = 0.25) +
+  labs(y = "確率密度", x = "T統計量") +
+  scale_x_continuous(breaks = c(-0.5, 0, 0.5),
+                     labels = c(-0.5, 0, 0.5)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+
+　これを面積を計算するためには積分をするわけだが、簡単にいうと、まずは$T$統計量が0.5**以下**である確率（つまり、$T \leq$ 0.5の面積）を求める（以下の図の左）。つづいて、$T$統計量が-0.5**以下**である確率（つまり、$T \leq$ -0.5の面積）を求める（以下の図の右）。この2つの領域の差分が「$T$統計量が-0.5以上、0.5以下の値を取る確率」となる。
+
+::::{.columns}
+:::{.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 3.5
+#| fig-height: 3
+ci95_df %>%
+  ggplot() +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= 0.5),
+            aes(x = T, y = density), alpha = 0.25) +
+  labs(y = "確率密度", x = "T統計量") +
+  scale_x_continuous(breaks = c(0, 0.5),
+                     labels = c(0, 0.5)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 3.5
+#| fig-height: 3
+ci95_df %>%
+  ggplot() +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= -0.5),
+            aes(x = T, y = density), alpha = 0.25) +
+  labs(y = "確率密度", x = "T統計量") +
+  scale_x_continuous(breaks = c(-0.5, 0),
+                     labels = c(-0.5, 0)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+:::
+
+::::
+
+　ならば、$T$統計量がぴったり0.5の確率はいくらだろう。これは言い換えると「$T$統計量が0.5以上、0.5以下」であることを意味する。つまり、以下の2つの図の面積の差分を求めることになる。
+
+::::{.columns}
+:::{.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 3.5
+#| fig-height: 3
+ci95_df %>%
+  ggplot() +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= 0.5),
+            aes(x = T, y = density), alpha = 0.25) +
+  labs(y = "確率密度", x = "T統計量") +
+  scale_x_continuous(breaks = c(0, 0.5),
+                     labels = c(0, 0.5)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+```{r}
+#| echo: false
+#| fig-width: 3.5
+#| fig-height: 3
+ci95_df %>%
+  ggplot() +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= 0.5),
+            aes(x = T, y = density), alpha = 0.25) +
+  labs(y = "確率密度", x = "T統計量") +
+  scale_x_continuous(breaks = c(0, 0.5),
+                     labels = c(0, 0.5)) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+:::
+
+::::
+
+　当然ながらこの2つの面積は全く同じである。つまり、差分は0であり、統計量が特定の値を取る確率は常に0%である。これは$p$値を「$t$値がそうなる確率」と解釈することは間違いであることを意味し、したがって$p$値を「帰無仮説が正しい確率（= $T$値が0である確率）」と解釈することも間違いとなる。
 
 ### 棄却域の設定
 
