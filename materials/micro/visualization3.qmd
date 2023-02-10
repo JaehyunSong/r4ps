@@ -305,49 +305,40 @@ geom_path: Each group consists of only one observation. Do you need to adjust th
 
 ```{r}
 #| filename: "Code 12"
-#| fig-width: 5
-#| fig-height: 5
 COVID_df <- COVID_df %>%
    mutate(Country = case_when(Country == "Japan" ~ "日本",
                               Country == "Korea" ~ "韓国",
                               TRUE               ~ "台湾"),
           Country = factor(Country, levels = c("日本", "韓国", "台湾")))
 
+COVID_df
+```
+
+```{r}
+#| filename: "Code 13"
+#| fig-width: 5
+#| fig-height: 5
 COVID_df %>%
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
 ```
 
-　ただし、これでも問題は残る。どの線が日本で、どの線が韓国かが分からない。この場合、線の色分けを行うか、国・地域ごとに線の種類を分ける必要がある。まずは、おなじみの色分けは`aes()`の中に`color`を追加するだけである。また、線がやや細いので、若干太めに調整する。千の太さは`aes()`の外に`size`で調整可能である。
+　ただし、これでも問題は残る。どの線が日本で、どの線が韓国かが分からない。この場合、線の色分けを行うか、国・地域ごとに線の種類を分ける必要がある。まずは、おなじみの色分けは`aes()`の中に`color`を追加するだけである。また、線がやや細いので、若干太めに調整する。線の太さは`aes()`の外に`linewidth`で調整可能である。
 
 ```{r}
-#| filename: "Code 13"
+#| filename: "Code 14"
 #| fig-width: 7
 #| fig-height: 5
 COVID_df %>%
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, color = Country), 
-             size = 1.5) +
+             linewidth = 1.5) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国/地域")
 ```
 
 　もう一つの方法は`color`でなく、`linetype`で線のタイプを調整することだ。とりわけ、白黒図の場合、色分けは有効ではないため、線で国・地域を識別する必要があろう。
-
-```{r}
-#| filename: "Code 14"
-#| fig-width: 8
-#| fig-height: 3.5
-COVID_df %>%
-   ggplot() +
-   geom_line(aes(x = Day, y = NewCases, group = Country, 
-                 linetype = Country), size = 1) +
-   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
-        linetype = "国/地域") 
-```
-
-　ただし、韓国と台湾の線はどれも破線に近く、区別しにくい。ここで韓国は破線、台湾は点線に変更してみよう。自分で線のタイプを指定したい場合は`scale_linetype_manual()`レイヤーを追加し、`values`引数にそれぞれの線のタイプを指定する。
 
 ```{r}
 #| filename: "Code 15"
@@ -356,7 +347,21 @@ COVID_df %>%
 COVID_df %>%
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, 
-                 linetype = Country), size = 1) +
+                 linetype = Country), linewidth = 1) +
+   labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
+        linetype = "国/地域") 
+```
+
+　ただし、韓国と台湾の線はどれも破線に近く、区別しにくい。ここで韓国は破線、台湾は点線に変更してみよう。自分で線のタイプを指定したい場合は`scale_linetype_manual()`レイヤーを追加し、`values`引数にそれぞれの線のタイプを指定する。
+
+```{r}
+#| filename: "Code 16"
+#| fig-width: 8
+#| fig-height: 3.5
+COVID_df %>%
+   ggplot() +
+   geom_line(aes(x = Day, y = NewCases, group = Country, 
+                 linetype = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         linetype = "国/地域") +
    scale_linetype_manual(values = c("日本" = 1, "韓国" = 2, "台湾" = 3))
@@ -390,12 +395,12 @@ tibble(x = rep(1, 6),
 　線が4本以上の場合は色分けや、以下のようなファセット分割を考慮すべきである。
 
 ```{r}
-#| filename: "Code 6"
+#| filename: "Code 17"
 #| fig-width: 8
 #| fig-height: 3.5
 COVID_df %>%
    ggplot() +
-   geom_line(aes(x = Day, y = NewCases, group = Country), size = 1) +
+   geom_line(aes(x = Day, y = NewCases, group = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         linetype = "国/地域") + 
    facet_wrap(~Country, ncol = 3)
@@ -404,12 +409,12 @@ COVID_df %>%
 　ファセット分割の際、知っておくと便利な機能として`facet_wrap()`内の`scales`引数である。上の図だと、台湾の存在により、日本と韓国は比較的変化がないようにも見える。実際、新規感染者数がそれなりに安定しているとは考えられるが、ファセットごとに縦軸のスケールを別々にすることもできる。縦軸のスケールをファセットごとに付ける場合は`scales = "free_y"`を追加する。他にもファセットごとに横軸スケールを付ける`"free_x"`や両方を対象とする`"free"`が使える。
 
 ```{r}
-#| filename: "Code 17"
+#| filename: "Code 18"
 #| fig-width: 8
 #| fig-height: 3.5
 COVID_df %>%
    ggplot() +
-   geom_line(aes(x = Day, y = NewCases, group = Country), size = 1) +
+   geom_line(aes(x = Day, y = NewCases, group = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         linetype = "国/地域") + 
    facet_wrap(~Country, ncol = 3, scales = "free_y")
@@ -424,13 +429,13 @@ COVID_df %>%
 　それではそれぞれの幾何オブジェクトについて考えてみよう。折れ線グラフ（`geom_line()`）は国・地域ごとに色分けをするため、`x`、`y`、`group`、`color`に対してマッピングを行う。続いて、散布図（`geom_point()`）は国・地域ごとに色分け・形分けをするので`x`、`y`、`color`、`shape`に対してマッピングをする。
 
 ```{r}
-#| filename: "Code 18"
+#| filename: "Code 19"
 #| fig-width: 8
 #| fig-height: 4
 COVID_df %>%
    ggplot(aes()) +
    geom_line(aes(x = Day, y = NewCases, color = Country, group = Country), 
-             size = 1) +
+             linewidth = 1) +
    geom_point(aes(x = Day, y = NewCases, color = Country, shape = Country), 
               size = 3) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
@@ -444,13 +449,13 @@ COVID_df %>%
 　以上のコードを見ると、2つの幾何オブジェクトは`x`、`y`、`color`が同じ変数にマッピングされている。実は全幾何オブジェクトに共通するマッピングは`ggplot()`内で行うことができる。
 
 ```{r}
-#| filename: "Code 19"
+#| filename: "Code 20"
 #| fig-width: 8
 #| fig-height: 4
 COVID_df %>%
    # 共通するマッピングはggplot()内で指定可能
    ggplot(aes(x = Day, y = NewCases, color = Country)) +
-   geom_line(aes(group = Country), size = 1) +
+   geom_line(aes(group = Country), linewidth = 1) +
    geom_point(aes(shape = Country), size = 3) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国/地域", shape = "国/地域") +
@@ -491,7 +496,7 @@ df %>%
 　まず、四分位数であるが、これは箱の最上段（第三四分位数）、最下段（第一四分位数）、その間の線（第二四分位数 = 中央値）である。四分位数とはたとえば、以下のようなベクトルがあるとしよう。
 
 ```{r}
-#| filename: "Code 20"
+#| filename: "Code 21"
 my_vec1 <- c(5, 1, 11, 2, 4, 2, 6, 15, 7, 8, 9)
 my_vec1
 ```
@@ -499,7 +504,7 @@ my_vec1
 　これを小さい値から大きい値の方向へ並び替えると以下のようになる。
 
 ```{r}
-#| filename: "Code 21"
+#| filename: "Code 22"
 sort(my_vec1)
 ```
 
@@ -509,7 +514,7 @@ sort(my_vec1)
 
 :::{.column width=49%}
 ```{r}
-#| filename: "Code 22a"
+#| filename: "Code 23a"
 my_vec2 <- my_vec1[my_vec1 > 6]
 
 my_vec2
@@ -521,7 +526,7 @@ my_vec2
 
 :::{.column width=49%}
 ```{r}
-#| filename: "Code 22b"
+#| filename: "Code 23b"
 my_vec3 <- my_vec1[my_vec1 < 6]
 
 my_vec3
@@ -542,7 +547,7 @@ my_vec3
 
 :::{.column width=49%}
 ```{r fig-box-mapping-y}
-#| filename: "Code 23a"
+#| filename: "Code 24a"
 #| fig-cap: "変数をyにマッピングした場合"
 #| fig-width: 5
 #| fig-height: 5
@@ -560,7 +565,7 @@ df %>%
 
 :::{.column width=49%}
 ```{r fig-box-mapping-x}
-#| filename: "Code 23b"
+#| filename: "Code 24b"
 #| fig-cap: "変数をxにマッピングした場合"
 #| fig-width: 5
 #| fig-height: 5
@@ -580,7 +585,7 @@ df %>%
 　これまで作成した箱ひげ図の場合、`y`のみにマッピングされている。つまり、今のひ小ひげ図は「人間開発指数」の1次元グラフである。もう一つの次元を追加する場合は、`x`にマッピングするのがおすすめだ。もし、最初に`x`のみにマッピングされている場合は、追加的に`y`にマッピングすれば良い。それでは`HDI_2018`の箱ひげ図を大陸（`Continent`）ごとに分けてみよう。これは`x`に`Continent`をマッピングするだけで十分である。この場合、「大陸$\times$人間開発指数」といった2次元のグラフとなる。通常、箱ひげ図はこのように「ある変数の**グループごと**の分布」を示す時に使われる場合が多く、これまでの例のように「ある変数の分布」を示す時にはあまり使われない。グループごとの分布を見ない場合はヒストグラムが使われるケースが多い。
 
 ```{r}
-#| filename: "Code 24"
+#| filename: "Code 25"
 #| fig-width: 8
 #| fig-height: 3
 df %>%
@@ -593,7 +598,7 @@ df %>%
 　もう一つの次元を追加するのであれば、次は色分けである。たとえば、OECD加盟有無で更に次元を追加する場合、`fill`にマッピングすれば良い。現在、`OECD`変数は0と1の値で構成されているnumeric型変数であるため、これをcharacter型、あるいはfactor型に変換し、`OECD_J`という名の列として追加する。作図の際は`fill = OECD_J`をマッピングするだけで色分けができる。もし色をカスタマイズしたい場合は`scale_fill_manual()`レイヤーを追加すれば良い。
 
 ```{r}
-#| filename: "Code 25"
+#| filename: "Code 26"
 #| fig-width: 8
 #| fig-height: 3
 df %>%
@@ -612,7 +617,7 @@ df %>%
 　箱ひげ図の色は`color`でなく、`fill`にマッピングする。`color`にマッピングする場合、箱の色でなく、枠線の色が変更される。もし、すべての箱の色を変更したい場合は`aes()`の外側に`fill`引数を追加する。以下の例はすべての箱の色をcornsilkに変更する例である。
 
 ```{r}
-#| filename: "Code 26"
+#| filename: "Code 27"
 #| fig-width: 8
 #| fig-height: 3
 df %>%
@@ -625,7 +630,7 @@ df %>%
 　あるいは大陸ごとに色を変えることもできる。`x`だけでなく、`fill`にも`Continent`変数をマッピングすれば大陸ごとに面の色が異なる箱ひげ図ができる。
 
 ```{r}
-#| filename: "Code 27"
+#| filename: "Code 28"
 #| fig-width: 8
 #| fig-height: 3
 df %>%
@@ -639,7 +644,7 @@ df %>%
 　また、他のカスタマイズ要素としては箱の幅がある。箱の幅を狭くする場合は、`aes()`の**外側**に`width`を指定すれば良い。指定しない場合は0.75となっているが、これを0.75より小さくすると箱の幅が狭くなる。以下の例は箱の幅を3分の1にした例である。
 
 ```{r}
-#| filename: "Code 28"
+#| filename: "Code 29"
 #| fig-width: 8
 #| fig-height: 3.25
 df %>%
@@ -653,7 +658,7 @@ df %>%
 　最後に、マッピングの交換について説明する。箱が多すぎる場合、図は横に長くなるケースが多い。スライドの場合、横長の画面となるのでそれでも問題ないが、論文やレポートになると使用する用紙は基本的に縦長となる。横が狭い用紙/画面に箱の多い図を載せると、横軸のラベルが重なったり、箱の幅が狭すぎたりすることもあろう。この場合、`x`と`y`を交換すれば解決できるかも知れない。以下の例はこれまでの図の`x`と`y`を交換した例である。
 
 ```{r}
-#| filename: "Code 29"
+#| filename: "Code 30"
 #| fig-width: 8
 #| fig-height: 3.25
 df %>%
@@ -669,7 +674,7 @@ df %>%
 [^limits-rev]: `scale_y_discrete()`関数のdiscreteは「離散」を意味し、「連続（continuous）」の対概念である。この図において縦軸（Y軸）は大陸名であり、連続変数ではない。`limits = rev`は離散変数（主にcharacter型、factor型）の軸で使用可能な引数である。つまり、`scale_x_discrete()`では使用できるが、`scale_x_continuous()`や`scale_y_continuous()`では使用できない。
 
 ```{r}
-#| filename: "Code 30"
+#| filename: "Code 31"
 #| fig-width: 8
 #| fig-height: 3.25
 df %>%

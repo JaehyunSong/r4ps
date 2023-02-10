@@ -1092,36 +1092,64 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <span id="cb15-4"><a href="#cb15-4"></a>                              <span class="cn">TRUE</span>               <span class="sc">~</span> <span class="st">"台湾"</span>),</span>
 <span id="cb15-5"><a href="#cb15-5"></a>          <span class="at">Country =</span> <span class="fu">factor</span>(Country, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"日本"</span>, <span class="st">"韓国"</span>, <span class="st">"台湾"</span>)))</span>
 <span id="cb15-6"><a href="#cb15-6"></a></span>
-<span id="cb15-7"><a href="#cb15-7"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country)) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-7"><a href="#cb15-7"></a>COVID_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="750"></p>
-</figure>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 3
+   Country   Day NewCases
+   &lt;fct&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1 日本       23    132. 
+ 2 日本       24    127. 
+ 3 日本       25    132. 
+ 4 日本       26    113. 
+ 5 日本       27     76.0
+ 6 韓国       23    140. 
+ 7 韓国       24    132. 
+ 8 韓国       25    122. 
+ 9 韓国       26     66.8
+10 韓国       27    192. 
+11 台湾       23   2022. 
+12 台湾       24   1913. 
+13 台湾       25   1689. 
+14 台湾       26   1658. 
+15 台湾       27   1196. </code></pre>
 </div>
 </div>
-</div>
-<p>　ただし、これでも問題は残る。どの線が日本で、どの線が韓国かが分からない。この場合、線の色分けを行うか、国・地域ごとに線の種類を分ける必要がある。まずは、おなじみの色分けは<code>aes()</code>の中に<code>color</code>を追加するだけである。また、線がやや細いので、若干太めに調整する。千の太さは<code>aes()</code>の外に<code>size</code>で調整可能である。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, <span class="at">color =</span> Country), </span>
-<span id="cb16-4"><a href="#cb16-4"></a>             <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb16-6"><a href="#cb16-6"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="visualization3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="750"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ただし、これでも問題は残る。どの線が日本で、どの線が韓国かが分からない。この場合、線の色分けを行うか、国・地域ごとに線の種類を分ける必要がある。まずは、おなじみの色分けは<code>aes()</code>の中に<code>color</code>を追加するだけである。また、線がやや細いので、若干太めに調整する。線の太さは<code>aes()</code>の外に<code>linewidth</code>で調整可能である。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, <span class="at">color =</span> Country), </span>
+<span id="cb18-4"><a href="#cb18-4"></a>             <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1130,36 +1158,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 14</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, </span>
-<span id="cb17-4"><a href="#cb17-4"></a>                 <span class="at">linetype =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb17-6"><a href="#cb17-6"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) </span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1200"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>　ただし、韓国と台湾の線はどれも破線に近く、区別しにくい。ここで韓国は破線、台湾は点線に変更してみよう。自分で線のタイプを指定したい場合は<code>scale_linetype_manual()</code>レイヤーを追加し、<code>values</code>引数にそれぞれの線のタイプを指定する。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, </span>
-<span id="cb18-4"><a href="#cb18-4"></a>                 <span class="at">linetype =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb18-6"><a href="#cb18-6"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a>   <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"韓国"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"台湾"</span> <span class="ot">=</span> <span class="dv">3</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, </span>
+<span id="cb19-4"><a href="#cb19-4"></a>                 <span class="at">linetype =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb19-6"><a href="#cb19-6"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) </span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1169,8 +1175,20 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　<code>linetype</code>で指定可能な線のタイプは6種類である。しかし、一部の線は見た目が非常に似ている。たとえば2と5、4と6は非常に似ており、実際の図になるとより区別がつかなくなる。線が4本以上になったらファセット分割などを使う必要がある。実線（1）、破線（2）、点線（3）まで使うことが良いだろう。</p>
+<p>　ただし、韓国と台湾の線はどれも破線に近く、区別しにくい。ここで韓国は破線、台湾は点線に変更してみよう。自分で線のタイプを指定したい場合は<code>scale_linetype_manual()</code>レイヤーを追加し、<code>values</code>引数にそれぞれの線のタイプを指定する。</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, </span>
+<span id="cb20-4"><a href="#cb20-4"></a>                 <span class="at">linetype =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb20-6"><a href="#cb20-6"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>   <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"韓国"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">"台湾"</span> <span class="ot">=</span> <span class="dv">3</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1179,19 +1197,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　線が4本以上の場合は色分けや、以下のようなファセット分割を考慮すべきである。</p>
+<p>　<code>linetype</code>で指定可能な線のタイプは6種類である。しかし、一部の線は見た目が非常に似ている。たとえば2と5、4と6は非常に似ており、実際の図になるとより区別がつかなくなる。線が4本以上になったらファセット分割などを使う必要がある。実線（1）、破線（2）、点線（3）まで使うことが良いだろう。</p>
 <div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 6</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb19-5"><a href="#cb19-5"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span> </span>
-<span id="cb19-6"><a href="#cb19-6"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Country, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1200,23 +1207,44 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　ファセット分割の際、知っておくと便利な機能として<code>facet_wrap()</code>内の<code>scales</code>引数である。上の図だと、台湾の存在により、日本と韓国は比較的変化がないようにも見える。実際、新規感染者数がそれなりに安定しているとは考えられるが、ファセットごとに縦軸のスケールを別々にすることもできる。縦軸のスケールをファセットごとに付ける場合は<code>scales = "free_y"</code>を追加する。他にもファセットごとに横軸スケールを付ける<code>"free_x"</code>や両方を対象とする<code>"free"</code>が使える。</p>
+<p>　線が4本以上の場合は色分けや、以下のようなファセット分割を考慮すべきである。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb20-5"><a href="#cb20-5"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span> </span>
-<span id="cb20-6"><a href="#cb20-6"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Country, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb21-5"><a href="#cb21-5"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="#cb21-6"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Country, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="visualization3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　ファセット分割の際、知っておくと便利な機能として<code>facet_wrap()</code>内の<code>scales</code>引数である。上の図だと、台湾の存在により、日本と韓国は比較的変化がないようにも見える。実際、新規感染者数がそれなりに安定しているとは考えられるが、ファセットごとに縦軸のスケールを別々にすることもできる。縦軸のスケールをファセットごとに付ける場合は<code>scales = "free_y"</code>を追加する。他にもファセットごとに横軸スケールを付ける<code>"free_x"</code>や両方を対象とする<code>"free"</code>が使える。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5"></a>        <span class="at">linetype =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span> </span>
+<span id="cb22-6"><a href="#cb22-6"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Country, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1230,25 +1258,25 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 18</strong></pre>
+<pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country, <span class="at">group =</span> Country), </span>
-<span id="cb21-4"><a href="#cb21-4"></a>             <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country, <span class="at">shape =</span> Country), </span>
-<span id="cb21-6"><a href="#cb21-6"></a>              <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb21-8"><a href="#cb21-8"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>, <span class="at">shape =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>,</span>
-<span id="cb21-10"><a href="#cb21-10"></a>                                 <span class="st">"韓国"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
-<span id="cb21-11"><a href="#cb21-11"></a>                                 <span class="st">"台湾"</span> <span class="ot">=</span> <span class="st">"forestgreen"</span>)) <span class="sc">+</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country, <span class="at">group =</span> Country), </span>
+<span id="cb23-4"><a href="#cb23-4"></a>             <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country, <span class="at">shape =</span> Country), </span>
+<span id="cb23-6"><a href="#cb23-6"></a>              <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb23-8"><a href="#cb23-8"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>, <span class="at">shape =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10"></a>                                 <span class="st">"韓国"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11"></a>                                 <span class="st">"台湾"</span> <span class="ot">=</span> <span class="st">"forestgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="visualization3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1257,24 +1285,24 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 19</strong></pre>
+<pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>   <span class="co"># 共通するマッピングはggplot()内で指定可能</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Country), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
-<span id="cb22-7"><a href="#cb22-7"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>, <span class="at">shape =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>,</span>
-<span id="cb22-9"><a href="#cb22-9"></a>                                 <span class="st">"韓国"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
-<span id="cb22-10"><a href="#cb22-10"></a>                                 <span class="st">"台湾"</span> <span class="ot">=</span> <span class="st">"forestgreen"</span>)) <span class="sc">+</span></span>
-<span id="cb22-11"><a href="#cb22-11"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>COVID_df <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>   <span class="co"># 共通するマッピングはggplot()内で指定可能</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Country), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
+<span id="cb24-7"><a href="#cb24-7"></a>        <span class="at">color =</span> <span class="st">"国/地域"</span>, <span class="at">shape =</span> <span class="st">"国/地域"</span>) <span class="sc">+</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"日本"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9"></a>                                 <span class="st">"韓国"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
+<span id="cb24-10"><a href="#cb24-10"></a>                                 <span class="st">"台湾"</span> <span class="ot">=</span> <span class="st">"forestgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="visualization3_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1301,10 +1329,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 20</strong></pre>
+<pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>my_vec1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>my_vec1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  5  1 11  2  4  2  6 15  7  8  9</code></pre>
@@ -1314,9 +1342,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 21</strong></pre>
+<pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">sort</span>(my_vec1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">sort</span>(my_vec1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  2  2  4  5  6  7  8  9 11 15</code></pre>
@@ -1328,11 +1356,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 22a</strong></pre>
+<pre><strong>Code 23a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>my_vec2 <span class="ot">&lt;-</span> my_vec1[my_vec1 <span class="sc">&gt;</span> <span class="dv">6</span>]</span>
-<span id="cb27-2"><a href="#cb27-2"></a></span>
-<span id="cb27-3"><a href="#cb27-3"></a>my_vec2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>my_vec2 <span class="ot">&lt;-</span> my_vec1[my_vec1 <span class="sc">&gt;</span> <span class="dv">6</span>]</span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a>my_vec2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 15  7  8  9</code></pre>
@@ -1344,11 +1372,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 22b</strong></pre>
+<pre><strong>Code 23b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>my_vec3 <span class="ot">&lt;-</span> my_vec1[my_vec1 <span class="sc">&lt;</span> <span class="dv">6</span>]</span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a>my_vec3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>my_vec3 <span class="ot">&lt;-</span> my_vec1[my_vec1 <span class="sc">&lt;</span> <span class="dv">6</span>]</span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a>my_vec3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5 1 2 4 2</code></pre>
@@ -1364,14 +1392,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 23a</strong></pre>
+<pre><strong>Code 24a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018)) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, </span>
-<span id="cb31-5"><a href="#cb31-5"></a>        <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, </span>
+<span id="cb33-5"><a href="#cb33-5"></a>        <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div id="fig-box-mapping-y" class="quarto-figure quarto-figure-center anchored">
@@ -1388,14 +1416,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 23b</strong></pre>
+<pre><strong>Code 24b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018)) <span class="sc">+</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, </span>
-<span id="cb32-5"><a href="#cb32-5"></a>        <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, </span>
+<span id="cb34-5"><a href="#cb34-5"></a>        <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div id="fig-box-mapping-x" class="quarto-figure quarto-figure-center anchored">
@@ -1415,18 +1443,18 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 24</strong></pre>
+<pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent)) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
-<span id="cb33-5"><a href="#cb33-5"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent)) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="visualization3_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1435,20 +1463,20 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 25</strong></pre>
+<pre><strong>Code 26</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD_J =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Member"</span>, <span class="st">"Non-member"</span>),</span>
-<span id="cb34-3"><a href="#cb34-3"></a>          <span class="at">OECD_J =</span> <span class="fu">factor</span>(OECD_J, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Non-member"</span>, <span class="st">"Member"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent, <span class="at">fill =</span> OECD_J)) <span class="sc">+</span></span>
-<span id="cb34-6"><a href="#cb34-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>, <span class="at">fill =</span> <span class="st">"OECD"</span>) <span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD_J =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Member"</span>, <span class="st">"Non-member"</span>),</span>
+<span id="cb36-3"><a href="#cb36-3"></a>          <span class="at">OECD_J =</span> <span class="fu">factor</span>(OECD_J, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Non-member"</span>, <span class="st">"Member"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent, <span class="at">fill =</span> OECD_J)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>, <span class="at">fill =</span> <span class="st">"OECD"</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="visualization3_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1461,34 +1489,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 26</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent), <span class="at">fill =</span> <span class="st">"cornsilk"</span>) <span class="sc">+</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="visualization3_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>　あるいは大陸ごとに色を変えることもできる。<code>x</code>だけでなく、<code>fill</code>にも<code>Continent</code>変数をマッピングすれば大陸ごとに面の色が異なる箱ひげ図ができる。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
 <pre><strong>Code 27</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent, <span class="at">fill =</span> Continent)) <span class="sc">+</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a>   <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent), <span class="at">fill =</span> <span class="st">"cornsilk"</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1498,18 +1505,18 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　また、他のカスタマイズ要素としては箱の幅がある。箱の幅を狭くする場合は、<code>aes()</code>の<strong>外側</strong>に<code>width</code>を指定すれば良い。指定しない場合は0.75となっているが、これを0.75より小さくすると箱の幅が狭くなる。以下の例は箱の幅を3分の1にした例である。</p>
+<p>　あるいは大陸ごとに色を変えることもできる。<code>x</code>だけでなく、<code>fill</code>にも<code>Continent</code>変数をマッピングすれば大陸ごとに面の色が異なる箱ひげ図ができる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 28</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent), <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5"></a>   <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent, <span class="at">fill =</span> Continent)) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>   <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1519,18 +1526,18 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　最後に、マッピングの交換について説明する。箱が多すぎる場合、図は横に長くなるケースが多い。スライドの場合、横長の画面となるのでそれでも問題ないが、論文やレポートになると使用する用紙は基本的に縦長となる。横が狭い用紙/画面に箱の多い図を載せると、横軸のラベルが重なったり、箱の幅が狭すぎたりすることもあろう。この場合、<code>x</code>と<code>y</code>を交換すれば解決できるかも知れない。以下の例はこれまでの図の<code>x</code>と<code>y</code>を交換した例である。</p>
+<p>　また、他のカスタマイズ要素としては箱の幅がある。箱の幅を狭くする場合は、<code>aes()</code>の<strong>外側</strong>に<code>width</code>を指定すれば良い。指定しない場合は0.75となっているが、これを0.75より小さくすると箱の幅が狭くなる。以下の例は箱の幅を3分の1にした例である。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 29</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">y =</span> Continent)) <span class="sc">+</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> HDI_2018, <span class="at">x =</span> Continent), <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Human Development Index"</span>) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a>   <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1540,24 +1547,45 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　もし、縦軸の順番を反転するなら、<code>scale_y_discrete(limits = rev)</code>レイヤーを追加するだけで良い<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。あるいはデータを<code>ggplot()</code>に渡す前に<code>Continent</code>をfactor化し、要素の順番を逆にすることもできよう。</p>
+<p>　最後に、マッピングの交換について説明する。箱が多すぎる場合、図は横に長くなるケースが多い。スライドの場合、横長の画面となるのでそれでも問題ないが、論文やレポートになると使用する用紙は基本的に縦長となる。横が狭い用紙/画面に箱の多い図を載せると、横軸のラベルが重なったり、箱の幅が狭すぎたりすることもあろう。この場合、<code>x</code>と<code>y</code>を交換すれば解決できるかも知れない。以下の例はこれまでの図の<code>x</code>と<code>y</code>を交換した例である。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 30</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">y =</span> Continent)) <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
-<span id="cb39-5"><a href="#cb39-5"></a>   <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> rev) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb39-7"><a href="#cb39-7"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">y =</span> Continent)) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="visualization3_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="1200"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　もし、縦軸の順番を反転するなら、<code>scale_y_discrete(limits = rev)</code>レイヤーを追加するだけで良い<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。あるいはデータを<code>ggplot()</code>に渡す前に<code>Continent</code>をfactor化し、要素の順番を逆にすることもできよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 31</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>   <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">y =</span> Continent)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index"</span>, <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a>   <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a>   <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visualization3_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
