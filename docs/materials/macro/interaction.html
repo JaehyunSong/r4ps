@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1067,10 +1067,10 @@ N: 3000
 <p>　交互作用とは説明変数<span class="math inline">\(X\)</span>が応答変数<span class="math inline">\(Y\)</span>に与える影響が調整変数<span class="math inline">\(Z\)</span>の値に依存することを意味する。この場合、「説明変数<span class="math inline">\(X\)</span>が応答変数<span class="math inline">\(Y\)</span>に与える影響」の統計的有意性はどうだろうか。<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響の統計的有意性を検定する際に用いられる検定統計量は「<span class="math inline">\(X\)</span>の係数 / <span class="math inline">\(X\)</span>の標準誤差」である。しかし、ここでの<span class="math inline">\(X\)</span>の係数（と標準誤差）は<span class="math inline">\(Z\)</span>の値によって変わる。これは<span class="math inline">\(Z\)</span>の値によって<span class="math inline">\(X \rightarrow Y\)</span>の統計的有意性は変わることを意味する。</p>
 <p>　したがって、<span class="math inline">\(Z\)</span>の値ごとに、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響（= <strong>限界効果</strong>; marginal effects）を計算するだけでなく、95%信頼区間 or <span class="math inline">\(p\)</span>値も示す必要がある。95%信頼区間内に0が含まれないことは、<span class="math inline">\(p &lt; 0.05\)</span>を意味するため、統計的に有意な関連があると判断する。</p>
 <p>　限界効果の計算方法については解説済みである。しかし、統計的有意性に関しては説明がやや難しくなるため、これはRパッケージにお任せするとしよう。もし、数学的な背景に関心のある履修者は<a href="https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B">Brambor (2006)</a>を参照されたい。</p>
-<p>　今回使用するパッケージ&amp;関数は、冒頭で読み込んだ{marginaleffect}パッケージの<code>marginaleffects()</code>関数だ。これは回帰モデルの限界効果と統計的有意性検定までやってくれる大変便利なパッケージである。使い方は以下の通り。</p>
+<p>　今回使用するパッケージ&amp;関数は、冒頭で読み込んだ{marginaleffect}パッケージの<code>slopes()</code>関数だ。これは回帰モデルの限界効果と統計的有意性検定までやってくれる大変便利なパッケージである。使い方は以下の通り。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">marginaleffects</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
-<span id="cb16-2"><a href="#cb16-2"></a>                <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">slopes</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
+<span id="cb16-2"><a href="#cb16-2"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>　<code>fit1</code>の場合、<code>Female</code>の値が0と1の場合の<code>Satisfacton</code>の限界効果を求めることになる。したがって、回帰オブジェクト名は<code>fit1</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Female = 0:1</code>または<code>Female = c(0, 1)</code>だ。計算結果を<code>fit1_ame</code>に格納し、中身を確認する。</p>
 <div class="cell" data-layout-align="center">
@@ -1078,13 +1078,32 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 10</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb17-2"><a href="#cb17-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
 <span id="cb17-3"><a href="#cb17-3"></a></span>
 <span id="cb17-4"><a href="#cb17-4"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid     type         term      dydx std.error statistic      p.value
+<pre><code>
+         Term Estimate Std. Error      z   Pr(&gt;|z|)  2.5 % 97.5 % Female
+ Satisfaction   -4.732     0.5613 -8.429 &lt; 2.22e-16 -5.832 -3.631      0
+ Satisfaction   -3.830     0.6110 -6.269 3.6446e-10 -5.028 -2.633      1
+
+Prediction type:  response 
+Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Age, Female, eps </code></pre>
+</div>
+</div>
+<p>　非常に多くの情報が出力されるが、ここで興味のある列は<code>Female</code>の値（<code>Female</code>列）と、<code>Satisfaction</code>の限界効果（<code>Estiamte</code>列）、<span class="math inline">\(p\)</span>値（<code>Pr(&gt;|z|)</code>列）、95%信頼区間（<code>2.5%</code>列と<code>97.5%</code>列）である。それでは、<code>select()</code>関数で<code>fit1_ame</code>からこれらの列のみ出力してみよう。</p>
+<p>　前回の講義では、<code>predictions()</code>関数から得られた推定結果のオブジェクトを出力すると表示される列名と実際の列名は異なることを説明したが、<code>slopes()</code>も同様である。実際の列名を見たい場合は<code>print()</code>関数を使用し、<code>style = "data.frame"</code>引数を追加しよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">print</span>(fit1_ame, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rowid     type         term  estimate std.error statistic      p.value
 1     1 response Satisfaction -4.731682 0.5613401 -8.429261 3.478550e-17
 2     2 response Satisfaction -3.830102 0.6110043 -6.268535 3.644599e-10
    conf.low conf.high predicted predicted_hi predicted_lo TempKyosan
@@ -1095,24 +1114,7 @@ N: 3000
 2        2.449 2.736333 6.340667 47.34      1 4e-04</code></pre>
 </div>
 </div>
-<p>　非常に多くの情報が出力されるが、ここで興味のある列は<code>Female</code>の値（<code>Female</code>列）と、<code>Satisfaction</code>の限界効果（<code>dydx</code>列）、<span class="math inline">\(p\)</span>値（<code>p.value</code>列）、95%信頼区間（<code>conf.low</code>列と<code>conf.high</code>列）である。それでは、<code>select()</code>関数で<code>fit1_ame</code>からこれらの列のみ出力してみよう。</p>
-<p>　一つ注意してほしいのは<code>select()</code>関数の呼び出し方である。Rでは同じ名前を持つ関数が複数のパッケージで提供される場合がある。これまで使ってきた<code>select()</code>関数は{dplyr}パッケージの<code>select()</code>関数だ。「え、私は{dplyr}パッケージなんか読み込んだ覚えないぞ」という人もいるかと思うが、{tidyverse}を読み込むと{dplyr}も読み込まれる（この場合、{tidyverse}は{dplyr}に依存すると言う）。しかし、<code>select()</code>関数は{MASS}というパッケージでも提供されており、これは{dplyr}の<code>select()</code>関数とは別物である。実は、{marginaleffects}パッケージは{MASS}パッケージに依存している。したがって、「どのパッケージの<code>select()</code>か」を具体的に指定しないと、Rは混乱してしまう。特定のパッケージの関数を指定するためには<code>パッケージ名::関数()</code>と表記する。{MASS}も幅広くに使われ、多くのパッケージが{MASS}に依存する。したがって、<code>select()</code>関数は衝突しやすい関数であるため、普段から<code>dplyr::select()</code>という書き方をした方が良いかも知れない。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 11</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="co"># p.value, conf.low, conf.high は隣接した列なので p.value:conf.high でOK</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, dydx, p.value, conf.low, conf.high)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Female      dydx      p.value  conf.low conf.high
-1      0 -4.731682 3.478550e-17 -5.831888 -3.631476
-2      1 -3.830102 3.644599e-10 -5.027648 -2.632555</code></pre>
-</div>
-</div>
-<p>　<code>Female = 0</code>の場合の<code>Satisfaction</code>の限界効果は約-4.732、<code>Female = 1</code>の場合のそれは約-3.830である。また、いずれも<span class="math inline">\(p\)</span>値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。</p>
+<p>　限界効果の解釈に話を戻そう。<code>Female = 0</code>の場合の<code>Satisfaction</code>の限界効果は約-4.732、<code>Female = 1</code>の場合のそれは約-3.830である。また、いずれも<span class="math inline">\(p\)</span>値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。</p>
 <p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1546,12 +1548,12 @@ N: 3000
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="Female" class="gt_row gt_left">男性</td>
-<td headers="dydx" class="gt_row gt_right">−4.732</td>
+<td headers="estimate" class="gt_row gt_right">−4.732</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
 <td headers="conf.low" class="gt_row gt_right">−5.832</td>
 <td headers="conf.high" class="gt_row gt_right">−3.631</td></tr>
     <tr><td headers="Female" class="gt_row gt_left">女性</td>
-<td headers="dydx" class="gt_row gt_right">−3.830</td>
+<td headers="estimate" class="gt_row gt_right">−3.830</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
 <td headers="conf.low" class="gt_row gt_right">−5.028</td>
 <td headers="conf.high" class="gt_row gt_right">−2.633</td></tr>
@@ -1562,155 +1564,114 @@ N: 3000
 </div>
 </div>
 </div>
-<p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ。結果を出力する際、今回は<code>round()</code>関数を使って<span class="math inline">\(p\)</span>値を小数点3桁までにまとめてみよう。<code>round()</code>の第1引数は丸めたい変数名、第2引数は小数点の桁数である。</p>
+<p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb21-2"><a href="#cb21-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
 <span id="cb21-3"><a href="#cb21-3"></a></span>
-<span id="cb21-4"><a href="#cb21-4"></a>fit2_ame <span class="sc">%&gt;%</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, dydx, p.value, conf.low, conf.high) <span class="sc">%&gt;%</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="co"># p値を小数点3桁で丸める</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4"></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Age        dydx p.value   conf.low   conf.high
-1   18  0.48601719   0.594  -1.303101  2.27513577
-2   19  0.32924919   0.711  -1.413868  2.07236610
-3   20  0.17248118   0.842  -1.524974  1.86993684
-4   21  0.01571317   0.985  -1.636448  1.66787385
-5   22 -0.14105484   0.863  -1.748323  1.46621293
-6   23 -0.29782284   0.709  -1.860632  1.26498639
-7   24 -0.45459085   0.557  -1.973416  1.06423447
-8   25 -0.61135886   0.417  -2.086713  0.86399499
-9   26 -0.76812687   0.293  -2.200571  0.66431691
-10  27 -0.92489487   0.192  -2.315040  0.46525006
-11  28 -1.08166288   0.116  -2.430183  0.26685679
-12  29 -1.23843089   0.063  -2.546063  0.06920099
-13  30 -1.39519890   0.031  -2.662747 -0.12765044
-14  31 -1.55196690   0.013  -2.780317 -0.32361652
-15  32 -1.70873491   0.005  -2.898858 -0.51861172
-16  33 -1.86550292   0.002  -3.018471 -0.71253512
-17  34 -2.02227093   0.000  -3.139260 -0.90528203
-18  35 -2.17903894   0.000  -3.261345 -1.09673307
-19  36 -2.33580694   0.000  -3.384850 -1.28676404
-20  37 -2.49257495   0.000  -3.509917 -1.47523333
-21  38 -2.64934296   0.000  -3.636693 -1.66199246
-22  39 -2.80611097   0.000  -3.765345 -1.84687694
-23  40 -2.96287897   0.000  -3.896040 -2.02971777
-24  41 -3.11964698   0.000  -4.028951 -2.21034272
-25  42 -3.27641499   0.000  -4.164259 -2.38857123
-26  43 -3.43318300   0.000  -4.302139 -2.56422714
-27  44 -3.58995100   0.000  -4.442765 -2.73713655
-28  45 -3.74671901   0.000  -4.586295 -2.90714257
-29  46 -3.90348702   0.000  -4.732869 -3.07410516
-30  47 -4.06025503   0.000  -4.882597 -3.23791326
-31  48 -4.21702303   0.000  -5.035562 -3.39848441
-32  49 -4.37379104   0.000  -5.191808 -3.55577396
-33  50 -4.53055905   0.000  -5.351344 -3.70977442
-34  51 -4.68732706   0.000  -5.514135 -3.86051920
-35  52 -4.84409507   0.000  -5.680111 -4.00807938
-36  53 -5.00086307   0.000  -5.849168 -4.15255820
-37  54 -5.15763108   0.000  -6.021175 -4.29408711
-38  55 -5.31439909   0.000  -6.195979 -4.43281922
-39  56 -5.47116710   0.000  -6.373412 -4.56892224
-40  57 -5.62793510   0.000  -6.553297 -4.70257280
-41  58 -5.78470311   0.000  -6.735457 -4.83394883
-42  59 -5.94147112   0.000  -6.919714 -4.96322790
-43  60 -6.09823913   0.000  -7.105898 -5.09058066
-44  61 -6.25500713   0.000  -7.293842 -5.21617238
-45  62 -6.41177514   0.000  -7.483393 -5.34015699
-46  63 -6.56854315   0.000  -7.674411 -5.46267557
-47  64 -6.72531116   0.000  -7.866761 -5.58386096
-48  65 -6.88207916   0.000  -8.060326 -5.70383261
-49  66 -7.03884717   0.000  -8.254991 -5.82270311
-50  67 -7.19561518   0.000  -8.450659 -5.94057103
-51  68 -7.35238319   0.000  -8.647238 -6.05752826
-52  69 -7.50915119   0.000  -8.844649 -6.17365348
-53  70 -7.66591920   0.000  -9.042817 -6.28902160
-54  71 -7.82268721   0.000  -9.241677 -6.40369745
-55  72 -7.97945522   0.000  -9.441167 -6.51774362
-56  73 -8.13622323   0.000  -9.641234 -6.63121250
-57  74 -8.29299123   0.000  -9.841828 -6.74415400
-58  75 -8.44975924   0.000 -10.042910 -6.85660863</code></pre>
+<pre><code>
+         Term Estimate Std. Error         z   Pr(&gt;|z|)   2.5 %  97.5 % Age
+ Satisfaction  0.48602     0.9128   0.53243 0.59442984  -1.303  2.2751  18
+ Satisfaction  0.32925     0.8894   0.37021 0.71122721  -1.414  2.0724  19
+ Satisfaction  0.17248     0.8661   0.19916 0.84214145  -1.525  1.8699  20
+ Satisfaction  0.01571     0.8430   0.01864 0.98512782  -1.636  1.6679  21
+ Satisfaction -0.14105     0.8200  -0.17201 0.86343149  -1.748  1.4662  22
+--- 48 rows omitted. See ?avg_slopes and ?print.marginaleffects --- 
+ Satisfaction -7.82269     0.7240 -10.80500 &lt; 2.22e-16  -9.242 -6.4037  71
+ Satisfaction -7.97946     0.7458 -10.69941 &lt; 2.22e-16  -9.441 -6.5177  72
+ Satisfaction -8.13622     0.7679 -10.59574 &lt; 2.22e-16  -9.641 -6.6312  73
+ Satisfaction -8.29299     0.7902 -10.49430 &lt; 2.22e-16  -9.842 -6.7442  74
+ Satisfaction -8.44976     0.8128 -10.39527 &lt; 2.22e-16 -10.043 -6.8566  75 
+
+Prediction type:  response 
+Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Female, Age, eps </code></pre>
 </div>
 </div>
-<p>　中級者以上の場合、<code>mutate()</code>内に<code>across()</code>と<code>where()</code>を組み合わせて「<strong>数値型の列全て</strong>に対し、<code>round(変数, 3)</code>を適用する」といった処理もできる。覚える必要はないが、「Rを勉強していくと、コードがより効率的に書けるようになる」ということだけ覚えておこう。</p>
+<p>　いくつか気になる点がある。普通に<code>fit2_ame</code>のみ入力して出力すると、最初の5行と最後の5行のみが出力され、48行分が省略される。もし、すべての行を出力したい場合は、<code>print()</code>関数を使用し、<code>nrow = Inf</code>引数を追加すれば良い。はた、<code>round()</code>関数を使って<span class="math inline">\(p\)</span>値を小数点3桁までにまとめてみよう。<code>round()</code>の第1引数は丸めたい変数名、第2引数は小数点の桁数を入れるが、<span class="math inline">\(p\)</span>値の列名は<code>p.value</code>列である。この操作は<code>print()</code>関数の前に行う必要があるため、<code>fit2_ame</code>と<code>print()</code>の間に入れる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>fit2_ame <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, dydx<span class="sc">:</span>conf.high) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="dv">3</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">print</span>(<span class="at">nrow =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Age   dydx std.error statistic p.value conf.low conf.high
-1   18  0.486     0.913     0.532   0.594   -1.303     2.275
-2   19  0.329     0.889     0.370   0.711   -1.414     2.072
-3   20  0.172     0.866     0.199   0.842   -1.525     1.870
-4   21  0.016     0.843     0.019   0.985   -1.636     1.668
-5   22 -0.141     0.820    -0.172   0.863   -1.748     1.466
-6   23 -0.298     0.797    -0.374   0.709   -1.861     1.265
-7   24 -0.455     0.775    -0.587   0.557   -1.973     1.064
-8   25 -0.611     0.753    -0.812   0.417   -2.087     0.864
-9   26 -0.768     0.731    -1.051   0.293   -2.201     0.664
-10  27 -0.925     0.709    -1.304   0.192   -2.315     0.465
-11  28 -1.082     0.688    -1.572   0.116   -2.430     0.267
-12  29 -1.238     0.667    -1.856   0.063   -2.546     0.069
-13  30 -1.395     0.647    -2.157   0.031   -2.663    -0.128
-14  31 -1.552     0.627    -2.476   0.013   -2.780    -0.324
-15  32 -1.709     0.607    -2.814   0.005   -2.899    -0.519
-16  33 -1.866     0.588    -3.171   0.002   -3.018    -0.713
-17  34 -2.022     0.570    -3.548   0.000   -3.139    -0.905
-18  35 -2.179     0.552    -3.946   0.000   -3.261    -1.097
-19  36 -2.336     0.535    -4.364   0.000   -3.385    -1.287
-20  37 -2.493     0.519    -4.802   0.000   -3.510    -1.475
-21  38 -2.649     0.504    -5.259   0.000   -3.637    -1.662
-22  39 -2.806     0.489    -5.734   0.000   -3.765    -1.847
-23  40 -2.963     0.476    -6.223   0.000   -3.896    -2.030
-24  41 -3.120     0.464    -6.724   0.000   -4.029    -2.210
-25  42 -3.276     0.453    -7.233   0.000   -4.164    -2.389
-26  43 -3.433     0.443    -7.744   0.000   -4.302    -2.564
-27  44 -3.590     0.435    -8.251   0.000   -4.443    -2.737
-28  45 -3.747     0.428    -8.747   0.000   -4.586    -2.907
-29  46 -3.903     0.423    -9.225   0.000   -4.733    -3.074
-30  47 -4.060     0.420    -9.677   0.000   -4.883    -3.238
-31  48 -4.217     0.418   -10.098   0.000   -5.036    -3.398
-32  49 -4.374     0.417   -10.480   0.000   -5.192    -3.556
-33  50 -4.531     0.419   -10.819   0.000   -5.351    -3.710
-34  51 -4.687     0.422   -11.111   0.000   -5.514    -3.861
-35  52 -4.844     0.427   -11.357   0.000   -5.680    -4.008
-36  53 -5.001     0.433   -11.554   0.000   -5.849    -4.153
-37  54 -5.158     0.441   -11.706   0.000   -6.021    -4.294
-38  55 -5.314     0.450   -11.815   0.000   -6.196    -4.433
-39  56 -5.471     0.460   -11.885   0.000   -6.373    -4.569
-40  57 -5.628     0.472   -11.920   0.000   -6.553    -4.703
-41  58 -5.785     0.485   -11.925   0.000   -6.735    -4.834
-42  59 -5.941     0.499   -11.904   0.000   -6.920    -4.963
-43  60 -6.098     0.514   -11.861   0.000   -7.106    -5.091
-44  61 -6.255     0.530   -11.801   0.000   -7.294    -5.216
-45  62 -6.412     0.547   -11.727   0.000   -7.483    -5.340
-46  63 -6.569     0.564   -11.642   0.000   -7.674    -5.463
-47  64 -6.725     0.582   -11.548   0.000   -7.867    -5.584
-48  65 -6.882     0.601   -11.448   0.000   -8.060    -5.704
-49  66 -7.039     0.620   -11.344   0.000   -8.255    -5.823
-50  67 -7.196     0.640   -11.237   0.000   -8.451    -5.941
-51  68 -7.352     0.661   -11.129   0.000   -8.647    -6.058
-52  69 -7.509     0.681   -11.020   0.000   -8.845    -6.174
-53  70 -7.666     0.703   -10.912   0.000   -9.043    -6.289
-54  71 -7.823     0.724   -10.805   0.000   -9.242    -6.404
-55  72 -7.979     0.746   -10.699   0.000   -9.441    -6.518
-56  73 -8.136     0.768   -10.596   0.000   -9.641    -6.631
-57  74 -8.293     0.790   -10.494   0.000   -9.842    -6.744
-58  75 -8.450     0.813   -10.395   0.000  -10.043    -6.857</code></pre>
+<pre><code>
+         Term Estimate Std. Error         z Pr(&gt;|z|)  CI low CI high
+ Satisfaction  0.48602     0.9128   0.53243    0.594  -1.303  2.2751
+ Satisfaction  0.32925     0.8894   0.37021    0.711  -1.414  2.0724
+ Satisfaction  0.17248     0.8661   0.19916    0.842  -1.525  1.8699
+ Satisfaction  0.01571     0.8430   0.01864    0.985  -1.636  1.6679
+ Satisfaction -0.14105     0.8200  -0.17201    0.863  -1.748  1.4662
+ Satisfaction -0.29782     0.7974  -0.37351    0.709  -1.861  1.2650
+ Satisfaction -0.45459     0.7749  -0.58663    0.557  -1.973  1.0642
+ Satisfaction -0.61136     0.7527  -0.81217    0.417  -2.087  0.8640
+ Satisfaction -0.76813     0.7309  -1.05100    0.293  -2.201  0.6643
+ Satisfaction -0.92489     0.7093  -1.30401    0.192  -2.315  0.4653
+ Satisfaction -1.08166     0.6880  -1.57211    0.116  -2.430  0.2669
+ Satisfaction -1.23843     0.6672  -1.85624    0.063  -2.546  0.0692
+ Satisfaction -1.39520     0.6467  -2.15735    0.031  -2.663 -0.1277
+ Satisfaction -1.55197     0.6267  -2.47633    0.013  -2.780 -0.3236
+ Satisfaction -1.70873     0.6072  -2.81404    0.005  -2.899 -0.5186
+ Satisfaction -1.86550     0.5883  -3.17122    0.002  -3.018 -0.7125
+ Satisfaction -2.02227     0.5699  -3.54845   &lt;2e-16  -3.139 -0.9053
+ Satisfaction -2.17904     0.5522  -3.94605   &lt;2e-16  -3.261 -1.0967
+ Satisfaction -2.33581     0.5352  -4.36407   &lt;2e-16  -3.385 -1.2868
+ Satisfaction -2.49257     0.5191  -4.80208   &lt;2e-16  -3.510 -1.4752
+ Satisfaction -2.64934     0.5038  -5.25914   &lt;2e-16  -3.637 -1.6620
+ Satisfaction -2.80611     0.4894  -5.73361   &lt;2e-16  -3.765 -1.8469
+ Satisfaction -2.96288     0.4761  -6.22308   &lt;2e-16  -3.896 -2.0297
+ Satisfaction -3.11965     0.4639  -6.72426   &lt;2e-16  -4.029 -2.2103
+ Satisfaction -3.27641     0.4530  -7.23287   &lt;2e-16  -4.164 -2.3886
+ Satisfaction -3.43318     0.4434  -7.74368   &lt;2e-16  -4.302 -2.5642
+ Satisfaction -3.58995     0.4351  -8.25053   &lt;2e-16  -4.443 -2.7371
+ Satisfaction -3.74672     0.4284  -8.74659   &lt;2e-16  -4.586 -2.9071
+ Satisfaction -3.90349     0.4232  -9.22457   &lt;2e-16  -4.733 -3.0741
+ Satisfaction -4.06026     0.4196  -9.67719   &lt;2e-16  -4.883 -3.2379
+ Satisfaction -4.21702     0.4176 -10.09752   &lt;2e-16  -5.036 -3.3985
+ Satisfaction -4.37379     0.4174 -10.47958   &lt;2e-16  -5.192 -3.5558
+ Satisfaction -4.53056     0.4188 -10.81859   &lt;2e-16  -5.351 -3.7098
+ Satisfaction -4.68733     0.4218 -11.11140   &lt;2e-16  -5.514 -3.8605
+ Satisfaction -4.84410     0.4265 -11.35655   &lt;2e-16  -5.680 -4.0081
+ Satisfaction -5.00086     0.4328 -11.55423   &lt;2e-16  -5.849 -4.1526
+ Satisfaction -5.15763     0.4406 -11.70615   &lt;2e-16  -6.021 -4.2941
+ Satisfaction -5.31440     0.4498 -11.81519   &lt;2e-16  -6.196 -4.4328
+ Satisfaction -5.47117     0.4603 -11.88512   &lt;2e-16  -6.373 -4.5689
+ Satisfaction -5.62794     0.4721 -11.92025   &lt;2e-16  -6.553 -4.7026
+ Satisfaction -5.78470     0.4851 -11.92507   &lt;2e-16  -6.735 -4.8339
+ Satisfaction -5.94147     0.4991 -11.90406   &lt;2e-16  -6.920 -4.9632
+ Satisfaction -6.09824     0.5141 -11.86149   &lt;2e-16  -7.106 -5.0906
+ Satisfaction -6.25501     0.5300 -11.80129   &lt;2e-16  -7.294 -5.2162
+ Satisfaction -6.41178     0.5468 -11.72698   &lt;2e-16  -7.483 -5.3402
+ Satisfaction -6.56854     0.5642 -11.64164   &lt;2e-16  -7.674 -5.4627
+ Satisfaction -6.72531     0.5824 -11.54791   &lt;2e-16  -7.867 -5.5839
+ Satisfaction -6.88208     0.6012 -11.44805   &lt;2e-16  -8.060 -5.7038
+ Satisfaction -7.03885     0.6205 -11.34396   &lt;2e-16  -8.255 -5.8227
+ Satisfaction -7.19562     0.6403 -11.23717   &lt;2e-16  -8.451 -5.9406
+ Satisfaction -7.35238     0.6607 -11.12897   &lt;2e-16  -8.647 -6.0575
+ Satisfaction -7.50915     0.6814 -11.02036   &lt;2e-16  -8.845 -6.1737
+ Satisfaction -7.66592     0.7025 -10.91216   &lt;2e-16  -9.043 -6.2890
+ Satisfaction -7.82269     0.7240 -10.80500   &lt;2e-16  -9.242 -6.4037
+ Satisfaction -7.97946     0.7458 -10.69941   &lt;2e-16  -9.441 -6.5177
+ Satisfaction -8.13622     0.7679 -10.59574   &lt;2e-16  -9.641 -6.6312
+ Satisfaction -8.29299     0.7902 -10.49430   &lt;2e-16  -9.842 -6.7442
+ Satisfaction -8.44976     0.8128 -10.39527   &lt;2e-16 -10.043 -6.8566
+
+Prediction type:  
+Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Female, Age, eps </code></pre>
 </div>
 </div>
-<p>　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、<span class="math inline">\(p \geq 0.05\)</span>）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、<span class="math inline">\(p &lt; 0.05\)</span>）。</p>
-<p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。回帰分析の結果の可視化は第14回で解説するが、ここでは限界効果のグラフの読み方を紹介しよう。</p>
+<p>　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、<span class="math inline">\(p \geq 0.05\)</span>）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、<span class="math inline">\(p &lt; 0.05\)</span>）。ちなみに、<code>&lt;2e-16</code>と表示されるのは0に極めて近いことを意味し、表で示す際は<code>&lt; 0.001</code>とかで表記するのが一般的だ。</p>
+<p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。回帰分析の結果の可視化は次回解説するが、ここでは限界効果のグラフの読み方を紹介しよう。</p>
 <p>　以下の図は<code>fit1</code>における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
 <div class="cell" data-layout-align="center">
 <details>
@@ -1720,7 +1681,7 @@ N: 3000
 <span id="cb25-3"><a href="#cb25-3"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> dydx, </span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
 <span id="cb25-7"><a href="#cb25-7"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1741,7 +1702,7 @@ N: 3000
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
 <span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> dydx)) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate)) <span class="sc">+</span></span>
 <span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>

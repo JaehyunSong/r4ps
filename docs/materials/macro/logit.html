@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -654,7 +654,7 @@ F-statistic: 86.55 on 5 and 2549 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><span class="math display">\[
 \text{logistic}(x) = \frac{1}{1 + e^{-x}}
 \]</span></p>
-<p>　式内の<span class="math inline">\(e\)</span>はネイピア数であり、2.71828184590…の無理数である。<span class="math inline">\(x\)</span>は<span class="math inline">\(-\infty \sim \infty\)</span>の値を取り得る。たとえば、<span class="math inline">\(x\)</span>が<span class="math inline">\(-\infty\)</span>の場合、<span class="math inline">\(e^{-x}\)</span>は<span class="math inline">\(e^{-(-\infty)} = \infty\)</span>、<span class="math inline">\(x\)</span>が<span class="math inline">\(\infty\)</span>の場合、<span class="math inline">\(e^{-x}\)</span>は$e^{-()} =<span class="math inline">\(0となる。つまり、\)</span>e^{-x}$は<span class="math inline">\(0 \sim \infty\)</span>の値を取る。この<span class="math inline">\(e^{-x}\)</span>が0の場合、<span class="math inline">\(\text{logistic}(x)\)</span>は1、<span class="math inline">\(e^{-x}\)</span>が<span class="math inline">\(\infty\)</span>の場合、<span class="math inline">\(\text{logistic}(x)\)</span>は0を取る。つまり、<span class="math inline">\(\text{logistic}(x)\)</span>は0以上、1以下の取ることが分かる。確率もまた0以上1以下であるため、この関数が何らかの役割を果たすこととなる。以下の図は<span class="math inline">\(x\)</span>の値ごとのロジスティック関数の折れ線グラフである。</p>
+<p>　式内の<span class="math inline">\(e\)</span>はネイピア数であり、2.71828184590…の無理数である。<span class="math inline">\(x\)</span>は<span class="math inline">\(-\infty \sim \infty\)</span>の値を取り得る。たとえば、<span class="math inline">\(x\)</span>が<span class="math inline">\(-\infty\)</span>の場合、<span class="math inline">\(e^{-x}\)</span>は<span class="math inline">\(e^{-(-\infty)} = \infty\)</span>、<span class="math inline">\(x\)</span>が<span class="math inline">\(\infty\)</span>の場合、<span class="math inline">\(e^{-x}\)</span>は<span class="math inline">\(e^{-\infty} = 0\)</span>となる。つまり、<span class="math inline">\(e^{-x}\)</span>は<span class="math inline">\(0 \sim \infty\)</span>の値を取る。この<span class="math inline">\(e^{-x}\)</span>が0の場合、<span class="math inline">\(\text{logistic}(x)\)</span>は1、<span class="math inline">\(e^{-x}\)</span>が<span class="math inline">\(\infty\)</span>の場合、<span class="math inline">\(\text{logistic}(x)\)</span>は0を取る。つまり、<span class="math inline">\(\text{logistic}(x)\)</span>は0以上、1以下の取ることが分かる。確率もまた0以上1以下であるため、この関数が何らかの役割を果たすこととなる。以下の図は<span class="math inline">\(x\)</span>の値ごとのロジスティック関数の折れ線グラフである。</p>
 <div class="cell" data-layout-align="center" data-figh-height="4">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -832,10 +832,14 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb22-5"><a href="#cb22-5"></a>                                     <span class="at">Ideology  =</span> <span class="dv">5</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid     type predicted  std.error statistic     p.value  conf.low conf.high
-1     1 response 0.4109089 0.02923061  14.05749 6.93037e-45 0.3550561 0.4691564
-     Voted Knowledge Female Age Educ Ideology
-1 0.709589         3      1  20    4        5</code></pre>
+<pre><code>
+ Estimate Std. Error     z   Pr(&gt;|z|)  2.5 % 97.5 % Knowledge Female Age Educ
+   0.4109    0.02923 14.06 &lt; 2.22e-16 0.3551 0.4692         3      1  20    4
+ Ideology
+        5
+
+Prediction type:  response 
+Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology </code></pre>
 </div>
 </div>
 <p>　<code>datagrid()</code>内で変数を特定の値で指定しない場合、その変数は自動的に<strong>平均値</strong>が代入される。たとえば、<code>Knowledge</code>が1〜5の場合の投票参加確率の予測値を計算してみよう。その他の変数はすべて平均値に固定する。計算結果は<code>fit1_pred</code>に格納する。</p>
@@ -849,7 +853,28 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb24-3"><a href="#cb24-3"></a>fit1_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid     type predicted   std.error statistic       p.value  conf.low
+<pre><code>
+ Estimate Std. Error     z   Pr(&gt;|z|)  2.5 % 97.5 % Knowledge
+   0.3294   0.027936 11.79 &lt; 2.22e-16 0.2771 0.3863         1
+   0.4705   0.022009 21.38 &lt; 2.22e-16 0.4277 0.5138         2
+   0.6165   0.013584 45.39 &lt; 2.22e-16 0.5896 0.6428         3
+   0.7442   0.009492 78.40 &lt; 2.22e-16 0.7251 0.7623         4
+   0.8403   0.009821 85.56 &lt; 2.22e-16 0.8201 0.8587         5
+
+Prediction type:  response 
+Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge </code></pre>
+</div>
+</div>
+<p>　<code>Knowledge</code>の値に応じた投票参加の予測確率（0以上、1以下）が<code>Estimate</code>列に出力され、95%信頼区間の下限と上限は<code>2.5%</code>、<code>97.5%</code>列に表示される。ただし、<strong>こちらで表示された列名は本当の列名ではない</strong>。つまり、この<code>fit1_pred</code>を用いて作図をする際、<code>Estimate</code>や<code>2.5%</code>という名前でマッピングすることはできない。今出力された列名はあくまでも読みやすさを重視したものであり、実際の列名は異なる。他にも実際にはあるものの出力されていない列も存在する。すべての列を、本当の列名と共に出力するなら、<code>print()</code>関数を使用し、<code>style = "data.frame"</code>を追加しよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit1_pred, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rowid     type  estimate   std.error statistic       p.value  conf.low
 1     1 response 0.3293996 0.027936256  11.79111  4.337629e-32 0.2771235
 2     2 response 0.4705341 0.022008655  21.37950 2.073214e-101 0.4277233
 3     3 response 0.6165432 0.013584204  45.38677  0.000000e+00 0.5895934
@@ -863,25 +888,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 5 0.8586556 0.709589 0.458317 50.91155 3.207436 5.400391         5</code></pre>
 </div>
 </div>
-<p>　<code>datagrid()</code>内で指定子なかった<code>Female</code>、<code>Age</code>、<code>Educ</code>、<code>Ideology</code>列の値が最初に計算して記述統計量（の平均値）と一致することが分かる。今回はすべての列が必要なわけではないので、一部の列のみを出力してみよう。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 13</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit1_pred <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(Knowledge, predicted, std.error, conf.low, conf.high)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Knowledge predicted   std.error  conf.low conf.high
-1         1 0.3293996 0.027936256 0.2771235 0.3862676
-2         2 0.4705341 0.022008655 0.4277233 0.5137829
-3         3 0.6165432 0.013584204 0.5895934 0.6427954
-4         4 0.7441789 0.009492179 0.7251353 0.7623355
-5         5 0.8403326 0.009821140 0.8201318 0.8586556</code></pre>
-</div>
-</div>
-<p>　以上の結果を見れば、<code>Knowledge</code>が<code>Voted</code>に与える影響は一定ではないことがわかる。たとえば、<code>Knowledge</code>の値が1の場合、投票に参加する確率は32.94%である。ここで<code>Knowledge</code>の値が2の場合、投票に参加する確率は47.05%であり、14.11%<strong>p</strong>増加したことが分かる。それでは<code>Knowledge</code>の値が3の場合はどうだろうか。この場合の投票参加の確率は61.65%であり、先より14.60%<strong>p</strong>増加した。また、<code>Knowledge</code>の値が4の場合の予測確率は74.42%（12.77%<strong>p</strong>増加）、5の場合のそれはは84.03%で、9.61%<strong>p</strong>増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。</p>
+<p>　<code>Estimate</code>の本当の列名は<code>estimate</code>、<code>2.5%</code>と<code>97.5%</code>の本当の列名は<code>conf.low</code>、<code>conf.high</code>であることが分かる。今回はここまで知らなくても良いかも知れないが、第13回（推定結果の可視化）では、この点を理解しないと絶対に作図できないため注意しておこう。</p>
+<p>　話を戻そう。これまでの結果を見れば、<code>Knowledge</code>が<code>Voted</code>に与える影響は一定ではないことがわかる。たとえば、<code>Knowledge</code>の値が1の場合、投票に参加する確率は32.94%である。ここで<code>Knowledge</code>の値が2の場合、投票に参加する確率は47.05%であり、14.11%<strong>p</strong>増加したことが分かる（14.11「%」でなく、14.11「%p」であることに注意しよう。%pは「パーセントポイント」と読む）。それでは<code>Knowledge</code>の値が3の場合はどうだろうか。この場合の投票参加の確率は61.65%であり、先より14.60%<strong>p</strong>増加した。また、<code>Knowledge</code>の値が4の場合の予測確率は74.42%（12.77%<strong>p</strong>増加）、5の場合のそれはは84.03%で、9.61%<strong>p</strong>増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -901,7 +909,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit1_pred <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Knowledge, <span class="at">y =</span> predicted, </span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Knowledge, <span class="at">y =</span> estimate, </span>
 <span id="cb28-4"><a href="#cb28-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"主観的な政治知識"</span>, </span>
 <span id="cb28-6"><a href="#cb28-6"></a>       <span class="at">y =</span> <span class="st">"投票に参加する確率の予測値"</span>) <span class="sc">+</span></span>
@@ -926,7 +934,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <summary>コード</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">86</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> predicted, </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> estimate, </span>
 <span id="cb29-4"><a href="#cb29-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢 (歳)"</span>, <span class="at">y =</span> <span class="st">"投票に参加する確率の予測値"</span>) <span class="sc">+</span></span>
 <span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>), </span>
@@ -956,7 +964,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), </span>
 <span id="cb30-6"><a href="#cb30-6"></a>              <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span> </span>
-<span id="cb30-7"><a href="#cb30-7"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> predicted)) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
 <span id="cb30-8"><a href="#cb30-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢 (歳)"</span>, <span class="at">y =</span> <span class="st">"投票に参加する確率の予測値"</span>) <span class="sc">+</span></span>
 <span id="cb30-9"><a href="#cb30-9"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>)) <span class="sc">+</span></span>
 <span id="cb30-10"><a href="#cb30-10"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>

@@ -111,7 +111,7 @@ $$
 \text{logistic}(x) = \frac{1}{1 + e^{-x}}
 $$
 
-　式内の$e$はネイピア数であり、2.71828184590...の無理数である。$x$は$-\infty \sim \infty$の値を取り得る。たとえば、$x$が$-\infty$の場合、$e^{-x}$は$e^{-(-\infty)} = \infty$、$x$が$\infty$の場合、$e^{-x}$は$e^{-(\infty)} =$0となる。つまり、$e^{-x}$は$0 \sim \infty$の値を取る。この$e^{-x}$が0の場合、$\text{logistic}(x)$は1、$e^{-x}$が$\infty$の場合、$\text{logistic}(x)$は0を取る。つまり、$\text{logistic}(x)$は0以上、1以下の取ることが分かる。確率もまた0以上1以下であるため、この関数が何らかの役割を果たすこととなる。以下の図は$x$の値ごとのロジスティック関数の折れ線グラフである。
+　式内の$e$はネイピア数であり、2.71828184590...の無理数である。$x$は$-\infty \sim \infty$の値を取り得る。たとえば、$x$が$-\infty$の場合、$e^{-x}$は$e^{-(-\infty)} = \infty$、$x$が$\infty$の場合、$e^{-x}$は$e^{-\infty} = 0$となる。つまり、$e^{-x}$は$0 \sim \infty$の値を取る。この$e^{-x}$が0の場合、$\text{logistic}(x)$は1、$e^{-x}$が$\infty$の場合、$\text{logistic}(x)$は0を取る。つまり、$\text{logistic}(x)$は0以上、1以下の取ることが分かる。確率もまた0以上1以下であるため、この関数が何らかの役割を果たすこととなる。以下の図は$x$の値ごとのロジスティック関数の折れ線グラフである。
 
 ```{r}
 #| echo: false
@@ -255,15 +255,16 @@ fit1_pred <- predictions(fit1, newdata = datagrid(Knowledge = 1:5))
 fit1_pred
 ```
 
-　`datagrid()`内で指定子なかった`Female`、`Age`、`Educ`、`Ideology`列の値が最初に計算して記述統計量（の平均値）と一致することが分かる。今回はすべての列が必要なわけではないので、一部の列のみを出力してみよう。
+　`Knowledge`の値に応じた投票参加の予測確率（0以上、1以下）が`Estimate`列に出力され、95%信頼区間の下限と上限は`2.5%`、`97.5%`列に表示される。ただし、**こちらで表示された列名は本当の列名ではない**。つまり、この`fit1_pred`を用いて作図をする際、`Estimate`や`2.5%`という名前でマッピングすることはできない。今出力された列名はあくまでも読みやすさを重視したものであり、実際の列名は異なる。他にも実際にはあるものの出力されていない列も存在する。すべての列を、本当の列名と共に出力するなら、`print()`関数を使用し、`style = "data.frame"`を追加しよう。
 
 ```{r}
 #| filename: "Code 13"
-fit1_pred %>%
-  select(Knowledge, predicted, std.error, conf.low, conf.high)
+print(fit1_pred, style = "data.frame")
 ```
 
-　以上の結果を見れば、`Knowledge`が`Voted`に与える影響は一定ではないことがわかる。たとえば、`Knowledge`の値が1の場合、投票に参加する確率は32.94%である。ここで`Knowledge`の値が2の場合、投票に参加する確率は47.05%であり、14.11%**p**増加したことが分かる。それでは`Knowledge`の値が3の場合はどうだろうか。この場合の投票参加の確率は61.65%であり、先より14.60%**p**増加した。また、`Knowledge`の値が4の場合の予測確率は74.42%（12.77%**p**増加）、5の場合のそれはは84.03%で、9.61%**p**増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。
+　`Estimate`の本当の列名は`estimate`、`2.5%`と`97.5%`の本当の列名は`conf.low`、`conf.high`であることが分かる。今回はここまで知らなくても良いかも知れないが、第13回（推定結果の可視化）では、この点を理解しないと絶対に作図できないため注意しておこう。
+
+　話を戻そう。これまでの結果を見れば、`Knowledge`が`Voted`に与える影響は一定ではないことがわかる。たとえば、`Knowledge`の値が1の場合、投票に参加する確率は32.94%である。ここで`Knowledge`の値が2の場合、投票に参加する確率は47.05%であり、14.11%**p**増加したことが分かる（14.11「%」でなく、14.11「%p」であることに注意しよう。%pは「パーセントポイント」と読む）。それでは`Knowledge`の値が3の場合はどうだろうか。この場合の投票参加の確率は61.65%であり、先より14.60%**p**増加した。また、`Knowledge`の値が4の場合の予測確率は74.42%（12.77%**p**増加）、5の場合のそれはは84.03%で、9.61%**p**増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。
 
 ```{r}
 #| echo: false
@@ -273,8 +274,8 @@ fit1_temp <- predictions(fit1,
                          newdata = datagrid(Knowledge = seq(-10, 13, 0.1)))
 fit1_pred %>%
   ggplot() +
-  geom_line(data = fit1_temp, aes(x = Knowledge, y = predicted)) +
-  geom_point(aes(x = Knowledge, y = predicted), size = 3) +
+  geom_line(data = fit1_temp, aes(x = Knowledge, y = estimate)) +
+  geom_point(aes(x = Knowledge, y = estimate), size = 3) +
   scale_x_continuous(breaks = 1:5, labels = 1:5) +
   labs(x = "主観的な政治知識", 
        y = "投票に参加する確率の予測値") +
@@ -292,7 +293,7 @@ fit1_pred %>%
 #| fig-height: 4
 fit1_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Knowledge, y = predicted, 
+  geom_pointrange(aes(x = Knowledge, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
   labs(x = "主観的な政治知識", 
        y = "投票に参加する確率の予測値") +
@@ -308,7 +309,7 @@ fit1_pred %>%
 #| fig-height: 4
 predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
   ggplot() +
-  geom_pointrange(aes(x = Age, y = predicted, 
+  geom_pointrange(aes(x = Age, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
   labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
   scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), 
@@ -329,7 +330,7 @@ fit1_pred2 %>%
   ggplot() +
   geom_ribbon(aes(x = Age, ymin = conf.low, ymax = conf.high), 
               fill = "gray80") + 
-  geom_line(aes(x = Age, y = predicted)) +
+  geom_line(aes(x = Age, y = estimate)) +
   labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
   scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), labels = c(20, 30, 40, 50, 60, 70, 80)) +
   theme_bw(base_size = 14)
