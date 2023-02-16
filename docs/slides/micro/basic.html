@@ -8,7 +8,7 @@
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.313">
+  <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-04-20">
@@ -402,7 +402,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">ミクロ政治データ分析実習</h1>
-  <p class="subtitle">第3回 Rの基本的な操作</p>
+  <p class="subtitle">第3回 Rの基本的な操作とベクトル操作</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -682,7 +682,7 @@
 <section id="ベクトル-1" class="slide level2">
 <h2>ベクトル</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:40%;">
 <ul>
 <li>123454321 <span class="math inline">\(\times\)</span> 2を計算してみよう</li>
 <li>123454321 <span class="math inline">\(\times\)</span> 3を計算してみよう</li>
@@ -691,7 +691,7 @@
 <li>123454321 <span class="math inline">\(\times\)</span> 199を計算してみよう</li>
 <li>123454321 <span class="math inline">\(\times\)</span> 200を計算してみよう</li>
 </ul>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">2</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">3</span></span>
@@ -725,7 +725,8 @@
 </ul></li>
 <li><code>c()</code>関数で作成
 <ul>
-<li><code>()</code>の中にベクトルの要素を入力する</li>
+<li><code>()</code>の中にベクトルの要素を入力</li>
+<li>長さ1のベクトルの場合、<code>c()</code>は省略可能</li>
 </ul></li>
 </ul>
 </section>
@@ -734,7 +735,8 @@
 <ul>
 <li><code>&lt;-</code>演算子で格納
 <ul>
-<li><code>ベクトル名</code>という名前の<strong>オブジェクト（object）</strong>が生成される</li>
+<li><code>ベクトル名</code>という名前の<strong>オブジェクト（object）</strong>が生成され、作業環境内に保存される。</li>
+<li>「作業環境」や「オブジェクト」の概念は次回解説</li>
 </ul></li>
 <li>格納しない場合、作業環境に保存されず、出力のみ</li>
 </ul>
@@ -781,10 +783,10 @@
 <section id="オブジェクトの表示" class="slide level2">
 <h2>オブジェクトの表示</h2>
 <h4 id="現在の作業環境におけるオブジェクトリスト">現在の作業環境におけるオブジェクトリスト</h4>
-<ol type="1">
-<li>Environmentペインで確認</li>
-<li>Consoleペインで<code>ls()</code>を入力</li>
-</ol>
+<ul>
+<li><strong>方法1：</strong>RStudioのEnvironmentペインで確認</li>
+<li><strong>方法2：</strong>Consoleペインで<code>ls()</code>を入力</li>
+</ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ls</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -818,10 +820,11 @@
 <li>ただし、200行書かないといけない点は変わらない。
 <ul>
 <li>より効率的な方法は?</li>
+<li><span class="math inline">\(\rightarrow\)</span> ベクトル・リサイクル（vector recycle）</li>
 </ul></li>
 </ul>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">2</span></span>
 <span id="cb41-2"><a href="#cb41-2"></a><span class="do">## [1] 246908642</span></span>
@@ -832,9 +835,9 @@
 <span id="cb41-7"><a href="#cb41-7"></a><span class="dv">123454321</span> <span class="sc">*</span> <span class="dv">5</span></span>
 <span id="cb41-8"><a href="#cb41-8"></a><span class="do">## [1] 617271605</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:2%;">
 
-</div><div class="column" style="width:45%;">
+</div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>x <span class="ot">&lt;-</span> <span class="dv">123454321</span></span>
 <span id="cb42-2"><a href="#cb42-2"></a>x <span class="sc">*</span> <span class="dv">2</span></span>
@@ -852,7 +855,7 @@
 <section id="等差数列ベクトルの作り方" class="slide level2">
 <h2>等差数列ベクトルの作り方</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:40%;">
 <p>公差 = 1の等差数列</p>
 <ul>
 <li><code>:</code>演算子を利用</li>
@@ -871,9 +874,9 @@
 <pre><code>[1] 8 7 6 5 4 3</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:2%;">
 
-</div><div class="column" style="width:45%;">
+</div><div class="column" style="width:58%;">
 <p>公差 <span class="math inline">\(\neq\)</span> 1の等差数列</p>
 <ul>
 <li><code>seq()</code>関数の使用 (<code>by</code>で公差を指定)</li>
@@ -883,15 +886,15 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 3 5 7 9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="at">by =</span> <span class="dv">2</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">9</span>, <span class="at">by =</span> <span class="dv">2</span>)   <span class="co"># 1から9までの公差2の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 3 5 7 9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.5</span>) <span class="co"># 1から5までの公差0.5の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">seq</span>(<span class="dv">8</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">seq</span>(<span class="dv">8</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="sc">-</span><span class="dv">1</span>)  <span class="co"># 8から3までの公差-1の等差数列</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8 7 6 5 4 3</code></pre>
 </div>
@@ -903,8 +906,8 @@
 <h2>ベクトル同士の演算</h2>
 <p><strong>例)</strong> ベクトル<code>X</code>とベクトル<code>Y</code>同士の演算</p>
 <ul>
-<li><strong>ケース1:</strong> <code>X</code>の長さ = <code>Y</code>の長さ</li>
-<li><strong>ケース2:</strong> <code>X</code>の長さ <span class="math inline">\(\neq\)</span> <code>Y</code>の長さ</li>
+<li><strong>ケース1：</strong> <code>X</code>の長さ = <code>Y</code>の長さ</li>
+<li><strong>ケース2：</strong> <code>X</code>の長さ <span class="math inline">\(\neq\)</span> <code>Y</code>の長さ</li>
 </ul>
 <p><br></p>
 <p><strong>参考)</strong> ベクトルの長さの求め方</p>
@@ -980,9 +983,10 @@
 </table>
 <p><br></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb61-2"><a href="#cb61-2"></a>my_vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb61-3"><a href="#cb61-3"></a>my_vec1 <span class="sc">*</span> my_vec2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># my_vec1とmy_vec2は同じ長さ</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># 長さ6のベクトル</span></span>
+<span id="cb61-3"><a href="#cb61-3"></a>my_vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># 長さ6のベクトル</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a>my_vec1 <span class="sc">*</span> my_vec2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  0  2  6  0  5 12</code></pre>
 </div>
@@ -1049,9 +1053,10 @@
 </table>
 <p><br></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>my_vec3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb63-2"><a href="#cb63-2"></a>my_vec4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb63-3"><a href="#cb63-3"></a>my_vec3 <span class="sc">*</span> my_vec4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="co"># my_vec3とmy_vec4の長さは異なる</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a>my_vec3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># 長さ6のベクトル</span></span>
+<span id="cb63-3"><a href="#cb63-3"></a>my_vec4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)             <span class="co"># 長さ2のベクトル</span></span>
+<span id="cb63-4"><a href="#cb63-4"></a>my_vec3 <span class="sc">*</span> my_vec4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 2 0 4 0 6</code></pre>
 </div>
@@ -1207,6 +1212,7 @@
 <p><strong>例2)</strong> <code>my_vec5</code>の2, 3, 4, 5番目の要素</p>
 <ul>
 <li><code>[]</code>内に抽出する要素の位置を表すベクトルを指定</li>
+<li><code>pos_vec</code>、<code>c(2, 3, 4, 5)</code>、<code>seq(2, 5, by = 1)</code>、<code>2:5</code>はすべて同じ意味</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>pos_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
@@ -1232,6 +1238,7 @@
 <h2>要素の抽出: 論理演算子の利用</h2>
 <ul>
 <li>それぞれの要素に対し、抽出するか（<code>TRUE</code>）しないか（<code>FALSE</code>）を指定</li>
+<li>表形式データにおける行の抽出を自由自在に操るためには必須知識（第9回）</li>
 </ul>
 <p><strong>例1)</strong> <code>my_vec5</code>から1, 4, 7, 9, 10番目の要素を抽出</p>
 <ul>
