@@ -369,7 +369,7 @@ df2
 * ただし、日本語の場合、50音順にはならない。
    * ひらがな、カタカナなら50音順になるが、漢字は $\times$
 * したがって、`summarise()`の前にグルーピング変数を**Factor型に変換**する必要がある。
-   * Factor型: 順序付きの文字型
+   * Factor型: **順序付き**の文字型
 
 ## `Developed`をFactor型に
 
@@ -559,8 +559,8 @@ my_data %>%
 
 ```{r}
 my_data %>%
-  mutate(Age      = if_else(Age == 999, NA_real_, Age),
-         HighEduc = if_else(HighEduc == 9, NA_real_, HighEduc))
+  mutate(Age      = if_else(Age      == 999, NA_real_, Age),
+         HighEduc = if_else(HighEduc == 9,   NA_real_, HighEduc))
 ```
 
 ## 特定の値を欠損値にコーディング場合
@@ -590,4 +590,28 @@ library(naniar) # 事前に install.package(naniar) でインストール
 my_data %>%
   # Ageは999、HighEducは9が欠損値
   replace_with_na(list(Age = 999, HighEduc = 9))
+```
+
+## おまけ
+
+`mutate()`内には複数の処理ができる。
+
+* 同じ内容のコードであるため、好きな書き方で問題ないが、まとめた方が効率的
+
+#### 一つの`mutate()`内に2つの処理
+
+```{r}
+#| eval: false
+my_data %>%
+  mutate(Age      = if_else(Age      == 999 ~ NA_real_, TRUE ~ Age),
+         HighEduc = if_else(HighEduc == 9   ~ NA_real_, TRUE ~ HighEduc))
+```
+
+#### 一つの`mutate()`内に1つの処理
+
+```{r}
+#| eval: false
+my_data %>%
+  mutate(Age = if_else(Age == 999 ~ NA_real_, TRUE ~ Age)) %>%
+  mutate(HighEduc = if_else(HighEduc == 9 ~ NA_real_, TRUE ~ HighEduc))
 ```

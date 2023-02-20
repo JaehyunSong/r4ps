@@ -2433,7 +2433,7 @@
     "href": "slides/micro/handling2.html#注意-欠損値を指定する場合-1",
     "title": "ミクロ政治データ分析実習",
     "section": "注意) 欠損値を指定する場合",
-    "text": "注意) 欠損値を指定する場合\n注意: 条件 ~ NAではエラーが発生する。\n\nif_else()も同様。ただし、ifelse()はNAで作動\n\n\nmy_data %>%\n  mutate(YoungAge  = case_when(Age == 999 ~ NA,\n                               Age <=  39 ~ 1,\n                               TRUE       ~ 0),\n         HighEduc2 = case_when(HighEduc == 9 ~ NA,\n                               HighEduc == 1 ~ \"大卒以上\",\n                               TRUE          ~ \"大卒未満\"))\n\nError in `mutate()`:\n! Problem while computing `YoungAge = case_when(Age == 999 ~ NA, Age <=\n  39 ~ 1, TRUE ~ 0)`.\nCaused by error in `case_when()`:"
+    "text": "注意) 欠損値を指定する場合\n注意: 条件 ~ NAではエラーが発生する。\n\nif_else()も同様。ただし、ifelse()はNAで作動\n\n\nmy_data %>%\n  mutate(YoungAge  = case_when(Age == 999 ~ NA,\n                               Age <=  39 ~ 1,\n                               TRUE       ~ 0),\n         HighEduc2 = case_when(HighEduc == 9 ~ NA,\n                               HighEduc == 1 ~ \"大卒以上\",\n                               TRUE          ~ \"大卒未満\"))\n\n# A tibble: 10 × 5\n      ID   Age HighEduc YoungAge HighEduc2\n   <int> <dbl>    <dbl>    <dbl> <chr>    \n 1     1    32        1        1 大卒以上 \n 2     2    35        0        1 大卒未満 \n 3     3    57        0        0 大卒未満 \n 4     4   999        1       NA 大卒以上 \n 5     5    74        0        0 大卒未満 \n 6     6    66        9        0 <NA>     \n 7     7   999        1       NA 大卒以上 \n 8     8    49        1        0 大卒以上 \n 9     9    78        9        0 <NA>     \n10    10    67        9        0 <NA>"
   },
   {
     "objectID": "slides/micro/handling2.html#注意-欠損値を指定する場合-2",
@@ -2447,7 +2447,7 @@
     "href": "slides/micro/handling2.html#特定の値を欠損値にコーディング場合",
     "title": "ミクロ政治データ分析実習",
     "section": "特定の値を欠損値にコーディング場合",
-    "text": "特定の値を欠損値にコーディング場合\n特定の値を欠損値とし、それ以外の値は元も値にする場合\n\n主にif_else()を使用し、条件に合致した場合はNA_real_かNA_character_を、合致しない場合は元の変数のままにする。\n\n\nmy_data %>%\n  mutate(Age      = if_else(Age == 999, NA_real_, Age),\n         HighEduc = if_else(HighEduc == 9, NA_real_, HighEduc))\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   <int> <dbl>    <dbl>\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4    NA        1\n 5     5    74        0\n 6     6    66       NA\n 7     7    NA        1\n 8     8    49        1\n 9     9    78       NA\n10    10    67       NA"
+    "text": "特定の値を欠損値にコーディング場合\n特定の値を欠損値とし、それ以外の値は元も値にする場合\n\n主にif_else()を使用し、条件に合致した場合はNA_real_かNA_character_を、合致しない場合は元の変数のままにする。\n\n\nmy_data %>%\n  mutate(Age      = if_else(Age      == 999, NA_real_, Age),\n         HighEduc = if_else(HighEduc == 9,   NA_real_, HighEduc))\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   <int> <dbl>    <dbl>\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4    NA        1\n 5     5    74        0\n 6     6    66       NA\n 7     7    NA        1\n 8     8    49        1\n 9     9    78       NA\n10    10    67       NA"
   },
   {
     "objectID": "slides/micro/handling2.html#特定の値を欠損値にコーディング場合-1",
@@ -2461,7 +2461,7 @@
     "href": "slides/micro/handling2.html#特定の値を欠損値にコーディング場合-2",
     "title": "ミクロ政治データ分析実習",
     "section": "特定の値を欠損値にコーディング場合",
-    "text": "特定の値を欠損値にコーディング場合\n{naniar}パッケージのreplace_with_na()関数を利用\n\n引数はリスト型オブジェクトであり、リストの中には変数名 = 欠損値の値\n欠損値の値が複数の場合、変数名 = c(値1, 値2, ...)\n似たような関数として{expss}のna_if()関数\n\n\nlibrary(naniar) # 事前に install.package(naniar) でインストール\nmy_data %>%\n  # Ageは999、HighEducは9が欠損値\n  replace_with_na(list(Age = 999, HighEduc = 9))\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   <int> <dbl>    <dbl>\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4    NA        1\n 5     5    74        0\n 6     6    66       NA\n 7     7    NA        1\n 8     8    49        1\n 9     9    78       NA\n10    10    67       NA\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "特定の値を欠損値にコーディング場合\n{naniar}パッケージのreplace_with_na()関数を利用\n\n引数はリスト型オブジェクトであり、リストの中には変数名 = 欠損値の値\n欠損値の値が複数の場合、変数名 = c(値1, 値2, ...)\n似たような関数として{expss}のna_if()関数\n\n\nlibrary(naniar) # 事前に install.package(naniar) でインストール\nmy_data %>%\n  # Ageは999、HighEducは9が欠損値\n  replace_with_na(list(Age = 999, HighEduc = 9))\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   <int> <dbl>    <dbl>\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4    NA        1\n 5     5    74        0\n 6     6    66       NA\n 7     7    NA        1\n 8     8    49        1\n 9     9    78       NA\n10    10    67       NA"
   },
   {
     "objectID": "slides/micro/programming.html#ほにゃほにゃ",
@@ -5962,5 +5962,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": "作業環境の確認",
     "text": "作業環境の確認\n\nls()：作業環境内のオブジェクトリストを出力\n\n\nmy_vec1 <- c(1, 3, 5)\nmy_vec2 <- c(FALSE, FALSE, TRUE, TRUE, FALSE)\nmy_vec3 <- \"Cat\"\n\nls()\n\n[1] \"my_vec1\" \"my_vec2\" \"my_vec3\"\n\n\n\n(.packages())：読み込まれたパッケージのリストを出力\n\n\n(.packages()) # Rのコアパッケージは最初から読み込まれている。\n\n[1] \"stats\"     \"graphics\"  \"grDevices\" \"utils\"     \"datasets\"  \"methods\"  \n[7] \"base\"     \n\nlibrary(tidyverse) # {tidyverse}の依存パッケージも一緒に読み込まれる。\n\n(.packages())\n\n [1] \"forcats\"   \"stringr\"   \"dplyr\"     \"purrr\"     \"readr\"     \"tidyr\"    \n [7] \"tibble\"    \"ggplot2\"   \"tidyverse\" \"stats\"     \"graphics\"  \"grDevices\"\n[13] \"utils\"     \"datasets\"  \"methods\"   \"base\""
+  },
+  {
+    "objectID": "slides/micro/handling2.html#おまけ",
+    "href": "slides/micro/handling2.html#おまけ",
+    "title": "ミクロ政治データ分析実習",
+    "section": "おまけ",
+    "text": "おまけ\nmutate()内には複数の処理ができる。\n\n同じ内容のコードであるため、好きな書き方で問題ないが、まとめた方が効率的\n\n一つのmutate()内に2つの処理\n\nmy_data %>%\n  mutate(Age      = if_else(Age      == 999 ~ NA_real_, TRUE ~ Age),\n         HighEduc = if_else(HighEduc == 9   ~ NA_real_, TRUE ~ HighEduc))\n\n一つのmutate()内に1つの処理\n\nmy_data %>%\n  mutate(Age = if_else(Age == 999 ~ NA_real_, TRUE ~ Age)) %>%\n  mutate(HighEduc = if_else(HighEduc == 9 ~ NA_real_, TRUE ~ HighEduc))\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   }
 ]

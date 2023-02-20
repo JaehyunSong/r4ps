@@ -8,7 +8,7 @@
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.313">
+  <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-06-15">
@@ -910,7 +910,7 @@ the `.groups` argument.</code></pre>
 </ul></li>
 <li>したがって、<code>summarise()</code>の前にグルーピング変数を<strong>Factor型に変換</strong>する必要がある。
 <ul>
-<li>Factor型: 順序付きの文字型</li>
+<li>Factor型: <strong>順序付き</strong>の文字型</li>
 </ul></li>
 </ul>
 </section>
@@ -1099,11 +1099,20 @@ the `.groups` argument.</code></pre>
 <span id="cb71-5"><a href="#cb71-5"></a>         <span class="at">HighEduc2 =</span> <span class="fu">case_when</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
 <span id="cb71-6"><a href="#cb71-6"></a>                               HighEduc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"大卒以上"</span>,</span>
 <span id="cb71-7"><a href="#cb71-7"></a>                               <span class="cn">TRUE</span>          <span class="sc">~</span> <span class="st">"大卒未満"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `mutate()`:
-! Problem while computing `YoungAge = case_when(Age == 999 ~ NA, Age &lt;=
-  39 ~ 1, TRUE ~ 0)`.
-Caused by error in `case_when()`:</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+      ID   Age HighEduc YoungAge HighEduc2
+   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    
+ 1     1    32        1        1 大卒以上 
+ 2     2    35        0        1 大卒未満 
+ 3     3    57        0        0 大卒未満 
+ 4     4   999        1       NA 大卒以上 
+ 5     5    74        0        0 大卒未満 
+ 6     6    66        9        0 &lt;NA&gt;     
+ 7     7   999        1       NA 大卒以上 
+ 8     8    49        1        0 大卒以上 
+ 9     9    78        9        0 &lt;NA&gt;     
+10    10    67        9        0 &lt;NA&gt;     </code></pre>
 </div>
 </div>
 </section>
@@ -1143,8 +1152,8 @@ Caused by error in `case_when()`:</code></pre>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>my_data <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a href="#cb75-2"></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age <span class="sc">==</span> <span class="dv">999</span>, <span class="cn">NA_real_</span>, Age),</span>
-<span id="cb75-3"><a href="#cb75-3"></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>, <span class="cn">NA_real_</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb75-2"><a href="#cb75-2"></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age      <span class="sc">==</span> <span class="dv">999</span>, <span class="cn">NA_real_</span>, Age),</span>
+<span id="cb75-3"><a href="#cb75-3"></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>,   <span class="cn">NA_real_</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
       ID   Age HighEduc
@@ -1219,6 +1228,25 @@ Caused by error in `case_when()`:</code></pre>
  9     9    78       NA
 10    10    67       NA</code></pre>
 </div>
+</div>
+</section>
+<section id="おまけ" class="slide level2">
+<h2>おまけ</h2>
+<p><code>mutate()</code>内には複数の処理ができる。</p>
+<ul>
+<li>同じ内容のコードであるため、好きな書き方で問題ないが、まとめた方が効率的</li>
+</ul>
+<h4 id="一つのmutate内に2つの処理">一つの<code>mutate()</code>内に2つの処理</h4>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="#cb81-2"></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age      <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, <span class="cn">TRUE</span> <span class="sc">~</span> Age),</span>
+<span id="cb81-3"><a href="#cb81-3"></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>   <span class="sc">~</span> <span class="cn">NA_real_</span>, <span class="cn">TRUE</span> <span class="sc">~</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h4 id="一つのmutate内に1つの処理">一つの<code>mutate()</code>内に1つの処理</h4>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">if_else</span>(Age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, <span class="cn">TRUE</span> <span class="sc">~</span> Age)) <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="#cb82-3"></a>  <span class="fu">mutate</span>(<span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA_real_</span>, <span class="cn">TRUE</span> <span class="sc">~</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p><img src="Figs/logo.png" class="slide-logo"></p>
