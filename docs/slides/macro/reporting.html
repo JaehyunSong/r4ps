@@ -454,7 +454,7 @@
 <h2>可視化の手順</h2>
 <p>{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）</p>
 <ol type="1">
-<li><code>predictions()</code>（予測値）、<code>marginaleffects()</code>（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納
+<li><code>predictions()</code>（予測値）、<code>slopes()</code>（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納
 <ul>
 <li>表形式オブジェクトとして格納される。</li>
 </ul></li>
@@ -568,7 +568,7 @@
 <div class="tab-content">
 <div id="tabset-1-1">
 <ul>
-<li>予測値は<code>estimate</code>列、95%信頼区間の下限と上限はそれぞれ<code>conf.low</code>と<code>conf.hihg</code>列</li>
+<li>予測値は<code>Estimate</code>列、95%信頼区間の下限と上限はそれぞれ<code>2.5 %</code>と<code>97.5 %</code>列</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lm_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit_lm, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
@@ -594,29 +594,36 @@ Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.hi
 </div>
 <div id="tabset-1-2">
 <ul>
-<li>作図に不要な列が多いため、必要な列のみ残す。</li>
+<li>作図の際の列名は<code>data.frame()</code>関数で確認する。
+<ul>
+<li>予測値は<code>estimate</code>、95%信頼区間の下限と上限は<code>conf.low</code>と<code>conf.high</code></li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>lm_pred <span class="ot">&lt;-</span> lm_pred <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">select</span>(Order, estimate, std.error, conf.low, conf.high)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>lm_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">data.frame</span>(lm_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error CI low CI high
-    90.17     0.5527  89.08   91.25
-    90.42     0.4680  89.51   91.34
-    90.68     0.3926  89.91   91.45
-    90.94     0.3330  90.29   91.59
-    91.20     0.2988  90.61   91.79
-    91.46     0.2988  90.87   92.04
-    91.72     0.3330  91.06   92.37
-    91.97     0.3926  91.20   92.74
-    92.23     0.4680  91.32   93.15
-    92.49     0.5527  91.41   93.57
-
-Prediction type:  
-Columns: Order, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type estimate std.error statistic p.value conf.low conf.high
+1      1 response 90.16668 0.5527105  163.1355       0 89.08339  91.24997
+2      2 response 90.42488 0.4679791  193.2242       0 89.50766  91.34210
+3      3 response 90.68308 0.3926080  230.9761       0 89.91358  91.45257
+4      4 response 90.94127 0.3330148  273.0848       0 90.28858  91.59397
+5      5 response 91.19947 0.2987938  305.2254       0 90.61385  91.78510
+6      6 response 91.45767 0.2987938  306.0896       0 90.87205  92.04330
+7      7 response 91.71587 0.3330148  275.4108       0 91.06317  92.36857
+8      8 response 91.97407 0.3926080  234.2643       0 91.20457  92.74356
+9      9 response 92.23226 0.4679791  197.0863       0 91.31504  93.14949
+10    10 response 92.49046 0.5527105  167.3398       0 91.40717  93.57375
+   Score_Mean     First Duration Order
+1    91.32857 0.5166667     10.6     1
+2    91.32857 0.5166667     10.6     2
+3    91.32857 0.5166667     10.6     3
+4    91.32857 0.5166667     10.6     4
+5    91.32857 0.5166667     10.6     5
+6    91.32857 0.5166667     10.6     6
+7    91.32857 0.5166667     10.6     7
+8    91.32857 0.5166667     10.6     8
+9    91.32857 0.5166667     10.6     9
+10   91.32857 0.5166667     10.6    10</code></pre>
 </div>
 </div>
 </div>
@@ -670,26 +677,31 @@ Columns: Order, estimate, std.error, conf.low, conf.high </code></pre>
 <h2>予測値の計算</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>logit_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit_logit, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
-<span id="cb9-2"><a href="#cb9-2"></a>logit_pred <span class="ot">&lt;-</span> logit_pred <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">select</span>(Order, estimate, std.error, conf.low, conf.high)</span>
-<span id="cb9-4"><a href="#cb9-4"></a></span>
-<span id="cb9-5"><a href="#cb9-5"></a>logit_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">data.frame</span>(logit_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error  CI low CI high
-  0.09378    0.06077 0.02485  0.2959
-  0.11999    0.06412 0.03983  0.3095
-  0.15230    0.06536 0.06245  0.3264
-  0.19142    0.06456 0.09463  0.3490
-  0.23777    0.06327 0.13596  0.3821
-  0.29129    0.06526 0.18113  0.4330
-  0.35131    0.07494 0.22135  0.5078
-  0.41643    0.09301 0.25207  0.6017
-  0.48461    0.11581 0.27480  0.7000
-  0.55336    0.13842 0.29246  0.7878
-
-Prediction type:  
-Columns: Order, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type   estimate  std.error statistic      p.value   conf.low
+1      1 response 0.09377992 0.06076774  1.543252 1.227697e-01 0.02484884
+2      2 response 0.11999376 0.06411783  1.871457 6.128177e-02 0.03982630
+3      3 response 0.15230355 0.06535803  2.330296 1.979052e-02 0.06245367
+4      4 response 0.19142073 0.06456340  2.964849 3.028317e-03 0.09462983
+5      5 response 0.23776669 0.06327313  3.757783 1.714256e-04 0.13596282
+6      6 response 0.29129134 0.06526040  4.463523 8.062283e-06 0.18113035
+7      7 response 0.35131170 0.07493977  4.687921 2.759951e-06 0.22135429
+8      8 response 0.41643237 0.09301367  4.477109 7.566052e-06 0.25206946
+9      9 response 0.48460633 0.11581347  4.184369 2.859590e-05 0.27479749
+10    10 response 0.55335806 0.13842452  3.997544 6.400321e-05 0.29245683
+   conf.high Final     First Duration Order
+1  0.2959036   0.3 0.5166667     10.6     1
+2  0.3095141   0.3 0.5166667     10.6     2
+3  0.3264132   0.3 0.5166667     10.6     3
+4  0.3490452   0.3 0.5166667     10.6     4
+5  0.3820889   0.3 0.5166667     10.6     5
+6  0.4330217   0.3 0.5166667     10.6     6
+7  0.5078080   0.3 0.5166667     10.6     7
+8  0.6017430   0.3 0.5166667     10.6     8
+9  0.6999854   0.3 0.5166667     10.6     9
+10 0.7878439   0.3 0.5166667     10.6    10</code></pre>
 </div>
 </div>
 </section>
@@ -739,36 +751,51 @@ Columns: Order, estimate, std.error, conf.low, conf.high </code></pre>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>inter1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit_inter1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
 <span id="cb12-2"><a href="#cb12-2"></a>                                                          <span class="at">First =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))</span>
-<span id="cb12-3"><a href="#cb12-3"></a>inter1_pred <span class="ot">&lt;-</span> inter1_pred <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">select</span>(Order, First, estimate, std.error, conf.low, conf.high)</span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a>inter1_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">data.frame</span>(inter1_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error CI low CI high
-    90.86     0.8054  89.29   92.44
-    89.53     0.7705  88.02   91.04
-    91.07     0.6784  89.75   92.40
-    89.82     0.6589  88.53   91.12
-    91.29     0.5673  90.17   92.40
-    90.12     0.5596  89.02   91.22
-    91.50     0.4831  90.55   92.44
-    90.41     0.4805  89.47   91.36
-    91.71     0.4415  90.84   92.57
-    90.71     0.4328  89.86   91.56
-    91.92     0.4544  91.03   92.81
-    91.00     0.4271  90.17   91.84
-    92.13     0.5177  91.11   93.14
-    91.30     0.4650  90.39   92.21
-    92.34     0.6161  91.13   93.54
-    91.60     0.5372  90.54   92.65
-    92.55     0.7356  91.10   93.99
-    91.89     0.6323  90.65   93.13
-    92.76     0.8675  91.06   94.46
-    92.19     0.7413  90.73   93.64
-
-Prediction type:  
-Columns: Order, First, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type estimate std.error statistic p.value conf.low conf.high
+1      1 response 90.86470 0.8053717  112.8233       0 89.28620  92.44320
+2      2 response 89.52837 0.7705319  116.1903       0 88.01815  91.03858
+3      3 response 91.07488 0.6783848  134.2525       0 89.74527  92.40449
+4      4 response 89.82365 0.6588679  136.3303       0 88.53229  91.11501
+5      5 response 91.28506 0.5672576  160.9235       0 90.17325  92.39686
+6      6 response 90.11893 0.5596164  161.0370       0 89.02210  91.21576
+7      7 response 91.49524 0.4830628  189.4065       0 90.54845  92.44203
+8      8 response 90.41421 0.4805313  188.1547       0 89.47239  91.35604
+9      9 response 91.70542 0.4414875  207.7192       0 90.84012  92.57072
+10    10 response 90.70950 0.4328119  209.5818       0 89.86120  91.55779
+11    11 response 91.91560 0.4543851  202.2857       0 91.02502  92.80618
+12    12 response 91.00478 0.4271044  213.0739       0 90.16767  91.84189
+13    13 response 92.12578 0.5177003  177.9520       0 91.11111  93.14045
+14    14 response 91.30006 0.4649583  196.3618       0 90.38876  92.21136
+15    15 response 92.33596 0.6160799  149.8766       0 91.12847  93.54345
+16    16 response 91.59534 0.5372434  170.4913       0 90.54236  92.64832
+17    17 response 92.54614 0.7355871  125.8126       0 91.10442  93.98786
+18    18 response 91.89062 0.6322585  145.3371       0 90.65142  93.12983
+19    19 response 92.75632 0.8675340  106.9195       0 91.05598  94.45666
+20    20 response 92.18591 0.7413146  124.3546       0 90.73296  93.63886
+   Score_Mean Duration Order First
+1    91.32857     10.6     1     0
+2    91.32857     10.6     1     1
+3    91.32857     10.6     2     0
+4    91.32857     10.6     2     1
+5    91.32857     10.6     3     0
+6    91.32857     10.6     3     1
+7    91.32857     10.6     4     0
+8    91.32857     10.6     4     1
+9    91.32857     10.6     5     0
+10   91.32857     10.6     5     1
+11   91.32857     10.6     6     0
+12   91.32857     10.6     6     1
+13   91.32857     10.6     7     0
+14   91.32857     10.6     7     1
+15   91.32857     10.6     8     0
+16   91.32857     10.6     8     1
+17   91.32857     10.6     9     0
+18   91.32857     10.6     9     1
+19   91.32857     10.6    10     0
+20   91.32857     10.6    10     1</code></pre>
 </div>
 </div>
 </div>
@@ -780,33 +807,50 @@ Columns: Order, First, estimate, std.error, conf.low, conf.high </code></pre>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>inter1_pred <span class="ot">&lt;-</span> inter1_pred <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">mutate</span>(<span class="at">First =</span> <span class="fu">factor</span>(First, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"初出場"</span>, <span class="st">"出場経験あり"</span>)))</span>
 <span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a>inter1_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">data.frame</span>(inter1_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error CI low CI high
-    90.86     0.8054  89.29   92.44
-    89.53     0.7705  88.02   91.04
-    91.07     0.6784  89.75   92.40
-    89.82     0.6589  88.53   91.12
-    91.29     0.5673  90.17   92.40
-    90.12     0.5596  89.02   91.22
-    91.50     0.4831  90.55   92.44
-    90.41     0.4805  89.47   91.36
-    91.71     0.4415  90.84   92.57
-    90.71     0.4328  89.86   91.56
-    91.92     0.4544  91.03   92.81
-    91.00     0.4271  90.17   91.84
-    92.13     0.5177  91.11   93.14
-    91.30     0.4650  90.39   92.21
-    92.34     0.6161  91.13   93.54
-    91.60     0.5372  90.54   92.65
-    92.55     0.7356  91.10   93.99
-    91.89     0.6323  90.65   93.13
-    92.76     0.8675  91.06   94.46
-    92.19     0.7413  90.73   93.64
-
-Prediction type:  
-Columns: Order, First, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type estimate std.error statistic p.value conf.low conf.high
+1      1 response 90.86470 0.8053717  112.8233       0 89.28620  92.44320
+2      2 response 89.52837 0.7705319  116.1903       0 88.01815  91.03858
+3      3 response 91.07488 0.6783848  134.2525       0 89.74527  92.40449
+4      4 response 89.82365 0.6588679  136.3303       0 88.53229  91.11501
+5      5 response 91.28506 0.5672576  160.9235       0 90.17325  92.39686
+6      6 response 90.11893 0.5596164  161.0370       0 89.02210  91.21576
+7      7 response 91.49524 0.4830628  189.4065       0 90.54845  92.44203
+8      8 response 90.41421 0.4805313  188.1547       0 89.47239  91.35604
+9      9 response 91.70542 0.4414875  207.7192       0 90.84012  92.57072
+10    10 response 90.70950 0.4328119  209.5818       0 89.86120  91.55779
+11    11 response 91.91560 0.4543851  202.2857       0 91.02502  92.80618
+12    12 response 91.00478 0.4271044  213.0739       0 90.16767  91.84189
+13    13 response 92.12578 0.5177003  177.9520       0 91.11111  93.14045
+14    14 response 91.30006 0.4649583  196.3618       0 90.38876  92.21136
+15    15 response 92.33596 0.6160799  149.8766       0 91.12847  93.54345
+16    16 response 91.59534 0.5372434  170.4913       0 90.54236  92.64832
+17    17 response 92.54614 0.7355871  125.8126       0 91.10442  93.98786
+18    18 response 91.89062 0.6322585  145.3371       0 90.65142  93.12983
+19    19 response 92.75632 0.8675340  106.9195       0 91.05598  94.45666
+20    20 response 92.18591 0.7413146  124.3546       0 90.73296  93.63886
+   Score_Mean Duration Order        First
+1    91.32857     10.6     1       初出場
+2    91.32857     10.6     1 出場経験あり
+3    91.32857     10.6     2       初出場
+4    91.32857     10.6     2 出場経験あり
+5    91.32857     10.6     3       初出場
+6    91.32857     10.6     3 出場経験あり
+7    91.32857     10.6     4       初出場
+8    91.32857     10.6     4 出場経験あり
+9    91.32857     10.6     5       初出場
+10   91.32857     10.6     5 出場経験あり
+11   91.32857     10.6     6       初出場
+12   91.32857     10.6     6 出場経験あり
+13   91.32857     10.6     7       初出場
+14   91.32857     10.6     7 出場経験あり
+15   91.32857     10.6     8       初出場
+16   91.32857     10.6     8 出場経験あり
+17   91.32857     10.6     9       初出場
+18   91.32857     10.6     9 出場経験あり
+19   91.32857     10.6    10       初出場
+20   91.32857     10.6    10 出場経験あり</code></pre>
 </div>
 </div>
 </div>
@@ -964,52 +1008,76 @@ Columns: Order, First, estimate, std.error, conf.low, conf.high </code></pre>
 <div class="tab-content">
 <div id="tabset-9-1">
 <ul>
-<li>出場回数（<code>Times</code>） = 1、2、3、…全てに対して線を引くと表が読みにくくなるため、出場回数が1回、3回、5回のみの予測値を計算</li>
+<li>結成からの経過年数（<code>Duration</code>） = 1、2、3、…全てに対して線を引くと表が読みにくくなるため、経過年数が2年、9年、16年のみの予測値を計算</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>inter2_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit_inter2, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
 <span id="cb20-2"><a href="#cb20-2"></a>                                                          <span class="at">Duration =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">16</span>)))</span>
 <span id="cb20-3"><a href="#cb20-3"></a></span>
-<span id="cb20-4"><a href="#cb20-4"></a>inter2_pred <span class="ot">&lt;-</span> inter2_pred <span class="sc">%&gt;%</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">select</span>(Order, Duration, estimate, std.error, conf.low, conf.high)</span>
-<span id="cb20-6"><a href="#cb20-6"></a></span>
-<span id="cb20-7"><a href="#cb20-7"></a>inter2_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">data.frame</span>(inter2_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error CI low CI high
-    88.76     1.5824  85.66   91.86
-    89.86     0.6614  88.57   91.16
-    90.97     0.9336  89.14   92.80
-    89.18     1.3390  86.56   91.81
-    90.15     0.5614  89.05   91.26
-    91.13     0.7872  89.58   92.67
-    89.61     1.1185  87.41   91.80
-    90.45     0.4701  89.53   91.37
-    91.29     0.6636  89.99   92.59
-    90.03     0.9372  88.19   91.87
-    90.74     0.3937  89.97   91.51
-    91.45     0.5776  90.32   92.58
-    90.45     0.8216  88.84   92.06
-    91.03     0.3424  90.36   91.70
-    91.61     0.5473  90.54   92.68
-    90.88     0.8006  89.31   92.45
-    91.32     0.3280  90.68   91.97
-    91.77     0.5813  90.63   92.91
-    91.30     0.8810  89.58   93.03
-    91.62     0.3551  90.92   92.31
-    91.93     0.6701  90.62   93.25
-    91.73     1.0395  89.69   93.76
-    91.91     0.4156  91.09   92.72
-    92.09     0.7954  90.53   93.65
-    92.15     1.2467  89.71   94.59
-    92.20     0.4976  91.23   93.18
-    92.25     0.9428  90.41   94.10
-    92.57     1.4824  89.67   95.48
-    92.49     0.5921  91.33   93.65
-    92.42     1.1035  90.25   94.58
-
-Prediction type:  
-Columns: Order, Duration, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type estimate std.error statistic p.value conf.low conf.high
+1      1 response 88.75862 1.5824450  56.08954       0 85.65708  91.86015
+2      2 response 89.86234 0.6614179 135.86319       0 88.56599  91.15870
+3      3 response 90.96607 0.9336240  97.43330       0 89.13620  92.79594
+4      4 response 89.18246 1.3389996  66.60380       0 86.55807  91.80685
+5      5 response 90.15477 0.5613941 160.59088       0 89.05446  91.25509
+6      6 response 91.12709 0.7872183 115.75834       0 89.58417  92.67001
+7      7 response 89.60630 1.1184767  80.11459       0 87.41413  91.79848
+8      8 response 90.44721 0.4701238 192.39020       0 89.52578  91.36863
+9      9 response 91.28811 0.6636047 137.56400       0 89.98747  92.58875
+10    10 response 90.03015 0.9371995  96.06295       0 88.19327  91.86703
+11    11 response 90.73964 0.3937419 230.45463       0 89.96792  91.51136
+12    12 response 91.44913 0.5776064 158.32432       0 90.31705  92.58122
+13    13 response 90.45399 0.8215707 110.09886       0 88.84374  92.06424
+14    14 response 91.03207 0.3423628 265.89363       0 90.36106  91.70309
+15    15 response 91.61016 0.5472536 167.39981       0 90.53756  92.68275
+16    16 response 90.87784 0.8005600 113.51783       0 89.30877  92.44691
+17    17 response 91.32451 0.3279560 278.46577       0 90.68173  91.96729
+18    18 response 91.77118 0.5813291 157.86443       0 90.63180  92.91056
+19    19 response 91.30168 0.8809637 103.63842       0 89.57502  93.02834
+20    20 response 91.61694 0.3550510 258.03880       0 90.92105  92.31283
+21    21 response 91.93220 0.6700746 137.19697       0 90.61888  93.24552
+22    22 response 91.72552 1.0395096  88.23923       0 89.68812  93.76293
+23    23 response 91.90937 0.4156087 221.14398       0 91.09480  92.72395
+24    24 response 92.09322 0.7953967 115.78276       0 90.53428  93.65217
+25    25 response 92.14937 1.2467341  73.91261       0 89.70581  94.59292
+26    26 response 92.20181 0.4975573 185.30891       0 91.22661  93.17700
+27    27 response 92.25425 0.9428209  97.84917       0 90.40635  94.10214
+28    28 response 92.57321 1.4823610  62.44984       0 89.66784  95.47859
+29    29 response 92.49424 0.5920804 156.21904       0 91.33378  93.65470
+30    30 response 92.41527 1.1035245  83.74556       0 90.25240  94.57814
+   Score_Mean     First Order Duration
+1    91.32857 0.5166667     1        2
+2    91.32857 0.5166667     1        9
+3    91.32857 0.5166667     1       16
+4    91.32857 0.5166667     2        2
+5    91.32857 0.5166667     2        9
+6    91.32857 0.5166667     2       16
+7    91.32857 0.5166667     3        2
+8    91.32857 0.5166667     3        9
+9    91.32857 0.5166667     3       16
+10   91.32857 0.5166667     4        2
+11   91.32857 0.5166667     4        9
+12   91.32857 0.5166667     4       16
+13   91.32857 0.5166667     5        2
+14   91.32857 0.5166667     5        9
+15   91.32857 0.5166667     5       16
+16   91.32857 0.5166667     6        2
+17   91.32857 0.5166667     6        9
+18   91.32857 0.5166667     6       16
+19   91.32857 0.5166667     7        2
+20   91.32857 0.5166667     7        9
+21   91.32857 0.5166667     7       16
+22   91.32857 0.5166667     8        2
+23   91.32857 0.5166667     8        9
+24   91.32857 0.5166667     8       16
+25   91.32857 0.5166667     9        2
+26   91.32857 0.5166667     9        9
+27   91.32857 0.5166667     9       16
+28   91.32857 0.5166667    10        2
+29   91.32857 0.5166667    10        9
+30   91.32857 0.5166667    10       16</code></pre>
 </div>
 </div>
 </div>
@@ -1022,43 +1090,70 @@ Columns: Order, Duration, estimate, std.error, conf.low, conf.high </code></pre>
 <span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">mutate</span>(<span class="at">Duration =</span> <span class="fu">factor</span>(Duration, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">16</span>), </span>
 <span id="cb22-3"><a href="#cb22-3"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"2年目"</span>, <span class="st">"9年目"</span>, <span class="st">"16年目"</span>)))</span>
 <span id="cb22-4"><a href="#cb22-4"></a></span>
-<span id="cb22-5"><a href="#cb22-5"></a>inter2_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="fu">data.frame</span>(inter2_pred)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error CI low CI high
-    88.76     1.5824  85.66   91.86
-    89.86     0.6614  88.57   91.16
-    90.97     0.9336  89.14   92.80
-    89.18     1.3390  86.56   91.81
-    90.15     0.5614  89.05   91.26
-    91.13     0.7872  89.58   92.67
-    89.61     1.1185  87.41   91.80
-    90.45     0.4701  89.53   91.37
-    91.29     0.6636  89.99   92.59
-    90.03     0.9372  88.19   91.87
-    90.74     0.3937  89.97   91.51
-    91.45     0.5776  90.32   92.58
-    90.45     0.8216  88.84   92.06
-    91.03     0.3424  90.36   91.70
-    91.61     0.5473  90.54   92.68
-    90.88     0.8006  89.31   92.45
-    91.32     0.3280  90.68   91.97
-    91.77     0.5813  90.63   92.91
-    91.30     0.8810  89.58   93.03
-    91.62     0.3551  90.92   92.31
-    91.93     0.6701  90.62   93.25
-    91.73     1.0395  89.69   93.76
-    91.91     0.4156  91.09   92.72
-    92.09     0.7954  90.53   93.65
-    92.15     1.2467  89.71   94.59
-    92.20     0.4976  91.23   93.18
-    92.25     0.9428  90.41   94.10
-    92.57     1.4824  89.67   95.48
-    92.49     0.5921  91.33   93.65
-    92.42     1.1035  90.25   94.58
-
-Prediction type:  
-Columns: Order, Duration, estimate, std.error, conf.low, conf.high </code></pre>
+<pre><code>   rowid     type estimate std.error statistic p.value conf.low conf.high
+1      1 response 88.75862 1.5824450  56.08954       0 85.65708  91.86015
+2      2 response 89.86234 0.6614179 135.86319       0 88.56599  91.15870
+3      3 response 90.96607 0.9336240  97.43330       0 89.13620  92.79594
+4      4 response 89.18246 1.3389996  66.60380       0 86.55807  91.80685
+5      5 response 90.15477 0.5613941 160.59088       0 89.05446  91.25509
+6      6 response 91.12709 0.7872183 115.75834       0 89.58417  92.67001
+7      7 response 89.60630 1.1184767  80.11459       0 87.41413  91.79848
+8      8 response 90.44721 0.4701238 192.39020       0 89.52578  91.36863
+9      9 response 91.28811 0.6636047 137.56400       0 89.98747  92.58875
+10    10 response 90.03015 0.9371995  96.06295       0 88.19327  91.86703
+11    11 response 90.73964 0.3937419 230.45463       0 89.96792  91.51136
+12    12 response 91.44913 0.5776064 158.32432       0 90.31705  92.58122
+13    13 response 90.45399 0.8215707 110.09886       0 88.84374  92.06424
+14    14 response 91.03207 0.3423628 265.89363       0 90.36106  91.70309
+15    15 response 91.61016 0.5472536 167.39981       0 90.53756  92.68275
+16    16 response 90.87784 0.8005600 113.51783       0 89.30877  92.44691
+17    17 response 91.32451 0.3279560 278.46577       0 90.68173  91.96729
+18    18 response 91.77118 0.5813291 157.86443       0 90.63180  92.91056
+19    19 response 91.30168 0.8809637 103.63842       0 89.57502  93.02834
+20    20 response 91.61694 0.3550510 258.03880       0 90.92105  92.31283
+21    21 response 91.93220 0.6700746 137.19697       0 90.61888  93.24552
+22    22 response 91.72552 1.0395096  88.23923       0 89.68812  93.76293
+23    23 response 91.90937 0.4156087 221.14398       0 91.09480  92.72395
+24    24 response 92.09322 0.7953967 115.78276       0 90.53428  93.65217
+25    25 response 92.14937 1.2467341  73.91261       0 89.70581  94.59292
+26    26 response 92.20181 0.4975573 185.30891       0 91.22661  93.17700
+27    27 response 92.25425 0.9428209  97.84917       0 90.40635  94.10214
+28    28 response 92.57321 1.4823610  62.44984       0 89.66784  95.47859
+29    29 response 92.49424 0.5920804 156.21904       0 91.33378  93.65470
+30    30 response 92.41527 1.1035245  83.74556       0 90.25240  94.57814
+   Score_Mean     First Order Duration
+1    91.32857 0.5166667     1    2年目
+2    91.32857 0.5166667     1    9年目
+3    91.32857 0.5166667     1   16年目
+4    91.32857 0.5166667     2    2年目
+5    91.32857 0.5166667     2    9年目
+6    91.32857 0.5166667     2   16年目
+7    91.32857 0.5166667     3    2年目
+8    91.32857 0.5166667     3    9年目
+9    91.32857 0.5166667     3   16年目
+10   91.32857 0.5166667     4    2年目
+11   91.32857 0.5166667     4    9年目
+12   91.32857 0.5166667     4   16年目
+13   91.32857 0.5166667     5    2年目
+14   91.32857 0.5166667     5    9年目
+15   91.32857 0.5166667     5   16年目
+16   91.32857 0.5166667     6    2年目
+17   91.32857 0.5166667     6    9年目
+18   91.32857 0.5166667     6   16年目
+19   91.32857 0.5166667     7    2年目
+20   91.32857 0.5166667     7    9年目
+21   91.32857 0.5166667     7   16年目
+22   91.32857 0.5166667     8    2年目
+23   91.32857 0.5166667     8    9年目
+24   91.32857 0.5166667     8   16年目
+25   91.32857 0.5166667     9    2年目
+26   91.32857 0.5166667     9    9年目
+27   91.32857 0.5166667     9   16年目
+28   91.32857 0.5166667    10    2年目
+29   91.32857 0.5166667    10    9年目
+30   91.32857 0.5166667    10   16年目</code></pre>
 </div>
 </div>
 </div>
@@ -1108,8 +1203,8 @@ Columns: Order, Duration, estimate, std.error, conf.low, conf.high </code></pre>
 <li>主な説明変数（ここでは<code>Order</code>列）は抽出しなくても良い</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>inter1_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit_inter1, <span class="at">variables =</span> <span class="st">"Order"</span>,</span>
-<span id="cb25-2"><a href="#cb25-2"></a>                              <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>inter1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit_inter1, <span class="at">variables =</span> <span class="st">"Order"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2"></a>                     <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))</span>
 <span id="cb25-3"><a href="#cb25-3"></a>inter1_ame <span class="ot">&lt;-</span> inter1_ame <span class="sc">%&gt;%</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">select</span>(First, predicted, std.error, conf.low, conf.high)</span>
 <span id="cb25-5"><a href="#cb25-5"></a></span>
@@ -1183,8 +1278,8 @@ Columns: First, predicted, std.error, conf.low, conf.high </code></pre>
 <li>調整変数が連続変数の場合、調整変数のfactor化は不要（やっても良い）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>inter2_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit_inter2, <span class="at">variables =</span> <span class="st">"Order"</span>,</span>
-<span id="cb30-2"><a href="#cb30-2"></a>                              <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>inter2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit_inter2, <span class="at">variables =</span> <span class="st">"Order"</span>,</span>
+<span id="cb30-2"><a href="#cb30-2"></a>                     <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
 <span id="cb30-3"><a href="#cb30-3"></a></span>
 <span id="cb30-4"><a href="#cb30-4"></a>inter2_ame <span class="ot">&lt;-</span> inter2_ame <span class="sc">%&gt;%</span></span>
 <span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">select</span>(Duration, predicted, std.error, conf.low, conf.high)</span>

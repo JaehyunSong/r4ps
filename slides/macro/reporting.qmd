@@ -53,7 +53,7 @@ fit_inter2 <- lm(Score_Mean ~ Order * Duration + First, data = df)
 
 {marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）
 
-1. `predictions()`（予測値）、`marginaleffects()`（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納
+1. `predictions()`（予測値）、`slopes()`（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納
    * 表形式オブジェクトとして格納される。
 2. 予測値・限界効果オブジェクトの加工（ラベル付け/factor化）
    * 予測値/限界効果は`estimate`列
@@ -109,7 +109,7 @@ fit_inter2 <- lm(Score_Mean ~ Order * Duration + First, data = df)
 :::{.panel-tabset}
 ### コード1
 
-* 予測値は`estimate`列、95%信頼区間の下限と上限はそれぞれ`conf.low`と`conf.hihg`列
+* 予測値は`Estimate`列、95%信頼区間の下限と上限はそれぞれ`2.5 %`と`97.5 %`列
 
 ```{r}
 lm_pred <- predictions(fit_lm, newdata = datagrid(Order = 1:10))
@@ -118,13 +118,11 @@ lm_pred
 
 ### コード2
 
-* 作図に不要な列が多いため、必要な列のみ残す。
+* 作図の際の列名は`data.frame()`関数で確認する。
+   * 予測値は`estimate`、95%信頼区間の下限と上限は`conf.low`と`conf.high`
 
 ```{r}
-lm_pred <- lm_pred %>%
-  select(Order, estimate, std.error, conf.low, conf.high)
-
-lm_pred
+data.frame(lm_pred)
 ```
 :::
 
@@ -172,10 +170,8 @@ lm_pred %>%
 
 ```{r}
 logit_pred <- predictions(fit_logit, newdata = datagrid(Order = 1:10))
-logit_pred <- logit_pred %>%
-  select(Order, estimate, std.error, conf.low, conf.high)
 
-logit_pred
+data.frame(logit_pred)
 ```
 
 ## 予測値の可視化
@@ -221,10 +217,8 @@ logit_pred %>%
 ```{r}
 inter1_pred <- predictions(fit_inter1, newdata = datagrid(Order = 1:10,
                                                           First = 0:1))
-inter1_pred <- inter1_pred %>%
-  select(Order, First, estimate, std.error, conf.low, conf.high)
 
-inter1_pred
+data.frame(inter1_pred)
 ```
 
 ### コード（2）
@@ -235,7 +229,7 @@ inter1_pred
 inter1_pred <- inter1_pred %>%
   mutate(First = factor(First, levels = 0:1, labels = c("初出場", "出場経験あり")))
 
-inter1_pred
+data.frame(inter1_pred)
 ```
 :::
 
@@ -400,16 +394,13 @@ inter1_pred %>%
 :::{.panel-tabset}
 ### コード（1）
 
-* 出場回数（`Times`） = 1、2、3、...全てに対して線を引くと表が読みにくくなるため、出場回数が1回、3回、5回のみの予測値を計算
+* 結成からの経過年数（`Duration`） = 1、2、3、...全てに対して線を引くと表が読みにくくなるため、経過年数が2年、9年、16年のみの予測値を計算
 
 ```{r}
 inter2_pred <- predictions(fit_inter2, newdata = datagrid(Order = 1:10,
                                                           Duration = c(2, 9, 16)))
 
-inter2_pred <- inter2_pred %>%
-  select(Order, Duration, estimate, std.error, conf.low, conf.high)
-
-inter2_pred
+data.frame(inter2_pred)
 ```
 
 ### コード（2）
@@ -421,7 +412,7 @@ inter2_pred <- inter2_pred %>%
   mutate(Duration = factor(Duration, levels = c(2, 9, 16), 
                            labels = c("2年目", "9年目", "16年目")))
 
-inter2_pred
+data.frame(inter2_pred)
 ```
 :::
 
@@ -471,8 +462,8 @@ inter2_pred %>%
 * 主な説明変数（ここでは`Order`列）は抽出しなくても良い
 
 ```{r}
-inter1_ame <- marginaleffects(fit_inter1, variables = "Order",
-                              newdata = datagrid(First = 0:1))
+inter1_ame <- slopes(fit_inter1, variables = "Order",
+                     newdata = datagrid(First = 0:1))
 inter1_ame <- inter1_ame %>%
   select(First, predicted, std.error, conf.low, conf.high)
 
@@ -526,8 +517,8 @@ inter1_ame %>%
 * 調整変数が連続変数の場合、調整変数のfactor化は不要（やっても良い）
 
 ```{r}
-inter2_ame <- marginaleffects(fit_inter2, variables = "Order",
-                              newdata = datagrid(Duration = 2:16))
+inter2_ame <- slopes(fit_inter2, variables = "Order",
+                     newdata = datagrid(Duration = 2:16))
 
 inter2_ame <- inter2_ame %>%
   select(Duration, predicted, std.error, conf.low, conf.high)
