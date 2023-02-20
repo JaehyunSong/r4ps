@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -1501,11 +1501,20 @@ the `.groups` argument.</code></pre>
 <span id="cb90-6"><a href="#cb90-6"></a>                               HighEduc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"大卒以上"</span>,</span>
 <span id="cb90-7"><a href="#cb90-7"></a>                               <span class="cn">TRUE</span>          <span class="sc">~</span> <span class="st">"大卒未満"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `mutate()`:
-! Problem while computing `YoungAge = case_when(Age == 999 ~ NA, Age &lt;=
-  39 ~ 1, TRUE ~ 0)`.
-Caused by error in `case_when()`:</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+      ID   Age HighEduc YoungAge HighEduc2
+   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    
+ 1     1    32        1        1 大卒以上 
+ 2     2    35        0        1 大卒未満 
+ 3     3    57        0        0 大卒未満 
+ 4     4   999        1       NA 大卒以上 
+ 5     5    74        0        0 大卒未満 
+ 6     6    66        9        0 &lt;NA&gt;     
+ 7     7   999        1       NA 大卒以上 
+ 8     8    49        1        0 大卒以上 
+ 9     9    78        9        0 &lt;NA&gt;     
+10    10    67        9        0 &lt;NA&gt;     </code></pre>
 </div>
 </div>
 <p>　エラーが返ってきた。なぜだろう。問題は<code>NA</code>である。確かにRにおいて欠損値は<code>NA</code>のみである。しかし、{tidyverse}の世界は、同じ<code>NA</code>でもnumeric型の<code>NA</code>とcharcter型の<code>NA</code>は区別される。上のコードの場合、<code>YoungAge</code>はnumeric型、<code>HighEduc2</code>はcharacter型変数になるだろう。<code>case_when()</code>は<code>if_else()</code>などを使う場合、<code>NA</code>でなく、<strong>生成される列のデータ型</strong>に応じて<code>NA_real_</code>（numeric型）、または<code>NA_character_</code>（character型）を使用（logical型なら<code>NA</code>のままでOK）する必要がある。</p>

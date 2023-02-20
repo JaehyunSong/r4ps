@@ -371,7 +371,7 @@ predictions(fit1, newdata = datagrid(Knowledge = 3,
                                      Ideology = 5))
 ```
 
-* `predicted`列の値が予測確率: 0.4109（約41%）
+* `estimate`列の値が予測確率: 0.4109（約41%）
 
 ## {marginaleffects}を使った予測値の計算
 
@@ -380,7 +380,7 @@ predictions(fit1, newdata = datagrid(Knowledge = 3,
 ```{r}
 fit1_pred <- predictions(fit1, newdata = datagrid(Knowledge = 1:5))
 fit1_pred %>%
-  select(Knowledge, predicted, std.error, conf.low, conf.high)
+  select(Knowledge, estimate, std.error, conf.low, conf.high)
 ```
 
 * `Knowledge`が`Voted`に与える影響は一定ではない。
@@ -400,7 +400,7 @@ fit1_pred %>%
 #| fig-height: 4.1
 fit1_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Knowledge, y = predicted, 
+  geom_pointrange(aes(x = Knowledge, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
   labs(x = "主観的な政治知識", 
        y = "投票に参加する確率の予測値") +
@@ -418,7 +418,7 @@ fit1_pred %>%
 #| fig-height: 3.8
 predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
   ggplot() +
-  geom_pointrange(aes(x = Age, y = predicted, 
+  geom_pointrange(aes(x = Age, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
   labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
   scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), 
@@ -438,7 +438,7 @@ fit1_pred2 %>%
   ggplot() +
   geom_ribbon(aes(x = Age, ymin = conf.low, ymax = conf.high), 
               fill = "gray80") + 
-  geom_line(aes(x = Age, y = predicted)) +
+  geom_line(aes(x = Age, y = estimate)) +
   labs(x = "年齢 (歳)", y = "投票に参加する確率の予測値") +
   scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), labels = c(20, 30, 40, 50, 60, 70, 80)) +
   theme_bw(base_size = 14)

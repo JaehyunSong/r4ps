@@ -56,7 +56,7 @@ fit_inter2 <- lm(Score_Mean ~ Order * Duration + First, data = df)
 1. `predictions()`（予測値）、`marginaleffects()`（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納
    * 表形式オブジェクトとして格納される。
 2. 予測値・限界効果オブジェクトの加工（ラベル付け/factor化）
-   * 予測値は`predicted`、限界効果は`dydx`列
+   * 予測値/限界効果は`estimate`列
    * 95%信頼区間の下限と上限は`conf.low`と`conf.high`列
 3. {ggplot2}を用いた作図
    * 予測値 + 95%信頼区間 / 限界効果 + 95%信頼区間
@@ -109,7 +109,7 @@ fit_inter2 <- lm(Score_Mean ~ Order * Duration + First, data = df)
 :::{.panel-tabset}
 ### コード1
 
-* 予測値は`predicted`列、95%信頼区間の下限と上限はそれぞれ`conf.low`と`conf.hihg`列
+* 予測値は`estimate`列、95%信頼区間の下限と上限はそれぞれ`conf.low`と`conf.hihg`列
 
 ```{r}
 lm_pred <- predictions(fit_lm, newdata = datagrid(Order = 1:10))
@@ -119,11 +119,10 @@ lm_pred
 ### コード2
 
 * 作図に不要な列が多いため、必要な列のみ残す。
-   * `marginaleffects()`で限界効果を出した場合は`predicted`の代わりに`dydx`列
 
 ```{r}
 lm_pred <- lm_pred %>%
-  select(Order, predicted, std.error, conf.low, conf.high)
+  select(Order, estimate, std.error, conf.low, conf.high)
 
 lm_pred
 ```
@@ -138,7 +137,7 @@ lm_pred
 #| eval: false
 lm_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場順番", y = "平均得点（100点満点）") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw(base_size = 14) # Black & Whiteテーマを使用し、フォントサイズは14に
@@ -160,7 +159,7 @@ lm_pred %>%
 #| fig-height: 3.75
 lm_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場順番", y = "平均得点（100点満点）") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw()
@@ -174,7 +173,7 @@ lm_pred %>%
 ```{r}
 logit_pred <- predictions(fit_logit, newdata = datagrid(Order = 1:10))
 logit_pred <- logit_pred %>%
-  select(Order, predicted, std.error, conf.low, conf.high)
+  select(Order, estimate, std.error, conf.low, conf.high)
 
 logit_pred
 ```
@@ -188,7 +187,7 @@ logit_pred
 #| eval: false
 logit_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw()
@@ -202,7 +201,7 @@ logit_pred %>%
 #| fig-height: 3.75
 logit_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw()
@@ -223,7 +222,7 @@ logit_pred %>%
 inter1_pred <- predictions(fit_inter1, newdata = datagrid(Order = 1:10,
                                                           First = 0:1))
 inter1_pred <- inter1_pred %>%
-  select(Order, First, predicted, std.error, conf.low, conf.high)
+  select(Order, First, estimate, std.error, conf.low, conf.high)
 
 inter1_pred
 ```
@@ -249,7 +248,7 @@ inter1_pred
 #| eval: false
 inter1_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, ymin = conf.low, ymax = conf.high,
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high,
                       color = First)) + # color引数で色分け
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", color = "") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
@@ -267,7 +266,7 @@ inter1_pred %>%
 #| fig-height: 3.5
 inter1_pred %>%
   ggplot() +
-  geom_pointrange(aes(x = Order, y = predicted, 
+  geom_pointrange(aes(x = Order, y = estimate, 
                       ymin = conf.low, ymax = conf.high,
                       color = First)) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", color = "") +
@@ -289,7 +288,7 @@ inter1_pred %>%
 #| code-line-numbers: "3"
 inter1_pred %>%
   ggplot() +
-  geom_line(aes(x = Order, y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", color = "") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw() +
@@ -306,7 +305,7 @@ inter1_pred %>%
 #| fig-height: 3.5
 inter1_pred %>%
   ggplot() +
-  geom_line(aes(x = Order, y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", color = "") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   theme_bw() +
@@ -328,7 +327,7 @@ inter1_pred %>%
 #| code-line-numbers: "4"
 inter1_pred %>%
   ggplot() +
-  geom_line(aes(x = Order, y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +
   geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high, fill = First), alpha = 0.3) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
        color = "", fill = "") +
@@ -345,7 +344,7 @@ inter1_pred %>%
 #| fig-height: 3.75
 inter1_pred %>%
   ggplot() +
-  geom_line(aes(x = Order, y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +
   geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high,
                   fill = First), alpha = 0.3) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
@@ -368,7 +367,7 @@ inter1_pred %>%
 #| code-line-numbers: "2-5"
 inter1_pred %>%
   ggplot(aes(x = Order)) +
-  geom_line(aes(y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(y = estimate, color = First), linewidth = 1) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = First), alpha = 0.3) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
        color = "", fill = "") +
@@ -385,7 +384,7 @@ inter1_pred %>%
 #| fig-height: 3.75
 inter1_pred %>%
   ggplot(aes(x = Order)) +
-  geom_line(aes(y = predicted, color = First), linewidth = 1) +
+  geom_line(aes(y = estimate, color = First), linewidth = 1) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high,
                   fill = First), alpha = 0.3) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
@@ -408,7 +407,7 @@ inter2_pred <- predictions(fit_inter2, newdata = datagrid(Order = 1:10,
                                                           Duration = c(2, 9, 16)))
 
 inter2_pred <- inter2_pred %>%
-  select(Order, Duration, predicted, std.error, conf.low, conf.high)
+  select(Order, Duration, estimate, std.error, conf.low, conf.high)
 
 inter2_pred
 ```
@@ -437,7 +436,7 @@ inter2_pred %>%
   ggplot(aes(x = Order)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Duration), 
               alpha = 0.3) +
-  geom_line(aes(y = predicted, color = Duration), linewidth = 1) +
+  geom_line(aes(y = estimate, color = Duration), linewidth = 1) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
        color = "結成からの経過年数", fill = "結成からの経過年数") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
@@ -455,7 +454,7 @@ inter2_pred %>%
   ggplot(aes(x = Order)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Duration), 
               alpha = 0.3) +
-  geom_line(aes(y = predicted, color = Duration), linewidth = 1) +
+  geom_line(aes(y = estimate, color = Duration), linewidth = 1) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", 
        color = "結成からの経過年数", fill = "結成からの経過年数") +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
@@ -469,14 +468,13 @@ inter2_pred %>%
 :::{.panel-tabset}
 ### コード（1）
 
-* 列抽出の際、限界効果は`predicted`でなく、`dydx`であることに注意
 * 主な説明変数（ここでは`Order`列）は抽出しなくても良い
 
 ```{r}
 inter1_ame <- marginaleffects(fit_inter1, variables = "Order",
                               newdata = datagrid(First = 0:1))
 inter1_ame <- inter1_ame %>%
-  select(First, dydx, std.error, conf.low, conf.high)
+  select(First, predicted, std.error, conf.low, conf.high)
 
 inter1_ame
 ```
@@ -503,7 +501,7 @@ inter1_ame
 inter1_ame %>%
   ggplot() +
   geom_hline(yintercept = 0) +
-  geom_pointrange(aes(x = First, y = dydx, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = First, y = predicted, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場経験", y = "出場順番の平均限界効果") +
   theme_bw(base_size = 12)
 ```
@@ -517,7 +515,7 @@ inter1_ame %>%
 inter1_ame %>%
   ggplot() +
   geom_hline(yintercept = 0) +
-  geom_pointrange(aes(x = First, y = dydx, ymin = conf.low, ymax = conf.high)) +
+  geom_pointrange(aes(x = First, y = predicted, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場経験", y = "出場順番の平均限界効果") +
   theme_bw(base_size = 12)
 ```
@@ -532,7 +530,7 @@ inter2_ame <- marginaleffects(fit_inter2, variables = "Order",
                               newdata = datagrid(Duration = 2:16))
 
 inter2_ame <- inter2_ame %>%
-  select(Duration, dydx, std.error, conf.low, conf.high)
+  select(Duration, predicted, std.error, conf.low, conf.high)
 
 inter2_ame
 ```
@@ -547,9 +545,9 @@ inter2_ame
 inter2_ame %>%
   ggplot(aes(x = Duration)) +
   geom_hline(yintercept = 0) +
-  geom_ribbon(aes(y = dydx, ymin = conf.low, ymax = conf.high),
+  geom_ribbon(aes(y = predicted, ymin = conf.low, ymax = conf.high),
               alpha = 0.3) +
-  geom_line(aes(y = dydx), linewidth = 1) +
+  geom_line(aes(y = predicted), linewidth = 1) +
   labs(x = "結成からの経過年数", y = "出場順番の平均限界効果") +
   theme_bw(base_size = 14)
 ```
@@ -563,9 +561,9 @@ inter2_ame %>%
 inter2_ame %>%
   ggplot(aes(x = Duration)) +
   geom_hline(yintercept = 0) +
-  geom_ribbon(aes(y = dydx, ymin = conf.low, ymax = conf.high),
+  geom_ribbon(aes(y = predicted, ymin = conf.low, ymax = conf.high),
               alpha = 0.3) +
-  geom_line(aes(y = dydx), linewidth = 1) +
+  geom_line(aes(y = predicted), linewidth = 1) +
   labs(x = "結成からの経過年数", y = "出場順番の平均限界効果") +
   theme_bw(base_size = 14)
 ```

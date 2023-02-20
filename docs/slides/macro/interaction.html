@@ -1833,10 +1833,10 @@ N: 3000
 </section>
 <section id="marginaleffectパッケージを用いた限界効果の計算" class="slide level2">
 <h2>{marginaleffect}パッケージを用いた限界効果の計算</h2>
-<p>{marginaleffect}パッケージの<code>marginaleffects()</code>関数</p>
+<p>{marginaleffect}パッケージの<code>slopes()</code>関数</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">marginaleffects</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
-<span id="cb9-2"><a href="#cb9-2"></a>                <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">slopes</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
+<span id="cb9-2"><a href="#cb9-2"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>fit1</code>の場合：<code>Female</code>の値が0と1の場合の限界効果
@@ -1847,34 +1847,36 @@ N: 3000
 <ul>
 <li><code>datagrid(Age = 18:75)</code></li>
 </ul></li>
-<li>限界効果は<code>dydx</code>列、<span class="math inline">\(p\)</span>値は<code>p.value</code>列、95%信頼区間は<code>conf.low</code>（下限）と<code>conf.high</code>（上限）</li>
+<li>限界効果は<code>estimate</code>列、<span class="math inline">\(p\)</span>値は<code>p.value</code>列、95%信頼区間は<code>conf.low</code>（下限）と<code>conf.high</code>（上限）</li>
 </ul>
 </section>
 <section id="調整変数がダミー変数の場合-fit1-2" class="slide level2">
 <h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
 <p>性別と関係なく、政治満足度は共産感情温度に負の影響を与える。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb10-2"><a href="#cb10-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb10-2"><a href="#cb10-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
 <span id="cb10-3"><a href="#cb10-3"></a></span>
 <span id="cb10-4"><a href="#cb10-4"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid     type         term      dydx std.error statistic      p.value
-1     1 response Satisfaction -4.731682 0.5613401 -8.429261 3.478550e-17
-2     2 response Satisfaction -3.830102 0.6110043 -6.268535 3.644599e-10
-   conf.low conf.high predicted predicted_hi predicted_lo TempKyosan
-1 -5.831888 -3.631476  24.41332     24.41143     24.41332     26.882
-2 -5.027648 -2.632555  29.37297     29.37144     29.37297     26.882
-  Satisfaction Interest Ideology   Age Female   eps
-1        2.449 2.736333 6.340667 47.34      0 4e-04
-2        2.449 2.736333 6.340667 47.34      1 4e-04</code></pre>
+<pre><code>
+         Term Estimate Std. Error      z   Pr(&gt;|z|)  2.5 % 97.5 % Female
+ Satisfaction   -4.732     0.5613 -8.429 &lt; 2.22e-16 -5.832 -3.631      0
+ Satisfaction   -3.830     0.6110 -6.269 3.6446e-10 -5.028 -2.633      1
+
+Prediction type:  response 
+Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Age, Female, eps </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, dydx<span class="sc">:</span>conf.high) <span class="co"># 必要な情報だけ出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, estimate<span class="sc">:</span>conf.high) <span class="co"># 必要な情報だけ出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Female      dydx std.error statistic      p.value  conf.low conf.high
-1      0 -4.731682 0.5613401 -8.429261 3.478550e-17 -5.831888 -3.631476
-2      1 -3.830102 0.6110043 -6.268535 3.644599e-10 -5.027648 -2.632555</code></pre>
+<pre><code>
+ Estimate Std. Error      z   Pr(&gt;|z|) CI low CI high
+   -4.732     0.5613 -8.429 &lt; 2.22e-16 -5.832  -3.631
+   -3.830     0.6110 -6.269 3.6446e-10 -5.028  -2.633
+
+Prediction type:  
+Columns: Female, estimate, std.error, statistic, p.value, conf.low, conf.high </code></pre>
 </div>
 </div>
 <div class="callout callout-note no-icon callout-captioned callout-style-default">
@@ -1892,72 +1894,29 @@ N: 3000
 <h2>調整変数が連続変数の場合 (<code>fit2</code>)</h2>
 <p>30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">marginaleffects</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb14-2"><a href="#cb14-2"></a>                            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb14-2"><a href="#cb14-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
 <span id="cb14-3"><a href="#cb14-3"></a></span>
 <span id="cb14-4"><a href="#cb14-4"></a>fit2_ame <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, dydx<span class="sc">:</span>conf.high) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, estimate<span class="sc">:</span>conf.high) <span class="sc">%&gt;%</span></span>
 <span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="co"># p値を小数点3桁で丸める</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Age        dydx std.error    statistic p.value   conf.low   conf.high
-1   18  0.48601719 0.9128324   0.53242765   0.594  -1.303101  2.27513577
-2   19  0.32924919 0.8893617   0.37020841   0.711  -1.413868  2.07236610
-3   20  0.17248118 0.8660647   0.19915507   0.842  -1.524974  1.86993684
-4   21  0.01571317 0.8429546   0.01864059   0.985  -1.636448  1.66787385
-5   22 -0.14105484 0.8200496  -0.17200768   0.863  -1.748323  1.46621293
-6   23 -0.29782284 0.7973663  -0.37350819   0.709  -1.860632  1.26498639
-7   24 -0.45459085 0.7749251  -0.58662552   0.557  -1.973416  1.06423447
-8   25 -0.61135886 0.7527454  -0.81217217   0.417  -2.086713  0.86399499
-9   26 -0.76812687 0.7308521  -1.05100181   0.293  -2.200571  0.66431691
-10  27 -0.92489487 0.7092707  -1.30400838   0.192  -2.315040  0.46525006
-11  28 -1.08166288 0.6880329  -1.57210928   0.116  -2.430183  0.26685679
-12  29 -1.23843089 0.6671714  -1.85624103   0.063  -2.546063  0.06920099
-13  30 -1.39519890 0.6467203  -2.15734521   0.031  -2.662747 -0.12765044
-14  31 -1.55196690 0.6267209  -2.47632864   0.013  -2.780317 -0.32361652
-15  32 -1.70873491 0.6072169  -2.81404389   0.005  -2.898858 -0.51861172
-16  33 -1.86550292 0.5882597  -3.17122346   0.002  -3.018471 -0.71253512
-17  34 -2.02227093 0.5699028  -3.54844904   0.000  -3.139260 -0.90528203
-18  35 -2.17903894 0.5522070  -3.94605442   0.000  -3.261345 -1.09673307
-19  36 -2.33580694 0.5352358  -4.36407077   0.000  -3.384850 -1.28676404
-20  37 -2.49257495 0.5190614  -4.80208124   0.000  -3.509917 -1.47523333
-21  38 -2.64934296 0.5037595  -5.25914230   0.000  -3.636693 -1.66199246
-22  39 -2.80611097 0.4894141  -5.73361277   0.000  -3.765345 -1.84687694
-23  40 -2.96287897 0.4761114  -6.22307922   0.000  -3.896040 -2.02971777
-24  41 -3.11964698 0.4639393  -6.72425717   0.000  -4.028951 -2.21034272
-25  42 -3.27641499 0.4529898  -7.23286646   0.000  -4.164259 -2.38857123
-26  43 -3.43318300 0.4433530  -7.74367882   0.000  -4.302139 -2.56422714
-27  44 -3.58995100 0.4351174  -8.25053401   0.000  -4.442765 -2.73713655
-28  45 -3.74671901 0.4283632  -8.74659404   0.000  -4.586295 -2.90714257
-29  46 -3.90348702 0.4231618  -9.22457353   0.000  -4.732869 -3.07410516
-30  47 -4.06025503 0.4195698  -9.67718528   0.000  -4.882597 -3.23791326
-31  48 -4.21702303 0.4176294 -10.09752383   0.000  -5.035562 -3.39848441
-32  49 -4.37379104 0.4173633 -10.47957693   0.000  -5.191808 -3.55577396
-33  50 -4.53055905 0.4187754 -10.81859025   0.000  -5.351344 -3.70977442
-34  51 -4.68732706 0.4218485 -11.11139930   0.000  -5.514135 -3.86051920
-35  52 -4.84409507 0.4265465 -11.35654749   0.000  -5.680111 -4.00807938
-36  53 -5.00086307 0.4328166 -11.55423218   0.000  -5.849168 -4.15255820
-37  54 -5.15763108 0.4405918 -11.70614528   0.000  -6.021175 -4.29408711
-38  55 -5.31439909 0.4497939 -11.81518681   0.000  -6.195979 -4.43281922
-39  56 -5.47116710 0.4603375 -11.88512228   0.000  -6.373412 -4.56892224
-40  57 -5.62793510 0.4721323 -11.92025013   0.000  -6.553297 -4.70257280
-41  58 -5.78470311 0.4850876 -11.92506829   0.000  -6.735457 -4.83394883
-42  59 -5.94147112 0.4991129 -11.90406352   0.000  -6.919714 -4.96322790
-43  60 -6.09823913 0.5141209 -11.86148822   0.000  -7.105898 -5.09058066
-44  61 -6.25500713 0.5300275 -11.80128858   0.000  -7.293842 -5.21617238
-45  62 -6.41177514 0.5467540 -11.72698343   0.000  -7.483393 -5.34015699
-46  63 -6.56854315 0.5642285 -11.64163613   0.000  -7.674411 -5.46267557
-47  64 -6.72531116 0.5823833 -11.54791309   0.000  -7.866761 -5.58386096
-48  65 -6.88207916 0.6011572 -11.44805154   0.000  -8.060326 -5.70383261
-49  66 -7.03884717 0.6204931 -11.34395787   0.000  -8.254991 -5.82270311
-50  67 -7.19561518 0.6403404 -11.23717168   0.000  -8.450659 -5.94057103
-51  68 -7.35238319 0.6606524 -11.12897356   0.000  -8.647238 -6.05752826
-52  69 -7.50915119 0.6813889 -11.02036020   0.000  -8.844649 -6.17365348
-53  70 -7.66591920 0.7025117 -10.91215901   0.000  -9.042817 -6.28902160
-54  71 -7.82268721 0.7239877 -10.80500061   0.000  -9.241677 -6.40369745
-55  72 -7.97945522 0.7457849 -10.69940532   0.000  -9.441167 -6.51774362
-56  73 -8.13622323 0.7678767 -10.59574142   0.000  -9.641234 -6.63121250
-57  74 -8.29299123 0.7902376 -10.49430104   0.000  -9.841828 -6.74415400
-58  75 -8.44975924 0.8128469 -10.39526562   0.000 -10.042910 -6.85660863</code></pre>
+<pre><code>
+ Estimate Std. Error         z Pr(&gt;|z|)  CI low CI high
+  0.48602     0.9128   0.53243    0.594  -1.303  2.2751
+  0.32925     0.8894   0.37021    0.711  -1.414  2.0724
+  0.17248     0.8661   0.19916    0.842  -1.525  1.8699
+  0.01571     0.8430   0.01864    0.985  -1.636  1.6679
+ -0.14105     0.8200  -0.17201    0.863  -1.748  1.4662
+--- 48 rows omitted. See ?print.marginaleffects --- 
+ -7.82269     0.7240 -10.80500   &lt;2e-16  -9.242 -6.4037
+ -7.97946     0.7458 -10.69941   &lt;2e-16  -9.441 -6.5177
+ -8.13622     0.7679 -10.59574   &lt;2e-16  -9.641 -6.6312
+ -8.29299     0.7902 -10.49430   &lt;2e-16  -9.842 -6.7442
+ -8.44976     0.8128 -10.39527   &lt;2e-16 -10.043 -6.8566 
+
+Prediction type:  
+Columns: Age, estimate, std.error, statistic, p.value, conf.low, conf.high </code></pre>
 </div>
 </div>
 </section>
@@ -1973,7 +1932,7 @@ N: 3000
 <span id="cb16-3"><a href="#cb16-3"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> dydx, </span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
 <span id="cb16-7"><a href="#cb16-7"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high),</span>
 <span id="cb16-8"><a href="#cb16-8"></a>                  <span class="at">size =</span> <span class="dv">1</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
@@ -1995,7 +1954,7 @@ N: 3000
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> dydx), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>

@@ -12,7 +12,7 @@ metadata-files:
 #| include: false
 pacman::p_load(tidyverse, gt, summarytools, modelsummary,
                marginaleffects, prediction)
-# jes_df <- read_csv("slides/Data/JES6_W1_2.csv")
+# jes_df <- read_csv("slides/macro/Data/JES6_W1_2.csv")
 jes_df <- read_csv("Data/JES6_W1_2.csv")
 ```
 
@@ -431,32 +431,32 @@ prediction(fit2, at = list(Satisfaction = 1:5, Age = c(20, 40, 60))) %>%
 
 ## {marginaleffect}パッケージを用いた限界効果の計算
 
-{marginaleffect}パッケージの`marginaleffects()`関数
+{marginaleffect}パッケージの`slopes()`関数
 
 ```{r}
 #| eval: false
-marginaleffects(回帰オブジェクト名, variables = "説明変数名", 
-                newdata = datagrid(調整変数名 = 調整変数の値))
+slopes(回帰オブジェクト名, variables = "説明変数名", 
+       newdata = datagrid(調整変数名 = 調整変数の値))
 ```
 
 * `fit1`の場合：`Female`の値が0と1の場合の限界効果
    * `datagrid(Female = c(0, 1))`、または`datagrid(Female = 0:1)`
 * `fit2`の場合：`Age`の値が18、19、20、...、75の場合の限界効果
    * `datagrid(Age = 18:75)`
-* 限界効果は`dydx`列、$p$値は`p.value`列、95%信頼区間は`conf.low`（下限）と`conf.high`（上限）
+* 限界効果は`estimate`列、$p$値は`p.value`列、95%信頼区間は`conf.low`（下限）と`conf.high`（上限）
 
 ## 調整変数がダミー変数の場合 (`fit1`)
 
 性別と関係なく、政治満足度は共産感情温度に負の影響を与える。
 
 ```{r}
-fit1_ame <- marginaleffects(fit1, variables = "Satisfaction", 
-                            newdata = datagrid(Female = c(0, 1)))
+fit1_ame <- slopes(fit1, variables = "Satisfaction", 
+                   newdata = datagrid(Female = c(0, 1)))
 
 fit1_ame
 
 fit1_ame %>%
-  dplyr::select(Female, dydx:conf.high) # 必要な情報だけ出力
+  dplyr::select(Female, estimate:conf.high) # 必要な情報だけ出力
 ```
 
 :::{.callout-note icon=false}
@@ -470,11 +470,11 @@ fit1_ame %>%
 30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。
 
 ```{r}
-fit2_ame <- marginaleffects(fit2, variables = "Satisfaction", 
-                            newdata = datagrid(Age = 18:75))
+fit2_ame <- slopes(fit2, variables = "Satisfaction", 
+                   newdata = datagrid(Age = 18:75))
 
 fit2_ame %>%
-  dplyr::select(Age, dydx:conf.high) %>%
+  dplyr::select(Age, estimate:conf.high) %>%
   mutate(p.value = round(p.value, 3)) # p値を小数点3桁で丸める
 ```
 
@@ -491,7 +491,7 @@ fit1_ame %>%
                          labels = c("男性", "女性"))) %>%
   ggplot() +
   geom_hline(yintercept = 0) +
-  geom_pointrange(aes(x = Female, y = dydx, 
+  geom_pointrange(aes(x = Female, y = estimate, 
                       ymin = conf.low, ymax = conf.high),
                   size = 1, linewidth = 1) +
   labs(x = "性別", y = "政治満足度の平均限界効果と95%信頼区間") +
@@ -508,7 +508,7 @@ fit2_ame %>%
   ggplot(aes(x = Age)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_hline(yintercept = 0) +
-  geom_line(aes(y = dydx), linewidth = 1) +
+  geom_line(aes(y = estimate), linewidth = 1) +
   labs(x = "年齢", y = "政治満足度の平均限界効果と95%信頼区間") +
   theme_bw()
 ```
