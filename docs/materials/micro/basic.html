@@ -187,16 +187,16 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  <span class="dropdown-text">RStudioの設定</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル・システム</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../../intro/project.html">
  <span class="dropdown-text">プロジェクト管理</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../intro/file.html">
  <span class="dropdown-text">ファイル管理</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../intro/filesystem.html">
- <span class="dropdown-text">ファイル管理術</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../intro/packages.html">
@@ -945,7 +945,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>もう一つ便利な論理演算子としてマッチング演算子<code>%in%</code>がある。これについてはデータハンドリングの講義で解説する。</p>
+<p>　もう一つ便利な論理演算子としてマッチング演算子<code>%in%</code>がある。これについてはデータハンドリングの講義で解説する。</p>
 </div>
 </div>
 </section>
@@ -1006,7 +1006,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>データ型とデータ構造については今後の講義で解説する。</p>
+<p>　データ<strong>型</strong>とデータ<strong>構造</strong>については今後の講義で解説する。</p>
 </div>
 </div>
 <p>　まずはこの2つだけ覚えておけば問題ない。重要なのはベクトルの作り方であるが、長さ1のベクトルであれば、<code>1</code>、<code>"Cat"</code>などで十分である。もし、ながさ2以上のベクトルを作る場合は<code>c()</code>関数を使う。<code>()</code>内にコンマ区切りの要素 (element)を入れるだけである。</p>
@@ -1042,7 +1042,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>コードの可読性の観点から見ると、<code>c(1986,10,8)</code>より<code>c(1986, 10, 8)</code>の方が読みやすい。</p>
+<p>　コードの可読性の観点から見ると、<code>c(1986,10,8)</code>より<code>c(1986, 10, 8)</code>の方が読みやすい。</p>
 </div>
 </div>
 </section>
@@ -1310,7 +1310,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 36</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>my_vec5[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>my_vec5[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)] <span class="co"># my_vec5[2, 3, 4, 5]でないことに注意</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12 13 14 15</code></pre>
@@ -1341,20 +1341,21 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <p><strong>方法2</strong>: 論理演算子を利用する。</p>
-<p>　もう一つは<code>[]</code>内に<code>TRUE</code>か<code>FALSE</code>を入れる方法である。位置を指定す方法では抽出したい要素の位置のみを指定するだけであったが、この方法はすべての要素に対して、抽出するか（<code>TRUE</code>）しないか（<code>FALSE</code>）を指定する必要がある。たとえば、<code>my_vec5</code>の1、4、7、9、10番目の要素を抽出したい場合は<code>my_vec5[c(1, 4, 7, 9, 10)]</code>でも良いが、以下のように抽出する箇所に<code>TRUE</code>、抽出しない箇所に<code>FALSE</code>を指定することもできる。</p>
+<p>　もう一つは<code>[]</code>内に<code>TRUE</code>か<code>FALSE</code>を入れる方法である。位置を指定する方法では抽出したい要素の位置のみを指定するだけだったが、この方法は、すべての要素に対して抽出するか（<code>TRUE</code>）しないか（<code>FALSE</code>）を指定する必要がある。つまり、元のベクトルの長さと<code>[]</code>内に指定するベクトルの長さは一致する必要がある。たとえば、<code>my_vec5</code>の1、4、7、9、10番目の要素を抽出したい場合は<code>my_vec5[c(1, 4, 7, 9, 10)]</code>でも良いが、以下のように抽出する箇所に<code>TRUE</code>、抽出しない箇所に<code>FALSE</code>を指定することもできる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 39</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>my_vec5[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a><span class="co"># 1、4、7、9、10番目がTRUEで、他は全てFALSE</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a>my_vec5[<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 14 17 19 20</code></pre>
 </div>
 </div>
-<p>　<code>[]</code>内にベクトルの長さ分のベクトルを更に入力する必要がある。<code>my_vec5</code>のように長さ10のベクトルなら問題ないだろうが、長さが数千のベクトルも稀ではない。これを考えると、一つ一つの要素に対して<code>TRUE</code>、<code>FALSE</code>を指定することは非効率的である。</p>
-<p>　しかし、我々はすでに論理演算子を使えば<code>TRUE</code>、または<code>FALSE</code>のベクトルを作れることを知っている。たとえば、<code>my_vec5</code>から奇数のみを抽出したいとする。奇数は2で割って1が余る数字である。余りを計算する算術演算子は<code>%%</code>であり、この余りが1かどうかを判定すれば良い。</p>
+<p>　<code>[]</code>内にベクトルの長さ分のベクトルを更に入力する必要がある。<code>my_vec5</code>のように長さ10のベクトルなら問題ないだろうが、長さが数千のベクトルも稀ではない（むしろ実際のデータ分析だと数百以上が当たり前となる）。これを考えると、一つ一つの要素に対して<code>TRUE</code>、<code>FALSE</code>を指定することは非常に非効率的である。</p>
+<p>　しかし、我々は論理演算子を使えば<code>TRUE</code>、または<code>FALSE</code>のベクトルを作れることをすでに知っている。たとえば、<code>my_vec5</code>から奇数のみを抽出したいとする。奇数は2で割って1が余る数字である。余りを計算する算術演算子は<code>%%</code>であり、この余りが1かどうかを判定すれば良い。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1366,7 +1367,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><code> [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
 </div>
 </div>
-<p>　この論理演算子が含まれた判定文を<code>[]</code>内に入れることで、<code>my_vec5</code>から奇数のみを抽出することができる。</p>
+<p>　<code>my_vec5</code>を構成する全ての要素に対して、奇数か偶数かの判定結果がベクトルとして返ってくることが分かる。この論理演算子が含まれた判定文を<code>[]</code>内に入れることで、<code>my_vec5</code>から奇数のみを抽出することができる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1378,11 +1379,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><code>[1] 11 13 15 17 19</code></pre>
 </div>
 </div>
+<p>　むろん、これまでの通り<code>my_vec5 %% 2 == 1</code>を別途のベクトルとして格納した上で、そのベクトルを<code>[]</code>に入れても良い。</p>
 </section>
 </section>
 <section id="表データの読み込み" class="level2">
 <h2 class="anchored" data-anchor-id="表データの読み込み">表データの読み込み</h2>
-<p>　データ分析に用いられるデータの形式は表、文字列、画像、音声など様々であるが、本講義では表形式のデータのみを扱う。ここでは表形式データの読み込み方法について紹介する。表形式データにはエクセル形式（<code>.xlsx</code>）がおなじみであろうが、データ分析の業界においてはカンマ区切る形式（<code>.csv</code>）が標準である。</p>
+<p>　データ分析に用いられるデータの形式は表、文字列、画像、音声など様々であるが、本講義では表形式のデータ（rectangular data）のみを扱う。ここでは表形式データの読み込み方法について紹介する。表形式データにはエクセル形式（<code>.xlsx</code>）がお馴染みであろうが、データ分析の業界においてはカンマ区切る形式（<code>.csv</code>）が標準である。</p>
 <p>　csvファイルの読み込みにはR内蔵関数<code>read.csv()</code>関数が使えるが、本講義では{tidyverse}パッケージが提供する<code>read_csv()</code>関数を使用する。データ読み込みの前にまず{tidyverse}パッケージを読み込む。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -1392,7 +1394,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>　読み込み方法は<code>read_csv("読み込むファイルのパス")</code>である。プロジェクト・フォルダー内に<code>Data</code>フォルダーがあり、そこに<code>Pref_Vote.csv</code>というファイルがあれば、<code>read_csv("Data/Pref_Vote.csv")</code>となる。もし、プロジェクト・フォルダー直にデータが入っているのであれば、<code>read_csv("Pref_Vote.csv")</code>となる。ただし、<code>read_csv()</code>だけだとデータの中身が出力されるだけであり、作業環境内に格納されない。代入演算子<code>&lt;-</code>を使って作業環境内にデータを入れておく必要がある。ここでは<code>my_data</code>という名のオブジェクトを作成する。</p>
+<p>　読み込み方法は<code>read_csv("読み込むファイルのパス")</code>である（パスの概念については「<a href="../../intro/filesystem.html" target="_blank">ファイルシステム</a>」を参照すること）。プロジェクト・フォルダー内に<code>Data</code>フォルダーがあり、そこに<code>Pref_Vote.csv</code>というファイルがあれば、<code>read_csv("Data/Pref_Vote.csv")</code>となる。もし、プロジェクト・フォルダー直にデータが入っているのであれば、<code>read_csv("Pref_Vote.csv")</code>となる。ただし、<code>read_csv()</code>だけだとデータの中身が出力されるだけであり、作業環境内に格納されない。代入演算子<code>&lt;-</code>を使って作業環境内にデータを入れておく必要がある。ここでは読み込んだデータを<code>my_data</code>という名の新しいオブジェクトに格納する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1526,7 +1528,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　6行でなく、任意の行数を指定したい場合は<code>head()</code>、または<code>tail()</code>内に<code>n = ...</code>を追加する。このような表形式のデータをRでは<strong>データフレーム</strong>（data.frame）と呼び、ベクトル、リストと共に最も頻繁に使うデータ構造である。これらについては「<a href="../../materials/micro/datastructure.html">第8回: データ構造</a>」で解説する。</p>
 <section id="文字化けが生じる場合" class="level3">
 <h3 class="anchored" data-anchor-id="文字化けが生じる場合">文字化けが生じる場合</h3>
-<p>　本講義ではJDCat分析ツールを利用する場合、宋が提供した資料と同じ結果が得られることが保証されている。しかし、自分のPCにRをインストールして使用する場合、文字化けが生じる可能性がある。これは文字のロケール（locale）が原因である（具体的には世界標準のUTF-8を使用するmacOS/Linuxと日本語表示に独自仕様を使用するWindowsの違い）。この場合、自分のPCのOSによって対処方法が異なる。ここでは<code>read_csv()</code>で表形式データを読み込む際、文字化けに対処する方法を紹介する。</p>
+<p>　本講義ではJDCat分析ツールを利用する場合、宋が提供した資料と同じ結果が得られることが保証されている。しかし、自分のPCにRをインストールして使用する場合、文字化けが生じる可能性がある。これは文字のロケール（locale）が原因である（具体的には世界標準のUTF-8を使用するmacOS/Linuxと、日本語表示に独自仕様を使用するWindowsの違い）。この場合、自分のPCのOSによって対処方法が異なる。ここでは<code>read_csv()</code>で表形式データを読み込む際、文字化けに対処する方法を紹介する<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。</p>
 <p><strong>ケース1:</strong> 自分のPCがWindowsの場合</p>
 <p>　自分のPCが日本語Windowsの場合、世界標準ロケールであるUTF-8を正しく認識できない可能性がある。この場合、<code>read_csv()</code>内に<code>locale = locale(encoding = "UTF-8")</code>を追加する。</p>
 <div class="cell" data-layout-align="center">
@@ -1537,6 +1539,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="fu">read_csv</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<p>　ただし、これでも文字化けが生じるのであれば、自分のRが最新バージョン（UTF-8がベース）であり、手元のデータがShift-JISである可能性が高い。この場合は、macOS/Linuxと同じ方法で対処する（以下参照）。</p>
 <p><strong>ケース2:</strong> 自分のPCがmacOS/Linuxの場合</p>
 <p>　これは主にWindowsで作成されたデータを読み込む際に生じる。日本語Windowsで作成されたデータの場合、ロケールがShift-JISである可能性が高い。とりわけ日本政府/自治体が作成・公開するデータの多くが未だShift-JISである。この場合、<code>read_csv()</code>内に<code>locale = locale(encoding = "Shift_JIS")</code>を追加する。</p>
 <div class="cell" data-layout-align="center">
@@ -1547,7 +1550,6 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="fu">read_csv</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"Shift_JIS"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>　ちなみに、2022年中、リリース予定のR 4.2からはWindows版RでもUTF-8に対応されると知られている。この場合、Windowsで文字化けが生じる場合でもケース2と同じ手順でデータを開く必要があるだろう（<del>MacかLinuxを使いましょう</del>）。</p>
 </section>
 <section id="excel形式ファイルの読み込み" class="level3">
 <h3 class="anchored" data-anchor-id="excel形式ファイルの読み込み">Excel形式ファイルの読み込み</h3>
@@ -1560,7 +1562,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="co"># {readxl}パッケージがない場合、install.packages("readxl")でインストールしておく。</span></span>
 <span id="cb94-2"><a href="#cb94-2"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb94-3"><a href="#cb94-3"></a></span>
-<span id="cb94-4"><a href="#cb94-4"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">sheet =</span> シートの番号)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb94-4"><a href="#cb94-4"></a><span class="co"># sheet引数は省略可能。省略した場合1番目のシートが読み込まれる。</span></span>
+<span id="cb94-5"><a href="#cb94-5"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"パスを含むファイル名"</span>, <span class="at">sheet =</span> シートの番号)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1582,7 +1585,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 <ol>
 <li id="fn1"><p>他のプログラミング言語の経験があれば分かるだろうが、ほとんどのプログラミング言語において<code>=</code>は「代入」を意味し、Rも例外ではない。ただし、Rにおける代入には<code>=</code>と<code>&lt;-</code>の2つの方法があり、後者が推奨される。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>実は数戦以上のオブジェクトがあるはずだが、ここでは自分が作成したオブジェクトのみ表示される。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>実は数千以上のオブジェクトがあるはずだが、ここでは自分が作成したオブジェクトのみ表示される。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>しかし、最新のRはWindows版でもUTF-8がデフォルトとなっているため、問題が生じない可能性は低い。また、自分のPCがUTF-8であっても、手元のデータがUTF-8でないと文字化けが生じうる（主に日本政府が提供するデータはUTF-8でないケースが多い）。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
