@@ -75,7 +75,7 @@ df
 ```{r}
 #| filename: "Code 09"
 #| eval: false
-データフレーム %>%
+データフレーム |>
   summarise(記述統計の関数(変数名, ...))
 ```
 
@@ -83,7 +83,7 @@ df
 
 ```{r}
 #| filename: "Code 10"
-df %>%
+df |>
   summarise(mean(Population))
 ```
 
@@ -91,7 +91,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 11"
-df %>%
+df |>
   summarise(mean(HDI_2018, na.rm = TRUE))
 ```
 
@@ -108,7 +108,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 12"
-df %>%
+df |>
   summarise(mean(Population), # Populationの平均値
             sd(Population),   # Populationの不偏標準偏差
             mean(Area),       # Areaの平均値
@@ -119,7 +119,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 13"
-df %>%
+df |>
   summarise(Mean_Pop  = mean(Population),
             SD_Pop    = sd(Population),
             Mean_Area = mean(Area),
@@ -171,8 +171,8 @@ mean(df$PPP_per_capita[df$Continent == "Oceania"], na.rm = TRUE)
 ```{r}
 #| filename: "Code 20"
 #| eval: false
-データフレーム名 %>%
-  group_by(グループ化する変数名) %>%
+データフレーム名 |>
+  group_by(グループ化する変数名) |>
   summarise(...)
 ```
 
@@ -181,8 +181,8 @@ mean(df$PPP_per_capita[df$Continent == "Oceania"], na.rm = TRUE)
 ```{r}
 #| filename: "Code 21"
 # PPP_per_capitaが欠損している国もあるので、na.rm = TRUEを追加
-df %>%
-  group_by(Continent) %>%
+df |>
+  group_by(Continent) |>
   summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE))
 ```
 
@@ -191,8 +191,8 @@ df %>%
 ```{r}
 #| filename: "Code 22"
 #| message: true
-df %>%
-  group_by(Continent, G20) %>%
+df |>
+  group_by(Continent, G20) |>
   summarise(Mean_HDI = mean(HDI_2018, na.rm = TRUE))
 ```
 
@@ -224,8 +224,8 @@ the `.groups` argument.
 
 ```{r}
 #| filename: "Code 24"
-df %>%
-  group_by(Continent, G20) %>%
+df |>
+  group_by(Continent, G20) |>
   summarise(Mean_HDI = mean(HDI_2018, na.rm = TRUE),
             .groups  = "drop")
 ```
@@ -236,8 +236,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 25"
-df %>%
-  group_by(Continent) %>%
+df |>
+  group_by(Continent) |>
   summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE),
             SD_PPP   = sd(PPP_per_capita, na.rm = TRUE),
             Cases    = n())
@@ -247,7 +247,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 26"
-df %>%
+df |>
   summarise(Population_Mean = mean(Population, na.rm = TRUE),
             Population_SD   = sd(Population, na.rm = TRUE),
             Area_Mean       = mean(Area, na.rm = TRUE),
@@ -261,7 +261,7 @@ df %>%
 　以上の作業は、`across()`関数を使う場合、以下のようにたった4行でできる。
 
 ```{r}
-df %>%
+df |>
   #| filename: "Code 27"
   summarise(across(Population:PPP,
                    .fns = list(Mean = ~mean(.x, na.rm = TRUE),
@@ -277,7 +277,7 @@ df %>%
 ```{r}
 #| filename: "Code 28"
 #| eval: false
-データフレーム名 %>%
+データフレーム名 |>
   mutate(新しい列名 = 計算式)
 ```
 
@@ -297,7 +297,7 @@ df$Density <- df$Population / df$Area
 
 ```{r}
 #| filename: "Code 30"
-df %>%
+df |>
   mutate(Density = Population / Area)
 ```
 
@@ -307,7 +307,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 31"
-df %>%
+df |>
   mutate(Density = Population / Area, 
          .after  = Area)
 ```
@@ -325,15 +325,15 @@ df %>%
 4. `Share_Pop`が大きい順で行を並び替える
    * `arrange()`使用
 
-　以上の計算仮定の内、1と2は一つの`mutate()`関数内にまとめることができる。したがって、`データ %>% mutate() %>% select() %>% arrange()`の順番でコードを書く必要がある。
+　以上の計算仮定の内、1と2は一つの`mutate()`関数内にまとめることができる。したがって、`データ |> mutate() |> select() |> arrange()`の順番でコードを書く必要がある。
 
 ```{r}
 #| filename: "Code 32"
-df %>% 
+df |> 
   mutate(Total_Pop = sum(Population),              # 手順1
          Share_Pop = Population / Total_Pop * 100, # 手順2
-         .after    = Population) %>%               # 手順2
-  select(Country:Share_Pop, -Total_Pop) %>%        # 手順3
+         .after    = Population) |>               # 手順2
+  select(Country:Share_Pop, -Total_Pop) |>        # 手順3
   arrange(desc(Share_Pop))                         # 手順4
 ```
 
@@ -353,16 +353,16 @@ df %>%
    * 代入演算子（`<-`）使用
 7. `df2`を出力する。
 
-　今回も手順1と2は同じ`muate()`関数を使用するため、`新しいオブジェクト名 <- データ %>% mutate() %>% filter() %>% group_by() %>% summarise()`の順番でコードを各必要がある。
+　今回も手順1と2は同じ`muate()`関数を使用するため、`新しいオブジェクト名 <- データ |> mutate() |> filter() |> group_by() |> summarise()`の順番でコードを各必要がある。
 
 ```{r}
 #| filename: "Code 33"
-df2 <- df %>%
+df2 <- df |>
   mutate(Developed = G7 + G20 + OECD,
          Developed = if_else(Developed > 1, "先進国", "その他"), # 上書き
-         Density   = Population / Area) %>%
-  filter(!is.na(HDI_2018), !is.na(Polity_Score)) %>%
-  group_by(Developed) %>%
+         Density   = Population / Area) |>
+  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |>
+  group_by(Developed) |>
   summarise(Density = mean(Density),
             HDI     = mean(HDI_2018),
             Polity  = mean(Polity_Score))
@@ -380,13 +380,13 @@ df2
 
 ```{r}
 #| filename: "Code 34"
-df %>%
+df |>
   mutate(Developed = G7 + G20 + OECD,
          Developed = if_else(Developed > 1, "先進国", "その他"),
          Developed = factor(Developed, levels = c("先進国", "その他")),
-         Density   = Population / Area) %>%
-  filter(!is.na(HDI_2018), !is.na(Polity_Score)) %>%
-  group_by(Developed) %>%
+         Density   = Population / Area) |>
+  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |>
+  group_by(Developed) |>
   summarise(Density = mean(Density),
             HDI     = mean(HDI_2018),
             Polity  = mean(Polity_Score))
@@ -404,7 +404,7 @@ if_else(条件式, TRUEの場合の戻り値, FALSEの場合の戻り値)
 
 ```{r}
 #| filename: "Code 36"
-df <- df %>%
+df <- df |>
   mutate(OECD_J = if_else(OECD == 1, "OECD加盟国", "OECD非加盟国"))
 
 df
@@ -414,8 +414,8 @@ df
 
 ```{r}
 #| filename: "Code 37"
-df %>%
-  group_by(OECD) %>%
+df |>
+  group_by(OECD) |>
   summarise(HDI = mean(HDI_2018, na.rm = TRUE),
             FH  = mean(FH_Total, na.rm = TRUE))
 ```
@@ -424,8 +424,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 38"
-df %>%
-  group_by(OECD_J) %>%
+df |>
+  group_by(OECD_J) |>
   summarise(PPP = mean(PPP_per_capita, na.rm = TRUE),
             HDI = mean(HDI_2018, na.rm = TRUE),
             FH  = mean(FH_Total, na.rm = TRUE))
@@ -438,7 +438,7 @@ df %>%
 ```{r}
 #| filename: "Code 39"
 #| eval: false
-データフレーム名 %>%
+データフレーム名 |>
   mutate(新しい変数名 = case_when(条件1 ~ 新しい値,
                                 条件2 ~ 新しい値,
                                 ...
@@ -449,13 +449,13 @@ df %>%
 
 ```{r}
 #| filename: "Code 40"
-df %>%
+df |>
   mutate(Continent_J = case_when(Continent == "Africa"  ~ "アフリカ",
                                  Continent == "America" ~ "アメリカ",
                                  Continent == "Asia"    ~ "アジア",
                                  Continent == "Europe"  ~ "ヨーロッパ",
-                                 TRUE                   ~ "オセアニア")) %>%
-  group_by(大陸 = Continent_J) %>%
+                                 TRUE                   ~ "オセアニア")) |>
+  group_by(大陸 = Continent_J) |>
   # 日本語は非推奨だが、一応使える（_と.を除く特殊記号不可）
   summarise(OECD加盟国比率 = mean(OECD),
             国家数         = n())
@@ -465,13 +465,13 @@ df %>%
 
 ```{r}
 #| filename: "Code 41"
-df %>%
+df |>
   mutate(AP = case_when(Continent == "Africa"  ~ "Others",
                         Continent == "America" ~ "Asia-Pacific",
                         Continent == "Asia"    ~ "Asia-Pacific",
                         Continent == "Europe"  ~ "Others",
-                        TRUE                   ~ "Asia-Pacific")) %>%
-  group_by(Continent = AP) %>%
+                        TRUE                   ~ "Asia-Pacific")) |>
+  group_by(Continent = AP) |>
   summarise(Population = mean(Population),
             Countries  = n())
 ```
@@ -487,9 +487,9 @@ df$Continent %in% c("Asia", "Oceania", "America")
 
 ```{r}
 #| filename: "Code 43"
-df %>%
-  mutate(AP = if_else(Continent %in% c("Asia", "America", "Oceania"), "Asia-Pacific", "Others")) %>%
-  group_by(Continent = AP) %>%
+df |>
+  mutate(AP = if_else(Continent %in% c("Asia", "America", "Oceania"), "Asia-Pacific", "Others")) |>
+  group_by(Continent = AP) |>
   summarise(Population = mean(Population),
             Countries  = n())
 ```
@@ -498,13 +498,13 @@ df %>%
 
 ```{r}
 #| filename: "Code 44"
-df %>%
+df |>
   mutate(AP = recode(Continent,
                      "Asia"    = "Asia-Pacific",
                      "America" = "Asia-Pacific",
                      "Oceania" = "Asia-Pacific",
-                     .default  = "Others")) %>%
-  group_by(Continent = AP) %>%
+                     .default  = "Others")) |>
+  group_by(Continent = AP) |>
   summarise(Population = mean(Population),
             Countries  = n())
 ```
@@ -542,7 +542,7 @@ mean(my_data$HighEduc)
 ```{r}
 #| filename: "Code 48"
 #| error: true
-my_data %>%
+my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
                                TRUE       ~ 0),
@@ -556,7 +556,7 @@ my_data %>%
 ```{r}
 #| filename: "Code 49"
 #| error: true
-my_data %>%
+my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA_real_,
                                Age <=  39 ~ 1,
                                TRUE       ~ 0),
@@ -569,7 +569,7 @@ my_data %>%
 
 ```{r}
 #| filename: "Code 50"
-my_data %>%
+my_data |>
   mutate(Age      = if_else(Age == 999, NA_real_, Age),
          HighEduc = if_else(HighEduc == 9, NA_real_, HighEduc))
 ```
@@ -581,7 +581,7 @@ my_data %>%
 ```{r}
 #| filename: "Code 51"
 library(naniar) # 事前に install.package(naniar) でインストール
-my_data %>%
+my_data |>
   # Ageは999、HighEducは9が欠損値
   replace_with_na(list(Age = 999, HighEduc = 9))
 ```
@@ -593,7 +593,7 @@ my_data %>%
 ```{r}
 #| filename: "Code 52"
 library(expss) # 事前に install.package(expss) でインストール
-my_data %>%
+my_data |>
   mutate(Age      = na_if(Age, 999),
          HighEduc = na_if(HighEduc, 9))
 ```

@@ -556,18 +556,18 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p><img src="https://www.tidyverse.org/images/tidyverse-default.png" class="img-fluid figure-img" style="width:75.0%"></p>
 </figure>
 </div>
-<p>　Tidyverse（たいでぃばーす）とはデータサイエンスのために考案された、強い信念と思想に基づいた<strong>Rパッケージの集合</strong>である。具体的には{dplyr}、{tidyr}、{readr}、{ggplot2}など数十パッケージで構成されており、Tidyverseに属するパッケージは思想、文法およびデータ構造（tidy data; 整然データ）を共有しる。また、ベクトルやデータフレーム、関数などのオブジェクトを<strong>パイプ演算子</strong> (<code>%&gt;%</code>)で繋ぐという点が特徴である。これらのパッケージ群は{tidyverse}をインストールすることで導入可能であり、JDCat分析ツールでは既に導入済みである。</p>
+<p>　Tidyverse（たいでぃばーす）とはデータサイエンスのために考案された、強い信念と思想に基づいた<strong>Rパッケージの集合</strong>である。具体的には{dplyr}、{tidyr}、{readr}、{ggplot2}など数十パッケージで構成されており、Tidyverseに属するパッケージは思想、文法およびデータ構造（tidy data; 整然データ）を共有しる。また、ベクトルやデータフレーム、関数などのオブジェクトを<strong>パイプ演算子</strong> (<code>|&gt;</code>)で繋ぐという点が特徴である。これらのパッケージ群は{tidyverse}をインストールすることで導入可能であり、JDCat分析ツールでは既に導入済みである。</p>
 <p>　2010年代中盤以降、Rの書き方はtidyverseな書き方が的着しているため、Rのコードを作成する際は<code>library(tidyverse)</code>から始めよう。</p>
 </section>
 <section id="パイプ演算子" class="level3">
 <h3 class="anchored" data-anchor-id="パイプ演算子">パイプ演算子</h3>
-<p>　Tidyverseにおいてオブジェクトはパイプ演算子（<code>%&gt;%</code>）で繋がっている。なぜパイプ演算子を使うのだろうか。一般的なプログラミング言語に共通する書き方は<strong>書き方と読み方が逆</strong>という特徴を持つ。たとえば、「ベクトルXの和を出力する」コードは<code>print(sum(X))</code>であり、<code>print</code>、<code>sum</code>、<code>X</code>の順で書く。このコードの読み方には二通りがある。</p>
+<p>　Tidyverseにおいてオブジェクトはパイプ演算子（<code>|&gt;</code>）で繋がっている。なぜパイプ演算子を使うのだろうか。一般的なプログラミング言語に共通する書き方は<strong>書き方と読み方が逆</strong>という特徴を持つ。たとえば、「ベクトルXの和を出力する」コードは<code>print(sum(X))</code>であり、<code>print</code>、<code>sum</code>、<code>X</code>の順で書く。このコードの読み方には二通りがある。</p>
 <ol type="1">
 <li>読み方1: <code>X</code>を<code>sum()</code>し、<code>print()</code>する。</li>
 <li>読み方2: <code>print()</code>する内容は<code>sum()</code>で、<code>sum()</code>は<code>X</code>に対して行う。</li>
 </ol>
-<p>　1は人間にとって自然な読み方であるが、書き方と逆である。一方、2は書き方と順番は一致するものの、直感的ではない。しかし、Tidyverseな書き方、つまりパイプ演算子を用いた書き方は<strong>書き方と読み方が一致</strong>するメリットがある。たとえば、先ほどのコードはパイプ演算子を使うと<code>X %&gt;% sum() %&gt;% print()</code>と書く。</p>
-<p>　このパイプ演算子、実はごく簡単な仕組みである。<code>%&gt;%</code>の左側のオブジェクトを右側オブジェクトの最初の引数として渡すだけであり、<code>X %&gt;% 関数(Y)</code>は<code>関数(X, Y)</code>と同じだ。つまり、<code>X %&gt;% sum(na.rm = TRUE)</code>は<code>sum(X, na.rm = TRUE)</code>と同じコードである。</p>
+<p>　1は人間にとって自然な読み方であるが、書き方と逆である。一方、2は書き方と順番は一致するものの、直感的ではない。しかし、Tidyverseな書き方、つまりパイプ演算子を用いた書き方は<strong>書き方と読み方が一致</strong>するメリットがある。たとえば、先ほどのコードはパイプ演算子を使うと<code>X |&gt; sum() |&gt; print()</code>と書く。</p>
+<p>　このパイプ演算子、実はごく簡単な仕組みである。<code>|&gt;</code>の左側のオブジェクトを右側オブジェクトの最初の引数として渡すだけであり、<code>X |&gt; 関数(Y)</code>は<code>関数(X, Y)</code>と同じだ。つまり、<code>X |&gt; sum(na.rm = TRUE)</code>は<code>sum(X, na.rm = TRUE)</code>と同じコードである。</p>
 <div class="columns">
 <div class="column" style="width:49%;">
 <section id="既存の書き方" class="level4">
@@ -596,7 +596,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><strong>Code 01-b</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>X <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21</code></pre>
@@ -605,17 +605,31 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 </div>
 </div>
-<p>　<code>%&gt;%</code>演算子はパイプ左側オブジェクトを右側オブジェクトの最初の引数として渡すと説明したたが、第二、三、…引数として渡すことも可能である。ただし、この場合はパイプ左側のオブジェクトが入る箇所に<code>.</code>と記入する必要がある。詳細は割愛するが、線形回帰分析の関数<code>lm()</code>は最初の引数が数式（formula型）であるため、データフレームを<code>lm()</code>に渡すためには、<code>lm()</code>内に<code>data = .</code>と書く必要がある。これは<code>.</code>の箇所にパイプ左側のオブジェクトが入ることを意味する。</p>
+<p>　<code>|&gt;</code>演算子はパイプ左側オブジェクトを右側オブジェクトの最初の引数として渡すと説明したたが、第2、3、…引数として渡すことも可能である。ただし、この場合はパイプ左側のオブジェクトが入る箇所に<code>_</code>と記入する必要がある。詳細は割愛するが、線形回帰分析の関数<code>lm()</code>は最初の引数が数式（formula型）であるため、データフレームを<code>lm()</code>に渡すためには、<code>lm()</code>内に<code>data = _</code>と書く必要がある。これは<code>_</code>の箇所にパイプ左側のオブジェクトが入ることを意味する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> .)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># 以下のコードは lm(y ~ x1 + x2 + x3, data = my_data) と同じ</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>my_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> _)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>　このパイプ演算子、実はRデフォルトで提供されているものでなく、{magrittr}というパッケージが提供する演算子である。しかし、2021年5月リリースされたR 4.1以降、R内蔵演算子としてパイプ演算子（<code>|&gt;</code>）が追加されるようになった<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。使い方は<code>%&gt;%</code>と同じである。ただし、第一引数以外に使う位置指定子（place holder）が異なる。<code>%&gt;%</code>の位置指定子は<code>.</code>であり、<code>|&gt;</code>の位置指定子は<code>_</code>である<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。本講義ではパイプ演算子として<code>%&gt;%</code>を使用するが、<code>|&gt;</code>を使っても同じ結果が得られる。</p>
+<p>　このパイプ演算子（<code>|&gt;</code>）、実は2021年5月リリースされたR 4.1から使用可能な比較的新しいものである。しかし、パイプ演算子そのものの歴史は短くはない。R 4.1がリリースされるまではRにパイプ演算子は存在しなかったものの、{magrittr}というパッケージが独自のパイプ演算子（<code>%&gt;%</code>）を提供してきた。<code>%&gt;%</code>パイプ演算子の使い方は<code>|&gt;</code>と同じであるため、現段階では何を使っても問題ない。しかし、R界隈の神様であるHadley Wickham先生も現在は<code>%&gt;%</code>から<code>|&gt;</code>へ乗り換え済みであることから、これからの主流は<code>|&gt;</code>になっていくと予想される。現時点に存在する教科書、インターネット記事では<code>%&gt;%</code>が主流になっているが、それらのコードのパイプ演算子は基本的に<code>|&gt;</code>に置換しても問題ない。ただし、第一引数以外に使う位置指定子（place holder）が異なる点に注意しておこう。<code>%&gt;%</code>の位置指定子は<code>.</code>であり、<code>|&gt;</code>の位置指定子は<code>_</code>である。本講義ではパイプ演算子として<code>|&gt;</code>を使用するが、<code>|&gt;</code>を使っても同じ結果が得られる。少なくとも<strong>本講義に限定した場合</strong>、<code>%&gt;%</code>と<code>|&gt;</code>は同じものであると考えても良い。</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>|&gt;</code>が打ちにくい…!!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>　旧パイプ演算子<code>%&gt;%</code>に比べ、<code>|&gt;</code>は打ちにくいかも知れない。しかし、RStudioを使うのであればショートカットを活用しよう。macOSなら「⌘ + Shift + m」、Windows/Linuxなら「Control (Ctrl) + Shift + m」を同時に押すと、自動的に<code>|&gt;</code>が入力される（RStudioの設定によっては<code>|&gt;</code>でなく、<code>%&gt;%</code>が入力される）。</p>
+</div>
+</div>
 </section>
 </section>
 <section id="dplyrとは" class="level2">
@@ -797,7 +811,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 07-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">select</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -827,7 +841,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="sc">%&gt;%</span>                                  <span class="co"># dfから</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="sc">|&gt;</span>                                   <span class="co"># dfから</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018) <span class="co"># Country, Population, HDI_2018のみ抽出する</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -887,7 +901,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 09-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -910,13 +924,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 </div>
 </div>
-<p>　注意すべき点として、この時点では抽出・出力されただけだということだ。抽出したデータを引き続き使うためには、代入演算子（<code>&lt;-</code>）を使って、抽出した結果を別途のオブジェクトとして格納する必要がある<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。たとえば、<code>df</code>から3つの変数を抽出したものを<code>df2</code>という名で作業環境内に格納するためには以下のように入力する。</p>
+<p>　注意すべき点として、この時点では抽出・出力されただけだということだ。抽出したデータを引き続き使うためには、代入演算子（<code>&lt;-</code>）を使って、抽出した結果を別途のオブジェクトとして格納する必要がある<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。たとえば、<code>df</code>から3つの変数を抽出したものを<code>df2</code>という名で作業環境内に格納するためには以下のように入力する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 10</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -976,7 +990,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(Country, Population, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1002,7 +1016,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">rename</span>(<span class="at">Jinko =</span> Population, <span class="at">Menseki =</span> Area)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1032,7 +1046,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Population, Area, GDP, PPP))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1060,7 +1074,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Population<span class="sc">:</span>PPP))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1088,7 +1102,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1114,7 +1128,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">select</span>(Country, <span class="fu">starts_with</span>(<span class="st">"FH"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1140,7 +1154,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"GDP"</span>, <span class="st">"PPP"</span>)))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1169,7 +1183,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">select</span>(Country, G7<span class="sc">:</span>OECD,</span>
 <span id="cb40-3"><a href="#cb40-3"></a>         Population<span class="sc">:</span>PPP_per_capita, HDI_2018<span class="sc">:</span>Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1200,10 +1214,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><strong>Code 21</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># 特定の変数の後ろへ移動</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a>データ <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">relocate</span>(移動したい変数名, <span class="at">.after =</span> 変更先)</span>
 <span id="cb42-4"><a href="#cb42-4"></a><span class="co"># 特定の変数の前へ移動</span></span>
-<span id="cb42-5"><a href="#cb42-5"></a>データ <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">relocate</span>(移動したい変数名, <span class="at">.before =</span> 変更先)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1213,7 +1227,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">relocate</span>(G7<span class="sc">:</span>OECD, <span class="at">.after =</span> Country) <span class="co"># .before = PopulationもOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1246,7 +1260,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>(条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1256,8 +1270,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 24</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1277,8 +1291,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">&amp;</span> HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">&amp;</span> HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">|&gt;</span></span>
 <span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">select</span>(Country, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1307,8 +1321,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 26</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1334,9 +1348,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 27</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">filter</span>((Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>), </span>
-<span id="cb52-3"><a href="#cb52-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb52-4"><a href="#cb52-4"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1357,9 +1371,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 28</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Oceania"</span>), </span>
-<span id="cb54-3"><a href="#cb54-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1377,7 +1391,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="欠損値の扱い" class="level2">
 <h2 class="anchored" data-anchor-id="欠損値の扱い">欠損値の扱い</h2>
-<p>　データには欠損値が含まれていることが多く、Rでは欠損値を<code>NA</code>と表記する。欠損値が含まれている場合、多重代入法（multiple imputation）などの処理を施すことも可能だが、これはかなり高度の知識を要する。多重代入法を使わない場合は、欠損値を含むケースを除外することが有効である。なぜなら欠損値を含まれている場合、関数が使えないケースも多いからだ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。たとえば、一人あたり購買力平価GDP（<code>PPP_per_capita</code>）には欠損値が含まれている。この場合、平均値を計算する<code>mean()</code>関数はそのまま使えない。</p>
+<p>　データには欠損値が含まれていることが多く、Rでは欠損値を<code>NA</code>と表記する。欠損値が含まれている場合、多重代入法（multiple imputation）などの処理を施すことも可能だが、これはかなり高度の知識を要する。多重代入法を使わない場合は、欠損値を含むケースを除外することが有効である。なぜなら欠損値を含まれている場合、関数が使えないケースも多いからだ<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。たとえば、一人あたり購買力平価GDP（<code>PPP_per_capita</code>）には欠損値が含まれている。この場合、平均値を計算する<code>mean()</code>関数はそのまま使えない。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1396,8 +1410,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 30</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
 <span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1412,8 +1426,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 31</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
 <span id="cb60-3"><a href="#cb60-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1436,8 +1450,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 32</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
 <span id="cb62-3"><a href="#cb62-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1463,8 +1477,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 33</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">|&gt;</span></span>
 <span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1488,15 +1502,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="行のソート" class="level2">
 <h2 class="anchored" data-anchor-id="行のソート">行のソート</h2>
 <p>　最後に行のソート（並び替え）について解説する。行のソートには<code>arrange()</code>関数を使用する。第一引数はデータフレームのオブジェクトであり、第二引数以降は並び替えの基準となる変数名である。ソートは基本的には昇順、つまり値が小さい行が上に表示される。</p>
-<p>　たとえば、<code>df</code>から<code>Continent</code>の値が<code>"Africa"</code>の行のみを抽出し、<code>Polity_Score</code>が小さい国<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>を上位にする。そして、<code>Country</code>と<code>PPP_per_capita</code>、<code>Polity_Score</code>列のみ残すコードは以下の通りである。</p>
+<p>　たとえば、<code>df</code>から<code>Continent</code>の値が<code>"Africa"</code>の行のみを抽出し、<code>Polity_Score</code>が小さい国<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>を上位にする。そして、<code>Country</code>と<code>PPP_per_capita</code>、<code>Polity_Score</code>列のみ残すコードは以下の通りである。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 34</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">arrange</span>(Polity_Score) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">arrange</span>(Polity_Score) <span class="sc">|&gt;</span></span>
 <span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">select</span>(Country, PPP_per_capita, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1522,9 +1536,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 35</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb68-3"><a href="#cb68-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb68-3"><a href="#cb68-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">|&gt;</span></span>
 <span id="cb68-4"><a href="#cb68-4"></a>  <span class="fu">select</span>(Country, PPP_per_capita, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1550,9 +1564,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 36</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb70-3"><a href="#cb70-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score), <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb70-3"><a href="#cb70-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score), <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">|&gt;</span></span>
 <span id="cb70-4"><a href="#cb70-4"></a>  <span class="fu">select</span>(Country, <span class="at">PPP =</span> PPP_per_capita, <span class="at">Polity =</span> Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1589,11 +1603,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">注</h2>
 
 <ol>
-<li id="fn1"><p>JDCat分析ツールのRバージョンは4.1.2であるため、使用可能である。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>ただし、R 4.2.0以上のバージョンが必要である。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>既存のオブジェクトに上書きすることも可能だが、あまり推奨しない。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>関数によっては欠損値が含まれているケースを自動的に除外してくれる場合もある。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Polity Scoreが高いほど、より民主主義に近いことを意味する。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>既存のオブジェクトに上書きすることも可能だが、あまり推奨しない。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>関数によっては欠損値が含まれているケースを自動的に除外してくれる場合もある。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Polity Scoreが高いほど、より民主主義に近いことを意味する。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

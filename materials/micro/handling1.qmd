@@ -20,20 +20,20 @@ metadata-files:
 
 ![](https://www.tidyverse.org/images/tidyverse-default.png){width=75% fig-align="center"}
 
-　Tidyverse（たいでぃばーす）とはデータサイエンスのために考案された、強い信念と思想に基づいた**Rパッケージの集合**である。具体的には{dplyr}、{tidyr}、{readr}、{ggplot2}など数十パッケージで構成されており、Tidyverseに属するパッケージは思想、文法およびデータ構造（tidy data; 整然データ）を共有しる。また、ベクトルやデータフレーム、関数などのオブジェクトを**パイプ演算子** (`%>%`)で繋ぐという点が特徴である。これらのパッケージ群は{tidyverse}をインストールすることで導入可能であり、JDCat分析ツールでは既に導入済みである。
+　Tidyverse（たいでぃばーす）とはデータサイエンスのために考案された、強い信念と思想に基づいた**Rパッケージの集合**である。具体的には{dplyr}、{tidyr}、{readr}、{ggplot2}など数十パッケージで構成されており、Tidyverseに属するパッケージは思想、文法およびデータ構造（tidy data; 整然データ）を共有しる。また、ベクトルやデータフレーム、関数などのオブジェクトを**パイプ演算子** (`|>`)で繋ぐという点が特徴である。これらのパッケージ群は{tidyverse}をインストールすることで導入可能であり、JDCat分析ツールでは既に導入済みである。
 
 　2010年代中盤以降、Rの書き方はtidyverseな書き方が的着しているため、Rのコードを作成する際は`library(tidyverse)`から始めよう。
 
 ### パイプ演算子
 
-　Tidyverseにおいてオブジェクトはパイプ演算子（`%>%`）で繋がっている。なぜパイプ演算子を使うのだろうか。一般的なプログラミング言語に共通する書き方は**書き方と読み方が逆**という特徴を持つ。たとえば、「ベクトルXの和を出力する」コードは`print(sum(X))`であり、`print`、`sum`、`X`の順で書く。このコードの読み方には二通りがある。
+　Tidyverseにおいてオブジェクトはパイプ演算子（`|>`）で繋がっている。なぜパイプ演算子を使うのだろうか。一般的なプログラミング言語に共通する書き方は**書き方と読み方が逆**という特徴を持つ。たとえば、「ベクトルXの和を出力する」コードは`print(sum(X))`であり、`print`、`sum`、`X`の順で書く。このコードの読み方には二通りがある。
 
 1. 読み方1: `X`を`sum()`し、`print()`する。
 2. 読み方2: `print()`する内容は`sum()`で、`sum()`は`X`に対して行う。
 
-　1は人間にとって自然な読み方であるが、書き方と逆である。一方、2は書き方と順番は一致するものの、直感的ではない。しかし、Tidyverseな書き方、つまりパイプ演算子を用いた書き方は**書き方と読み方が一致**するメリットがある。たとえば、先ほどのコードはパイプ演算子を使うと`X %>% sum() %>% print()`と書く。
+　1は人間にとって自然な読み方であるが、書き方と逆である。一方、2は書き方と順番は一致するものの、直感的ではない。しかし、Tidyverseな書き方、つまりパイプ演算子を用いた書き方は**書き方と読み方が一致**するメリットがある。たとえば、先ほどのコードはパイプ演算子を使うと`X |> sum() |> print()`と書く。
 
-　このパイプ演算子、実はごく簡単な仕組みである。`%>%`の左側のオブジェクトを右側オブジェクトの最初の引数として渡すだけであり、`X %>% 関数(Y)`は`関数(X, Y)`と同じだ。つまり、`X %>% sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じコードである。
+　このパイプ演算子、実はごく簡単な仕組みである。`|>`の左側のオブジェクトを右側オブジェクトの最初の引数として渡すだけであり、`X |> 関数(Y)`は`関数(X, Y)`と同じだ。つまり、`X |> sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じコードである。
 
 :::: {.columns}
 
@@ -57,26 +57,29 @@ print(sum(X, na.rm = TRUE))
 ```{r}
 #| filename: "Code 01-b"
 library(tidyverse)
-X %>% sum(na.rm = TRUE) %>% print()
+X |> sum(na.rm = TRUE) |> print()
 ```
 :::
 
 ::::
 
-　`%>%`演算子はパイプ左側オブジェクトを右側オブジェクトの最初の引数として渡すと説明したたが、第二、三、...引数として渡すことも可能である。ただし、この場合はパイプ左側のオブジェクトが入る箇所に`.`と記入する必要がある。詳細は割愛するが、線形回帰分析の関数`lm()`は最初の引数が数式（formula型）であるため、データフレームを`lm()`に渡すためには、`lm()`内に`data = .`と書く必要がある。これは`.`の箇所にパイプ左側のオブジェクトが入ることを意味する。
+　`|>`演算子はパイプ左側オブジェクトを右側オブジェクトの最初の引数として渡すと説明したたが、第2、3、...引数として渡すことも可能である。ただし、この場合はパイプ左側のオブジェクトが入る箇所に`_`と記入する必要がある。詳細は割愛するが、線形回帰分析の関数`lm()`は最初の引数が数式（formula型）であるため、データフレームを`lm()`に渡すためには、`lm()`内に`data = _`と書く必要がある。これは`_`の箇所にパイプ左側のオブジェクトが入ることを意味する。
 
 ```{r}
 #| filename: "Code 02"
 #| eval: false
-my_data %>% 
-  lm(y ~ x1 + x2 + x3, data = .)
+# 以下のコードは lm(y ~ x1 + x2 + x3, data = my_data) と同じ
+my_data |> 
+  lm(y ~ x1 + x2 + x3, data = _)
 ```
 
-　このパイプ演算子、実はRデフォルトで提供されているものでなく、{magrittr}というパッケージが提供する演算子である。しかし、2021年5月リリースされたR 4.1以降、R内蔵演算子としてパイプ演算子（`|>`）が追加されるようになった[^pipe-nii]。使い方は`%>%`と同じである。ただし、第一引数以外に使う位置指定子（place holder）が異なる。`%>%`の位置指定子は`.`であり、`|>`の位置指定子は`_`である[^place-holder]。本講義ではパイプ演算子として`%>%`を使用するが、`|>`を使っても同じ結果が得られる。
+　このパイプ演算子（`|>`）、実は2021年5月リリースされたR 4.1から使用可能な比較的新しいものである。しかし、パイプ演算子そのものの歴史は短くはない。R 4.1がリリースされるまではRにパイプ演算子は存在しなかったものの、{magrittr}というパッケージが独自のパイプ演算子（`%>%`）を提供してきた。`%>%`パイプ演算子の使い方は`|>`と同じであるため、現段階では何を使っても問題ない。しかし、R界隈の神様であるHadley Wickham先生も現在は`%>%`から`|>`へ乗り換え済みであることから、これからの主流は`|>`になっていくと予想される。現時点に存在する教科書、インターネット記事では`%>%`が主流になっているが、それらのコードのパイプ演算子は基本的に`|>`に置換しても問題ない。ただし、第一引数以外に使う位置指定子（place holder）が異なる点に注意しておこう。`%>%`の位置指定子は`.`であり、`|>`の位置指定子は`_`である。本講義ではパイプ演算子として`|>`を使用するが、`|>`を使っても同じ結果が得られる。少なくとも**本講義に限定した場合**、`%>%`と`|>`は同じものであると考えても良い。
 
-[^pipe-nii]: JDCat分析ツールのRバージョンは4.1.2であるため、使用可能である。
+:::{.callout-tip}
+## `|>`が打ちにくい...!!
 
-[^place-holder]: ただし、R 4.2.0以上のバージョンが必要である。
+　旧パイプ演算子`%>%`に比べ、`|>`は打ちにくいかも知れない。しかし、RStudioを使うのであればショートカットを活用しよう。macOSなら「⌘ + Shift + m」、Windows/Linuxなら「Control (Ctrl) + Shift + m」を同時に押すと、自動的に`|>`が入力される（RStudioの設定によっては`|>`でなく、`%>%`が入力される）。
+:::
 
 ## {dplyr}とは
 
@@ -154,7 +157,7 @@ select(データ, 変数名1, 変数名2, ...)
 ```{r}
 #| filename: "Code 07-b"
 #| eval: false
-データ %>%
+データ |>
   select(変数名1, 変数名2, ...)
 ```
 :::
@@ -174,7 +177,7 @@ select(データ, 変数名1, 変数名2, ...)
 
 ```{r}
 #| filename: "Code 08"
-df %>%                                  # dfから
+df |>                                   # dfから
   select(Country, Population, HDI_2018) # Country, Population, HDI_2018のみ抽出する
 ```
 
@@ -200,7 +203,7 @@ df[, c("Country", "Population", "HDI_2018")]
 
 ```{r}
 #| filename: "Code 09-b"
-df %>%
+df |>
   select(Country, Population, HDI_2018)
 ```
 :::
@@ -213,7 +216,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 10"
-df2 <- df %>%
+df2 <- df |>
   select(Country, Population, HDI_2018)
 ```
 
@@ -241,7 +244,7 @@ df2
 
 ```{r}
 #| filename: "Code 13"
-df %>%
+df |>
   select(Country, Population, HDI = HDI_2018)
 ```
 
@@ -249,7 +252,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 14"
-df %>%
+df |>
   rename(Jinko = Population, Menseki = Area)
 ```
 
@@ -259,7 +262,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 15"
-df %>%
+df |>
   select(!c(Population, Area, GDP, PPP))
 ```
 
@@ -267,7 +270,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 16"
-df %>%
+df |>
   select(!c(Population:PPP))
 ```
 
@@ -275,7 +278,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 17"
-df %>%
+df |>
   select(Country:PPP, HDI_2018)
 ```
 
@@ -283,7 +286,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 18"
-df %>%
+df |>
   select(Country, starts_with("FH"))
 ```
 
@@ -291,7 +294,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 19"
-df %>%
+df |>
   select(!starts_with(c("GDP", "PPP")))
 ```
 
@@ -301,7 +304,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 20"
-df %>%
+df |>
   select(Country, G7:OECD,
          Population:PPP_per_capita, HDI_2018:Continent)
 ```
@@ -312,10 +315,10 @@ df %>%
 #| filename: "Code 21"
 #| eval: false
 # 特定の変数の後ろへ移動
-データ %>%
+データ |>
   relocate(移動したい変数名, .after = 変更先)
 # 特定の変数の前へ移動
-データ %>%
+データ |>
   relocate(移動したい変数名, .before = 変更先)
 ```
 
@@ -323,7 +326,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 22"
-df %>%
+df |>
   relocate(G7:OECD, .after = Country) # .before = PopulationもOK
 ```
 
@@ -336,7 +339,7 @@ df %>%
 ```{r}
 #| filename: "Code 23"
 #| eval: false
-データ %>%
+データ |>
   filter(条件1, 条件2, ...)
 ```
 
@@ -344,8 +347,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 24"
-df %>%
-  filter(Continent == "Oceania") %>%
+df |>
+  filter(Continent == "Oceania") |>
   select(Country:PPP, HDI = HDI_2018)
 ```
 
@@ -355,8 +358,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 25"
-df %>%
-  filter(Continent == "Asia" & HDI_2018 >= 0.8) %>%
+df |>
+  filter(Continent == "Asia" & HDI_2018 >= 0.8) |>
   select(Country, HDI_2018)
 ```
 
@@ -366,8 +369,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 26"
-df %>%
-  filter(Continent == "Asia" | Continent == "Oceania") %>%
+df |>
+  filter(Continent == "Asia" | Continent == "Oceania") |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -375,9 +378,9 @@ df %>%
 
 ```{r}
 #| filename: "Code 27"
-df %>%
+df |>
   filter((Continent == "Asia" | Continent == "Oceania"), 
-         HDI_2018 >= 0.9) %>%
+         HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -385,9 +388,9 @@ df %>%
 
 ```{r}
 #| filename: "Code 28"
-df %>%
+df |>
   filter(Continent %in% c("Asia", "Oceania"), 
-         HDI_2018 >= 0.9) %>%
+         HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -408,8 +411,8 @@ mean(df$PPP_per_capita)
 
 ```{r}
 #| filename: "Code 30"
-df %>%
-  filter(PPP == NA) %>%
+df |>
+  filter(PPP == NA) |>
   select(Country:PPP)
 ```
 
@@ -417,8 +420,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 31"
-df %>%
-  filter(is.na(PPP)) %>%
+df |>
+  filter(is.na(PPP)) |>
   select(Country:PPP)
 ```
 
@@ -426,8 +429,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 32"
-df %>%
-  filter(!is.na(PPP)) %>%
+df |>
+  filter(!is.na(PPP)) |>
   select(Country:PPP)
 ```
 
@@ -435,8 +438,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 33"
-df %>%
-  drop_na(PPP, Polity_Score) %>%
+df |>
+  drop_na(PPP, Polity_Score) |>
   select(Country:PPP, Polity_Score)
 ```
 
@@ -450,9 +453,9 @@ df %>%
 
 ```{r}
 #| filename: "Code 34"
-df %>%
-  filter(Continent == "Africa") %>%
-  arrange(Polity_Score) %>%
+df |>
+  filter(Continent == "Africa") |>
+  arrange(Polity_Score) |>
   select(Country, PPP_per_capita, Polity_Score)
 ```
 
@@ -460,9 +463,9 @@ df %>%
 
 ```{r}
 #| filename: "Code 35"
-df %>%
-  filter(Continent == "Africa") %>%
-  arrange(desc(Polity_Score)) %>%
+df |>
+  filter(Continent == "Africa") |>
+  arrange(desc(Polity_Score)) |>
   select(Country, PPP_per_capita, Polity_Score)
 ```
 
@@ -470,9 +473,9 @@ df %>%
 
 ```{r}
 #| filename: "Code 36"
-df %>%
-  filter(Continent == "Africa") %>%
-  arrange(desc(Polity_Score), desc(PPP_per_capita)) %>%
+df |>
+  filter(Continent == "Africa") |>
+  arrange(desc(Polity_Score), desc(PPP_per_capita)) |>
   select(Country, PPP = PPP_per_capita, Polity = Polity_Score)
 ```
 

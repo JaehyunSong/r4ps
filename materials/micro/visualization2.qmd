@@ -48,7 +48,7 @@ df <- read_csv("Data/countries.csv")
 ```{r}
 #| echo: false
 tibble(x = 1:2,
-       y = c(20, 80)) %>%
+       y = c(20, 80)) |>
   ggplot() +
   geom_bar(aes(x = x, y = y), stat = "identity") +
   scale_x_continuous(breaks = 1:2, labels = c("ソンさん", "キムさん")) +
@@ -67,17 +67,17 @@ tibble(x = 1:2,
 #| echo: false
 #| fig-width: 5
 #| fig-height: 4
-df %>%
-   group_by(Continent) %>%
-   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) %>%
+df |>
+   group_by(Continent) |>
+   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
    geom_bar(aes(x = Continent, y = HDI), stat = "identity") +
    labs(y = "Human Development Index") +
    theme_bw(base_size   = 14)
 
-df %>%
-   group_by(Continent) %>%
-   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) %>%
+df |>
+   group_by(Continent) |>
+   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
    geom_bar(aes(y = Continent, x = HDI), stat = "identity") +
    labs(x = "Human Development Index") +
@@ -90,8 +90,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 02"
-df2 <- df %>%
-   group_by(Continent) %>%
+df2 <- df |>
+   group_by(Continent) |>
    summarise(HDI = mean(HDI_2018, na.rm = TRUE))
 
 df2
@@ -105,7 +105,7 @@ df2
 #| filename: "Code 03"
 #| fig-width: 8
 #| fig-height: 4
-bar_plot1 <- df2 %>%
+bar_plot1 <- df2 |>
   ggplot() +
   geom_bar(aes(x = Continent, y = HDI), stat = "identity")
 
@@ -116,7 +116,7 @@ bar_plot1
 
 ```{r}
 #| filename: "Code 04"
-df2 <- df2 %>%
+df2 <- df2 |>
    mutate(Continent_J = case_when(Continent == "Asia"    ~ "アジア",
                                   Continent == "Africa"  ~ "アフリカ",
                                   Continent == "America" ~ "アメリカ",
@@ -132,7 +132,7 @@ df2
 #| filename: "Code 05"
 #| fig-width: 8
 #| fig-height: 4
-df2 %>%
+df2 |>
    ggplot() +
    geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
    labs(x = "大陸", y = "人間開発指数の平均値")
@@ -143,7 +143,7 @@ df2 %>%
 ```{r}
 #| filename: "Code 06"
 #| eval: false
-df2 %>%
+df2 |>
    ggplot() +
    geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
    labs(x = "大陸", y = "人間開発指数の平均値") +
@@ -156,10 +156,10 @@ df2 %>%
 #| filename: "Code 07"
 #| fig-width: 8
 #| fig-height: 4
-df2 %>%
+df2 |>
    mutate(Continent_J = factor(Continent_J, 
                                levels = c("アフリカ", "アメリカ", "アジア", 
-                                          "ヨーロッパ", "オセアニア"))) %>% 
+                                          "ヨーロッパ", "オセアニア"))) |> 
    ggplot() +
    geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
    labs(x = "大陸", y = "人間開発指数の平均値") +
@@ -181,8 +181,8 @@ df2
 #| filename: "Code 09"
 #| fig-width: 8
 #| fig-height: 4
-df2 %>%
-   mutate(Continent_J = fct_inorder(Continent_J)) %>%
+df2 |>
+   mutate(Continent_J = fct_inorder(Continent_J)) |>
    ggplot() +
    geom_bar(aes(x = Continent_J, y = HDI), 
             stat = "identity") +
@@ -197,13 +197,13 @@ df2 %>%
 
 ```{r}
 #| filename: "Code 10"
-df3 <- df %>%
-   drop_na(Polity_Type) %>%
+df3 <- df |>
+   drop_na(Polity_Type) |>
    mutate(Polity_Type = factor(Polity_Type,
                                levels = c("Autocracy", "Closed Anocracy",
                                           "Open Anocracy", "Democracy",
-                                          "Full Democracy"))) %>%
-   group_by(Polity_Type) %>%
+                                          "Full Democracy"))) |>
+   group_by(Polity_Type) |>
    summarise(N = n())
 
 df3
@@ -215,7 +215,7 @@ df3
 #| filename: "Code 11"
 #| fig-width: 8
 #| fig-height: 4
-df3 %>%
+df3 |>
    ggplot() +
    geom_bar(aes(x = Polity_Type, y = N), stat = "identity")
 ```
@@ -224,13 +224,13 @@ df3 %>%
 
 ```{r}
 #| filename: "Code 12"
-df4 <- df %>%
-   drop_na(Polity_Type) %>%
+df4 <- df |>
+   drop_na(Polity_Type) |>
    mutate(Polity_Type = factor(Polity_Type,
                                levels = c("Autocracy", "Closed Anocracy",
                                           "Open Anocracy", "Democracy",
-                                          "Full Democracy"))) %>%
-   group_by(Polity_Type, Continent) %>%
+                                          "Full Democracy"))) |>
+   group_by(Polity_Type, Continent) |>
    summarise(N       = n(),
              .groups = "drop")
 
@@ -243,7 +243,7 @@ df4
 #| filename: "Code 13"
 #| fig-width: 8
 #| fig-height: 4
-df4 %>%
+df4 |>
   ggplot() +
   geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity")
 ```
@@ -254,7 +254,7 @@ df4 %>%
 #| filename: "Code 14"
 #| fig-width: 8
 #| fig-height: 4
-df4 %>%
+df4 |>
   ggplot() +
   geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity",
            position = "dodge")
@@ -267,7 +267,7 @@ df4 %>%
 #| filename: "Code 15"
 #| fig-width: 8
 #| fig-height: 4
-df4 %>%
+df4 |>
   ggplot() +
   geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity",
            position = "dodge") +
@@ -280,7 +280,7 @@ df4 %>%
 #| filename: "Code 16"
 #| fig-width: 8
 #| fig-height: 4
-df4 %>%
+df4 |>
   ggplot() +
   geom_bar(aes(x = Continent, y = N, fill = Polity_Type), stat = "identity",
            position = "dodge", color = "white") +
@@ -295,7 +295,7 @@ df4 %>%
 #| filename: "Code 17"
 #| fig-width: 8
 #| fig-height: 4
-bar_plot2 <- df4 %>%
+bar_plot2 <- df4 |>
   ggplot() +
   geom_bar(aes(x = Polity_Type, y = N), stat = "identity") +
   facet_wrap(~ Continent, ncol = 5) # ncol/nrowで列/行数の指定が可能
@@ -324,7 +324,7 @@ bar_plot3
 #| filename: "Code 19"
 #| fig-width: 8
 #| fig-height: 4
-bar_plot4 <- df4 %>%
+bar_plot4 <- df4 |>
   ggplot() +
   geom_bar(aes(x = N, y = Polity_Type), stat = "identity") +
   labs(x = "Number of Countries", y = "Poltiy Type") +
@@ -378,7 +378,7 @@ ggsave(filename = "Figs/Figure1.png", # 保存先とファイル名
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018), binwidth = 0.05) +
    labs(x = "人間開発指数 (2018年)", y = "国家数") +
@@ -391,7 +391,7 @@ df %>%
 #| filename: "Code 21"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018)) # HDI_2018のヒストグラム
 ```
@@ -410,15 +410,15 @@ df %>%
 #| echo: false
 #| fig-width: 4
 #| fig-height: 4
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), bins = 50, color = "white")
 
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), bins = 10, color = "white")
 
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), bins = 5, color = "white")
 ```
@@ -433,7 +433,7 @@ df %>%
 #| filename: "Code 22"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), bins = 10) # 棒を10本にする
 ```
@@ -444,7 +444,7 @@ df %>%
 #| filename: "Code 23"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), binwidth = 0.05) # 棒の幅を0.05にする
 ```
@@ -455,7 +455,7 @@ df %>%
 #| filename: "Code 24"
 #| fig-width: 8
 #| fig-height: 4
-hist_plot1 <- df %>%
+hist_plot1 <- df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), binwidth = 0.05, color = "white") +
   labs(x = "Human Development Index (2018)", y = "Number of Countries")
@@ -498,8 +498,8 @@ hist_plot2 +
 #| filename: "Code 27"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
-   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = OECD), position = "identity",
                   binwidth = 0.05, color = "white") +
@@ -513,8 +513,8 @@ df %>%
 #| filename: "Code 28"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
-   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = OECD), position = "identity",
                   binwidth = 0.05, color = "white", alpha = 0.5) +
@@ -528,7 +528,7 @@ df %>%
 #| filename: "Code 29"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = Continent), position = "identity",
                   binwidth = 0.05, color = "white", alpha = 0.5) +
@@ -544,7 +544,7 @@ df %>%
 #| filename: "Code 30"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = Continent), 
                   binwidth = 0.05, color = "white") +
@@ -558,7 +558,7 @@ df %>%
 #| filename: "Code 31"
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
    ggplot() +
    geom_density(aes(x = HDI_2018, fill = Continent), 
                 alpha = 0.5, adjust = 0.8) +

@@ -398,7 +398,7 @@ COVID_df
 ```{r}
 #| filename: "Code 18"
 #| eval: false
-データ %>%
+データ |>
   pivot_longer(cols      = 変数が格納されている列,
                names_to  = "元の列名が入る変数名",
                values_to = "変数の値が入る変数名")
@@ -410,7 +410,7 @@ COVID_df
 
 ```{r}
 #| filename: "Code 19"
-COVID_Long <- COVID_df %>% 
+COVID_Long <- COVID_df |> 
   # cols = starts_with("2022") でも良い
   pivot_longer(cols      = "2022/06/09":"2022/06/13",
                names_to  = "Date",
@@ -424,7 +424,7 @@ COVID_Long
 
 ```{r}
 #| filename: "Code 20"
-COVID_Long %>%
+COVID_Long |>
   pivot_wider(names_from  = "Date",
               values_from = "New_Cases")
 ```
@@ -436,7 +436,7 @@ COVID_Long %>%
 ```{r}
 #| filename: "Code 21"
 #| eval: false
-データ %>%
+データ |>
   separate(col  = "分割する列名",
            into = c("分割後の列名1", "分割後の列名2", ...),
            sep  = "分割する基準")
@@ -446,7 +446,7 @@ COVID_Long %>%
 
 ```{r}
 #| filename: "Code 22"
-COVID_Long %>%
+COVID_Long |>
   separate(col  = "Date",
            into = c("Year", "Month", "Day"),
            sep  = "/")
@@ -467,12 +467,12 @@ City_Data
 
 ```{r}
 #| filename: "Code 24"
-City_Data %>%
+City_Data |>
    # 任意の2文字の後に「都道府県」のいずれかが来るか、
    # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする
    # Cityの値を「ブロック1-ブロック2」に置換する
    mutate(City = str_replace(City, "^(.{2}[都道府県]|.{3}県)(.+)", 
-                             "\\1-\\2")) %>%
+                             "\\1-\\2")) |>
    # 「-」を基準に列を分割
    separate(col  = "City", into = c("Pref", "City"), sep  = "-")
 ```
@@ -483,15 +483,15 @@ City_Data %>%
 
 ```{r}
 #| filename: "Code 25"
-COVID_df %>% 
+COVID_df |> 
   # Wide to Long
   pivot_longer(cols      = "2022/06/09":"2022/06/13",
                names_to  = "Date",
-               values_to = "New_Cases") %>%
+               values_to = "New_Cases") |>
   # 新規感染者数を人口であり、100万をかける
-  mutate(New_Case_per_1M = New_Cases / Population * 1000000) %>%
+  mutate(New_Case_per_1M = New_Cases / Population * 1000000) |>
   # Countryでグルーピング
-  group_by(Country) %>%
+  group_by(Country) |>
   # New_Case_per_1Mの平均値を計算
   summarise(New_Case_per_1M = mean(New_Case_per_1M))
 ```
