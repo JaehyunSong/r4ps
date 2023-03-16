@@ -17,13 +17,13 @@ metadata-files:
 * {tidyverse}をインストールすることで導入可能
 * Tidyverseに属するパッケージは思想、文法およびデータ構造を共有
   * {dplyr}、{tidyr}、{readr}、{ggplot2}など
-* オブジェクトを**パイプ演算子** (`%>%` or `|>`)で繋ぐ
+* オブジェクトを**パイプ演算子** (`|>` or `|>`)で繋ぐ
 
 Rのコードは`library(tidyverse)`で始めよう!
 
 ## パイプ演算子
 
-Tidyverseにおいてオブジェクトは`%>%`で繋がっている。
+Tidyverseにおいてオブジェクトは`|>`で繋がっている。
 
 * 既存の書き方: **書き方と読み方が逆**
   * 一般的なプログラミング言語共通
@@ -32,14 +32,14 @@ Tidyverseにおいてオブジェクトは`%>%`で繋がっている。
   * 読み方2: `print()`する内容は`sum()`で、`sum()`は`X`に対して行う（直感的でない読み方）
 * Tidyverseな書き方: **書き方と読み方が一致**
   * 今どきのRの書き方
-  * 書き方: `X %>% sum() %>% print()`
+  * 書き方: `X |> sum() |> print()`
   * 読み方: `X`を`sum()`し、`print()`する
 
 ## パイプ演算子の仕組み
 
-* `%>%`の左側を右側の最初の引数として渡すだけ
-* `X %>% 関数(Y)`は`関数(X, Y)`と同じ
-  * `X %>% sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じ
+* `|>`の左側を右側の最初の引数として渡すだけ
+* `X |> 関数(Y)`は`関数(X, Y)`と同じ
+  * `X |> sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じ
 * 二番目以降の引数として渡すことも可能（適宜、解説）
 
 :::: {.columns}
@@ -62,28 +62,24 @@ print(sum(X, na.rm = TRUE))
 
 ```{r}
 library(tidyverse)
-X %>% sum(na.rm = TRUE) %>% print()
+X |> sum(na.rm = TRUE) |> print()
 ```
 :::
 
 ::::
 
-<!--- --->
-
-## 参考) R 4.1以降のパイプ演算子
+## `%>%`：もう一つのパイプ演算子
 
 R内蔵演算子としてパイプ演算子（`|>`）が追加
 
-* 2021年5月リリースされたR 4.1以降実装
-   * JDCat分析ツールのRは4.1.2
-* 既存のパイプ演算子（`%>%`）はR内蔵演算子でなく、{magrittr}が提供する演算子
-   * {magrittr}は{tidyverse}を読み込むと自動的に読み込まれる
+* 2021年5月リリースされたR 4.1からR内蔵のパイプ演算子`|>`が登場
+* それまでは{magrittr}パッケージが提供する`%>%`を使用
+   * {magrittr}は{tidyverse}を読み込むと自動的に読み込まれる。
 * 使い方はほぼ同じ
    * ただし、演算子の左側のオブジェクトを右側の**第一引数**として渡す場合のみ
    * 第一引数以外の引数として渡す場合は使い方が異なる
-* 今後、仕様変更がある可能性があるため、本講義では`%>%`を使用
-
-<!--- --->
+* インターネット、教科書などでは`%>%`を使用するケースがまだ多いが、今後の主流は`|>`になると予想されるため、本講義では`|>`を使用する。
+   * むろん、現段階では`%>%`を使っても良いし、`%>%`を使ったコードを`|>`に置換して使っても**ほぼ**問題にならない。
 
 ## `%>%`と`|>`の比較
 
@@ -102,12 +98,11 @@ X |> sum(na.rm = TRUE) |> print()
 #### 渡す先が第一引数でない場合
 
 * 実引数として渡す箇所に`.` (tidyverse)、`_` (native pipe)を入力
-   * ただし、`_`はR 4.2.0以上から使用可能 (JDCat分析ツールはR 4.1.2)
 
 ```{r}
 #| eval: false
 # {magrittr}のパイプ演算子
-my_data %>% 
+my_data %>%
   lm(y ~ x1 + x2 + x3, data = .)
 # R内蔵のパイプ演算子
 my_data |>
@@ -195,7 +190,7 @@ select(データ, 変数名1, 変数名2, ...)
 
 ```{r}
 #| eval: false
-データ %>%
+データ |>
   select(変数名1, 変数名2, ...)
 ```
 :::
@@ -219,8 +214,8 @@ select(データ, 変数名1, 変数名2, ...)
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%                                      # dfから
-  select(Country, Population, HDI_2018) %>% # Country, Population, HDI_2018のみ抽出して
+df |>                                      # dfから
+  select(Country, Population, HDI_2018) |> # Country, Population, HDI_2018のみ抽出して
   head(n = 5)                               # 最初の5行を出力する
 ```
 
@@ -228,7 +223,7 @@ df %>%                                      # dfから
 
 ```{r}
 #| eval: false
-df2 <- df %>%
+df2 <- df |>
   select(Country, Population, HDI_2018)
 ```
 
@@ -249,7 +244,7 @@ df2 <- df %>%
 **例)** `HDI_2018`の変数名を`HDI`に変更
 
 ```{r}
-df %>%
+df |>
   select(Country, Population, HDI = HDI_2018)
 ```
 
@@ -261,7 +256,7 @@ df %>%
 
 ```{r}
 #| eval: false
-データ %>%
+データ |>
   rename(新しい変数名 = 既存の変数名)
 ```
 
@@ -269,7 +264,7 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%
+df |>
   rename(Jinko = Population, Menseki = Area)
 ```
 
@@ -284,7 +279,7 @@ df %>%
 **例)** `df`から`GDP_per_capita`と`PPP_per_capita`を除外
 
 ```{r}
-df %>%
+df |>
   select(!c(GDP_per_capita, PPP_per_capita))
 ```
 
@@ -300,7 +295,7 @@ df %>%
 **例)** `df`の`Country`〜`PPP`, `HDI_2018`列を抽出
 
 ```{r}
-df %>%
+df |>
   select(Country:PPP, HDI_2018)
 ```
 
@@ -316,7 +311,7 @@ df %>%
 **例)** `df`から`Country`, `"FH"`で始まる列を抽出
 
 ```{r}
-df %>%
+df |>
   select(Country, starts_with("FH"))
 ```
 
@@ -332,7 +327,7 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%
+df |>
   select(Country, G7:OECD,
          Population:PPP_per_capita, HDI_2018:Continent)
 ```
@@ -347,14 +342,14 @@ df %>%
 
 ```{r}
 #| eval: false
-データ %>%
+データ |>
   relocate(移動したい変数名, .after = 変更先)
 ```
 
 **例)** `G7`から`OECD`列を`Country`の後ろへ移動
 
 ```{r}
-df %>%
+df |>
   relocate(G7:OECD, .after = Country) # .before = PopulationもOK
 ```
 
@@ -379,7 +374,7 @@ filter(データ, 条件1, 条件2, ...)
 
 ```{r}
 #| eval: false
-データ %>%
+データ |>
   filter(条件1, 条件2, ...)
 ```
 
@@ -395,8 +390,8 @@ filter(データ, 条件1, 条件2, ...)
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%
-  filter(Continent == "Oceania") %>%
+df |>
+  filter(Continent == "Oceania") |>
   select(Country:PPP, HDI = HDI_2018)
 ```
 
@@ -411,8 +406,8 @@ df %>%
 **例)** `df`から`Continent`が`"Asia"` (条件1)、`HDI_2018`が0.8以上 (条件2)の行を抽出し、`Country`と`HDI_2018`列を抽出
 
 ```{r}
-df %>%
-  filter(Continent == "Asia", HDI_2018 >= 0.8) %>%
+df |>
+  filter(Continent == "Asia", HDI_2018 >= 0.8) |>
   select(Country, HDI_2018)
 ```
 
@@ -427,9 +422,9 @@ df %>%
 **例)** `df`から`Continent`が`"Asia"` (条件1)か`"Oceania"` (条件2)であり、`HDI_2018`が0.9以上 (条件3)の行を抽出し、`Country`と`HDI_2018`、`Continent`列を抽出
 
 ```{r}
-df %>%
+df |>
   filter((Continent == "Asia" | Continent == "Oceania"), 
-         HDI_2018 >= 0.9) %>%
+         HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -442,8 +437,8 @@ df %>%
 **例)** `Continent`の値が`c("Asia", "Oceainia")`の要素に含まれている場合
 
 ```{r}
-df %>%
-  filter(Continent %in% c("Asia", "Oceania"), HDI_2018 >= 0.9) %>%
+df |>
+  filter(Continent %in% c("Asia", "Oceania"), HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -454,8 +449,8 @@ df %>%
 * `変数名 == NA`を条件にしてはいけない
 
 ```{r}
-df %>%
-  filter(PPP == NA) %>%
+df |>
+  filter(PPP == NA) |>
   select(Country:PPP)
 ```
 
@@ -466,8 +461,8 @@ df %>%
 * 正解: `is.na(変数名)`
 
 ```{r}
-df %>%
-  filter(is.na(PPP)) %>%
+df |>
+  filter(is.na(PPP)) |>
   select(Country:PPP)
 ```
 
@@ -478,8 +473,8 @@ df %>%
 * 否定を意味する`!`を使用する
 
 ```{r}
-df %>%
-  filter(!is.na(PPP)) %>%
+df |>
+  filter(!is.na(PPP)) |>
   select(Country:PPP)
 ```
 
@@ -490,8 +485,8 @@ df %>%
 * `()`内で指定した変数が欠損している行をすべて除外（複数指定可）
 
 ```{r}
-df %>%
-  drop_na(PPP, Polity_Score) %>% # PPPとPolity_Scoreどちらか欠損した行を除外
+df |>
+  drop_na(PPP, Polity_Score) |> # PPPとPolity_Scoreどちらか欠損した行を除外
   select(Country:PPP, Polity_Score)
 ```
 
@@ -512,7 +507,7 @@ arrange(データ, 変数名1, 変数名2, ...)
 
 ```{r}
 #| eval: false
-データ %>% arrange(変数名1, 変数名2, ...)
+データ |> arrange(変数名1, 変数名2, ...)
 ```
 
 基本的には昇順 (値が小さい行が先にくる)
@@ -530,9 +525,9 @@ arrange(データ, 変数名1, 変数名2, ...)
 
 ```{r}
 #| code-line-numbers: "3"
-df %>%
-  filter(Continent == "Africa") %>%
-  arrange(desc(Polity_Score)) %>%
+df |>
+  filter(Continent == "Africa") |>
+  arrange(desc(Polity_Score)) |>
   select(Country, PPP_per_capita, Polity_Score)
 ```
 
@@ -547,8 +542,8 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "3"
-df %>%
-  filter(Continent == "Africa") %>%
-  arrange(Polity_Score, desc(PPP_per_capita)) %>%
+df |>
+  filter(Continent == "Africa") |>
+  arrange(Polity_Score, desc(PPP_per_capita)) |>
   select(Country, Polity = Polity_Score, PPP = PPP_per_capita)
 ```

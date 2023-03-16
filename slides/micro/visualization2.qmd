@@ -60,9 +60,9 @@ df <- read_csv("Data/countries.csv")
 #| echo: false
 #| fig-width: 5
 #| fig-height: 4
-df %>%
-   group_by(Continent) %>%
-   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) %>%
+df |>
+   group_by(Continent) |>
+   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
    geom_col(aes(x = Continent, y = HDI)) +
    labs(y = "Human Development Index") +
@@ -81,9 +81,9 @@ df %>%
 #| echo: false
 #| fig-width: 5
 #| fig-height: 4
-df %>%
-   group_by(Continent) %>%
-   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) %>%
+df |>
+   group_by(Continent) |>
+   summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
    geom_col(aes(y = Continent, x = HDI)) +
    labs(x = "Human Development Index") +
@@ -104,8 +104,8 @@ df %>%
 library(tidyverse)
 df <- read_csv("Data/countries.csv")
 
-df2 <- df %>%
-   group_by(Continent) %>%
+df2 <- df |>
+   group_by(Continent) |>
    summarise(HDI = mean(HDI_2018, na.rm = TRUE))
 
 df2
@@ -125,7 +125,7 @@ df2
 
 ```{r}
 #| code-line-numbers: "3,4"
-bar_plot1 <- df2 %>%
+bar_plot1 <- df2 |>
   ggplot() +
   geom_col(aes(x = Continent, y = HDI))
 ```
@@ -151,7 +151,7 @@ bar_plot1
 **Step1:** `df2`の`Continent`列を日本語にリコーディング
 
 ```{r}
-df2 <- df2 %>%
+df2 <- df2 |>
    mutate(Continent_J = case_when(Continent == "Asia"    ~ "アジア",
                                   Continent == "Africa"  ~ "アフリカ",
                                   Continent == "America" ~ "アメリカ",
@@ -169,7 +169,7 @@ df2
 #| fig-width: 8
 #| fig-height: 3.2
 #| code-line-numbers: "4"
-df2 %>%
+df2 |>
    ggplot() +
    geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値")
@@ -187,7 +187,7 @@ JDCat分析ツールを使用する場合、文字化けは生じない
 ```{r}
 #| eval: false
 #| code-line-numbers: "5"
-df2 %>%
+df2 |>
    ggplot() +
    geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値") +
@@ -208,10 +208,10 @@ df2 %>%
 #| fig-width: 8
 #| fig-height: 3.5
 #| code-line-numbers: "2-4"
-df2 %>%
+df2 |>
    mutate(Continent_J = factor(Continent_J, 
                                levels = c("アフリカ", "アメリカ", "アジア", 
-                                          "ヨーロッパ", "オセアニア"))) %>% 
+                                          "ヨーロッパ", "オセアニア"))) |> 
    ggplot() +
    geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値") +
@@ -225,10 +225,10 @@ df2 %>%
 #| fig-width: 8
 #| fig-height: 3.5
 #| code-line-numbers: "2-4"
-df2 %>%
+df2 |>
    mutate(Continent_J = factor(Continent_J, 
                                levels = c("アフリカ", "アメリカ", "アジア", 
-                                          "ヨーロッパ", "オセアニア"))) %>% 
+                                          "ヨーロッパ", "オセアニア"))) |> 
    ggplot() +
    geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値") +
@@ -259,8 +259,8 @@ df2
 #| fig-width: 8
 #| fig-height: 3.5
 #| code-line-numbers: "2"
-df2 %>%
-   mutate(Continent_J = fct_inorder(Continent_J)) %>%
+df2 |>
+   mutate(Continent_J = fct_inorder(Continent_J)) |>
    ggplot() +
    geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値")
@@ -276,13 +276,13 @@ df2 %>%
 各政治体制に属する国家数を計算
 
 ```{r}
-df3 <- df %>%
-   drop_na(Polity_Type) %>%
+df3 <- df |>
+   drop_na(Polity_Type) |>
    mutate(Polity_Type = factor(Polity_Type,
                                levels = c("Autocracy", "Closed Anocracy",
                                           "Open Anocracy", "Democracy",
-                                          "Full Democracy"))) %>%
-   group_by(Polity_Type) %>%
+                                          "Full Democracy"))) |>
+   group_by(Polity_Type) |>
    summarise(N = n())
 
 df3
@@ -293,7 +293,7 @@ df3
 ```{r}
 #| fig-width: 8
 #| fig-height: 3.5
-df3 %>%
+df3 |>
    ggplot() +
    geom_col(aes(x = Polity_Type, y = N))
 ```
@@ -308,13 +308,13 @@ df3 %>%
 * 大陸の列が必要
 
 ```{r}
-df4 <- df %>%
-   drop_na(Polity_Type) %>%
+df4 <- df |>
+   drop_na(Polity_Type) |>
    mutate(Polity_Type = factor(Polity_Type,
                                levels = c("Autocracy", "Closed Anocracy",
                                           "Open Anocracy", "Democracy",
-                                          "Full Democracy"))) %>%
-   group_by(Polity_Type, Continent) %>%
+                                          "Full Democracy"))) |>
+   group_by(Polity_Type, Continent) |>
    summarise(N       = n(),
              .groups = "drop")
 ```
@@ -333,7 +333,7 @@ df4
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "3"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Polity_Type, y = N, fill = Continent))
 ```
@@ -346,7 +346,7 @@ df4 %>%
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "4"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Polity_Type, y = N, fill = Continent), 
            position = "dodge")
@@ -366,7 +366,7 @@ df4 %>%
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "5"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Polity_Type, y = N, fill = Continent),
            position = "dodge") +
@@ -380,7 +380,7 @@ df4 %>%
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "5"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Polity_Type, y = N, fill = Continent),
            position = "dodge") +
@@ -401,7 +401,7 @@ df4 %>%
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "3"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Continent, y = N, fill = Polity_Type),
            position = "dodge") +
@@ -415,7 +415,7 @@ df4 %>%
 #| fig-width: 8
 #| fig-height: 3
 #| code-line-numbers: "3"
-df4 %>%
+df4 |>
   ggplot() +
   geom_col(aes(x = Continent, y = N, fill = Polity_Type),
            position = "dodge") +
@@ -433,7 +433,7 @@ df4 %>%
 
 ```{r}
 #| code-line-numbers: "4"
-bar_plot2 <- df4 %>%
+bar_plot2 <- df4 |>
   ggplot() +
   geom_col(aes(x = Polity_Type, y = N)) +
   facet_wrap(~ Continent, ncol = 5) # ncol/nrowで列/行数の指定が可能
@@ -485,7 +485,7 @@ bar_plot3
 
 ```{r}
 #| code-line-numbers: "3"
-bar_plot4 <- df4 %>%
+bar_plot4 <- df4 |>
   ggplot() +
   geom_col(aes(x = N, y = Polity_Type)) +
   labs(x = "Number of Countries", y = "Poltiy Type") +
@@ -606,7 +606,7 @@ ggsave(filename = "Figs/Figure1.png", # 保存先とファイル名
 #| fig-height: 3.5
 #| warning: false
 #| message: false
-df %>%
+df |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018), binwidth = 0.05) +
    labs(x = "人間開発指数 (2018年)", y = "国家数") +
@@ -624,7 +624,7 @@ df %>%
 #| fig-height: 3.5
 #| warning: false
 #| message: false
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018)) # HDI_2018のヒストグラム
 ```
@@ -640,7 +640,7 @@ df %>%
 #| fig-height: 3.5
 #| warning: false
 #| message: false
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), bins = 10) # 棒を10本にする
 ```
@@ -656,7 +656,7 @@ df %>%
 #| fig-height: 3.5
 #| warning: false
 #| message: false
-df %>%
+df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), binwidth = 0.05) # 棒の幅を0.05にする
 ```
@@ -672,7 +672,7 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| message: false
-hist_plot1 <- df %>%
+hist_plot1 <- df |>
   ggplot() +
   geom_histogram(aes(x = HDI_2018), binwidth = 0.05, color = "white") +
   labs(x = "Human Development Index (2018)", y = "Number of Countries")
@@ -740,8 +740,8 @@ hist_plot1 +
 ```{r}
 #| eval: false
 #| code-line-numbers: "4,5"
-df %>%
-   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = OECD), position = "identity",
                   binwidth = 0.05, color = "white", alpha = 0.5)
@@ -755,8 +755,8 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| message: false
-df %>%
-   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "OECD Members", "Others")) |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018, fill = OECD), position = "identity",
                   binwidth = 0.05, color = "white", alpha = 0.5)

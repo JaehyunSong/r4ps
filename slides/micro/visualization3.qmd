@@ -36,7 +36,7 @@ df <- read_csv("Data/countries.csv")
 :::{.column width=45%}
 ```{r}
 #| echo: false
-qr_code("https://ctl.jm.kansai-u.ac.jp/q/Ans?ms&cd=13495_22s") %>%
+qr_code("https://ctl.jm.kansai-u.ac.jp/q/Ans?ms&cd=13495_22s") |>
   plot()
 ```
 :::
@@ -100,7 +100,7 @@ qr_code("https://ctl.jm.kansai-u.ac.jp/q/Ans?ms&cd=13495_22s") %>%
 #| fig-width: 5
 #| fig-height: 5
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018)) +
    labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)") +
@@ -129,7 +129,7 @@ df <- read_csv("Data/countries.csv")
 #| fig-width: 8
 #| fig-height: 3
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018))
 ```
@@ -142,7 +142,7 @@ df %>%
 #| fig-width: 8
 #| fig-height: 3
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018), color = "royalblue") +
    labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)")
@@ -174,8 +174,8 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
-   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018, color = Continent,
                   size = Population, shape = OECD), alpha = 0.65) +
@@ -192,8 +192,8 @@ df %>%
 #| fig-width: 10
 #| fig-height: 4
 #| warning: false
-df %>%
-   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "Member", "Non-member")) |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018, color = Continent,
                   size = Population, shape = OECD), alpha = 0.65) +
@@ -217,9 +217,9 @@ df %>%
 ### コード
 
 ```{r}
-scatter_plot1 <- df %>%
-   drop_na(FH_Total, HDI_2018, PPP_per_capita) %>%
-   mutate(HighIncome = if_else(PPP_per_capita >= 20000, "高", "低")) %>%
+scatter_plot1 <- df |>
+   drop_na(FH_Total, HDI_2018, PPP_per_capita) |>
+   mutate(HighIncome = if_else(PPP_per_capita >= 20000, "高", "低")) |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018, color = HighIncome), 
               size = 2) +
@@ -268,11 +268,11 @@ scatter_plot1 +
 #| echo: false
 #| fig-width: 12
 #| fig-height: 6.2
-data.frame(c=colors()) %>%
-   mutate(Num = grepl(x = c, pattern = "[0-9]$")) %>%
-   filter(Num == FALSE) %>%
+data.frame(c=colors()) |>
+   mutate(Num = grepl(x = c, pattern = "[0-9]$")) |>
+   filter(Num == FALSE) |>
    mutate(y = seq(0, length(c) - 1) %% 18,
-          x = seq(0, length(c) - 1) %/% 18) %>%
+          x = seq(0, length(c) - 1) %/% 18) |>
    ggplot() +
    scale_x_continuous(name="", breaks=NULL, expand=c(0, 0)) +
    scale_y_continuous(name="", breaks=NULL, expand=c(0, 0)) +
@@ -295,10 +295,10 @@ data.frame(c=colors()) %>%
 #| fig-width: 8
 #| fig-height: 2.8
 tibble(x = rep(1:5, 5),
-       y = rep(1:5, each = 5)) %>%
-   filter(!(y == 1 & x >= 4)) %>%
-   arrange(desc(y), x) %>%
-   mutate(pch = as.character(0:22)) %>%
+       y = rep(1:5, each = 5)) |>
+   filter(!(y == 1 & x >= 4)) |>
+   arrange(desc(y), x) |>
+   mutate(pch = as.character(0:22)) |>
    ggplot(aes(x = x, y = y)) +
    geom_point(aes(shape = pch), 
               color = "black", bg = "gray", size = 3) +
@@ -347,7 +347,7 @@ tibble(x = rep(1:5, 5),
 #| fig-height: 5
 #| warning: false
 COVID_df <- read_csv("Data/covid_2022_06.csv")
-COVID_df %>%
+COVID_df |>
    ggplot(aes(x = Day, y = NewCases)) +
    geom_line(aes(group = Country)) +
    geom_point(size = 3) +
@@ -383,8 +383,8 @@ COVID_df
 
 ```{r}
 #| eval: false
-COVID_df %>%
-   filter(Country == "Japan") %>%
+COVID_df |>
+   filter(Country == "Japan") |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
@@ -396,8 +396,8 @@ COVID_df %>%
 #| echo: false
 #| fig-width: 10
 #| fig-height: 3
-COVID_df %>%
-   filter(Country == "Japan") %>%
+COVID_df |>
+   filter(Country == "Japan") |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
@@ -424,8 +424,8 @@ geom_path: Each group consists of only one observation. Do you need to adjust th
 ```{r}
 #| eval: false
 #| code-line-numbers: "4"
-COVID_df %>%
-   filter(Country == "Japan") %>%
+COVID_df |>
+   filter(Country == "Japan") |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = 1)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
@@ -442,13 +442,13 @@ COVID_df %>%
 
 ```{r}
 #| eval: false
-COVID_df <- COVID_df %>%
+COVID_df <- COVID_df |>
    mutate(Country = case_when(Country == "Japan" ~ "日本",
                               Country == "Korea" ~ "韓国",
                               TRUE               ~ "台湾"),
           Country = factor(Country, levels = c("日本", "韓国", "台湾")))
 
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
@@ -462,13 +462,13 @@ COVID_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.5
-COVID_df <- COVID_df %>%
+COVID_df <- COVID_df |>
    mutate(Country = case_when(Country == "Japan" ~ "日本",
                               Country == "Korea" ~ "韓国",
                               TRUE               ~ "台湾"),
           Country = factor(Country, levels = c("日本", "韓国", "台湾")))
 
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country)) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)")
@@ -489,7 +489,7 @@ COVID_df %>%
 
 ```{r}
 #| eval: false
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, 
                  color = Country), size = 1.5) +
@@ -503,7 +503,7 @@ COVID_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.5
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, color = Country), 
              size = 1.5) +
@@ -534,7 +534,7 @@ COVID_df %>%
 
 ```{r}
 #| eval: false
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, linetype = Country),
              size = 1) +
@@ -547,7 +547,7 @@ COVID_df %>%
 ```{r}
 #| eval: false
 #| code-line-numbers: "4"
-データ %>%
+データ |>
   ggplot() +
   ... +
   scale_linetype_manual(values = c("日本" = 1, "韓国" = 2, "台湾" = 3))
@@ -559,7 +559,7 @@ COVID_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.5
-COVID_df %>%
+COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, 
                  linetype = Country), size = 1) +
@@ -584,7 +584,7 @@ tibble(x = rep(1, 6),
        xend = rep(5, 6),
        y = 1:6,
        yend = 1:6,
-       type = c("6", "5", "4", "3", "2", "1")) %>%
+       type = c("6", "5", "4", "3", "2", "1")) |>
    ggplot() +
    geom_segment(aes(x = x, xend = xend, 
                     y = y, yend = yend, linetype = type)) +
@@ -610,7 +610,7 @@ tibble(x = rep(1, 6),
 
 ```{r}
 #| eval: false
-COVID_df %>%
+COVID_df |>
    ggplot(aes(x = Day, y = NewCases, color = Country)) +
    geom_point(aes(shape = Country), size = 3) +
    geom_line(aes(group = Country), size = 1) +
@@ -625,7 +625,7 @@ COVID_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-COVID_df %>%
+COVID_df |>
    ggplot(aes(x = Day, y = NewCases, color = Country)) +
    geom_point(aes(shape = Country), size = 3) +
    geom_line(aes(group = Country), size = 1) +
@@ -663,7 +663,7 @@ COVID_df %>%
 #| fig-width: 4
 #| fig-height: 4
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(x = 1, y = HDI_2018), width = 0.5) +
    annotate("text", x = 1.3, y = 0.7325, label = "中央値", hjust = 0) +
@@ -692,7 +692,7 @@ df %>%
 ::: {.column width=52%}
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018)) +
    labs(x = "", y = "人間開発指数 (2018)") +
@@ -708,7 +708,7 @@ df %>%
 #| echo: false
 #| fig-width: 5
 #| fig-height: 4.2
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018)) +
    labs(x = "", y = "人間開発指数 (2018)") +
@@ -730,7 +730,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent)) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -743,7 +743,7 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent)) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -763,7 +763,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent), fill = "cornsilk") +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -776,7 +776,7 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent), fill = "cornsilk") +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -787,7 +787,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent, fill = Continent)) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -801,7 +801,7 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent, fill = Continent)) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -819,7 +819,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent), width = 0.5) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -833,7 +833,7 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.25
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(y = HDI_2018, x = Continent), width = 0.5) +
    labs(x = "大陸", y = "人間開発指数 (2018)") +
@@ -852,7 +852,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(x = HDI_2018, y = Continent)) +
    labs(x = "人間開発指数 (2018)", y = "大陸") +
@@ -866,7 +866,7 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.25
-df %>%
+df |>
    ggplot() +
    geom_boxplot(aes(x = HDI_2018, y = Continent)) +
    labs(x = "人間開発指数 (2018)", y = "大陸") +

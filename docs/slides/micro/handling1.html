@@ -436,13 +436,13 @@
 <ul>
 <li>{dplyr}、{tidyr}、{readr}、{ggplot2}など</li>
 </ul></li>
-<li>オブジェクトを<strong>パイプ演算子</strong> (<code>%&gt;%</code> or <code>|&gt;</code>)で繋ぐ</li>
+<li>オブジェクトを<strong>パイプ演算子</strong> (<code>|&gt;</code> or <code>|&gt;</code>)で繋ぐ</li>
 </ul>
 <p>Rのコードは<code>library(tidyverse)</code>で始めよう!</p>
 </section>
 <section id="パイプ演算子" class="slide level2">
 <h2>パイプ演算子</h2>
-<p>Tidyverseにおいてオブジェクトは<code>%&gt;%</code>で繋がっている。</p>
+<p>Tidyverseにおいてオブジェクトは<code>|&gt;</code>で繋がっている。</p>
 <ul>
 <li>既存の書き方: <strong>書き方と読み方が逆</strong>
 <ul>
@@ -454,7 +454,7 @@
 <li>Tidyverseな書き方: <strong>書き方と読み方が一致</strong>
 <ul>
 <li>今どきのRの書き方</li>
-<li>書き方: <code>X %&gt;% sum() %&gt;% print()</code></li>
+<li>書き方: <code>X |&gt; sum() |&gt; print()</code></li>
 <li>読み方: <code>X</code>を<code>sum()</code>し、<code>print()</code>する</li>
 </ul></li>
 </ul>
@@ -462,10 +462,10 @@
 <section id="パイプ演算子の仕組み" class="slide level2">
 <h2>パイプ演算子の仕組み</h2>
 <ul>
-<li><code>%&gt;%</code>の左側を右側の最初の引数として渡すだけ</li>
-<li><code>X %&gt;% 関数(Y)</code>は<code>関数(X, Y)</code>と同じ
+<li><code>|&gt;</code>の左側を右側の最初の引数として渡すだけ</li>
+<li><code>X |&gt; 関数(Y)</code>は<code>関数(X, Y)</code>と同じ
 <ul>
-<li><code>X %&gt;% sum(na.rm = TRUE)</code>は<code>sum(X, na.rm = TRUE)</code>と同じ</li>
+<li><code>X |&gt; sum(na.rm = TRUE)</code>は<code>sum(X, na.rm = TRUE)</code>と同じ</li>
 </ul></li>
 <li>二番目以降の引数として渡すことも可能（適宜、解説）</li>
 </ul>
@@ -485,35 +485,33 @@
 <h4 id="tidyverseな書き方">Tidyverseな書き方</h4>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>X <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21</code></pre>
 </div>
 </div>
 </div>
 </div>
-<!--- --->
 </section>
-<section id="参考-r-4.1以降のパイプ演算子" class="slide level2">
-<h2>参考) R 4.1以降のパイプ演算子</h2>
+<section id="もう一つのパイプ演算子" class="slide level2">
+<h2><code>%&gt;%</code>：もう一つのパイプ演算子</h2>
 <p>R内蔵演算子としてパイプ演算子（<code>|&gt;</code>）が追加</p>
 <ul>
-<li>2021年5月リリースされたR 4.1以降実装
+<li>2021年5月リリースされたR 4.1からR内蔵のパイプ演算子<code>|&gt;</code>が登場</li>
+<li>それまでは{magrittr}パッケージが提供する<code>%&gt;%</code>を使用
 <ul>
-<li>JDCat分析ツールのRは4.1.2</li>
-</ul></li>
-<li>既存のパイプ演算子（<code>%&gt;%</code>）はR内蔵演算子でなく、{magrittr}が提供する演算子
-<ul>
-<li>{magrittr}は{tidyverse}を読み込むと自動的に読み込まれる</li>
+<li>{magrittr}は{tidyverse}を読み込むと自動的に読み込まれる。</li>
 </ul></li>
 <li>使い方はほぼ同じ
 <ul>
 <li>ただし、演算子の左側のオブジェクトを右側の<strong>第一引数</strong>として渡す場合のみ</li>
 <li>第一引数以外の引数として渡す場合は使い方が異なる</li>
 </ul></li>
-<li>今後、仕様変更がある可能性があるため、本講義では<code>%&gt;%</code>を使用</li>
+<li>インターネット、教科書などでは<code>%&gt;%</code>を使用するケースがまだ多いが、今後の主流は<code>|&gt;</code>になると予想されるため、本講義では<code>|&gt;</code>を使用する。
+<ul>
+<li>むろん、現段階では<code>%&gt;%</code>を使っても良いし、<code>%&gt;%</code>を使ったコードを<code>|&gt;</code>に置換して使っても<strong>ほぼ</strong>問題にならない。</li>
+</ul></li>
 </ul>
-<!--- --->
 </section>
 <section id="との比較" class="slide level2">
 <h2><code>%&gt;%</code>と<code>|&gt;</code>の比較</h2>
@@ -529,14 +527,11 @@
 </div>
 <h4 id="渡す先が第一引数でない場合">渡す先が第一引数でない場合</h4>
 <ul>
-<li>実引数として渡す箇所に<code>.</code> (tidyverse)、<code>_</code> (native pipe)を入力
-<ul>
-<li>ただし、<code>_</code>はR 4.2.0以上から使用可能 (JDCat分析ツールはR 4.1.2)</li>
-</ul></li>
+<li>実引数として渡す箇所に<code>.</code> (tidyverse)、<code>_</code> (native pipe)を入力</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># {magrittr}のパイプ演算子</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>my_data <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> .)</span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="co"># R内蔵のパイプ演算子</span></span>
 <span id="cb6-5"><a href="#cb6-5"></a>my_data <span class="sc">|&gt;</span></span>
@@ -710,7 +705,7 @@
 </div><div class="column" style="width:45%;">
 <h4 id="パイプを使う書き方">パイプを使う書き方</h4>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -735,8 +730,8 @@
 <h2>列の選択（抽出）: 例</h2>
 <p><code>df</code>から<code>Country</code>、<code>Population</code>、<code>HDI_2018</code>列を抽出し、最初の5行のみ出力</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df <span class="sc">%&gt;%</span>                                      <span class="co"># dfから</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018) <span class="sc">%&gt;%</span> <span class="co"># Country, Population, HDI_2018のみ抽出して</span></span>
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df <span class="sc">|&gt;</span>                                      <span class="co"># dfから</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018) <span class="sc">|&gt;</span> <span class="co"># Country, Population, HDI_2018のみ抽出して</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)                               <span class="co"># 最初の5行を出力する</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -751,7 +746,7 @@
 </div>
 <p>この時点では抽出・出力されただけ。抽出した結果を<code>df2</code>という名で作業環境内に格納するためには</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-important no-icon callout-captioned callout-style-default">
@@ -774,7 +769,7 @@
 </ul>
 <p><strong>例)</strong> <code>HDI_2018</code>の変数名を<code>HDI</code>に変更</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">select</span>(Country, Population, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 3
@@ -799,12 +794,12 @@
 <h2>抽出せず、変数名のみ変更</h2>
 <p><code>rename()</code>関数を使用</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">rename</span>(新しい変数名 <span class="ot">=</span> 既存の変数名)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>例)</strong> <code>Population</code>を<code>Jinko</code>に、<code>Area</code>を<code>Menseki</code>に変更</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">rename</span>(<span class="at">Jinko =</span> Population, <span class="at">Menseki =</span> Area)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
@@ -836,7 +831,7 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>GDP_per_capita</code>と<code>PPP_per_capita</code>を除外</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(GDP_per_capita, PPP_per_capita))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 16
@@ -868,7 +863,7 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>の<code>Country</code>〜<code>PPP</code>, <code>HDI_2018</code>列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 6
@@ -901,7 +896,7 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>Country</code>, <code>"FH"</code>で始まる列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(Country, <span class="fu">starts_with</span>(<span class="st">"FH"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 5
@@ -930,7 +925,7 @@
 <p>抽出後のデータフレームにおける変数は<code>select()</code>内で指定された順番に</p>
 <p><strong>例)</strong> <code>G7</code>から<code>OECD</code>列を<code>Country</code>と<code>Population</code>の間へ移動</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(Country, G7<span class="sc">:</span>OECD,</span>
 <span id="cb30-3"><a href="#cb30-3"></a>         Population<span class="sc">:</span>PPP_per_capita, HDI_2018<span class="sc">:</span>Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -962,12 +957,12 @@
 <li><code>.after = XXX</code>: <code>XXX</code>列の後ろへ移動 / <code>.before = YYY</code>: <code>YYY</code>列の前へ移動</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">relocate</span>(移動したい変数名, <span class="at">.after =</span> 変更先)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>例)</strong> <code>G7</code>から<code>OECD</code>列を<code>Country</code>の後ろへ移動</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">relocate</span>(G7<span class="sc">:</span>OECD, <span class="at">.after =</span> Country) <span class="co"># .before = PopulationもOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
@@ -1005,7 +1000,7 @@
 </div>
 <p>パイプを使う書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>データ <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">filter</span>(条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!--- --->
@@ -1021,8 +1016,8 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
@@ -1044,8 +1039,8 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>Continent</code>が<code>"Asia"</code> (条件1)、<code>HDI_2018</code>が0.8以上 (条件2)の行を抽出し、<code>Country</code>と<code>HDI_2018</code>列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>, HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>, HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">|&gt;</span></span>
 <span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">select</span>(Country, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 2
@@ -1076,9 +1071,9 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>Continent</code>が<code>"Asia"</code> (条件1)か<code>"Oceania"</code> (条件2)であり、<code>HDI_2018</code>が0.9以上 (条件3)の行を抽出し、<code>Country</code>と<code>HDI_2018</code>、<code>Continent</code>列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">filter</span>((Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>), </span>
-<span id="cb41-3"><a href="#cb41-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb41-4"><a href="#cb41-4"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
@@ -1099,8 +1094,8 @@
 <p><code>%in%</code>: <code>|</code>の代わりに使用可能な便利な演算子</p>
 <p><strong>例)</strong> <code>Continent</code>の値が<code>c("Asia", "Oceainia")</code>の要素に含まれている場合</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Oceania"</span>), HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Oceania"</span>), HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
@@ -1122,8 +1117,8 @@
 <li><code>変数名 == NA</code>を条件にしてはいけない</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
 <span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 5
@@ -1139,8 +1134,8 @@
 <li>正解: <code>is.na(変数名)</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
 <span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
@@ -1164,8 +1159,8 @@
 <li>否定を意味する<code>!</code>を使用する</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
 <span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 178 × 5
@@ -1192,8 +1187,8 @@
 <li><code>()</code>内で指定した変数が欠損している行をすべて除外（複数指定可）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">%&gt;%</span> <span class="co"># PPPとPolity_Scoreどちらか欠損した行を除外</span></span>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">|&gt;</span> <span class="co"># PPPとPolity_Scoreどちらか欠損した行を除外</span></span>
 <span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 155 × 6
@@ -1227,7 +1222,7 @@
 </div>
 <p>パイプを使う書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>データ <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>データ <span class="sc">|&gt;</span> <span class="fu">arrange</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>基本的には昇順 (値が小さい行が先にくる)</p>
 <ul>
@@ -1243,9 +1238,9 @@
 <li>Polity Scoreが高い (低い) = より民主主義 (権威主義)に近い</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb55" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb55" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">|&gt;</span></span>
 <span id="cb55-4"><a href="#cb55-4"></a>  <span class="fu">select</span>(Country, PPP_per_capita, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 3
@@ -1275,9 +1270,9 @@
 <li><code>Polity_Score</code>は<code>Polity</code>に、<code>PPP_per_capita</code>は<code>PPP</code>と名前を変更</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">arrange</span>(Polity_Score, <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">arrange</span>(Polity_Score, <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">|&gt;</span></span>
 <span id="cb57-4"><a href="#cb57-4"></a>  <span class="fu">select</span>(Country, <span class="at">Polity =</span> Polity_Score, <span class="at">PPP =</span> PPP_per_capita)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 3

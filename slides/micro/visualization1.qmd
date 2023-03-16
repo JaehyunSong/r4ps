@@ -137,8 +137,8 @@ xyplot(HDI_2018 ~ PPP_per_capita, data = df,
 
 ```{r}
 #| eval: false
-df %>%
-   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD), 
               size = 2) +
@@ -154,8 +154,8 @@ df %>%
 #| fig-width: 8
 #| fig-height: 3.5
 #| warning: false
-df %>%
-   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) %>%
+df |>
+   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD), size = 2) +
    labs(x = "一人あたり購買力平価GDP (USD)", y = "人間開発指数",
@@ -219,8 +219,8 @@ knitr::include_graphics("Figs/visual1/ggplot2_logo.png")
 library(tidyverse)
 df <- read_csv("Data/countries.csv")
 
-df <- df %>% # OECD変数をリコーディングし、OECD_Jへ
-   mutate(OECD_J = if_else(OECD == 1, "加盟国", "非加盟国")) %>%
+df <- df |> # OECD変数をリコーディングし、OECD_Jへ
+   mutate(OECD_J = if_else(OECD == 1, "加盟国", "非加盟国")) |>
    select(Country, PPP_per_capita, HDI_2018, FH_Status, OECD_J, Continent)
 
 df
@@ -235,7 +235,7 @@ df
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "2"
-df %>% # データdfをggplot()関数に渡し、作図の準備をする
+df |> # データdfをggplot()関数に渡し、作図の準備をする
    ggplot()
 ```
 
@@ -248,7 +248,7 @@ df %>% # データdfをggplot()関数に渡し、作図の準備をする
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "5"
-df %>%
+df |>
    ggplot() +
    # 点を出力する。点の横軸上の位置はPPP_per_capita、縦軸上の位置はHDI_2018に対応
    # OECD_Jの値に応じて色分けする。
@@ -264,7 +264,7 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "4,5"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",  
@@ -280,7 +280,7 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "6"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",
@@ -297,7 +297,7 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "7"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",
@@ -344,7 +344,7 @@ df %>%
 
 ## 書き方
 
-* **注意:** レイヤーの積み重ねは`%>%`でなく`+`を使用
+* **注意:** レイヤーの積み重ねは`|>`でなく`+`を使用
    * オブジェクトを**渡す**のではなく、レイヤーを**足す**という意味
 * 可視化は`ggplot()`からスタート
 * 幾何オブジェクトは`geom_`で始まる関数
@@ -395,12 +395,12 @@ ggplot(データ名)
 ::: {.column width=38%}
 ### データの指定（3）
 
-* `data`引数は第一引数であるため、パイプ演算子 (`%>%`)で渡すことも可能
+* `data`引数は第一引数であるため、パイプ演算子 (`|>`)で渡すことも可能
 * この方法を推奨
 
 ```{r}
 #| eval: false
-データ名 %>%
+データ名 |>
    ggplot()
 ```
 
@@ -408,8 +408,8 @@ ggplot(データ名)
 
 ```{r}
 #| eval: false
-データ名 %>%
-   {dplyr}/{tidyr}の関数 %>%
+データ名 |>
+   {dplyr}/{tidyr}の関数 |>
    ggplot()
 ```
 :::
@@ -420,7 +420,7 @@ ggplot(データ名)
 
 ```{r}
 #| eval: false
-データ名 %>%
+データ名 |>
    ggplot() +
    幾何オブジェクト関数()
 ```
@@ -472,7 +472,7 @@ ggplot(データ名)
 ```{r}
 #| eval: false
 #| code-line-numbers: "3"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
@@ -485,7 +485,7 @@ df %>%
 #| fig-width: 8
 #| fig-height: 3
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
@@ -496,7 +496,7 @@ df %>%
 ```{r}
 #| eval: false
 #| code-line-numbers: "3"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018), color = "red") +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
@@ -509,7 +509,7 @@ df %>%
 #| fig-width: 8
 #| fig-height: 3
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018), color = "red") +
    labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
@@ -537,7 +537,7 @@ df %>%
 ```{r}
 #| eval: false
 #| code-line-numbers: "6"
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J), 
               size = 2) +
@@ -553,7 +553,7 @@ df %>%
 #| fig-width: 8
 #| fig-height: 3.5
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J), 
               size = 2) +
@@ -582,12 +582,12 @@ df %>%
 ```{r}
 # データの用意
 # 参考) 「\n」は図内の改行を意味する。
-df <- df %>%
+df <- df |>
    mutate(FH_Status = case_when(FH_Status == "F"  ~ "自由",
                                 FH_Status == "PF" ~ "部分的に\n自由",
                                 TRUE              ~ "不自由"),
           FH_Status = factor(FH_Status,
-                             levels = c("自由", "部分的に\n自由", "不自由"))) %>%
+                             levels = c("自由", "部分的に\n自由", "不自由"))) |>
    drop_na(FH_Status)
 
 df
@@ -601,7 +601,7 @@ df
 #| fig-width: 8
 #| fig-height: 3
 #| warning: false
-df %>%
+df |>
    ggplot() +
    geom_bar(aes(x = FH_Status, fill = Continent),
             position = position_dodge2(1/2)) +
@@ -616,7 +616,7 @@ df %>%
 #| fig-height: 3
 #| warning: false
 #| code-line-numbers: "5"
-df %>%
+df |>
    ggplot() +
    geom_bar(aes(x = FH_Status)) +
    labs(x = "フリーダムハウス評価", y = "国家数") +
@@ -664,24 +664,24 @@ df %>%
 #| fig-width: 5
 #| fig-height: 5
 df <- read_csv("Data/countries.csv")
-df %>%
+df |>
    filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
                          "Indonesia", "Laos", "Malaysia",
                          "Myanmar", "Philippines",
-                         "Singapore", "Thailand", "Vietnam")) %>%
+                         "Singapore", "Thailand", "Vietnam")) |>
    ggplot(aes(area = Population, label = Country)) +
    geom_treemap(aes(fill = Country), size = 2, color = "white") +
    geom_treemap_text(color = "white", place = "center",
                      grow = TRUE) +
    theme(legend.position = "none")
 
-df %>%
+df |>
    filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
                          "Indonesia", "Laos", "Malaysia",
                          "Myanmar", "Philippines",
-                         "Singapore", "Thailand", "Vietnam")) %>%
-   arrange(Population) %>%
-   mutate(Country = fct_inorder(Country)) %>%
+                         "Singapore", "Thailand", "Vietnam")) |>
+   arrange(Population) |>
+   mutate(Country = fct_inorder(Country)) |>
    ggplot() +
    geom_bar(aes(x = 1, y = Population, fill = Country),
             stat = "identity", color = "white") +
@@ -700,13 +700,13 @@ df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-df %>%
+df |>
    filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
                          "Indonesia", "Laos", "Malaysia",
                          "Myanmar", "Philippines",
-                         "Singapore", "Thailand", "Vietnam")) %>%
-   arrange(desc(Population)) %>%
-   mutate(Country = fct_inorder(Country)) %>%
+                         "Singapore", "Thailand", "Vietnam")) |>
+   arrange(desc(Population)) |>
+   mutate(Country = fct_inorder(Country)) |>
    ggplot() +
    geom_bar(aes(x = Country, y = Population),
             stat = "identity", color = "white") +

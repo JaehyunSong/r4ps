@@ -212,7 +212,7 @@ df
 
 ```{r}
 #| echo: false
-df %>%
+df |>
   mutate(大学名 = factor(大学名, levels = c("Kansai", "Kwansei-gakuin",
                                       "Doshisha", "Ritsumeikan")))
 ```
@@ -235,7 +235,7 @@ df %>%
 
 ```{r}
 #| echo: false
-df %>%
+df |>
   arrange(大学名)
 ```
 
@@ -252,9 +252,9 @@ df %>%
 
 ```{r}
 #| echo: false
-df %>%
+df |>
   mutate(大学名 = factor(大学名, levels = c("Kansai", "Kwansei-gakuin",
-                                      "Doshisha", "Ritsumeikan"))) %>%
+                                      "Doshisha", "Ritsumeikan"))) |>
   arrange(大学名)
 ```
 
@@ -276,7 +276,7 @@ df %>%
 
 ```{r}
 #| echo: false
-df %>%
+df |>
   ggplot() +
   geom_bar(aes(x = 大学名, y = 学生数), stat = "identity") +
   theme_bw(base_size = 24)
@@ -295,9 +295,9 @@ df %>%
 
 ```{r}
 #| echo: false
-df %>%
+df |>
   mutate(大学名 = factor(大学名, levels = c("Kansai", "Kwansei-gakuin",
-                                      "Doshisha", "Ritsumeikan"))) %>%
+                                      "Doshisha", "Ritsumeikan"))) |>
   ggplot() +
   geom_bar(aes(x = 大学名, y = 学生数), stat = "identity") +
   theme_bw(base_size = 24)

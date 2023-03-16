@@ -26,8 +26,8 @@ pacman::p_load(naniar)
 #| echo: false
 library(tidyverse)
 df <- read_csv("Data/countries.csv")
-df %>% 
-  group_by(Continent) %>%
+df |> 
+  group_by(Continent) |>
   summarise(Politial_Right = mean(FH_PR, na.rm = TRUE),
             Civil_Liberty  = mean(FH_CL, na.rm = TRUE))
 ```
@@ -78,7 +78,7 @@ IQR(MathScore, na.rm = TRUE)
 `summarise()`: 記述統計量を計算する{dplyr}の関数
 
 ```r
-データフレーム %>%
+データフレーム |>
   summarise(記述統計の関数(変数名, ...))
 ```
 
@@ -104,7 +104,7 @@ df <- read_csv("Data/countries.csv") # 第9回の実習用データ
 **例)** `df`の`Population`と`Area`の平均値（`mean()`）を計算
 
 ```{r}
-df %>%
+df |>
   summarise(mean(Population),
             mean(Area))
 ```
@@ -116,7 +116,7 @@ df %>%
 **例)** `df`の`Population`と`Area`の平均値（`mean()`）と標準偏差（`sd()`）を計算
 
 ```{r}
-df %>%
+df |>
   summarise(mean(Population),
             sd(Population),
             mean(Area),
@@ -130,7 +130,7 @@ df %>%
 **例)** `df`の`Population`と`Area`の平均値（`mean()`）と標準偏差（`sd()`）を計算し、結果の列名を`Mean_Pop`、`SD_Pop`などとする
 
 ```{r}
-Pop_Area_df <- df %>%
+Pop_Area_df <- df |>
   summarise(Mean_Pop  = mean(Population),
             SD_Pop    = sd(Population),
             Mean_Area = mean(Area),
@@ -159,8 +159,8 @@ mean(df$PPP_per_capita[df$Continent == "Oceania"], na.rm = TRUE)
 ```{r}
 #| eval: false
 #| code-line-numbers: "2"
-データフレーム名 %>%
-  group_by(グループ化する変数名) %>%
+データフレーム名 |>
+  group_by(グループ化する変数名) |>
   summarise(...)
 ```
 
@@ -168,8 +168,8 @@ mean(df$PPP_per_capita[df$Continent == "Oceania"], na.rm = TRUE)
 
 ```{r}
 # PPP_per_capitaが欠損している国もあるので、na.rm = TRUEを追加
-df %>%
-  group_by(Continent) %>%
+df |>
+  group_by(Continent) |>
   summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE))
 ```
 
@@ -179,8 +179,8 @@ df %>%
 
 ```{r}
 #| message: true
-df %>%
-  group_by(Continent, G20) %>%
+df |>
+  group_by(Continent, G20) |>
   summarise(Mean_HDI = mean(HDI_2018, na.rm = TRUE))
 ```
 
@@ -198,7 +198,7 @@ the `.groups` argument.
 * 理由は割愛するが、詳細は教科書[第13.2章](https://www.jaysong.net/RBook/datahandling2.html#handling2-group)を参照
 * 多くの場合、メッセージが出力されるだけで、問題が生じることはあまりない。
 * しかし、複数の変数でグルーピングしたり、記述統計量が複数計算される関数（`quantile()`など）を使う場合、問題が生じる可能性あり
-  * 特に`summarise()`の後に更にパイプ（`%>%`）を使って計算を続ける場合
+  * 特に`summarise()`の後に更にパイプ（`|>`）を使って計算を続ける場合
 * とりあえず、`.groups = "drop"`をしておけば安全
 
 ## `.groups = "drop"`を追加する
@@ -206,8 +206,8 @@ the `.groups` argument.
 謎のメッセージが出力されなくなる
 
 ```{r}
-df %>%
-  group_by(Continent, G20) %>%
+df |>
+  group_by(Continent, G20) |>
   summarise(Mean_HDI = mean(HDI_2018, na.rm = TRUE),
             .groups  = "drop")
 ```
@@ -218,8 +218,8 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "5"
-df %>%
-  group_by(Continent) %>%
+df |>
+  group_by(Continent) |>
   summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE),
             SD_PPP   = sd(PPP_per_capita, na.rm = TRUE),
             Cases    = n())
@@ -232,7 +232,7 @@ df %>%
 **例)** `df`の`Population`から`PPP`列まで平均値と標準偏差を計算し、結果の変数名は`元の変数名_Mean`、`元の変数名_SD`とする
 
 ```{r}
-df %>%
+df |>
   summarise(across(Population:PPP,
                    .fns = list(Mean = ~mean(.x, na.rm = TRUE),
                                SD   = ~mean(.x, na.rm = TRUE))))
@@ -249,7 +249,7 @@ df %>%
 
 ```{r}
 #| eval: false
-データフレーム名 %>%
+データフレーム名 |>
   mutate(新しい列名 = 計算式)
 ```
 
@@ -274,7 +274,7 @@ df$Density <- df$Population / df$Area
 
 ```{r}
 #| eval: false
-df %>%
+df |>
   mutate(Density = Population / Area)
 ```
 :::
@@ -290,8 +290,8 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%
-  mutate(Density = Population / Area) %>%
+df |>
+  mutate(Density = Population / Area) |>
   print(n = 5) # 最初の5行のみ出力
 ```
 
@@ -305,7 +305,7 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "3"
-df %>%
+df |>
   mutate(Density = Population / Area, 
          .after  = Area)
 ```
@@ -323,13 +323,13 @@ df %>%
 ## 変数の計算いろいろ（1）
 
 ```{r}
-df %>% 
+df |> 
   # Total_Popを作らずにShare_Pop作成時に直接sum(Population)を入れてもOK
   mutate(Total_Pop = sum(Population),
          Share_Pop = Population / Total_Pop * 100,
-         .after    = Population) %>%
-  select(Country:Share_Pop) %>%
-  select(!Total_Pop) %>%
+         .after    = Population) |>
+  select(Country:Share_Pop) |>
+  select(!Total_Pop) |>
   arrange(desc(Share_Pop))
 ```
 
@@ -348,12 +348,12 @@ G7、G20、OECDのいずれかに加盟している国を「先進国」、そ�
 ## 変数の計算いろいろ（2）
 
 ```{r}
-df2 <- df %>%
+df2 <- df |>
   mutate(Developed = G7 + G20 + OECD,
          Developed = if_else(Developed > 1, "先進国", "その他"), # 上書き
-         Density   = Population / Area) %>%
-  filter(!is.na(HDI_2018), !is.na(Polity_Score)) %>%
-  group_by(Developed) %>%
+         Density   = Population / Area) |>
+  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |>
+  group_by(Developed) |>
   summarise(Density = mean(Density),
             HDI     = mean(HDI_2018),
             Polity  = mean(Polity_Score))
@@ -375,14 +375,14 @@ df2
 
 ```{r}
 #| code-line-numbers: "8"
-df %>%
+df |>
   mutate(Developed = G7 + G20 + OECD,
          Developed = if_else(Developed > 1, "先進国", "その他"), # 上書き
-         Density   = Population / Area) %>%
-  filter(!is.na(HDI_2018), !is.na(Polity_Score)) %>%
-  group_by(Developed) %>%
+         Density   = Population / Area) |>
+  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |>
+  group_by(Developed) |>
   # ここでなく、filter()前のmutate()内でやるのが効率的
-  mutate(Developed = factor(Developed, levels = c("先進国", "その他"))) %>%
+  mutate(Developed = factor(Developed, levels = c("先進国", "その他"))) |>
   summarise(Density = mean(Density),
             HDI     = mean(HDI_2018),
             Polity  = mean(Polity_Score))
@@ -396,15 +396,15 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
   mutate(OECD_J = if_else(OECD == 1, "OECD加盟国", "OECD非加盟国"))
 ```
 
 **例)** 変換前
 
 ```{r}
-df %>%
-  group_by(OECD) %>%
+df |>
+  group_by(OECD) |>
   summarise(PPP = mean(PPP_per_capita, na.rm = TRUE),
             HDI = mean(HDI_2018, na.rm = TRUE),
             FH  = mean(FH_Total, na.rm = TRUE))
@@ -416,9 +416,9 @@ df %>%
 
 ```{r}
 #| code-line-numbers: "2"
-df %>%
-  mutate(OECD_J = if_else(OECD == 1, "OECD加盟国", "OECD非加盟国")) %>%
-  group_by(OECD = OECD_J) %>% # 「=」で列名の変更が可能
+df |>
+  mutate(OECD_J = if_else(OECD == 1, "OECD加盟国", "OECD非加盟国")) |>
+  group_by(OECD = OECD_J) |> # 「=」で列名の変更が可能
   summarise(PPP = mean(PPP_per_capita, na.rm = TRUE),
             HDI = mean(HDI_2018, na.rm = TRUE),
             FH  = mean(FH_Total, na.rm = TRUE))
@@ -430,7 +430,7 @@ df %>%
 
 ```{r}
 #| eval: false
-データフレーム名 %>%
+データフレーム名 |>
   mutate(新しい変数名 = case_when(条件1 ~ 新しい値,
                                 条件2 ~ 新しい値,
                                 ...
@@ -444,13 +444,13 @@ df %>%
 **例)** `df`の`Continent`を日本語にし、`Continent_J`として追加
 
 ```{r}
-df %>%
+df |>
   mutate(Continent_J = case_when(Continent == "Africa"  ~ "アフリカ",
                                  Continent == "America" ~ "アメリカ",
                                  Continent == "Asia"    ~ "アジア",
                                  Continent == "Europe"  ~ "ヨーロッパ",
-                                 TRUE                   ~ "オセアニア")) %>%
-  group_by(大陸 = Continent_J) %>%
+                                 TRUE                   ~ "オセアニア")) |>
+  group_by(大陸 = Continent_J) |>
   # 日本語は非推奨だが、一応使える（_と.を除く特殊記号不可）
   summarise(OECD加盟国比率 = mean(OECD),
             国家数        = n())
@@ -464,7 +464,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
   mutate(AP = if_else(Continent %in% c("Asia", "America", "Oceania"),
                       1, 0))
 ```
@@ -473,7 +473,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
   mutate(AP = case_when(Continent == "Asia"    ~ 1, 
                         Continent == "America" ~ 1, 
                         Continent == "Oceania" ~ 1,
@@ -484,7 +484,7 @@ df %>%
 
 ```{r}
 #| eval: false
-df %>%
+df |>
   mutate(AP = case_when(Continent %in% c("Asia", "America", "Oceania") ~ 1, 
                         TRUE                                           ~ 0))
 ```
@@ -526,7 +526,7 @@ my_data
 
 ```{r}
 #| error: true
-my_data %>%
+my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
                                TRUE       ~ 0),
@@ -542,7 +542,7 @@ my_data %>%
 ```{r}
 #| error: true
 #| code-line-numbers: "2,5"
-my_data %>%
+my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA_real_,
                                Age <=  39 ~ 1,
                                TRUE       ~ 0),
@@ -558,7 +558,7 @@ my_data %>%
 * 主に`if_else()`を使用し、条件に合致した場合は`NA_real_`か`NA_character_`を、合致しない場合は元の変数のままにする。
 
 ```{r}
-my_data %>%
+my_data |>
   mutate(Age      = if_else(Age      == 999, NA_real_, Age),
          HighEduc = if_else(HighEduc == 9,   NA_real_, HighEduc))
 ```
@@ -570,7 +570,7 @@ my_data %>%
 * 欠損を意味する値が複数の場合、`case_when()`を使うか、OR演算子（`|` / `%in%`）を用いた`if_else()`を使用する。
 
 ```{r}
-my_data %>%
+my_data |>
   mutate(Age      = case_when(Age == 999 ~ NA_real_, 
                               TRUE       ~ Age),
          HighEduc = case_when(HighEduc == 9 ~ NA_real_, 
@@ -587,7 +587,7 @@ my_data %>%
 
 ```{r}
 library(naniar) # 事前に install.package(naniar) でインストール
-my_data %>%
+my_data |>
   # Ageは999、HighEducは9が欠損値
   replace_with_na(list(Age = 999, HighEduc = 9))
 ```
@@ -602,7 +602,7 @@ my_data %>%
 
 ```{r}
 #| eval: false
-my_data %>%
+my_data |>
   mutate(Age      = if_else(Age      == 999 ~ NA_real_, TRUE ~ Age),
          HighEduc = if_else(HighEduc == 9   ~ NA_real_, TRUE ~ HighEduc))
 ```
@@ -611,7 +611,7 @@ my_data %>%
 
 ```{r}
 #| eval: false
-my_data %>%
-  mutate(Age = if_else(Age == 999 ~ NA_real_, TRUE ~ Age)) %>%
+my_data |>
+  mutate(Age = if_else(Age == 999 ~ NA_real_, TRUE ~ Age)) |>
   mutate(HighEduc = if_else(HighEduc == 9 ~ NA_real_, TRUE ~ HighEduc))
 ```
