@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="1986-10-08">
+  <meta name="dcterms.date" content="2023-12-14">
   <title>R for Political Science - マクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -415,7 +415,7 @@
     </div>
 </div>
 
-  <p class="date">1986-10-08</p>
+  <p class="date">2023-12-14</p>
 </section>
 <section id="授業開始前に" class="slide level2">
 <h2>授業開始前に</h2>
@@ -1860,20 +1860,23 @@ N: 3000
 <span id="cb10-4"><a href="#cb10-4"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-         Term Estimate Std. Error      z   Pr(&gt;|z|)  2.5 % 97.5 % Female
- Satisfaction   -4.732     0.5613 -8.429 &lt; 2.22e-16 -5.832 -3.631      0
- Satisfaction   -3.830     0.6110 -6.269 3.6446e-10 -5.028 -2.633      1
+         Term Estimate Std. Error     z Pr(&gt;|z|) 2.5 % 97.5 % Satisfaction
+ Satisfaction    -4.73      0.561 -8.43   &lt;0.001 -5.83  -3.63         2.45
+ Satisfaction    -3.83      0.611 -6.27   &lt;0.001 -5.03  -2.63         2.45
+ Interest Ideology  Age Female
+     2.74     6.34 47.3      0
+     2.74     6.34 47.3      1
 
 Prediction type:  response 
-Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Age, Female, eps </code></pre>
+Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, conf.high, predicted, predicted_hi, predicted_lo, TempKyosan, Satisfaction, Interest, Ideology, Age, Female </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, estimate<span class="sc">:</span>conf.high) <span class="co"># 必要な情報だけ出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Std. Error      z   Pr(&gt;|z|) CI low CI high
-   -4.732     0.5613 -8.429 &lt; 2.22e-16 -5.832  -3.631
-   -3.830     0.6110 -6.269 3.6446e-10 -5.028  -2.633
+ Estimate Std. Error     z Pr(&gt;|z|) CI low CI high
+    -4.73      0.561 -8.43   &lt;0.001  -5.83   -3.63
+    -3.83      0.611 -6.27   &lt;0.001  -5.03   -2.63
 
 Prediction type:  
 Columns: Female, estimate, std.error, statistic, p.value, conf.low, conf.high </code></pre>
@@ -1902,19 +1905,18 @@ Columns: Female, estimate, std.error, statistic, p.value, conf.low, conf.high </
 <span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="co"># p値を小数点3桁で丸める</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Std. Error         z Pr(&gt;|z|)  CI low CI high
-  0.48602     0.9128   0.53243    0.594  -1.303  2.2751
-  0.32925     0.8894   0.37021    0.711  -1.414  2.0724
-  0.17248     0.8661   0.19916    0.842  -1.525  1.8699
-  0.01571     0.8430   0.01864    0.985  -1.636  1.6679
- -0.14105     0.8200  -0.17201    0.863  -1.748  1.4662
+ Estimate Std. Error        z Pr(&gt;|z|) CI low CI high
+   0.4860      0.913   0.5324    0.594  -1.30    2.28
+   0.3292      0.889   0.3702    0.711  -1.41    2.07
+   0.1725      0.866   0.1992    0.842  -1.52    1.87
+   0.0157      0.843   0.0186    0.985  -1.64    1.67
+  -0.1411      0.820  -0.1720    0.863  -1.75    1.47
 --- 48 rows omitted. See ?print.marginaleffects --- 
- -7.82269     0.7240 -10.80500   &lt;2e-16  -9.242 -6.4037
- -7.97946     0.7458 -10.69941   &lt;2e-16  -9.441 -6.5177
- -8.13622     0.7679 -10.59574   &lt;2e-16  -9.641 -6.6312
- -8.29299     0.7902 -10.49430   &lt;2e-16  -9.842 -6.7442
- -8.44976     0.8128 -10.39527   &lt;2e-16 -10.043 -6.8566 
-
+  -7.8227      0.724 -10.8050   &lt;0.001  -9.24   -6.40
+  -7.9795      0.746 -10.6994   &lt;0.001  -9.44   -6.52
+  -8.1362      0.768 -10.5958   &lt;0.001  -9.64   -6.63
+  -8.2930      0.790 -10.4943   &lt;0.001  -9.84   -6.74
+  -8.4498      0.813 -10.3953   &lt;0.001 -10.04   -6.86
 Prediction type:  
 Columns: Age, estimate, std.error, statistic, p.value, conf.low, conf.high </code></pre>
 </div>

@@ -402,7 +402,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">ミクロ政治データ分析実習</h1>
-  <p class="subtitle">第5回 R Markdownと再現可能な研究</p>
+  <p class="subtitle">第5回 R Markdown（Quarto）と再現可能な研究</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -417,19 +417,48 @@
 
   <p class="date">2023-05-11</p>
 </section>
-<section id="r-markdownとは" class="slide level2">
-<h2>R Markdownとは</h2>
+<section id="r-markdown-quartoとは" class="slide level2">
+<h2>R Markdown / Quartoとは</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" width="250"></p>
+<p></p><figcaption>R Markdown</figcaption><p></p>
+</figure>
+</div>
 <ul>
 <li>R + Markdown</li>
-<li>Rのコードと結果、そして文章が一つの文書としてまとまったもの
+<li>Rのコードと結果、文章が一つの文書としてまとまったもの
 <ul>
-<li>文書の形式はHTML、Microsoft Word（<code>.docx</code>）、PDFで出力される</li>
-<li>スライド、ホームページなども作成可能</li>
-<li>本講義のスライドもR Markdownで作成（{xaringan}）</li>
-<li>本講義の教科書もR Markdownで作成（{bookdown}）</li>
-<li>宋のホームページもR Markdownで作成（{blogdown}）</li>
+<li>HTML、Microsoft Word（<code>.docx</code>）、PDF等</li>
 </ul></li>
+<li>スライド、ホームページ、ポスター、書籍なども作成可能</li>
 </ul>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://posit.co/wp-content/uploads/2022/10/quarto.svg" width="250"></p>
+<p></p><figcaption>Quarto</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>「クァルト」と読む</li>
+<li>断片化されつつあるR Markdown生態系を一つに統合したもの
+<ul>
+<li>R Markdownだとホームページには{blogdown}、書籍執筆は{bookdown}、スライド作成は{xaringan}など</li>
+<li>本講義のスライド、スライド、宋の教科書もQuartoで作成</li>
+</ul></li>
+<li>R Markdownと使い方はほぼ同じ
+<ul>
+<li>本講義ではQuartoを使用</li>
+</ul></li>
+<li>Python/Julia/Observable JSも使用可能</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="markdownとは" class="slide level2">
 <h2>Markdownとは</h2>
@@ -582,47 +611,43 @@
 </div>
 </div>
 </section>
-<section id="rmdファイルの生成" class="slide level2">
-<h2><code>.Rmd</code>ファイルの生成</h2>
+<section id="qmdファイルの生成" class="slide level2">
+<h2><code>.qmd</code>ファイルの生成</h2>
 <ol type="1">
 <li>RStudioを起動し、プロジェクトを作成する。</li>
-<li>File &gt; New &gt; R Markdown…を選択する。</li>
+<li>File &gt; New &gt; Quarto Document…を選択する。</li>
 <li>OKをクリックする。</li>
 <li>YAMLヘッダーを修正する。</li>
 <li>ファイルを保存する（File &gt; Save）。
 <ul>
 <li>ショートカットキー: ⌘+S（macOS）、または Ctrl + S (Windows)</li>
 </ul></li>
-<li>Sourceペイン上段のKnitをクリックする。
-<ul>
-<li>Knitは「ニット」と読む（「クニット」ではない）。</li>
-</ul></li>
+<li>Sourceペイン上段のRenderをクリックする。</li>
 </ol>
 </section>
 <section id="yamlヘッダー" class="slide level2">
 <h2>YAMLヘッダー</h2>
-<p><code>.Rmd</code>ファイル最上段に位置する文書の情報に関するデータ</p>
+<p><code>.qmd</code>ファイル最上段に位置する文書の情報に関する内容</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="pp">---</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのR Markdown"</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのQuarto"</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"関大花子"</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2022年 5月 12日"</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023/5/11"</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><code>title</code>: 文書のタイトル
 <ul>
 <li><code>subtitle:</code>でサブタイトルも付けられる。</li>
 </ul></li>
 <li><code>author</code>: 文書の作成者</li>
-<li><code>date</code>: 日付
+<li><code>date</code>: 日付（「年/月/日」形式で入力）
 <ul>
-<li><code>date: `r Sys.Date()`</code>に修正すると、Knitした日の日付が自動的につけられる。</li>
+<li><code>date: "`r Sys.Date()`"</code>に修正すると、Renderした日の日付が自動的につけられる。</li>
 </ul></li>
-<li><code>output</code>: 出力形式（このままで良い）</li>
-<li>その他オプション多数
-<ul>
-<li>YAMLヘッダーの詳細は<a href="https://rstudio.com/wp-content/uploads/2016/11/Rmarkdown-cheatsheet-2.0_ja.pdf">R Markdown Cheetsheet</a>などを参照</li>
-</ul></li>
+<li><code>format</code>: 出力形式（このままで良い）</li>
+<li><code>lang</code>: 出力言語（デフォルトは<code>en</code>）</li>
+<li>最初は<code>title</code>と<code>format</code>のみになっているため、適宜修正（場合によっては<code>title</code>のみになっている）</li>
 </ul>
 </section>
 <section id="markdownの文法-文章の改行" class="slide level2">
@@ -937,16 +962,12 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 </section>
 <section id="markdownの文法-その他" class="slide level2">
 <h2>Markdownの文法: その他</h2>
-<p><a href="https://www.jaysong.net/RBook/rmarkdown.html">教科書第21章</a>を参照</p>
+<p>教科書第<a href="https://www.jaysong.net/RBook/rmarkdown.html">22</a>・<a href="https://www.jaysong.net/RBook/quarto.html">24</a>章を参照</p>
 <ul>
 <li>図の挿入</li>
 <li>脚注</li>
 <li>引用など</li>
-<li>HTMLタグを直接入れることも可能
-<ul>
-<li>出力形式がHTMLならJavaScriptも可</li>
-</ul></li>
-<li><a href="https://rstudio.com/wp-content/uploads/2016/11/Rmarkdown-cheatsheet-2.0_ja.pdf">R Markdown Cheetsheet</a>も参照</li>
+<li>第22章はR Markdown入門、第24章はR MarkdownユーザーのためのQuarto入門</li>
 </ul>
 </section>
 <section id="rコード-チャンクchunk" class="slide level2">
@@ -962,7 +983,7 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <div class="columns">
 <div class="column" style="width:49%;">
 <p><strong>Input</strong></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a>ここはチャンクの外</span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a>ここはチャンクの外</span>
 <span id="cb21-2"><a href="#cb21-2"></a></span>
 <span id="cb21-3"><a href="#cb21-3"></a>ここに書いたものは文章として扱われる。</span>
 <span id="cb21-4"><a href="#cb21-4"></a></span>
@@ -991,37 +1012,65 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 </section>
 <section id="rコード-チャンクのオプション" class="slide level2">
 <h2>Rコード: チャンクのオプション</h2>
-<p><code>{r}</code>の箇所にオプションが指定可能（<code>,</code>の後）</p>
+<p>チャンク内に各チャンクのオプションが指定可能</p>
+<div class="columns">
+<div class="column" style="width:38%;">
+<p>チャンクオプションの付け方</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#| label: my_chunk_1</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#| warning: false</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#| echo: false</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a>Rのコード</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>チャンクに名前を付ける: <code>{r チャンクの名前}</code>
-<ul>
-<li>チャンク名の場合<code>,</code>は不要。オプションはチャンク名の後に付ける</li>
-</ul></li>
-<li>コードのみ出力し、結果は出力しない
-<ul>
-<li><code>{r, eval = FALSE}</code></li>
-</ul></li>
-<li>結果のみ出力し、コードは出力しない
-<ul>
-<li><code>{r, echo = FALSE}</code></li>
-</ul></li>
-<li>出力される図の幅を8インチ、高さを10インチに
-<ul>
-<li><code>{r, fig.width = 5, fig.height = 10}</code></li>
-</ul></li>
-<li>出力される図を中央揃えに
-<ul>
-<li><code>{r, fig.align = center}</code></li>
-</ul></li>
-<li>警告メッセージを隠す
-<ul>
-<li><code>{r, warning = FALSE}</code></li>
-</ul></li>
 <li>他にも数十のオプションの指定が可能
 <ul>
-<li>詳しくは<a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown Cheetsheet</a>を参照</li>
+<li><a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">R Markdown Cheetsheet</a></li>
+<li><a href="https://quarto.org/">Quarto公式ホームページ</a></li>
 </ul></li>
 </ul>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:60%;">
+<ul>
+<li><code>#| label: チャンクの名前</code>
+<ul>
+<li>チャンクに名前を付ける</li>
+</ul></li>
+<li><code>#| eval: false</code>
+<ul>
+<li>コードのみ出力し、結果は出力しない</li>
+</ul></li>
+<li><code>#| echo: false</code>
+<ul>
+<li>結果のみ出力し、コードは出力しない</li>
+</ul></li>
+<li><code>#| fig-width: 5</code>
+<ul>
+<li>出力される図の幅を8インチに</li>
+</ul></li>
+<li><code>#| fig-height: 10</code>
+<ul>
+<li>出力される図の幅を高さを10インチに</li>
+</ul></li>
+<li><code>#| fig-align: center</code>
+<ul>
+<li>出力される図を中央揃えに</li>
+</ul></li>
+<li><code>#| warning: false</code>
+<ul>
+<li>警告メッセージを隠す</li>
+</ul></li>
+<li><code>#| error: true</code>
+<ul>
+<li>エラーが発生してもとりあえずRenderする</li>
+</ul></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="rコード-インラインコード" class="slide level2">
 <h2>Rコード: インラインコード</h2>
@@ -1033,17 +1082,17 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <div class="columns">
 <div class="column" style="width:49%;">
 <p><strong>Input:</strong></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="in">```</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a></span>
-<span id="cb24-5"><a href="#cb24-5"></a>変数<span class="in">`X`</span>の平均値は<span class="in">`r mean(X)`</span>です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="in">```</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a></span>
+<span id="cb25-5"><a href="#cb25-5"></a>変数<span class="in">`X`</span>の平均値は<span class="in">`r mean(X)`</span>です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:49%;">
 <p><strong>Output:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>変数<code>X</code>の平均値は5.6です。</p>
 </div>
@@ -1059,7 +1108,7 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <h3 id="再生可能性-reproducibility">再生可能性 (Reproducibility)</h3>
 <ul>
 <li>同じデータ + 同じ方法 = 同じ結果</li>
-<li>R Markdownの主な目的は<strong>再生可能性</strong></li>
+<li>Quarto/R Markdownの主な目的は<strong>再生可能性</strong></li>
 </ul>
 <p><br></p>
 <h3 id="再現可能性-replicability">再現可能性 (Replicability)</h3>
@@ -1075,8 +1124,8 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <li><a href="https://arxiv.org/abs/1802.03311">Lorena A. Barba. 2018. “Terminologies for Reproducible Research.” <em>ArXiv.</em> 1802.03311</a></li>
 </ul>
 </div></aside></section>
-<section id="r-markdownと再生可能性" class="slide level2">
-<h2>R Markdownと再生可能性</h2>
+<section id="quartor-markdownと再生可能性" class="slide level2">
+<h2>Quarto/R Markdownと再生可能性</h2>
 <ol type="1">
 <li>具体的にどのような手順で分析が行われたかが分かる
 <ul>
@@ -1109,9 +1158,9 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 </ul></li>
 </ul>
 <p><strong>悪い例</strong> (悪くはないが、良くもない)</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>良い例</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">5</span>) <span class="co"># 欠損値で埋められた長さ5のベクトル</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">5</span>) <span class="co"># 欠損値で埋められた長さ5のベクトル</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="再生可能な研究を目指して-1" class="slide level2">
 <h2>再生可能な研究を目指して</h2>
@@ -1132,12 +1181,12 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 </section>
 <section id="課題" class="slide level2">
 <h2>課題</h2>
-<p>今回以降の練習はR Markdownを利用する。</p>
+<p>今回以降の課題はQuartoを利用する。</p>
 <ol type="1">
 <li>今回課題用のプロジェクトを作成する。</li>
-<li>LMSの「第5回課題」から「問題ファイル（<code>.Rmd</code>形式）」ダウンロードし、プロジェクトのフォルダーにアップローロする。</li>
-<li>プロジェクトからRStudioを起動し、<code>.Rmd</code>ファイルを開く</li>
-<li>Knitし、結果を確認する。</li>
+<li>LMSの「第5回課題」から「問題ファイル（<code>.qmd</code>形式）」ダウンロードし、プロジェクトのフォルダーにアップローロする。</li>
+<li>プロジェクトからRStudioを起動し、<code>.qmd</code>ファイルを開く</li>
+<li>Renderし、結果を確認する。</li>
 <li>本講義のサポートページの「課題 &gt; 第5回課題」へアクセス</li>
 <li>サンプルのような体裁になるように問題ファイルを修正する。
 <ul>
@@ -1147,8 +1196,26 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <ul>
 <li>ダウンロード方法はサポートページの「Rの使い方 &gt; ファイル管理」を参照すること</li>
 </ul></li>
-<li><strong>期限は2022年5月18日（水）の23時59分とする。</strong></li>
+<li><strong>期限は2023年5月17日（水）の23時59分とする。</strong></li>
 </ol>
+<div class="callout callout-important no-icon callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>注意！！</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>間違ったファイルを提出しないこと（期限<strong>外</strong>の差し替えは不可）
+<ul>
+<li>例1）<code>.html</code>ファイルでなく<code>.qmd</code>ファイルの提出 <span class="math inline">\(\leftarrow \times\)</span></li>
+<li>例2）<code>.qmd</code>ファイルの拡張子を<code>.html</code>に変えて提出 <span class="math inline">\(\leftarrow \times\)</span></li>
+</ul></li>
+<li>サポートページの「<a href="https://www.jaysong.net/r4ps/intro/homework.html">課題の取り組み方</a>」を必ず確認すること。毎年、間違って提出方法で未提出扱いとなった学生がいる。自分が提出したファイルが問題ないかを確認したい場合、LMSの「マイレポート」から提出物をダウンロードし、自分のPCで開いてみることを推奨。期限内なら何度でも差し替え可能。</li>
+<li>期限内に提出できなかった場合、宋に連絡不要（延長は絶対にない）</li>
+</ul>
+</div>
+</div>
+</div>
 
 <p><img src="Figs/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">

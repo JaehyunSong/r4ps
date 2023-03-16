@@ -540,7 +540,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title d-none d-lg-block">第5回講義資料</h1>
-<p class="subtitle lead">R Markdownと再現可能な研究</p>
+<p class="subtitle lead">R Markdown/Quartoと再現可能な研究</p>
 </div>
 
 
@@ -563,7 +563,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="rmdファイルの作成" class="level2">
 <h2 class="anchored" data-anchor-id="rmdファイルの作成">Rmdファイルの作成</h2>
 <p><strong>手順1:</strong> RStudioを起動し、プロジェクトを作成する。</p>
-<p><strong>手順2:</strong> File &gt; New &gt; R Markdown…を選択する。</p>
+<p><strong>手順2:</strong> File &gt; New &gt; Quarto Document…を選択する。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figs/rmarkdown/Setup_1.png" class="img-fluid figure-img" style="width:75.0%"></p>
@@ -571,7 +571,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 <p><strong>手順3:</strong> OKをクリックする。</p>
 <ul>
-<li>この段階で文書のタイトル（Title:）と作成者名（Author:）を指定することもでKるが、手順4で修正することもできるからここではOKをクリックしても良い。</li>
+<li>この段階で文書のタイトル（Title:）と作成者名（Author:）を指定することも出来るが、手順4で修正するので、ここではOKをクリックしても良い。ただし、「Use visual markdown editor」にチェックが付いている場合、予め外しておくこと。</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -579,18 +579,26 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </figure>
 </div>
 <p><strong>手順4:</strong> タイトル情報などを以下のように修正する。</p>
+<div class="columns">
+<div class="column" style="width:40%;">
 <p><strong>変更前</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Untitled"</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:58%;">
 <p><strong>変更後</strong></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="pp">---</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのR Markdown"</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"関大花子"</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2022年 5月 12日"</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2022/5/12"</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -601,17 +609,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>date:</code>の内容を<code>date: `r Sys.Date()`</code>に修正するとKnitした日付が自動的につけられる。</p>
+<p><code>date:</code>の内容を<code>date: "`r Sys.Date()`"</code>に修正するとKnitした日付が自動的につけられる。</p>
 </div>
 </div>
 <p><strong>手順5:</strong> ファイルを保存する。ファイル名は適宜付けること。</p>
 <ul>
 <li>ファイルの保存はFile &gt; Saveか、ショートカットキー（macOSだとCmd (⌘) + S、WindowsだとControl (Ctrl) + S）で出来る。</li>
 </ul>
-<p><strong>手順6:</strong> Sourceペイン上段のKnitをクリックする。</p>
-<ul>
-<li>Knitは「ニット」と読む。</li>
-</ul>
+<p><strong>手順6:</strong> Sourceペイン上段のRenderをクリックする。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figs/rmarkdown/Setup_3.png" class="img-fluid figure-img" style="width:75.0%"></p>
@@ -634,7 +639,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="markdown文法の基本" class="level2">
 <h2 class="anchored" data-anchor-id="markdown文法の基本">Markdown文法の基本</h2>
-<p>　ここでは本講義の課題を遂行するための必要最低限のことのみ解説する。R Markdwonの詳細については教科書の第21章（R Markdown [基礎]）を参照すること。</p>
+<p>　ここでは本講義の課題を遂行するための必要最低限のことのみ解説する。R MarkdwonとQuartoの詳細については教科書の「<a href="https://www.jaysong.net/RBook/rmarkdown.html">R Markdown [基礎]</a>」と「<a href="https://www.jaysong.net/RBook/quarto.html">Quarto入門</a>」を参照すること。</p>
 <section id="改行" class="level3">
 <h3 class="anchored" data-anchor-id="改行">改行</h3>
 <p>　Markdownにおける改行はやや特殊である。特殊といっても難しいことではない。普段よりもう一行改行するだけだ。Markdownの場合、1回の改行は改行として判定されず、同じ行の連続と認識する。たとえば、<strong>Input</strong>のように入力すると<strong>Output</strong>のように文章1と文章2が繋がってしまう。</p>
@@ -801,7 +806,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="画像" class="level3">
 <h3 class="anchored" data-anchor-id="画像">画像</h3>
-<p>　R Markdownに画像を入れるには<code>![代替テキスト](ファイル名)</code>と入力する。画像ファイル名はパス付きを指定する必要がある。<code>[代替テキスト]</code>は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため<code>![](ファイル名)</code>でも画像の添付は出来る。</p>
+<p>　Markdownに画像を入れるには<code>![代替テキスト](ファイル名)</code>と入力する。画像ファイル名はパス付きを指定する必要がある。<code>[代替テキスト]</code>は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため<code>![](ファイル名)</code>でも画像の添付は出来る。</p>
 <p>　例えば、<code>Figs</code>フォルダー内の<code>favicon.png</code>というファイルを読み込む場合、以下のように書く。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="al">![『私たちのR』ロゴ](Figs/favicon.png)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -834,7 +839,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="数式" class="level3">
 <h3 class="anchored" data-anchor-id="数式">数式</h3>
 <p>　以下の内容（数式）は少なくとも本講義（ミクロ政治データ分析実習）では使わないため、飛ばしても良い。</p>
-<p>　インライン数式は<code>$数式$</code>で埋め込むことができる。数式は<span class="math inline">\(\LaTeX\)</span>の書き方とほぼ同じだ。ちなみに、R Markdownの数式は<a href="https://www.mathjax.org">MathJax</a>によってレンダリングされる。このMathJaxライブラリはHTMLに埋め込まれているのではないため、インターネットに接続せずにHTMLファイルを開くと数式が正しく出力されない可能性がある。</p>
+<p>　インライン数式は<code>$数式$</code>で埋め込むことができる。数式は<span class="math inline">\(\LaTeX\)</span>の書き方とほぼ同じだ。ちなみに、R Markdown/Quartoの数式は<a href="https://www.mathjax.org">MathJax</a>によってレンダリングされる。このMathJaxライブラリはHTMLに埋め込まれているのではないため、インターネットに接続せずにHTMLファイルを開くと数式が正しく出力されない可能性がある。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a>アインシュタインと言えば、$e = mc^2$でしょう。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
@@ -907,15 +912,15 @@ X = \begin{bmatrix}
 </section>
 <section id="コメント" class="level3">
 <h3 class="anchored" data-anchor-id="コメント">コメント</h3>
-<p>　R Markdownにもコメントを付けることができる。とりあえず書いたが要らなくなった段落や文章があって、消すことがもったいない場合はコメントアウトするのも1つの方法だろう。ただし、Rのコメントアウトの方法は<code>#</code>だったが、これはR Markdownでは見出しの記号である。R Markdownのコメントは<code>&lt;!--</code>と<code>--&gt;</code>で囲む必要がある。</p>
+<p>　Markdownにもコメントを付けることができる。とりあえず書いたが要らなくなった段落や文章があって、消すことがもったいない場合はコメントアウトするのも1つの方法だろう。ただし、Rのコメントアウトの方法は<code>#</code>だったが、これはMarkdownでは見出しの記号である。Markdownのコメントは<code>&lt;!--</code>と<code>--&gt;</code>で囲む必要がある。</p>
 <p><strong>Input:</strong></p>
-<pre><code>文章1
-
-&lt;!--
-ここはコメントです。
---&gt;
-
-文章2</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1"></a>文章1</span>
+<span id="cb19-2"><a href="#cb19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">&lt;!--</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co">ここはコメントです。</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">--&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a></span>
+<span id="cb19-7"><a href="#cb19-7"></a>文章2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <p>文章1</p>
 <!--
@@ -929,7 +934,7 @@ X = \begin{bmatrix}
 <h2 class="anchored" data-anchor-id="rコード">Rコード</h2>
 <section id="rコードの入れ方" class="level3">
 <h3 class="anchored" data-anchor-id="rコードの入れ方">Rコードの入れ方</h3>
-<p>　以上の内容まで抑えると、R Markdownを使って、簡単な文法のみで構造化された文書が作成できる。しかし、R Markdownの意義は文章とコード、結果が統合されることだろう。それでは文書内にRコードとその実行結果を入れる方法を紹介する。</p>
+<p>　以上の内容まで抑えると、R Markdown/Quartoを使って、簡単な文法のみで構造化された文書が作成できる。しかし、R Markdown/Quartoの意義は文章とコード、結果が統合されることだろう。それでは文書内にRコードとその実行結果を入れる方法を紹介する。</p>
 <p>　コードは<code>```{r}</code>と<code>```</code>の間に入力するだけだ。これでコードと結果が同時に出力される。たとえば、<code>print("Hello World!")</code>を走らせるコードを入れてみよう。</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -941,13 +946,13 @@ X = \begin{bmatrix}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>これは使用するキーボードの配列によって異なる。日本語配列キーボードの場合、「@」と同じ所に位置するケースが多い。ただ、日本語配列は世界標準からかなりずれている配列を採用しており、日本語以外の配列では主に「〜」と同じ所に位置する。たとえば、宋はUNIX配列（HHKB）を使っているため、キーボードの右上に位置するが、左上に位置するケースも多い。ちなみに単一引用符（<code>'</code>; 「シングル・クォーテーション」とも呼ばれる）とは別の記号であることに注意すること。</p>
+<p>　これは使用するキーボードの配列によって異なる。日本語配列キーボードの場合、「@」と同じ所に位置するケースが多い。ただ、日本語配列は世界標準からかなりずれている配列を採用しており、日本語以外の配列では主に「〜」と同じ所に位置する。たとえば、宋はUNIX配列（HHKB）を使っているため、キーボードの右上に位置するが、左上に位置するケースも多い。ちなみに単一引用符（<code>'</code>; 「シングル・クォーテーション」とも呼ばれる）とは別の記号であることに注意すること。</p>
 </div>
 </div>
 <p><strong>Input:</strong></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1"></a>"Hello World!"を出力するコード</span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1"></a>"Hello World!"を出力するコード</span>
 <span id="cb20-2"><a href="#cb20-2"></a></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="in">```{r, error=TRUE}</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="in">```{r}</span></span>
 <span id="cb20-4"><a href="#cb20-4"></a><span class="fu">print</span>(<span class="st">"Hello World!"</span>)</span>
 <span id="cb20-5"><a href="#cb20-5"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
@@ -958,9 +963,9 @@ X = \begin{bmatrix}
 <pre><code>[1] "Hello World!"</code></pre>
 </div>
 </div>
-<p>　<code>```{r}</code>と<code>```</code>で囲まれた範囲をR Markdownでは<strong>チャンク（Chunk）</strong>と呼ぶ。このチャンク内ではRと全く同じことが出来る。パッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。</p>
+<p>　<code>```{r}</code>と<code>```</code>で囲まれた範囲をR Markdown/Quartoでは<strong>チャンク（Chunk）</strong>と呼ぶ。このチャンク内ではRと全く同じことが出来る。パッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。</p>
 <p><strong>Input:</strong> 　</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1"></a><span class="in">```{r}</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="co"># パッケージの読み込み</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb23-4"><a href="#cb23-4"></a><span class="co"># R内蔵データセットのirisを使った可視化</span></span>
@@ -1001,7 +1006,7 @@ X = \begin{bmatrix}
 <h3 class="anchored" data-anchor-id="インラインコード">インラインコード</h3>
 <p>　他にも文中にRコードを埋め込むこともできる（これをinline codeと呼ぶ）。例えば、ベクトル<code>X &lt;- c(2, 3, 5, 7, 12)</code>があり、この平均値を文中で示したいとする。むろん、文中に「5.8」と書いても問題なし。しかし、実は<code>X</code>の入力ミスが見つかり、実は<code>c(2, 3, 5, 7, 11)</code>になったらどうなるだろうか。この「5.8」と書いた箇所を見つけて5.6と修正したいといけない。これは非常に面倒な作業であり、ミスも起こりやすい。文中にRコードを入れるためには<code>`r Rコード`</code>のように入力する。</p>
 <p><strong>Input:</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1"></a><span class="in">```{r}</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="in">```</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a></span>
@@ -1011,17 +1016,18 @@ X = \begin{bmatrix}
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>変数<code>X</code>の平均値は5.6です。</p>
-<p>　ここで<code>`X`</code>だが、単に<code>`</code>で囲まれただけだとコードのように表示してくれるものの、そのコードは実行されない。これは主に文中に短いコードのみを入れたり、変数名、関数名を示す際に使う機能である。</p>
+<p>　ここで<code>`X`</code>だが、単に<code>`</code>で囲まれただけだとコードの<strong>ように</strong>表示してくれるものの、そのコードは実行されない。これは主に文中に短いコードのみを入れたり、変数名、関数名を示す際に使う機能である。</p>
 </section>
 <section id="コードの非表示" class="level3">
 <h3 class="anchored" data-anchor-id="コードの非表示">コードの非表示</h3>
-<p>　既に説明した通り、R MakrdownはR + Markdownである。Rはチャンク、Markdownはチャンク外の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。</p>
-<p>　チャンクは<code>```{r}</code>で始まるが、実は<code>{r}</code>の箇所にオプションを追加することができる。具体的には<code>{r チャンク名, オプション1, オプション2, ...}</code>といった形だが、ここでは2つのオプションを紹介する。</p>
-<p>　まずはコードを表示せず、結果のみを表示させる方法である。R Markdownでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。R Markdownではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。<code>{r}</code>の内部に<code>echo = FALSE</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
+<p>　既に説明した通り、R Markdown（Quarto）はR + Markdownである。Rはチャンク<strong>内</strong>、Markdownはチャンク<strong>外</strong>の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。</p>
+<p>　チャンクは<code>```{r}</code>で始まるが、実は<code>{r}</code>の箇所にオプションを追加することができる。具体的にはチャンクの最上行に「<code>#|</code> + 半角スペース」でオプションを指定する。ここではよく使う2つのオプションを紹介する。</p>
+<p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
 <p><strong>Input:</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
@@ -1031,23 +1037,25 @@ X = \begin{bmatrix}
 </section>
 <section id="結果の非表示" class="level3">
 <h3 class="anchored" data-anchor-id="結果の非表示">結果の非表示</h3>
-<p>　一方、<code>{r}</code>の内部に<code>eval = FALSE</code>を指定すれば、結果は表示されず、コードのみ表示される。本ページのようにマニュアルや技術書を書く際、時々使われる。</p>
+<p>　一方、<code>#| eval: false</code>を指定すれば、結果は表示されず、コードのみ表示される。本ページのようにマニュアルや技術書を書く際、時々使われる。</p>
 <p><strong>Input:</strong></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>　このようにコードのみ表示され、結果は表示されない。チャンクには他にも様々なオプションを付けることができる。出力される図の大きさ、位置、解像度、コードの非常時、結果の非表示、チャンク間の依存関係などが指定できるが、これらについては教科書の第21章（R Markdown [基礎]）を参照すること。</p>
-<p>　また、R Markdownでは様々な形式の文書（以外のものも）が作成可能である。たとえば、<a href="https://www.jaysong.net">宋のホームページ</a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>や<a href="https://www.jaysong.net/RBook/">本講義の教科書</a><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>、本講義のスライド<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>もR Markdownで作成されたものであり、本サポートページもR Markdownに類似する<a href="https://quarto.org/">Quarto</a>で作成されている。他にも履歴書（{vitae}、{pagedown}パッケージ）、ポスター・名刺（{pagedown}パッケージ）、Rパッケージの開発（{fusen}パッケージ）、Webアプリケーション（{shiny}パッケージ）、Rのチュートリアル（{learnr}パッケージ）などもR Markdownで作成可能である。</p>
+<p>　このようにコードのみ表示され、結果は表示されない。チャンクには他にも様々なオプションを付けることができる。出力される図の大きさ、位置、解像度、コードの非常時、結果の非表示、チャンク間の依存関係などが指定できるが、これらについては教科書の第<a href="https://www.jaysong.net/RBook/rmarkdown.html">22</a>・<a href="https://www.jaysong.net/RBook/quarto.html">24</a>章を参照すること。</p>
+<p>　また、Quartoでは様々な形式の文書（以外のものも）が作成可能である。たとえば、本講義のサポートページだけでなく、<a href="https://www.jaysong.net">宋のホームページ</a>や<a href="https://www.jaysong.net/RBook/">本講義の教科書</a>、本講義のスライドもQuartoで作成されたものである。これらの作り方については<a href="https://quarto.org/">Quarto公式ホームページ</a>を参照されたい。</p>
 </section>
 </section>
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
 <ul>
-<li>『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/rmarkdown.html" target="_blank">第21章: R Markdown [基礎]</a></li>
+<li>『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/rmarkdown.html" target="_blank">第22章: R Markdown [基礎]</a></li>
+<li>『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/quarto.html" target="_blank">第24章: Quarto入門</a></li>
 </ul>
 
 
@@ -1061,9 +1069,6 @@ X = \begin{bmatrix}
 <li id="fn2"><p>ただし、イタリックの場合、日本語には使わないのが鉄則である。強調の意味としてイタリックを使うのはローマ字のみである。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>これは普通の脚注です。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>むろん、コードも同時に提出する必要があれば、その指示に従おう。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>{blogdown}パッケージ<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>{bookdown}パッケージ<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>{xaringan}パッケージ<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

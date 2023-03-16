@@ -1,20 +1,38 @@
 ---
-subtitle: "第5回 R Markdownと再現可能な研究"
+subtitle: "第5回 R Markdown（Quarto）と再現可能な研究"
 date: "2023/5/11"
 format: revealjs
 metadata-files: 
   - _slide.yml
 ---
 
-## R Markdownとは
+## R Markdown / Quartoとは
+
+::::{.columns}
+:::{.column width=48%}
+![R Markdown](https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png){width=250px fig-align="center"}
 
 * R + Markdown
-* Rのコードと結果、そして文章が一つの文書としてまとまったもの
-  * 文書の形式はHTML、Microsoft Word（`.docx`）、PDFで出力される
-  * スライド、ホームページなども作成可能
-  * 本講義のスライドもR Markdownで作成（{xaringan}）
-  * 本講義の教科書もR Markdownで作成（{bookdown}）
-  * 宋のホームページもR Markdownで作成（{blogdown}）
+* Rのコードと結果、文章が一つの文書としてまとまったもの
+   * HTML、Microsoft Word（`.docx`）、PDF等
+* スライド、ホームページ、ポスター、書籍なども作成可能
+:::
+
+:::{.column width=4%}
+:::
+
+:::{.column width=48%}
+![Quarto](https://posit.co/wp-content/uploads/2022/10/quarto.svg){width=250px fig-align="center"}
+
+* 「クァルト」と読む
+* 断片化されつつあるR Markdown生態系を一つに統合したもの
+  * R Markdownだとホームページには{blogdown}、書籍執筆は{bookdown}、スライド作成は{xaringan}など
+  * 本講義のスライド、スライド、宋の教科書もQuartoで作成
+* R Markdownと使い方はほぼ同じ
+  * 本講義ではQuartoを使用
+* Python/Julia/Observable JSも使用可能
+:::
+::::
 
 ## Markdownとは
 
@@ -195,39 +213,38 @@ metadata-files:
 
 ::::
 
-## `.Rmd`ファイルの生成
+## `.qmd`ファイルの生成
 
 1. RStudioを起動し、プロジェクトを作成する。
-1. File > New > R Markdown…を選択する。
+1. File > New > Quarto Document...を選択する。
 1. OKをクリックする。
 1. YAMLヘッダーを修正する。
 1. ファイルを保存する（File > Save）。
    * ショートカットキー: ⌘+S（macOS）、または Ctrl + S (Windows)
-1. Sourceペイン上段のKnitをクリックする。
-   * Knitは「ニット」と読む（「クニット」ではない）。
+1. Sourceペイン上段のRenderをクリックする。
 
 ## YAMLヘッダー
 
-`.Rmd`ファイル最上段に位置する文書の情報に関するデータ
+`.qmd`ファイル最上段に位置する文書の情報に関する内容
 
 ```yaml
 ---
-title: "はじめてのR Markdown"
+title: "はじめてのQuarto"
 author: "関大花子"
-date: "2022年 5月 12日"
-output: html_document
+date: "2023/5/11"
+format: html
+lang: ja
 ---
 ```
 
 * `title`: 文書のタイトル
    * `subtitle:`でサブタイトルも付けられる。
 * `author`: 文書の作成者
-* `date`: 日付
-  * `` date: `r "\x60r Sys.Date()\x60"` ``に修正すると、Knitした日の日付が自動的につけられる。
-
-* `output`: 出力形式（このままで良い）
-* その他オプション多数
-  * YAMLヘッダーの詳細は[R Markdown Cheetsheet](https://rstudio.com/wp-content/uploads/2016/11/Rmarkdown-cheatsheet-2.0_ja.pdf)などを参照
+* `date`: 日付（「年/月/日」形式で入力）
+  * `` date: "`r "\x60r Sys.Date()\x60"`" ``に修正すると、Renderした日の日付が自動的につけられる。
+* `format`: 出力形式（このままで良い）
+* `lang`: 出力言語（デフォルトは`en`）
+* 最初は`title`と`format`のみになっているため、適宜修正（場合によっては`title`のみになっている）
 
 ## Markdownの文法: 文章の改行
 
@@ -548,14 +565,12 @@ $$
 
 ## Markdownの文法: その他
 
-[教科書第21章](https://www.jaysong.net/RBook/rmarkdown.html)を参照
+教科書第[22](https://www.jaysong.net/RBook/rmarkdown.html)・[24](https://www.jaysong.net/RBook/quarto.html)章を参照
 
 * 図の挿入
 * 脚注
 * 引用など
-* HTMLタグを直接入れることも可能
-  * 出力形式がHTMLならJavaScriptも可
-* [R Markdown Cheetsheet](https://rstudio.com/wp-content/uploads/2016/11/Rmarkdown-cheatsheet-2.0_ja.pdf)も参照
+* 第22章はR Markdown入門、第24章はR MarkdownユーザーのためのQuarto入門
 
 ## Rコード: チャンク（Chunk）
 
@@ -574,7 +589,7 @@ Rのコードを挿入する領域
 
 ここに書いたものは文章として扱われる。
 
-```{r}`r ''`
+```{{r}}
 x <- 5 # 円の半径
 print(3.14 * x^2)
 ```
@@ -605,22 +620,51 @@ print(3.14 * x^2)
 
 ## Rコード: チャンクのオプション
 
-`{r}`の箇所にオプションが指定可能（`,`の後）
+チャンク内に各チャンクのオプションが指定可能
 
-* チャンクに名前を付ける: `{r チャンクの名前}`
-  * チャンク名の場合`,`は不要。オプションはチャンク名の後に付ける
-* コードのみ出力し、結果は出力しない
-   * `{r, eval = FALSE}`
-* 結果のみ出力し、コードは出力しない
-   * `{r, echo = FALSE}`
-* 出力される図の幅を8インチ、高さを10インチに
-   * `{r, fig.width = 5, fig.height = 10}`
-* 出力される図を中央揃えに
-   * `{r, fig.align = center}`
-* 警告メッセージを隠す
-   * `{r, warning = FALSE}`
+::::{.columns}
+:::{.column width=38%}
+チャンクオプションの付け方
+
+````md
+```{{r}}
+#| label: my_chunk_1
+#| warning: false
+#| echo: false
+#| fig-width: 8
+#| fig-align: center
+
+Rのコード
+```
+````
+
 * 他にも数十のオプションの指定が可能
-   * 詳しくは[R Markdown Cheetsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)を参照
+   * [R Markdown Cheetsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+   * [Quarto公式ホームページ](https://quarto.org/)
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=60%}
+* `#| label: チャンクの名前`
+  * チャンクに名前を付ける
+* `#| eval: false`
+  * コードのみ出力し、結果は出力しない
+* `#| echo: false`
+  * 結果のみ出力し、コードは出力しない
+* `#| fig-width: 5`
+  * 出力される図の幅を8インチに
+* `#| fig-height: 10`
+  * 出力される図の幅を高さを10インチに
+* `#| fig-align: center`
+  * 出力される図を中央揃えに
+* `#| warning: false`
+  * 警告メッセージを隠す
+* `#| error: true`
+  * エラーが発生してもとりあえずRenderする
+:::
+::::
 
 ## Rコード: インラインコード
 
@@ -634,7 +678,7 @@ print(3.14 * x^2)
 **Input:**
 
 ````md
-```{r}`r ''`
+```{{r}}
 X <- c(2, 3, 5, 7, 11)
 ```
 
@@ -668,7 +712,7 @@ X <- c(2, 3, 5, 7, 11)
 ### 再生可能性 (Reproducibility)
 
 * 同じデータ + 同じ方法 = 同じ結果
-* R Markdownの主な目的は**再生可能性**
+* Quarto/R Markdownの主な目的は**再生可能性**
 
 <br/>
 
@@ -684,7 +728,7 @@ X <- c(2, 3, 5, 7, 11)
 * [Lorena A. Barba. 2018. "Terminologies for Reproducible Research." *ArXiv.* 1802.03311](https://arxiv.org/abs/1802.03311)
 :::
 
-## R Markdownと再生可能性
+## Quarto/R Markdownと再生可能性
 
 1. 具体的にどのような手順で分析が行われたかが分かる
    * コードを記録&公開
@@ -729,15 +773,25 @@ x <- rep(NA, 5) # 欠損値で埋められた長さ5のベクトル
 
 ## 課題
 
-今回以降の練習はR Markdownを利用する。
+今回以降の課題はQuartoを利用する。
 
 1. 今回課題用のプロジェクトを作成する。
-2. LMSの「第5回課題」から「問題ファイル（`.Rmd`形式）」ダウンロードし、プロジェクトのフォルダーにアップローロする。
-3. プロジェクトからRStudioを起動し、`.Rmd`ファイルを開く
-4. Knitし、結果を確認する。
+2. LMSの「第5回課題」から「問題ファイル（`.qmd`形式）」ダウンロードし、プロジェクトのフォルダーにアップローロする。
+3. プロジェクトからRStudioを起動し、`.qmd`ファイルを開く
+4. Renderし、結果を確認する。
 5. 本講義のサポートページの「課題 > 第5回課題」へアクセス
 6. サンプルのような体裁になるように問題ファイルを修正する。
    * **学籍番号・氏名は自分の学籍番号・氏名に直すこと。**
 7. 完成後、生成された`.html`ファイルを**ダウンロード**し、関大LMSに提出する。
    * ダウンロード方法はサポートページの「Rの使い方 > ファイル管理」を参照すること
-8. **期限は2022年5月18日（水）の23時59分とする。**
+8. **期限は2023年5月17日（水）の23時59分とする。**
+
+:::{.callout-important icon=false}
+## 注意！！
+
+* 間違ったファイルを提出しないこと（期限**外**の差し替えは不可）
+   * 例1）`.html`ファイルでなく`.qmd`ファイルの提出 $\leftarrow \times$
+   * 例2）`.qmd`ファイルの拡張子を`.html`に変えて提出 $\leftarrow \times$
+* サポートページの「[課題の取り組み方](https://www.jaysong.net/r4ps/intro/homework.html)」を必ず確認すること。毎年、間違って提出方法で未提出扱いとなった学生がいる。自分が提出したファイルが問題ないかを確認したい場合、LMSの「マイレポート」から提出物をダウンロードし、自分のPCで開いてみることを推奨。期限内なら何度でも差し替え可能。
+* 期限内に提出できなかった場合、宋に連絡不要（延長は絶対にない）
+:::

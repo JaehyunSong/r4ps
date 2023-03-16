@@ -1,6 +1,6 @@
 ---
 subtitle: "第11回 ロジスティック回帰分析"
-date: "1986/10/08"
+date: "2023/12/07"
 format: revealjs
 metadata-files: 
   - _slide.yml
@@ -13,6 +13,7 @@ metadata-files:
 pacman::p_load(tidyverse, gt, summarytools, modelsummary,
                latex2exp, prediction,
                fastDummies)
+options(width = 120)
 ```
 
 すぐに実習できるように準備しておきましょう。
@@ -85,7 +86,7 @@ tibble(Cov  = names(df),
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 2.5
+#| fig-height: 3
 tibble(x = c(1, 1, 1, 1, 1),
        xend = c(2, 2, 2, 2, 2),
        y = c(5, 4, 3, 2, 1),
@@ -121,7 +122,7 @@ lm_fit <- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)
 ```
 
 ::::{.columns}
-:::{.column width=50%}
+:::{.column width=55%}
 ```{r}
 #| echo: false
 broom::tidy(lm_fit) %>%
@@ -137,7 +138,7 @@ broom::tidy(lm_fit) %>%
 ```
 :::
 
-:::{.column width=50%}
+:::{.column width=45%}
 * 政治知識の係数は約0.119
    * 政治知識が1上がると、投票に参加する確率は約11.9%p上がる。
    * 分かりやすい解釈であるものの、一つ、深刻な問題がある。
@@ -236,11 +237,13 @@ $$
 
 ## ロジスティック回帰分析の実装
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 summary(fit1)
 ```
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 broom::tidy(fit1) %>%
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
@@ -253,7 +256,7 @@ broom::tidy(fit1) %>%
 ```
 
 * ロジスティック回帰分析の場合、決定係数（$R^2$）は表示されない。
-   * 類似した概念として「疑似決定係数（Pseudo$R^2$）」がある）あまり使われない）。
+   * 類似した概念として「疑似決定係数（Pseudo-$R^2$）」がある）あまり使われない）。
    * ロジスティック回帰分析のモデル間比較はAIC、BIC、AUCなどを使用する。
 
 ```{r}
@@ -264,7 +267,7 @@ DescTools::PseudoR2(fit1) # McFaddenの疑似決定係数
 ## 係数の解釈
 
 ::::{.columns}
-:::{.column width=50%}
+:::{.column width=55%}
 ```{r}
 #| eval: false
 summary(fit1)
@@ -284,7 +287,7 @@ broom::tidy(fit1) %>%
 ```
 :::
 
-:::{.column width=50%}
+:::{.column width=45%}
 * 政治知識の$p$値は0.001未満
    * 主観的な政治知識と投票参加の間には統計的に有意な関係がある。
    * 主観的な政治知識が高くなると、投票に参加する確率も上がる。
@@ -349,6 +352,7 @@ tibble(x = seq(-10, 10, 0.1)) %>%
 ```{r}
 #| eval: false
 predictions(回帰分析オブジェクト名, 
+            type    = "response",
             newdata = datagrid(説明変数名1 = 値,
                                説明変数名2 = 値,
                                ...))
@@ -364,23 +368,24 @@ predictions(回帰分析オブジェクト名,
 ```{r}
 # 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、
 # イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率
-predictions(fit1, newdata = datagrid(Knowledge = 3, 
-                                     Female = 1,
-                                     Age = 20, 
-                                     Educ = 4, 
-                                     Ideology = 5))
+predictions(fit1, type = "response",
+            newdata = datagrid(Knowledge = 3, 
+                               Female    = 1,
+                               Age       = 20, 
+                               Educ      = 4, 
+                               Ideology  = 5))
 ```
 
-* `estimate`列の値が予測確率: 0.4109（約41%）
+* `Estimate`列の値が予測確率: 0.411（約41%）
 
 ## {marginaleffects}を使った予測値の計算
 
 `Knowledge`が1〜5の場合の投票参加確率の予測値
 
 ```{r}
-fit1_pred <- predictions(fit1, newdata = datagrid(Knowledge = 1:5))
-fit1_pred %>%
-  select(Knowledge, estimate, std.error, conf.low, conf.high)
+fit1_pred <- predictions(fit1, type = "response",
+                         newdata = datagrid(Knowledge = 1:5))
+fit1_pred
 ```
 
 * `Knowledge`が`Voted`に与える影響は一定ではない。
