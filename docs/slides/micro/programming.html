@@ -417,13 +417,172 @@
 
   <p class="date">2023-04-27</p>
 </section>
+<section class="slide level2">
+
+<div class="cell" data-layout-align="center">
+<style type="text/css">
+div.cell-output > pre > code {
+  max-height: initial;
+}
+</style>
+</div>
+</section>
 <section>
 <section id="ファイルシステム" class="title-slide slide level1 center">
 <h1>ファイルシステム</h1>
 
 </section>
-<section id="ほにゃほにゃ" class="slide level2">
-<h2>ほにゃほにゃ</h2>
+<section id="ファイルシステムとは" class="slide level2">
+<h2>ファイル・システムとは</h2>
+<p>（本講義の内容に限定すると）パソコン内のファイルのあり方</p>
+<ul>
+<li>PCには数万以上のファイルが存在する。</li>
+<li>これらのファイルは一つに部屋に存在するのではなく、複数の<strong>フォルダー</strong><sup>1</sup>（folder）に分かれて保存されている。
+<ul>
+<li>この授業の履修者もそれぞれの授業に関するファイルを一つの箇所でなく、科目名のフォルダーを作ってその中に保存しているはず。</li>
+<li>フォルダーの概念がないと…
+<ol type="1">
+<li>同じファイル名が使えない。</li>
+<li>管理が大変</li>
+<li>欲しいファイルが見つけにくいなどデメリットしかない。</li>
+</ol></li>
+</ul></li>
+<li>最近のソフトウェア/アプリではファイルの選択をフォルダーをクリックしながら行うが、R/Python/C/Javaなどでは<strong>ファイルの位置（<span class="math inline">\(=\)</span>パス<span class="math inline">\(\simeq\)</span>住所）を直接書く</strong>必要がある。</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>フォルダーは<strong>ディレクトリー</strong>（directory）とも呼ばれる。</p></li></ol></aside></section>
+<section id="パスpathの書き方" class="slide level2">
+<h2>パス（path）の書き方</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>                      levelName
+1  .                           
+2   ¦--ReadMe.docx             
+3   ¦--Day01                   
+4   ¦   ¦--Day01.Rproj         
+5   ¦   ¦--Script01.R          
+6   ¦   ¦--Script02.R          
+7   ¦   ¦--Data                
+8   ¦   ¦   ¦--raw_data.csv    
+9   ¦   ¦   °--cleaned_data.csv
+10  ¦   °--Figs                
+11  ¦       ¦--Figure01.png    
+12  ¦       °--Figure02.png    
+13  °--Day02                   
+14      ¦--Day02.Rproj         
+15      ¦--Script01.R          
+16      ¦--Document01.qmd      
+17      ¦--Document01.html     
+18      ¦--Data                
+19      ¦   °--my_data.csv     
+20      °--Figs                
+21          ¦--Old             
+22          ¦   ¦--Figure01.pdf
+23          ¦   ¦--Figure02.pdf
+24          ¦   °--Figure03.pdf
+25          °--New             
+26              °--Figure01.png</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:65%;">
+<p>以下はJDCat分析ツールと同じLinuxの書き方（macOSも同様）</p>
+<ul>
+<li>通常、ファイル＆フォルダーの構造はツリー（tree）構造で表現される。</li>
+<li>パスは<code>/</code>（最上位フォルダー）で始まり、フォルダーは<code>/</code>で区切る。
+<ul>
+<li>最後はファイル名</li>
+</ul></li>
+<li>2行目のファイル
+<ul>
+<li><code>/ReadMe.docx</code></li>
+</ul></li>
+<li>6行目のファイル
+<ul>
+<li><code>/Day01/Script02.R</code></li>
+</ul></li>
+<li>9行目のファイル
+<ul>
+<li><code>/Day01/Data/cleaned_data.csv</code></li>
+</ul></li>
+<li>26行目のファイル
+<ul>
+<li><code>/Day02/Figs/New/Figure01.png</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="絶対パスと相対パス" class="slide level2">
+<h2>絶対パスと相対パス</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>                      levelName
+1  .                           
+2   ¦--ReadMe.docx             
+3   ¦--Day01                   
+4   ¦   ¦--Day01.Rproj         
+5   ¦   ¦--Script01.R          
+6   ¦   ¦--Script02.R          
+7   ¦   ¦--Data                
+8   ¦   ¦   ¦--raw_data.csv    
+9   ¦   ¦   °--cleaned_data.csv
+10  ¦   °--Figs                
+11  ¦       ¦--Figure01.png    
+12  ¦       °--Figure02.png    
+13  °--Day02                   
+14      ¦--Day02.Rproj         
+15      ¦--Script01.R          
+16      ¦--Document01.qmd      
+17      ¦--Document01.html     
+18      ¦--Data                
+19      ¦   °--my_data.csv     
+20      °--Figs                
+21          ¦--Old             
+22          ¦   ¦--Figure01.pdf
+23          ¦   ¦--Figure02.pdf
+24          ¦   °--Figure03.pdf
+25          °--New             
+26              °--Figure01.png</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:65%;">
+<ul>
+<li><strong>絶対パス</strong>：必ず最上位フォルダー（<code>/</code>）から始まるパス
+<ul>
+<li>長い</li>
+</ul></li>
+<li><strong>相対パス</strong>：作業フォルダーを基準としたパス
+<ul>
+<li>短い（作業フォルダーまでのパスが省略される）</li>
+<li><code>/</code>で始まらない</li>
+</ul></li>
+<li>作業フォルダーが<code>/Day01/</code>の場合
+<ul>
+<li>6行目のファイル
+<ul>
+<li>絶対パス：<code>/Day01/Script02.R</code></li>
+<li>相対パス：<code>Script02.R</code></li>
+</ul></li>
+<li>9行目のファイル
+<ul>
+<li>絶対パス：<code>/Day01/Data/cleaned_data.csv</code></li>
+<li>相対パス：<code>Data/cleaned_data.csv</code></li>
+</ul></li>
+</ul></li>
+<li>相対パスの方が短いため、より効率的なコーディングが可能に
+<ul>
+<li>作業フォルダーってどう指定すれば良いだろう
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> <strong>プロジェクト機能</strong></li>
+</ul></li>
+<li>現在の作業フォルダーはRコンソール上で<code>getwd()</code>を入力すれば確認可能</li>
+</ul></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="プロジェクト機能" class="slide level2">
 <h2>プロジェクト機能</h2>
@@ -454,17 +613,102 @@
 </section>
 <section id="プロジェクトの作成" class="slide level2">
 <h2>プロジェクトの作成</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Step 1</a></li><li><a href="#tabset-1-2">Step 2</a></li><li><a href="#tabset-1-3">Step 3</a></li><li><a href="#tabset-1-4">Step 4</a></li><li><a href="#tabset-1-5">Step 5</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>File &gt; New Project…を選択</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-create1.png"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-1-2">
+<p>New Directoryを選択</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-create2.png" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-1-3">
+<p>New Projectを選択</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-create3.png" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-1-4">
+<p>プロジェクト名を入力し、Create Project</p>
+<ul>
+<li>プロジェクト名は<strong>英字・数字のみ</strong>使用（スペース禁止; 記号は<code>_</code>のみ使用）</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-create4.png" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-1-5">
+<p>プロジェクトを確認する</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-create5.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="プロジェクトの確認" class="slide level2">
 <h2>プロジェクトの確認</h2>
-<p>　RStudioの右上を確認</p>
+<p>RStudioの右上を確認</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj_check1.png"></p>
+<p></p><figcaption>プロジェクト未使用</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj_check2.png"></p>
+<p></p><figcaption>Homeworkという名のプロジェクト使用中</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="プロジェクトの再開" class="slide level2">
 <h2>プロジェクトの再開</h2>
-<ul>
-<li>File &gt; Open Project…を選択し、プロジェクトフォルダー内にある<code>.Rproj</code>ファイルを開く。</li>
-<li>RStudio右上の</li>
-</ul>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Step 1</a></li><li><a href="#tabset-2-2">Step2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>File &gt; Open Project…を選択</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-open1.png"></p>
+</figure>
+</div>
+</div>
+<div id="tabset-2-2">
+<p>プロジェクト名のフォルダーをダブルクリックし、<code>.Rproj</code>ファイルをダブルクリック</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/programming/proj-open2.png" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="作業環境" class="title-slide slide level1 center">
@@ -525,34 +769,43 @@
 <section id="作業環境の確認" class="slide level2">
 <h2>作業環境の確認</h2>
 <ul>
-<li><code>ls()</code>：作業環境内のオブジェクトリストを出力</li>
+<li><code>ls()</code>：作業環境内のオブジェクトリストを出力
+<ul>
+<li>こちらのオブジェクトはRを終了すると消える。</li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>my_vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>my_vec3 <span class="ot">&lt;-</span> <span class="st">"Cat"</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">ls</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>my_vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>my_vec3 <span class="ot">&lt;-</span> <span class="st">"Cat"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">ls</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "my_vec1" "my_vec2" "my_vec3"</code></pre>
+<pre><code>[1] "my_vec1" "my_vec2" "my_vec3" "paths"   "x"      </code></pre>
 </div>
 </div>
 <ul>
-<li><code>(.packages())</code>：読み込まれたパッケージのリストを出力</li>
+<li><code>(.packages())</code>：読み込まれたパッケージのリストを出力
+<ul>
+<li>こちらのパッケージはRを終了すると取り外される（再読込すれば良い）。</li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(<span class="fu">.packages</span>()) <span class="co"># Rのコアパッケージは最初から読み込まれている。</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>(<span class="fu">.packages</span>()) <span class="co"># Rのコアパッケージは最初から読み込まれている。</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"  
-[7] "base"     </code></pre>
+<pre><code> [1] "plyr"      "data.tree" "lubridate" "forcats"   "stringr"   "dplyr"    
+ [7] "purrr"     "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse"
+[13] "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"  
+[19] "base"     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># {tidyverse}の依存パッケージも一緒に読み込まれる。</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>(<span class="fu">.packages</span>())</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># {tidyverse}の依存パッケージも一緒に読み込まれる。</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>(<span class="fu">.packages</span>())</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "lubridate" "forcats"   "stringr"   "dplyr"     "purrr"     "readr"    
- [7] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
-[13] "grDevices" "utils"     "datasets"  "methods"   "base"     </code></pre>
+<pre><code> [1] "plyr"      "data.tree" "lubridate" "forcats"   "stringr"   "dplyr"    
+ [7] "purrr"     "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse"
+[13] "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"  
+[19] "base"     </code></pre>
 </div>
 </div>
 </section></section>
@@ -582,15 +835,15 @@
 <li>1から5までの自然数の数列を<code>my_vec1</code>という名前のオブジェクトとして格納</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># my_vec1 &lt;- 1:5  も同じ</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>my_vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># my_vec1 &lt;- 1:5  も同じ</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p><strong>Rに存在するあらゆるものはオブジェクトである</strong>（Chambers 2016）</p>
-<ul>
-<li>“Everything that exists in R is an object”</li>
-</ul>
+<blockquote>
+<p>“Everything that exists in R is an object”</p>
+</blockquote>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>my_vec1 <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>my_vec1 <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>以上のコードの場合、<code>2</code>もオブジェクト
@@ -608,19 +861,19 @@
 <li>すべてのオブジェクトは何らかのクラスを持つ</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">class</span>(my_vec1) <span class="co"># my_vec1 のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">class</span>(my_vec1) <span class="co"># my_vec1 のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">class</span>(<span class="dv">2</span>)       <span class="co"># 2 のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">class</span>(<span class="dv">2</span>)       <span class="co"># 2 のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">class</span>(<span class="st">`</span><span class="at">*</span><span class="st">`</span>)     <span class="co"># * のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">class</span>(<span class="st">`</span><span class="at">*</span><span class="st">`</span>)     <span class="co"># * のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "function"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">class</span>(class)   <span class="co"># class() のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">class</span>(class)   <span class="co"># class() のクラス</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "function"</code></pre>
 </div>
@@ -638,7 +891,7 @@
 <li><code>na.rm</code>: 長さ1のlogical型ベクトル（a logical value）のみ使用可能</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>関数を使いこなすためには関数のヘルプを確認する
 <ul>
@@ -665,7 +918,7 @@
 <section id="引数" class="slide level2">
 <h2>引数</h2>
 <p><code>sum()</code>関数の例</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>関数名は<code>sum</code></li>
 <li><strong>仮引数 (parameter)</strong>: <code>na.rm</code></li>
@@ -709,23 +962,23 @@
 <li>ローマ字以外の文字も使える場合もあるが、<strong>絶対</strong>に使わないこと！</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>variable1 <span class="ot">&lt;-</span> <span class="st">"R is fun!"</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>variable1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>variable1 <span class="ot">&lt;-</span> <span class="st">"R is fun!"</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>variable1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "R is fun!"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>変数2 <span class="ot">&lt;-</span> <span class="st">"Rは楽しいよ！"</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>変数2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>変数2 <span class="ot">&lt;-</span> <span class="st">"Rは楽しいよ！"</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>変数2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Rは楽しいよ！"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>へんすう3 <span class="ot">&lt;-</span> <span class="st">"Rはええでー"</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>へんすう3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>へんすう3 <span class="ot">&lt;-</span> <span class="st">"Rはええでー"</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>へんすう3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Rはええでー"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>변수4 <span class="ot">&lt;-</span> <span class="st">"매일 아침 눈을 뜨면 R부터 기동시킵니다."</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>변수4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>변수4 <span class="ot">&lt;-</span> <span class="st">"매일 아침 눈을 뜨면 R부터 기동시킵니다."</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>변수4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "매일 아침 눈을 뜨면 R부터 기동시킵니다."</code></pre>
 </div>
@@ -738,7 +991,7 @@
 <li>裏技で使うことも可能だが、なるべく使わないこと</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>100ABC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>100ABC <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;text&gt;:1:4: unexpected symbol
 1: 100ABC
@@ -746,7 +999,7 @@
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>Smile<span class="sc">^</span><span class="er">^</span> <span class="er">&lt;</span><span class="sc">-</span> <span class="st">"マクドでスマイルを頼んでみたい！"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>Smile<span class="sc">^</span><span class="er">^</span> <span class="er">&lt;</span><span class="sc">-</span> <span class="st">"マクドでスマイルを頼んでみたい！"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;text&gt;:1:7: unexpected '^'
 1: Smile^^
@@ -754,15 +1007,15 @@
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>Weather_2022<span class="sc">/</span><span class="dv">03</span><span class="sc">/</span><span class="dv">30</span> <span class="ot">&lt;-</span> <span class="st">"最高気温22度"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>Weather_2022<span class="sc">/</span><span class="dv">03</span><span class="sc">/</span><span class="dv">30</span> <span class="ot">&lt;-</span> <span class="st">"最高気温22度"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in Weather_2022/3/30 &lt;- "最高気温22度": object 'Weather_2022' not found</code></pre>
 </div>
 </div>
 <p><strong>ただし</strong>、<code>_</code>と<code>.</code>は使用可能であり、<code>.</code>より<code>_</code>を推奨</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>Weather_2022_03_30 <span class="ot">&lt;-</span> <span class="st">"最高気温22度"</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>Weather_2022_03_30</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>Weather_2022_03_30 <span class="ot">&lt;-</span> <span class="st">"最高気温22度"</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>Weather_2022_03_30</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "最高気温22度"</code></pre>
 </div>
@@ -779,21 +1032,21 @@
 </ul>
 <p><strong>例1:</strong> 指定は出来るが、非推奨</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>pi <span class="co"># 円周率</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>pi <span class="co"># 円周率</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.141593</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>pi <span class="ot">&lt;-</span> <span class="st">"3月14日はpie day!"</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>pi <span class="co"># もはや円周率ではない</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>pi <span class="ot">&lt;-</span> <span class="st">"3月14日はpie day!"</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>pi <span class="co"># もはや円周率ではない</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "3月14日はpie day!"</code></pre>
 </div>
 </div>
 <p><strong>例2:</strong> そもそも指定できない</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="cf">for</span> <span class="ot">&lt;-</span> <span class="st">"フォー！"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="cf">for</span> <span class="ot">&lt;-</span> <span class="st">"フォー！"</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;text&gt;:1:5: unexpected assignment
 1: for &lt;-
@@ -809,16 +1062,16 @@
 </ul>
 <p><strong>例1:</strong> 変数の中身を見るまでは、どのような内容が入っているか分からない</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>var2   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="co"># 分かりにくい</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="co"># 分かりやすい</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>var2   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="co"># 分かりにくい</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="co"># 分かりやすい</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p><strong>例2:</strong> 長すぎて今後、打つのが面倒くさい</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>mathematicsscore <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 長い!!</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a>MathScore        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 大文字キャメルケース</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a>mathScore        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 小文字キャメルケース</span></span>
-<span id="cb42-4"><a href="#cb42-4"></a>math_score       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># スネークケース</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>mathematicsscore <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 長い!!</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>MathScore        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 大文字キャメルケース</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>mathScore        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># 小文字キャメルケース</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>math_score       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">91</span>, <span class="dv">43</span>, <span class="dv">77</span>, <span class="dv">100</span>) <span class="co"># スネークケース</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -846,13 +1099,13 @@
 </ul>
 <p><strong>良い例:</strong> 改行あり</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Income <span class="sc">+</span> Region <span class="sc">+</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>              Attitude1 <span class="sc">+</span> Attitude2 <span class="sc">+</span> Attitude3, </span>
-<span id="cb43-3"><a href="#cb43-3"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>), <span class="at">data =</span> my_data)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Income <span class="sc">+</span> Region <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>              Attitude1 <span class="sc">+</span> Attitude2 <span class="sc">+</span> Attitude3, </span>
+<span id="cb45-3"><a href="#cb45-3"></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>), <span class="at">data =</span> my_data)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>悪い例:</strong> 改行なし</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Income <span class="sc">+</span> Region <span class="sc">+</span> Attitude1 <span class="sc">+</span> Attitude2 <span class="sc">+</span> Attitude3, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>), <span class="at">data =</span> my_data)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Income <span class="sc">+</span> Region <span class="sc">+</span> Attitude1 <span class="sc">+</span> Attitude2 <span class="sc">+</span> Attitude3, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>), <span class="at">data =</span> my_data)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -877,11 +1130,11 @@
 </ul>
 <p><strong>良い例:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">sum</span>(my_vec2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">sum</span>(my_vec2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>悪い例:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">sum</span>(my_vec2,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">sum</span>(my_vec2,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="スペースと字下げ2" class="slide level2">
@@ -889,23 +1142,23 @@
 <p>以下のコードは全て同じであるが、可読性が桁違い（表形式データ作成の例）</p>
 <p><strong>良い例:</strong> 改行あり、字下げあり、スペースあり</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="at">name     =</span> <span class="fu">c</span>(<span class="st">"Song"</span>,  <span class="st">"Yanai"</span>, <span class="st">"Wickham"</span>),</span>
-<span id="cb47-3"><a href="#cb47-3"></a>  <span class="at">favorite =</span> <span class="fu">c</span>(<span class="st">"Ramen"</span>, <span class="st">"Cat"</span>,   <span class="st">"R"</span>),</span>
-<span id="cb47-4"><a href="#cb47-4"></a>  <span class="at">gender   =</span> <span class="fu">c</span>(<span class="st">"Male"</span>,  <span class="st">"Male"</span>,  <span class="st">"Male"</span>)</span>
-<span id="cb47-5"><a href="#cb47-5"></a>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="at">name     =</span> <span class="fu">c</span>(<span class="st">"Song"</span>,  <span class="st">"Yanai"</span>, <span class="st">"Wickham"</span>),</span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="at">favorite =</span> <span class="fu">c</span>(<span class="st">"Ramen"</span>, <span class="st">"Cat"</span>,   <span class="st">"R"</span>),</span>
+<span id="cb49-4"><a href="#cb49-4"></a>  <span class="at">gender   =</span> <span class="fu">c</span>(<span class="st">"Male"</span>,  <span class="st">"Male"</span>,  <span class="st">"Male"</span>)</span>
+<span id="cb49-5"><a href="#cb49-5"></a>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>悪い例:</strong> 改行あり、字下げなし、スペースあり</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb48-2"><a href="#cb48-2"></a><span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Song"</span>, <span class="st">"Yanai"</span>, <span class="st">"Hadley"</span>),</span>
-<span id="cb48-3"><a href="#cb48-3"></a><span class="at">favorite =</span> <span class="fu">c</span>(<span class="st">"Ramen"</span>, <span class="st">"Cat"</span>, <span class="st">"R"</span>),</span>
-<span id="cb48-4"><a href="#cb48-4"></a><span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>)</span>
-<span id="cb48-5"><a href="#cb48-5"></a>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Song"</span>, <span class="st">"Yanai"</span>, <span class="st">"Hadley"</span>),</span>
+<span id="cb50-3"><a href="#cb50-3"></a><span class="at">favorite =</span> <span class="fu">c</span>(<span class="st">"Ramen"</span>, <span class="st">"Cat"</span>, <span class="st">"R"</span>),</span>
+<span id="cb50-4"><a href="#cb50-4"></a><span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Male"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5"></a>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>邪悪な例:</strong> 改行なし（=字下げなし）、スペースなし</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">data.frame</span>(<span class="at">name=</span><span class="fu">c</span>(<span class="st">"Song"</span>,<span class="st">"Yanai"</span>,<span class="st">"Hadley"</span>),<span class="at">favorite=</span><span class="fu">c</span>(<span class="st">"Ramen"</span>,<span class="st">"Cat"</span>,<span class="st">"R"</span>),<span class="at">fender=</span><span class="fu">c</span>(<span class="st">"Male"</span>,<span class="st">"Male"</span>,<span class="st">"Male"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">data.frame</span>(<span class="at">name=</span><span class="fu">c</span>(<span class="st">"Song"</span>,<span class="st">"Yanai"</span>,<span class="st">"Hadley"</span>),<span class="at">favorite=</span><span class="fu">c</span>(<span class="st">"Ramen"</span>,<span class="st">"Cat"</span>,<span class="st">"R"</span>),<span class="at">fender=</span><span class="fu">c</span>(<span class="st">"Male"</span>,<span class="st">"Male"</span>,<span class="st">"Male"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -944,45 +1197,13 @@
 </ul>
 <p><br></p>
 <h4 id="プログラミングが簡単な理由">プログラミングが簡単な理由</h4>
-<p>データの読み書き、条件分岐、反復処理を覚えるだけで、パソコンで出来るすべてのことができる。</p>
+<p>データの読み書き、条件分岐、反復処理を覚えるだけで、パソコンで出来る<strong>すべて</strong>のことができる。</p>
 <p><br></p>
 <h4 id="プログラミングが難しい理由">プログラミングが難しい理由</h4>
 <p>データの読み書き、条件分岐、反復処理だけですべてを処理しなければならない。</p>
 </section>
-<section id="例-bubble-sortアルゴリズム" class="slide level2">
-<h2>例) Bubble Sortアルゴリズム</h2>
-<ul>
-<li>代入（<code>&lt;-</code>）、条件分岐（<code>if()</code>）、反復（<code>for()</code>）だけでベクトルのソート</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb50" data-code-line-numbers="|2,6,7,8|5|3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb50-2"><a href="#cb50-2"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="sc">:</span> (n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
-<span id="cb50-4"><a href="#cb50-4"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span> <span class="sc">:</span> (n <span class="sc">-</span> i)) {</span>
-<span id="cb50-5"><a href="#cb50-5"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
-<span id="cb50-6"><a href="#cb50-6"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
-<span id="cb50-7"><a href="#cb50-7"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb50-8"><a href="#cb50-8"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
-<span id="cb50-9"><a href="#cb50-9"></a>      }</span>
-<span id="cb50-10"><a href="#cb50-10"></a>    }</span>
-<span id="cb50-11"><a href="#cb50-11"></a>  }</span>
-<span id="cb50-12"><a href="#cb50-12"></a>  <span class="fu">return</span>(x)</span>
-<span id="cb50-13"><a href="#cb50-13"></a>}</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">9</span>)</span>
-<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">bubble_sort</span>(x)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  1  2  3  4  5  6  9 11</code></pre>
-</div>
-</div>
+</section>
 
-<p><img src="Figs/logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
-<p><a href="https://www.jaysong.net/r4ps/" class="uri">https://www.jaysong.net/r4ps/</a></p>
-</div>
-</section></section>
     </div>
   </div>
 
