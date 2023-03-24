@@ -29,7 +29,7 @@ metadata-files:
 * 読み方は「**クゥオート**」（クワトロじゃない）
 * 断片化されつつあるR Markdown生態系を一つに統合したもの
   * R Markdownだとホームページには{blogdown}、書籍執筆は{bookdown}、スライド作成は{xaringan}など
-  * 本講義のスライド、スライド、宋の教科書もQuartoで作成
+  * 本講義のスライド、サポートページ、教科書、宋のホームページも全てQuartoで作成
 * R Markdownと使い方はほぼ同じ
   * 本講義ではQuartoを使用
 * Python/Julia/Observable JSも使用可能
@@ -116,7 +116,7 @@ metadata-files:
     </tr>
     <tr>
         <td>2</td>
-        <td>Kojima</td>
+        <td>Yanai</td>
     </tr>
 </table>
 ```
@@ -129,10 +129,10 @@ metadata-files:
 **Markdown**
 
 ```markdown
-| ID | Name |
-|----|------|
-| 1  |Song  |
-| 2  |Kojima|
+| ID | Name  |
+|----|-------|
+| 1  | Song  |
+| 2  | Yanai |
 ```
 
 綺麗に揃えなくてもOK
@@ -141,7 +141,7 @@ metadata-files:
 |ID|Name|
 |---|---|
 |1|Song|
-|2|Kojima|
+|2|Yanai|
 ```
 :::
 
@@ -151,10 +151,10 @@ metadata-files:
 ::: {.column width="24%"}
 **Output**
 
-| ID | Name |
-|----|------|
-| 1  | Song |
-| 2  |Kojima|
+| ID | Name  |
+|----|-------|
+| 1  | Song  |
+| 2  | Yanai |
 :::
 
 ::::
@@ -244,7 +244,7 @@ lang: ja
 * `author`: 文書の作成者
 * `date`: 日付（「年/月/日」形式で入力）
   * `` date: "`r "\x60r Sys.Date()\x60"`" ``に修正すると、Renderした日の日付が自動的につけられる。
-* `format`: 出力形式（このままで良い）
+* `format`: 出力形式（`html`のままで良い）
 * `lang`: 出力言語（デフォルトは`en`）
 
 # Markdown文法
@@ -468,6 +468,8 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 $$
 y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 $$
+
+のように書きます。
 ```
 
 **Output**
@@ -480,11 +482,13 @@ $$
 y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 $$
 
+のように書きます。
+
 ## Markdownの文法: 表
 
 * 行は改行で、列は`|`で区切る
 * 1行目は表のヘッダーであり、`|---|`で区切る（`-`は1個以上でOK）
-  * `|---|`、または`|:---|`は左揃え、`|---:|`は右揃え、`|:---:|`は中央揃え
+  * `|---|`と`|:---|`は左揃え、`|---:|`は右揃え、`|:---:|`は中央揃え
 
 :::: {.columns}
 
@@ -581,8 +585,9 @@ $$
 
 Rのコードを挿入する領域
 
-* ```` ```{r} ````と```` ``` ````で囲む
-   * チャンクの外にコードを書いても文章として認識する
+* ```` ```{r} ````と```` ``` ````で囲む。
+   * チャンクの外にコードを書いても文章として認識する。
+   * チャンク内においてMarkdown文法は通用しない。純粋なRコードのみ。
 * コードの出力 > 結果の出力の順番
 
 ::::{.columns}
@@ -660,8 +665,8 @@ Rのコード
   * 結果のみ出力し、コードは出力しない
 * `#| fig-width: 5`
   * 出力される図の幅を8インチに
-* `#| fig-height: 10`
-  * 出力される図の幅を高さを10インチに
+* `#| fig-height: 500px`
+  * 出力される図の幅を高さを500ピクセルに
 * `#| fig-align: center`
   * 出力される図を中央揃えに
 * `#| warning: false`
@@ -773,7 +778,7 @@ x <- rep(NA, 5) # 欠損値で埋められた長さ5のベクトル
    * 長いオブジェクト名を避ける
    * 分かりやすいオブジェクト名
    * 適宜スペースと字下げを入れるなど
-   * 読みやすいコードの書き方: 第4回の内容（[教科書 第10.2章](https://www.jaysong.net/RBook/programming.html#programming-style)）
+   * 読みやすいコードの書き方（前回講義を参照）
 * データについても詳細に書く
    * どのように収集されたデータであるのか
    * どのような変数があるのか
@@ -796,9 +801,9 @@ x <- rep(NA, 5) # 欠損値で埋められた長さ5のベクトル
 :::{.callout-important icon=false}
 ## 注意！！
 
-* 間違ったファイルを提出しないこと（期限**外**の差し替えは不可）
-   * 例1）`.qmd`ファイルの提出 $\leftarrow \times$
-   * 例2）`.qmd`ファイルの拡張子を`.html`に変えて提出 $\leftarrow \times$
+* 間違ったファイルを提出しないこと（期限**内**の差し替えは何度でも可; 期限**外**の差し替えは不可）
+   * ダメな例）`.qmd`ファイルの提出 $\leftarrow \times$
+   * 邪悪な例）`.qmd`ファイルの拡張子を`.html`に変えて提出 $\leftarrow \times$（Androidスマホにリンゴのシールだけ貼って、「これiPhoneです」と言うのと同じレベルの話）
 * サポートページの「[課題の取り組み方](https://www.jaysong.net/r4ps/intro/homework.html)」を必ず確認すること。毎年、間違って提出方法で未提出扱いとなった学生がいる。自分が提出したファイルが問題ないかを確認したい場合、LMSの「マイレポート」から提出物をダウンロードし、自分のPCで開いてみることを推奨。期限内なら何度でも差し替え可能。
 * 期限内に提出できなかった場合、宋に連絡不要（延長は絶対にない）
 :::
