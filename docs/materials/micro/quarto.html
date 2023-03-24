@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -530,6 +530,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <li><a href="#コードの非表示" id="toc-コードの非表示" class="nav-link" data-scroll-target="#コードの非表示">コードの非表示</a></li>
   <li><a href="#結果の非表示" id="toc-結果の非表示" class="nav-link" data-scroll-target="#結果の非表示">結果の非表示</a></li>
   </ul></li>
+  <li><a href="#番外編pdf出力" id="toc-番外編pdf出力" class="nav-link" data-scroll-target="#番外編pdf出力">番外編：PDF出力</a></li>
   <li><a href="#教科書" id="toc-教科書" class="nav-link" data-scroll-target="#教科書">教科書</a></li>
   </ul>
 </nav>
@@ -1051,11 +1052,68 @@ X = \begin{bmatrix}
 <p>　また、Quartoでは様々な形式の文書（以外のものも）が作成可能である。たとえば、本講義のサポートページだけでなく、<a href="https://www.jaysong.net">宋のホームページ</a>や<a href="https://www.jaysong.net/RBook/">本講義の教科書</a>、本講義のスライドもQuartoで作成されたものである。これらの作り方については<a href="https://quarto.org/">Quarto公式ホームページ</a>を参照されたい。</p>
 </section>
 </section>
+<section id="番外編pdf出力" class="level2">
+<h2 class="anchored" data-anchor-id="番外編pdf出力">番外編：PDF出力</h2>
+<p>　以下の内容はある程度<span class="math inline">\(\LaTeX\)</span>に慣れているユーザー向けの内容である。まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">install.packages</span>(<span class="st">"tinytex"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　続いて、{tidytex}パッケージの<code>install_tinytex()</code>関数を走らせる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　以下のようなメッセージが出力されたらコンソールに「Y」を入力し、Enter / Returnを押す。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code>Found '/usr/bin/tlmgr', which indicates a LaTeX distribution may have existed in the system.
+Continue the installation anyway? (Y/N) </code></pre>
+</div>
+</div>
+<p>　続いて、日本語フォントをインストールする。LaTeXデフォルトの和文フォントであるHaranoajiをインストールする。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>tinytex<span class="sc">::</span><span class="fu">tlmgr_install</span>(<span class="st">"haranoaji"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　以上の作業は新しいサーバーを立ち上げない限り、1回だけで良い。通常のパッケージ同様、別のプロジェクトであっても以上の作業は不要だ。</p>
+<p>　最後に<code>.qmd</code>ファイルのYAMLヘッダーを以下のように修正する。</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1"></a><span class="pp">---</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"かっこいいタイトルを付けよう"</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"児島惟謙"</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-03-24"</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="fu">pdf-engine</span><span class="kw">:</span><span class="at"> lualatex</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a><span class="fu">documentclass</span><span class="kw">:</span><span class="at"> ltjsarticle</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、2-3ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。</p>
+</section>
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
 <ul>
-<li>『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/rmarkdown.html" target="_blank">第22章: R Markdown [基礎]</a></li>
-<li>『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/quarto.html" target="_blank">第24章: Quarto入門</a></li>
+<li>『私たちのR: ベストプラクティスの探求』
+<ul>
+<li><a href="https://www.jaysong.net/RBook/rmarkdown.html">R Markdown [基礎]</a></li>
+<li><a href="https://www.jaysong.net/RBook/rmarkdown2.html">R Markdown [応用]</a></li>
+<li><a href="https://www.jaysong.net/RBook/quarto.html">Quarto入門</a></li>
+</ul></li>
 </ul>
 
 

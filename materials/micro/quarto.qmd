@@ -598,7 +598,65 @@ print("Rは楽しい!")
 
 　また、Quartoでは様々な形式の文書（以外のものも）が作成可能である。たとえば、本講義のサポートページだけでなく、[宋のホームページ](https://www.jaysong.net)や[本講義の教科書](https://www.jaysong.net/RBook/)、本講義のスライドもQuartoで作成されたものである。これらの作り方については[Quarto公式ホームページ](https://quarto.org/)を参照されたい。
 
+## 番外編：PDF出力
+
+　以下の内容はある程度$\LaTeX$に慣れているユーザー向けの内容である。まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。
+
+```{r}
+#| filename: "Code 01"
+#| eval: false
+install.packages("tinytex")
+```
+
+　続いて、{tidytex}パッケージの`install_tinytex()`関数を走らせる。
+
+```{r}
+#| filename: "Code 02"
+#| eval: false
+tinytex::install_tinytex()
+```
+
+　以下のようなメッセージが出力されたらコンソールに「Y」を入力し、Enter / Returnを押す。
+
+```{r}
+#| echo: false
+cat("Found '/usr/bin/tlmgr', which indicates a LaTeX distribution may have existed in the system.
+Continue the installation anyway? (Y/N) ")
+```
+
+　続いて、日本語フォントをインストールする。LaTeXデフォルトの和文フォントであるHaranoajiをインストールする。
+
+```{r}
+#| filename: "Code 03"
+#| eval: false
+tinytex::tlmgr_install("haranoaji")
+```
+
+　以上の作業は新しいサーバーを立ち上げない限り、1回だけで良い。通常のパッケージ同様、別のプロジェクトであっても以上の作業は不要だ。
+
+　最後に`.qmd`ファイルのYAMLヘッダーを以下のように修正する。
+
+```yaml
+---
+title: "かっこいいタイトルを付けよう"
+author: "児島惟謙"
+date: "`r Sys.Date()`"
+format:
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+pdf-engine: lualatex
+documentclass: ltjsarticle
+lang: ja
+---
+```
+
+　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、2-3ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。
+
 ## 教科書
 
-* 『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/rmarkdown.html" target="_blank">第22章: R Markdown [基礎]</a>
-* 『私たちのR: ベストプラクティスの探求』の<a href="https://www.jaysong.net/RBook/quarto.html" target="_blank">第24章: Quarto入門</a>
+* 『私たちのR: ベストプラクティスの探求』
+   * [R Markdown [基礎]](https://www.jaysong.net/RBook/rmarkdown.html)
+   * [R Markdown [応用]](https://www.jaysong.net/RBook/rmarkdown2.html)
+   * [Quarto入門](https://www.jaysong.net/RBook/quarto.html)
