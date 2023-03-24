@@ -610,7 +610,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>date:</code>の内容を<code>date: "`r Sys.Date()`"</code>に修正するとKnitした日付が自動的につけられる。</p>
+<p><code>date:</code>の内容を<code>date: "`r Sys.Date()`"</code>に修正するとRenderした日付が自動的につけられる。</p>
 </div>
 </div>
 <p><strong>手順5:</strong> ファイルを保存する。ファイル名は適宜付けること。</p>
@@ -1092,17 +1092,28 @@ Continue the installation anyway? (Y/N) </code></pre>
 <p>　最後に<code>.qmd</code>ファイルのYAMLヘッダーを以下のように修正する。</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1"></a><span class="pp">---</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"かっこいいタイトルを付けよう"</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"児島惟謙"</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-03-24"</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb35-6"><a href="#cb35-6"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
-<span id="cb35-7"><a href="#cb35-7"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb35-8"><a href="#cb35-8"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
-<span id="cb35-9"><a href="#cb35-9"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb35-10"><a href="#cb35-10"></a><span class="fu">pdf-engine</span><span class="kw">:</span><span class="at"> lualatex</span></span>
-<span id="cb35-11"><a href="#cb35-11"></a><span class="fu">documentclass</span><span class="kw">:</span><span class="at"> ltjsarticle</span></span>
-<span id="cb35-12"><a href="#cb35-12"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
-<span id="cb35-13"><a href="#cb35-13"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"こちらにもかっこいいサブタイトルを！"</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"児島惟謙"</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-03-24"</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
+<span id="cb35-7"><a href="#cb35-7"></a><span class="co"># PDF設定</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a><span class="fu">pdf-engine</span><span class="kw">:</span><span class="at"> lualatex</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a><span class="fu">documentclass</span><span class="kw">:</span><span class="at"> ltjsarticle</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb35-16"><a href="#cb35-16"></a><span class="co"># 図の文字化け防止</span></span>
+<span id="cb35-17"><a href="#cb35-17"></a><span class="fu">knitr</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb35-18"><a href="#cb35-18"></a><span class="at">  </span><span class="fu">opts_chunk</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb35-19"><a href="#cb35-19"></a><span class="at">    </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> </span><span class="st">"ragg_png"</span></span>
+<span id="cb35-20"><a href="#cb35-20"></a><span class="at">    </span><span class="fu">fig.align</span><span class="kw">:</span><span class="at"> </span><span class="st">"center"</span></span>
+<span id="cb35-21"><a href="#cb35-21"></a><span class="at">    </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span>
+<span id="cb35-22"><a href="#cb35-22"></a><span class="at">    </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb35-23"><a href="#cb35-23"></a><span class="at">    </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb35-24"><a href="#cb35-24"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、2-3ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。</p>
 </section>
 <section id="教科書" class="level2">

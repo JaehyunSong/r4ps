@@ -63,7 +63,7 @@ format: html
 :::{.callout-tip}
 ## 自動的に日付を付けたい
 
-`date:`の内容を`` date: "`r "\x60r Sys.Date()\x60"`"``に修正するとKnitした日付が自動的につけられる。
+`date:`の内容を`` date: "`r "\x60r Sys.Date()\x60"`"``に修正するとRenderした日付が自動的につけられる。
 :::
 
 **手順5:** ファイルを保存する。ファイル名は適宜付けること。
@@ -639,8 +639,11 @@ tinytex::tlmgr_install("haranoaji")
 ```yaml
 ---
 title: "かっこいいタイトルを付けよう"
+subtitle: "こちらにもかっこいいサブタイトルを！"
 author: "児島惟謙"
 date: "`r Sys.Date()`"
+lang: ja
+# PDF設定
 format:
   pdf:
     toc: true
@@ -648,7 +651,15 @@ format:
     number-sections: true
 pdf-engine: lualatex
 documentclass: ltjsarticle
-lang: ja
+number-sections: true
+# 図の文字化け防止
+knitr: 
+  opts_chunk: 
+    dev: "ragg_png"
+    fig.align: "center"
+    dpi: 300
+    warning: false
+    message: false
 ---
 ```
 
