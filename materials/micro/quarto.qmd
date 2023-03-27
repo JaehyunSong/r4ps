@@ -24,7 +24,7 @@ metadata-files:
 
 **手順3:** OKをクリックする。
 
-* この段階で文書のタイトル（Title:）と作成者名（Author:）を指定することも出来るが、手順4で修正するので、ここではOKをクリックしても良い。ただし、「Use visual markdown editor」にチェックが付いている場合、予め外しておくこと。
+* この段階で文書のタイトル（Title:）と作成者名（Author:）を指定することも出来るが、手順4で修正するので、ここではOKをクリックしても良い。ただし、「Use visual markdown editor」にチェックが付いている場合、予め**外しておく**こと。
 
 ![](Figs/rmarkdown/Setup_2.png){width=75% fig-align="center"}
 
@@ -50,13 +50,19 @@ format: html
 
 ```yaml
 ---
-title: "はじめてのR Markdown"
-author: "関大花子"
-date: "2023/5/11"
-lang: ja
-format: html
+title: "はじめてのR Markdown" # <1>
+author: "関大花子"            # <2>
+date: "2023/5/11"             # <3>
+lang: ja                      # <4>
+format: html                  # <5>
 ---
 ```
+
+1. タイトル
+2. 作成者名
+3. 作成日
+4. 文書の言語
+5. 出力フォーマット
 :::
 ::::
 
@@ -646,12 +652,12 @@ lang: ja
 # PDF設定
 format:
   pdf:
-    toc: true
+    pdf-engine: lualatex
+    documentclass: ltjsarticle
+    classoption: [lualatex, a4paper, 10.5pt, ja=standard]
+    toc: false
     toc-depth: 3
     number-sections: true
-pdf-engine: lualatex
-documentclass: ltjsarticle
-number-sections: true
 # 図の文字化け防止
 knitr: 
   opts_chunk: 
