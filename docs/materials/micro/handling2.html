@@ -629,22 +629,22 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
-   Country       Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³    G7   G20  OECD
-   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan    3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.     0     0     0
- 2 Albania        2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.     0     0     0
- 3 Algeria        4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.     0     0     0
- 4 Andorra        7.73e4 4.7 e2 3.15e3 NA       40821.     NA      0     0     0
- 5 Angola         3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.     0     0     0
- 6 Antigua and …  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.     0     0     0
- 7 Argentina      4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.     0     1     0
- 8 Armenia        2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.     0     0     0
- 9 Australia      2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.     0     1     1
-10 Austria        9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.     0     0     1
-# … with 176 more rows, 8 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
-#   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable names
-#   ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+   Country  Population   Area    GDP     PPP GDP_per_capita PPP_per_capita    G7
+   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghani…   38928346 6.53e5 1.91e4  8.27e4           491.          2125.     0
+ 2 Albania     2877797 2.74e4 1.53e4  3.97e4          5309.         13781.     0
+ 3 Algeria    43851044 2.38e6 1.70e5  4.97e5          3876.         11324.     0
+ 4 Andorra       77265 4.7 e2 3.15e3 NA              40821.            NA      0
+ 5 Angola     32866272 1.25e6 9.46e4  2.19e5          2879.          6649.     0
+ 6 Antigua…      97929 4.4 e2 1.73e3  2.08e3         17643.         21267.     0
+ 7 Argenti…   45195774 2.74e6 4.50e5  1.04e6          9949.         22938.     0
+ 8 Armenia     2963243 2.85e4 1.37e4  3.84e4          4614.         12974.     0
+ 9 Austral…   25499884 7.68e6 1.39e6  1.28e6         54615.         50001.     0
+10 Austria     9006398 8.24e4 4.46e5  5.03e5         49555.         55824.     0
+# ℹ 176 more rows
+# ℹ 10 more variables: G20 &lt;dbl&gt;, OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
+#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
+#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>　記述統計を計算する関数は<code>summarise()</code>である。使い方は以下の通りである。</p>
@@ -964,10 +964,10 @@ the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-  Population_Mean Population_SD Area_Mean  Area_SD GDP_M…¹ GDP_SD PPP_M…² PPP_SD
-            &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-1       41737773.    151270298.   696069. 1872412. 473031. 2.00e6 717953. 2.45e6
-# … with abbreviated variable names ¹​GDP_Mean, ²​PPP_Mean</code></pre>
+  Population_Mean Population_SD Area_Mean  Area_SD GDP_Mean   GDP_SD PPP_Mean
+            &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1       41737773.    151270298.   696069. 1872412.  473031. 1999504.  717953.
+# ℹ 1 more variable: PPP_SD &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>　以上の作業は、<code>across()</code>関数を使う場合、以下のようにたった4行でできる。</p>
@@ -979,10 +979,10 @@ the `.groups` argument.</code></pre>
 <span id="cb52-5"><a href="#cb52-5"></a>                               <span class="at">SD   =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-  Population_Mean Population_SD Area_Mean Area_SD GDP_Mean GDP_SD PPP_M…¹ PPP_SD
-            &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-1       41737773.     41737773.   696069. 696069.  473031. 4.73e5 717953. 7.18e5
-# … with abbreviated variable name ¹​PPP_Mean</code></pre>
+  Population_Mean Population_SD Area_Mean Area_SD GDP_Mean  GDP_SD PPP_Mean
+            &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1       41737773.     41737773.   696069. 696069.  473031. 473031.  717953.
+# ℹ 1 more variable: PPP_SD &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>　<code>across()</code>関数の詳細については教科書<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-summarise">第13.1章</a>を参照されたい。ただし、無名関数（ラムダ式）の知識が必要である（そこまで難しいものではない）。</p>
@@ -1020,22 +1020,22 @@ the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 19
-   Country       Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³    G7   G20  OECD
-   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan    3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.     0     0     0
- 2 Albania        2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.     0     0     0
- 3 Algeria        4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.     0     0     0
- 4 Andorra        7.73e4 4.7 e2 3.15e3 NA       40821.     NA      0     0     0
- 5 Angola         3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.     0     0     0
- 6 Antigua and …  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.     0     0     0
- 7 Argentina      4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.     0     1     0
- 8 Armenia        2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.     0     0     0
- 9 Australia      2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.     0     1     1
-10 Austria        9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.     0     0     1
-# … with 176 more rows, 9 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
-#   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, Density &lt;dbl&gt;, and abbreviated variable
-#   names ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+   Country  Population   Area    GDP     PPP GDP_per_capita PPP_per_capita    G7
+   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghani…   38928346 6.53e5 1.91e4  8.27e4           491.          2125.     0
+ 2 Albania     2877797 2.74e4 1.53e4  3.97e4          5309.         13781.     0
+ 3 Algeria    43851044 2.38e6 1.70e5  4.97e5          3876.         11324.     0
+ 4 Andorra       77265 4.7 e2 3.15e3 NA              40821.            NA      0
+ 5 Angola     32866272 1.25e6 9.46e4  2.19e5          2879.          6649.     0
+ 6 Antigua…      97929 4.4 e2 1.73e3  2.08e3         17643.         21267.     0
+ 7 Argenti…   45195774 2.74e6 4.50e5  1.04e6          9949.         22938.     0
+ 8 Armenia     2963243 2.85e4 1.37e4  3.84e4          4614.         12974.     0
+ 9 Austral…   25499884 7.68e6 1.39e6  1.28e6         54615.         50001.     0
+10 Austria     9006398 8.24e4 4.46e5  5.03e5         49555.         55824.     0
+# ℹ 176 more rows
+# ℹ 11 more variables: G20 &lt;dbl&gt;, OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
+#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
+#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, Density &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>　出力される画面に<code>Density</code>列が見当たらない。これは新しく追加された<code>Density</code>列が最後の列であり、画面に収まらないからである。むろん、<code>Density</code>列は問題なく追加されており、出力画面の下段に省略されている変数名に含まれていることが分かる。</p>
@@ -1051,22 +1051,22 @@ the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 19
-   Country     Popul…¹   Area Density    GDP     PPP GDP_p…² PPP_p…³    G7   G20
-   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan  3.89e7 6.53e5   59.6  1.91e4  8.27e4    491.   2125.     0     0
- 2 Albania      2.88e6 2.74e4  105.   1.53e4  3.97e4   5309.  13781.     0     0
- 3 Algeria      4.39e7 2.38e6   18.4  1.70e5  4.97e5   3876.  11324.     0     0
- 4 Andorra      7.73e4 4.7 e2  164.   3.15e3 NA       40821.     NA      0     0
- 5 Angola       3.29e7 1.25e6   26.4  9.46e4  2.19e5   2879.   6649.     0     0
- 6 Antigua an…  9.79e4 4.4 e2  223.   1.73e3  2.08e3  17643.  21267.     0     0
- 7 Argentina    4.52e7 2.74e6   16.5  4.50e5  1.04e6   9949.  22938.     0     1
- 8 Armenia      2.96e6 2.85e4  104.   1.37e4  3.84e4   4614.  12974.     0     0
- 9 Australia    2.55e7 7.68e6    3.32 1.39e6  1.28e6  54615.  50001.     0     1
-10 Austria      9.01e6 8.24e4  109.   4.46e5  5.03e5  49555.  55824.     0     0
-# … with 176 more rows, 9 more variables: OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
-#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
-#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable
-#   names ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+   Country             Population    Area Density     GDP     PPP GDP_per_capita
+   &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Afghanistan           38928346  652860   59.6   1.91e4  8.27e4           491.
+ 2 Albania                2877797   27400  105.    1.53e4  3.97e4          5309.
+ 3 Algeria               43851044 2381740   18.4   1.70e5  4.97e5          3876.
+ 4 Andorra                  77265     470  164.    3.15e3 NA              40821.
+ 5 Angola                32866272 1246700   26.4   9.46e4  2.19e5          2879.
+ 6 Antigua and Barbuda      97929     440  223.    1.73e3  2.08e3         17643.
+ 7 Argentina             45195774 2736690   16.5   4.50e5  1.04e6          9949.
+ 8 Armenia                2963243   28470  104.    1.37e4  3.84e4          4614.
+ 9 Australia             25499884 7682300    3.32  1.39e6  1.28e6         54615.
+10 Austria                9006398   82409  109.    4.46e5  5.03e5         49555.
+# ℹ 176 more rows
+# ℹ 12 more variables: PPP_per_capita &lt;dbl&gt;, G7 &lt;dbl&gt;, G20 &lt;dbl&gt;, OECD &lt;dbl&gt;,
+#   HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;,
+#   FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -1118,7 +1118,7 @@ the `.groups` argument.</code></pre>
  8 Bangladesh     164689383      2.12
  9 Russia         145934462      1.88
 10 Mexico         128932753      1.66
-# … with 176 more rows</code></pre>
+# ℹ 176 more rows</code></pre>
 </div>
 </div>
 <p>　次の問題は「G7、G20、OECDのいずれかに加盟している国を<code>"先進国"</code>、それ以外は<code>"その他"</code>とし、二つのグループの人口密度、人間開発指数、民主主義度の平均値を出力する」ことである。</p>
@@ -1227,22 +1227,22 @@ the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 19
-   Country       Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³    G7   G20  OECD
-   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan    3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.     0     0     0
- 2 Albania        2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.     0     0     0
- 3 Algeria        4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.     0     0     0
- 4 Andorra        7.73e4 4.7 e2 3.15e3 NA       40821.     NA      0     0     0
- 5 Angola         3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.     0     0     0
- 6 Antigua and …  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.     0     0     0
- 7 Argentina      4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.     0     1     0
- 8 Armenia        2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.     0     0     0
- 9 Australia      2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.     0     1     1
-10 Austria        9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.     0     0     1
-# … with 176 more rows, 9 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
-#   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, OECD_J &lt;chr&gt;, and abbreviated variable
-#   names ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+   Country  Population   Area    GDP     PPP GDP_per_capita PPP_per_capita    G7
+   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghani…   38928346 6.53e5 1.91e4  8.27e4           491.          2125.     0
+ 2 Albania     2877797 2.74e4 1.53e4  3.97e4          5309.         13781.     0
+ 3 Algeria    43851044 2.38e6 1.70e5  4.97e5          3876.         11324.     0
+ 4 Andorra       77265 4.7 e2 3.15e3 NA              40821.            NA      0
+ 5 Angola     32866272 1.25e6 9.46e4  2.19e5          2879.          6649.     0
+ 6 Antigua…      97929 4.4 e2 1.73e3  2.08e3         17643.         21267.     0
+ 7 Argenti…   45195774 2.74e6 4.50e5  1.04e6          9949.         22938.     0
+ 8 Armenia     2963243 2.85e4 1.37e4  3.84e4          4614.         12974.     0
+ 9 Austral…   25499884 7.68e6 1.39e6  1.28e6         54615.         50001.     0
+10 Austria     9006398 8.24e4 4.46e5  5.03e5         49555.         55824.     0
+# ℹ 176 more rows
+# ℹ 11 more variables: G20 &lt;dbl&gt;, OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
+#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
+#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, OECD_J &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>　それではまず、<code>OECD</code>変数でデータをグルーピングし、<code>HDI_2018</code>と<code>FH_Total</code>の平均値を計算してみよう。</p>
@@ -1621,11 +1621,10 @@ the `.groups` argument.</code></pre>
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
 <ul>
-<li>データのグルーピングと要約: 教科書<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-summarise">第13.1章</a>と<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-group">第13.2章</a></li>
-<li>変数の計算: 教科書<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-mutate">第13.3章</a>と<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-rowwise">第13.4章</a></li>
-<li>Factor型変数の扱い: 教科書<a href="https://www.jaysong.net/RBook/factor.html">第14章</a>
+<li>『私たちのR: ベストプラクティスの探求』
 <ul>
-<li>Factor型については可視化の時にも解説する。詳しい内容は教科書を参照すること</li>
+<li>「<a href="https://www.jaysong.net/RBook/datahandling2.html">データハンドリング[拡張]</a>」</li>
+<li>「<a href="https://www.jaysong.net/RBook/factor.html">データハンドリング[factor型]</a>」</li>
 </ul></li>
 </ul>
 

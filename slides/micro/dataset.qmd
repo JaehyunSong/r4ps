@@ -17,8 +17,10 @@ metadata-files:
 
 ```{r}
 #| include: false
-pacman::p_load(tidyverse, kableExtra, gt, prediction)
+pacman::p_load(tidyverse, gt, marginaleffects)
 df <- read_csv("Data/Pref_Data.csv")
+# df <- read_csv("slides/micro/Data/Pref_Data.csv")
+# df <- read_csv("slides/micro/Data/BuildingData.csv")
 ```
 
 データの構造は基本的に「**四角形**」
@@ -26,8 +28,9 @@ df <- read_csv("Data/Pref_Data.csv")
 ```{r}
 #| echo: false
 df |> 
-  select(-(従業者数:漁業)) |>
-  gt()
+   select(-(従業者数:漁業)) |>
+   gt() |> 
+   fmt_number(columns = 3:6, decimals = 3)
 ```
 
 ## 行と列
@@ -54,7 +57,7 @@ set.seed(1986)
 tibble(ID = 1:10, 
        年齢 = round(runif(10, 18, 65)),
        `政党Xへの投票有無` = sample(0:1, 10, replace = TRUE)) |>
-  kbl()
+  gt()
 ```
 
 ## 分析単位
@@ -391,15 +394,14 @@ summary(fit)
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.8
-prediction(fit, at = list(Finance = seq(0.3, 1.1, 0.1))) |>
-  summary() |>
-  rename("Finance" = "at(Finance)") |>
-  ggplot() +
-  geom_pointrange(aes(x = Finance, y = Prediction,
-                      ymin = lower, ymax = upper)) +
-  labs(x = "財政力指数", 
-       y = "投票率の予測値と95%信頼区間 (%)") +
-  theme_bw(base_size = 14)
+fit |> 
+   predictions(newdata = datagrid(Finance = seq(0.3, 1.1, 0.1))) |>
+   ggplot() +
+   geom_pointrange(aes(x = Finance, y = estimate,
+                       ymin = conf.low, ymax = conf.high)) +
+   labs(x = "財政力指数", 
+        y = "投票率の予測値と95%信頼区間 (%)") +
+   theme_bw(base_size = 14)
 ```
 
 :::
