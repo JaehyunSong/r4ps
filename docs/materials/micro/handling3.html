@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.290">
+<meta name="generator" content="quarto-1.3.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -772,7 +772,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/handling3/Merge_Left.png" class="quarto-discovered-preview-image img-fluid figure-img"></p>
+<p><img src="Figs/handling3/Merge_Left.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1152,14 +1152,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
-  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
-  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 China    1447470092          819          848         1114         990     957
-2 Japan     126476461        16788        15584        15338       13381    7942
-3 Korea      51269185         9304         8428         7382        3828    9768
-4 Mongolia    3278290            0            0            0           0    1055
-5 Taiwan     23816775        72846        68293        79616       50567   45100
-# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 China    1447470092          819          848         1114          990
+2 Japan     126476461        16788        15584        15338        13381
+3 Korea      51269185         9304         8428         7382         3828
+4 Mongolia    3278290            0            0            0            0
+5 Taiwan     23816775        72846        68293        79616        50567
+# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>　このデータは整然データだろうか、あるいは雑然データだろうか。まずは、本データの観察単位を明らかにする必要がある。これらのデータは「<strong>時点</strong>XにおけるY<strong>地域</strong>の<strong>新規感染者数</strong>と<strong>人口</strong>」を測定したものである。したがって、このデータの観察単位は「地域<span class="math inline">\(\times\)</span>時間」であり、測定されたものは新規感染者数と人口である。したがって、整然データであるためには、「地域名」、「時間」、「人口」、「新規感染者数」の4つの変数で構成される必要がある。一方、現在のデータでは新規感染者数が5列に渡って格納されており、計7列のデータである。</p>
@@ -1204,7 +1204,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  8 Japan    126476461 2022/06/11     15338
  9 Japan    126476461 2022/06/12     13381
 10 Japan    126476461 2022/06/13      7942
-# … with 15 more rows</code></pre>
+# ℹ 15 more rows</code></pre>
 </div>
 </div>
 <p>逆に、long型データをwide型データへ整形する際は<code>pivot_wider()</code>を使用する。雑然データはwide型データが多いとは既に説明したが、雑然データの方が<strong>人間にとっては</strong>読みやすい場合もある。上の新型コロナのデータもwide型の方が読みやすい人もいるだろう。データ分析に適したデータは整然データであるが、報告に適したデータとしては必ずしもこの関係は成立しない。図表を作成する際は常に読む側の立場から考える必要があろう。</p>
@@ -1220,14 +1220,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
-  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
-  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 China    1447470092          819          848         1114         990     957
-2 Japan     126476461        16788        15584        15338       13381    7942
-3 Korea      51269185         9304         8428         7382        3828    9768
-4 Mongolia    3278290            0            0            0           0    1055
-5 Taiwan     23816775        72846        68293        79616       50567   45100
-# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 China    1447470092          819          848         1114          990
+2 Japan     126476461        16788        15584        15338        13381
+3 Korea      51269185         9304         8428         7382         3828
+4 Mongolia    3278290            0            0            0            0
+5 Taiwan     23816775        72846        68293        79616        50567
+# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>　最後にセルの値を分割する<code>separate()</code>関数について解説する。たとえば、月や曜日ごとの新規感染者数をまとめようとした場合、時点の列が「YYYY年MM月DD日」になっていては困る。これらの年、月、日に分割する必要があろう。先ほど作成した<code>COVID_Long</code>の<code>Date</code>列を<code>Year</code>、<code>Month</code>、<code>Day</code>に分けてみよう。</p>
@@ -1268,7 +1268,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  8 Japan    126476461 2022  06    11        15338
  9 Japan    126476461 2022  06    12        13381
 10 Japan    126476461 2022  06    13         7942
-# … with 15 more rows</code></pre>
+# ℹ 15 more rows</code></pre>
 </div>
 </div>
 <p>　もし、区切りとなる記号が存在しない場合は、<strong>正則表現（regular expression）</strong>の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。</p>
@@ -1356,8 +1356,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
 <ul>
-<li>データの結合: 『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/datahandling2.html#handling2-merge">第13.5章</a></li>
-<li>整然データ構造: 『私たちのR: ベストプラクティスの探求』<a href="https://www.jaysong.net/RBook/tidydata.html">第15章</a></li>
+<li>『私たちのR: ベストプラクティスの探求』
+<ul>
+<li>「<a href="https://www.jaysong.net/RBook/datahandling2.html">データハンドリング[拡張]</a>」</li>
+<li>「<a href="https://www.jaysong.net/RBook/tidydata.html">整然データ構造</a>」</li>
+</ul></li>
 </ul>
 
 
