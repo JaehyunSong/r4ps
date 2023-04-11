@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.290">
+  <meta name="generator" content="quarto-1.3.313">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-04-20">
@@ -792,7 +792,7 @@
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ls</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "my_vector1" "my_vector2"</code></pre>
+<pre><code>[1] "has_annotations" "my_vector1"      "my_vector2"     </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -1279,12 +1279,22 @@
 <li>以下の例はプロジェクト・フォルダー内に<code>Data</code>という名の下位フォルダーがあり、その中に<code>Prev_Vote.csv</code>が保存されている場合。
 <ul>
 <li>JDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。</li>
-<li>データアップロードの方法はサポートページの「Rの使い方 &gt; <a href="https://www.jaysong.net/r4ps/intro/file.html" target="_blank">ファイル管理</a>」を参照</li>
+<li>ファイルアップロードの方法はサポートページの「Rの使い方 &gt; <a href="https://www.jaysong.net/r4ps/intro/file.html" target="_blank">ファイル管理</a>」を参照</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb89-2"><a href="#cb89-2"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Pref_Vote.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>注意：<code>read_csv()</code>と<code>read.csv()</code>は区別しよう。</strong></p>
+</div>
+<div class="callout-content">
+<p>　両方<code>.csv</code>形式データを読み込む関数であるが、<code>read.csv()</code>はR内蔵関数、<code>read_csv()</code>は{tidyverse}を読み込まないと使用できない関数である。後者の方が見やすいメリットがある。本講義では<code>read_csv()</code>のみを使用する。課題の際、<code>read.csv()</code>関数を使うと<strong>減点</strong>とする。</p>
+</div>
+</div>
 </div>
 </section>
 <section id="データの出力" class="slide level2">
@@ -1294,7 +1304,8 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="co"># my_dataの中身の出力するコード</span></span>
-<span id="cb90-2"><a href="#cb90-2"></a>my_data <span class="co"># print(my_data) でもOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="co"># print(my_data) でもOK</span></span>
+<span id="cb90-3"><a href="#cb90-3"></a>my_data</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 47 × 13
       ID Pref   Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin

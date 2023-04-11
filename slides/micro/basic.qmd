@@ -515,7 +515,7 @@ my_vec5[my_vec5 %% 2 == 1]
 * `オブジェクト名 <- read_csv("パスを含むファイル名")`
 * 以下の例はプロジェクト・フォルダー内に`Data`という名の下位フォルダーがあり、その中に`Prev_Vote.csv`が保存されている場合。
    * JDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。
-   * データアップロードの方法はサポートページの「Rの使い方 > [ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}」を参照
+   * ファイルアップロードの方法はサポートページの「Rの使い方 > [ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}」を参照
 
 ```{r}
 #| message: false
@@ -523,13 +523,20 @@ library(tidyverse)
 my_data <- read_csv("Data/Pref_Vote.csv")
 ```
 
+:::{.callout-note icon=false}
+## 注意：`read_csv()`と`read.csv()`は区別しよう。
+
+　両方`.csv`形式データを読み込む関数であるが、`read.csv()`はR内蔵関数、`read_csv()`は{tidyverse}を読み込まないと使用できない関数である。後者の方が見やすいメリットがある。本講義では`read_csv()`のみを使用する。課題の際、`read.csv()`関数を使うと**減点**とする。
+:::
+
 ## データの出力
 
 * `オブジェクト名`、または`print(オブジェクト名)`
 
 ```{r}
 # my_dataの中身の出力するコード
-my_data # print(my_data) でもOK
+# print(my_data) でもOK
+my_data
 ```
 
 ## データが全部見えない?

@@ -3707,7 +3707,7 @@
     "href": "slides/micro/basic.html#オブジェクトの表示",
     "title": "ミクロ政治データ分析実習",
     "section": "オブジェクトの表示",
-    "text": "オブジェクトの表示\n現在の作業環境におけるオブジェクトリスト\n\n方法1：RStudioのEnvironmentペインで確認\n方法2：Consoleペインでls()を入力\n\n\nls()\n\n[1] \"my_vector1\" \"my_vector2\"\n\n\n\nオブジェクトの出力\nオブジェクト名のみ入力（print(オブジェクト名)もOK）\n\nmy_vector1 # print(my_vector1) でもOK\n\n[1] 1 2 3 4 5\n\nmy_vector2 # print(my_vector2) でもOK\n\n[1] \"Cat\"   \"Lion\"  \"Tiger\"\n\n\n\nRを再起動すると作業環境が初期化されるため、もう一回作成する必要がある。\n\nコードを記録し、残すことが重要"
+    "text": "オブジェクトの表示\n現在の作業環境におけるオブジェクトリスト\n\n方法1：RStudioのEnvironmentペインで確認\n方法2：Consoleペインでls()を入力\n\n\nls()\n\n[1] \"has_annotations\" \"my_vector1\"      \"my_vector2\"     \n\n\n\nオブジェクトの出力\nオブジェクト名のみ入力（print(オブジェクト名)もOK）\n\nmy_vector1 # print(my_vector1) でもOK\n\n[1] 1 2 3 4 5\n\nmy_vector2 # print(my_vector2) でもOK\n\n[1] \"Cat\"   \"Lion\"  \"Tiger\"\n\n\n\nRを再起動すると作業環境が初期化されるため、もう一回作成する必要がある。\n\nコードを記録し、残すことが重要"
   },
   {
     "objectID": "slides/micro/basic.html#比較",
@@ -3777,14 +3777,14 @@
     "href": "slides/micro/basic.html#表形式データの読み込み",
     "title": "ミクロ政治データ分析実習",
     "section": "表形式データの読み込み",
-    "text": "表形式データの読み込み\n{tidyverse}パッケージが提供するread_csv()関数を利用\n\nオブジェクト名 &lt;- read_csv(\"パスを含むファイル名\")\n以下の例はプロジェクト・フォルダー内にDataという名の下位フォルダーがあり、その中にPrev_Vote.csvが保存されている場合。\n\nJDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。\nデータアップロードの方法はサポートページの「Rの使い方 &gt; ファイル管理」を参照\n\n\n\nlibrary(tidyverse)\nmy_data &lt;- read_csv(\"Data/Pref_Vote.csv\")"
+    "text": "表形式データの読み込み\n{tidyverse}パッケージが提供するread_csv()関数を利用\n\nオブジェクト名 &lt;- read_csv(\"パスを含むファイル名\")\n以下の例はプロジェクト・フォルダー内にDataという名の下位フォルダーがあり、その中にPrev_Vote.csvが保存されている場合。\n\nJDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。\nファイルアップロードの方法はサポートページの「Rの使い方 &gt; ファイル管理」を参照\n\n\n\nlibrary(tidyverse)\nmy_data &lt;- read_csv(\"Data/Pref_Vote.csv\")\n\n\n\n\n注意：read_csv()とread.csv()は区別しよう。\n\n\n　両方.csv形式データを読み込む関数であるが、read.csv()はR内蔵関数、read_csv()は{tidyverse}を読み込まないと使用できない関数である。後者の方が見やすいメリットがある。本講義ではread_csv()のみを使用する。課題の際、read.csv()関数を使うと減点とする。"
   },
   {
     "objectID": "slides/micro/basic.html#データの出力",
     "href": "slides/micro/basic.html#データの出力",
     "title": "ミクロ政治データ分析実習",
     "section": "データの出力",
-    "text": "データの出力\n\nオブジェクト名、またはprint(オブジェクト名)\n\n\n# my_dataの中身の出力するコード\nmy_data # print(my_data) でもOK\n\n# A tibble: 47 × 13\n      ID Pref   Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin\n   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n 1     1 北海道  0.419   29.1    24.7  32.8    30.6 13.4    3.43 11.4    1.68\n 2     2 青森県  0.332   30.1    23.9  40.4    24.6 12.8    3.82  8.92   3.41\n 3     3 岩手県  0.341   30.4    24.5  34.9    22.4  8.61   5.16 11.2    5.29\n 4     4 宮城県  0.596   25.8    27.3  36.7    25.4 13.4    3.97  9.99   3.62\n 5     5 秋田県  0.299   33.8    21.4  43.5    22.7 11.2    5.17  7.56   5.12\n 6     6 山形県  0.342   30.8    24.8  42.5    21.5 11.8    4.3   7.6    5.2 \n 7     7 福島県  0.509   28.7    25.2  33.8    28.3 11.0    3.43 10.4    3.24\n 8     8 茨城県  0.633   26.8    26.6  40.6    19.0 15.0    6.67 10.1    2.88\n 9     9 栃木県  0.622   25.9    26.8  38.8    21.6 12.4   10.9   7      2.05\n10    10 群馬県  0.603   27.6    26.6  42.1    19.3 13.8    5.61 10      2.44\n# ℹ 37 more rows\n# ℹ 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;"
+    "text": "データの出力\n\nオブジェクト名、またはprint(オブジェクト名)\n\n\n# my_dataの中身の出力するコード\n# print(my_data) でもOK\nmy_data\n\n# A tibble: 47 × 13\n      ID Pref   Zaisei Over65 Under30 Jimin Minshin Komei Kyosan Ishin Shamin\n   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n 1     1 北海道  0.419   29.1    24.7  32.8    30.6 13.4    3.43 11.4    1.68\n 2     2 青森県  0.332   30.1    23.9  40.4    24.6 12.8    3.82  8.92   3.41\n 3     3 岩手県  0.341   30.4    24.5  34.9    22.4  8.61   5.16 11.2    5.29\n 4     4 宮城県  0.596   25.8    27.3  36.7    25.4 13.4    3.97  9.99   3.62\n 5     5 秋田県  0.299   33.8    21.4  43.5    22.7 11.2    5.17  7.56   5.12\n 6     6 山形県  0.342   30.8    24.8  42.5    21.5 11.8    4.3   7.6    5.2 \n 7     7 福島県  0.509   28.7    25.2  33.8    28.3 11.0    3.43 10.4    3.24\n 8     8 茨城県  0.633   26.8    26.6  40.6    19.0 15.0    6.67 10.1    2.88\n 9     9 栃木県  0.622   25.9    26.8  38.8    21.6 12.4   10.9   7      2.05\n10    10 群馬県  0.603   27.6    26.6  42.1    19.3 13.8    5.61 10      2.44\n# ℹ 37 more rows\n# ℹ 2 more variables: Region2 &lt;dbl&gt;, Region6 &lt;dbl&gt;"
   },
   {
     "objectID": "slides/micro/basic.html#データが全部見えない",
