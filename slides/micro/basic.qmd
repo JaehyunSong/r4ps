@@ -513,9 +513,11 @@ my_vec5[my_vec5 %% 2 == 1]
 {tidyverse}パッケージが提供する`read_csv()`関数を利用
 
 * `オブジェクト名 <- read_csv("パスを含むファイル名")`
-* 以下の例はプロジェクト・フォルダー内に`Data`という名の下位フォルダーがあり、その中に`Prev_Vote.csv`が保存されている場合。
+* 以下の例はプロジェクト・フォルダー内に`Data`という名の下位フォルダーがあり、その中に`Pref_Vote.csv`が保存されている場合。
+   * パスは`"Data/Pref_Vote.csv"`
    * JDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。
-   * ファイルアップロードの方法はサポートページの「Rの使い方 > [ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}」を参照
+      * ファイルアップロードの方法はサポートページの「Rの使い方 > [ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}」を参照
+      * データ（`Pref_Vote.csv`）はLMSから入手
 
 ```{r}
 #| message: false
@@ -599,3 +601,18 @@ tail(my_data, n = 10)
 ```
 
 :::
+
+## `.csv`以外の表形式データ
+
+`.csv`形式ファイルは表形式データの定番であり、標準
+
+* 他にも様々な形式のデータがあり、Rで読み込み可能（以下は一部の例）
+
+|ソフトウェア名|拡張子|使用パッケージ|関数|
+|:---|:---|:---|:---|
+|Microsoft Excel|`.xls`、`.xlsx`|{readxl}|`read_excle()`|
+|LibreOffice / OpenOffice|`.ods`|{readODS}|`read_ods()`|
+|SPSS|`.sav`|{haven}|`read_stata()`|
+|Stata|`.dta`|{haven}|`read_spss()`|
+|SAS|`.sas7bdat`|{haven}|`read_sas()`|
+

@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.313">
+  <meta name="generator" content="quarto-1.3.321">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-04-20">
@@ -1276,10 +1276,14 @@
 <p>{tidyverse}パッケージが提供する<code>read_csv()</code>関数を利用</p>
 <ul>
 <li><code>オブジェクト名 &lt;- read_csv("パスを含むファイル名")</code></li>
-<li>以下の例はプロジェクト・フォルダー内に<code>Data</code>という名の下位フォルダーがあり、その中に<code>Prev_Vote.csv</code>が保存されている場合。
+<li>以下の例はプロジェクト・フォルダー内に<code>Data</code>という名の下位フォルダーがあり、その中に<code>Pref_Vote.csv</code>が保存されている場合。
 <ul>
-<li>JDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。</li>
+<li>パスは<code>"Data/Pref_Vote.csv"</code></li>
+<li>JDCat分析ツールを使用する場合、予めデータをアップロードしておくこと。
+<ul>
 <li>ファイルアップロードの方法はサポートページの「Rの使い方 &gt; <a href="https://www.jaysong.net/r4ps/intro/file.html" target="_blank">ファイル管理</a>」を参照</li>
+<li>データ（<code>Pref_Vote.csv</code>）はLMSから入手</li>
+</ul></li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -1451,6 +1455,55 @@
 </div>
 </div>
 </div>
+</section>
+<section id="csv以外の表形式データ" class="slide level2">
+<h2><code>.csv</code>以外の表形式データ</h2>
+<p><code>.csv</code>形式ファイルは表形式データの定番であり、標準</p>
+<ul>
+<li>他にも様々な形式のデータがあり、Rで読み込み可能（以下は一部の例）</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ソフトウェア名</th>
+<th style="text-align: left;">拡張子</th>
+<th style="text-align: left;">使用パッケージ</th>
+<th style="text-align: left;">関数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Microsoft Excel</td>
+<td style="text-align: left;"><code>.xls</code>、<code>.xlsx</code></td>
+<td style="text-align: left;">{readxl}</td>
+<td style="text-align: left;"><code>read_excle()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LibreOffice / OpenOffice</td>
+<td style="text-align: left;"><code>.ods</code></td>
+<td style="text-align: left;">{readODS}</td>
+<td style="text-align: left;"><code>read_ods()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SPSS</td>
+<td style="text-align: left;"><code>.sav</code></td>
+<td style="text-align: left;">{haven}</td>
+<td style="text-align: left;"><code>read_stata()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stata</td>
+<td style="text-align: left;"><code>.dta</code></td>
+<td style="text-align: left;">{haven}</td>
+<td style="text-align: left;"><code>read_spss()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAS</td>
+<td style="text-align: left;"><code>.sas7bdat</code></td>
+<td style="text-align: left;">{haven}</td>
+<td style="text-align: left;"><code>read_sas()</code></td>
+</tr>
+</tbody>
+</table>
 
 <p><img src="Figs/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
