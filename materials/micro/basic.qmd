@@ -16,6 +16,11 @@ metadata-files:
 
 ## 電卓としてのR
 
+```{r}
+#| include: false
+rm(has_annotations)
+```
+
 **手順1:** File > New File > R Scriptをクリックする。
 
 ![](Figs/basic/Script_1.png){width=75% fig-align="center"}
@@ -32,13 +37,13 @@ metadata-files:
 1 + 1
 ```
 
-**手順4:** コードの行にカーソルをおいたまま{{< kbd mac=Command-Return linux=Ctrl-Return win=Ctrl-Enter >}}を入力する。これはカーソルが位置する行のコードを実行するコマンドである。
+**手順4:** コードの行にカーソルをおいたままControl（Ctrl）とEnterを同時に押す（大学のWindows PCの場合）。これはカーソルが位置する行のコードを実行するキーである。このキーは使用するOSによって異なる。
 
 | OS             | キー                       | 解説                     |
 |:---------------|:---------------------------|:-------------------------|
 | macOS          | {{< kbd Command-Return >}} | Command（Cmd） + Return  |
-| Linux（Ubuntu）| {{< kbd Ctrl-Return >}}    | Control（Ctrl） + Return |
-| Windows        | {{< kbd Ctrl-Enter >}}     | Control（Ctrl） + Enter  |
+| Linux（Ubuntu）| {{< kbd Ctrl-Return >}}    | Control（Ctrl）+ Return  |
+| Windows        | {{< kbd Ctrl-Enter >}}     | Control（Ctrl）+ Enter   |
 
 :::{.callout-note}
 ## カーソルって...?
@@ -536,7 +541,7 @@ head(my_data) # print(my_data, n = 6) と同じ
 tail(my_data) # my_dataの最後の6行を出力
 ```
 
-　6行でなく、任意の行数を指定したい場合は`head()`、または`tail()`内に`n = ...`を追加する。このような表形式のデータをRでは**データフレーム**（data.frame）と呼び、ベクトル、リストと共に最も頻繁に使うデータ構造である。これらについては「[第8回: データ構造](datastructure.qmd)」で解説する。
+　6行でなく、任意の行数を指定したい場合は`head()`、または`tail()`内に`n = ...`を追加する。このような表形式のデータをRでは**データフレーム**（data.frame）と呼び、ベクトル、リストと共に最も頻繁に使うデータ構造である。これらについては[第8回「データ構造」](datastructure.qmd)で解説する。
 
 ### 文字化けが生じる場合
 
@@ -556,7 +561,7 @@ read_csv("パスを含むファイル名", locale = locale(encoding = "UTF-8"))
 
 　ただし、これでも文字化けが生じるのであれば、自分のRが最新バージョン（UTF-8がベース）であり、手元のデータがShift-JISである可能性が高い。この場合は、macOS/Linuxと同じ方法で対処する（以下参照）。
 
-**ケース2:** 自分のPCがmacOS/Linuxの場合
+**ケース2:** 自分のPCがmacOS/Linuxの場合（JDCat分析ツールもこれに該当）
 
 　これは主にWindowsで作成されたデータを読み込む際に生じる。日本語Windowsで作成されたデータの場合、ロケールがShift-JISである可能性が高い。とりわけ日本政府/自治体が作成・公開するデータの多くが未だShift-JISである。この場合、`read_csv()`内に`locale = locale(encoding = "Shift_JIS")`を追加する。
 
@@ -568,7 +573,7 @@ read_csv("パスを含むファイル名", locale = locale(encoding = "Shift_JIS
 
 ### Excel形式ファイルの読み込み
 
-　本講義ではExcelで作成されたデータ（`.xlsx`ファイル）を使わないが、`.xlsx`ファイルを読み込む場合は{readxl}パッケージの`read_excel()`関数を使用すれば良い。ここではコードの例のみ掲載する。
+　本講義ではExcelで作成されたデータ（`.xlsx`、または`.xls`形式ファイル）を使わないが、`.xlsx`、または`.xls`ファイルを読み込む場合は{readxl}パッケージの`read_excel()`関数を使用すれば良い。ここではコードの例のみ掲載する。
 
 ```{r}
 #| filename: "Code 51"
