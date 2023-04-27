@@ -6,7 +6,7 @@ metadata-files:
   - _slide.yml
 ---
 
-# ファイルシステム
+# ファイルシステム {visibility="uncounted"}
 
 ```{css}
 #| echo: false
@@ -212,7 +212,7 @@ File > Open Project...を選択
 ![](Figs/programming/proj-open2.png){width=50% fig-align="center"}
 :::
 
-# 作業環境
+# 作業環境 {visibility="uncounted"}
 
 ## 作業環境（Environment）
 
@@ -290,7 +290,7 @@ cat(
    )
 ```
 
-# プログラミングの基礎概念
+# プログラミングの基礎概念 {visibility="uncounted"}
 
 ## プログラミングの基礎概念
 
@@ -335,27 +335,25 @@ my_vec1 * 2
 * すべてのオブジェクトは何らかのクラスを持つ
 
 ```{r}
-class(my_vec1) # my_vec1 のクラス
-class(2)       # 2 のクラス
-class(`*`)     # * のクラス
-class(class)   # class() のクラス
+class(my_vec1)    # my_vec1 のクラス
+class(2)          # 2 のクラス
+class(c(1, 2, 3)) # c(1, 2, 3)
+class(`*`)        # * のクラス
+class(class)      # class() のクラス
 ```
 
 ## なぜクラスが重要か
 
-* ある関数の引数（後述）には使用可能なクラスが指定されている。
-* `?関数名`で確認可能
-* `mean()`関数の例（Consoleペイン上で`?mean`）
-   * `mean()`に使用可能な引数は`x`、`trim`、`na.rm`
-   * `x`: numeric型ベクトル、logical型ベクトルなどが使用可能
-   * `na.rm`: 長さ1のlogical型ベクトル（a logical value）のみ使用可能
-
-```r
-mean(c(1, 2, 3, NA, 5), na.rm = TRUE)
-```
-
-* 関数を使いこなすためには関数のヘルプを確認する
-   * 必要な引数、返されるデータの構造、サンプルコードなど豊富な情報が載っている。
+1. ある関数の引数（後述）には使用可能なクラスが指定されている。
+   * `?関数名`で確認可能
+   * `mean()`関数の例（Consoleペイン上で`?mean`）
+      * `mean()`に使用可能な引数は`x`、`trim`、`na.rm`
+      * `x`: numeric型ベクトル、logical型ベクトルなどが使用可能
+      * `na.rm`: 長さ1のlogical型ベクトル（a logical value）のみ使用可能
+      * `mean(c(1, 2, 3, NA, 5), na.rm = TRUE)`
+   * 関数を使いこなすためには関数のヘルプを確認する
+      * 必要な引数、返されるデータの構造、サンプルコードなど豊富な情報が載っている。
+2. 同じ関数でもクラスによって動きが変わる。
 
 ## 関数と引数
 
@@ -389,6 +387,8 @@ sum(c(1, 2, 3, NA, 5), na.rm = TRUE)
    * たとえば、`mean()`の`trim`引数の既定値は`0`（`?mean`参照）
    * Usageに`仮引数 = 実引数`と表記されている場合、既定値が存在する
    * Arguemntsにan optional...と書いていれば、既定値はないが、指定しなくても関数は動くことを意味する。
+
+# コーディング・スタイル {visibility="uncounted"}
 
 ## コーディング・スタイル
 
@@ -457,6 +457,8 @@ Weather_2022_03_30
 * Rがデフォルトで提供する組込の関数やオブジェクトと重複する名前を自分で作成するオブジェクトに付けることは避ける（できない場合もある）。
    * **例)** `pi`（円周率）、`if`、`for`など
 
+::::{.columns}
+:::{.column width=49%}
 **例1:** 指定は出来るが、非推奨
 
 ```{r}
@@ -467,13 +469,20 @@ pi # 円周率
 pi <- "3月14日はpie day!"
 pi # もはや円周率ではない
 ```
+:::
 
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
 **例2:** そもそも指定できない
 
 ```{r}
 #| error: true
 for <- "フォー！"
 ```
+:::
+::::
 
 ## オブジェクト名（4）
 
@@ -500,17 +509,6 @@ MathScore        <- c(30, 91, 43, 77, 100) # 大文字キャメルケース
 mathScore        <- c(30, 91, 43, 77, 100) # 小文字キャメルケース
 math_score       <- c(30, 91, 43, 77, 100) # スネークケース
 ```
-
-# コーディング・スタイル
-
-## コーディング・スタイル
-
-ほにゃほにゃ
-
-* 改行
-* 字下げ
-* スペース
-* 名前（オブジェクト名）の付け方など
 
 ## 改行
 
@@ -592,7 +590,7 @@ gender = c("Male", "Male", "Male")
 data.frame(name=c("Song","Yanai","Hadley"),favorite=c("Ramen","Cat","R"),fender=c("Male","Male","Male"))
 ```
 
-# 本格的なプログラミングの世界へ
+# 本格的なプログラミングの世界へ {visibility="uncounted"}
 
 ## 本格的なプログラミングの世界へ
 

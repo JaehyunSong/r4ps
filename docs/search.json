@@ -5093,14 +5093,14 @@
     "href": "slides/micro/programming.html#クラス",
     "title": "ミクロ政治データ分析実習",
     "section": "クラス",
-    "text": "クラス\nクラス (class): オブジェクトを特徴づける属性\n\nclass()関数で確認可能\nすべてのオブジェクトは何らかのクラスを持つ\n\n\nclass(my_vec1) # my_vec1 のクラス\n\n[1] \"numeric\"\n\nclass(2)       # 2 のクラス\n\n[1] \"numeric\"\n\nclass(`*`)     # * のクラス\n\n[1] \"function\"\n\nclass(class)   # class() のクラス\n\n[1] \"function\""
+    "text": "クラス\nクラス (class): オブジェクトを特徴づける属性\n\nclass()関数で確認可能\nすべてのオブジェクトは何らかのクラスを持つ\n\n\nclass(my_vec1)    # my_vec1 のクラス\n\n[1] \"numeric\"\n\nclass(2)          # 2 のクラス\n\n[1] \"numeric\"\n\nclass(c(1, 2, 3)) # c(1, 2, 3)\n\n[1] \"numeric\"\n\nclass(`*`)        # * のクラス\n\n[1] \"function\"\n\nclass(class)      # class() のクラス\n\n[1] \"function\""
   },
   {
     "objectID": "slides/micro/programming.html#なぜクラスが重要か",
     "href": "slides/micro/programming.html#なぜクラスが重要か",
     "title": "ミクロ政治データ分析実習",
     "section": "なぜクラスが重要か",
-    "text": "なぜクラスが重要か\n\nある関数の引数（後述）には使用可能なクラスが指定されている。\n?関数名で確認可能\nmean()関数の例（Consoleペイン上で?mean）\n\nmean()に使用可能な引数はx、trim、na.rm\nx: numeric型ベクトル、logical型ベクトルなどが使用可能\nna.rm: 長さ1のlogical型ベクトル（a logical value）のみ使用可能\n\n\nmean(c(1, 2, 3, NA, 5), na.rm = TRUE)\n\n関数を使いこなすためには関数のヘルプを確認する\n\n必要な引数、返されるデータの構造、サンプルコードなど豊富な情報が載っている。"
+    "text": "なぜクラスが重要か\n\nある関数の引数（後述）には使用可能なクラスが指定されている。\n\n?関数名で確認可能\nmean()関数の例（Consoleペイン上で?mean）\n\nmean()に使用可能な引数はx、trim、na.rm\nx: numeric型ベクトル、logical型ベクトルなどが使用可能\nna.rm: 長さ1のlogical型ベクトル（a logical value）のみ使用可能\nmean(c(1, 2, 3, NA, 5), na.rm = TRUE)\n\n関数を使いこなすためには関数のヘルプを確認する\n\n必要な引数、返されるデータの構造、サンプルコードなど豊富な情報が載っている。\n\n\n同じ関数でもクラスによって動きが変わる。"
   },
   {
     "objectID": "slides/micro/programming.html#関数と引数",
@@ -5135,14 +5135,14 @@
     "href": "slides/micro/programming.html#オブジェクト名2",
     "title": "ミクロ政治データ分析実習",
     "section": "オブジェクト名（2）",
-    "text": "オブジェクト名（2）\n原則2: 数字で始まる変数名、記号が含まれた変数名は指定できない\n\n裏技で使うことも可能だが、なるべく使わないこと\n\n\n100ABC &lt;- c(1, 2, 3, 5, 7, 11)\n\nError: &lt;text&gt;:1:4: unexpected symbol\n1: 100ABC\n       ^\n\n\n\nSmile^^ &lt;- \"マクドでスマイルを頼んでみたい！\"\n\nError: &lt;text&gt;:1:7: unexpected '^'\n1: Smile^^\n          ^\n\n\n\nWeather_2022/03/30 &lt;- \"最高気温22度\"\n\nError in Weather_2022/3/30 &lt;- \"最高気温22度\": object 'Weather_2022' not found\n\n\nただし、_と.は使用可能であり、.より_を推奨\n\nWeather_2022_03_30 &lt;- \"最高気温22度\"\nWeather_2022_03_30\n\n[1] \"最高気温22度\""
+    "text": "オブジェクト名（2）\n原則2: 数字で始まる変数名、記号が含まれた変数名は指定できない\n\n裏技で使うことも可能だが、なるべく使わないこと\n\n\n100ABC &lt;- c(1, 2, 3, 5, 7, 11)\n\nError: &lt;text&gt;:1:4: unexpected symbol\n1: 100ABC\n       ^\n\n\n\nSmile^^ &lt;- \"マクドでスマイルを頼んでみたい！\"\n\nError: &lt;text&gt;:1:7: unexpected '^'\n1: Smile^^\n          ^\n\n\n\nWeather_2022/03/30 &lt;- \"最高気温22度\"\n\nError: object 'Weather_2022' not found\n\n\nただし、_と.は使用可能であり、.より_を推奨\n\nWeather_2022_03_30 &lt;- \"最高気温22度\"\nWeather_2022_03_30\n\n[1] \"最高気温22度\""
   },
   {
     "objectID": "slides/micro/programming.html#オブジェクト名3",
     "href": "slides/micro/programming.html#オブジェクト名3",
     "title": "ミクロ政治データ分析実習",
     "section": "オブジェクト名（3）",
-    "text": "オブジェクト名（3）\n原則3: 予約語を避ける\n\nRがデフォルトで提供する組込の関数やオブジェクトと重複する名前を自分で作成するオブジェクトに付けることは避ける（できない場合もある）。\n\n例) pi（円周率）、if、forなど\n\n\n例1: 指定は出来るが、非推奨\n\npi # 円周率\n\n[1] 3.141593\n\n\n\npi &lt;- \"3月14日はpie day!\"\npi # もはや円周率ではない\n\n[1] \"3月14日はpie day!\"\n\n\n例2: そもそも指定できない\n\nfor &lt;- \"フォー！\"\n\nError: &lt;text&gt;:1:5: unexpected assignment\n1: for &lt;-\n        ^"
+    "text": "オブジェクト名（3）\n原則3: 予約語を避ける\n\nRがデフォルトで提供する組込の関数やオブジェクトと重複する名前を自分で作成するオブジェクトに付けることは避ける（できない場合もある）。\n\n例) pi（円周率）、if、forなど\n\n\n\n\n例1: 指定は出来るが、非推奨\n\npi # 円周率\n\n[1] 3.141593\n\n\n\npi &lt;- \"3月14日はpie day!\"\npi # もはや円周率ではない\n\n[1] \"3月14日はpie day!\"\n\n\n\n\n\n例2: そもそも指定できない\n\nfor &lt;- \"フォー！\"\n\nError: &lt;text&gt;:1:5: unexpected assignment\n1: for &lt;-\n        ^"
   },
   {
     "objectID": "slides/micro/programming.html#オブジェクト名4",
@@ -6340,5 +6340,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": ".csv以外の表形式データ",
     "text": ".csv以外の表形式データ\n.csv形式ファイルは表形式データの定番であり、標準\n\n他にも様々な形式のデータがあり、Rで読み込み可能（以下は一部の例）\n\n\n\n\nソフトウェア名\n拡張子\n使用パッケージ\n関数\n\n\n\n\nMicrosoft Excel\n.xls、.xlsx\n{readxl}\nread_excle()\n\n\nLibreOffice / OpenOffice\n.ods\n{readODS}\nread_ods()\n\n\nSPSS\n.sav\n{haven}\nread_stata()\n\n\nStata\n.dta\n{haven}\nread_spss()\n\n\nSAS\n.sas7bdat\n{haven}\nread_sas()\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+  },
+  {
+    "objectID": "slides/micro/programming.html#コーディングスタイル-1",
+    "href": "slides/micro/programming.html#コーディングスタイル-1",
+    "title": "ミクロ政治データ分析実習",
+    "section": "コーディング・スタイル",
+    "text": "コーディング・スタイル\n\nオブジェクト名の付け方\n改行\nスペースと字下げ（インデント）\n代入の演算子は=でなく、&lt;-を使用\n\n\n参考\n\nThe tidyverse style guide\nGoogle’s Style Guide\n{styler}パッケージと{lintr}パッケージ"
   }
 ]
