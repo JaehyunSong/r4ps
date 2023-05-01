@@ -288,6 +288,30 @@ format: html                  # <5>
 
 ![『私たちのR』ロゴ](../../Figs/favicon.png){width=25%}
 
+　ファイルのパスの代わりにURLを入れると、ウェブ上の画像を入れることもできる。
+
+**Input:**
+
+```md
+![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)
+```
+
+**Output:**
+
+![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)
+
+　`![キャプション](パス or URL)`の後ろに`{}`を付けるといくつかのオプションが指定できる。たとえば、画像の幅を25%にしたい場合は`width=25%`を追加する。
+
+**Input:**
+
+```md
+![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png){width=25%}
+```
+
+**Output:**
+
+![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png){width=25%}
+
 ### リンク
 
 　ハイパーリンクは`[テキスト](URL)`のように書く。`[]`内は実際に表示されるテキストであり、`()`は飛ばすURLとなる。
@@ -456,8 +480,6 @@ $$
 -->
 
 文章2
-
----
 
 ## Rコード
 
@@ -658,20 +680,28 @@ format:
     toc: false
     toc-depth: 3
     number-sections: true
-# 図の文字化け防止
+# チャンクのオプション
 knitr: 
   opts_chunk: 
-    dev: "ragg_png"
-    fig.align: "center"
-    dpi: 300
-    warning: false
-    message: false
+    dev: "ragg_png"     # <1>
+    fig.align: "center" # <2>
+    dpi: 300            # <3>
+    warning: false      # <4>
+    message: false      # <5>
 ---
 ```
+
+1. 図の文字化け防止
+2. 画像は中央揃え
+3. 図の解像度（印刷を考えるなら300以上）
+4. 警告メッセージを表示させない
+5. メッセージを表示させない
 
 　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、2-3ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。
 
 ## 教科書
+
+　Quartoにはここで紹介した内容の数十倍の機能を提供する。詳細は教科書、および[Quarto公式ホームページ](https://quarto.org/)を参照すること。
 
 * 『私たちのR: ベストプラクティスの探求』
    * [R Markdown [基礎]](https://www.jaysong.net/RBook/rmarkdown.html)
