@@ -1901,7 +1901,7 @@
     "href": "slides/macro/inference.html#問いが決まれば母集団も決まる",
     "title": "マクロ政治データ分析実習",
     "section": "問いが決まれば母集団も決まる",
-    "text": "問いが決まれば母集団も決まる\n\n\n\n\n\n\n  \n    \n    \n      問い\n      母集団\n    \n  \n  \n    岸田内閣の支持率は?\n有権者全体\n    女性に人気のある大臣は誰か\n女性有権者全体\n    若者に人気のある政党は何か\n若者有権者全体\n    高槻市長の支持率は?\n高槻市における有権者全体"
+    "text": "問いが決まれば母集団も決まる\n\n\n\n\n\n\n\n\n\n問い\n母集団\n\n\n\n\n岸田内閣の支持率は?\n有権者全体\n\n\n女性に人気のある大臣は誰か\n女性有権者全体\n\n\n若者に人気のある政党は何か\n若者有権者全体\n\n\n高槻市長の支持率は?\n高槻市における有権者全体"
   },
   {
     "objectID": "slides/macro/inference.html#母集団における推論の例",
@@ -1950,7 +1950,7 @@
     "href": "slides/macro/inference.html#偏りをなくしても誤差は存在する",
     "title": "マクロ政治データ分析実習",
     "section": "偏りをなくしても誤差は存在する",
-    "text": "偏りをなくしても誤差は存在する\n無作為抽出された標本の平均（標本平均）と母平均が一致するケースはほとんどあり得ず、ズレが存在する。\n\n偏りのない標本における標本平均と母平均のズレ: 誤差 (error)\n\n\n\n\n\n# 1が300個, 0が700個のベクトルを作成し、\n# 母集団と定義する\npop_vec &lt;- c(rep(1, 300), rep(0, 700))\nmean(pop_vec) # 母平均\n\n[1] 0.3\n\n# pop_vecから100個のケースを無作為抽出\nsample1 &lt;- sample(pop_vec, 100)\nmean(sample1) # 標本平均 1\n\n[1] 0.19\n\nsample2 &lt;- sample(pop_vec, 100)\nmean(sample2) # 標本平均 2\n\n[1] 0.28\n\n\n\n\n\n\nsample3 &lt;- sample(pop_vec, 100)\nmean(sample3) # 標本平均 3\n\n[1] 0.37\n\nsample4 &lt;- sample(pop_vec, 100)\nmean(sample4) # 標本平均 4\n\n[1] 0.28\n\nsample5 &lt;- sample(pop_vec, 100)\nmean(sample5) # 標本平均 5\n\n[1] 0.3\n\nsample6 &lt;- sample(pop_vec, 100)\nmean(sample6) # 標本平均 6\n\n[1] 0.21"
+    "text": "偏りをなくしても誤差は存在する\n無作為抽出された標本の平均（標本平均）と母平均が一致するケースはほとんどあり得ず、ズレが存在する。\n\n偏りのない標本における標本平均と母平均のズレ: 誤差 (error)\n\n\n\n\n\n# 1が300個, 0が700個のベクトルを作成し、\n# 母集団と定義する\npop_vec &lt;- c(rep(1, 300), rep(0, 700))\nmean(pop_vec) # 母平均\n\n[1] 0.3\n\n# pop_vecから100個のケースを無作為抽出\nsample1 &lt;- sample(pop_vec, 100)\nmean(sample1) # 標本平均 1\n\n[1] 0.36\n\nsample2 &lt;- sample(pop_vec, 100)\nmean(sample2) # 標本平均 2\n\n[1] 0.33\n\n\n\n\n\n\nsample3 &lt;- sample(pop_vec, 100)\nmean(sample3) # 標本平均 3\n\n[1] 0.35\n\nsample4 &lt;- sample(pop_vec, 100)\nmean(sample4) # 標本平均 4\n\n[1] 0.31\n\nsample5 &lt;- sample(pop_vec, 100)\nmean(sample5) # 標本平均 5\n\n[1] 0.29\n\nsample6 &lt;- sample(pop_vec, 100)\nmean(sample6) # 標本平均 6\n\n[1] 0.37"
   },
   {
     "objectID": "slides/macro/inference.html#偏り-neq-誤差",
@@ -1992,14 +1992,14 @@
     "href": "slides/macro/inference.html#標本分布の例",
     "title": "マクロ政治データ分析実習",
     "section": "標本分布の例",
-    "text": "標本分布の例\n学生5人（母集団）から \\(n\\) = 2の標本を無作為抽出し、身長を測定（25通り）\n\nRのvar()関数は\\(n-1\\)で割る標本不偏分散であるため、\\(\\frac{n-1}{n}\\)をかけて母分散を算出する。\n\n\n\n\nheight_df &lt;- data.frame(\n  ID     = c(\"A\", \"B\", \"C\", \"D\", \"E\"),\n  Height = c(151, 169, 183, 160, 171)\n)\nheight_df\n\n  ID Height\n1  A    151\n2  B    169\n3  C    183\n4  D    160\n5  E    171\n\nmean(height_df$Height) # 母平均\n\n[1] 166.8\n\nvar(height_df$Height) * 4/5 # 母分散\n\n[1] 116.16\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n    \n      標本ID\n      組み合わせ\n      標本平均\n      標本不偏分散\n    \n  \n  \n    1\n{A, A}\n151.00\n0.00\n    2\n{A, B}\n160.00\n162.00\n    3\n{A, C}\n167.00\n512.00\n    4\n{A, D}\n155.50\n40.50\n    5\n{A, E}\n161.00\n200.00\n    6\n{B, A}\n160.00\n162.00\n    7\n{B, B}\n169.00\n0.00\n    8\n{B, C}\n176.00\n98.00\n    9\n{B, D}\n164.50\n40.50\n    10\n{B, E}\n170.00\n2.00\n    11\n{C, A}\n167.00\n512.00\n    12\n{C, B}\n176.00\n98.00\n    13\n{C, C}\n183.00\n0.00\n    14\n{C, D}\n171.50\n264.50\n    15\n{C, E}\n177.00\n72.00\n    16\n{D, A}\n155.50\n40.50\n    17\n{D, B}\n164.50\n40.50\n    18\n{D, C}\n171.50\n264.50\n    19\n{D, D}\n160.00\n0.00\n    20\n{D, E}\n165.50\n60.50\n    21\n{E, A}\n161.00\n200.00\n    22\n{E, B}\n170.00\n2.00\n    23\n{E, C}\n177.00\n72.00\n    24\n{E, D}\n165.50\n60.50\n    25\n{E, E}\n171.00\n0.00\n    \n平均\n166.80\n116.16"
+    "text": "標本分布の例\n学生5人（母集団）から \\(n\\) = 2の標本を無作為抽出し、身長を測定（25通り）\n\nRのvar()関数は\\(n-1\\)で割る標本不偏分散であるため、\\(\\frac{n-1}{n}\\)をかけて母分散を算出する。\n\n\n\n\nheight_df &lt;- data.frame(\n  ID     = c(\"A\", \"B\", \"C\", \"D\", \"E\"),\n  Height = c(151, 169, 183, 160, 171)\n)\nheight_df\n\n  ID Height\n1  A    151\n2  B    169\n3  C    183\n4  D    160\n5  E    171\n\nmean(height_df$Height) # 母平均\n\n[1] 166.8\n\nvar(height_df$Height) * 4/5 # 母分散\n\n[1] 116.16\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n標本ID\n組み合わせ\n標本平均\n標本不偏分散\n\n\n\n\n1\n{A, A}\n151.00\n0.00\n\n\n2\n{A, B}\n160.00\n162.00\n\n\n3\n{A, C}\n167.00\n512.00\n\n\n4\n{A, D}\n155.50\n40.50\n\n\n5\n{A, E}\n161.00\n200.00\n\n\n6\n{B, A}\n160.00\n162.00\n\n\n7\n{B, B}\n169.00\n0.00\n\n\n8\n{B, C}\n176.00\n98.00\n\n\n9\n{B, D}\n164.50\n40.50\n\n\n10\n{B, E}\n170.00\n2.00\n\n\n11\n{C, A}\n167.00\n512.00\n\n\n12\n{C, B}\n176.00\n98.00\n\n\n13\n{C, C}\n183.00\n0.00\n\n\n14\n{C, D}\n171.50\n264.50\n\n\n15\n{C, E}\n177.00\n72.00\n\n\n16\n{D, A}\n155.50\n40.50\n\n\n17\n{D, B}\n164.50\n40.50\n\n\n18\n{D, C}\n171.50\n264.50\n\n\n19\n{D, D}\n160.00\n0.00\n\n\n20\n{D, E}\n165.50\n60.50\n\n\n21\n{E, A}\n161.00\n200.00\n\n\n22\n{E, B}\n170.00\n2.00\n\n\n23\n{E, C}\n177.00\n72.00\n\n\n24\n{E, D}\n165.50\n60.50\n\n\n25\n{E, E}\n171.00\n0.00\n\n\n\n平均\n166.80\n116.16"
   },
   {
     "objectID": "slides/macro/inference.html#偏りがないことの意味",
     "href": "slides/macro/inference.html#偏りがないことの意味",
     "title": "マクロ政治データ分析実習",
     "section": "「偏りがない」ことの意味",
-    "text": "「偏りがない」ことの意味\n不偏性（unbiasedness）: 実現し得る統計量の平均値が母数と一致\n\n椎定量として望ましい性質の一つ\n\n不偏推定量（unbiased estimator）: 不偏性のある推定量\n\n例) 標本平均の平均は母平均と一致（\\(\\mathbb{E}(\\bar{x}) = \\mu\\)）するため、標本平均（\\(\\bar{x}\\)）は母平均（\\(\\mu\\)）の不偏推定量\n\nただし、これは標本抽出を繰り返し行えば平均的に正しい値が得られるという性質を意味し、分析に用いる標本にズレが存在しないことを保証するわけではない。\n\n標本不偏分散（\\(u^2\\)）も母分散の不偏推定量（\\(\\mathbb{E}(u^2) = \\sigma^2\\)）\n\n標本分散（\\(s^2\\)）の計算式は母分散（\\(\\sigma^2\\)）と同じ\\(\\frac{1}{n}\\sum (x - \\bar{x})^2\\)であるが、これは母分散と不偏推定量ではない。標本不偏分散（\\(u^2\\)）は\\(\\frac{1}{n}\\)の代わりに\\(\\frac{1}{n - 1}\\)を使用する。\n\n不偏性の詳細はhttps://www.jaysong.net/notes/simulation/consistency.htmlを参照\n\n\n\n\n\\(u\\)は不偏推定量ではない！\n\n\n標本不偏分散\\(u^2\\)は母分散の不偏推定量ではあるが、\\(u\\)は母標準偏差の不偏推定量ではない。したがって、\\(u\\)は混同を避けるために「標本不偏標準偏差」でなく、「標本不偏分散の平方根」と呼ばれる。母標準偏差の不偏推定量はもっと複雑な計算が必要。"
+    "text": "「偏りがない」ことの意味\n不偏性（unbiasedness）: 実現し得る統計量の平均値が母数と一致\n\n椎定量として望ましい性質の一つ\n\n不偏推定量（unbiased estimator）: 不偏性のある推定量\n\n例) 標本平均の平均は母平均と一致（\\(\\mathbb{E}(\\bar{x}) = \\mu\\)）するため、標本平均（\\(\\bar{x}\\)）は母平均（\\(\\mu\\)）の不偏推定量\n\nただし、これは標本抽出を繰り返し行えば平均的に正しい値が得られるという性質を意味し、分析に用いる標本（手元の標本）にズレが存在しないことを保証するわけではない。\n\n標本不偏分散（\\(u^2\\)）も母分散の不偏推定量（\\(\\mathbb{E}(u^2) = \\sigma^2\\)）\n\n標本分散（\\(s^2\\)）の計算式は母分散（\\(\\sigma^2\\)）と同じ\\(\\frac{1}{n}\\sum (x - \\bar{x})^2\\)であるが、これは母分散の不偏推定量ではない。母分散（\\(\\sigma^2\\)）の不偏推定量は標本不偏分散（\\(u^2\\)）であり、標本不偏分散（\\(u^2\\)）は\\(\\frac{1}{n}\\)の代わりに\\(\\frac{1}{n - 1}\\)を使用する。\n\n不偏性の詳細はhttps://www.jaysong.net/notes/simulation/consistency.htmlを参照\n\n\n\n\n\\(u\\)は不偏推定量ではない！\n\n\n標本不偏分散\\(u^2\\)は母分散の不偏推定量ではあるが、\\(u\\)は母標準偏差の不偏推定量ではない。したがって、\\(u\\)は混同を避けるために「標本不偏標準偏差」でなく、「標本不偏分散の平方根」と呼ばれる。母標準偏差の不偏推定量はもっと複雑な計算が必要。"
   },
   {
     "objectID": "slides/macro/inference.html#大きい母集団で考える",
