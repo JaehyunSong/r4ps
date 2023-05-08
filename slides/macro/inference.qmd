@@ -55,8 +55,8 @@ tibble(問い = c("岸田内閣の支持率は?",
 
 <br/>
 
-* 母集団は一般的に非常に大きいため、全対象への調査 (**全数調査**)は困難
-   * 例) 2015年国勢調査の場合、調査費用は約720億円
+* 母集団は一般的に非常に大きいため、全対象への調査（**全数調査**）は困難
+   * 例) 全国民を対象とする2015年国勢調査の場合、調査費用は約720億円
 
 ## 標本の利用
 
@@ -191,28 +191,37 @@ mean(sample6) # 標本平均 6
 
 ## 標本を選ぶ方法は無限に存在する
 
-* 母集団が3人（A, B, C）で、 $n$ = 2の標本を無作為抽出する方法
-   * {A, B}、{B, C}、{A, C}の3通り[^permutation]
-   * $_3 C_2 = \frac{3!}{(3-2)!2!} = 3$
-* 母集団が10人で、 $n$ = 4の標本を無作為抽出する方法
-   * $_{10} C_4 = \frac{10!}{(10-4)!4!} = 210$
-* 1億2千万人から $n$ = 3000の標本を無作為抽出する方法
+* **例1）**母集団が3人（A, B, C）で、 $n$ = 2の標本を無作為抽出する方法
+   * 計9通り（$3^2$ = 9）$\Rightarrow$ {A, A}、{B, B}、{C, C}、{A, B}、{B ,A}、{A, C}、{C, A}、{B, C}、{C, B}
+   * 注意
+      1. 同じ人がもう一度抽出されることがあり得る：**復元抽出**
+      2. {A, C}と{C, A}は異なる組み合わせ：**順序あり**
+      * 「非復元抽出 + 順序なし」なら計3通り（{A, B}、{A, C}、{B, C}）
+
+```{r}
+3^2 # 3人から2人を選ぶ方法
+```
+
+* **例2）**母集団が10人で、 $n$ = 4の標本を無作為抽出する方法
+   * $10^4 = 10000$
+
+```{r}
+10^4 # 10人から4人を選ぶ方法
+```
+
+* **例3）**1億2千万人から $n$ = 3000の標本を無作為抽出する方法
    * 有限ではあるが、実質、無限と考えられる
 
 ```{r}
-choose(3, 2) # 3人から2人を選ぶ方法
-choose(10, 4) # 10人から4人を選ぶ方法
-choose(120000000, 3000) # 1億2千万のケースから3000個を選ぶ場合、あり得る組み合わせは...
+120000000^3000 # 1億2千万のケースから3000個を選ぶ場合、あり得る組み合わせは...
 ```
-
-[^permutation]: 厳密に言うと、標本分布は一度選ばれた要素がもう一度選ばれる可能性のある「復元抽出」を使う。つまり、{A, A}や{B, B}といった組み合わせも存在する。また、{A, C}と{C, A}も異なる組み合わせと扱われる。スライドの例は「非復元抽出 & 順番なし」であるが、厳密には「復元抽出 & 順番あり」を使用する。したがって、あり得る組み合わせの数は$3^2$ = 9種類である（{A, A}、{B, B}、{C, C}、{A, B}、{B ,A}、{A, C}、{C, A}、{B, C}、{C, B}）。しかし、通常、母集団は非常に大きいため、両者の違いは無視できる（いずれも実質無限大）。
 
 ## 標本分布
 
-* 母集団が10人で、 $n$ = 4の標本を選ぶ方法は210通りであり、そこから得られる統計量は一致せず、分布する（=ばらつきがある）。
+* 母集団が10人で、 $n$ = 4の標本を選ぶ方法は10000通りであり、そこから得られる統計量（標本平均など）は一致せず、分布する（=ばらつきがある）。
 * **標本分布**: 一定の標本サイズを保ちながら理論的に考えられるすべての組み合わせで標本を抽出したとき、そこから得られる統計量の分布
    * 統計量と母数の間を確率で繋いでくれるものであり、統計的推定の仕組みを理解するための最重要概念
-   * 最も頻繁に用いられる統計量は標本平均であり、標本分布と言えば標本平均の分布を意味することが多い。
+   * 最も頻繁に用いられる統計量は標本平均であり、**標本分布と言えば標本平均の分布**を意味することが多い。
 
 ## 標本分布の例 {.scrollable}
 
@@ -233,7 +242,7 @@ var(height_df$Height) * 4/5 # 母分散
 ```
 :::
 
-:::{.column width=5%}
+:::{.column width=4%}
 :::
 
 :::{.column width=45%}
@@ -297,9 +306,9 @@ combn_df %>%
 
 ## 大きい母集団で考える
 
-成人男性1000人の身長データ（架空）
+成人男性1000人の身長データ（架空のデータ）
 
-* この1000人を母集団であると仮定する。
+* この1000人が母集団であると仮定する。
 
 </br>
 
@@ -352,11 +361,10 @@ $n = 10$の標本を無作為抽出し、標本平均を計算することを500
 
 * 計算された500個の標本平均を保存し、ヒストグラム化する。
 
-<br/>
+:::{.panel-tabset}
+## 非効率的なやり方
 
-::::{.columns}
-:::{.column width=45%}
-非効率的なやり方（1001行のコードが必要）
+* 1001行のコードが必要
 
 ```r
 sample_mean <- c() # 空ベクトルの作成
@@ -373,13 +381,8 @@ sample_mean[3]   <- mean(sample003)
 ...
 sample_mean[500] <- mean(sample500)
 ```
-:::
 
-:::{.column width=2%}
-:::
-
-:::{.column width=53%}
-効率的なやり方
+## 効率的なやり方
 
 ```{r}
 #| include: false
@@ -391,7 +394,7 @@ sample_mean <- c() # 標本平均を格納する空ベクトルの作成
 
 # for文で標本抽出&標本平均の計算を繰り返す
 for (i in 1:500) {
-  temp_sample <- sample(height_df$Height, 10)
+  temp_sample <- sample(height_df$Height, 10, replace = TRUE)
   sample_mean[i] <- mean(temp_sample)
 }
 
@@ -399,7 +402,6 @@ length(sample_mean) # sample_meanベクトルの長さ
 head(sample_mean) # sample_meanの最初の6つの要素
 ```
 :::
-::::
 
 ## 標本平均の分布 ($n = 10$)
 
@@ -408,8 +410,8 @@ head(sample_mean) # sample_meanの最初の6つの要素
 ```{r}
 # 標本平均の平均値
 mean(sample_mean)
-# 標本平均の分散の平方根 = 標準誤差
-sqrt(var(sample_mean) * (499/500))
+# 標本平均の標準偏差
+sd(sample_mean)
 ```
 :::
 
@@ -448,7 +450,7 @@ $$
 \mbox{SE}(x) = \mbox{SD}(\bar{x}) = \sqrt{\frac{\sigma^2}{n}}
 $$
 
-* 母分散（$\sigma^2$）が約6.2、標本サイズ( $n$ )が10であるため、標準誤差は$\frac{6.2}{\sqrt{10}} \simeq 1.96$（標本から得られた標準誤差は約`r sprintf("%.2f", sd(sample_mean) * sqrt(499/500))`）
+* 母分散（$\sigma^2$）が約6.2、標本サイズ（$n$）が10であるため、標準誤差は$\frac{6.2}{\sqrt{10}} \simeq 1.96$（標本平均の標準偏差は約`r sprintf("%.1f", sd(sample_mean))`）
 * 標本サイズが大きくなるほど、標本平均と母平均のズレは小さくなり（**大数の弱法則**）、標本平均の分散/標準偏差は小さくなる。
    * **一致性**（consistency）：標本のサイズを大きくするほど、一つの標本から得られる統計量が母数の近くの値をとる確率が大きくなる。
    * 一致性は不偏性とともに、推定量の望ましい性質の一つ
@@ -456,13 +458,28 @@ $$
 
 ## 標本平均の分布 ($n = 50$)
 
-サンプルサイズが大きいほど、標準誤差も小さくなる。
+サンプルサイズが大きいほど、標準誤差も小さくなる（標本平均の平均値はいずれも約170.1）。
 
-* 標本平均の平均値 $\simeq$ 170.1 / 標準誤差 $\simeq$ 0.90
+::::{.columns}
+:::{.column width=49%}
+* $n = 10$の場合の標準誤差
+
+```{r}
+6.215432 / sqrt(10)
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+* $n = 50$の場合の標準誤差
 
 ```{r}
 6.215432 / sqrt(50)
 ```
+:::
+::::
 
 ```{r}
 #| include: false
@@ -471,24 +488,30 @@ set.seed(1986)
 
 ```{r}
 #| echo: false
-#| fig-width: 7
-#| fig-height: 2.65
-sample_mean <- rep(NA, 500) # 標本平均を格納する空ベクトルの作成
+#| fig-width: 8
+#| fig-height: 3
+sample_mean1 <- rep(NA, 500) # 標本平均を格納する空ベクトルの作成
+sample_mean2 <- rep(NA, 500) # 標本平均を格納する空ベクトルの作成
 
 # for文で標本抽出&標本平均の計算を繰り返す
 for (i in 1:500) {
+  temp_sample <- sample(height_df$Height, 10)
+  sample_mean1[i] <- mean(temp_sample)
   temp_sample <- sample(height_df$Height, 50)
-  sample_mean[i] <- mean(temp_sample)
+  sample_mean2[i] <- mean(temp_sample)
 }
 
-enframe(sample_mean) %>% # ベクトルをデータフレームに変換
-  ggplot() +
-  geom_histogram(aes(x = value), binwidth = 0.5, color = "white") +
+bind_rows(list("n = 10" = enframe(sample_mean1),
+               "n = 50" = enframe(sample_mean2)), 
+          .id = "n") |> 
+  ggplot(aes(x = value)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "gray80") +
   geom_vline(xintercept = 170.09, color = "red") +
   labs(x = "身長 (cm)", y = "度数") +
   scale_x_continuous(breaks = c(140, 160, 170.09, 180, 200),
                      labels = c(140, 160, 170.09, 180, 200)) +
   coord_cartesian(xlim = c(140, 200)) +
+  facet_wrap(~n) +
   theme_bw()
 ```
 
@@ -499,26 +522,28 @@ enframe(sample_mean) %>% # ベクトルをデータフレームに変換
 2021年9月に行われた有権者調査から測定された日本維新の会に対する感情温度（0度 $\sim$ 100度）
 
 ::::{.columns}
-:::{.column width=48%}
+:::{.column width=56%}
 ```{r}
 ishin_df <- read_csv("Data/inference_data.csv")
+# Temp_Ishinが欠損したケースもあるため、後ほど除去
 ishin_df
 ```
 :::
 
-:::{.column width=2%}
+:::{.column width=1%}
 :::
 
-:::{.column width=50%}
+:::{.column width=43%}
 ```{r}
+# Temp_Ishinが欠損した行を除去
+ishin_df <- ishin_df |> 
+  filter(!is.na(Temp_Ishin))
 # 標本サイズ (= n)
-sum(!is.na(ishin_df$Temp_Ishin))
-# 日本維新の会に対する感情温度の平均値
-# 欠損値が含まれているため、na.rm = TRUEを指定
-mean(ishin_df$Temp_Ishin, na.rm = TRUE)
-# 日本維新の会に対する感情温度の標本不偏分散の平方根
-# 欠損値が含まれているため、na.rm = TRUEを指定
-sd(ishin_df$Temp_Ishin, na.rm = TRUE)
+length(ishin_df$Temp_Ishin)
+# Temp_Ishinの平均値
+mean(ishin_df$Temp_Ishin)
+# Temp_Ishinの標本不偏分散の平方根
+sd(ishin_df$Temp_Ishin)
 ```
 :::
 ::::
@@ -565,15 +590,15 @@ $$
 * $T$は$t$分布という確率分布に従う。
    * $t$分布は0を中心に左右対称のベル (bell)型確率分布
    * $t$分布の性質は既知であるため、様々な活用が可能となる。
-   * $t$分布は**自由度** (degree of freedom; df)によって形が変わる
+   * $t$分布は**自由度** (degree of freedom; df)によって形が変わる。
       * 自由度が$\infty$になると$t$分布は標準正規分布と一致する。
 * 標本平均の区間推定の場合、自由度は$n-1$
    * 今回の例の場合、自由度は1997 (= 1998 - 1)
-   * 自由度が小さいほど、両端の裾が厚い
+   * 自由度が小さいほど、両端の裾が厚い。
 * 確率分布における面積は必ず1 (= 100%)
-   * 左右対称で$T$の$\bigcirc\bigcirc$%が入る区間を調べる
+   * 左右対称で$T$の$\bigcirc\bigcirc$%が入る区間を調べる。
 
-## 自由度と $t$ 分布
+## 自由度と$t$分布
 
 ```{r}
 #| echo: false
@@ -671,11 +696,11 @@ ci95_df %>%
 
 <br/>
 
-* $(1 - \alpha) \cdot 100$ % 信頼区間を計算する場合 (95%の場合、 $\alpha$ は0.05)
-   * `qt()`内で0.025、0.975の代わりに $\alpha / 2$ と $1 - (\alpha / 2)$ を使用
-* 標本サイズ$n$における母平均の $(1 - \alpha) \cdot 100$ % 信頼区間
+* $(1 - \alpha) \cdot 100$%信頼区間を計算する場合 (95%の場合、$\alpha$は0.05)
+   * `qt()`内で0.025、0.975の代わりに$\alpha / 2$ と $1 - (\alpha / 2)$を使用
+* 標本サイズ$n$における母平均の$(1 - \alpha) \cdot 100$%信頼区間
    * $\bar{x} + t_{n - 1, \alpha / 2} \cdot \mbox{SE}(x) \leq \mu \leq \bar{x} + t_{n - 1, 1 - (\alpha / 2)} \cdot \mbox{SE}(x)$
-   * 標本サイズ（$n$）、標本平均（$\bar{x}$）、不偏標準偏差（$s$）があれば計算可能
+   * 標本サイズ（$n$）、標本平均（$\bar{x}$）、標本不偏分散（$u^2$）があれば計算可能
 
 ## Rによる信頼区間の推定 (1)
 
@@ -684,11 +709,11 @@ ci95_df %>%
 ```{r}
 #| code-line-numbers: false
 # 標本平均
-mean(ishin_df$Temp_Ishin, na.rm = TRUE)
+mean(ishin_df$Temp_Ishin)
 # 標本不偏分散の平方根
-sd(ishin_df$Temp_Ishin, na.rm = TRUE)
+sd(ishin_df$Temp_Ishin)
 # 標本サイズ
-sum(!is.na(ishin_df$Temp_Ishin))
+length(ishin_df$Temp_Ishin)
 # 標準誤差
 23.86197 / sqrt(1998)
 ```
