@@ -11,15 +11,13 @@ ff_ver <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applicat
 rs_ver1 <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applications/RStudio.app/Contents/Info.plist -o -', intern = TRUE) |>
   stringr::str_replace("-daily", "") |>
   stringr::str_extract("202[0-9]\\.[0-9]+\\.[0-9]+\\+[0-9]+")
-
-macos_ver <- system('sw_vers -productVersion', intern = TRUE)
 ```
 
 ## 作成環境
 
 :::{.callout-note appearance="simple" icon=false}
 
-* macOS `r macos_ver` "Ventura"
+* `r sessionInfo()$running`
 * Firefox `r ff_ver`
 * `r version$version.string`
 * RStudio `r rs_ver1`
