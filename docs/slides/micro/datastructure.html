@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.321">
+  <meta name="generator" content="quarto-1.4.37">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-06-01">
@@ -441,7 +441,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/datastructure/matrix1.png"></p>
-<p></p><figcaption>matrix型</figcaption><p></p>
+<figcaption>matrix型</figcaption>
 </figure>
 </div>
 </div>
@@ -452,7 +452,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/datastructure/df.png"></p>
-<p></p><figcaption>data.frame型<span class="math inline">\(\simeq\)</span>tibble型</figcaption><p></p>
+<figcaption>data.frame型<span class="math inline">\(\simeq\)</span>tibble型</figcaption>
 </figure>
 </div>
 </div>
@@ -697,6 +697,10 @@
 <td style="text-align: left;"><code>eigen(オブジェクト名)</code></td>
 <td style="text-align: left;">行列の固有値</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;"><code>diag(オブジェクト名)</code></td>
+<td style="text-align: left;">行列の対角成分</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -731,6 +735,11 @@
 <li>一つ一つの列はベクトルであるため、一つの列は同じデータ型
 <ul>
 <li>全列が同じデータ型である必要はない。</li>
+</ul></li>
+<li>行列との違い
+<ul>
+<li>列ごとに異なるデータ型が使用可能</li>
+<li>列に名前が付いている（変数名）。</li>
 </ul></li>
 <li>詳しい操作方法は次回以降（データ・ハンドリング）の講義で解説</li>
 </ul>
@@ -808,19 +817,19 @@
 <span id="cb29-3"><a href="#cb29-3"></a>my_df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 47 × 5
-      ID Pref   Finance Over65 Turnout
-   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 北海道   0.462   32.3    58.8
- 2     2 青森県   0.358   33.7    52.9
- 3     3 岩手県   0.372   33.8    60.4
- 4     4 宮城県   0.626   28.4    55.9
- 5     5 秋田県   0.322   37.6    58.2
- 6     6 山形県   0.379   34.0    64.3
- 7     7 福島県   0.545   31.8    58.0
- 8     8 茨城県   0.656   30.3    52.5
- 9     9 栃木県   0.648   29.6    53.1
-10    10 群馬県   0.638   30.9    53.9
-# … with 37 more rows</code></pre>
+      ID Pref   Finance Above65 Turnout
+   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 北海道   0.446    32.3    54.0
+ 2     2 青森県   0.342    33.7    49.5
+ 3     3 岩手県   0.359    33.8    55.4
+ 4     4 宮城県   0.597    28.4    48.8
+ 5     5 秋田県   0.311    37.6    55.6
+ 6     6 山形県   0.362    34.0    61.9
+ 7     7 福島県   0.522    31.8    53.4
+ 8     8 茨城県   0.631    30.3    47.2
+ 9     9 栃木県   0.620    29.6    47.0
+10    10 群馬県   0.612    30.9    48.5
+# ℹ 37 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -883,14 +892,14 @@
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">head</span>(my_df3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
-     ID Pref   Finance Over65 Turnout
-  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1     1 北海道   0.462   32.3    58.8
-2     2 青森県   0.358   33.7    52.9
-3     3 岩手県   0.372   33.8    60.4
-4     4 宮城県   0.626   28.4    55.9
-5     5 秋田県   0.322   37.6    58.2
-6     6 山形県   0.379   34.0    64.3</code></pre>
+     ID Pref   Finance Above65 Turnout
+  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1     1 北海道   0.446    32.3    54.0
+2     2 青森県   0.342    33.7    49.5
+3     3 岩手県   0.359    33.8    55.4
+4     4 宮城県   0.597    28.4    48.8
+5     5 秋田県   0.311    37.6    55.6
+6     6 山形県   0.362    34.0    61.9</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:5%;">
@@ -900,18 +909,18 @@
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">head</span>(my_df3, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 5
-      ID Pref   Finance Over65 Turnout
-   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 北海道   0.462   32.3    58.8
- 2     2 青森県   0.358   33.7    52.9
- 3     3 岩手県   0.372   33.8    60.4
- 4     4 宮城県   0.626   28.4    55.9
- 5     5 秋田県   0.322   37.6    58.2
- 6     6 山形県   0.379   34.0    64.3
- 7     7 福島県   0.545   31.8    58.0
- 8     8 茨城県   0.656   30.3    52.5
- 9     9 栃木県   0.648   29.6    53.1
-10    10 群馬県   0.638   30.9    53.9</code></pre>
+      ID Pref   Finance Above65 Turnout
+   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 北海道   0.446    32.3    54.0
+ 2     2 青森県   0.342    33.7    49.5
+ 3     3 岩手県   0.359    33.8    55.4
+ 4     4 宮城県   0.597    28.4    48.8
+ 5     5 秋田県   0.311    37.6    55.6
+ 6     6 山形県   0.362    34.0    61.9
+ 7     7 福島県   0.522    31.8    53.4
+ 8     8 茨城県   0.631    30.3    47.2
+ 9     9 栃木県   0.620    29.6    47.0
+10    10 群馬県   0.612    30.9    48.5</code></pre>
 </div>
 </div>
 </div>
@@ -924,14 +933,14 @@
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">tail</span>(my_df3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
-     ID Pref     Finance Over65 Turnout
-  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1    42 長崎県     0.348   33.2    56.9
-2    43 熊本県     0.427   31.7    56.4
-3    44 大分県     0.395   33.5    57.3
-4    45 宮崎県     0.358   32.9    53.7
-5    46 鹿児島県   0.353   32.7    57.7
-6    47 沖縄県     0.375   22.7    54.9</code></pre>
+     ID Pref     Finance Above65 Turnout
+  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1    42 長崎県     0.335    33.2    48.7
+2    43 熊本県     0.403    31.7    49.1
+3    44 大分県     0.375    33.5    53.0
+4    45 宮崎県     0.342    32.9    47.5
+5    46 鹿児島県   0.338    32.7    48.6
+6    47 沖縄県     0.362    22.7    50.5</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:5%;">
@@ -941,11 +950,11 @@
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">tail</span>(my_df3, <span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-     ID Pref     Finance Over65 Turnout
-  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1    45 宮崎県     0.358   32.9    53.7
-2    46 鹿児島県   0.353   32.7    57.7
-3    47 沖縄県     0.375   22.7    54.9</code></pre>
+     ID Pref     Finance Above65 Turnout
+  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1    45 宮崎県     0.342    32.9    47.5
+2    46 鹿児島県   0.338    32.7    48.6
+3    47 沖縄県     0.362    22.7    50.5</code></pre>
 </div>
 </div>
 </div>
@@ -955,7 +964,7 @@
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">names</span>(my_df3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "ID"      "Pref"    "Finance" "Over65"  "Turnout"</code></pre>
+<pre><code>[1] "ID"      "Pref"    "Finance" "Above65" "Turnout"</code></pre>
 </div>
 </div>
 </div>
@@ -970,9 +979,9 @@
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>my_df3[<span class="dv">27</span>, ]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
-     ID Pref   Finance Over65 Turnout
-  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1    27 大阪府   0.792   27.7    56.2</code></pre>
+     ID Pref   Finance Above65 Turnout
+  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1    27 大阪府   0.752    27.7    52.4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">class</span>(my_df3[<span class="dv">27</span>, ])</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -986,11 +995,11 @@
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>my_df3[<span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">27</span>, <span class="dv">40</span>), ]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
-     ID Pref   Finance Over65 Turnout
-  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1    13 東京都   1.15    23.3    57.2
-2    27 大阪府   0.792   27.7    56.2
-3    40 福岡県   0.658   28.2    52.1</code></pre>
+     ID Pref   Finance Above65 Turnout
+  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1    13 東京都   1.07     23.3    56.5
+2    27 大阪府   0.752    27.7    52.4
+3    40 福岡県   0.628    28.2    48.8</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">class</span>(my_df3[<span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">27</span>, <span class="dv">40</span>), ])</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1020,7 +1029,7 @@
  8 茨城県
  9 栃木県
 10 群馬県
-# … with 37 more rows</code></pre>
+# ℹ 37 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">class</span>(my_df3[, <span class="dv">2</span>])</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1034,19 +1043,19 @@
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>my_df3[, <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 47 × 3
-   Pref   Over65 Turnout
-   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 北海道   32.3    58.8
- 2 青森県   33.7    52.9
- 3 岩手県   33.8    60.4
- 4 宮城県   28.4    55.9
- 5 秋田県   37.6    58.2
- 6 山形県   34.0    64.3
- 7 福島県   31.8    58.0
- 8 茨城県   30.3    52.5
- 9 栃木県   29.6    53.1
-10 群馬県   30.9    53.9
-# … with 37 more rows</code></pre>
+   Pref   Above65 Turnout
+   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+ 1 北海道    32.3    54.0
+ 2 青森県    33.7    49.5
+ 3 岩手県    33.8    55.4
+ 4 宮城県    28.4    48.8
+ 5 秋田県    37.6    55.6
+ 6 山形県    34.0    61.9
+ 7 福島県    31.8    53.4
+ 8 茨城県    30.3    47.2
+ 9 栃木県    29.6    47.0
+10 群馬県    30.9    48.5
+# ℹ 37 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="fu">class</span>(my_df3[, <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>)])</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
