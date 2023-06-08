@@ -6403,5 +6403,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": "参考）%>%と|>の比較",
     "text": "参考）%&gt;%と|&gt;の比較\n渡す先が第一引数の場合\n\nR内蔵のパイプ（native pipe; |&gt;）、{magrittr}のパイプ（%&gt;%）の使い方は同じ\n\n\n# {magrittr}のパイプ演算子\nX %&gt;% sum(na.rm = TRUE) %&gt;% print()\n# R内蔵のパイプ演算子\nX |&gt; sum(na.rm = TRUE) |&gt; print()\n\n渡す先が第一引数でない場合\n\n実引数として渡す箇所に. (tidyverse)、_ (native pipe)を入力\n\n\n# {magrittr}のパイプ演算子\nmy_data %&gt;%\n  lm(y ~ x1 + x2 + x3, data = .)\n# R内蔵のパイプ演算子\nmy_data |&gt;\n  lm(y ~ x1 + x2 + x3, data = _)"
+  },
+  {
+    "objectID": "slides/micro/handling1.html#in演算子",
+    "href": "slides/micro/handling1.html#in演算子",
+    "title": "ミクロ政治データ分析実習",
+    "section": "%in%演算子",
+    "text": "%in%演算子\n%in%: |の代わりに使用可能な便利な演算子\n例) Continentの値がc(\"Asia\", \"Oceainia\")の要素に含まれている場合\n\ndf |&gt;\n  filter(Continent %in% c(\"Asia\", \"Oceania\") & HDI_2018 &gt;= 0.9) |&gt;\n  select(Country, HDI_2018, Continent)\n\n# A tibble: 6 × 3\n  Country     HDI_2018 Continent\n  &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;    \n1 Australia      0.938 Oceania  \n2 Israel         0.906 Asia     \n3 Japan          0.915 Asia     \n4 South Korea    0.906 Asia     \n5 New Zealand    0.921 Oceania  \n6 Singapore      0.935 Asia"
   }
 ]
