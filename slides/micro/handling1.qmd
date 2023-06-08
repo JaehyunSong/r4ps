@@ -6,6 +6,33 @@ metadata-files:
   - _slide.yml
 ---
 
+## 授業開始前に
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. JDCat分析ツールを起動しておいてください。
+2. 本日授業用のプロジェクトを作成してください。
+3. LMSから実習用データ（第9回実習用データ）をダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+# countries.csvのアップロード先に応じて、パスを適宜修正すること
+df <- read_csv("Data/countries.csv")
+```
+
+* トラブルが生じた場合、速やかにTAを呼んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
 # Tidyverseの世界とパイプ演算子
 
 ## Tidyverseの世界
@@ -17,7 +44,7 @@ metadata-files:
 * {tidyverse}をインストールすることで導入可能
 * Tidyverseに属するパッケージは思想、文法およびデータ構造を共有
   * {dplyr}、{tidyr}、{readr}、{ggplot2}など
-* オブジェクトを**パイプ演算子** (`|>` or `|>`)で繋ぐ
+* オブジェクトを**パイプ演算子** (`|>` or `%>%`)で繋ぐ
 
 Rのコードは`library(tidyverse)`で始めよう!
 
@@ -39,7 +66,10 @@ Tidyverseにおいてオブジェクトは`|>`で繋がっている。
 
 * `|>`の左側を右側の最初の引数として渡すだけ
 * `X |> 関数(Y)`は`関数(X, Y)`と同じ
-  * `X |> sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じ
+   * `X |> sum(na.rm = TRUE)`は`sum(X, na.rm = TRUE)`と同じ
+* ショートカットキーを使えば簡単に入力可能
+   * macOS: Command (⌘) + Shift + m
+   * Windows/Linux: Control (Ctrl) + Shift + m
 * 二番目以降の引数として渡すことも可能（適宜、解説）
 
 :::: {.columns}
@@ -61,12 +91,66 @@ print(sum(X, na.rm = TRUE))
 #### Tidyverseな書き方
 
 ```{r}
-library(tidyverse)
+X <- c(2, 3, 5, NA, 11)
 X |> sum(na.rm = TRUE) |> print()
 ```
 :::
 
 ::::
+
+## 様々な書き方
+
+:::{.panel-tabset}
+## 書き方1
+
+::::{.columns}
+:::{.column width="40%"}
+```{r}
+#| eval: false
+結果1 <- 関数1(データ)
+結果2 <- 関数2(結果1)
+結果  <- 関数3(結果2)
+```
+:::
+
+:::{.column width="60%"}
+![](Figs/handling1/pipe1.png){fig-align="center" width=60%}
+:::
+::::
+
+## 書き方2
+
+::::{.columns}
+:::{.column width="40%"}
+```{r}
+#| eval: false
+結果 <- 関数3(関数2(関数1(データ)))
+```
+:::
+
+:::{.column width="60%"}
+![](Figs/handling1/pipe2.png){fig-align="center"}
+:::
+::::
+
+## 書き方3
+
+::::{.columns}
+:::{.column width="30%"}
+```{r}
+#| eval: false
+結果 <- データ |> 
+  関数1() |> 
+  関数2() |> 
+  関数3()
+```
+:::
+
+:::{.column width="70%"}
+![](Figs/handling1/pipe3.png){fig-align="center"}
+:::
+::::
+:::
 
 ## `%>%`：もう一つのパイプ演算子
 
@@ -77,7 +161,7 @@ R内蔵演算子としてパイプ演算子（`|>`）が追加
    * {magrittr}は{tidyverse}を読み込むと自動的に読み込まれる。
 * 使い方はほぼ同じ
    * ただし、演算子の左側のオブジェクトを右側の**第一引数**として渡す場合のみ
-   * 第一引数以外の引数として渡す場合は使い方が異なる
+   * 第一引数以外の引数として渡す場合は使い方が異なる。
 * インターネット、教科書などでは`%>%`を使用するケースがまだ多いが、今後の主流は`|>`になると予想されるため、本講義では`|>`を使用する。
    * むろん、現段階では`%>%`を使っても良いし、`%>%`を使ったコードを`|>`に置換して使っても**ほぼ**問題にならない。
 
@@ -401,13 +485,15 @@ df |>
 
 2つ以上の条件を**同時に満たす**行を抽出
 
-* `,`で条件式を追加するだけ (`&`もOK)
+* `,`で条件式を追加するだけ (`&`もOK; むしろ`&`を推奨)
 
-**例)** `df`から`Continent`が`"Asia"` (条件1)、`HDI_2018`が0.8以上 (条件2)の行を抽出し、`Country`と`HDI_2018`列を抽出
+**例)** `df`から「`Continent`が`"Asia"`（条件1）」、「`HDI_2018`が0.8以上（条件2）」の行を抽出し、`Country`と`HDI_2018`列を抽出
+
+* 条件1 AND 条件2 $\Rightarrow$ 条件1 & 条件3
 
 ```{r}
 df |>
-  filter(Continent == "Asia", HDI_2018 >= 0.8) |>
+  filter(Continent == "Asia" & HDI_2018 >= 0.8) |>
   select(Country, HDI_2018)
 ```
 
@@ -419,12 +505,13 @@ df |>
 
 * `|`で条件式を追加するだけ
 
-**例)** `df`から`Continent`が`"Asia"` (条件1)か`"Oceania"` (条件2)であり、`HDI_2018`が0.9以上 (条件3)の行を抽出し、`Country`と`HDI_2018`、`Continent`列を抽出
+**例)** `df`から「`Continent`が`"Asia"`（条件1）か`"Oceania"`（条件2）」であり、かつ「`HDI_2018`が0.9以上（条件3）」の行を抽出し、`Country`と`HDI_2018`、`Continent`列を抽出
+
+* (条件1 OR 条件2) AND 条件3 $\Rightarrow$ (条件1 | 条件2) & 条件3
 
 ```{r}
 df |>
-  filter((Continent == "Asia" | Continent == "Oceania"), 
-         HDI_2018 >= 0.9) |>
+  filter((Continent == "Asia" | Continent == "Oceania") & HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 
@@ -438,7 +525,7 @@ df |>
 
 ```{r}
 df |>
-  filter(Continent %in% c("Asia", "Oceania"), HDI_2018 >= 0.9) |>
+  filter(Continent %in% c("Asia", "Oceania") & HDI_2018 >= 0.9) |>
   select(Country, HDI_2018, Continent)
 ```
 

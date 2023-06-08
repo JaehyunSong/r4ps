@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.290">
+  <meta name="generator" content="quarto-1.4.117">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-06-08">
@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -419,6 +419,30 @@
 
   <p class="date">2023-06-08</p>
 </section>
+<section id="授業開始前に" class="slide level2">
+<h2>授業開始前に</h2>
+<p>すぐに実習できるように準備しておきましょう。</p>
+<ol type="1">
+<li>JDCat分析ツールを起動しておいてください。</li>
+<li>本日授業用のプロジェクトを作成してください。</li>
+<li>LMSから実習用データ（第9回実習用データ）をダウンロードしておいてください。</li>
+<li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+<ul>
+<li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
+</ul></li>
+<li>実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください。</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># countries.csvのアップロード先に応じて、パスを適宜修正すること</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
+<li>時間に余裕があれば、スライド内のコードも書いておきましょう。</li>
+</ul>
+</section>
 <section>
 <section id="tidyverseの世界とパイプ演算子" class="title-slide slide level1 center">
 <h1>Tidyverseの世界とパイプ演算子</h1>
@@ -428,7 +452,7 @@
 <h2>Tidyverseの世界</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://www.tidyverse.org/images/tidyverse-default.png" class="quarto-discovered-preview-image" style="width:40.0%"></p>
+<p><img data-src="https://www.tidyverse.org/images/tidyverse-default.png" style="width:40.0%"></p>
 </figure>
 </div>
 <p>データサイエンスのために考案された、強い信念と思想に基づいたRパッケージの集合</p>
@@ -438,7 +462,7 @@
 <ul>
 <li>{dplyr}、{tidyr}、{readr}、{ggplot2}など</li>
 </ul></li>
-<li>オブジェクトを<strong>パイプ演算子</strong> (<code>|&gt;</code> or <code>|&gt;</code>)で繋ぐ</li>
+<li>オブジェクトを<strong>パイプ演算子</strong> (<code>|&gt;</code> or <code>%&gt;%</code>)で繋ぐ</li>
 </ul>
 <p>Rのコードは<code>library(tidyverse)</code>で始めよう!</p>
 </section>
@@ -469,14 +493,19 @@
 <ul>
 <li><code>X |&gt; sum(na.rm = TRUE)</code>は<code>sum(X, na.rm = TRUE)</code>と同じ</li>
 </ul></li>
+<li>ショートカットキーを使えば簡単に入力可能
+<ul>
+<li>macOS: Command (⌘) + Shift + m</li>
+<li>Windows/Linux: Control (Ctrl) + Shift + m</li>
+</ul></li>
 <li>二番目以降の引数として渡すことも可能（適宜、解説）</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:49%;">
 <h4 id="既存の書き方">既存の書き方</h4>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="cn">NA</span>, <span class="dv">11</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">print</span>(<span class="fu">sum</span>(X, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="cn">NA</span>, <span class="dv">11</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">print</span>(<span class="fu">sum</span>(X, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21</code></pre>
 </div>
@@ -486,10 +515,68 @@
 </div><div class="column" style="width:49%;">
 <h4 id="tidyverseな書き方">Tidyverseな書き方</h4>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="cn">NA</span>, <span class="dv">11</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="様々な書き方" class="slide level2">
+<h2>様々な書き方</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">書き方1</a></li><li><a href="#tabset-1-2">書き方2</a></li><li><a href="#tabset-1-3">書き方3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>結果1 <span class="ot">&lt;-</span> 関数1(データ)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>結果2 <span class="ot">&lt;-</span> 関数2(結果1)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>結果  <span class="ot">&lt;-</span> 関数3(結果2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/handling1/pipe1.png" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>結果 <span class="ot">&lt;-</span> 関数3(関数2(関数1(データ)))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/handling1/pipe2.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>結果 <span class="ot">&lt;-</span> データ <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  関数1() <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  関数2() <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4"></a>  関数3()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Figs/handling1/pipe3.png"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -507,7 +594,7 @@
 <li>使い方はほぼ同じ
 <ul>
 <li>ただし、演算子の左側のオブジェクトを右側の<strong>第一引数</strong>として渡す場合のみ</li>
-<li>第一引数以外の引数として渡す場合は使い方が異なる</li>
+<li>第一引数以外の引数として渡す場合は使い方が異なる。</li>
 </ul></li>
 <li>インターネット、教科書などでは<code>%&gt;%</code>を使用するケースがまだ多いが、今後の主流は<code>|&gt;</code>になると予想されるため、本講義では<code>|&gt;</code>を使用する。
 <ul>
@@ -522,22 +609,22 @@
 <li>{magrittr}のパイプ（<code>%&gt;%</code>）、R内蔵のパイプ（native pipe; <code>|&gt;</code>）の使い方は同じ</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># {magrittr}のパイプ演算子</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>X <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># R内蔵のパイプ演算子</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># {magrittr}のパイプ演算子</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>X <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># R内蔵のパイプ演算子</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>X <span class="sc">|&gt;</span> <span class="fu">sum</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">print</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="渡す先が第一引数でない場合">渡す先が第一引数でない場合</h4>
 <ul>
 <li>実引数として渡す箇所に<code>.</code> (tidyverse)、<code>_</code> (native pipe)を入力</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># {magrittr}のパイプ演算子</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>my_data <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> .)</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># R内蔵のパイプ演算子</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>my_data <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> _)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># {magrittr}のパイプ演算子</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>my_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> .)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># R内蔵のパイプ演算子</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>my_data <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> _)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -561,34 +648,34 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="実習用データ" class="slide level2">
 <h2>実習用データ</h2>
 <p><code>countries.csv</code>: 186カ国の社会経済・政治体制のデータ</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Dataフォルダー内のcountries.csvを読み込み、dfという名のオブジェクトとして作業環境に格納</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Dataフォルダー内のcountries.csvを読み込み、dfという名のオブジェクトとして作業環境に格納</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
-   Country       Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³    G7   G20  OECD
-   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan    3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.     0     0     0
- 2 Albania        2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.     0     0     0
- 3 Algeria        4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.     0     0     0
- 4 Andorra        7.73e4 4.7 e2 3.15e3 NA       40821.     NA      0     0     0
- 5 Angola         3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.     0     0     0
- 6 Antigua and …  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.     0     0     0
- 7 Argentina      4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.     0     1     0
- 8 Armenia        2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.     0     0     0
- 9 Australia      2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.     0     1     1
-10 Austria        9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.     0     0     1
-# … with 176 more rows, 8 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
-#   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable names
-#   ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+   Country  Population   Area    GDP     PPP GDP_per_capita PPP_per_capita    G7
+   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghani…   38928346 6.53e5 1.91e4  8.27e4           491.          2125.     0
+ 2 Albania     2877797 2.74e4 1.53e4  3.97e4          5309.         13781.     0
+ 3 Algeria    43851044 2.38e6 1.70e5  4.97e5          3876.         11324.     0
+ 4 Andorra       77265 4.7 e2 3.15e3 NA              40821.            NA      0
+ 5 Angola     32866272 1.25e6 9.46e4  2.19e5          2879.          6649.     0
+ 6 Antigua…      97929 4.4 e2 1.73e3  2.08e3         17643.         21267.     0
+ 7 Argenti…   45195774 2.74e6 4.50e5  1.04e6          9949.         22938.     0
+ 8 Armenia     2963243 2.85e4 1.37e4  3.84e4          4614.         12974.     0
+ 9 Austral…   25499884 7.68e6 1.39e6  1.28e6         54615.         50001.     0
+10 Austria     9006398 8.24e4 4.46e5  5.03e5         49555.         55824.     0
+# ℹ 176 more rows
+# ℹ 10 more variables: G20 &lt;dbl&gt;, OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
+#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
+#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -596,14 +683,14 @@
 <h2>実習用データの確認</h2>
 <p>186行、18列のデータ（= 186カ国、18変数）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">dim</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">dim</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 186  18</code></pre>
 </div>
 </div>
 <p>変数の一覧</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">names</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">names</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Country"        "Population"     "Area"           "GDP"           
  [5] "PPP"            "GDP_per_capita" "PPP_per_capita" "G7"            
@@ -700,15 +787,15 @@
 <div class="column" style="width:45%;">
 <h4 id="パイプを使わない書き方">パイプを使わない書き方</h4>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">select</span>(データ, 変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">select</span>(データ, 変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:45%;">
 <h4 id="パイプを使う書き方">パイプを使う書き方</h4>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">select</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -732,9 +819,9 @@
 <h2>列の選択（抽出）: 例</h2>
 <p><code>df</code>から<code>Country</code>、<code>Population</code>、<code>HDI_2018</code>列を抽出し、最初の5行のみ出力</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df <span class="sc">|&gt;</span>                                      <span class="co"># dfから</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018) <span class="sc">|&gt;</span> <span class="co"># Country, Population, HDI_2018のみ抽出して</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)                               <span class="co"># 最初の5行を出力する</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>df <span class="sc">|&gt;</span>                                      <span class="co"># dfから</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018) <span class="sc">|&gt;</span> <span class="co"># Country, Population, HDI_2018のみ抽出して</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)                               <span class="co"># 最初の5行を出力する</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   Country     Population HDI_2018
@@ -748,8 +835,8 @@
 </div>
 <p>この時点では抽出・出力されただけ。抽出した結果を<code>df2</code>という名で作業環境内に格納するためには</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">select</span>(Country, Population, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-important no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -771,8 +858,8 @@
 </ul>
 <p><strong>例)</strong> <code>HDI_2018</code>の変数名を<code>HDI</code>に変更</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">select</span>(Country, Population, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">select</span>(Country, Population, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 3
    Country             Population   HDI
@@ -787,7 +874,7 @@
  8 Armenia                2963243 0.76 
  9 Australia             25499884 0.938
 10 Austria                9006398 0.914
-# … with 176 more rows</code></pre>
+# ℹ 176 more rows</code></pre>
 </div>
 </div>
 <!--- --->
@@ -796,31 +883,31 @@
 <h2>抽出せず、変数名のみ変更</h2>
 <p><code>rename()</code>関数を使用</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">rename</span>(新しい変数名 <span class="ot">=</span> 既存の変数名)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">rename</span>(新しい変数名 <span class="ot">=</span> 既存の変数名)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>例)</strong> <code>Population</code>を<code>Jinko</code>に、<code>Area</code>を<code>Menseki</code>に変更</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">rename</span>(<span class="at">Jinko =</span> Population, <span class="at">Menseki =</span> Area)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">rename</span>(<span class="at">Jinko =</span> Population, <span class="at">Menseki =</span> Area)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
-   Country        Jinko Menseki    GDP     PPP GDP_p…¹ PPP_p…²    G7   G20  OECD
-   &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 Afghanistan   3.89e7  652860 1.91e4  8.27e4    491.   2125.     0     0     0
- 2 Albania       2.88e6   27400 1.53e4  3.97e4   5309.  13781.     0     0     0
- 3 Algeria       4.39e7 2381740 1.70e5  4.97e5   3876.  11324.     0     0     0
- 4 Andorra       7.73e4     470 3.15e3 NA       40821.     NA      0     0     0
- 5 Angola        3.29e7 1246700 9.46e4  2.19e5   2879.   6649.     0     0     0
- 6 Antigua and … 9.79e4     440 1.73e3  2.08e3  17643.  21267.     0     0     0
- 7 Argentina     4.52e7 2736690 4.50e5  1.04e6   9949.  22938.     0     1     0
- 8 Armenia       2.96e6   28470 1.37e4  3.84e4   4614.  12974.     0     0     0
- 9 Australia     2.55e7 7682300 1.39e6  1.28e6  54615.  50001.     0     1     1
-10 Austria       9.01e6   82409 4.46e5  5.03e5  49555.  55824.     0     0     1
-# … with 176 more rows, 8 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
-#   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable names
-#   ¹​GDP_per_capita, ²​PPP_per_capita</code></pre>
+   Country      Jinko Menseki    GDP     PPP GDP_per_capita PPP_per_capita    G7
+   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghanistan 3.89e7  652860 1.91e4  8.27e4           491.          2125.     0
+ 2 Albania     2.88e6   27400 1.53e4  3.97e4          5309.         13781.     0
+ 3 Algeria     4.39e7 2381740 1.70e5  4.97e5          3876.         11324.     0
+ 4 Andorra     7.73e4     470 3.15e3 NA              40821.            NA      0
+ 5 Angola      3.29e7 1246700 9.46e4  2.19e5          2879.          6649.     0
+ 6 Antigua an… 9.79e4     440 1.73e3  2.08e3         17643.         21267.     0
+ 7 Argentina   4.52e7 2736690 4.50e5  1.04e6          9949.         22938.     0
+ 8 Armenia     2.96e6   28470 1.37e4  3.84e4          4614.         12974.     0
+ 9 Australia   2.55e7 7682300 1.39e6  1.28e6         54615.         50001.     0
+10 Austria     9.01e6   82409 4.46e5  5.03e5         49555.         55824.     0
+# ℹ 176 more rows
+# ℹ 10 more variables: G20 &lt;dbl&gt;, OECD &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;,
+#   Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;,
+#   FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 <!--- --->
@@ -833,25 +920,25 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>GDP_per_capita</code>と<code>PPP_per_capita</code>を除外</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(GDP_per_capita, PPP_per_capita))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(GDP_per_capita, PPP_per_capita))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 16
-   Country       Popul…¹   Area    GDP     PPP    G7   G20  OECD HDI_2…² Polit…³
-   &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 Afghanistan    3.89e7 6.53e5 1.91e4  8.27e4     0     0     0   0.496      -1
- 2 Albania        2.88e6 2.74e4 1.53e4  3.97e4     0     0     0   0.791       9
- 3 Algeria        4.39e7 2.38e6 1.70e5  4.97e5     0     0     0   0.759       2
- 4 Andorra        7.73e4 4.7 e2 3.15e3 NA          0     0     0   0.857      NA
- 5 Angola         3.29e7 1.25e6 9.46e4  2.19e5     0     0     0   0.574      -2
- 6 Antigua and …  9.79e4 4.4 e2 1.73e3  2.08e3     0     0     0   0.776      NA
- 7 Argentina      4.52e7 2.74e6 4.50e5  1.04e6     0     1     0   0.83        9
- 8 Armenia        2.96e6 2.85e4 1.37e4  3.84e4     0     0     0   0.76        7
- 9 Australia      2.55e7 7.68e6 1.39e6  1.28e6     0     1     1   0.938      10
-10 Austria        9.01e6 8.24e4 4.46e5  5.03e5     0     0     1   0.914      10
-# … with 176 more rows, 6 more variables: Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;,
-#   FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and
-#   abbreviated variable names ¹​Population, ²​HDI_2018, ³​Polity_Score</code></pre>
+   Country           Population   Area    GDP     PPP    G7   G20  OECD HDI_2018
+   &lt;chr&gt;                  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Afghanistan         38928346 6.53e5 1.91e4  8.27e4     0     0     0    0.496
+ 2 Albania              2877797 2.74e4 1.53e4  3.97e4     0     0     0    0.791
+ 3 Algeria             43851044 2.38e6 1.70e5  4.97e5     0     0     0    0.759
+ 4 Andorra                77265 4.7 e2 3.15e3 NA          0     0     0    0.857
+ 5 Angola              32866272 1.25e6 9.46e4  2.19e5     0     0     0    0.574
+ 6 Antigua and Barb…      97929 4.4 e2 1.73e3  2.08e3     0     0     0    0.776
+ 7 Argentina           45195774 2.74e6 4.50e5  1.04e6     0     1     0    0.83 
+ 8 Armenia              2963243 2.85e4 1.37e4  3.84e4     0     0     0    0.76 
+ 9 Australia           25499884 7.68e6 1.39e6  1.28e6     0     1     1    0.938
+10 Austria              9006398 8.24e4 4.46e5  5.03e5     0     0     1    0.914
+# ℹ 176 more rows
+# ℹ 7 more variables: Polity_Score &lt;dbl&gt;, Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;,
+#   FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;, FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 <!--- --->
@@ -865,8 +952,8 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>の<code>Country</code>〜<code>PPP</code>, <code>HDI_2018</code>列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 6
    Country             Population    Area      GDP      PPP HDI_2018
@@ -881,7 +968,7 @@
  8 Armenia                2963243   28470   13673.   38446.    0.76 
  9 Australia             25499884 7682300 1392681. 1275027.    0.938
 10 Austria                9006398   82409  446315.  502771.    0.914
-# … with 176 more rows</code></pre>
+# ℹ 176 more rows</code></pre>
 </div>
 </div>
 <!--- --->
@@ -898,8 +985,8 @@
 </ul>
 <p><strong>例)</strong> <code>df</code>から<code>Country</code>, <code>"FH"</code>で始まる列を抽出</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(Country, <span class="fu">starts_with</span>(<span class="st">"FH"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(Country, <span class="fu">starts_with</span>(<span class="st">"FH"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 5
    Country             FH_PR FH_CL FH_Total FH_Status
@@ -914,7 +1001,7 @@
  8 Armenia                21    32       53 PF       
  9 Australia              40    57       97 F        
 10 Austria                37    56       93 F        
-# … with 176 more rows</code></pre>
+# ℹ 176 more rows</code></pre>
 </div>
 </div>
 <ul>
@@ -927,27 +1014,27 @@
 <p>抽出後のデータフレームにおける変数は<code>select()</code>内で指定された順番に</p>
 <p><strong>例)</strong> <code>G7</code>から<code>OECD</code>列を<code>Country</code>と<code>Population</code>の間へ移動</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(Country, G7<span class="sc">:</span>OECD,</span>
-<span id="cb30-3"><a href="#cb30-3"></a>         Population<span class="sc">:</span>PPP_per_capita, HDI_2018<span class="sc">:</span>Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(Country, G7<span class="sc">:</span>OECD,</span>
+<span id="cb34-3"><a href="#cb34-3"></a>         Population<span class="sc">:</span>PPP_per_capita, HDI_2018<span class="sc">:</span>Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
-   Country          G7   G20  OECD Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³
-   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 Afghanistan       0     0     0  3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.
- 2 Albania           0     0     0  2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.
- 3 Algeria           0     0     0  4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.
- 4 Andorra           0     0     0  7.73e4 4.7 e2 3.15e3 NA       40821.     NA 
- 5 Angola            0     0     0  3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.
- 6 Antigua and …     0     0     0  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.
- 7 Argentina         0     1     0  4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.
- 8 Armenia           0     0     0  2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.
- 9 Australia         0     1     1  2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.
-10 Austria           0     0     1  9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.
-# … with 176 more rows, 8 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
+   Country        G7   G20  OECD Population   Area    GDP     PPP GDP_per_capita
+   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Afghanistan     0     0     0   38928346 6.53e5 1.91e4  8.27e4           491.
+ 2 Albania         0     0     0    2877797 2.74e4 1.53e4  3.97e4          5309.
+ 3 Algeria         0     0     0   43851044 2.38e6 1.70e5  4.97e5          3876.
+ 4 Andorra         0     0     0      77265 4.7 e2 3.15e3 NA              40821.
+ 5 Angola          0     0     0   32866272 1.25e6 9.46e4  2.19e5          2879.
+ 6 Antigua an…     0     0     0      97929 4.4 e2 1.73e3  2.08e3         17643.
+ 7 Argentina       0     1     0   45195774 2.74e6 4.50e5  1.04e6          9949.
+ 8 Armenia         0     0     0    2963243 2.85e4 1.37e4  3.84e4          4614.
+ 9 Australia       0     1     1   25499884 7.68e6 1.39e6  1.28e6         54615.
+10 Austria         0     0     1    9006398 8.24e4 4.46e5  5.03e5         49555.
+# ℹ 176 more rows
+# ℹ 9 more variables: PPP_per_capita &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
 #   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable names
-#   ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 <!--- --->
@@ -959,31 +1046,31 @@
 <li><code>.after = XXX</code>: <code>XXX</code>列の後ろへ移動 / <code>.before = YYY</code>: <code>YYY</code>列の前へ移動</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">relocate</span>(移動したい変数名, <span class="at">.after =</span> 変更先)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">relocate</span>(移動したい変数名, <span class="at">.after =</span> 変更先)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>例)</strong> <code>G7</code>から<code>OECD</code>列を<code>Country</code>の後ろへ移動</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">relocate</span>(G7<span class="sc">:</span>OECD, <span class="at">.after =</span> Country) <span class="co"># .before = PopulationもOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">relocate</span>(G7<span class="sc">:</span>OECD, <span class="at">.after =</span> Country) <span class="co"># .before = PopulationもOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 186 × 18
-   Country          G7   G20  OECD Popul…¹   Area    GDP     PPP GDP_p…² PPP_p…³
-   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 Afghanistan       0     0     0  3.89e7 6.53e5 1.91e4  8.27e4    491.   2125.
- 2 Albania           0     0     0  2.88e6 2.74e4 1.53e4  3.97e4   5309.  13781.
- 3 Algeria           0     0     0  4.39e7 2.38e6 1.70e5  4.97e5   3876.  11324.
- 4 Andorra           0     0     0  7.73e4 4.7 e2 3.15e3 NA       40821.     NA 
- 5 Angola            0     0     0  3.29e7 1.25e6 9.46e4  2.19e5   2879.   6649.
- 6 Antigua and …     0     0     0  9.79e4 4.4 e2 1.73e3  2.08e3  17643.  21267.
- 7 Argentina         0     1     0  4.52e7 2.74e6 4.50e5  1.04e6   9949.  22938.
- 8 Armenia           0     0     0  2.96e6 2.85e4 1.37e4  3.84e4   4614.  12974.
- 9 Australia         0     1     1  2.55e7 7.68e6 1.39e6  1.28e6  54615.  50001.
-10 Austria           0     0     1  9.01e6 8.24e4 4.46e5  5.03e5  49555.  55824.
-# … with 176 more rows, 8 more variables: HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
+   Country        G7   G20  OECD Population   Area    GDP     PPP GDP_per_capita
+   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Afghanistan     0     0     0   38928346 6.53e5 1.91e4  8.27e4           491.
+ 2 Albania         0     0     0    2877797 2.74e4 1.53e4  3.97e4          5309.
+ 3 Algeria         0     0     0   43851044 2.38e6 1.70e5  4.97e5          3876.
+ 4 Andorra         0     0     0      77265 4.7 e2 3.15e3 NA              40821.
+ 5 Angola          0     0     0   32866272 1.25e6 9.46e4  2.19e5          2879.
+ 6 Antigua an…     0     0     0      97929 4.4 e2 1.73e3  2.08e3         17643.
+ 7 Argentina       0     1     0   45195774 2.74e6 4.50e5  1.04e6          9949.
+ 8 Armenia         0     0     0    2963243 2.85e4 1.37e4  3.84e4          4614.
+ 9 Australia       0     1     1   25499884 7.68e6 1.39e6  1.28e6         54615.
+10 Austria         0     0     1    9006398 8.24e4 4.46e5  5.03e5         49555.
+# ℹ 176 more rows
+# ℹ 9 more variables: PPP_per_capita &lt;dbl&gt;, HDI_2018 &lt;dbl&gt;, Polity_Score &lt;dbl&gt;,
 #   Polity_Type &lt;chr&gt;, FH_PR &lt;dbl&gt;, FH_CL &lt;dbl&gt;, FH_Total &lt;dbl&gt;,
-#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;, and abbreviated variable names
-#   ¹​Population, ²​GDP_per_capita, ³​PPP_per_capita</code></pre>
+#   FH_Status &lt;chr&gt;, Continent &lt;chr&gt;</code></pre>
 </div>
 </div>
 <!--- --->
@@ -998,12 +1085,12 @@
 <p><code>filter()</code>関数を使用</p>
 <p>パイプを使わない書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">filter</span>(データ, 条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">filter</span>(データ, 条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>パイプを使う書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">filter</span>(条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">filter</span>(条件1, 条件2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!--- --->
 </section>
@@ -1018,9 +1105,9 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, <span class="at">HDI =</span> HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
   Country          Population    Area      GDP      PPP   HDI
@@ -1037,13 +1124,16 @@
 <h2>行の抽出: 2つ以上の条件（AND）</h2>
 <p>2つ以上の条件を<strong>同時に満たす</strong>行を抽出</p>
 <ul>
-<li><code>,</code>で条件式を追加するだけ (<code>&amp;</code>もOK)</li>
+<li><code>,</code>で条件式を追加するだけ (<code>&amp;</code>もOK; むしろ<code>&amp;</code>を推奨)</li>
 </ul>
-<p><strong>例)</strong> <code>df</code>から<code>Continent</code>が<code>"Asia"</code> (条件1)、<code>HDI_2018</code>が0.8以上 (条件2)の行を抽出し、<code>Country</code>と<code>HDI_2018</code>列を抽出</p>
+<p><strong>例)</strong> <code>df</code>から「<code>Continent</code>が<code>"Asia"</code>（条件1）」、「<code>HDI_2018</code>が0.8以上（条件2）」の行を抽出し、<code>Country</code>と<code>HDI_2018</code>列を抽出</p>
+<ul>
+<li>条件1 AND 条件2 <span class="math inline">\(\Rightarrow\)</span> 条件1 &amp; 条件3</li>
+</ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>, HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">select</span>(Country, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">&amp;</span> HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.8</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">select</span>(Country, HDI_2018)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 2
    Country              HDI_2018
@@ -1071,12 +1161,14 @@
 <ul>
 <li><code>|</code>で条件式を追加するだけ</li>
 </ul>
-<p><strong>例)</strong> <code>df</code>から<code>Continent</code>が<code>"Asia"</code> (条件1)か<code>"Oceania"</code> (条件2)であり、<code>HDI_2018</code>が0.9以上 (条件3)の行を抽出し、<code>Country</code>と<code>HDI_2018</code>、<code>Continent</code>列を抽出</p>
+<p><strong>例)</strong> <code>df</code>から「<code>Continent</code>が<code>"Asia"</code>（条件1）か<code>"Oceania"</code>（条件2）」であり、かつ「<code>HDI_2018</code>が0.9以上（条件3）」の行を抽出し、<code>Country</code>と<code>HDI_2018</code>、<code>Continent</code>列を抽出</p>
+<ul>
+<li>(条件1 OR 条件2) AND 条件3 <span class="math inline">\(\Rightarrow\)</span> (条件1 | 条件2) &amp; 条件3</li>
+</ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">filter</span>((Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>), </span>
-<span id="cb41-3"><a href="#cb41-3"></a>         HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb41-4"><a href="#cb41-4"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>((Continent <span class="sc">==</span> <span class="st">"Asia"</span> <span class="sc">|</span> Continent <span class="sc">==</span> <span class="st">"Oceania"</span>) <span class="sc">&amp;</span> HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   Country     HDI_2018 Continent
@@ -1096,9 +1188,9 @@
 <p><code>%in%</code>: <code>|</code>の代わりに使用可能な便利な演算子</p>
 <p><strong>例)</strong> <code>Continent</code>の値が<code>c("Asia", "Oceainia")</code>の要素に含まれている場合</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Oceania"</span>), HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Oceania"</span>) <span class="sc">&amp;</span> HDI_2018 <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">select</span>(Country, HDI_2018, Continent)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   Country     HDI_2018 Continent
@@ -1119,12 +1211,12 @@
 <li><code>変数名 == NA</code>を条件にしてはいけない</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">filter</span>(PPP <span class="sc">==</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 5
-# … with 5 variables: Country &lt;chr&gt;, Population &lt;dbl&gt;, Area &lt;dbl&gt;, GDP &lt;dbl&gt;,
+# ℹ 5 variables: Country &lt;chr&gt;, Population &lt;dbl&gt;, Area &lt;dbl&gt;, GDP &lt;dbl&gt;,
 #   PPP &lt;dbl&gt;</code></pre>
 </div>
 </div>
@@ -1136,9 +1228,9 @@
 <li>正解: <code>is.na(変数名)</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
-<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 5
   Country        Population   Area     GDP   PPP
@@ -1161,9 +1253,9 @@
 <li>否定を意味する<code>!</code>を使用する</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
-<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PPP)) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 178 × 5
    Country             Population    Area      GDP      PPP
@@ -1178,7 +1270,7 @@
  8 Australia             25499884 7682300 1392681. 1275027.
  9 Austria                9006398   82409  446315.  502771.
 10 Azerbaijan            10139177   82658   48048.  144556.
-# … with 168 more rows</code></pre>
+# ℹ 168 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1189,9 +1281,9 @@
 <li><code>()</code>内で指定した変数が欠損している行をすべて除外（複数指定可）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">|&gt;</span> <span class="co"># PPPとPolity_Scoreどちらか欠損した行を除外</span></span>
-<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">drop_na</span>(PPP, Polity_Score) <span class="sc">|&gt;</span> <span class="co"># PPPとPolity_Scoreどちらか欠損した行を除外</span></span>
+<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">select</span>(Country<span class="sc">:</span>PPP, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 155 × 6
    Country     Population    Area      GDP      PPP Polity_Score
@@ -1206,7 +1298,7 @@
  8 Austria        9006398   82409  446315.  502771.           10
  9 Azerbaijan    10139177   82658   48048.  144556.           -7
 10 Bahrain        1701575     760   38574.   74230.          -10
-# … with 145 more rows</code></pre>
+# ℹ 145 more rows</code></pre>
 </div>
 </div>
 </section></section>
@@ -1220,11 +1312,11 @@
 <p><code>arrange()</code>関数を使用</p>
 <p>パイプを使わない書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">arrange</span>(データ, 変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">arrange</span>(データ, 変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>パイプを使う書き方</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>データ <span class="sc">|&gt;</span> <span class="fu">arrange</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>データ <span class="sc">|&gt;</span> <span class="fu">arrange</span>(変数名1, 変数名2, ...)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>基本的には昇順 (値が小さい行が先にくる)</p>
 <ul>
@@ -1240,10 +1332,10 @@
 <li>Polity Scoreが高い (低い) = より民主主義 (権威主義)に近い</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb55" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">|&gt;</span></span>
-<span id="cb55-4"><a href="#cb55-4"></a>  <span class="fu">select</span>(Country, PPP_per_capita, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Polity_Score)) <span class="sc">|&gt;</span></span>
+<span id="cb59-4"><a href="#cb59-4"></a>  <span class="fu">select</span>(Country, PPP_per_capita, Polity_Score)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 3
    Country      PPP_per_capita Polity_Score
@@ -1258,7 +1350,7 @@
  8 Liberia               1461.            7
  9 Nigeria               5018.            7
 10 Senegal               3248.            7
-# … with 44 more rows</code></pre>
+# ℹ 44 more rows</code></pre>
 </div>
 </div>
 <!--- --->
@@ -1272,10 +1364,10 @@
 <li><code>Polity_Score</code>は<code>Polity</code>に、<code>PPP_per_capita</code>は<code>PPP</code>と名前を変更</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">arrange</span>(Polity_Score, <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">|&gt;</span></span>
-<span id="cb57-4"><a href="#cb57-4"></a>  <span class="fu">select</span>(Country, <span class="at">Polity =</span> Polity_Score, <span class="at">PPP =</span> PPP_per_capita)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>  <span class="fu">filter</span>(Continent <span class="sc">==</span> <span class="st">"Africa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-3"><a href="#cb61-3"></a>  <span class="fu">arrange</span>(Polity_Score, <span class="fu">desc</span>(PPP_per_capita)) <span class="sc">|&gt;</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a>  <span class="fu">select</span>(Country, <span class="at">Polity =</span> Polity_Score, <span class="at">PPP =</span> PPP_per_capita)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 54 × 3
    Country             Polity    PPP
@@ -1290,7 +1382,7 @@
  8 Congo (Brazzaville)     -4  3191.
  9 Comoros                 -3  3007.
 10 Rwanda                  -3  2008.
-# … with 44 more rows</code></pre>
+# ℹ 44 more rows</code></pre>
 </div>
 </div>
 
@@ -1626,10 +1718,9 @@
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1639,8 +1730,17 @@
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
