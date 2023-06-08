@@ -6389,5 +6389,19 @@
     "title": "ミクロ政治データ分析実習",
     "section": "授業開始前に",
     "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データ（第9回実習用データ）をダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\n\n# countries.csvのアップロード先に応じて、パスを適宜修正すること\ndf &lt;- read_csv(\"Data/countries.csv\")\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+  },
+  {
+    "objectID": "slides/micro/handling1.html#参考もう一つのパイプ演算子",
+    "href": "slides/micro/handling1.html#参考もう一つのパイプ演算子",
+    "title": "ミクロ政治データ分析実習",
+    "section": "参考）%>%：もう一つのパイプ演算子",
+    "text": "参考）%&gt;%：もう一つのパイプ演算子\nR内蔵演算子としてパイプ演算子（|&gt;）が追加\n\n2021年5月リリースされたR 4.1からR内蔵のパイプ演算子|&gt;が登場\nそれまでは{magrittr}パッケージが提供する%&gt;%を使用\n\n{magrittr}は{tidyverse}を読み込むと自動的に読み込まれる。\n\n使い方はほぼ同じ\n\nただし、演算子の左側のオブジェクトを右側の第一引数として渡す場合のみ\n第一引数以外の引数として渡す場合は使い方が異なる。\n\nインターネット、教科書などでは%&gt;%を使用するケースがまだ多いが、今後の主流は|&gt;になると予想されるため、本講義では|&gt;を使用する。\n\nむろん、現段階では%&gt;%を使っても良いし、%&gt;%を使ったコードを|&gt;に置換して使ってもほぼ問題にならない。"
+  },
+  {
+    "objectID": "slides/micro/handling1.html#参考との比較",
+    "href": "slides/micro/handling1.html#参考との比較",
+    "title": "ミクロ政治データ分析実習",
+    "section": "参考）%>%と|>の比較",
+    "text": "参考）%&gt;%と|&gt;の比較\n渡す先が第一引数の場合\n\nR内蔵のパイプ（native pipe; |&gt;）、{magrittr}のパイプ（%&gt;%）の使い方は同じ\n\n\n# {magrittr}のパイプ演算子\nX %&gt;% sum(na.rm = TRUE) %&gt;% print()\n# R内蔵のパイプ演算子\nX |&gt; sum(na.rm = TRUE) |&gt; print()\n\n渡す先が第一引数でない場合\n\n実引数として渡す箇所に. (tidyverse)、_ (native pipe)を入力\n\n\n# {magrittr}のパイプ演算子\nmy_data %&gt;%\n  lm(y ~ x1 + x2 + x3, data = .)\n# R内蔵のパイプ演算子\nmy_data |&gt;\n  lm(y ~ x1 + x2 + x3, data = _)"
   }
 ]
