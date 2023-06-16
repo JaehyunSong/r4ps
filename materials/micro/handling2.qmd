@@ -541,7 +541,6 @@ mean(my_data$HighEduc)
 
 ```{r}
 #| filename: "Code 48"
-#| error: true
 my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
@@ -551,27 +550,13 @@ my_data |>
                                TRUE          ~ "大卒未満"))
 ```
 
-　エラーが返ってきた。なぜだろう。問題は`NA`である。確かにRにおいて欠損値は`NA`のみである。しかし、{tidyverse}の世界は、同じ`NA`でもnumeric型の`NA`とcharcter型の`NA`は区別される。上のコードの場合、`YoungAge`はnumeric型、`HighEduc2`はcharacter型変数になるだろう。`case_when()`は`if_else()`などを使う場合、`NA`でなく、**生成される列のデータ型**に応じて`NA_real_`（numeric型）、または`NA_character_`（character型）を使用（logical型なら`NA`のままでOK）する必要がある。
+　もう一つの例として特定の値を欠損値とし、それ以外の値は元も値にする場合を考えよう。つまり、`Age`と`HighEduc`列においてそれぞれ999、9を`NA`にし、そのまま上書きするものである。例えば`Age`は`Age`の値が999なら（`Age == 999`）、`NA`を返し、それ以外の場合は既存の`Age`の値を取る。この作業は以下のコードで実行できる。
 
 ```{r}
 #| filename: "Code 49"
-#| error: true
 my_data |>
-  mutate(YoungAge  = case_when(Age == 999 ~ NA_real_,
-                               Age <=  39 ~ 1,
-                               TRUE       ~ 0),
-         HighEduc2 = case_when(HighEduc == 9 ~ NA_character_,
-                               HighEduc == 1 ~ "大卒以上",
-                               TRUE          ~ "大卒未満"))
-```
-
-　もう一つの例として特定の値を欠損値とし、それ以外の値は元も値にする場合を考えよう。つまり、`Age`と`HighEduc`列においてそれぞれ999、9を`NA`にし、そのまま上書きするものである。例えば`Age`は`Age`の値が999なら（`Age == 999`）、`NA_real_`を返し、それ以外の場合は既存の`Age`の値を取る。この作業は以下のコードで実行できる。
-
-```{r}
-#| filename: "Code 50"
-my_data |>
-  mutate(Age      = if_else(Age == 999, NA_real_, Age),
-         HighEduc = if_else(HighEduc == 9, NA_real_, HighEduc))
+  mutate(Age      = if_else(Age == 999,    NA, Age),
+         HighEduc = if_else(HighEduc == 9, NA, HighEduc))
 ```
 
 　欠損を意味する値が複数の場合もある。`my_data`の`Age`は`999`のみが欠損値であるが、世論調査によっては`888`、`999`、`-1`のように複数の欠損値が存在するケースがある。この場合は`case_when()`を使うか、`if_else()`関数内にOR演算子（`|` / `%in%`）を使えば良い。
@@ -579,7 +564,7 @@ my_data |>
 　最後に欠損値処理に特化した{naniar}パッケージの`replace_with_na()`関数を紹介する。引数はリスト型オブジェクトであり、リストの各要素は`変数名 = 欠損値の値`となる。たとえば、`Age`の欠損値は`999`だから`Age = 999`である。これは条件式ではないため、`==`でなく、`=`を使う。欠損値の値が複数ある場合は、`変数名 = c(値1, 値2, ...)`のように書く。
 
 ```{r}
-#| filename: "Code 51"
+#| filename: "Code 50"
 library(naniar) # 事前に install.package(naniar) でインストール
 my_data |>
   # Ageは999、HighEducは9が欠損値
@@ -591,7 +576,7 @@ my_data |>
 [^expss]: {naniar}パッケージの`replace_with_na()`関数は欠損値に該当する値が複数指定できる。たとえば、`Age`変数の888か999が欠損値を意味する場合、`list(Age = c(888, 999))`のように指定できる。一方、{expss}パッケージの`na_if()`は欠損値に該当する値を1つしかしてできない。
 
 ```{r}
-#| filename: "Code 52"
+#| filename: "Code 51"
 library(expss) # 事前に install.package(expss) でインストール
 my_data |>
   mutate(Age      = na_if(Age, 999),

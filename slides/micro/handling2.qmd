@@ -533,35 +533,16 @@ my_data
 
 ::::
 
-## 注意) 欠損値を指定する場合
+## 欠損値を指定する場合
 
-**注意:** `条件 ~ NA`ではエラーが発生する。
-
-* `if_else()`も同様
+* 戻り値として`NA`を指定（`if_else()`も同様）
 
 ```{r}
-#| error: true
 my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
                                TRUE       ~ 0),
          HighEduc2 = case_when(HighEduc == 9 ~ NA,
-                               HighEduc == 1 ~ "大卒以上",
-                               TRUE          ~ "大卒未満"))
-```
-
-## 注意) 欠損値を指定する場合
-
-`NA`でなく、**生成 or 修正される列のデータ型**に応じて`NA_real_`（numeric型）、または`NA_character_`（character型）を使用（logical型なら`NA`のままでOK）
-
-```{r}
-#| error: true
-#| code-line-numbers: "2,5"
-my_data |>
-  mutate(YoungAge  = case_when(Age == 999 ~ NA_real_,
-                               Age <=  39 ~ 1,
-                               TRUE       ~ 0),
-         HighEduc2 = case_when(HighEduc == 9 ~ NA_character_,
                                HighEduc == 1 ~ "大卒以上",
                                TRUE          ~ "大卒未満"))
 ```
@@ -574,8 +555,8 @@ my_data |>
 
 ```{r}
 my_data |>
-  mutate(Age      = if_else(Age      == 999, NA_real_, Age),
-         HighEduc = if_else(HighEduc == 9,   NA_real_, HighEduc))
+  mutate(Age      = if_else(Age      == 999, NA, Age),
+         HighEduc = if_else(HighEduc == 9,   NA, HighEduc))
 ```
 
 ## 特定の値を欠損値にコーディング場合
@@ -586,9 +567,9 @@ my_data |>
 
 ```{r}
 my_data |>
-  mutate(Age      = case_when(Age == 999 ~ NA_real_, 
+  mutate(Age      = case_when(Age == 999 ~ NA, 
                               TRUE       ~ Age),
-         HighEduc = case_when(HighEduc == 9 ~ NA_real_, 
+         HighEduc = case_when(HighEduc == 9 ~ NA, 
                               TRUE          ~ HighEduc))
 ```
 
@@ -616,8 +597,8 @@ my_data |>
 ```{r}
 #| eval: false
 my_data |>
-  mutate(Age      = if_else(Age      == 999 ~ NA_real_, TRUE ~ Age),
-         HighEduc = if_else(HighEduc == 9   ~ NA_real_, TRUE ~ HighEduc))
+  mutate(Age      = if_else(Age      == 999 ~ NA, TRUE ~ Age),
+         HighEduc = if_else(HighEduc == 9   ~ NA, TRUE ~ HighEduc))
 ```
 
 #### 一つの`mutate()`内に1つの処理
@@ -625,6 +606,6 @@ my_data |>
 ```{r}
 #| eval: false
 my_data |>
-  mutate(Age = if_else(Age == 999 ~ NA_real_, TRUE ~ Age)) |>
-  mutate(HighEduc = if_else(HighEduc == 9 ~ NA_real_, TRUE ~ HighEduc))
+  mutate(Age = if_else(Age == 999 ~ NA, TRUE ~ Age)) |>
+  mutate(HighEduc = if_else(HighEduc == 9 ~ NA, TRUE ~ HighEduc))
 ```
