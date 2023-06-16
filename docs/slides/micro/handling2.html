@@ -621,7 +621,10 @@
 5 Oceania     27573.</code></pre>
 </div>
 </div>
-</section>
+
+<aside><div>
+<p><code>group_by()</code>を使わず、<code>summarise()</code>の内部に<code>.by = グルーピングする変数名</code>のような書き方でも良い（{dplyr} 1.1.0から）</p>
+</div></aside></section>
 <section id="複数の変数でグルーピング" class="slide level2">
 <h2>複数の変数でグルーピング</h2>
 <p><strong>例)</strong> <code>df</code>の<code>Continent</code>と<code>G20</code>でデータをグループ化し、<code>HDI_2018</code>の平均値を計算</p>
@@ -665,6 +668,7 @@ the `.groups` argument.</code></pre>
 <li>特に<code>summarise()</code>の後に更にパイプ（<code>|&gt;</code>）を使って計算を続ける場合</li>
 </ul></li>
 <li>とりあえず、<code>.groups = "drop"</code>をしておけば安全</li>
+<li><code>summarise()</code>の代わりに<code>reframe()</code>を使えば<code>.groups = "drop"</code>は不要（{dplyr} 1.1.0から）</li>
 </ul>
 </section>
 <section id="groups-dropを追加する" class="slide level2">
@@ -995,7 +999,10 @@ the `.groups` argument.</code></pre>
 <span id="cb53-5"><a href="#cb53-5"></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> 新しい値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>TRUE ~ 新しい値</code>は「上記の条件全てが満たされ<strong>ない</strong>場合の値」を意味する</li>
+<li><code>TRUE ~ 新しい値</code>は「上記の条件全てが満たされ<strong>ない</strong>場合の値」を意味する
+<ul>
+<li><code>.default = "新しい値"</code>でもOK（{dplyr} 1.1.0から）</li>
+</ul></li>
 </ul>
 </section>
 <section id="変数のリコーディング-3値以上の例-1" class="slide level2">
@@ -1047,8 +1054,8 @@ the `.groups` argument.</code></pre>
 <span id="cb58-3"><a href="#cb58-3"></a>                        <span class="cn">TRUE</span>                                           <span class="sc">~</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="注意-欠損値を指定する場合" class="slide level2">
-<h2>注意) 欠損値を指定する場合</h2>
+<section id="naではない欠損値があることに注意" class="slide level2">
+<h2><code>NA</code>ではない欠損値があることに注意</h2>
 <p>世論調査などの場合、欠損値が<code>NA</code>でなく、<code>9</code>や<code>99</code>、<code>""</code>などの場合がある。</p>
 <p><strong>例)</strong> <code>my_data</code>の例</p>
 <ul>

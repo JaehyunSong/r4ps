@@ -4533,7 +4533,7 @@
     "href": "slides/micro/handling2.html#グルービング後のsummarise",
     "title": "ミクロ政治データ分析実習",
     "section": "グルービング後のsummarise()",
-    "text": "グルービング後のsummarise()\n謎のメッセージが出力される\n## `summarise()` has grouped output by 'Continent'. You can override using \nthe `.groups` argument.\nとりあえず、group_by()の後にsummarise()を使う場合、summarise()の最後に.groups = \"drop\"を追加する。\n\n理由は割愛するが、詳細は教科書第14.2章を参照\n多くの場合、メッセージが出力されるだけで、問題が生じることはあまりない。\nしかし、複数の変数でグルーピングしたり、記述統計量が複数計算される関数（quantile()など）を使う場合、問題が生じる可能性あり\n\n特にsummarise()の後に更にパイプ（|&gt;）を使って計算を続ける場合\n\nとりあえず、.groups = \"drop\"をしておけば安全"
+    "text": "グルービング後のsummarise()\n謎のメッセージが出力される\n## `summarise()` has grouped output by 'Continent'. You can override using \nthe `.groups` argument.\nとりあえず、group_by()の後にsummarise()を使う場合、summarise()の最後に.groups = \"drop\"を追加する。\n\n理由は割愛するが、詳細は教科書第14.2章を参照\n多くの場合、メッセージが出力されるだけで、問題が生じることはあまりない。\nしかし、複数の変数でグルーピングしたり、記述統計量が複数計算される関数（quantile()など）を使う場合、問題が生じる可能性あり\n\n特にsummarise()の後に更にパイプ（|&gt;）を使って計算を続ける場合\n\nとりあえず、.groups = \"drop\"をしておけば安全\nsummarise()の代わりにreframe()を使えば.groups = \"drop\"は不要（{dplyr} 1.1.0から）"
   },
   {
     "objectID": "slides/micro/handling2.html#groups-dropを追加する",
@@ -4638,7 +4638,7 @@
     "href": "slides/micro/handling2.html#変数のリコーディング-3値以上の例",
     "title": "ミクロ政治データ分析実習",
     "section": "変数のリコーディング: 3値以上の例",
-    "text": "変数のリコーディング: 3値以上の例\nmutate()内にcase_when()を使用\n\nデータフレーム名 |&gt;\n  mutate(新しい変数名 = case_when(条件1 ~ 新しい値,\n                                条件2 ~ 新しい値,\n                                ...\n                                TRUE ~ 新しい値))\n\n\nTRUE ~ 新しい値は「上記の条件全てが満たされない場合の値」を意味する"
+    "text": "変数のリコーディング: 3値以上の例\nmutate()内にcase_when()を使用\n\nデータフレーム名 |&gt;\n  mutate(新しい変数名 = case_when(条件1 ~ 新しい値,\n                                条件2 ~ 新しい値,\n                                ...\n                                TRUE ~ 新しい値))\n\n\nTRUE ~ 新しい値は「上記の条件全てが満たされない場合の値」を意味する\n\n.default = \"新しい値\"でもOK（{dplyr} 1.1.0から）"
   },
   {
     "objectID": "slides/micro/handling2.html#変数のリコーディング-3値以上の例-1",
@@ -6423,7 +6423,7 @@
     "href": "slides/micro/handling2.html#グループごとの記述統計量",
     "title": "ミクロ政治データ分析実習",
     "section": "グループごとの記述統計量",
-    "text": "グループごとの記述統計量\n{dplyr}のgroup_by()を使用\n\nデータフレーム名 |&gt;\n  group_by(グループ化する変数名) |&gt;\n  summarise(...)\n\n例) dfのContinentでデータをグループ化し、PPP_per_capitaの平均値を計算\n\n# PPP_per_capitaが欠損している国もあるので、na.rm = TRUEを追加\ndf |&gt;\n  group_by(Continent) |&gt;\n  summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE))\n\n# A tibble: 5 × 2\n  Continent Mean_PPP\n  &lt;chr&gt;        &lt;dbl&gt;\n1 Africa       5667.\n2 America     18100.\n3 Asia        22728.\n4 Europe      37783.\n5 Oceania     27573."
+    "text": "グループごとの記述統計量\n{dplyr}のgroup_by()を使用\n\nデータフレーム名 |&gt;\n  group_by(グループ化する変数名) |&gt;\n  summarise(...)\n\n例) dfのContinentでデータをグループ化し、PPP_per_capitaの平均値を計算\n\n# PPP_per_capitaが欠損している国もあるので、na.rm = TRUEを追加\ndf |&gt;\n  group_by(Continent) |&gt;\n  summarise(Mean_PPP = mean(PPP_per_capita, na.rm = TRUE))\n\n# A tibble: 5 × 2\n  Continent Mean_PPP\n  &lt;chr&gt;        &lt;dbl&gt;\n1 Africa       5667.\n2 America     18100.\n3 Asia        22728.\n4 Europe      37783.\n5 Oceania     27573.\n\n\n\n\ngroup_by()を使わず、summarise()の内部に.by = グルーピングする変数名のような書き方でも良い（{dplyr} 1.1.0から）"
   },
   {
     "objectID": "slides/micro/handling2.html#参考特定の値を欠損値にコーディング場合",
@@ -6445,5 +6445,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": "欠損値を指定する場合",
     "text": "欠損値を指定する場合\n\n戻り値としてNAを指定（if_else()も同様）\n\n\nmy_data |&gt;\n  mutate(YoungAge  = case_when(Age == 999 ~ NA,\n                               Age &lt;=  39 ~ 1,\n                               TRUE       ~ 0),\n         HighEduc2 = case_when(HighEduc == 9 ~ NA,\n                               HighEduc == 1 ~ \"大卒以上\",\n                               TRUE          ~ \"大卒未満\"))\n\n# A tibble: 10 × 5\n      ID   Age HighEduc YoungAge HighEduc2\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    \n 1     1    32        1        1 大卒以上 \n 2     2    35        0        1 大卒未満 \n 3     3    57        0        0 大卒未満 \n 4     4   999        1       NA 大卒以上 \n 5     5    74        0        0 大卒未満 \n 6     6    66        9        0 &lt;NA&gt;     \n 7     7   999        1       NA 大卒以上 \n 8     8    49        1        0 大卒以上 \n 9     9    78        9        0 &lt;NA&gt;     \n10    10    67        9        0 &lt;NA&gt;"
+  },
+  {
+    "objectID": "slides/micro/handling2.html#naではない欠損値があることに注意",
+    "href": "slides/micro/handling2.html#naではない欠損値があることに注意",
+    "title": "ミクロ政治データ分析実習",
+    "section": "NAではない欠損値があることに注意",
+    "text": "NAではない欠損値があることに注意\n世論調査などの場合、欠損値がNAでなく、9や99、\"\"などの場合がある。\n例) my_dataの例\n\nYoungAge変数を作成し、Ageが39以下なら1、それ以外は0にする。ただし、999ならNAとする。\nHighEduc2変数を作成し、HighEducが1なら\"大卒以上\"、それ以外は\"大卒未満\"にする。ただし、9ならNAとする。\n\n\n\n\nmy_data &lt;- tibble(ID       = 1:10,\n                  Age      = c(32, 35, 57, 999, 74, \n                               66, 999, 49, 78, 67),\n                  HighEduc = c(1, 0, 0, 1, 0,\n                               9, 1, 1, 9, 9))\n\n\n\nmy_data\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4   999        1\n 5     5    74        0\n 6     6    66        9\n 7     7   999        1\n 8     8    49        1\n 9     9    78        9\n10    10    67        9"
   }
 ]
