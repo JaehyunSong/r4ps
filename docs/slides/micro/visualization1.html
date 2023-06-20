@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.290">
+  <meta name="generator" content="quarto-1.4.117">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-06-29">
@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -585,7 +585,7 @@
 </div><div class="column" style="width:23%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Figs/visual1/The_Grammar_of_Graphics.jpg" class="quarto-discovered-preview-image"></p>
+<p><img data-src="Figs/visual1/The_Grammar_of_Graphics.jpg"></p>
 </figure>
 </div>
 </div>
@@ -1141,7 +1141,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/visual1/Pie1.png"></p>
-<p></p><figcaption>円グラフ</figcaption><p></p>
+<figcaption>円グラフ</figcaption>
 </figure>
 </div>
 </div>
@@ -1152,7 +1152,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/visual1/Pie2.png"></p>
-<p></p><figcaption>3次元円グラフ</figcaption><p></p>
+<figcaption>3次元円グラフ</figcaption>
 </figure>
 </div>
 </div>
@@ -1163,7 +1163,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/visual1/Pie3.png"></p>
-<p></p><figcaption>棒グラフ</figcaption><p></p>
+<figcaption>棒グラフ</figcaption>
 </figure>
 </div>
 </div>
@@ -1647,10 +1647,9 @@
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1660,8 +1659,17 @@
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

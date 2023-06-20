@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.321">
+<meta name="generator" content="quarto-1.4.117">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -80,6 +80,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,7 +94,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
@@ -113,7 +119,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../Figs/logo.png" alt="" class="navbar-logo">
     </a>
@@ -375,14 +381,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
 </a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -546,14 +552,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="データ構造とは" class="level2">
 <h2 class="anchored" data-anchor-id="データ構造とは">データ構造とは</h2>
 <p>　Rにおけるデータの最小単位はベクトルである<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。そして、これらのベクトルが集合として行列や表などが出来上がる。ベクトルの集合の在り方をRでは<strong>データ構造 (data structure)</strong>と呼ぶ。</p>
-<p>　たとえば、同じ長さのnumeric型（数値型）、またはcomplex型（複素数型）の縦ベクトルが横に並んでいる構造（<a href="#fig-structure-intro-matrix">図&nbsp;1</a>）をRではmatrix構造（行列構造）と呼ぶ。Matrix構造の場合「同じ長さ、かつnumeric/complex型の縦ベクトル」の集合と言えよう。データ型の制約のない「同じ長さの縦ベクトル」の集合はRでdata.frame構造（データフレーム構造）と呼ばれる。また、data.frame構造は各列には名前が付くといった特徴がある。</p>
+<p>　たとえば、同じ長さのnumeric型（数値型）、またはcomplex型（複素数型）の縦ベクトルが横に並んでいる構造（<a href="#fig-structure-intro-matrix" class="quarto-xref">図&nbsp;1</a>）をRではmatrix構造（行列構造）と呼ぶ。Matrix構造の場合「同じ長さ、かつnumeric/complex型の縦ベクトル」の集合と言えよう。データ型の制約のない「同じ長さの縦ベクトル」の集合はRでdata.frame構造（データフレーム構造）と呼ばれる。また、data.frame構造は各列には名前が付くといった特徴がある。</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 42.9%;justify-content: center;">
 <div id="fig-structure-intro-matrix" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figs/structure/matrix1.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">図&nbsp;1: 行列構造の例</figcaption><p></p>
+<figcaption class="figure-caption">図&nbsp;1: 行列構造の例</figcaption>
 </figure>
 </div>
 </div>
@@ -561,7 +567,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div id="fig-structure-intro-df" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figs/structure/df.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">図&nbsp;2: データフレーム構造の例</figcaption><p></p>
+<figcaption class="figure-caption">図&nbsp;2: データフレーム構造の例</figcaption>
 </figure>
 </div>
 </div>
@@ -732,11 +738,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 [3,]   -3    3    0    7</code></pre>
 </div>
 </div>
-<p>　ここで注意すべき点は要素が入る順番である。我々は通常「左から右へ」、「上から下へ」文字列を読むが、行列はその逆、つまり「上から下へ」、「左から右へ」の順番となる（<a href="#fig-structure-matrix-order">図&nbsp;3</a>）。行列が「<strong>縦</strong>ベクトルの集合」ということを意識すれば、予め混乱は避けられるだろう。</p>
+<p>　ここで注意すべき点は要素が入る順番である。我々は通常「左から右へ」、「上から下へ」文字列を読むが、行列はその逆、つまり「上から下へ」、「左から右へ」の順番となる（<a href="#fig-structure-matrix-order" class="quarto-xref">図&nbsp;3</a>）。行列が「<strong>縦</strong>ベクトルの集合」ということを意識すれば、予め混乱は避けられるだろう。</p>
 <div id="fig-structure-matrix-order" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figs/structure/matrix2.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">図&nbsp;3: 行列の要素の順番</figcaption><p></p>
+<figcaption class="figure-caption">図&nbsp;3: 行列の要素の順番</figcaption>
 </figure>
 </div>
 </section>
@@ -874,11 +880,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="配列" class="level3">
 <h3 class="anchored" data-anchor-id="配列">配列</h3>
-<p>　行列と似たようなデータ構造として、配列（array）構造がある。これは<strong>同じ大きさ行列</strong>を重ねたものであり（<a href="#fig-structure-matrix-array">図&nbsp;4</a>）、行列は層 (layer) が1つのみの配列である。つまり、行列構造は配列構造の一種であり、実際、<code>class()</code>で行列構造のデータ構造を確認すると<code>"matrix"</code>だけでなく、<code>"array"</code>も同時に出力される。2次元である行列を重ねたものであるため、配列構造は3次元のデータ構造であり、要素抽出の際、<code>[x, y, z]</code>で指定する必要がある（3番目の<code>z</code>が配列の層 (layer)を意味する）。</p>
+<p>　行列と似たようなデータ構造として、配列（array）構造がある。これは<strong>同じ大きさ行列</strong>を重ねたものであり（<a href="#fig-structure-matrix-array" class="quarto-xref">図&nbsp;4</a>）、行列は層 (layer) が1つのみの配列である。つまり、行列構造は配列構造の一種であり、実際、<code>class()</code>で行列構造のデータ構造を確認すると<code>"matrix"</code>だけでなく、<code>"array"</code>も同時に出力される。2次元である行列を重ねたものであるため、配列構造は3次元のデータ構造であり、要素抽出の際、<code>[x, y, z]</code>で指定する必要がある（3番目の<code>z</code>が配列の層 (layer)を意味する）。</p>
 <div id="fig-structure-matrix-array" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figs/structure/array.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">図&nbsp;4: 配列構造のイメージ</figcaption><p></p>
+<figcaption class="figure-caption">図&nbsp;4: 配列構造のイメージ</figcaption>
 </figure>
 </div>
 </section>
@@ -889,17 +895,17 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <ol type="1">
 <li>データ・フレーム構造の場合、すべてのベクトルが同じデータ型である必要がない。
 <ul>
-<li><a href="#fig-structure-df-image">図&nbsp;5</a> の場合、character型（1列目）とnumeric型（2、3、4列目）ベクトルが混在している。</li>
+<li><a href="#fig-structure-df-image" class="quarto-xref">図&nbsp;5</a> の場合、character型（1列目）とnumeric型（2、3、4列目）ベクトルが混在している。</li>
 </ul></li>
 <li>データ・フレーム構造の場合、各列に名前が付いている。
 <ul>
-<li><a href="#fig-structure-df-image">図&nbsp;5</a> の場合、Name、Foundation、Students、Facultiesが列名である。</li>
+<li><a href="#fig-structure-df-image" class="quarto-xref">図&nbsp;5</a> の場合、Name、Foundation、Students、Facultiesが列名である。</li>
 </ul></li>
 </ol>
 <div id="fig-structure-df-image" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figs/structure/df.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<p></p><figcaption class="figure-caption">図&nbsp;5: 行列の要素の順番</figcaption><p></p>
+<figcaption class="figure-caption">図&nbsp;5: 行列の要素の順番</figcaption>
 </figure>
 </div>
 <p>　データ・フレーム構造は我々が頻繁に接する<strong>表形式データ</strong>、そのものである。前期・後期の講義全体を通じて最も頻繁に扱うこととなるデータ構造であるため、非常に重要なデータ構造である。詳しい操作方法は次回以降（データ・ハンドリング）の講義で解説するが、ここでは作成方法、確認方法、簡単な抽出方法について解説する。</p>
@@ -919,7 +925,6 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　ここでは以下のような表を作成する。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="uhmpakepxd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -1392,7 +1397,6 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　データ・フレーム構造はベクトルの集合であるため、ベクトルから作成することも出来る。以下のような表を作成するとする。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="vjwokuyhvx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -2450,16 +2454,16 @@ $DF
 
 
 </section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">注</h2>
-
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p><code>"Cat"</code>や<code>5</code>も長さ1のベクトルであり、原子ベクトル (atomic vector) とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー (scalar) とも呼ばれる。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Excleで作成されたファイル（<code>.xlsx</code>、または<code>.xls</code>）の場合、{readxl}パッケージの<code>read_excle()</code>関数を使用する。Stataファイル（<code>.dta</code>）は{haven}パッケージの<code>read_dta()</code>を使う。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>リストの中にリストを入れることも出来る。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section></div></main> <!-- /main -->
+</aside>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2539,10 +2543,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2552,8 +2555,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2566,6 +2578,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2609,6 +2676,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2777,7 +2845,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-left">
+<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

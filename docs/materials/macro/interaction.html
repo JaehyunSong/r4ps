@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.290">
+<meta name="generator" content="quarto-1.4.117">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -80,6 +80,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,7 +94,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
@@ -101,7 +107,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </script>
-
 <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -116,7 +121,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../Figs/logo.png" alt="" class="navbar-logo">
     </a>
@@ -378,14 +383,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
 </a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -545,7 +550,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　以下の図のように主な説明変数（<span class="math inline">\(X\)</span>）と応答変数（<span class="math inline">\(Y\)</span>）の関係において、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響がその他の変数（<span class="math inline">\(Z\)</span>）の影響を受ける場合を考えてみよう。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/01.png" class="quarto-discovered-preview-image img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/01.png" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p>　これは<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は一定ではないことを意味する（= <span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>に依存する）。ここで、<span class="math inline">\(Z\)</span>は<strong>調整変数</strong> (moderation variable; moderator)と呼ばれる。調整変数はダミー変数でも、連続変数でも可能だ。</p>
@@ -558,11 +563,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p><span id="eq-01"><span class="math display">\[
 \hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
 \tag{1}\]</span></span></p>
-<p>　ここで説明変数に調整変数をかけた変数（<span class="math inline">\(X \cdot Z\)</span>）は<strong>交差項</strong> (interaction term)と呼ばれる。これまでの（重）回帰分析では変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は<span class="math inline">\(\beta_1\)</span>であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において<span class="math inline">\(X\)</span>は<span class="math inline">\(\beta_3\)</span>にも登場するからである。これは <a href="#eq-01">式&nbsp;1</a> を変形してみると分かりやすい。</p>
+<p>　ここで説明変数に調整変数をかけた変数（<span class="math inline">\(X \cdot Z\)</span>）は<strong>交差項</strong> (interaction term)と呼ばれる。これまでの（重）回帰分析では変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は<span class="math inline">\(\beta_1\)</span>であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において<span class="math inline">\(X\)</span>は<span class="math inline">\(\beta_3\)</span>にも登場するからである。これは <a href="#eq-01" class="quarto-xref">式&nbsp;1</a> を変形してみると分かりやすい。</p>
 <p><span id="eq-02"><span class="math display">\[
 \hat{Y} = \alpha + (\beta_1 + \beta_3 Z) X + \beta_2 Z
 \tag{2}\]</span></span></p>
-<p>　<a href="#eq-02">式&nbsp;2</a> によると、変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果、つまり<span class="math inline">\(X\)</span>の傾き係数は<span class="math inline">\(\beta_1\)</span>でなく、<span class="math inline">\(\beta_1 + \beta_3 Z\)</span>だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。</p>
+<p>　<a href="#eq-02" class="quarto-xref">式&nbsp;2</a> によると、変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果、つまり<span class="math inline">\(X\)</span>の傾き係数は<span class="math inline">\(\beta_1\)</span>でなく、<span class="math inline">\(\beta_1 + \beta_3 Z\)</span>だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。</p>
 <p>　まず、調整変数<span class="math inline">\(Z\)</span>が0、または1の値のみをとるダミー変数の場合（<span class="math inline">\(Z \in \{0, 1\}\)</span>）だ。回帰分析の結果、以下のような1次関数が得られたとしよう。</p>
 <p><span id="eq-03"><span class="math display">\[
 \begin{align}
@@ -774,7 +779,7 @@ N: 3000
 <p><img src="Figs/12/03.png" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
-<p>　これを回帰式にする場合、 <a href="#eq-05">式&nbsp;5</a> のような1次関数になる（以下の図参照）。</p>
+<p>　これを回帰式にする場合、 <a href="#eq-05" class="quarto-xref">式&nbsp;5</a> のような1次関数になる（以下の図参照）。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figs/12/04.png" class="img-fluid figure-img" style="width:50.0%"></p>
@@ -789,7 +794,7 @@ N: 3000
 <p><img src="Figs/12/05.png" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
-<p>　これを回帰式にする場合、 <a href="#eq-06">式&nbsp;6</a> のような1次関数になる（以下の図参照）。</p>
+<p>　これを回帰式にする場合、 <a href="#eq-06" class="quarto-xref">式&nbsp;6</a> のような1次関数になる（以下の図参照）。</p>
 <p><span id="eq-06"><span class="math display">\[
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
 \tag{6}\]</span></span></p>
@@ -1105,7 +1110,6 @@ Columns: rowid, type, term, estimate, std.error, statistic, p.value, conf.low, c
 <p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="gkihyucnjw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -1786,10 +1790,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1799,8 +1802,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1813,6 +1825,61 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          console.log(htmlDoc.body.innerHTML);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1856,6 +1923,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2024,7 +2092,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-left">
+<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
