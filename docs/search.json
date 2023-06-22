@@ -567,6 +567,13 @@
     "text": "プログラミングは簡単だから難しい\nチューリング完全な言語の2条件\n\nデータの読み書き\n条件分岐\nデータの読み書きと条件分岐を組み合わせると反復処理が可能\n\n\nプログラミングが簡単な理由\nデータの読み書き、条件分岐、反復処理を覚えるだけで、パソコンで出来るすべてのことができる。\n\nプログラミングが難しい理由\nデータの読み書き、条件分岐、反復処理だけですべてを処理しなければならない。"
   },
   {
+    "objectID": "slides/micro/handling3.html#授業開始前に",
+    "href": "slides/micro/handling3.html#授業開始前に",
+    "title": "ミクロ政治データ分析実習",
+    "section": "授業開始前に",
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\n\n# covid_sampleのアップロード先に応じて、パスを適宜修正すること\ndf &lt;- read_csv(\"Data/covid_sample.csv\")\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう"
+  },
+  {
     "objectID": "slides/micro/handling3.html#データの結合-行",
     "href": "slides/micro/handling3.html#データの結合-行",
     "title": "ミクロ政治データ分析実習",
@@ -775,6 +782,13 @@
     "title": "ミクロ政治データ分析実習",
     "section": "長過ぎるコードブロックの例",
     "text": "長過ぎるコードブロックの例\n慣れたらこれくらいは長い方でもないが…\n\nCOVID_df |&gt; \n  pivot_longer(cols      = \"2022/06/09\":\"2022/06/13\",\n               names_to  = \"Date\",\n               values_to = \"New_Cases\") |&gt;\n  mutate(New_Case_per_1M = New_Cases / Population * 1000000,\n         Country         = case_when(Country == \"China\"    ~ \"中国\",\n                                     Country == \"Japan\"    ~ \"日本\",\n                                     Country == \"Korea\"    ~ \"韓国\",\n                                     Country == \"Mongolia\" ~ \"モンゴル\",\n                                     TRUE                  ~ \"台湾\"),\n         Country         = factor(Country, levels = c(\"中国\", \"日本\", \"韓国\", \"モンゴル\", \"台湾\")),\n         Date            = as.Date(Date),\n         Date            = format(Date, \"%Y-%m-%d\")) |&gt;\n  ggplot(aes(x = Date, y = New_Case_per_1M, group = Country)) +\n  geom_line(aes(color = Country), linewidth = 1) +\n  geom_point(aes(fill = Country), \n             shape = 21, color = \"white\", size = 3) +\n  labs(x = \"日付\", y = \"100万人当たり新規感染者数 (人)\", color = \"\") +\n  guides(fill = \"none\") +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#学習方法について課題を含む",
+    "href": "slides/micro/handling3.html#学習方法について課題を含む",
+    "title": "ミクロ政治データ分析実習",
+    "section": "学習方法について（課題を含む）",
+    "text": "学習方法について（課題を含む）\n\n必要なコード、箇所だけを見ても分からない。\n\n講義スライド・資料・教科書は辞書ではない。\n第11章を理解するためには第1〜10章の内容が前提\nプログラミング言語は積み重ねと反復が重要\n授業で「1 + 5」を教えるのは「+」の意味を教えるためであり、課題・テストには「1 + 5」でなく、「3 + 99」が出る。\n\n「コード」の見方・構造に慣れること。\n\nコードをブロックの組み合わせとして考える。\nそのためにも空白、改行、字下げは重要\n\nスライドは説明がかなり省略されているため、講義資料と教科書も合わせて読むこと。"
   },
   {
     "objectID": "slides/micro/handling3.html#来週以降の内容",
@@ -5390,11 +5404,11 @@
     "text": "変数のリコーディング: 応用\n例) ContinentがAP列を追加し、\"Asia\"か\"Oceania\"、\"America\"なら1、以外は0\n方法1: if_else()の利用\n\ndf |&gt;\n  mutate(AP = if_else(Continent %in% c(\"Asia\", \"America\", \"Oceania\"), 1, 0))\n\n方法2: case_when()の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent == \"Asia\"    ~ 1, \n                        Continent == \"America\" ~ 1, \n                        Continent == \"Oceania\" ~ 1,\n                        TRUE                   ~ 0))\n\n方法3: case_when() + %in%の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent %in% c(\"Asia\", \"America\", \"Oceania\") ~ 1, \n                        TRUE                                           ~ 0))"
   },
   {
-    "objectID": "slides/micro/handling2.html#naではない欠損値があることに注意",
-    "href": "slides/micro/handling2.html#naではない欠損値があることに注意",
+    "objectID": "slides/micro/handling2.html#naではない欠損値もあることに注意",
+    "href": "slides/micro/handling2.html#naではない欠損値もあることに注意",
     "title": "ミクロ政治データ分析実習",
-    "section": "NAではない欠損値があることに注意",
-    "text": "NAではない欠損値があることに注意\n世論調査などの場合、欠損値がNAでなく、9や99、\"\"などの場合がある。\n例) my_dataの例\n\nYoungAge変数を作成し、Ageが39以下なら1、それ以外は0にする。ただし、999ならNAとする。\nHighEduc2変数を作成し、HighEducが1なら\"大卒以上\"、それ以外は\"大卒未満\"にする。ただし、9ならNAとする。\n\n\n\n\nmy_data &lt;- tibble(ID       = 1:10,\n                  Age      = c(32, 35, 57, 999, 74, \n                               66, 999, 49, 78, 67),\n                  HighEduc = c(1, 0, 0, 1, 0,\n                               9, 1, 1, 9, 9))\n\n\n\nmy_data\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4   999        1\n 5     5    74        0\n 6     6    66        9\n 7     7   999        1\n 8     8    49        1\n 9     9    78        9\n10    10    67        9"
+    "section": "NAではない欠損値もあることに注意",
+    "text": "NAではない欠損値もあることに注意\n世論調査などの場合、欠損値がNAでなく、9や99、\"\"などの場合がある。\n例) my_dataの例\n\nYoungAge変数を作成し、Ageが39以下なら1、それ以外は0にする。ただし、999ならNAとする。\nHighEduc2変数を作成し、HighEducが1なら\"大卒以上\"、それ以外は\"大卒未満\"にする。ただし、9ならNAとする。\n\n\n\n\nmy_data &lt;- tibble(ID       = 1:10,\n                  Age      = c(32, 35, 57, 999, 74, \n                               66, 999, 49, 78, 67),\n                  HighEduc = c(1, 0, 0, 1, 0,\n                               9, 1, 1, 9, 9))\n\n\n\nmy_data\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4   999        1\n 5     5    74        0\n 6     6    66        9\n 7     7   999        1\n 8     8    49        1\n 9     9    78        9\n10    10    67        9"
   },
   {
     "objectID": "slides/micro/handling2.html#欠損値を指定する場合",
@@ -6249,26 +6263,5 @@
     "title": "マクロ政治データ分析実習",
     "section": "成績評価",
     "text": "成績評価\n\n平常点: 30%\n\n欠席4回以上は評価の対象外（3回まで評価対象）\n45分以上欠席は出席0.5回扱い\n欠席届を提出した場合は出席扱い\n\n課題: 40%\n\n課題は計5〜6回を予定\n3回以上未提出は評価の対象外（2回未提出までは評価対象）\n課題提出期限の延長はない（提出までの期間が長めであるため）\n\n提出期限は次回講義の前日23時59分まで\n期限内に提出出来なかった場合でも宋に連絡する必要はない（どうせ延ばしてくれない）。\n\n\n期末レポート: 30%\n\n自分独自の問いを立て、その問いに答えるための過程と結果を記録したレポート\n未提出者は評価対象外\n授業の第14・15回は期末レポートの執筆\n\n「評価対象」とは「採点の対象」であることを意味し、単位を保障するものではない。\n不正行為厳禁"
-  },
-  {
-    "objectID": "slides/micro/handling2.html#naではない欠損値もあることに注意",
-    "href": "slides/micro/handling2.html#naではない欠損値もあることに注意",
-    "title": "ミクロ政治データ分析実習",
-    "section": "NAではない欠損値もあることに注意",
-    "text": "NAではない欠損値もあることに注意\n世論調査などの場合、欠損値がNAでなく、9や99、\"\"などの場合がある。\n例) my_dataの例\n\nYoungAge変数を作成し、Ageが39以下なら1、それ以外は0にする。ただし、999ならNAとする。\nHighEduc2変数を作成し、HighEducが1なら\"大卒以上\"、それ以外は\"大卒未満\"にする。ただし、9ならNAとする。\n\n\n\n\nmy_data &lt;- tibble(ID       = 1:10,\n                  Age      = c(32, 35, 57, 999, 74, \n                               66, 999, 49, 78, 67),\n                  HighEduc = c(1, 0, 0, 1, 0,\n                               9, 1, 1, 9, 9))\n\n\n\nmy_data\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4   999        1\n 5     5    74        0\n 6     6    66        9\n 7     7   999        1\n 8     8    49        1\n 9     9    78        9\n10    10    67        9"
-  },
-  {
-    "objectID": "slides/micro/handling3.html#授業開始前に",
-    "href": "slides/micro/handling3.html#授業開始前に",
-    "title": "ミクロ政治データ分析実習",
-    "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\n\n# covid_sampleのアップロード先に応じて、パスを適宜修正すること\ndf &lt;- read_csv(\"Data/covid_sample.csv\")\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう"
-  },
-  {
-    "objectID": "slides/micro/handling3.html#学習方法について課題を含む",
-    "href": "slides/micro/handling3.html#学習方法について課題を含む",
-    "title": "ミクロ政治データ分析実習",
-    "section": "学習方法について（課題を含む）",
-    "text": "学習方法について（課題を含む）\n\n必要なコード、箇所だけを見ても分からない。\n\n講義スライド・資料・教科書は辞書ではない。\n第11章を理解するためには第1〜10章の内容が前提\nプログラミング言語は積み重ねと反復が重要\n授業で「1 + 5」を教えるのは「+」の意味を教えるためであり、課題・テストには「1 + 5」でなく、「3 + 99」が出る。\n\n「コード」の見方・構造に慣れること。\n\nコードをブロックの組み合わせとして考える。\nそのためにも空白、改行、字下げは重要\n\nスライドは説明がかなり省略されているため、講義資料と教科書も合わせて読むこと。"
   }
 ]
