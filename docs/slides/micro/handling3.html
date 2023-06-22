@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.117">
+  <meta name="generator" content="quarto-1.4.161">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-06-22">
@@ -234,7 +234,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -419,6 +420,30 @@
 
   <p class="date">2023-06-22</p>
 </section>
+<section id="授業開始前に" class="slide level2">
+<h2>授業開始前に</h2>
+<p>すぐに実習できるように準備しておきましょう。</p>
+<ol type="1">
+<li>JDCat分析ツールを起動しておいてください。</li>
+<li>本日授業用のプロジェクトを作成してください。</li>
+<li>LMSから実習用データをダウンロードしておいてください。</li>
+<li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+<ul>
+<li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
+</ul></li>
+<li>実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください。</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># covid_sampleのアップロード先に応じて、パスを適宜修正すること</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
+<li>時間に余裕があれば、スライド内のコードも書いておきましょう</li>
+</ul>
+</section>
 <section>
 <section id="dplyr-データの結合" class="title-slide slide level1 center">
 <h1>{dplyr}: データの結合</h1>
@@ -437,14 +462,14 @@
 <div class="column" style="width:48%;">
 <p><strong>結合前</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
 1  1 Aさん    77
 2  2 Bさん    89
 3  3 Cさん    41</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
 1  4 Xさん    98
@@ -456,7 +481,7 @@
 </div><div class="column" style="width:48%;">
 <p><strong>結合後</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">bind_rows</span>(Data1, Data2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">bind_rows</span>(Data1, Data2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
 1  1 Aさん    77
@@ -479,8 +504,8 @@
 </ul>
 <p><strong>例)</strong> 結合後、<code>Class</code>という列を追加し、元々<code>Data1</code>だった行は<code>"1組"</code>、<code>Data2</code>だった行には<code>"2組"</code>を格納する。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(<span class="st">"1組"</span> <span class="ot">=</span> Data1, <span class="st">"2組"</span> <span class="ot">=</span> Data2),</span>
-<span id="cb7-2"><a href="#cb7-2"></a>          <span class="at">.id =</span> <span class="st">"Class"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(<span class="st">"1組"</span> <span class="ot">=</span> Data1, <span class="st">"2組"</span> <span class="ot">=</span> Data2),</span>
+<span id="cb8-2"><a href="#cb8-2"></a>          <span class="at">.id =</span> <span class="st">"Class"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Class ID  Name Score
 1   1組  1 Aさん    77
@@ -499,7 +524,7 @@
 <div class="column" style="width:48%;">
 <p><strong>結合前</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area
 1 Tokyo 927 2194
@@ -512,7 +537,7 @@
 </div><div class="column" style="width:48%;">
 <p><strong>結合前</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City     Food
 1 Kochi   Katsuo
@@ -524,7 +549,7 @@
 </div>
 <p><strong>結合後</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="st">"City"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="st">"City"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area     Food
 1 Tokyo 927 2194    Ramen
@@ -651,15 +676,15 @@
 <section id="比較-1" class="slide level2">
 <h2>比較 (1)</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"京都"</span>),</span>
-<span id="cb15-2"><a href="#cb15-2"></a>              <span class="at">Score =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="dv">4</span>, <span class="fl">4.2</span>))</span>
-<span id="cb15-3"><a href="#cb15-3"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"高知"</span>),</span>
-<span id="cb15-4"><a href="#cb15-4"></a>              <span class="at">N     =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">1325</span>, <span class="dv">111</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"京都"</span>),</span>
+<span id="cb16-2"><a href="#cb16-2"></a>              <span class="at">Score =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="dv">4</span>, <span class="fl">4.2</span>))</span>
+<span id="cb16-3"><a href="#cb16-3"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"高知"</span>),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>              <span class="at">N     =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">1325</span>, <span class="dv">111</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>df1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   Pref  Score
@@ -673,7 +698,7 @@
 
 </div><div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   Pref      N
@@ -696,7 +721,7 @@
 <div class="columns">
 <div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   Pref  Score     N
@@ -705,7 +730,7 @@
 2 大阪    4    1325
 3 京都    4.2    NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">right_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">right_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   Pref  Score     N
@@ -719,7 +744,7 @@
 
 </div><div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">inner_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">inner_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   Pref  Score     N
@@ -727,7 +752,7 @@
 1 東京    3.5  3220
 2 大阪    4    1325</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   Pref  Score     N
@@ -889,18 +914,18 @@
 <li>データ出典:<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2"></a>COVID_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a>COVID_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
-  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
-  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 China    1447470092          819          848         1114         990     957
-2 Japan     126476461        16788        15584        15338       13381    7942
-3 Korea      51269185         9304         8428         7382        3828    9768
-4 Mongolia    3278290            0            0            0           0    1055
-5 Taiwan     23816775        72846        68293        79616       50567   45100
-# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 China    1447470092          819          848         1114          990
+2 Japan     126476461        16788        15584        15338        13381
+3 Korea      51269185         9304         8428         7382         3828
+4 Mongolia    3278290            0            0            0            0
+5 Taiwan     23816775        72846        68293        79616        50567
+# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -1013,7 +1038,7 @@
  8 Japan    126476461 2022/06/11     15338
  9 Japan    126476461 2022/06/12     13381
 10 Japan    126476461 2022/06/13      7942
-# … with 15 more rows</code></pre>
+# ℹ 15 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1030,10 +1055,10 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> 変数が格納されている列,</span>
-<span id="cb31-3"><a href="#cb31-3"></a>               <span class="at">names_to  =</span> <span class="st">"元の列名が入る変数名"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4"></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> 変数が格納されている列,</span>
+<span id="cb32-3"><a href="#cb32-3"></a>               <span class="at">names_to  =</span> <span class="st">"元の列名が入る変数名"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4"></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="pivot_longer-wideからlongへ" class="slide level2">
@@ -1042,11 +1067,11 @@
 <li><code>cols = starts_with("2022")</code>もOK</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>COVID_Long <span class="ot">&lt;-</span> COVID_df <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>)</span>
-<span id="cb32-5"><a href="#cb32-5"></a>COVID_Long</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>COVID_Long <span class="ot">&lt;-</span> COVID_df <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5"></a>COVID_Long</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 4
    Country Population Date       New_Cases
@@ -1061,7 +1086,7 @@
  8 Japan    126476461 2022/06/11     15338
  9 Japan    126476461 2022/06/12     13381
 10 Japan    126476461 2022/06/13      7942
-# … with 15 more rows</code></pre>
+# ℹ 15 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1075,19 +1100,19 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb34-3"><a href="#cb34-3"></a>              <span class="at">values_from =</span> <span class="st">"New_Cases"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3"></a>              <span class="at">values_from =</span> <span class="st">"New_Cases"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
-  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²
-  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 China    1447470092          819          848         1114         990     957
-2 Japan     126476461        16788        15584        15338       13381    7942
-3 Korea      51269185         9304         8428         7382        3828    9768
-4 Mongolia    3278290            0            0            0           0    1055
-5 Taiwan     23816775        72846        68293        79616       50567   45100
-# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`</code></pre>
+  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`
+  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 China    1447470092          819          848         1114          990
+2 Japan     126476461        16788        15584        15338        13381
+3 Korea      51269185         9304         8428         7382         3828
+4 Mongolia    3278290            0            0            0            0
+5 Taiwan     23816775        72846        68293        79616        50567
+# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -1098,19 +1123,19 @@
 <li><strong>例)</strong> <code>Date</code>列を<code>"/"</code>を基準に分割する</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"分割する列名"</span>,</span>
-<span id="cb36-3"><a href="#cb36-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"分割後の列名1"</span>, <span class="st">"分割後の列名2"</span>, ...),</span>
-<span id="cb36-4"><a href="#cb36-4"></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>データ <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"分割する列名"</span>,</span>
+<span id="cb37-3"><a href="#cb37-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"分割後の列名1"</span>, <span class="st">"分割後の列名2"</span>, ...),</span>
+<span id="cb37-4"><a href="#cb37-4"></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="separate-列の分割-1" class="slide level2">
 <h2><code>separate()</code>: 列の分割</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb37-3"><a href="#cb37-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Month"</span>, <span class="st">"Day"</span>),</span>
-<span id="cb37-4"><a href="#cb37-4"></a>           <span class="at">sep  =</span> <span class="st">"/"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb38-3"><a href="#cb38-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Month"</span>, <span class="st">"Day"</span>),</span>
+<span id="cb38-4"><a href="#cb38-4"></a>           <span class="at">sep  =</span> <span class="st">"/"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 6
    Country Population Year  Month Day   New_Cases
@@ -1125,7 +1150,7 @@
  8 Japan    126476461 2022  06    11        15338
  9 Japan    126476461 2022  06    12        13381
 10 Japan    126476461 2022  06    13         7942
-# … with 15 more rows</code></pre>
+# ℹ 15 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1153,19 +1178,19 @@
 </section>
 <section id="列の分割番外編-特定の記号がない場合続" class="slide level2">
 <h2>列の分割（番外編）: 特定の記号がない場合（続）</h2>
-<p><strong>正則表現（regular expression）</strong>の知識が必要</p>
+<p><strong>正規表現（regular expression; 正則表現）</strong>の知識が必要</p>
 <ul>
 <li>テキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>City_Data <span class="sc">|&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>   <span class="co"># 任意の2文字の後に「都道府県」のいずれかが来るか、</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>   <span class="co"># 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a>   <span class="co"># Cityの値を「ブロック1-ブロック2」に置換する</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a>   <span class="fu">mutate</span>(<span class="at">City =</span> <span class="fu">str_replace</span>(City, <span class="st">"^(.{2}[都道府県]|.{3}県)(.+)"</span>, </span>
-<span id="cb40-6"><a href="#cb40-6"></a>                             <span class="st">"</span><span class="sc">\\</span><span class="st">1-</span><span class="sc">\\</span><span class="st">2"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-7"><a href="#cb40-7"></a>   <span class="co"># 「-」を基準に列を分割</span></span>
-<span id="cb40-8"><a href="#cb40-8"></a>   <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"City"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Pref"</span>, <span class="st">"City"</span>), <span class="at">sep  =</span> <span class="st">"-"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>City_Data <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>   <span class="co"># 任意の2文字の後に「都道府県」のいずれかが来るか、</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>   <span class="co"># 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>   <span class="co"># Cityの値を「ブロック1-ブロック2」に置換する</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a>   <span class="fu">mutate</span>(<span class="at">City =</span> <span class="fu">str_replace</span>(City, <span class="st">"^(.{2}[都道府県]|.{3}県)(.+)"</span>, </span>
+<span id="cb41-6"><a href="#cb41-6"></a>                             <span class="st">"</span><span class="sc">\\</span><span class="st">1-</span><span class="sc">\\</span><span class="st">2"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a>   <span class="co"># 「-」を基準に列を分割</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a>   <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"City"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Pref"</span>, <span class="st">"City"</span>), <span class="at">sep  =</span> <span class="st">"-"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   Pref     City          Pop
@@ -1185,13 +1210,13 @@
 <li><strong>例)</strong> 100万人当たりの新規感染者数を計算し、国ごとに平均値を計算</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
-<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
-<span id="cb42-3"><a href="#cb42-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb42-4"><a href="#cb42-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-5"><a href="#cb42-5"></a>   <span class="fu">mutate</span>(<span class="at">New_Case_per_1M =</span> New_Cases <span class="sc">/</span> Population <span class="sc">*</span> <span class="dv">1000000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a>   <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a>   <span class="fu">summarise</span>(<span class="at">New_Case_per_1M =</span> <span class="fu">mean</span>(New_Case_per_1M))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
+<span id="cb43-3"><a href="#cb43-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a>   <span class="fu">mutate</span>(<span class="at">New_Case_per_1M =</span> New_Cases <span class="sc">/</span> Population <span class="sc">*</span> <span class="dv">1000000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>   <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a>   <span class="fu">summarise</span>(<span class="at">New_Case_per_1M =</span> <span class="fu">mean</span>(New_Case_per_1M))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   Country  New_Case_per_1M
@@ -1226,27 +1251,46 @@
 <h2>長過ぎるコードブロックの例</h2>
 <p>慣れたらこれくらいは長い方でもないが…</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
-<span id="cb44-3"><a href="#cb44-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb44-4"><a href="#cb44-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">mutate</span>(<span class="at">New_Case_per_1M =</span> New_Cases <span class="sc">/</span> Population <span class="sc">*</span> <span class="dv">1000000</span>,</span>
-<span id="cb44-6"><a href="#cb44-6"></a>         <span class="at">Country         =</span> <span class="fu">recode</span>(Country,</span>
-<span id="cb44-7"><a href="#cb44-7"></a>                                  <span class="st">"China"</span>    <span class="ot">=</span> <span class="st">"中国"</span>,</span>
-<span id="cb44-8"><a href="#cb44-8"></a>                                  <span class="st">"Japan"</span>    <span class="ot">=</span> <span class="st">"日本"</span>,</span>
-<span id="cb44-9"><a href="#cb44-9"></a>                                  <span class="st">"Korea"</span>    <span class="ot">=</span> <span class="st">"韓国"</span>,</span>
-<span id="cb44-10"><a href="#cb44-10"></a>                                  <span class="st">"Mongolia"</span> <span class="ot">=</span> <span class="st">"モンゴル"</span>,</span>
-<span id="cb44-11"><a href="#cb44-11"></a>                                  <span class="st">"Taiwan"</span>   <span class="ot">=</span> <span class="st">"台湾"</span>),</span>
-<span id="cb44-12"><a href="#cb44-12"></a>         <span class="at">Country         =</span> <span class="fu">factor</span>(Country, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"中国"</span>, <span class="st">"日本"</span>, <span class="st">"韓国"</span>, </span>
-<span id="cb44-13"><a href="#cb44-13"></a>                                                      <span class="st">"モンゴル"</span>, <span class="st">"台湾"</span>)),</span>
-<span id="cb44-14"><a href="#cb44-14"></a>         <span class="at">Date            =</span> <span class="fu">as.Date</span>(Date),</span>
-<span id="cb44-15"><a href="#cb44-15"></a>         <span class="at">Date            =</span> <span class="fu">format</span>(Date, <span class="st">"%Y-%m-%d"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb44-16"><a href="#cb44-16"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> New_Case_per_1M, <span class="at">group =</span> Country, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
-<span id="cb44-17"><a href="#cb44-17"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb44-18"><a href="#cb44-18"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日付"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, <span class="at">color =</span> <span class="st">"国"</span>) <span class="sc">+</span></span>
-<span id="cb44-19"><a href="#cb44-19"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb44-20"><a href="#cb44-20"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">mutate</span>(<span class="at">New_Case_per_1M =</span> New_Cases <span class="sc">/</span> Population <span class="sc">*</span> <span class="dv">1000000</span>,</span>
+<span id="cb45-6"><a href="#cb45-6"></a>         <span class="at">Country         =</span> <span class="fu">case_when</span>(Country <span class="sc">==</span> <span class="st">"China"</span>    <span class="sc">~</span> <span class="st">"中国"</span>,</span>
+<span id="cb45-7"><a href="#cb45-7"></a>                                     Country <span class="sc">==</span> <span class="st">"Japan"</span>    <span class="sc">~</span> <span class="st">"日本"</span>,</span>
+<span id="cb45-8"><a href="#cb45-8"></a>                                     Country <span class="sc">==</span> <span class="st">"Korea"</span>    <span class="sc">~</span> <span class="st">"韓国"</span>,</span>
+<span id="cb45-9"><a href="#cb45-9"></a>                                     Country <span class="sc">==</span> <span class="st">"Mongolia"</span> <span class="sc">~</span> <span class="st">"モンゴル"</span>,</span>
+<span id="cb45-10"><a href="#cb45-10"></a>                                     <span class="cn">TRUE</span>                  <span class="sc">~</span> <span class="st">"台湾"</span>),</span>
+<span id="cb45-11"><a href="#cb45-11"></a>         <span class="at">Country         =</span> <span class="fu">factor</span>(Country, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"中国"</span>, <span class="st">"日本"</span>, <span class="st">"韓国"</span>, <span class="st">"モンゴル"</span>, <span class="st">"台湾"</span>)),</span>
+<span id="cb45-12"><a href="#cb45-12"></a>         <span class="at">Date            =</span> <span class="fu">as.Date</span>(Date),</span>
+<span id="cb45-13"><a href="#cb45-13"></a>         <span class="at">Date            =</span> <span class="fu">format</span>(Date, <span class="st">"%Y-%m-%d"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb45-14"><a href="#cb45-14"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> New_Case_per_1M, <span class="at">group =</span> Country)) <span class="sc">+</span></span>
+<span id="cb45-15"><a href="#cb45-15"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb45-16"><a href="#cb45-16"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Country), </span>
+<span id="cb45-17"><a href="#cb45-17"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb45-18"><a href="#cb45-18"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日付"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb45-19"><a href="#cb45-19"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb45-20"><a href="#cb45-20"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb45-21"><a href="#cb45-21"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="学習方法について課題を含む" class="slide level2">
+<h2>学習方法について（課題を含む）</h2>
+<ul>
+<li>必要なコード、箇所だけを見ても分からない。
+<ul>
+<li>講義スライド・資料・教科書は<strong>辞書ではない</strong>。</li>
+<li>第11章を理解するためには第1〜10章の内容が前提</li>
+<li>プログラミング言語は積み重ねと反復が重要</li>
+<li>授業で「1 + 5」を教えるのは「+」の意味を教えるためであり、課題・テストには「1 + 5」でなく、「3 + 99」が出る。</li>
+</ul></li>
+<li>「コード」の見方・構造に慣れること。
+<ul>
+<li>コードをブロックの組み合わせとして考える。</li>
+<li>そのためにも空白、改行、字下げは重要</li>
+</ul></li>
+<li>スライドは説明がかなり省略されているため、講義資料と教科書も合わせて読むこと。</li>
+</ul>
 </section>
 <section id="来週以降の内容" class="slide level2">
 <h2>来週以降の内容</h2>

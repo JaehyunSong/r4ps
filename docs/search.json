@@ -690,7 +690,7 @@
     "href": "slides/micro/handling3.html#実習用データ",
     "title": "ミクロ政治データ分析実習",
     "section": "実習用データ",
-    "text": "実習用データ\ncovid_sample.csv: 中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数\n\nサポートページからダウンロード\nデータ出典:Johns Hopkins University Center for Systems Science and Engineering\n\n\nCOVID_df &lt;- read_csv(\"Data/covid_sample.csv\")\nCOVID_df\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;\n1 China    1447470092          819          848         1114         990     957\n2 Japan     126476461        16788        15584        15338       13381    7942\n3 Korea      51269185         9304         8428         7382        3828    9768\n4 Mongolia    3278290            0            0            0           0    1055\n5 Taiwan     23816775        72846        68293        79616       50567   45100\n# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`"
+    "text": "実習用データ\ncovid_sample.csv: 中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数\n\nサポートページからダウンロード\nデータ出典:Johns Hopkins University Center for Systems Science and Engineering\n\n\nCOVID_df &lt;- read_csv(\"Data/covid_sample.csv\")\nCOVID_df\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n1 China    1447470092          819          848         1114          990\n2 Japan     126476461        16788        15584        15338        13381\n3 Korea      51269185         9304         8428         7382         3828\n4 Mongolia    3278290            0            0            0            0\n5 Taiwan     23816775        72846        68293        79616        50567\n# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;"
   },
   {
     "objectID": "slides/micro/handling3.html#このデータの問題点",
@@ -704,7 +704,7 @@
     "href": "slides/micro/handling3.html#wide型からlong型へ",
     "title": "ミクロ政治データ分析実習",
     "section": "Wide型からLong型へ",
-    "text": "Wide型からLong型へ\n\n整然なCOVID_dfの構造は?\n\n5列を1列にまとめるため、縦に長くなる\nWideからLongへ\n\n\n\n\n# A tibble: 25 × 4\n   Country Population Date       New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;\n 1 China   1447470092 2022/06/09       819\n 2 China   1447470092 2022/06/10       848\n 3 China   1447470092 2022/06/11      1114\n 4 China   1447470092 2022/06/12       990\n 5 China   1447470092 2022/06/13       957\n 6 Japan    126476461 2022/06/09     16788\n 7 Japan    126476461 2022/06/10     15584\n 8 Japan    126476461 2022/06/11     15338\n 9 Japan    126476461 2022/06/12     13381\n10 Japan    126476461 2022/06/13      7942\n# … with 15 more rows"
+    "text": "Wide型からLong型へ\n\n整然なCOVID_dfの構造は?\n\n5列を1列にまとめるため、縦に長くなる\nWideからLongへ\n\n\n\n\n# A tibble: 25 × 4\n   Country Population Date       New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;\n 1 China   1447470092 2022/06/09       819\n 2 China   1447470092 2022/06/10       848\n 3 China   1447470092 2022/06/11      1114\n 4 China   1447470092 2022/06/12       990\n 5 China   1447470092 2022/06/13       957\n 6 Japan    126476461 2022/06/09     16788\n 7 Japan    126476461 2022/06/10     15584\n 8 Japan    126476461 2022/06/11     15338\n 9 Japan    126476461 2022/06/12     13381\n10 Japan    126476461 2022/06/13      7942\n# ℹ 15 more rows"
   },
   {
     "objectID": "slides/micro/handling3.html#pivot_longer-wide-to-long",
@@ -718,14 +718,14 @@
     "href": "slides/micro/handling3.html#pivot_longer-wideからlongへ",
     "title": "ミクロ政治データ分析実習",
     "section": "pivot_longer(): WideからLongへ",
-    "text": "pivot_longer(): WideからLongへ\n\ncols = starts_with(\"2022\")もOK\n\n\nCOVID_Long &lt;- COVID_df |&gt; \n  pivot_longer(cols      = \"2022/06/09\":\"2022/06/13\",\n               names_to  = \"Date\",\n               values_to = \"New_Cases\")\nCOVID_Long\n\n# A tibble: 25 × 4\n   Country Population Date       New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;\n 1 China   1447470092 2022/06/09       819\n 2 China   1447470092 2022/06/10       848\n 3 China   1447470092 2022/06/11      1114\n 4 China   1447470092 2022/06/12       990\n 5 China   1447470092 2022/06/13       957\n 6 Japan    126476461 2022/06/09     16788\n 7 Japan    126476461 2022/06/10     15584\n 8 Japan    126476461 2022/06/11     15338\n 9 Japan    126476461 2022/06/12     13381\n10 Japan    126476461 2022/06/13      7942\n# … with 15 more rows"
+    "text": "pivot_longer(): WideからLongへ\n\ncols = starts_with(\"2022\")もOK\n\n\nCOVID_Long &lt;- COVID_df |&gt; \n  pivot_longer(cols      = \"2022/06/09\":\"2022/06/13\",\n               names_to  = \"Date\",\n               values_to = \"New_Cases\")\nCOVID_Long\n\n# A tibble: 25 × 4\n   Country Population Date       New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;\n 1 China   1447470092 2022/06/09       819\n 2 China   1447470092 2022/06/10       848\n 3 China   1447470092 2022/06/11      1114\n 4 China   1447470092 2022/06/12       990\n 5 China   1447470092 2022/06/13       957\n 6 Japan    126476461 2022/06/09     16788\n 7 Japan    126476461 2022/06/10     15584\n 8 Japan    126476461 2022/06/11     15338\n 9 Japan    126476461 2022/06/12     13381\n10 Japan    126476461 2022/06/13      7942\n# ℹ 15 more rows"
   },
   {
     "objectID": "slides/micro/handling3.html#pivot_wider-longからwideへ",
     "href": "slides/micro/handling3.html#pivot_wider-longからwideへ",
     "title": "ミクロ政治データ分析実習",
     "section": "pivot_wider(): LongからWideへ",
-    "text": "pivot_wider(): LongからWideへ\n\nLong型をWide型へ戻す関数\n\n人間にとってはLong型よりWide型の方が読みやすいケースも多い\n1列に2つの変数が入っている場合もある\n\n\n\nCOVID_Long |&gt;\n  pivot_wider(names_from  = \"Date\",\n              values_from = \"New_Cases\")\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` 2022/06/1…¹ 2022/…²\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;\n1 China    1447470092          819          848         1114         990     957\n2 Japan     126476461        16788        15584        15338       13381    7942\n3 Korea      51269185         9304         8428         7382        3828    9768\n4 Mongolia    3278290            0            0            0           0    1055\n5 Taiwan     23816775        72846        68293        79616       50567   45100\n# … with abbreviated variable names ¹​`2022/06/12`, ²​`2022/06/13`"
+    "text": "pivot_wider(): LongからWideへ\n\nLong型をWide型へ戻す関数\n\n人間にとってはLong型よりWide型の方が読みやすいケースも多い\n1列に2つの変数が入っている場合もある\n\n\n\nCOVID_Long |&gt;\n  pivot_wider(names_from  = \"Date\",\n              values_from = \"New_Cases\")\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n1 China    1447470092          819          848         1114          990\n2 Japan     126476461        16788        15584        15338        13381\n3 Korea      51269185         9304         8428         7382         3828\n4 Mongolia    3278290            0            0            0            0\n5 Taiwan     23816775        72846        68293        79616        50567\n# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;"
   },
   {
     "objectID": "slides/micro/handling3.html#separate-列の分割",
@@ -739,7 +739,7 @@
     "href": "slides/micro/handling3.html#separate-列の分割-1",
     "title": "ミクロ政治データ分析実習",
     "section": "separate(): 列の分割",
-    "text": "separate(): 列の分割\n\nCOVID_Long |&gt;\n  separate(col  = \"Date\",\n           into = c(\"Year\", \"Month\", \"Day\"),\n           sep  = \"/\")\n\n# A tibble: 25 × 6\n   Country Population Year  Month Day   New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1 China   1447470092 2022  06    09          819\n 2 China   1447470092 2022  06    10          848\n 3 China   1447470092 2022  06    11         1114\n 4 China   1447470092 2022  06    12          990\n 5 China   1447470092 2022  06    13          957\n 6 Japan    126476461 2022  06    09        16788\n 7 Japan    126476461 2022  06    10        15584\n 8 Japan    126476461 2022  06    11        15338\n 9 Japan    126476461 2022  06    12        13381\n10 Japan    126476461 2022  06    13         7942\n# … with 15 more rows"
+    "text": "separate(): 列の分割\n\nCOVID_Long |&gt;\n  separate(col  = \"Date\",\n           into = c(\"Year\", \"Month\", \"Day\"),\n           sep  = \"/\")\n\n# A tibble: 25 × 6\n   Country Population Year  Month Day   New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1 China   1447470092 2022  06    09          819\n 2 China   1447470092 2022  06    10          848\n 3 China   1447470092 2022  06    11         1114\n 4 China   1447470092 2022  06    12          990\n 5 China   1447470092 2022  06    13          957\n 6 Japan    126476461 2022  06    09        16788\n 7 Japan    126476461 2022  06    10        15584\n 8 Japan    126476461 2022  06    11        15338\n 9 Japan    126476461 2022  06    12        13381\n10 Japan    126476461 2022  06    13         7942\n# ℹ 15 more rows"
   },
   {
     "objectID": "slides/micro/handling3.html#列の分割番外編-特定の記号がない場合",
@@ -753,7 +753,7 @@
     "href": "slides/micro/handling3.html#列の分割番外編-特定の記号がない場合続",
     "title": "ミクロ政治データ分析実習",
     "section": "列の分割（番外編）: 特定の記号がない場合（続）",
-    "text": "列の分割（番外編）: 特定の記号がない場合（続）\n正則表現（regular expression）の知識が必要\n\nテキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）\n\n\nCity_Data |&gt;\n   # 任意の2文字の後に「都道府県」のいずれかが来るか、\n   # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする\n   # Cityの値を「ブロック1-ブロック2」に置換する\n   mutate(City = str_replace(City, \"^(.{2}[都道府県]|.{3}県)(.+)\", \n                             \"\\\\1-\\\\2\")) |&gt;\n   # 「-」を基準に列を分割\n   separate(col  = \"City\", into = c(\"Pref\", \"City\"), sep  = \"-\")\n\n# A tibble: 4 × 3\n  Pref     City          Pop\n  &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;\n1 北海道   音威子府村    693\n2 大阪府   高槻市     347424\n3 広島県   府中市      36471\n4 鹿児島県 指宿市      38207"
+    "text": "列の分割（番外編）: 特定の記号がない場合（続）\n正規表現（regular expression; 正則表現）の知識が必要\n\nテキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）\n\n\nCity_Data |&gt;\n   # 任意の2文字の後に「都道府県」のいずれかが来るか、\n   # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする\n   # Cityの値を「ブロック1-ブロック2」に置換する\n   mutate(City = str_replace(City, \"^(.{2}[都道府県]|.{3}県)(.+)\", \n                             \"\\\\1-\\\\2\")) |&gt;\n   # 「-」を基準に列を分割\n   separate(col  = \"City\", into = c(\"Pref\", \"City\"), sep  = \"-\")\n\n# A tibble: 4 × 3\n  Pref     City          Pop\n  &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;\n1 北海道   音威子府村    693\n2 大阪府   高槻市     347424\n3 広島県   府中市      36471\n4 鹿児島県 指宿市      38207"
   },
   {
     "objectID": "slides/micro/handling3.html#tidyrとdplyrの組み合わせ",
@@ -774,7 +774,7 @@
     "href": "slides/micro/handling3.html#長過ぎるコードブロックの例",
     "title": "ミクロ政治データ分析実習",
     "section": "長過ぎるコードブロックの例",
-    "text": "長過ぎるコードブロックの例\n慣れたらこれくらいは長い方でもないが…\n\nCOVID_df |&gt; \n  pivot_longer(cols      = \"2022/06/09\":\"2022/06/13\",\n               names_to  = \"Date\",\n               values_to = \"New_Cases\") |&gt;\n  mutate(New_Case_per_1M = New_Cases / Population * 1000000,\n         Country         = recode(Country,\n                                  \"China\"    = \"中国\",\n                                  \"Japan\"    = \"日本\",\n                                  \"Korea\"    = \"韓国\",\n                                  \"Mongolia\" = \"モンゴル\",\n                                  \"Taiwan\"   = \"台湾\"),\n         Country         = factor(Country, levels = c(\"中国\", \"日本\", \"韓国\", \n                                                      \"モンゴル\", \"台湾\")),\n         Date            = as.Date(Date),\n         Date            = format(Date, \"%Y-%m-%d\")) |&gt;\n  ggplot(aes(x = Date, y = New_Case_per_1M, group = Country, color = Country)) +\n  geom_line(size = 2) +\n  labs(x = \"日付\", y = \"100万人当たり新規感染者数 (人)\", color = \"国\") +\n  theme_minimal(base_size = 16) +\n  theme(legend.position = \"bottom\")"
+    "text": "長過ぎるコードブロックの例\n慣れたらこれくらいは長い方でもないが…\n\nCOVID_df |&gt; \n  pivot_longer(cols      = \"2022/06/09\":\"2022/06/13\",\n               names_to  = \"Date\",\n               values_to = \"New_Cases\") |&gt;\n  mutate(New_Case_per_1M = New_Cases / Population * 1000000,\n         Country         = case_when(Country == \"China\"    ~ \"中国\",\n                                     Country == \"Japan\"    ~ \"日本\",\n                                     Country == \"Korea\"    ~ \"韓国\",\n                                     Country == \"Mongolia\" ~ \"モンゴル\",\n                                     TRUE                  ~ \"台湾\"),\n         Country         = factor(Country, levels = c(\"中国\", \"日本\", \"韓国\", \"モンゴル\", \"台湾\")),\n         Date            = as.Date(Date),\n         Date            = format(Date, \"%Y-%m-%d\")) |&gt;\n  ggplot(aes(x = Date, y = New_Case_per_1M, group = Country)) +\n  geom_line(aes(color = Country), linewidth = 1) +\n  geom_point(aes(fill = Country), \n             shape = 21, color = \"white\", size = 3) +\n  labs(x = \"日付\", y = \"100万人当たり新規感染者数 (人)\", color = \"\") +\n  guides(fill = \"none\") +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")"
   },
   {
     "objectID": "slides/micro/handling3.html#来週以降の内容",
@@ -6256,5 +6256,19 @@
     "title": "ミクロ政治データ分析実習",
     "section": "NAではない欠損値もあることに注意",
     "text": "NAではない欠損値もあることに注意\n世論調査などの場合、欠損値がNAでなく、9や99、\"\"などの場合がある。\n例) my_dataの例\n\nYoungAge変数を作成し、Ageが39以下なら1、それ以外は0にする。ただし、999ならNAとする。\nHighEduc2変数を作成し、HighEducが1なら\"大卒以上\"、それ以外は\"大卒未満\"にする。ただし、9ならNAとする。\n\n\n\n\nmy_data &lt;- tibble(ID       = 1:10,\n                  Age      = c(32, 35, 57, 999, 74, \n                               66, 999, 49, 78, 67),\n                  HighEduc = c(1, 0, 0, 1, 0,\n                               9, 1, 1, 9, 9))\n\n\n\nmy_data\n\n# A tibble: 10 × 3\n      ID   Age HighEduc\n   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1     1    32        1\n 2     2    35        0\n 3     3    57        0\n 4     4   999        1\n 5     5    74        0\n 6     6    66        9\n 7     7   999        1\n 8     8    49        1\n 9     9    78        9\n10    10    67        9"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#授業開始前に",
+    "href": "slides/micro/handling3.html#授業開始前に",
+    "title": "ミクロ政治データ分析実習",
+    "section": "授業開始前に",
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\n\n# covid_sampleのアップロード先に応じて、パスを適宜修正すること\ndf &lt;- read_csv(\"Data/covid_sample.csv\")\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#学習方法について課題を含む",
+    "href": "slides/micro/handling3.html#学習方法について課題を含む",
+    "title": "ミクロ政治データ分析実習",
+    "section": "学習方法について（課題を含む）",
+    "text": "学習方法について（課題を含む）\n\n必要なコード、箇所だけを見ても分からない。\n\n講義スライド・資料・教科書は辞書ではない。\n第11章を理解するためには第1〜10章の内容が前提\nプログラミング言語は積み重ねと反復が重要\n授業で「1 + 5」を教えるのは「+」の意味を教えるためであり、課題・テストには「1 + 5」でなく、「3 + 99」が出る。\n\n「コード」の見方・構造に慣れること。\n\nコードをブロックの組み合わせとして考える。\nそのためにも空白、改行、字下げは重要\n\nスライドは説明がかなり省略されているため、講義資料と教科書も合わせて読むこと。"
   }
 ]
