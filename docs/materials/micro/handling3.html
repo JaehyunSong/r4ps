@@ -1079,7 +1079,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="整然データ構造" class="level2">
 <h2 class="anchored" data-anchor-id="整然データ構造">整然データ構造</h2>
-<p>　Tidy dataとはHadley Wickhamが提唱した<strong>データ分析に適したデータ構造</strong>であり、日本語では<strong>整然データ</strong>、または簡潔データとも訳される。整然データはパソコンにとって読みやすいデータであり、Rにおける多くの分析はこの整然データを基づいて行われる。ただし、パソコンにとって読みやすいデータが必ずしも人間にとって読みやすいデータであることを意味するわけではない。2つが一致する場合もあれば、一致しない場合もある。{tidyr}パッケージは整然ではないデータ（=雑然データ）を整然データへ変形するパッケージであり、次回紹介する{ggplot2}は整然データを前提として開発されたパッケージである。</p>
+<p>　Tidy dataとは<a href="https://hadley.nz/">Hadley Wickham</a>が提唱した<strong>データ分析に適したデータ構造</strong>であり、日本語では<strong>整然データ</strong>、または簡潔データとも訳される。整然データはパソコンにとって読みやすいデータであり、Rにおける多くの分析はこの整然データを基づいて行われる。ただし、パソコンにとって読みやすいデータが必ずしも人間にとって読みやすいデータであることを意味するわけではない。2つが一致する場合もあれば、一致しない場合もある。{tidyr}パッケージは整然ではないデータ（=雑然データ）を整然データへ変形するパッケージであり、次回紹介する{ggplot2}は整然データを前提として開発されたパッケージである。</p>
 <section id="つの原則" class="level3">
 <h3 class="anchored" data-anchor-id="つの原則">4つの原則</h3>
 <p>　整然データには4つの原則がある。</p>
@@ -1144,12 +1144,33 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </figure>
 </div>
 <p>　{tidyr}パッケージは雑然データから整然データへ変形をサポートするパッケージである。主に使う関数は以下の3つである。</p>
-<ul>
-<li><code>pivot_longer()</code>: Wide型データ<span class="math inline">\(\rightarrow\)</span>Long型データ</li>
-<li><code>pivot_wider()</code>: Long型データ<span class="math inline">\(\rightarrow\)</span>Wide型データ</li>
-<li><code>separate()</code>: セルの分割（例:「年月日」から「年」、「月」、「日」へ）</li>
-</ul>
-<p>　それでは、サポートページの「データ州」実習用データ（<code>covid_sample.csv</code>）をダウンロードし、読み込んでみよう。このデータは中国、日本、韓国、モンゴル、台湾（アルファベット順）の5日間COVID-19新規感染者数データであり、<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a>から入手したものである。</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">関数名</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>pivot_longer()</code></td>
+<td style="text-align: left;">Wide型データ　<span class="math inline">\(\rightarrow\)</span>　Long型データ</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pivot_wider()</code></td>
+<td style="text-align: left;">Long型データ　<span class="math inline">\(\rightarrow\)</span>　Wide型データ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>separate()</code></td>
+<td style="text-align: left;">セルの分割（例:「年月日」から「年」、「月」、「日」へ）</td>
+</tr>
+</tbody>
+</table>
+<p>　それでは、LMSから実習用データ（<code>covid_sample.csv</code>）をダウンロードし、読み込んでみよう。このデータは中国、日本、韓国、モンゴル、台湾（アルファベット順）の5日間COVID-19新規感染者数データであり、<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a>から入手したものである。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1216,7 +1237,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <p>逆に、long型データをwide型データへ整形する際は<code>pivot_wider()</code>を使用する。雑然データはwide型データが多いとは既に説明したが、雑然データの方が<strong>人間にとっては</strong>読みやすい場合もある。上の新型コロナのデータもwide型の方が読みやすい人もいるだろう。データ分析に適したデータは整然データであるが、報告に適したデータとしては必ずしもこの関係は成立しない。図表を作成する際は常に読む側の立場から考える必要があろう。</p>
-<p>　この<code>pivot_wider()</code>関数の使い方は<code>pivot_longer()</code>の類似している。<code>names_to</code>と<code>values_to</code>がそれぞれ<code>naems_from</code>と<code>values_from</code>に変わっただけである。</p>
+<p>　この<code>pivot_wider()</code>関数の使い方は<code>pivot_longer()</code>の類似している。<code>names_to</code>と<code>values_to</code>がそれぞれ<code>names_from</code>と<code>values_from</code>に変わっただけである。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1237,6 +1258,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 5 Taiwan     23816775        72846        68293        79616        50567
 # ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;</code></pre>
 </div>
+</div>
+<p>　以上の<code>pivot_longer()</code>と<code>pivot_wider()</code>の関係を示したものが以下の画像です。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Figs/handling3/wide_long.gif" class="img-fluid figure-img"></p>
+</figure>
 </div>
 <p>　最後にセルの値を分割する<code>separate()</code>関数について解説する。たとえば、月や曜日ごとの新規感染者数をまとめようとした場合、時点の列が「YYYY年MM月DD日」になっていては困る。これらの年、月、日に分割する必要があろう。先ほど作成した<code>COVID_Long</code>の<code>Date</code>列を<code>Year</code>、<code>Month</code>、<code>Day</code>に分けてみよう。</p>
 <p>　<code>col</code>は分割する列の名前を、<code>into</code>には分割後の列名を、<code>sep</code>は分割の区切りとなる記号などを指定する。</p>
@@ -1279,7 +1306,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 # ℹ 15 more rows</code></pre>
 </div>
 </div>
-<p>　もし、区切りとなる記号が存在しない場合は、<strong>正規表現（regular expression; 「正則表現」とも約される）</strong>の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。</p>
+<p>　もし、区切りとなる記号が存在しない場合は、<strong>正規表現（regular expression; 「正則表現」とも訳される）</strong>の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1366,9 +1393,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <ul>
 <li>『私たちのR: ベストプラクティスの探求』
 <ul>
-<li>「<a href="https://www.jaysong.net/RBook/datahandling2.html">データハンドリング[拡張]</a>」</li>
-<li>「<a href="https://www.jaysong.net/RBook/tidydata.html">整然データ構造</a>」</li>
+<li><a href="https://www.jaysong.net/RBook/datahandling2.html">データハンドリング[拡張]</a></li>
+<li><a href="https://www.jaysong.net/RBook/tidydata.html">整然データ構造</a></li>
 </ul></li>
+<li>{tidyr}の公式ホームページ：<a href="https://tidyr.tidyverse.org/" class="uri">https://tidyr.tidyverse.org/</a></li>
+<li>{dplyr}の公式ホームページ：<a href="https://dplyr.tidyverse.org/" class="uri">https://dplyr.tidyverse.org/</a></li>
 </ul>
 
 

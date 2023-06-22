@@ -320,7 +320,7 @@ left_join(df3, df4, by = c("Country", "Year"))
 
 ## 整然データ構造
 
-　Tidy dataとはHadley Wickhamが提唱した**データ分析に適したデータ構造**であり、日本語では**整然データ**、または簡潔データとも訳される。整然データはパソコンにとって読みやすいデータであり、Rにおける多くの分析はこの整然データを基づいて行われる。ただし、パソコンにとって読みやすいデータが必ずしも人間にとって読みやすいデータであることを意味するわけではない。2つが一致する場合もあれば、一致しない場合もある。{tidyr}パッケージは整然ではないデータ（=雑然データ）を整然データへ変形するパッケージであり、次回紹介する{ggplot2}は整然データを前提として開発されたパッケージである。
+　Tidy dataとは[Hadley Wickham](https://hadley.nz/)が提唱した**データ分析に適したデータ構造**であり、日本語では**整然データ**、または簡潔データとも訳される。整然データはパソコンにとって読みやすいデータであり、Rにおける多くの分析はこの整然データを基づいて行われる。ただし、パソコンにとって読みやすいデータが必ずしも人間にとって読みやすいデータであることを意味するわけではない。2つが一致する場合もあれば、一致しない場合もある。{tidyr}パッケージは整然ではないデータ（=雑然データ）を整然データへ変形するパッケージであり、次回紹介する{ggplot2}は整然データを前提として開発されたパッケージである。
 
 ### 4つの原則
 
@@ -377,11 +377,13 @@ knitr::include_graphics("Figs/handling3/TidyData3.png")
 
 　{tidyr}パッケージは雑然データから整然データへ変形をサポートするパッケージである。主に使う関数は以下の3つである。
 
-* `pivot_longer()`: Wide型データ$\rightarrow$Long型データ
-* `pivot_wider()`: Long型データ$\rightarrow$Wide型データ
-* `separate()`: セルの分割（例:「年月日」から「年」、「月」、「日」へ）
+| 関数名           | 機能                                                    |
+|:-----------------|:--------------------------------------------------------|
+| `pivot_longer()` | Wide型データ　$\rightarrow$　Long型データ               |
+| `pivot_wider()`  | Long型データ　$\rightarrow$　Wide型データ               |
+| `separate()`     | セルの分割（例:「年月日」から「年」、「月」、「日」へ） |
 
-　それでは、サポートページの「データ州」実習用データ（`covid_sample.csv`）をダウンロードし、読み込んでみよう。このデータは中国、日本、韓国、モンゴル、台湾（アルファベット順）の5日間COVID-19新規感染者数データであり、[Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19)から入手したものである。
+　それでは、LMSから実習用データ（`covid_sample.csv`）をダウンロードし、読み込んでみよう。このデータは中国、日本、韓国、モンゴル、台湾（アルファベット順）の5日間COVID-19新規感染者数データであり、[Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19)から入手したものである。
 
 ```{r}
 #| filename: "Code 17"
@@ -420,7 +422,7 @@ COVID_Long
 
  逆に、long型データをwide型データへ整形する際は`pivot_wider()`を使用する。雑然データはwide型データが多いとは既に説明したが、雑然データの方が**人間にとっては**読みやすい場合もある。上の新型コロナのデータもwide型の方が読みやすい人もいるだろう。データ分析に適したデータは整然データであるが、報告に適したデータとしては必ずしもこの関係は成立しない。図表を作成する際は常に読む側の立場から考える必要があろう。
 
-　この`pivot_wider()`関数の使い方は`pivot_longer()`の類似している。`names_to`と`values_to`がそれぞれ`naems_from`と`values_from`に変わっただけである。
+　この`pivot_wider()`関数の使い方は`pivot_longer()`の類似している。`names_to`と`values_to`がそれぞれ`names_from`と`values_from`に変わっただけである。
 
 ```{r}
 #| filename: "Code 20"
@@ -428,6 +430,10 @@ COVID_Long |>
   pivot_wider(names_from  = "Date",
               values_from = "New_Cases")
 ```
+
+　以上の`pivot_longer()`と`pivot_wider()`の関係を示したものが以下の画像です。
+
+![](Figs/handling3/wide_long.gif){fig-align="center"}
 
 　最後にセルの値を分割する`separate()`関数について解説する。たとえば、月や曜日ごとの新規感染者数をまとめようとした場合、時点の列が「YYYY年MM月DD日」になっていては困る。これらの年、月、日に分割する必要があろう。先ほど作成した`COVID_Long`の`Date`列を`Year`、`Month`、`Day`に分けてみよう。
 
@@ -452,7 +458,7 @@ COVID_Long |>
            sep  = "/")
 ```
 
-　もし、区切りとなる記号が存在しない場合は、**正規表現（regular expression; 「正則表現」とも約される）**の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。
+　もし、区切りとなる記号が存在しない場合は、**正規表現（regular expression; 「正則表現」とも訳される）**の知識が必要となる。テキスト分析に興味があるなら必須の知識であるが、本講義の射程外である。ここでは都道府県と市区町村を分けるサンプルコードのみ紹介する。
 
 ```{r}
 #| filename: "Code 23"
@@ -499,5 +505,7 @@ COVID_df |>
 ## 教科書
 
 * 『私たちのR: ベストプラクティスの探求』
-   * 「[データハンドリング[拡張]](https://www.jaysong.net/RBook/datahandling2.html)」
-   * 「[整然データ構造](https://www.jaysong.net/RBook/tidydata.html)」
+   * [データハンドリング[拡張]](https://www.jaysong.net/RBook/datahandling2.html)
+   * [整然データ構造](https://www.jaysong.net/RBook/tidydata.html)
+* {tidyr}の公式ホームページ：<https://tidyr.tidyverse.org/>
+* {dplyr}の公式ホームページ：<https://dplyr.tidyverse.org/>
