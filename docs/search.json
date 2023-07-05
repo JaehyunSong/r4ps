@@ -5765,7 +5765,7 @@
     "href": "slides/micro/visualization1.html#ggplot2のイメージ-1",
     "title": "ミクロ政治データ分析実習",
     "section": "{ggplot2}のイメージ (1)",
-    "text": "{ggplot2}のイメージ (1)\nデータの読み込み&ハンドリング\n\nlibrary(tidyverse)\ndf &lt;- read_csv(\"Data/countries.csv\")\n\ndf &lt;- df |&gt; # OECD変数をリコーディングし、OECD_Jへ\n   mutate(OECD_J = if_else(OECD == 1, \"加盟国\", \"非加盟国\")) |&gt;\n   select(Country, PPP_per_capita, HDI_2018, FH_Status, OECD_J, Continent)\n\ndf\n\n# A tibble: 186 × 6\n   Country             PPP_per_capita HDI_2018 FH_Status OECD_J   Continent\n   &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;    \n 1 Afghanistan                  2125.    0.496 NF        非加盟国 Asia     \n 2 Albania                     13781.    0.791 PF        非加盟国 Europe   \n 3 Algeria                     11324.    0.759 NF        非加盟国 Africa   \n 4 Andorra                        NA     0.857 F         非加盟国 Europe   \n 5 Angola                       6649.    0.574 NF        非加盟国 Africa   \n 6 Antigua and Barbuda         21267.    0.776 F         非加盟国 America  \n 7 Argentina                   22938.    0.83  F         非加盟国 America  \n 8 Armenia                     12974.    0.76  PF        非加盟国 Europe   \n 9 Australia                   50001.    0.938 F         加盟国   Oceania  \n10 Austria                     55824.    0.914 F         加盟国   Europe   \n# … with 176 more rows"
+    "text": "{ggplot2}のイメージ (1)\nデータの読み込み&ハンドリング\n\nlibrary(tidyverse)\ndf &lt;- read_csv(\"Data/countries.csv\")\n\ndf &lt;- df |&gt; # OECD変数をリコーディングし、OECD_Jへ\n   mutate(OECD_J = if_else(OECD == 1, \"加盟国\", \"非加盟国\")) |&gt;\n   select(Country, PPP_per_capita, HDI_2018, FH_Status, OECD_J, Continent)\n\ndf\n\n# A tibble: 186 × 6\n   Country             PPP_per_capita HDI_2018 FH_Status OECD_J   Continent\n   &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;    \n 1 Afghanistan                  2125.    0.496 NF        非加盟国 Asia     \n 2 Albania                     13781.    0.791 PF        非加盟国 Europe   \n 3 Algeria                     11324.    0.759 NF        非加盟国 Africa   \n 4 Andorra                        NA     0.857 F         非加盟国 Europe   \n 5 Angola                       6649.    0.574 NF        非加盟国 Africa   \n 6 Antigua and Barbuda         21267.    0.776 F         非加盟国 America  \n 7 Argentina                   22938.    0.83  F         非加盟国 America  \n 8 Armenia                     12974.    0.76  PF        非加盟国 Europe   \n 9 Australia                   50001.    0.938 F         加盟国   Oceania  \n10 Austria                     55824.    0.914 F         加盟国   Europe   \n# ℹ 176 more rows"
   },
   {
     "objectID": "slides/micro/visualization1.html#ggplot2のイメージ-2",
@@ -5828,7 +5828,7 @@
     "href": "slides/micro/visualization1.html#書き方",
     "title": "ミクロ政治データ分析実習",
     "section": "書き方",
-    "text": "書き方\n\n注意: レイヤーの積み重ねは|&gt;でなく+を使用\n\nオブジェクトを渡すのではなく、レイヤーを足すという意味\n\n可視化はggplot()からスタート\n幾何オブジェクトはgeom_で始まる関数\n幾何オブジェクト内にはmapping =でマッピングが必要。\n\n第一引数であるため、mapping =は省略し、aes()からスタートでOK\n\naes()の中にはグラフ上に出力される点、線、面などがデータのどの変数に対応するかを記述\n\n\nggplot(data = データ) +\n   幾何オブジェクト関数(mapping = aes(マッピング))"
+    "text": "書き方\n\n注意: レイヤーの積み重ねは|&gt;でなく+を使用\n\nオブジェクトを渡すのではなく、レイヤーを足すという意味\n\n可視化はggplot()からスタート\n幾何オブジェクトはgeom_で始まる関数\n幾何オブジェクト内にはmapping =でマッピングが必要。\n\n第一引数であるため、mapping =は省略し、aes()からスタートでOK\n\naes()の中にはグラフ上に出力される点、線、面などがデータのどの変数に対応するかを記述\n\n\nggplot(data = データ) +\n   幾何オブジェクト関数(mapping = aes(マッピング))\n\n通常の書き方\n\nデータ |&gt; \n   ggplot() +\n   幾何オブジェクト関数(aes(マッピング))"
   },
   {
     "objectID": "slides/micro/visualization1.html#データ",
@@ -5884,7 +5884,7 @@
     "href": "slides/micro/visualization1.html#ファセット-facet",
     "title": "ミクロ政治データ分析実習",
     "section": "ファセット (Facet)",
-    "text": "ファセット (Facet)\nグラフを2つ以上の面で分割\n\n例) FH_Stautsの棒グラフを大陸ごとに出力\n\n\n# データの用意\n# 参考) 「\\n」は図内の改行を意味する。\ndf &lt;- df |&gt;\n   mutate(FH_Status = case_when(FH_Status == \"F\"  ~ \"自由\",\n                                FH_Status == \"PF\" ~ \"部分的に\\n自由\",\n                                TRUE              ~ \"不自由\"),\n          FH_Status = factor(FH_Status,\n                             levels = c(\"自由\", \"部分的に\\n自由\", \"不自由\"))) |&gt;\n   drop_na(FH_Status)\n\ndf\n\n# A tibble: 186 × 6\n   Country             PPP_per_capita HDI_2018 FH_Status        OECD_J   Conti…¹\n   &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;            &lt;chr&gt;    &lt;chr&gt;  \n 1 Afghanistan                  2125.    0.496 \"不自由\"         非加盟国 Asia   \n 2 Albania                     13781.    0.791 \"部分的に\\n自由\" 非加盟国 Europe \n 3 Algeria                     11324.    0.759 \"不自由\"         非加盟国 Africa \n 4 Andorra                        NA     0.857 \"自由\"           非加盟国 Europe \n 5 Angola                       6649.    0.574 \"不自由\"         非加盟国 Africa \n 6 Antigua and Barbuda         21267.    0.776 \"自由\"           非加盟国 America\n 7 Argentina                   22938.    0.83  \"自由\"           非加盟国 America\n 8 Armenia                     12974.    0.76  \"部分的に\\n自由\" 非加盟国 Europe \n 9 Australia                   50001.    0.938 \"自由\"           加盟国   Oceania\n10 Austria                     55824.    0.914 \"自由\"           加盟国   Europe \n# … with 176 more rows, and abbreviated variable name ¹​Continent"
+    "text": "ファセット (Facet)\nグラフを2つ以上の面で分割\n\n例) FH_Stautsの棒グラフを大陸ごとに出力\n\n\n# データの用意\n# 参考) 「\\n」は図内の改行を意味する。\ndf &lt;- df |&gt;\n   mutate(FH_Status = case_when(FH_Status == \"F\"  ~ \"自由\",\n                                FH_Status == \"PF\" ~ \"部分的に\\n自由\",\n                                TRUE              ~ \"不自由\"),\n          FH_Status = factor(FH_Status,\n                             levels = c(\"自由\", \"部分的に\\n自由\", \"不自由\"))) |&gt;\n   drop_na(FH_Status)\n\ndf\n\n# A tibble: 186 × 6\n   Country             PPP_per_capita HDI_2018 FH_Status        OECD_J Continent\n   &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;            &lt;chr&gt;  &lt;chr&gt;    \n 1 Afghanistan                  2125.    0.496 \"不自由\"         非加…  Asia     \n 2 Albania                     13781.    0.791 \"部分的に\\n自由\" 非加…  Europe   \n 3 Algeria                     11324.    0.759 \"不自由\"         非加…  Africa   \n 4 Andorra                        NA     0.857 \"自由\"           非加…  Europe   \n 5 Angola                       6649.    0.574 \"不自由\"         非加…  Africa   \n 6 Antigua and Barbuda         21267.    0.776 \"自由\"           非加…  America  \n 7 Argentina                   22938.    0.83  \"自由\"           非加…  America  \n 8 Armenia                     12974.    0.76  \"部分的に\\n自由\" 非加…  Europe   \n 9 Australia                   50001.    0.938 \"自由\"           加盟国 Oceania  \n10 Austria                     55824.    0.914 \"自由\"           加盟国 Europe   \n# ℹ 176 more rows"
   },
   {
     "objectID": "slides/micro/visualization1.html#ファセット分割なし",
@@ -6270,5 +6270,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": "pivot_longer()とpivot_wider()",
     "text": "pivot_longer()とpivot_wider()"
+  },
+  {
+    "objectID": "slides/micro/visualization1.html#データとプロット内の要素の対応",
+    "href": "slides/micro/visualization1.html#データとプロット内の要素の対応",
+    "title": "ミクロ政治データ分析実習",
+    "section": "データとプロット内の要素の対応",
+    "text": "データとプロット内の要素の対応\nプロット内の要素：点、線、面\n\n以下の散布図の場合、各点は横軸上の位置（x）で投票率、縦軸上の位置（y）で現職の得票率を、色（color）で現職の所属政党を表している。"
   }
 ]
