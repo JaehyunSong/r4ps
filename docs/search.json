@@ -137,7 +137,7 @@
     "href": "slides/micro/visualization2.html#文字化けが生じる場合",
     "title": "ミクロ政治データ分析実習",
     "section": "文字化けが生じる場合",
-    "text": "文字化けが生じる場合\nJDCat分析ツールを使用する場合、文字化けは生じない\n\ntheme_*()レイヤーを追加し、base_family = \"日本語フォント\"を指定\ntheme_gray(): {ggplot2}の基本テーマ\n\n他にもtheme_bw()、theme_minimal()など\n\nmacOSの場合、\"HiraginoSans-W3\"、Windowsの場合、\"Yu Gothic\"を指定\n\n\ndf2 |&gt;\n   ggplot() +\n   geom_col(aes(x = Continent_J, y = HDI)) +\n   labs(x = \"大陸\", y = \"人間開発指数の平均値\") +\n   theme_gray(base_family = \"HiraginoSans-W3\")"
+    "text": "文字化けが生じる場合\nJDCat分析ツールを使用する場合、文字化けは生じない\n\ntheme_*()レイヤーを追加し、base_family = \"日本語フォント\"を指定\ntheme_gray(): {ggplot2}の基本テーマ\n\n他にもtheme_bw()、theme_minimal()など\n\nmacOSの場合、\"HiraginoSans-W3\"、Windowsの場合、\"Yu Gothic\"を指定\n\n\ndf2 |&gt;\n   ggplot() +\n   geom_col(aes(x = Continent_J, y = HDI)) +\n   labs(x = \"大陸\", y = \"人間開発指数の平均値\") +\n   theme_gray(base_family = \"HiraginoSans-W3\")\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/micro/visualization2.html#棒の並び替え",
@@ -242,7 +242,7 @@
     "href": "slides/micro/visualization2.html#図の保存-1",
     "title": "ミクロ政治データ分析実習",
     "section": "図の保存",
-    "text": "図の保存\nbar_plot3を保存する例\n\nggsave()関数を利用\n作業フォルダー内のFigsフォルダにFigure1.pngという名で保存\n\n予めFigsフォルダーを作成しておくこと\n\n図のサイズは幅6インチ、高さ3インチ\n保存形式はPNG形式 & 解像度は400\n\n画面表示のみなら最低150、印刷目的なら最低300\n\n{ragg}パッケージをインストールしておく（文字化け防止）\n\n\nggsave(filename = \"Figs/Figure1.png\", # 保存先とファイル名\n       plot     = bar_plot3,          # 保存する図のオブジェクト名\n       width    = 6,                  # 図の幅 (インチ)\n       height   = 3,                  # 図の高さ (インチ)\n       dpi      = 400,                # 解像度\n       device   = ragg::agg_png)      # 文字化け防止"
+    "text": "図の保存\nbar_plot3を保存する例\n\nggsave()関数を利用\n作業フォルダー内のFigsフォルダにFigure1.pngという名で保存\n\n予めFigsフォルダーを作成しておくこと\n\n図のサイズは幅6インチ、高さ3インチ\n保存形式はPNG形式 & 解像度は400\n\n画面表示のみなら最低150、印刷目的なら最低300\n\n{ragg}パッケージをインストールしておく（文字化け防止）\n\n\nggsave(filename = \"Figs/Figure1.png\", # 保存先とファイル名\n       plot     = bar_plot3,          # 保存する図のオブジェクト名\n       width    = 6,                  # 図の幅 (インチ)\n       height   = 3,                  # 図の高さ (インチ)\n       dpi      = 400,                # 解像度\n       device   = ragg::agg_png)      # 文字化け防止\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/micro/visualization2.html#section",
@@ -312,7 +312,7 @@
     "href": "slides/micro/visualization2.html#次元の追加-色分け",
     "title": "ミクロ政治データ分析実習",
     "section": "次元の追加 (色分け)",
-    "text": "次元の追加 (色分け)\nposition = \"identity\"とalpha = 0.5で可能であるが、非推奨\n\nalpha = 1の場合、棒が不透明であるため、0.5程度に調整\n\n\nコード結果\n\n\n\ndf |&gt;\n   mutate(OECD = if_else(OECD == 1, \"OECD Members\", \"Others\")) |&gt;\n   ggplot() +\n   geom_histogram(aes(x = HDI_2018, fill = OECD), position = \"identity\",\n                  binwidth = 0.05, color = \"white\", alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "次元の追加 (色分け)\nposition = \"identity\"とalpha = 0.5で可能であるが、非推奨\n\nalpha = 1の場合、棒が不透明であるため、0.5程度に調整\n\n\nコード結果\n\n\n\ndf |&gt;\n   mutate(OECD = if_else(OECD == 1, \"OECD Members\", \"Others\")) |&gt;\n   ggplot() +\n   geom_histogram(aes(x = HDI_2018, fill = OECD), position = \"identity\",\n                  binwidth = 0.05, color = \"white\", alpha = 0.5)"
   },
   {
     "objectID": "slides/micro/r.html#rとは",
@@ -6277,5 +6277,12 @@
     "title": "ミクロ政治データ分析実習",
     "section": "データとプロット内の要素の対応",
     "text": "データとプロット内の要素の対応\nプロット内の要素：点、線、面\n\n以下の散布図の場合、各点は横軸上の位置（x）で投票率、縦軸上の位置（y）で現職の得票率を、色（color）で現職の所属政党を表している。"
+  },
+  {
+    "objectID": "slides/micro/visualization2.html#図の保存",
+    "href": "slides/micro/visualization2.html#図の保存",
+    "title": "ミクロ政治データ分析実習",
+    "section": "図の保存",
+    "text": "図の保存\nbar_plot3を保存する例\n\nggsave()関数を利用\n作業フォルダー内のFigsフォルダにFigure1.pngという名で保存\n\n予めFigsフォルダーを作成しておくこと\n\n図のサイズは幅6インチ、高さ3インチ\n保存形式はPNG形式 & 解像度は400\n\n画面表示のみなら最低150、印刷目的なら最低300\n\n{ragg}パッケージをインストールしておく（文字化け防止）\n\n\nggsave(filename = \"Figs/Figure1.png\", # 保存先とファイル名\n       plot     = bar_plot3,          # 保存する図のオブジェクト名\n       width    = 6,                  # 図の幅 (インチ)\n       height   = 3,                  # 図の高さ (インチ)\n       dpi      = 400,                # 解像度\n       device   = ragg::agg_png)      # 文字化け防止"
   }
 ]
