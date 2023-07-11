@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.161">
+<meta name="generator" content="quarto-1.4.205">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -398,9 +398,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/logit.html">第11回講義資料</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/logit.html">第11回講義資料</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
@@ -694,10 +694,6 @@ Call:
 glm(formula = Voted ~ Knowledge + Female + Age + Educ + Ideology, 
     family = binomial("logit"), data = df)
 
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.3275  -0.9980   0.5583   0.7739   2.0312  
-
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -3.30579    0.32049 -10.315  &lt; 2e-16 ***
@@ -828,13 +824,10 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Std. Error     z   Pr(&gt;|z|)  2.5 % 97.5 % Knowledge Female Age Educ
-   0.4109    0.02923 14.06 &lt; 2.22e-16 0.3551 0.4692         3      1  20    4
- Ideology
-        5
+ Estimate Pr(&gt;|z|)   S 2.5 % 97.5 % Knowledge Female Age Educ Ideology
+    0.411  0.00285 8.5 0.355  0.469         3      1  20    4        5
 
-Prediction type:  response 
-Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology </code></pre>
+Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology </code></pre>
 </div>
 </div>
 <p>　<code>datagrid()</code>内で変数を特定の値で指定しない場合、その変数は自動的に<strong>平均値</strong>が代入される。たとえば、<code>Knowledge</code>が1〜5の場合の投票参加確率の予測値を計算してみよう。その他の変数はすべて平均値に固定する。計算結果は<code>fit1_pred</code>に格納する。</p>
@@ -849,15 +842,14 @@ Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.hi
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Std. Error     z   Pr(&gt;|z|)  2.5 % 97.5 % Knowledge
-   0.3294   0.027936 11.79 &lt; 2.22e-16 0.2771 0.3863         1
-   0.4705   0.022009 21.38 &lt; 2.22e-16 0.4277 0.5138         2
-   0.6165   0.013584 45.39 &lt; 2.22e-16 0.5896 0.6428         3
-   0.7442   0.009492 78.40 &lt; 2.22e-16 0.7251 0.7623         4
-   0.8403   0.009821 85.56 &lt; 2.22e-16 0.8201 0.8587         5
+ Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology Knowledge
+    0.329   &lt;0.001  25.7 0.277  0.386  0.458 50.9 3.21      5.4         1
+    0.471    0.182   2.5 0.428  0.514  0.458 50.9 3.21      5.4         2
+    0.617   &lt;0.001  52.7 0.590  0.643  0.458 50.9 3.21      5.4         3
+    0.744   &lt;0.001 335.6 0.725  0.762  0.458 50.9 3.21      5.4         4
+    0.840   &lt;0.001 376.1 0.820  0.859  0.458 50.9 3.21      5.4         5
 
-Prediction type:  response 
-Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge </code></pre>
+Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge </code></pre>
 </div>
 </div>
 <p>　<code>Knowledge</code>の値に応じた投票参加の予測確率（0以上、1以下）が<code>Estimate</code>列に出力され、95%信頼区間の下限と上限は<code>2.5%</code>、<code>97.5%</code>列に表示される。ただし、<strong>こちらで表示された列名は本当の列名ではない</strong>。つまり、この<code>fit1_pred</code>を用いて作図をする際、<code>Estimate</code>や<code>2.5%</code>という名前でマッピングすることはできない。今出力された列名はあくまでも読みやすさを重視したものであり、実際の列名は異なる。他にも実際にはあるものの出力されていない列も存在する。すべての列を、本当の列名と共に出力するなら、<code>print()</code>関数を使用し、<code>style = "data.frame"</code>を追加しよう。</p>
@@ -869,18 +861,18 @@ Columns: rowid, type, estimate, std.error, statistic, p.value, conf.low, conf.hi
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit1_pred, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid     type  estimate   std.error statistic       p.value  conf.low
-1     1 response 0.3293996 0.027936256  11.79111  4.337629e-32 0.2771235
-2     2 response 0.4705341 0.022008655  21.37950 2.073214e-101 0.4277233
-3     3 response 0.6165432 0.013584204  45.38677  0.000000e+00 0.5895934
-4     4 response 0.7441789 0.009492179  78.39916  0.000000e+00 0.7251353
-5     5 response 0.8403326 0.009821140  85.56365  0.000000e+00 0.8201318
-  conf.high    Voted   Female      Age     Educ Ideology Knowledge
-1 0.3862676 0.709589 0.458317 50.91155 3.207436 5.400391         1
-2 0.5137829 0.709589 0.458317 50.91155 3.207436 5.400391         2
-3 0.6427954 0.709589 0.458317 50.91155 3.207436 5.400391         3
-4 0.7623355 0.709589 0.458317 50.91155 3.207436 5.400391         4
-5 0.8586556 0.709589 0.458317 50.91155 3.207436 5.400391         5</code></pre>
+<pre><code>  rowid  estimate       p.value    s.value  conf.low conf.high    Voted
+1     1 0.3293996  1.896455e-08  25.652120 0.2771235 0.3862676 0.709589
+2     2 0.4705341  1.816377e-01   2.460865 0.4277233 0.5137829 0.709589
+3     3 0.6165432  1.395535e-16  52.670031 0.5895934 0.6427954 0.709589
+4     4 0.7441789 9.472818e-102 335.592872 0.7251353 0.7623355 0.709589
+5     5 0.8403326 5.872714e-114 376.145775 0.8201318 0.8586556 0.709589
+    Female      Age     Educ Ideology Knowledge
+1 0.458317 50.91155 3.207436 5.400391         1
+2 0.458317 50.91155 3.207436 5.400391         2
+3 0.458317 50.91155 3.207436 5.400391         3
+4 0.458317 50.91155 3.207436 5.400391         4
+5 0.458317 50.91155 3.207436 5.400391         5</code></pre>
 </div>
 </div>
 <p>　<code>Estimate</code>の本当の列名は<code>estimate</code>、<code>2.5%</code>と<code>97.5%</code>の本当の列名は<code>conf.low</code>、<code>conf.high</code>であることが分かる。今回はここまで知らなくても良いかも知れないが、第13回（推定結果の可視化）では、この点を理解しないと絶対に作図できないため注意しておこう。</p>

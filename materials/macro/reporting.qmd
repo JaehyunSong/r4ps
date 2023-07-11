@@ -21,7 +21,7 @@ metadata-files:
 pacman::p_load(tidyverse, gt, summarytools, modelsummary,
                marginaleffects)
 
-# df <- read_csv("slides/Data/M1.csv")
+# df <- read_csv("materials/macro/Data/M1.csv")
 df <- read_csv("Data/M1.csv")
 
 fit_lm     <- lm(Score_Mean ~ Order + First + Duration, data = df)
@@ -49,8 +49,8 @@ df
 
 ```{r}
 #| filename: "Code 02"
-df %>%
-  select(-Name) %>%
+df |>
+  select(-Name) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -114,7 +114,7 @@ lm_pred
 
 ```{r}
 #| filename: "Code 06"
-lm_pred <- lm_pred %>%
+lm_pred <- lm_pred |>
   select(Order, estimate, std.error, conf.low, conf.high)
 
 lm_pred
@@ -126,7 +126,7 @@ lm_pred
 #| filename: "Code 07"
 #| fig-width: 8
 #| fig-height: 4
-lm_pred %>%
+lm_pred |>
   ggplot() +
   geom_pointrange(aes(x = Order, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -141,7 +141,7 @@ lm_pred %>%
 #| filename: "Code 08"
 #| fig-width: 8
 #| fig-height: 4
-lm_pred %>%
+lm_pred |>
   ggplot() +
   geom_pointrange(aes(x = Order, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -157,7 +157,7 @@ lm_pred %>%
 #| filename: "Code 09"
 #| fig-width: 8
 #| fig-height: 4
-lm_pred %>%
+lm_pred |>
   ggplot(aes(x = Order, y = estimate)) +
   geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +
   geom_line() +
@@ -172,7 +172,7 @@ lm_pred %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 5
-lm_pred %>%
+lm_pred |>
   ggplot() +
   geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high),
               fill = "gray80") +
@@ -201,8 +201,8 @@ lm_pred %>%
 #| filename: "Code 10"
 logit_pred <- predictions(fit_logit, newdata = datagrid(Order = 1:10))
 
-logit_pred <- logit_pred %>%
-  select(Order, estimate, std.error, conf.low, conf.high)
+logit_pred <- logit_pred |>
+  select(Order, estimate, conf.low, conf.high)
 
 logit_pred
 ```
@@ -213,7 +213,7 @@ logit_pred
 #| filename: "Code 10"
 #| fig-width: 8
 #| fig-height: 4
-logit_pred %>%
+logit_pred |>
   ggplot() +
   geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率") +
@@ -239,7 +239,7 @@ inter1_pred
 
 ```{r}
 #| filename: "Code 12"
-inter1_pred <- inter1_pred %>%
+inter1_pred <- inter1_pred |>
   select(Order, First, estimate, std.error, conf.low, conf.high)
 
 inter1_pred
@@ -249,7 +249,7 @@ inter1_pred
 
 ```{r}
 #| filename: "Code 13"
-inter1_pred <- inter1_pred %>%
+inter1_pred <- inter1_pred |>
   mutate(First = factor(First, levels = c(0, 1), labels = c("出場経験あり", "初出場")))
 
 inter1_pred
@@ -261,7 +261,7 @@ inter1_pred
 #| filename: "Code 14"
 #| fig-width: 8
 #| fig-height: 4
-inter1_pred %>%
+inter1_pred |>
   ggplot() +
   geom_pointrange(aes(x = Order, y = estimate, 
                       ymin = conf.low, ymax = conf.high,
@@ -278,7 +278,7 @@ inter1_pred %>%
 #| filename: "Code 15"
 #| fig-width: 8
 #| fig-height: 4
-inter1_pred %>%
+inter1_pred |>
   ggplot() +
   geom_line(aes(x = Order, y = estimate, color = First)) +
   labs(x = "出場順番", y = "ファイナルステージへの進出確率", color = "") +
@@ -293,7 +293,7 @@ inter1_pred %>%
 #| filename: "Code 16"
 #| fig-width: 8
 #| fig-height: 4
-inter1_pred %>%
+inter1_pred |>
   ggplot() +
   geom_line(aes(x = Order, y = estimate, color = First)) +
   geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high,
@@ -311,7 +311,7 @@ inter1_pred %>%
 #| filename: "Code 17"
 #| fig-width: 8
 #| fig-height: 4
-inter1_pred %>%
+inter1_pred |>
   ggplot() +
   geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high,
                   fill = First), alpha = 0.3) +
@@ -329,7 +329,7 @@ inter1_pred %>%
 #| filename: "Code 18"
 #| fig-width: 8
 #| fig-height: 4
-inter1_pred %>%
+inter1_pred |>
   ggplot(aes(x = Order)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = First), 
               alpha = 0.3) +
@@ -355,7 +355,7 @@ inter2_pred
 
 ```{r}
 #| filename: "Code 20"
-inter2_pred <- inter2_pred %>%
+inter2_pred <- inter2_pred |>
   select(Order, Duration, estimate, std.error, conf.low, conf.high)
 
 inter2_pred
@@ -365,7 +365,7 @@ inter2_pred
 
 ```{r}
 #| filename: "Code 21"
-inter2_pred <- inter2_pred %>%
+inter2_pred <- inter2_pred |>
   mutate(Duration = factor(Duration, levels = c(2, 9, 16), 
                            labels = c("2年目", "9年目", "16年目")))
 
@@ -378,7 +378,7 @@ inter2_pred
 #| filename: "Code 22"
 #| fig-width: 8
 #| fig-height: 4
-inter2_pred %>%
+inter2_pred |>
   ggplot(aes(x = Order)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Duration), 
               alpha = 0.3) +
@@ -406,7 +406,7 @@ inter1_ame
 
 ```{r}
 #| filename: "Code 24"
-inter1_ame <- inter1_ame %>%
+inter1_ame <- inter1_ame |>
   select(First, estimate, std.error, conf.low, conf.high)
 
 inter1_ame
@@ -416,7 +416,7 @@ inter1_ame
 
 ```{r}
 #| filename: "Code 25"
-inter1_ame <- inter1_ame %>%
+inter1_ame <- inter1_ame |>
   mutate(First = factor(First, levels = 0:1, labels = c("出場経験あり", "初出場")))
 
 inter1_ame
@@ -428,7 +428,7 @@ inter1_ame
 #| filename: "Code 26"
 #| fig-width: 3
 #| fig-height: 3
-inter1_ame %>%
+inter1_ame |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = First, y = estimate, 
@@ -455,7 +455,7 @@ inter2_ame
 
 ```{r}
 #| filename: "Code 28"
-inter2_ame <- inter2_ame %>%
+inter2_ame <- inter2_ame |>
   select(Duration, estimate, std.error, conf.low, conf.high)
 
 inter2_ame
@@ -467,7 +467,7 @@ inter2_ame
 #| filename: "Code 29"
 #| fig-width: 8
 #| fig-height: 4
-inter2_ame %>%
+inter2_ame |>
   ggplot(aes(x = Duration)) +
   geom_hline(yintercept = 0) +
   geom_ribbon(aes(y = estimate, ymin = conf.low, ymax = conf.high),
@@ -483,7 +483,7 @@ inter2_ame %>%
 #| filename: "Code 30"
 #| fig-width: 8
 #| fig-height: 4
-inter2_ame %>%
+inter2_ame |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = Duration, y = estimate, 
@@ -498,7 +498,7 @@ inter2_ame %>%
 #| filename: "Code 30"
 #| fig-width: 8
 #| fig-height: 4
-inter2_ame %>%
+inter2_ame |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = Duration, y = estimate, 
@@ -516,8 +516,8 @@ inter2_ame %>%
 #| filename: "Code 31"
 #| fig-width: 8
 #| fig-height: 4
-inter2_ame %>%
-  mutate(Sig = if_else(conf.low * conf.high > 0, "Sig", "Insig")) %>%
+inter2_ame |>
+  mutate(Sig = if_else(conf.low * conf.high > 0, "Sig", "Insig")) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = Duration, y = estimate, 
