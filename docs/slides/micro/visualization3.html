@@ -672,16 +672,16 @@
 <section id="色分けの例" class="slide level2">
 <h2>色分けの例</h2>
 <p><code>aes()</code>の内部に<code>color = 色分けする変数</code>を指定</p>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">コード</a></li><li><a href="#tabset-2-2">結果</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
 <ul>
 <li><code>HighIncome</code>変数を作成し、<code>PPP_per_capita</code>が2万以上なら<code>"高"</code>、未満なら<code>"低"</code></li>
 <li><code>HighIncome</code>値に応じて点の色分けを行う（<code>color = HighIncome</code>）</li>
 <li>点の大きさは2とする（全体に適用させるため、<code>aes()</code>の外側に指定）</li>
 <li><code>labs()</code>内で凡例タイトルを修正; 凡例を下側へ移動</li>
 </ul>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">コード</a></li><li><a href="#tabset-2-2">結果</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>scatter_plot1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>   <span class="fu">drop_na</span>(FH_Total, HDI_2018, PPP_per_capita) <span class="sc">|&gt;</span></span>
@@ -713,8 +713,7 @@
 <h2>色のカスタマイズ</h2>
 <p><code>color</code>にマッピングされている変数（<code>HighIncome</code>）が離散変数</p>
 <ul>
-<li><code>scale_color_manual()</code>を使用</li>
-<li>引数: <code>values = c("値1" = "色1", "値2" = "色2", ...)</code></li>
+<li><code>scale_color_manual()</code>を使用（引数は<code>values = c("値1" = "色1", "値2" = "色2", ...)</code>）</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>scatter_plot1 <span class="sc">+</span></span>
@@ -943,22 +942,22 @@
 <section id="線が二本以上の場合-1" class="slide level2">
 <h2>線が二本以上の場合</h2>
 <p><code>color</code>で色分け: 国別の折れ線グラフの場合、国変数を指定</p>
-<ul>
-<li>線をやや太め（1.5）にする
-<ul>
-<li><code>size</code>: 全線に適用させるために<code>aes()</code>の外側に</li>
-<li>線が細すぎると色が区別しにくい</li>
-</ul></li>
-</ul>
 <div class="panel-tabset">
 <ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">コード</a></li><li><a href="#tabset-5-2">結果</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1">
+<ul>
+<li>線をやや太め（1.5）にする
+<ul>
+<li><code>linewidth</code>: 全線に適用させるために<code>aes()</code>の外側に</li>
+<li>線が細すぎると色が区別しにくい</li>
+</ul></li>
+</ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>COVID_df <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, </span>
-<span id="cb15-4"><a href="#cb15-4"></a>                 <span class="at">color =</span> Country), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>                 <span class="at">color =</span> Country), <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
 <span id="cb15-5"><a href="#cb15-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
 <span id="cb15-6"><a href="#cb15-6"></a>        <span class="at">color =</span> <span class="st">"国"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -985,7 +984,7 @@
 <li>これ以上次元を増やすならファセット分割で対応するのが賢明</li>
 <li>ファセット分割せずに次元を増やすなら…
 <ul>
-<li><code>size</code>: 線の太さ</li>
+<li><code>linewidth</code>: 線の太さ</li>
 <li><code>linetype</code>: 線のタイプ（1 = 実線、2 = 破線、3 = 点線、…）
 <ul>
 <li>白黒図の場合、<code>color</code>でなく、<code>linetype</code></li>
@@ -1007,7 +1006,7 @@
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>COVID_df <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">group =</span> Country, <span class="at">linetype =</span> Country),</span>
-<span id="cb16-4"><a href="#cb16-4"></a>             <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>             <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb16-5"><a href="#cb16-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
 <span id="cb16-6"><a href="#cb16-6"></a>        <span class="at">linetype =</span> <span class="st">"国"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1063,7 +1062,7 @@
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>COVID_df <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> NewCases, <span class="at">color =</span> Country)) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3"></a>   <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> Country), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Country), <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>   <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Country), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb18-5"><a href="#cb18-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日 (2022年6月)"</span>, <span class="at">y =</span> <span class="st">"100万人当たり新規感染者数 (人)"</span>, </span>
 <span id="cb18-6"><a href="#cb18-6"></a>        <span class="at">color =</span> <span class="st">"国"</span>, <span class="at">shape =</span> <span class="st">"国"</span>) <span class="sc">+</span></span>
 <span id="cb18-7"><a href="#cb18-7"></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>

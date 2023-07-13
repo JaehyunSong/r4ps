@@ -131,8 +131,7 @@ df |>
    ggplot() +
    geom_point(aes(x = FH_Total, y = HDI_2018)) +
    labs(x = "フリーダムハウス・スコア", y = "人間開発指数 (2018)") +
-   theme_gray(base_family = "HiraKakuProN-W3",
-              base_size   = 14)
+   theme_gray(base_size   = 14)
 ```
 :::
 
@@ -235,13 +234,13 @@ df |>
 
 `aes()`の内部に`color = 色分けする変数`を指定
 
+::: {.panel-tabset}
+### コード
+
 * `HighIncome`変数を作成し、`PPP_per_capita`が2万以上なら`"高"`、未満なら`"低"`
 * `HighIncome`値に応じて点の色分けを行う（`color = HighIncome`）
 * 点の大きさは2とする（全体に適用させるため、`aes()`の外側に指定）
 * `labs()`内で凡例タイトルを修正; 凡例を下側へ移動
-
-::: {.panel-tabset}
-### コード
 
 ```{r}
 scatter_plot1 <- df |>
@@ -269,8 +268,7 @@ scatter_plot1
 
 `color`にマッピングされている変数（`HighIncome`）が離散変数
 
-* `scale_color_manual()`を使用
-* 引数: `values = c("値1" = "色1", "値2" = "色2", ...)`
+* `scale_color_manual()`を使用（引数は`values = c("値1" = "色1", "値2" = "色2", ...)`）
 
 ```{r}
 #| fig-width: 8
@@ -488,7 +486,7 @@ COVID_df |>
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 3.5
+#| fig-height: 3
 COVID_df <- COVID_df |>
    mutate(Country = case_when(Country == "Japan" ~ "日本",
                               Country == "Korea" ~ "韓国",
@@ -507,19 +505,19 @@ COVID_df |>
 
 `color`で色分け: 国別の折れ線グラフの場合、国変数を指定
 
-* 線をやや太め（1.5）にする
-   * `size`: 全線に適用させるために`aes()`の外側に
-   * 線が細すぎると色が区別しにくい
-
 ::: {.panel-tabset}
 ### コード
+
+* 線をやや太め（1.5）にする
+   * `linewidth`: 全線に適用させるために`aes()`の外側に
+   * 線が細すぎると色が区別しにくい
 
 ```{r}
 #| eval: false
 COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, 
-                 color = Country), size = 1.5) +
+                 color = Country), linewidth = 1.5) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国")
 ```
@@ -533,7 +531,7 @@ COVID_df |>
 COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, color = Country), 
-             size = 1.5) +
+             linewidth = 1.5) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国")
 ```
@@ -547,7 +545,7 @@ COVID_df |>
 * 日（`x`）、新規感染者数（`y`）、国（`group` or `color`）
 * これ以上次元を増やすならファセット分割で対応するのが賢明
 * ファセット分割せずに次元を増やすなら...
-   * `size`: 線の太さ
+   * `linewidth`: 線の太さ
    * `linetype`: 線のタイプ（1 = 実線、2 = 破線、3 = 点線、...）
       * 白黒図の場合、`color`でなく、`linetype`
    * `alpha`: 透明度
@@ -564,7 +562,7 @@ COVID_df |>
 COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, linetype = Country),
-             size = 1) +
+             linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         linetype = "国")
 ```
@@ -589,7 +587,7 @@ COVID_df |>
 COVID_df |>
    ggplot() +
    geom_line(aes(x = Day, y = NewCases, group = Country, 
-                 linetype = Country), size = 1) +
+                 linetype = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         linetype = "国") 
 ```
@@ -640,7 +638,7 @@ tibble(x = rep(1, 6),
 COVID_df |>
    ggplot(aes(x = Day, y = NewCases, color = Country)) +
    geom_point(aes(shape = Country), size = 3) +
-   geom_line(aes(group = Country), size = 1) +
+   geom_line(aes(group = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国", shape = "国") +
    theme_bw()
@@ -655,7 +653,7 @@ COVID_df |>
 COVID_df |>
    ggplot(aes(x = Day, y = NewCases, color = Country)) +
    geom_point(aes(shape = Country), size = 3) +
-   geom_line(aes(group = Country), size = 1) +
+   geom_line(aes(group = Country), linewidth = 1) +
    labs(x = "日 (2022年6月)", y = "100万人当たり新規感染者数 (人)", 
         color = "国", shape = "国") +
    theme_bw()

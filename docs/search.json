@@ -6066,14 +6066,14 @@
     "href": "slides/micro/visualization3.html#色分けの例",
     "title": "ミクロ政治データ分析実習",
     "section": "色分けの例",
-    "text": "色分けの例\naes()の内部にcolor = 色分けする変数を指定\n\nHighIncome変数を作成し、PPP_per_capitaが2万以上なら\"高\"、未満なら\"低\"\nHighIncome値に応じて点の色分けを行う（color = HighIncome）\n点の大きさは2とする（全体に適用させるため、aes()の外側に指定）\nlabs()内で凡例タイトルを修正; 凡例を下側へ移動\n\n\nコード結果\n\n\n\nscatter_plot1 &lt;- df |&gt;\n   drop_na(FH_Total, HDI_2018, PPP_per_capita) |&gt;\n   mutate(HighIncome = if_else(PPP_per_capita &gt;= 20000, \"高\", \"低\")) |&gt;\n   ggplot() +\n   geom_point(aes(x = FH_Total, y = HDI_2018, color = HighIncome), \n              size = 2) +\n   labs(x = \"フリーダムハウス・スコア\", y = \"人間開発指数 (2018)\",\n        color = \"一人当たりPPP GDP\") +\n   theme(legend.position = \"bottom\")\n\n\n\n\nscatter_plot1"
+    "text": "色分けの例\naes()の内部にcolor = 色分けする変数を指定\n\nコード結果\n\n\n\nHighIncome変数を作成し、PPP_per_capitaが2万以上なら\"高\"、未満なら\"低\"\nHighIncome値に応じて点の色分けを行う（color = HighIncome）\n点の大きさは2とする（全体に適用させるため、aes()の外側に指定）\nlabs()内で凡例タイトルを修正; 凡例を下側へ移動\n\n\nscatter_plot1 &lt;- df |&gt;\n   drop_na(FH_Total, HDI_2018, PPP_per_capita) |&gt;\n   mutate(HighIncome = if_else(PPP_per_capita &gt;= 20000, \"高\", \"低\")) |&gt;\n   ggplot() +\n   geom_point(aes(x = FH_Total, y = HDI_2018, color = HighIncome), \n              size = 2) +\n   labs(x = \"フリーダムハウス・スコア\", y = \"人間開発指数 (2018)\",\n        color = \"一人当たりPPP GDP\") +\n   theme(legend.position = \"bottom\")\n\n\n\n\nscatter_plot1"
   },
   {
     "objectID": "slides/micro/visualization3.html#色のカスタマイズ",
     "href": "slides/micro/visualization3.html#色のカスタマイズ",
     "title": "ミクロ政治データ分析実習",
     "section": "色のカスタマイズ",
-    "text": "色のカスタマイズ\ncolorにマッピングされている変数（HighIncome）が離散変数\n\nscale_color_manual()を使用\n引数: values = c(\"値1\" = \"色1\", \"値2\" = \"色2\", ...)\n\n\nscatter_plot1 +\n   scale_color_manual(values = c(\"低\" = \"orange\", \"高\" = \"royalblue\"))"
+    "text": "色のカスタマイズ\ncolorにマッピングされている変数（HighIncome）が離散変数\n\nscale_color_manual()を使用（引数はvalues = c(\"値1\" = \"色1\", \"値2\" = \"色2\", ...)）\n\n\nscatter_plot1 +\n   scale_color_manual(values = c(\"低\" = \"orange\", \"高\" = \"royalblue\"))"
   },
   {
     "objectID": "slides/micro/visualization3.html#ggplot2で使える色",
@@ -6136,21 +6136,21 @@
     "href": "slides/micro/visualization3.html#線が二本以上の場合-1",
     "title": "ミクロ政治データ分析実習",
     "section": "線が二本以上の場合",
-    "text": "線が二本以上の場合\ncolorで色分け: 国別の折れ線グラフの場合、国変数を指定\n\n線をやや太め（1.5）にする\n\nsize: 全線に適用させるためにaes()の外側に\n線が細すぎると色が区別しにくい\n\n\n\nコード結果\n\n\n\nCOVID_df |&gt;\n   ggplot() +\n   geom_line(aes(x = Day, y = NewCases, group = Country, \n                 color = Country), size = 1.5) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        color = \"国\")"
+    "text": "線が二本以上の場合\ncolorで色分け: 国別の折れ線グラフの場合、国変数を指定\n\nコード結果\n\n\n\n線をやや太め（1.5）にする\n\nlinewidth: 全線に適用させるためにaes()の外側に\n線が細すぎると色が区別しにくい\n\n\n\nCOVID_df |&gt;\n   ggplot() +\n   geom_line(aes(x = Day, y = NewCases, group = Country, \n                 color = Country), linewidth = 1.5) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        color = \"国\")"
   },
   {
     "objectID": "slides/micro/visualization3.html#次元の追加-1",
     "href": "slides/micro/visualization3.html#次元の追加-1",
     "title": "ミクロ政治データ分析実習",
     "section": "次元の追加",
-    "text": "次元の追加\n多くの折れ線グラフは既に3次元\n\n日（x）、新規感染者数（y）、国（group or color）\nこれ以上次元を増やすならファセット分割で対応するのが賢明\nファセット分割せずに次元を増やすなら…\n\nsize: 線の太さ\nlinetype: 線のタイプ（1 = 実線、2 = 破線、3 = 点線、…）\n\n白黒図の場合、colorでなく、linetype\n\nalpha: 透明度"
+    "text": "次元の追加\n多くの折れ線グラフは既に3次元\n\n日（x）、新規感染者数（y）、国（group or color）\nこれ以上次元を増やすならファセット分割で対応するのが賢明\nファセット分割せずに次元を増やすなら…\n\nlinewidth: 線の太さ\nlinetype: 線のタイプ（1 = 実線、2 = 破線、3 = 点線、…）\n\n白黒図の場合、colorでなく、linetype\n\nalpha: 透明度"
   },
   {
     "objectID": "slides/micro/visualization3.html#線のタイプ",
     "href": "slides/micro/visualization3.html#線のタイプ",
     "title": "ミクロ政治データ分析実習",
     "section": "線のタイプ",
-    "text": "線のタイプ\n\n主に白黒図で使用\n\n\nコード結果\n\n\n\nCOVID_df |&gt;\n   ggplot() +\n   geom_line(aes(x = Day, y = NewCases, group = Country, linetype = Country),\n             size = 1) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        linetype = \"国\")\n\n自分で線のタイプを指定したい場合は\n\nデータ |&gt;\n  ggplot() +\n  ... +\n  scale_linetype_manual(values = c(\"日本\" = 1, \"韓国\" = 2, \"台湾\" = 3))"
+    "text": "線のタイプ\n\n主に白黒図で使用\n\n\nコード結果\n\n\n\nCOVID_df |&gt;\n   ggplot() +\n   geom_line(aes(x = Day, y = NewCases, group = Country, linetype = Country),\n             linewidth = 1) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        linetype = \"国\")\n\n自分で線のタイプを指定したい場合は\n\nデータ |&gt;\n  ggplot() +\n  ... +\n  scale_linetype_manual(values = c(\"日本\" = 1, \"韓国\" = 2, \"台湾\" = 3))"
   },
   {
     "objectID": "slides/micro/visualization3.html#linetypeの見本",
@@ -6164,7 +6164,7 @@
     "href": "slides/micro/visualization3.html#折れ線グラフ-散布図コード",
     "title": "ミクロ政治データ分析実習",
     "section": "折れ線グラフ + 散布図（コード）",
-    "text": "折れ線グラフ + 散布図（コード）\ngeom_point()とgeom_line()を重ねる\n\n後（先）に書いたレイヤーが前面（背面）に\n傾きの変化が激しくない場合に有効\n点は線より大きめに\n白黒印刷に備え、点の形分けも可能\n\n\nCOVID_df |&gt;\n   ggplot(aes(x = Day, y = NewCases, color = Country)) +\n   geom_point(aes(shape = Country), size = 3) +\n   geom_line(aes(group = Country), size = 1) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        color = \"国\", shape = \"国\") +\n   theme_bw()"
+    "text": "折れ線グラフ + 散布図（コード）\ngeom_point()とgeom_line()を重ねる\n\n後（先）に書いたレイヤーが前面（背面）に\n傾きの変化が激しくない場合に有効\n点は線より大きめに\n白黒印刷に備え、点の形分けも可能\n\n\nCOVID_df |&gt;\n   ggplot(aes(x = Day, y = NewCases, color = Country)) +\n   geom_point(aes(shape = Country), size = 3) +\n   geom_line(aes(group = Country), linewidth = 1) +\n   labs(x = \"日 (2022年6月)\", y = \"100万人当たり新規感染者数 (人)\", \n        color = \"国\", shape = \"国\") +\n   theme_bw()"
   },
   {
     "objectID": "slides/micro/visualization3.html#折れ線グラフ-散布図図",
