@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.205">
+  <meta name="generator" content="quarto-1.4.232">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-09-28">
@@ -333,6 +333,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -404,7 +407,7 @@
 <h2>実証的問題の例</h2>
 <ul>
 <li>民主主義国家間においては、戦争は行われないか</li>
-<li>2022年9月29日時点での内閣支持率は何%か</li>
+<li>2023年9月28日時点での内閣支持率は何%か</li>
 <li>ある国に対する経済的制裁は当該国の態度変化をもたらすか</li>
 <li>少人数クラスは学習効果を向上させるか</li>
 </ul>
@@ -450,7 +453,7 @@
 <ul>
 <li>「反証可能性」以外にも科学的なものの条件として「<strong>演繹</strong>」も</li>
 </ul></li>
-<li>仮説が実験や観察によって反証される可能性があること
+<li>仮説が実験や観察によって反証される<strong>可能性</strong>があること
 <ul>
 <li>同じ手順で行われた実験、観察 (= データ収集) から既存の結果に反する結果が得られる<strong>可能性</strong>が存在する</li>
 <li>反証されない場合、既存の理論は補強される</li>
@@ -467,14 +470,17 @@
 <p><img data-src="Figs/research_design/Popper_1959.jpg"></p>
 </div>
 </div>
-</section>
+
+<aside><div>
+<p>参考）科学と非科学の線引に関する議論は「線引き問題（demarcation problem）」と呼ばれるが、反証主義に対する批判はもちろん、線引き問題そのものの不要さを主張する立場もある。</p>
+</div></aside></section>
 <section id="鈴木-2008-から" class="slide level2">
 <h2>鈴木 (2008) から</h2>
 <p>鈴木光太郎. 2008.『<a href="https://www.amazon.co.jp/dp/4480432698/">オオカミ少女はいなかった:心理学の神話をめぐる冒険</a>』新曜社</p>
 <div class="columns">
 <div class="column" style="width:70%;">
 <blockquote>
-<p>教科書には正しいことだけが書かれていなければならないとは思っていない。むしろ、誤った記述があっても許されると思う(誤りは直せばよい)。<strong>科学は誤ることがあたりまえであって、そもそも科学とは、そうした誤りをたえず書き改めてゆく営み</strong>だからだ。私が許されないと思うのは、だれかが誤って書いたものをなにも考えずに受け売りしたり、それを孫引きやひ孫引きしたり、果ては先祖がたどれない引き方をしている場合である。あるいは、誤りであることが判明しても、直しもしない場合である。</p>
+<p>教科書には正しいことだけが書かれていなければならないとは思っていない。むしろ、誤った記述があっても許されると思う(誤りは直せばよい)。<u><strong>科学は誤ることがあたりまえであって、そもそも科学とは、そうした誤りをたえず書き改めてゆく営み</strong></u>だからだ。私が許されないと思うのは、だれかが誤って書いたものをなにも考えずに受け売りしたり、それを孫引きやひ孫引きしたり、果ては先祖がたどれない引き方をしている場合である。あるいは、誤りであることが判明しても、直しもしない場合である。</p>
 </blockquote>
 </div><div class="column" style="width:2%;">
 
@@ -998,10 +1004,41 @@
 <section id="仮説の種類" class="slide level2">
 <h2>仮説の種類</h2>
 <p>Monroe, Alan. 2000. <em><a href="https://www.amazon.co.jp/dp/0813368669/">Essential of Political Research</a>.</em> Westview Press</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Figs/research_design/Hypothesis.png" style="width:55.0%"></p>
-</figure>
+<div class="cell" data-reveal="true">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  仮説 --&gt; 多変量
+  仮説 --&gt; 単変量
+  単変量 --- ex1("投票率（X）は49%だ
+                  (X = 49%)")
+  多変量 --&gt; 連関なし
+  連関なし --- ex2("性別と投票率には
+                    関係がない
+                    (X⊥Y)")
+  多変量 --&gt; 連関あり
+  連関あり --&gt; 方向性あり
+  連関あり --&gt; 方向性なし
+  方向性なし --- ex3("年齢（X）と投票率（Y）には
+                      関係がある
+                      (Y ∝ X)")
+  方向性あり --&gt; 正の方向
+  正の方向 --- ex4("年収（X）が高いほど
+                    投票する傾向（Y）が高くなる
+                    (X↑　→　Y↑)")
+  方向性あり --&gt; 負の方向
+  負の方向 --- ex5("疎外感（X）が強いほど
+                    投票する傾向（Y）が低くなる
+                    (X↑　→　Y↓)")
+  方向性あり --&gt; 名目
+  名目 --- ex6("カトリックの投票率（X）は
+                プロテスタントの投票率（Y）より高い
+                (X &gt; Y)")
+</pre>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="データと操作化分析方法と分析結果" class="slide level2">
@@ -1103,11 +1140,11 @@
 <h2>原因以外の重要な要因とは</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-2_09ec3ec6b9eeafa8e3aba86f45c7f3d4">
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-3_4caaa8fe0b93755bf0e9b49b1f75446e">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-2-1.png" width="1200"></p>
+<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-3-1.png" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1142,11 +1179,11 @@
 <h2>原因以外の重要な要因とは</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-3_4caaa8fe0b93755bf0e9b49b1f75446e">
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-4_41af3b95a07d92ef9c0b08938f90f0ad">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-3-1.png" width="1200"></p>
+<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-4-1.png" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1599,7 +1636,7 @@
 <h2>生態学的誤謬</h2>
 <p>個人に関する推論の際、集計データを不適切に用いること</p>
 <ul>
-<li><strong>集団レベルのデータで個人レベルを推論</strong>する
+<li><strong>集団レベルのデータで個人レベルを推論</strong>する場合に生じ得る
 <ul>
 <li>一般的に、個人レベルのデータは入手のコストが高い</li>
 </ul></li>
@@ -1614,33 +1651,21 @@
 <li>仮説C: 関西出身の<strong>人</strong>は維新に投票する傾向がある <span class="math inline">\(\leftarrow\)</span> 個人</li>
 <li>仮説D: 関西の<strong>市区町村</strong>は、維新の得票率が高い <span class="math inline">\(\leftarrow\)</span> 集団</li>
 </ul></li>
-<li>2つの結果が異なる場合もある</li>
+<li>2つの結果が異なる場合もある <span class="math inline">\(\leftarrow\)</span> <strong>生態学的誤謬</strong>（Ecological fallacy）</li>
+<li>参考）<a href="https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%83%97%E3%82%BD%E3%83%B3%E3%81%AE%E3%83%91%E3%83%A9%E3%83%89%E3%83%83%E3%82%AF%E3%82%B9">シンプソンのパラドックス</a>（Simpson’s paradox）</li>
 </ul>
 <p><br></p>
 <ul>
-<li>データの制約がある場合 (= 個人レベルのデータが入手困難)
+<li>データの制約がある場合（= 個人レベルのデータが入手困難）
 <ul>
-<li>理論・仮説を修正し、分析の単位を集団レベルにする (個人レベルのデータの入手難易度は高い)</li>
+<li>理論・仮説を修正し、分析の単位を集団レベルにする（個人レベルのデータの入手難易度は高い）。</li>
 </ul></li>
 </ul>
 </section>
 <section id="例-生態学的誤謬" class="slide level2">
 <h2>例: 生態学的誤謬</h2>
-<p>ケーキにおける砂糖の量と味の関係</p>
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-4_fb1ac1a56cb49b8503e902d521abb422">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-4-1.png" width="2400"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="例-生態学的誤謬-1" class="slide level2">
-<h2>例: 生態学的誤謬</h2>
-<p>ケーキにおける砂糖の量と味の関係</p>
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-5_9a783bfec545d4da8273dac8c3d87a46">
+<p>教育水準と投票参加の関係（都道府県レベル）</p>
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-5_81f95b688111a06bac20c443cdaa6b6f">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1649,12 +1674,11 @@
 </div>
 </div>
 </div>
-<!-- -->
 </section>
-<section id="例-生態学的誤謬-2" class="slide level2">
+<section id="例-生態学的誤謬-1" class="slide level2">
 <h2>例: 生態学的誤謬</h2>
-<p>ケーキにおける砂糖の量と味の関係</p>
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-6_b00a9db1e7968811b7ea04bac90fdc64">
+<p>教育水準と投票参加の関係（個人レベル）</p>
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-6_d45e6eb89eb2c9601d65fd1ae32fbd6a">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1663,12 +1687,11 @@
 </div>
 </div>
 </div>
-<!-- -->
 </section>
-<section id="例-生態学的誤謬-3" class="slide level2">
+<section id="例-生態学的誤謬-2" class="slide level2">
 <h2>例: 生態学的誤謬</h2>
-<p>ケーキにおける砂糖の量と味の関係</p>
-<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-7_44ebc9a35d2fe9fe9c02335076817c6a">
+<p>教育水準と投票参加の関係（個人レベル + 都道府県で層化）</p>
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-7_48a77a9a5c91e015d40e4930bf7f2432">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1677,107 +1700,19 @@
 </div>
 </div>
 </div>
-<!-- -->
-</section></section>
-<section>
-<section id="課題" class="title-slide slide level1 center">
-<h1>課題</h1>
-<!-- -->
 </section>
-<section id="第2回課題" class="slide level2">
-<h2>第2回課題</h2>
-<p>LMSの課題提出窓口で提出</p>
-<ol type="1">
-<li>LMSにあるリサーチクエスチョンの一覧から2つの問いを選択する。
-<ul>
-<li>これまで宋が担当してきた授業における履修者のリサーチクエスチョンの一部</li>
-<li>最も良いと思うRQと最も改善の余地があると思うRQをそれぞれ1つずつ</li>
-</ul></li>
-<li>その問いが (1) 実証的問題、 (2) 規範的問題、 (3) 分析的問題、 (4) その他のどれに該当するか</li>
-<li>明快さ、検証可能性、理論的重要性、実用性、独創性の観点からその問いを評価する。
-<ul>
-<li>点数でなく文章で評価すること。</li>
-<li>高い/低いだけでなく、その理由も述べること</li>
-</ul></li>
-</ol>
-<p><br></p>
-<ul>
-<li>正解のない問題であり、自分の考えを、自分の言葉で述べよう。</li>
-<li><strong>提出期限：2022年10月5日（水）23時59分</strong></li>
-</ul>
-<!-- -->
-</section>
-<section id="第3回課題" class="slide level2">
-<h2>第3回課題</h2>
-<p>期末レポートで取り組みたいリサーチクエスチョンの提出</p>
-<ul>
-<li>LSMの授業後アンケートにて記入</li>
-<li>リサーチクエスチョンはどの時点でも変更可（宋に報告は不要）</li>
-<li>実証的問題であること</li>
-<li>分析単位を考慮し、データが入手可能（だと考えられる）な問い</li>
-<li>政治に関連する問いが望ましい（「マクロ<strong>政治</strong>データ分析実習」だから）が、政治に関連しない問でもOK（減点なし）</li>
-</ul>
-<p><br></p>
-<ul>
-<li><strong>提出期限：2022年10月12日（水）23時59分</strong></li>
-</ul>
-<!-- 
-* 北海道と大阪府間の公共交通機関の量・使用頻度の比較
-* 共働きと片働きの子供の教育的効果
-* やる気が生まれるタイミング
-* 「大金持ち」は「嫌な奴」なのか
-* アート (Art)が実社会にもたらす利益
-* なぜミュージシャンは貧乏なのか
-* YouTubeの広告を見た人が実際に商品を購入する割合、またその割合を上げる方法
-* どうすれば未成年の犯罪件数が減るのか?
-* 日本において困難な政治課題に対する超党派合意を形成する方法
-* 高槻市で一番美味しいラーメン屋は?
-* バドミントンの正しいフォームやフットワークがあるのか
-* ESG投資は本当に利益を生めるのか。
-* 日本の農業競争力の強化
-* 選挙の当選確実を出す方法
-* 日本の民主主義はいかに持続可能なものにできるか
-* ロボットを制御するにおいて凹凸のある地形でも安定した歩行をする方策関数学習する際に最も効率の良い学習方法
-* 国民は天皇に関心があるのか、どう思っているのか、果たして好感度は高いのか
-* Google Map におけるレストランやカフェなどの評価がその地域の特性によって、歪められているのか。
-* 日本の若年層の投票率はなぜ低いか
-* 日本の難民認定率を上げる方法
-* シリアの政治を安定化する方法
-* 執政制度(民主主義、独裁)と経済成長の関係
-* 自分の地域のごみ分別区分を知っていることと、居住スタイル、指定された通りにごみ分別を行なっていることの関係
-* ある野球チームにおいて誰をどのような打順で起用すれば最も得点が取れるのか。
-
-* 少人数のクラスは学習効率があがるのか
-* 選挙に投票しに行く年齢別男女比
-* 緊急事態宣言の期間が長くなるほど、ゲームの売り上げが上がる。
-* 政見放送の注目度と獲得票数の関係性
-* 旬の食材は売り上げが高くなるのか
-* 日本において、なぜ少子化が進むのか？
-* 選挙の当選者の年齢と投票者の年齢が比例関係である。
-* 政治的傾きと病歴の有無、質、重症度との関係
-* インフレーションが進む経済において、国民の意識/選好レベルでの傾向の変化など、何らかの分野における変化
-* 経済効果から見たeスポーツのオリンピック参入への可能性
-* 日本の少子化問題について、産休制度を充実させれば少子化問題は緩和されるのか？
-* 衆議院の優越さの度合いを物量的に見れるか。
-* 地域の10〜20代の選挙投票率が高い地域は学力も高いのか？
-* なぜ各都道府県において学力格差が起こるのか
-* 人口増加率が高い都道府県ほど選挙での投票率が高くなる
-* 選挙で選出された人が実際に国や地域を良くしたと感じたことがある市民は何%か。
-* ある国に対する経済的制裁は当該国の態度変化をもたらすか
-* 無党派層の割合が多くなれば、選挙の投票率は下がるのか。
-* 菅首相が任期を始めた時の支持率と比べ、任期を終えた時の支持率は上がっているのか。
-* 政治家の子供は高学歴(大学の偏差値)なのか。
-* 21歳女性におけるランニングの走行距離は体重の増減に影響を及ぼすか？
-* 年収と家庭の子供の人数に相関はあるか。
-* 購読している新聞会社によって支持政党は変わるのか
-* 都会に近くなるほど政治意識が高まるか
-* 現在の内閣の政策に不満な点がある人は何％であるか。
-* 地方自治体（市町村レベル）における財政状況・補助金等の再分配が選挙行動・政治的基盤に影響を及ぼすか。
-* なぜ米国だけがコロナ禍においてテレワーク導入率85%を超え、日本などの諸外国は20%ほどでとどまってしまったのか？
-* 複数回に渡って行われた緊急事態宣言の中で外出量がそれぞれかなりの差があったがその原因、理由とは何が因果しているのか。
-* 政治体制（民主主義、独裁）と国民の経済格差の関係。
-* JR北海道は市町村と如何にして駅の存続を図るか
--->
+<section id="例-生態学的誤謬-3" class="slide level2">
+<h2>例: 生態学的誤謬</h2>
+<p>教育水準と投票参加の関係（政治関心 = 交絡要因）</p>
+<div class="cell" data-layout-align="center" data-hash="research_design_cache/revealjs/unnamed-chunk-8_17ce645e0bddac1d956cabeb8f0e3eb1">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="research_design_files/figure-revealjs/unnamed-chunk-8-1.png" width="2400"></p>
+</figure>
+</div>
+</div>
+</div>
 
 <p><img src="Figs/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">

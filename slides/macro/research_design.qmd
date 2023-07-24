@@ -50,7 +50,7 @@ pacman::p_load(tidyverse, gt)
 ## 実証的問題の例
 
 * 民主主義国家間においては、戦争は行われないか
-* 2022年9月29日時点での内閣支持率は何%か
+* 2023年9月28日時点での内閣支持率は何%か
 * ある国に対する経済的制裁は当該国の態度変化をもたらすか
 * 少人数クラスは学習効果を向上させるか
 
@@ -86,7 +86,7 @@ pacman::p_load(tidyverse, gt)
 :::{.column width=72%}
 * Popper, Karl. 1959. *[The Logic of Scientific Discovery](https://www.amazon.co.jp/dp/4769902549/).* Routledge
    * 「反証可能性」以外にも科学的なものの条件として「**演繹**」も
-* 仮説が実験や観察によって反証される可能性があること
+* 仮説が実験や観察によって反証される**可能性**があること
    * 同じ手順で行われた実験、観察 (= データ収集) から既存の結果に反する結果が得られる**可能性**が存在する
    * 反証されない場合、既存の理論は補強される
    * 反証された場合、既存の理論は棄却されるか、信憑性が低下する
@@ -105,6 +105,10 @@ pacman::p_load(tidyverse, gt)
 
 ::::
 
+:::{.aside}
+参考）科学と非科学の線引に関する議論は「線引き問題（demarcation problem）」と呼ばれるが、反証主義に対する批判はもちろん、線引き問題そのものの不要さを主張する立場もある。
+:::
+
 ## 鈴木 (2008) から
 
 鈴木光太郎. 2008.『[オオカミ少女はいなかった:心理学の神話をめぐる冒険](https://www.amazon.co.jp/dp/4480432698/)』新曜社
@@ -112,7 +116,7 @@ pacman::p_load(tidyverse, gt)
 ::::{.columns}
 
 :::{.column width=70%}
-> 教科書には正しいことだけが書かれていなければならないとは思っていない。むしろ、誤った記述があっても許されると思う(誤りは直せばよい)。**科学は誤ることがあたりまえであって、そもそも科学とは、そうした誤りをたえず書き改めてゆく営み**だからだ。私が許されないと思うのは、だれかが誤って書いたものをなにも考えずに受け売りしたり、それを孫引きやひ孫引きしたり、果ては先祖がたどれない引き方をしている場合である。あるいは、誤りであることが判明しても、直しもしない場合である。
+> 教科書には正しいことだけが書かれていなければならないとは思っていない。むしろ、誤った記述があっても許されると思う(誤りは直せばよい)。<u>**科学は誤ることがあたりまえであって、そもそも科学とは、そうした誤りをたえず書き改めてゆく営み**</u>だからだ。私が許されないと思うのは、だれかが誤って書いたものをなにも考えずに受け売りしたり、それを孫引きやひ孫引きしたり、果ては先祖がたどれない引き方をしている場合である。あるいは、誤りであることが判明しても、直しもしない場合である。
 :::
 
 :::{.column width=2%}
@@ -548,7 +552,35 @@ Monroe (2000) の「良い研究テーマ」の条件
 
 Monroe, Alan. 2000. *[Essential of Political Research](https://www.amazon.co.jp/dp/0813368669/).* Westview Press
 
-![](Figs/research_design/Hypothesis.png){width=55% fig-align="center"}
+```{mermaid}
+flowchart TD
+  仮説 --> 多変量
+  仮説 --> 単変量
+  単変量 --- ex1("投票率（X）は49%だ
+                  (X = 49%)")
+  多変量 --> 連関なし
+  連関なし --- ex2("性別と投票率には
+                    関係がない
+                    (X⊥Y)")
+  多変量 --> 連関あり
+  連関あり --> 方向性あり
+  連関あり --> 方向性なし
+  方向性なし --- ex3("年齢（X）と投票率（Y）には
+                      関係がある
+                      (Y ∝ X)")
+  方向性あり --> 正の方向
+  正の方向 --- ex4("年収（X）が高いほど
+                    投票する傾向（Y）が高くなる
+                    (X↑　→　Y↑)")
+  方向性あり --> 負の方向
+  負の方向 --- ex5("疎外感（X）が強いほど
+                    投票する傾向（Y）が低くなる
+                    (X↑　→　Y↓)")
+  方向性あり --> 名目
+  名目 --- ex6("カトリックの投票率（X）は
+                プロテスタントの投票率（Y）より高い
+                (X > Y)")
+```
 
 ## データと操作化/分析方法と分析結果
 
@@ -991,7 +1023,7 @@ Masahiko Asano and Dennis P. Patterson. 2018. "[Smiles, turnout, candidates, and
 
 個人に関する推論の際、集計データを不適切に用いること
 
-* **集団レベルのデータで個人レベルを推論**する
+* **集団レベルのデータで個人レベルを推論**する場合に生じ得る
    * 一般的に、個人レベルのデータは入手のコストが高い
 * 例) 理論: 高齢者は投票参加する傾向が強い。
    * 理論における単位: 個人
@@ -1000,16 +1032,17 @@ Masahiko Asano and Dennis P. Patterson. 2018. "[Smiles, turnout, candidates, and
 * 例) 理論: 維新の支持基盤は関西地域である。
    * 仮説C: 関西出身の**人**は維新に投票する傾向がある $\leftarrow$ 個人
    * 仮説D: 関西の**市区町村**は、維新の得票率が高い $\leftarrow$ 集団
-* 2つの結果が異なる場合もある
+* 2つの結果が異なる場合もある $\leftarrow$ **生態学的誤謬**（Ecological fallacy）
+* 参考）[シンプソンのパラドックス](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%83%97%E3%82%BD%E3%83%B3%E3%81%AE%E3%83%91%E3%83%A9%E3%83%89%E3%83%83%E3%82%AF%E3%82%B9)（Simpson's paradox）
 
 <br/>
 
-* データの制約がある場合 (= 個人レベルのデータが入手困難)
-   * 理論・仮説を修正し、分析の単位を集団レベルにする (個人レベルのデータの入手難易度は高い)
+* データの制約がある場合（= 個人レベルのデータが入手困難）
+   * 理論・仮説を修正し、分析の単位を集団レベルにする（個人レベルのデータの入手難易度は高い）。
 
 ## 例: 生態学的誤謬
 
-ケーキにおける砂糖の量と味の関係
+教育水準と投票参加の関係（都道府県レベル）
 
 ```{r}
 #| echo: false
@@ -1018,83 +1051,30 @@ Masahiko Asano and Dennis P. Patterson. 2018. "[Smiles, turnout, candidates, and
 #| fig-width: 8
 #| fig-height: 3.5
 set.seed(19861008)
-cake_df <- tibble(
-   Shop = rep(LETTERS[1:5], each = 3),
-   Butter = rep(3:7, each = 3)) %>%
-   rowwise() %>%
-   mutate(Sugar = rnorm(1, mean = Butter, sd = 1),
-          Taste = 1 + 4 * Butter - 3 * Sugar + rnorm(1, 0, 1)) %>%
-   ungroup()
+temp_df <- tibble(State = rep(LETTERS[1:5], each = 100),
+                  Mean_Educ  = rep(1:5, each = 100)) |> 
+   rowwise() |> 
+   mutate(Educ    = rnorm(1, mean = Mean_Educ, sd = 1),
+          Turnout = 1 + 4 * Educ - 10 * Mean_Educ + rnorm(1, 0, 2)) |> 
+   ungroup() 
 
-cake_df %>%
-   group_by(Shop) %>%
-   summarise(Sugar = mean(Sugar),
-             Taste = mean(Taste)) %>%
-   ggplot() +
-   geom_smooth(aes(x = Sugar, y = Taste), method = "lm", se = FALSE) +
-   geom_point(aes(x = Sugar, y = Taste, fill = Shop), 
-              size = 3, shape = 21, color = "white") +
-   labs(x = "砂糖の使用量の平均値", y = "味の平均値", fill = "ベーカリー") +
-   theme_bw(base_size = 16,
-            base_family = "HiraKakuProN-W3") +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
-```
-
-## 例: 生態学的誤謬
-
-ケーキにおける砂糖の量と味の関係
-
-```{r}
-#| echo: false
-#| message: false
-#| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-cake_df %>%
-   ggplot() +
-   geom_point(aes(x = Sugar, y = Taste, fill = Shop), 
-              size = 3, shape = 21, color = "white") +
-   labs(x = "砂糖の使用量", y = "味", fill = "ベーカリー") +
-   theme_bw(base_size = 16,
-            base_family = "HiraKakuProN-W3") +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
-```
-
-<!-- -->
-
-## 例: 生態学的誤謬
-
-ケーキにおける砂糖の量と味の関係
-
-```{r}
-#| echo: false
-#| message: false
-#| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-cake_df %>%
-   ggplot() +
-   geom_smooth(aes(x = Sugar, y = Taste, color = Shop), 
-               method = "lm", se = FALSE) +
-   geom_point(aes(x = Sugar, y = Taste, fill = Shop), 
-              size = 3, shape = 21, color = "white") +
-   labs(x = "砂糖の使用量", y = "味", fill = "ベーカリー") +
-   guides(color = "none") +
+temp_df |> 
+   group_by(State) |> 
+   summarise(Educ = mean(Educ),
+             Turnout = mean(Turnout)) |> 
+   ggplot(aes(x = Educ, y = Turnout)) +
+   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
+   geom_point(aes(fill = State), size = 5, shape = 21, color = "white") +
+   labs(x = "教育水準", y = "投票率", fill = "都道府県") +
    theme_bw(base_size = 16) +
    theme(panel.grid = element_blank(),
          axis.ticks = element_blank(),
          axis.text  = element_blank())
 ```
 
-<!-- -->
-
 ## 例: 生態学的誤謬
 
-ケーキにおける砂糖の量と味の関係
+教育水準と投票参加の関係（個人レベル）
 
 ```{r}
 #| echo: false
@@ -1102,118 +1082,62 @@ cake_df %>%
 #| cache: true
 #| fig-width: 8
 #| fig-height: 3.5
-cake_df %>%
-   mutate(Shop = rep(c("A (バター使用量  = 1)",
-                       "B (バター使用量  = 2)",
-                       "C (バター使用量  = 3)",
-                       "D (バター使用量  = 4)",
-                       "E (バター使用量  = 5)"), each = 3)) %>%
-   ggplot() +
-   geom_smooth(aes(x = Sugar, y = Taste, color = Shop), method = "lm", se = FALSE) +
-   geom_point(aes(x = Sugar, y = Taste, fill = Shop), 
-              size = 3, shape = 21, color = "white") +
-   labs(x = "砂糖の使用量", y = "味", fill = "ベーカリー", size = "バターの使用量") +
-   guides(color = "none") +
+temp_df |> 
+   ggplot(aes(x = Educ, y = Turnout)) +
+   geom_point(size = 3) +
+   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
+   labs(x = "教育水準", y = "投票率", color = "都道府県") +
    theme_bw(base_size = 16) +
-   theme(legend.box = "vertical",
-         panel.grid = element_blank(),
+   theme(panel.grid = element_blank(),
          axis.ticks = element_blank(),
          axis.text  = element_blank())
 ```
 
-<!-- -->
+## 例: 生態学的誤謬
 
-# 課題
+教育水準と投票参加の関係（個人レベル + 都道府県で層化）
 
-<!-- -->
+```{r}
+#| echo: false
+#| message: false
+#| cache: true
+#| fig-width: 8
+#| fig-height: 3.5
+temp_df |> 
+   ggplot(aes(x = Educ, y = Turnout)) +
+   geom_point(aes(color = State), size = 3) +
+   geom_smooth(aes(group = State), 
+               method = "lm", se = FALSE, linewidth = 2) +
+   labs(x = "教育水準", y = "投票率", color = "都道府県") +
+   theme_bw(base_size = 16) +
+   theme(panel.grid = element_blank(),
+         axis.ticks = element_blank(),
+         axis.text  = element_blank())
+```
 
-## 第2回課題
+## 例: 生態学的誤謬
 
-LMSの課題提出窓口で提出
+教育水準と投票参加の関係（政治関心 = 交絡要因）
 
-1. LMSにあるリサーチクエスチョンの一覧から2つの問いを選択する。
-   * これまで宋が担当してきた授業における履修者のリサーチクエスチョンの一部
-   * 最も良いと思うRQと最も改善の余地があると思うRQをそれぞれ1つずつ
-2. その問いが (1) 実証的問題、 (2) 規範的問題、 (3) 分析的問題、 (4) その他のどれに該当するか
-3. 明快さ、検証可能性、理論的重要性、実用性、独創性の観点からその問いを評価する。
-   * 点数でなく文章で評価すること。
-   * 高い/低いだけでなく、その理由も述べること
-
-<br/>
-
-* 正解のない問題であり、自分の考えを、自分の言葉で述べよう。
-* **提出期限：2022年10月5日（水）23時59分**
-
-<!-- -->
-
-## 第3回課題
-
-期末レポートで取り組みたいリサーチクエスチョンの提出
-
-* LSMの授業後アンケートにて記入
-* リサーチクエスチョンはどの時点でも変更可（宋に報告は不要）
-* 実証的問題であること
-* 分析単位を考慮し、データが入手可能（だと考えられる）な問い
-* 政治に関連する問いが望ましい（「マクロ**政治**データ分析実習」だから）が、政治に関連しない問でもOK（減点なし）
-
-<br/>
-
-* **提出期限：2022年10月12日（水）23時59分**
-
-<!-- 
-* 北海道と大阪府間の公共交通機関の量・使用頻度の比較
-* 共働きと片働きの子供の教育的効果
-* やる気が生まれるタイミング
-* 「大金持ち」は「嫌な奴」なのか
-* アート (Art)が実社会にもたらす利益
-* なぜミュージシャンは貧乏なのか
-* YouTubeの広告を見た人が実際に商品を購入する割合、またその割合を上げる方法
-* どうすれば未成年の犯罪件数が減るのか?
-* 日本において困難な政治課題に対する超党派合意を形成する方法
-* 高槻市で一番美味しいラーメン屋は?
-* バドミントンの正しいフォームやフットワークがあるのか
-* ESG投資は本当に利益を生めるのか。
-* 日本の農業競争力の強化
-* 選挙の当選確実を出す方法
-* 日本の民主主義はいかに持続可能なものにできるか
-* ロボットを制御するにおいて凹凸のある地形でも安定した歩行をする方策関数学習する際に最も効率の良い学習方法
-* 国民は天皇に関心があるのか、どう思っているのか、果たして好感度は高いのか
-* Google Map におけるレストランやカフェなどの評価がその地域の特性によって、歪められているのか。
-* 日本の若年層の投票率はなぜ低いか
-* 日本の難民認定率を上げる方法
-* シリアの政治を安定化する方法
-* 執政制度(民主主義、独裁)と経済成長の関係
-* 自分の地域のごみ分別区分を知っていることと、居住スタイル、指定された通りにごみ分別を行なっていることの関係
-* ある野球チームにおいて誰をどのような打順で起用すれば最も得点が取れるのか。
-
-* 少人数のクラスは学習効率があがるのか
-* 選挙に投票しに行く年齢別男女比
-* 緊急事態宣言の期間が長くなるほど、ゲームの売り上げが上がる。
-* 政見放送の注目度と獲得票数の関係性
-* 旬の食材は売り上げが高くなるのか
-* 日本において、なぜ少子化が進むのか？
-* 選挙の当選者の年齢と投票者の年齢が比例関係である。
-* 政治的傾きと病歴の有無、質、重症度との関係
-* インフレーションが進む経済において、国民の意識/選好レベルでの傾向の変化など、何らかの分野における変化
-* 経済効果から見たeスポーツのオリンピック参入への可能性
-* 日本の少子化問題について、産休制度を充実させれば少子化問題は緩和されるのか？
-* 衆議院の優越さの度合いを物量的に見れるか。
-* 地域の10〜20代の選挙投票率が高い地域は学力も高いのか？
-* なぜ各都道府県において学力格差が起こるのか
-* 人口増加率が高い都道府県ほど選挙での投票率が高くなる
-* 選挙で選出された人が実際に国や地域を良くしたと感じたことがある市民は何%か。
-* ある国に対する経済的制裁は当該国の態度変化をもたらすか
-* 無党派層の割合が多くなれば、選挙の投票率は下がるのか。
-* 菅首相が任期を始めた時の支持率と比べ、任期を終えた時の支持率は上がっているのか。
-* 政治家の子供は高学歴(大学の偏差値)なのか。
-* 21歳女性におけるランニングの走行距離は体重の増減に影響を及ぼすか？
-* 年収と家庭の子供の人数に相関はあるか。
-* 購読している新聞会社によって支持政党は変わるのか
-* 都会に近くなるほど政治意識が高まるか
-* 現在の内閣の政策に不満な点がある人は何％であるか。
-* 地方自治体（市町村レベル）における財政状況・補助金等の再分配が選挙行動・政治的基盤に影響を及ぼすか。
-* なぜ米国だけがコロナ禍においてテレワーク導入率85%を超え、日本などの諸外国は20%ほどでとどまってしまったのか？
-* 複数回に渡って行われた緊急事態宣言の中で外出量がそれぞれかなりの差があったがその原因、理由とは何が因果しているのか。
-* 政治体制（民主主義、独裁）と国民の経済格差の関係。
-* JR北海道は市町村と如何にして駅の存続を図るか
--->
+```{r}
+#| echo: false
+#| message: false
+#| cache: true
+#| fig-width: 8
+#| fig-height: 3.5
+temp_df |> 
+   mutate(State = rep(c("A (政治関心 = 5)",
+                        "B (政治関心 = 4)",
+                        "C (政治関心 = 3)",
+                        "D (政治関心 = 2)",
+                        "E (政治関心 = 1)"), each = 100)) |> 
+   ggplot(aes(x = Educ, y = Turnout)) +
+   geom_point(aes(color = State), size = 3) +
+   geom_smooth(aes(group = State), 
+               method = "lm", se = FALSE, linewidth = 2) +
+   labs(x = "教育水準", y = "投票率", color = "都道府県") +
+   theme_bw(base_size = 16) +
+   theme(panel.grid = element_blank(),
+         axis.ticks = element_blank(),
+         axis.text  = element_blank())
+```
