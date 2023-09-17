@@ -699,13 +699,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="データハンドリング" class="level2">
 <h2 class="anchored" data-anchor-id="データハンドリング">データハンドリング</h2>
-<p>　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期の「<a href="https://www.jaysong.net/micro-book/">ミクロ政治データ分析実習</a>」の「データハンドリング」、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">12</a>、<a href="https://www.jaysong.net/RBook/datahandling2.html">13</a>、<a href="https://www.jaysong.net/RBook/factor.html">14</a>、<a href="https://www.jaysong.net/RBook/tidydata.html">15</a>章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを<code>df</code>という名の新しいオブジェクトとして作業環境内に格納する。<code>select()</code>関数の使い方は『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">12</a>章を参照すること。</p>
+<p>　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期講義資料の「データハンドリング（第9〜11回）」、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">13</a>、<a href="https://www.jaysong.net/RBook/datahandling2.html">14</a>、<a href="https://www.jaysong.net/RBook/factor.html">15</a>、<a href="https://www.jaysong.net/RBook/tidydata.html">16</a>章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを<code>df</code>という名の新しいオブジェクトとして作業環境内に格納する。<code>select()</code>関数の使い方は『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling1.html">13</a>章を参照すること。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="ot">&lt;-</span> raw_df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="ot">&lt;-</span> raw_df <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">select</span>(<span class="at">ID           =</span> USER_ID, <span class="co"># 回答者ID</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>         <span class="at">Gender       =</span> sex,     <span class="co"># 性別</span></span>
 <span id="cb13-4"><a href="#cb13-4"></a>         <span class="at">Age          =</span> age,     <span class="co"># 年齢</span></span>
@@ -739,7 +739,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 09</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">mutate</span>(<span class="at">Voted =</span> <span class="fu">if_else</span>(Voted <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb15-3"><a href="#cb15-3"></a></span>
 <span id="cb15-4"><a href="#cb15-4"></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -786,13 +786,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><code>[1] 47.34</code></pre>
 </div>
 </div>
-<p>　同じやり方で中央値（<code>median()</code>）、最小値（<code>min()</code>）、最大値（<code>max()</code>）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の<code>summarise()</code>関数を使用する。<code>summarise()</code>関数の詳細については、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling2.html">13</a>章を参照すること。ここでは<code>Age</code>変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ<code>Mean</code>、<code>Median</code>、<code>SD</code>、<code>Min</code>、<code>Max</code>、<code>N</code>という名の列として出力してみよう。</p>
+<p>　同じやり方で中央値（<code>median()</code>）、最小値（<code>min()</code>）、最大値（<code>max()</code>）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の<code>summarise()</code>関数を使用する。<code>summarise()</code>関数の詳細については、『<a href="https://www.jaysong.net/RBook/">私たちのR</a>』の第<a href="https://www.jaysong.net/RBook/datahandling2.html">14</a>章を参照すること。ここでは<code>Age</code>変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ<code>Mean</code>、<code>Median</code>、<code>SD</code>、<code>Min</code>、<code>Max</code>、<code>N</code>という名の列として出力してみよう。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 11</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">summarise</span>(<span class="at">Mean   =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb19-3"><a href="#cb19-3"></a>            <span class="at">Median =</span> <span class="fu">median</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb19-4"><a href="#cb19-4"></a>            <span class="at">SD     =</span> <span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
@@ -831,7 +831,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">count</span>(Gender)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1060,7 +1060,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Male   =</span> <span class="fu">if_else</span>(Gender <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb25-3"><a href="#cb25-3"></a>         <span class="at">Female =</span> <span class="fu">if_else</span>(Gender <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb25-4"><a href="#cb25-4"></a>         <span class="at">.after =</span> Gender)</span>
@@ -1090,7 +1090,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">mutate</span>(<span class="at">VotedParty_Jimin   =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb27-3"><a href="#cb27-3"></a>         <span class="at">VotedParty_Minshin =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb27-4"><a href="#cb27-4"></a>         <span class="at">VotedParty_Komei   =</span> <span class="fu">if_else</span>(VotedParty <span class="sc">==</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
@@ -1128,7 +1128,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, VotedParty))</span>
 <span id="cb29-3"><a href="#cb29-3"></a></span>
 <span id="cb29-4"><a href="#cb29-4"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1169,7 +1169,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender     =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
 <span id="cb31-3"><a href="#cb31-3"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
 <span id="cb31-4"><a href="#cb31-4"></a>         <span class="at">VotedParty =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
@@ -1201,8 +1201,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, VotedParty))</span>
 <span id="cb33-4"><a href="#cb33-4"></a></span>
 <span id="cb33-5"><a href="#cb33-5"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1233,7 +1233,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
 <span id="cb35-3"><a href="#cb35-3"></a>           <span class="at">Female =</span> Gender_Female,</span>
 <span id="cb35-4"><a href="#cb35-4"></a>           <span class="at">.after =</span> ID)</span>
@@ -1266,7 +1266,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>df3 <span class="ot">&lt;-</span> df3 <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">relocate</span>(VotedParty_Jimin<span class="sc">:</span>VotedParty_DK, <span class="at">.after =</span> Voted)</span>
 <span id="cb37-3"><a href="#cb37-3"></a></span>
 <span id="cb37-4"><a href="#cb37-4"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1297,7 +1297,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df3 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>df3 <span class="sc">|&gt;</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1306,13 +1306,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="summarytoolsの利用" class="level2">
 <h2 class="anchored" data-anchor-id="summarytoolsの利用">{summarytools}の利用</h2>
 <p>　記述統計量は実証分析の論文において必須であり、多くの場合、最初の表として登場する。人によっては記述統計量の表を<em>Table One</em>とも呼ぶのもこれが理由である。記述統計量を示すことが重要だというのは、表作成の需要が高いことを意味し、高い需要はかならず供給を生み出す。Rにおいても簡単に記述統計量をまとめてくれるパッケージが多数あり、ここでは{summarytools}パッケージをを紹介する。</p>
-<p>　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは<code>descr()</code>関数を使用する。使い方は非常に単純で、<code>()</code>内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（<code>%&gt;%</code>または<code>|&gt;</code>）も使える。パイプ演算子は今後毎回登場するので、忘れた人はミクロ政治データ分析実習の<a href="https://www.jaysong.net/micro-book/materials/handling1.html">第9回講義資料</a>、または『私たちのR』の<a href="https://www.jaysong.net/RBook/datahandling1.html">第12章</a>を参照すること。。</p>
+<p>　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは<code>descr()</code>関数を使用する。使い方は非常に単純で、<code>()</code>内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（<code>|&gt;</code>）も使える。パイプ演算子は今後、毎回登場するので、忘れた人はミクロ政治データ分析実習の<a href="https://www.jaysong.net/micro-book/materials/handling1.html">https://www.jaysong.net/r4ps/materials/micro/handling1.html</a>、または『私たちのR』の<a href="https://www.jaysong.net/RBook/datahandling1.html">第13章</a>を参照すること。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">descr</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1345,7 +1345,7 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1368,7 +1368,7 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 24</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
 <span id="cb44-3"><a href="#cb44-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1395,15 +1395,13 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
 <span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
 <span id="cb46-4"><a href="#cb46-4"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
-df  
-N: 3000  
 
                     Mean   Std.Dev     Min      Max   N.Valid
 ---------------- ------- --------- ------- -------- ---------
@@ -1422,20 +1420,20 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 26</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>desc_stat <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>desc_stat <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender     =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
 <span id="cb48-3"><a href="#cb48-3"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
 <span id="cb48-4"><a href="#cb48-4"></a>         <span class="at">VotedParty =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
 <span id="cb48-5"><a href="#cb48-5"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Jimin"</span>, <span class="st">"Minshin"</span>, <span class="st">"Komei"</span>, <span class="st">"Ishin"</span>,</span>
-<span id="cb48-6"><a href="#cb48-6"></a>                                        <span class="st">"Kyosan"</span>, <span class="st">"Etc"</span>, <span class="st">"DK"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb48-6"><a href="#cb48-6"></a>                                        <span class="st">"Kyosan"</span>, <span class="st">"Etc"</span>, <span class="st">"DK"</span>))) <span class="sc">|&gt;</span></span>
 <span id="cb48-7"><a href="#cb48-7"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb48-8"><a href="#cb48-8"></a>             <span class="co"># 以下の引数を追加すると元の変数が自動的に削除される</span></span>
-<span id="cb48-9"><a href="#cb48-9"></a>             <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-9"><a href="#cb48-9"></a>             <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb48-10"><a href="#cb48-10"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
 <span id="cb48-11"><a href="#cb48-11"></a>           <span class="at">Female =</span> Gender_Female,</span>
-<span id="cb48-12"><a href="#cb48-12"></a>           <span class="at">.after =</span> ID) <span class="sc">%&gt;%</span></span>
-<span id="cb48-13"><a href="#cb48-13"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted) <span class="sc">%&gt;%</span></span>
-<span id="cb48-14"><a href="#cb48-14"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">%&gt;%</span></span>
+<span id="cb48-12"><a href="#cb48-12"></a>           <span class="at">.after =</span> ID) <span class="sc">|&gt;</span></span>
+<span id="cb48-13"><a href="#cb48-13"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted) <span class="sc">|&gt;</span></span>
+<span id="cb48-14"><a href="#cb48-14"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
 <span id="cb48-15"><a href="#cb48-15"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
 <span id="cb48-16"><a href="#cb48-16"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span>
 <span id="cb48-17"><a href="#cb48-17"></a></span>
@@ -1443,8 +1441,6 @@ N: 3000
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
-df  
-N: 3000  
 
                             Mean   Std.Dev     Min      Max   N.Valid
 ------------------------ ------- --------- ------- -------- ---------
@@ -1473,27 +1469,27 @@ N: 3000
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(gt) <span class="co"># or pacman::p_load(gt)</span></span>
 <span id="cb50-2"><a href="#cb50-2"></a></span>
 <span id="cb50-3"><a href="#cb50-3"></a><span class="fu">gt</span>(desc_stat, </span>
-<span id="cb50-4"><a href="#cb50-4"></a>   <span class="at">rownames_to_stub =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="co"># 行の名前（変数の名前）を1列目に出力</span></span>
+<span id="cb50-4"><a href="#cb50-4"></a>   <span class="at">rownames_to_stub =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="co"># 行の名前（変数の名前）を1列目に出力</span></span>
 <span id="cb50-5"><a href="#cb50-5"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="co"># 2列、3列の値は小数点3桁まで</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<div id="ehibwandcv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ehibwandcv table {
+<div id="nechntghgp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nechntghgp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ehibwandcv thead, #ehibwandcv tbody, #ehibwandcv tfoot, #ehibwandcv tr, #ehibwandcv td, #ehibwandcv th {
+#nechntghgp thead, #nechntghgp tbody, #nechntghgp tfoot, #nechntghgp tr, #nechntghgp td, #nechntghgp th {
   border-style: none;
 }
 
-#ehibwandcv p {
+#nechntghgp p {
   margin: 0;
   padding: 0;
 }
 
-#ehibwandcv .gt_table {
+#nechntghgp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1519,12 +1515,12 @@ N: 3000
   border-left-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_caption {
+#nechntghgp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ehibwandcv .gt_title {
+#nechntghgp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1536,7 +1532,7 @@ N: 3000
   border-bottom-width: 0;
 }
 
-#ehibwandcv .gt_subtitle {
+#nechntghgp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1548,7 +1544,7 @@ N: 3000
   border-top-width: 0;
 }
 
-#ehibwandcv .gt_heading {
+#nechntghgp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1560,13 +1556,13 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_bottom_border {
+#nechntghgp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_col_headings {
+#nechntghgp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1581,7 +1577,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_col_heading {
+#nechntghgp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1601,7 +1597,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-#ehibwandcv .gt_column_spanner_outer {
+#nechntghgp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1613,15 +1609,15 @@ N: 3000
   padding-right: 4px;
 }
 
-#ehibwandcv .gt_column_spanner_outer:first-child {
+#nechntghgp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ehibwandcv .gt_column_spanner_outer:last-child {
+#nechntghgp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ehibwandcv .gt_column_spanner {
+#nechntghgp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1633,11 +1629,11 @@ N: 3000
   width: 100%;
 }
 
-#ehibwandcv .gt_spanner_row {
+#nechntghgp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ehibwandcv .gt_group_heading {
+#nechntghgp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1663,7 +1659,7 @@ N: 3000
   text-align: left;
 }
 
-#ehibwandcv .gt_empty_group_heading {
+#nechntghgp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1678,15 +1674,15 @@ N: 3000
   vertical-align: middle;
 }
 
-#ehibwandcv .gt_from_md > :first-child {
+#nechntghgp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ehibwandcv .gt_from_md > :last-child {
+#nechntghgp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ehibwandcv .gt_row {
+#nechntghgp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1705,7 +1701,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-#ehibwandcv .gt_stub {
+#nechntghgp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1718,7 +1714,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#ehibwandcv .gt_stub_row_group {
+#nechntghgp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1732,15 +1728,15 @@ N: 3000
   vertical-align: top;
 }
 
-#ehibwandcv .gt_row_group_first td {
+#nechntghgp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ehibwandcv .gt_row_group_first th {
+#nechntghgp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ehibwandcv .gt_summary_row {
+#nechntghgp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1750,16 +1746,16 @@ N: 3000
   padding-right: 5px;
 }
 
-#ehibwandcv .gt_first_summary_row {
+#nechntghgp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_first_summary_row.thick {
+#nechntghgp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ehibwandcv .gt_last_summary_row {
+#nechntghgp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1769,7 +1765,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_grand_summary_row {
+#nechntghgp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1779,7 +1775,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#ehibwandcv .gt_first_grand_summary_row {
+#nechntghgp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1789,7 +1785,7 @@ N: 3000
   border-top-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_last_grand_summary_row_top {
+#nechntghgp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1799,11 +1795,11 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_striped {
+#nechntghgp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ehibwandcv .gt_table_body {
+#nechntghgp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1812,7 +1808,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_footnotes {
+#nechntghgp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1826,7 +1822,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_footnote {
+#nechntghgp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1835,7 +1831,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#ehibwandcv .gt_sourcenotes {
+#nechntghgp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1849,7 +1845,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#ehibwandcv .gt_sourcenote {
+#nechntghgp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1857,63 +1853,63 @@ N: 3000
   padding-right: 5px;
 }
 
-#ehibwandcv .gt_left {
+#nechntghgp .gt_left {
   text-align: left;
 }
 
-#ehibwandcv .gt_center {
+#nechntghgp .gt_center {
   text-align: center;
 }
 
-#ehibwandcv .gt_right {
+#nechntghgp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ehibwandcv .gt_font_normal {
+#nechntghgp .gt_font_normal {
   font-weight: normal;
 }
 
-#ehibwandcv .gt_font_bold {
+#nechntghgp .gt_font_bold {
   font-weight: bold;
 }
 
-#ehibwandcv .gt_font_italic {
+#nechntghgp .gt_font_italic {
   font-style: italic;
 }
 
-#ehibwandcv .gt_super {
+#nechntghgp .gt_super {
   font-size: 65%;
 }
 
-#ehibwandcv .gt_footnote_marks {
+#nechntghgp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ehibwandcv .gt_asterisk {
+#nechntghgp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ehibwandcv .gt_indent_1 {
+#nechntghgp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ehibwandcv .gt_indent_2 {
+#nechntghgp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ehibwandcv .gt_indent_3 {
+#nechntghgp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ehibwandcv .gt_indent_4 {
+#nechntghgp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ehibwandcv .gt_indent_5 {
+#nechntghgp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

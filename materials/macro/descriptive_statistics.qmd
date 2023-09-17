@@ -93,11 +93,11 @@ print(raw_df, n = 15)
 
 ## データハンドリング
 
-　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期の「[ミクロ政治データ分析実習](https://www.jaysong.net/micro-book/)」の「データハンドリング」、『[私たちのR](https://www.jaysong.net/RBook/)』の第[12](https://www.jaysong.net/RBook/datahandling1.html)、[13](https://www.jaysong.net/RBook/datahandling2.html)、[14](https://www.jaysong.net/RBook/factor.html)、[15](https://www.jaysong.net/RBook/tidydata.html)章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを`df`という名の新しいオブジェクトとして作業環境内に格納する。`select()`関数の使い方は『[私たちのR](https://www.jaysong.net/RBook/)』の第[12](https://www.jaysong.net/RBook/datahandling1.html)章を参照すること。
+　通常、データの分析の歳、読み込んだデータをすべて利用することはあまりない（クリーニング済みのデータならすべて使う）。したがって、分析を始める前に、分析に使用するデータのみを残しておいた方が効率的であろう。データハンドリングについては前期講義資料の「データハンドリング（第9〜11回）」、『[私たちのR](https://www.jaysong.net/RBook/)』の第[13](https://www.jaysong.net/RBook/datahandling1.html)、[14](https://www.jaysong.net/RBook/datahandling2.html)、[15](https://www.jaysong.net/RBook/factor.html)、[16](https://www.jaysong.net/RBook/tidydata.html)章を参照されたい。ここではまず、記述統計を出したい変数のみを残し、抽出後のデータを`df`という名の新しいオブジェクトとして作業環境内に格納する。`select()`関数の使い方は『[私たちのR](https://www.jaysong.net/RBook/)』の第[13](https://www.jaysong.net/RBook/datahandling1.html)章を参照すること。
 
 ```{r}
 #| filename: "Code 08"
-df <- raw_df %>%
+df <- raw_df |>
   select(ID           = USER_ID, # 回答者ID
          Gender       = sex,     # 性別
          Age          = age,     # 年齢
@@ -112,7 +112,7 @@ df
 
 ```{r}
 #| filename: "Code 09"
-df <- df %>%
+df <- df |>
   mutate(Voted = if_else(Voted == 1, 1, 0))
 
 df
@@ -139,11 +139,11 @@ df
 mean(df$Age, na.rm = TRUE)
 ```
 
-　同じやり方で中央値（`median()`）、最小値（`min()`）、最大値（`max()`）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の`summarise()`関数を使用する。`summarise()`関数の詳細については、『[私たちのR](https://www.jaysong.net/RBook/)』の第[13](https://www.jaysong.net/RBook/datahandling2.html)章を参照すること。ここでは`Age`変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ`Mean`、`Median`、`SD`、`Min`、`Max`、`N`という名の列として出力してみよう。
+　同じやり方で中央値（`median()`）、最小値（`min()`）、最大値（`max()`）などが計算できる。しかし、本講義ではtidyverseパッケージ群を積極的に活用しているため、ここからは{dplyr}パッケージ（tidyverseを構成するパッケージの一つであり、{tidyverse}を読み込むと自動的に読み込まれる）の`summarise()`関数を使用する。`summarise()`関数の詳細については、『[私たちのR](https://www.jaysong.net/RBook/)』の第[14](https://www.jaysong.net/RBook/datahandling2.html)章を参照すること。ここでは`Age`変数の平均値、中央値、標準偏差、最小値、最大値、有効ケース数を計算し、それぞれ`Mean`、`Median`、`SD`、`Min`、`Max`、`N`という名の列として出力してみよう。
 
 ```{r}
 #| filename: "Code 11"
-df %>%
+df |>
   summarise(Mean   = mean(Age, na.rm = TRUE),
             Median = median(Age, na.rm = TRUE),
             SD     = sd(Age, na.rm = TRUE),
@@ -169,7 +169,7 @@ table(df$Gender)
 
 ```{r}
 #| filename: "Code 13"
-df %>%
+df |>
   count(Gender)
 ```
 
@@ -219,7 +219,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 14"
-df2 <- df %>%
+df2 <- df |>
   mutate(Male   = if_else(Gender == 1, 1, 0),
          Female = if_else(Gender == 2, 1, 0),
          .after = Gender)
@@ -231,7 +231,7 @@ df2
 
 ```{r}
 #| filename: "Code 15"
-df2 <- df2 %>%
+df2 <- df2 |>
   mutate(VotedParty_Jimin   = if_else(VotedParty == 1, 1, 0),
          VotedParty_Minshin = if_else(VotedParty == 2, 1, 0),
          VotedParty_Komei   = if_else(VotedParty == 3, 1, 0),
@@ -248,7 +248,7 @@ df2
 
 ```{r}
 #| filename: "Code 16"
-df2 <- df2 %>%
+df2 <- df2 |>
   select(-c(Gender, VotedParty))
 
 df2
@@ -268,7 +268,7 @@ df2
 
 ```{r}
 #| filename: "Code 17"
-df3 <- df %>%
+df3 <- df |>
   mutate(Gender     = factor(Gender, levels = c(1, 2), 
                              labels = c("Male", "Female")),
          VotedParty = factor(VotedParty, levels = 1:7,
@@ -282,8 +282,8 @@ df3
 
 ```{r}
 #| filename: "Code 18"
-df3 <- df3 %>%
-  dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE) %>%
+df3 <- df3 |>
+  dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE) |>
   select(-c(Gender, VotedParty))
 
 df3
@@ -293,7 +293,7 @@ df3
 
 ```{r}
 #| filename: "Code 19"
-df3 <- df3 %>%
+df3 <- df3 |>
   relocate(Male   = Gender_Male,
            Female = Gender_Female,
            .after = ID)
@@ -305,7 +305,7 @@ df3
 
 ```{r}
 #| filename: "Code 20"
-df3 <- df3 %>%
+df3 <- df3 |>
   relocate(VotedParty_Jimin:VotedParty_DK, .after = Voted)
 
 df3
@@ -316,7 +316,7 @@ df3
 ```{r}
 #| filename: "Code 21"
 #| eval: false
-df3 %>%
+df3 |>
   relocate(starts_with("VotedParty"), .after = Voted)
 ```
 
@@ -324,11 +324,11 @@ df3 %>%
 
 　記述統計量は実証分析の論文において必須であり、多くの場合、最初の表として登場する。人によっては記述統計量の表を*Table One*とも呼ぶのもこれが理由である。記述統計量を示すことが重要だというのは、表作成の需要が高いことを意味し、高い需要はかならず供給を生み出す。Rにおいても簡単に記述統計量をまとめてくれるパッケージが多数あり、ここでは{summarytools}パッケージをを紹介する。
 
-　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは`descr()`関数を使用する。使い方は非常に単純で、`()`内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（`%>%`または`|>`）も使える。パイプ演算子は今後毎回登場するので、忘れた人はミクロ政治データ分析実習の[第9回講義資料](https://www.jaysong.net/micro-book/materials/handling1.html)、または『私たちのR』の[第12章](https://www.jaysong.net/RBook/datahandling1.html)を参照すること。。
+　{summarytools}には記述統計量をまとめてくれる関数が複数あるが、ここでは`descr()`関数を使用する。使い方は非常に単純で、`()`内にデータのオブジェクト名を入力するだけだ。むろん、パイプ演算子（`|>`）も使える。パイプ演算子は今後、毎回登場するので、忘れた人はミクロ政治データ分析実習の[https://www.jaysong.net/r4ps/materials/micro/handling1.html](https://www.jaysong.net/micro-book/materials/handling1.html)、または『私たちのR』の[第13章](https://www.jaysong.net/RBook/datahandling1.html)を参照すること。
 
 ```{r}
 #| filename: "Code 22"
-df %>%
+df |>
   descr()
 ```
 
@@ -336,7 +336,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 23"
-df %>%
+df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"))
 ```
 
@@ -344,7 +344,7 @@ df %>%
 
 ```{r}
 #| filename: "Code 24"
-df %>%
+df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -353,8 +353,8 @@ df %>%
 
 ```{r}
 #| filename: "Code 25"
-df %>%
-  select(-ID) %>%
+df |>
+  select(-ID) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -363,20 +363,20 @@ df %>%
 
 ```{r}
 #| filename: "Code 26"
-desc_stat <- df %>%
+desc_stat <- df |>
   mutate(Gender     = factor(Gender, levels = c(1, 2), 
                              labels = c("Male", "Female")),
          VotedParty = factor(VotedParty, levels = 1:7,
                              labels = c("Jimin", "Minshin", "Komei", "Ishin",
-                                        "Kyosan", "Etc", "DK"))) %>%
+                                        "Kyosan", "Etc", "DK"))) |>
   dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE,
              # 以下の引数を追加すると元の変数が自動的に削除される
-             remove_selected_columns = TRUE) %>%
+             remove_selected_columns = TRUE) |>
   relocate(Male   = Gender_Male,
            Female = Gender_Female,
-           .after = ID) %>%
-  relocate(starts_with("VotedParty"), .after = Voted) %>%
-  select(-ID) %>%
+           .after = ID) |>
+  relocate(starts_with("VotedParty"), .after = Voted) |>
+  select(-ID) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 
@@ -390,6 +390,6 @@ desc_stat
 library(gt) # or pacman::p_load(gt)
 
 gt(desc_stat, 
-   rownames_to_stub = TRUE) %>% # 行の名前（変数の名前）を1列目に出力
+   rownames_to_stub = TRUE) |> # 行の名前（変数の名前）を1列目に出力
   fmt_number(columns = 2:3, decimals = 3) # 2列、3列の値は小数点3桁まで
 ```

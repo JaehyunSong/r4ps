@@ -84,7 +84,7 @@ names(df)
 ### コード
 
 ```{r}
-df2 <- df %>%
+df2 <- df |>
   select(ID           = USER_ID, # 回答者ID
          Gender       = sex,     # 性別
          Age          = age,     # 年齢
@@ -147,7 +147,7 @@ sum(!is.na(df2$Age)) # Ageの有効ケース数
 `summarise()`関数を使用
 
 ```{r}
-df2 %>%
+df2 |>
   summarise(Mean   = mean(Age),         # Ageの平均値
             Median = median(Age),       # Ageの中央値
             SD     = sd(Age),           # Ageの標準偏差
@@ -164,26 +164,26 @@ df2 %>%
 
 ```{r}
 #| echo: false
-df2 %>%
+df2 |>
   summarise(across(c(Age, Jimin = T_Jimin, Minshin = T_Minshin),
                    .fns = list("Mean" = mean,
                                "SD"   = sd,
                                "Min"  = min,
-                               "Max"  = max))) %>%
+                               "Max"  = max))) |>
   pivot_longer(cols = everything(),
                names_to = "x",
-               values_to = "y") %>%
+               values_to = "y") |>
   separate(col  = "x", 
            into = c("Variable", "Stat"),
-           sep  = "_") %>%
+           sep  = "_") |>
   pivot_wider(names_from  = "Stat",
-              values_from = "y") %>%
+              values_from = "y") |>
   mutate(Variable = c("年齢", "感情温度: 自由民主党", 
-                      "感情温度: 民進党")) %>%
-  gt() %>%
+                      "感情温度: 民進党")) |>
+  gt() |>
   cols_label("Variable" = "", "Mean" = "平均値", "SD" = "標準偏差",
-             "Min" = "最小値", "Max" = "最大値") %>%
-  fmt_number(columns = 2:3, decimals = 3) %>%
+             "Min" = "最小値", "Max" = "最大値") |>
+  fmt_number(columns = 2:3, decimals = 3) |>
   tab_options(table.font.size = 24)
 ```
 
@@ -202,8 +202,8 @@ df2 %>%
 #| eval: false
 # インストールされていない場合はRコンソール上にinstall.pacakges("summarytools")
 library(summarytools)
-df2 %>%
-  select(-ID) %>% # 回答者IDの記述統計量は不要なので除外
+df2 |>
+  select(-ID) |> # 回答者IDの記述統計量は不要なので除外
   descr()
 ```
 
@@ -211,8 +211,8 @@ df2 %>%
 
 ```{r}
 #| echo: false
-df2 %>%
-  select(-ID) %>%
+df2 |>
+  select(-ID) |>
   descr()
 ```
 :::
@@ -225,8 +225,8 @@ df2 %>%
 
 ```{r}
 #| code-line-numbers: "4-6"
-df2 %>%
-  select(-ID) %>%
+df2 |>
+  select(-ID) |>
   # 平均値、標準偏差、最小値、最大値、有効ケース数
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, 
@@ -242,8 +242,8 @@ df2 %>%
 ```{r}
 #| results: "asis"
 #| code-line-numbers: "5"
-df2 %>%
-  select(-ID) %>%
+df2 |>
+  select(-ID) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, sort = "p", 
         style = "rmarkdown", plain.ascii = FALSE)
@@ -296,10 +296,10 @@ prop.table(table(df2$Voted)) * 100 # パーセントで出力
 #| tbl-cap: "度数分布表の例"
 tibble(x = c("投票した", "棄権した", "投票権がなかった"),
        y = table(df2$Voted),
-       z = prop.table(table(df2$Voted)) * 100) %>%
-  gt() %>%
-  cols_align(columns = 2:3, align = "right") %>%
-  cols_label("x" = "値", "y" = "度数", "z" = "割合 (%)") %>%
+       z = prop.table(table(df2$Voted)) * 100) |>
+  gt() |>
+  cols_align(columns = 2:3, align = "right") |>
+  cols_label("x" = "値", "y" = "度数", "z" = "割合 (%)") |>
   tab_options(table.font.size = 24)
 ```
 :::
@@ -316,7 +316,7 @@ tibble(x = c("投票した", "棄権した", "投票権がなかった"),
 
 ```{r}
 #| code-line-numbers: "2-4"
-df2 <- df2 %>%
+df2 <- df2 |>
   mutate(Voted_F      = factor(Voted, levels = 1:3, labels = c("投票", "棄権", "選挙権なし")),
          VotedParty_F = factor(VotedParty, levels = 1:7,
                                labels = c("自民", "民進", "公明", "維新", "共産", "その他", "不明"))) 
@@ -328,10 +328,10 @@ df2 <- df2 %>%
 
 ```{r}
 table(df2$Voted_F) # Voted_Fの度数分布表
-table(df2$Voted_F) %>% prop.table() * 100 # パイプ演算子も使用可能
+table(df2$Voted_F) |> prop.table() * 100 # パイプ演算子も使用可能
   
 table(df2$VotedParty_F) # VotedParty_Fの度数分布表
-table(df2$VotedParty_F) %>% prop.table() * 100 # パイプ演算子も使用可能
+table(df2$VotedParty_F) |> prop.table() * 100 # パイプ演算子も使用可能
 ```
 
 <!-- -->
@@ -344,9 +344,11 @@ table(df2$VotedParty_F) %>% prop.table() * 100 # パイプ演算子も使用可�
 tibble(X = c("1. 投票", "2. 棄権", "3. 投票権なし"),
        Y = c(2208, 687, 105),
        V = c(73.6, 22.9, 3.5),
-       Z = c(73.6, 96.5, 100.0)) %>%
-  gt() %>%
-  cols_label(X = "", Y = "度数 (人)", V = "割合 (%)", Z = "累積割合 (%)")
+       Z = c(73.6, 96.5, 100.0)) |>
+  gt() |>
+  cols_label(X = "", Y = "度数 (人)", 
+             V = "割合 (%)", Z = "累積割合 (%)") |> 
+  tab_options(table.font.size = 32)
 ```
 
 <!-- -->
@@ -361,13 +363,16 @@ tibble(X = c("1. 投票", "2. 棄権", "3. 投票権なし"),
 
 ::::{.columns}
 :::{.column width=40%}
+ダミー変換**前**
+
 ```{r}
 #| echo: false
-#| tbl-cap: "ダミー変換「前」"
-df2 %>%
-  filter(ID %in% c(39:42, 46:48, 53:54)) %>%
-  select(ID, Voted_F) %>%
-  gt()
+df2 |>
+  filter(ID %in% c(39:42, 46:48, 53:54)) |>
+  select(ID, Voted_F) |>
+  gt() |>
+  cols_align(columns = 2, align = "left") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 
@@ -375,17 +380,20 @@ df2 %>%
 :::
 
 :::{.column width=50%}
+ダミー変換**後**
+
 ```{r}
 #| echo: false
-#| tbl-cap: "ダミー変換「後」"
-df2 %>%
-  filter(ID %in% c(39:42, 46:48, 53:54)) %>%
-  select(ID, Voted_F) %>%
-  fastDummies::dummy_cols(select_columns = "Voted_F") %>%
-  gt() %>%
+df2 |>
+  filter(ID %in% c(39:42, 46:48, 53:54)) |>
+  select(ID, Voted_F) |>
+  fastDummies::dummy_cols(select_columns = "Voted_F") |>
+  gt() |>
   cols_label(Voted_F_投票       = "投票",
              Voted_F_棄権       = "棄権",
-             Voted_F_選挙権なし = "選挙権なし")
+             Voted_F_選挙権なし = "選挙権なし") |>
+  cols_align(columns = 2, align = "left") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 ::::
@@ -399,12 +407,12 @@ df2 %>%
 * {fastDummies}パッケージを使えばより簡単にダミー変換が可能
 
 ```{r}
-df2 <- df2 %>%
+df2 <- df2 |>
   mutate(Voted_F_Vote       = if_else(Voted_F == "投票", 1, 0),
          Voted_F_Absent     = if_else(Voted_F == "棄権", 1, 0),
          Voted_F_Ineligible = if_else(Voted_F == "選挙権なし", 1, 0))
 
-df2 %>%
+df2 |>
   select(ID, Voted_F:Voted_F_Ineligible)
 ```
 
@@ -424,7 +432,7 @@ df2 %>%
 
 ```{r}
 #| echo: false
-df3 <- df %>%
+df3 <- df |>
   select(ID          = USER_ID,   # 回答者ID
          Gender      = sex,       # 性別
          Age         = age,       # 年齢
@@ -432,7 +440,7 @@ df3 <- df %>%
          Voted       = Q15,       # 投票参加 (2016参院選)
          VotedParty  = Q15S2,     # 投票先 (2016参院選)
          T_Jimin    = Q5_7,      # 自民党に対する感情温度
-         T_Minshin   = Q5_11) %>% # 立民に対する感情温度
+         T_Minshin   = Q5_11) |> # 立民に対する感情温度
   mutate(Female     = ifelse(Gender == 1, 0, 1),
          Education  = ifelse(Education == 1, 1, 0),
          Voted1     = ifelse(Voted == 1, 1, 0),
@@ -444,7 +452,7 @@ df3 <- df %>%
          Vote_Ishin = ifelse(VotedParty == 4, 1, 0),
          Vote_CPJ   = ifelse(VotedParty == 5, 1, 0),
          Vote_Etc   = ifelse(VotedParty == 6, 1, 0),
-         Vote_DK    = ifelse(VotedParty == 7, 1, 0)) %>%
+         Vote_DK    = ifelse(VotedParty == 7, 1, 0)) |>
   select(Female, Age, Education, Voted1:Voted3, starts_with("Vote"),
          starts_with("T_"), -Voted, -VotedParty)
 
@@ -455,19 +463,19 @@ tibble(Cov    = names(df3),
        SD     = map_dbl(Vec, ~sd(.x$Cov, na.rm = TRUE)),
        Min    = map_dbl(Vec, ~min(.x$Cov, na.rm = TRUE)),
        Max    = map_dbl(Vec, ~max(.x$Cov, na.rm = TRUE)),
-       Obs    = map_dbl(Vec, ~sum(!is.na(.x$Cov)))) %>%
-  select(-Vec) %>%
+       Obs    = map_dbl(Vec, ~sum(!is.na(.x$Cov)))) |>
+  select(-Vec) |>
   mutate(Cov = c("女性", "年齢", "最終学歴", 
                  "投票有無: 投票", "投票有無: 棄権", "投票有無: 選挙権なし",
                  "投票先: 自民", "投票先: 民進", "投票先: 公明", 
                  "投票先: 維新", "投票先: 共産", "投票先: その他", 
-                 "投票先: 不明", "感情温度: 自民", "感情温度: 民進")) %>%
-  gt() %>%
+                 "投票先: 不明", "感情温度: 自民", "感情温度: 民進")) |>
+  gt() |>
   cols_label(Cov = "", Mean = "平均値", Median = "中央値",
              SD = "標準偏差", Min = "最小値", Max = "最大値",
-             Obs = "有効ケース数") %>%
-  fmt_number(column = c(Mean, SD), decimals = 3) %>%
-  tab_options(table.font.size = 11)
+             Obs = "有効ケース数") |>
+  fmt_number(column = c(Mean, SD), decimals = 3) |>
+  tab_options(table.font.size = 28)
 ```
 
 <!-- -->
@@ -479,10 +487,10 @@ tibble(Cov    = names(df3),
 * 結果は各自RStudioのViewerペインから確認すること
 
 ```r
-df2 %>%
+df2 |>
   # 記述統計を出力する変数を指定
-  select(Age, Education, Voted_F, VotedParty_F, T_Jimin, T_Minshin) %>%
-  dfSummary() %>% # 記述統計量を計算
+  select(Age, Education, Voted_F, VotedParty_F, T_Jimin, T_Minshin) |>
+  dfSummary() |> # 記述統計量を計算
   view()          # RStudioのViewerペインに表示
 ```
 
@@ -496,7 +504,7 @@ df2 %>%
    * `with(データ名, table(変数名1, 変数名2))`も可能
 
 ```{r}
-df2 <- df2 %>%
+df2 <- df2 |>
   mutate(Gender_F = factor(Gender, levels = 1:2, labels = c("男性", "女性")))
 
 # dfのGender_F変数とVotedParty_F変数のクロス表
@@ -513,8 +521,8 @@ table(df2$Gender_F, df2$VotedParty_F)
 投票有無ごとの平均年齢
 
 ```{r}
-df2 %>%
-  group_by(Voted_F) %>%
+df2 |>
+  group_by(Voted_F) |>
   summarise(Age = mean(Age))
 ```
 :::
@@ -526,10 +534,10 @@ df2 %>%
 投票先ごとの民進党に対する感情温度
 
 ```{r}
-df2 %>%
+df2 |>
   # VotedParty_Fの値が欠損している行を除外
-  drop_na(VotedParty_F) %>% 
-  group_by(VotedParty_F) %>%
+  drop_na(VotedParty_F) |> 
+  group_by(VotedParty_F) |>
   summarise(T_Minshin = mean(T_Minshin))
 ```
 :::
@@ -552,14 +560,16 @@ df2 %>%
 
 ```{r}
 #| echo: false
-df2 %>%
-  drop_na(VotedParty_F) %>%
-  group_by(VotedParty_F) %>%
-  summarise(T_Jimin = mean(T_Jimin)) %>%
-  gt() %>%
-  cols_label("VotedParty_F" = "投票先", "T_Jimin" = "自民感情温度") %>%
-  fmt_number(columns = 2, decimals = 2) %>%
-  cols_align(columns = 2, align = "right")
+df2 |>
+  drop_na(VotedParty_F) |>
+  group_by(VotedParty_F) |>
+  summarise(T_Jimin = mean(T_Jimin)) |>
+  gt() |>
+  cols_label("VotedParty_F" = "投票先", "T_Jimin" = "自民感情温度") |>
+  fmt_number(columns = 2, decimals = 2) |>
+  cols_align(columns = 2, align = "right") |>
+  cols_align(columns = 1, align = "left") |>
+  tab_options(table.font.size = 32)
 ```
 :::
 
@@ -571,10 +581,10 @@ df2 %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-df2 %>%
-  drop_na(VotedParty_F) %>%
-  group_by(VotedParty_F) %>%
-  summarise(T_Jimin = mean(T_Jimin)) %>%
+df2 |>
+  drop_na(VotedParty_F) |>
+  group_by(VotedParty_F) |>
+  summarise(T_Jimin = mean(T_Jimin)) |>
   ggplot() +
   geom_bar(aes(x = VotedParty_F, y = T_Jimin), stat = "identity") +
   labs(x = "投票先 (2016参院選比例区)", y = "自民党に対する\n感情温度の平均値")
@@ -589,10 +599,10 @@ df2 %>%
 ```{r}
 #| fig-width: 8
 #| fig-height: 2.75
-df2 %>%
-  drop_na(VotedParty_F) %>%   # 投票先（VotedParty_F）列の値が欠損した行を除外
-  group_by(VotedParty_F) %>%  # 投票先ごとに行をグルーピング
-  summarise(T_Minshin = mean(T_Minshin)) %>% # 民進党に対する感情温度の平均値
+df2 |>
+  drop_na(VotedParty_F) |>   # 投票先（VotedParty_F）列の値が欠損した行を除外
+  group_by(VotedParty_F) |>  # 投票先ごとに行をグルーピング
+  summarise(T_Minshin = mean(T_Minshin)) |> # 民進党に対する感情温度の平均値
   ggplot() +
   geom_bar(aes(x = VotedParty_F, y = T_Minshin), stat = "identity") +
   labs(x = "投票先 (2016参院選比例区)", y = "民進党に対する\n感情温度の平均値")
@@ -605,8 +615,8 @@ df2 %>%
 ```{r}
 #| fig-width: 8
 #| fig-height: 3
-df2 %>%
-  drop_na(VotedParty_F) %>%
+df2 |>
+  drop_na(VotedParty_F) |>
   ggplot() +
   geom_boxplot(aes(x = VotedParty_F, y = T_Jimin)) +
   labs(x = "投票先 (2016参院選比例区)", y = "自民党に対する感情温度")
@@ -618,12 +628,12 @@ df2 %>%
 
 副読本『[私たちのR: ベストプラクティスの探求](https://www.jaysong.net/RBook/)』
 
-* `library()`: 第5章
-* `read_csv()`: 第7章
-* `dim()`: 第9章
-* `names()`, `select()`: 第12章
-* `summarise()`, `group_by()`, `mutate()`, `if_else()`: 第14章
-* `factor()`: 第14章
-* グラフの作成: 第17〜20章
+* `library()`：第5章
+* `read_csv()`：第8章
+* `dim()`：第10章
+* `names()`、`select()`：第13章
+* `summarise()`、`group_by()`、`mutate()`、`if_else()`：第15章
+* `factor()`: 第16章
+* グラフの作成: 第19〜22章
 
 Rの操作になれていない場合、当該章のみを読んでも内容を理解することは難しい。これは文法を勉強せずに辞書を調べることと同じ行為である。プログラミング、ソフトウェアの使い方は積み上げが重要であるため、第1章から読むことを推奨（当該章のみ抜粋して読むことは、その後の話）
