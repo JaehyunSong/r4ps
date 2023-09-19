@@ -183,8 +183,8 @@ df2 |>
   gt() |>
   cols_label("Variable" = "", "Mean" = "平均値", "SD" = "標準偏差",
              "Min" = "最小値", "Max" = "最大値") |>
-  fmt_number(columns = 2:3, decimals = 3) |>
-  tab_options(table.font.size = 24)
+  fmt_number(columns = 2:3, decimals = 3) |> 
+  tab_options(table.font.size = 32)
 ```
 
 <!-- -->
@@ -233,15 +233,14 @@ df2 |>
         sort = "p")
 ```
 
-<!-- -->
+## 参考）Quarto/R markdownで{summarytools}を使う場合
 
-## {summarytools}の利用（3）
+* Quartoを使う場合
+   * Chunkオプションとして`#| results: "asis"`を指定
+   * `descr()`内に`style = "rmarkdown"`と`plain.ascii = FALSE`を指定
 
-* RMarkdownを使う場合（Chunkオプションとして`results = "asis"`を指定）
-
-```{r}
+```{{r}}
 #| results: "asis"
-#| code-line-numbers: "5"
 df2 |>
   select(-ID) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
@@ -249,11 +248,17 @@ df2 |>
         style = "rmarkdown", plain.ascii = FALSE)
 ```
 
-<!-- -->
+```{r}
+#| results: "asis"
+#| echo: false
+df2 |>
+  select(-ID) |>
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, sort = "p", 
+        style = "rmarkdown", plain.ascii = FALSE)
+```
 
 # カテゴリ変数の記述統計
-
-<!-- -->
 
 ## カテゴリ変数（categorical variable）
 
@@ -270,8 +275,6 @@ df2 |>
 * **方法2:** ダミー変数に変換し、量的変数と同じ扱い
    * 記述統計の表を作成する場合は、ダミー変換後、量的変数同様に扱う
 
-<!-- -->
-
 ## 度数分布表の作成
 
 `Voted`（投票有無）変数の度数分布表
@@ -279,7 +282,6 @@ df2 |>
 * 値 (1, 2, 3, ...)の意味は質問票、またはコードブックを参照
 * カテゴリ変数が複数ある場合、一つ一つの変数に対し、度数分布表を作成する必要がある。
    * $\Rightarrow$ できれば、連続変数の記述統計表と一つにまとめたい。
-
 
 ::::{.columns}
 :::{.column width=60%}
