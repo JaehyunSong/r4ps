@@ -1099,13 +1099,14 @@ Masahiko Asano and Dennis P. Patterson. 2018. "[Smiles, turnout, candidates, and
    * 一般的に、個人レベルのデータは入手のコストが高い
 * 例) 理論: 高齢者は投票参加する傾向が強い。
    * 理論における単位: 個人
-   * 仮説A: **高齢者**は2022参院選において投票参加する傾向が強い $\leftarrow$ 個人
-   * 仮説B: 65歳以上人口比が高い**市区町村**ほど、2022参院選の投票率が強い $\leftarrow$ 集団
+   * 仮説A: **高齢者**は2022参院選において投票参加する傾向が強い $\leftarrow$ 分析単位：個人
+   * 仮説B: 65歳以上人口比が高い**都道府県**ほど、2022参院選の投票率が強い $\leftarrow$ 分析単位：都道府県
 * 例) 理論: 維新の支持基盤は関西地域である。
-   * 仮説C: 関西出身の**人**は維新に投票する傾向がある $\leftarrow$ 個人
-   * 仮説D: 関西の**市区町村**は、維新の得票率が高い $\leftarrow$ 集団
+   * 仮説C: 関西出身の**人**は維新に投票する傾向がある $\leftarrow$ 分析単位：個人
+   * 仮説D: 関西の**市区町村**は、維新の得票率が高い $\leftarrow$ 分析単位：市区町村
 * 2つの結果が異なる場合もある $\leftarrow$ **生態学的誤謬**（Ecological fallacy）
-* 参考）[シンプソンのパラドックス](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%83%97%E3%82%BD%E3%83%B3%E3%81%AE%E3%83%91%E3%83%A9%E3%83%89%E3%83%83%E3%82%AF%E3%82%B9)（Simpson's paradox）
+   * 交絡要因が原因であるケースが多い。
+   * 参考）[シンプソンのパラドックス](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%83%97%E3%82%BD%E3%83%B3%E3%81%AE%E3%83%91%E3%83%A9%E3%83%89%E3%83%83%E3%82%AF%E3%82%B9)（Simpson's paradox）
 
 <br/>
 
@@ -1114,102 +1115,58 @@ Masahiko Asano and Dennis P. Patterson. 2018. "[Smiles, turnout, candidates, and
 
 ## 例: 生態学的誤謬
 
-教育水準と投票参加の関係（都道府県レベル）
+予習時間と成績の関係（科目レベル）
 
 ```{r}
 #| echo: false
 #| message: false
 #| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-set.seed(19861008)
-temp_df <- tibble(State = rep(LETTERS[1:5], each = 100),
-                  Mean_Educ  = rep(1:5, each = 100)) |> 
-   rowwise() |> 
-   mutate(Educ    = rnorm(1, mean = Mean_Educ, sd = 1),
-          Turnout = 1 + 4 * Educ - 10 * Mean_Educ + rnorm(1, 0, 2)) |> 
-   ungroup() 
-
-temp_df |> 
-   group_by(State) |> 
-   summarise(Educ = mean(Educ),
-             Turnout = mean(Turnout)) |> 
-   ggplot(aes(x = Educ, y = Turnout)) +
-   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
-   geom_point(aes(fill = State), size = 5, shape = 21, color = "white") +
-   labs(x = "教育水準", y = "投票率", fill = "都道府県") +
-   theme_bw(base_size = 16) +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
-```
-
-## 例: 生態学的誤謬
-
-教育水準と投票参加の関係（個人レベル）
-
-```{r}
-#| echo: false
-#| message: false
-#| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-temp_df |> 
-   ggplot(aes(x = Educ, y = Turnout)) +
-   geom_point(size = 3) +
-   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
-   labs(x = "教育水準", y = "投票率", color = "都道府県") +
-   theme_bw(base_size = 16) +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
-```
-
-## 例: 生態学的誤謬
-
-教育水準と投票参加の関係（個人レベル + 都道府県で層化）
-
-```{r}
-#| echo: false
-#| message: false
-#| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-temp_df |> 
-   ggplot(aes(x = Educ, y = Turnout)) +
-   geom_point(aes(color = State), size = 3) +
-   geom_smooth(aes(group = State), 
+#| fig-width: 10
+#| fig-height: 5
+df <- read_csv("Data/SimpsonParadox.csv")
+#df <- read_csv("slides/macro/Data/SimpsonParadox.csv")
+df |> 
+   group_by(科目) |> 
+   summarise(予習時間 = mean(予習時間),
+             成績     = mean(成績)) |> 
+   ggplot() +
+   geom_smooth(aes(x = 予習時間, y = 成績),
                method = "lm", se = FALSE, linewidth = 2) +
-   labs(x = "教育水準", y = "投票率", color = "都道府県") +
-   theme_bw(base_size = 16) +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
+   geom_point(aes(x = 予習時間, y = 成績, fill = 科目),
+              size = 5, shape = 21) +
+   theme_bw(base_size = 16)
 ```
 
 ## 例: 生態学的誤謬
 
-教育水準と投票参加の関係（政治関心 = 交絡要因）
+予習時間と成績の関係（個人レベル）
 
 ```{r}
 #| echo: false
 #| message: false
 #| cache: true
-#| fig-width: 8
-#| fig-height: 3.5
-temp_df |> 
-   mutate(State = rep(c("A (政治関心 = 5)",
-                        "B (政治関心 = 4)",
-                        "C (政治関心 = 3)",
-                        "D (政治関心 = 2)",
-                        "E (政治関心 = 1)"), each = 100)) |> 
-   ggplot(aes(x = Educ, y = Turnout)) +
-   geom_point(aes(color = State), size = 3) +
-   geom_smooth(aes(group = State), 
-               method = "lm", se = FALSE, linewidth = 2) +
-   labs(x = "教育水準", y = "投票率", color = "都道府県") +
-   theme_bw(base_size = 16) +
-   theme(panel.grid = element_blank(),
-         axis.ticks = element_blank(),
-         axis.text  = element_blank())
+#| fig-width: 10
+#| fig-height: 5
+df |> 
+   ggplot(aes(x = 予習時間, y = 成績)) +
+   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
+   geom_point(size = 5, shape = 21, fill = "black", alpha = 0.5) +
+   theme_bw(base_size = 16)
+```
+
+## 例: 生態学的誤謬
+
+予習時間と成績の関係（個人レベル + 科目で層化）$\Rightarrow$ 「科目」が**交絡要因**
+
+```{r}
+#| echo: false
+#| message: false
+#| cache: true
+#| fig-width: 10
+#| fig-height: 5
+df |> 
+   ggplot(aes(x = 予習時間, y = 成績, fill = 科目)) +
+   geom_smooth(method = "lm", se = FALSE, linewidth = 2) +
+   geom_point(size = 5, shape = 21, alpha = 0.5) +
+   theme_bw(base_size = 16)
 ```
