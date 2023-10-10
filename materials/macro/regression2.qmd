@@ -68,14 +68,14 @@ names(jes_df) # jes_df内の変数名
 
 ```{r}
 #| filename: "Code 04"
-jes_df %>%
-   dummy_cols(c("Gender", "Job")) %>%
+jes_df |>
+   dummy_cols(c("Gender", "Job")) |>
    # Gender_1と_2列をGenderの前に
-   relocate(c(Gender_1, Gender_2), .before = Gender) %>% 
+   relocate(c(Gender_1, Gender_2), .before = Gender) |> 
    # Job_1から_6列をJobの前に
-   relocate(Job_1:Job_6, .before = Job) %>%          
+   relocate(Job_1:Job_6, .before = Job) |>          
    # GenderとJob列を除外してからdscer()に渡す
-   select(-c(Gender, Job)) %>%
+   select(-c(Gender, Job)) |>
    descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -107,7 +107,7 @@ jes_df %>%
 
 ```{r}
 #| filename: "Code 05"
-jes_df <- jes_df %>%
+jes_df <- jes_df |>
   mutate(Gender = factor(Gender, levels = 1:2, labels = c("Male", "Female")),
          Job    = factor(Job, levels = 1:6, labels = c("Salary", "Self", "Student", 
                                                        "House", "Retire", "Etc")))
@@ -154,7 +154,7 @@ levels(jes_df$Job) # jes_dfのJob列の水準
 
 ```{r}
 #| filename: "Code 10"
-jes_df2 <- jes_df %>%
+jes_df2 <- jes_df |>
   mutate(Gender = fct_relevel(Gender, "Female"), # Femaleを第1水準に
          Job    = fct_relevel(Job, "Etc"))       # Etcを第1水準に
 
@@ -199,15 +199,15 @@ modelsummary(list(dummy_fit1, dummy_fit2),
 modelsummary(list(dummy_fit1, dummy_fit2),
              estimate  = "{estimate} ({std.error})",
              statistic = NULL,
-             output    = "gt") %>% 
+             output    = "gt") |> 
    tab_style(style     = cell_fill(color = "lightblue"),
-             locations = cells_body(rows = 4, columns = c(1, 2))) %>% 
+             locations = cells_body(rows = 4, columns = c(1, 2))) |> 
    tab_style(style     = cell_fill(color = "lightblue"),
-             locations = cells_body(rows = 13, columns = c(1, 3))) %>% 
+             locations = cells_body(rows = 13, columns = c(1, 3))) |> 
    tab_style(style     = cell_fill(color = "lightpink"),
-             locations = cells_body(rows = 7:10, columns = 1:3)) %>% 
+             locations = cells_body(rows = 7:10, columns = 1:3)) |> 
    tab_style(style     = cell_fill(color = "lightpink"),
-             locations = cells_body(rows = 11, columns = c(1, 2))) %>% 
+             locations = cells_body(rows = 11, columns = c(1, 2))) |> 
    tab_style(style     = cell_fill(color = "lightpink"),
              locations = cells_body(rows = 14, columns = c(1, 3)))
 ```
@@ -241,7 +241,7 @@ coef(dummy_fit1)
 
 ```{r}
 #| filename: "Code 16"
-jes_df3 <- jes_df %>%
+jes_df3 <- jes_df |>
   mutate(Income_m = Income / 1000000)
 
 jes_df3
@@ -270,9 +270,9 @@ modelsummary(list(dummy_fit1, fit3),
 modelsummary(list(dummy_fit1, fit3),
              estimate  = "{estimate} ({std.error})",
              statistic = NULL,
-             output    = "gt") %>% 
+             output    = "gt") |> 
    tab_style(style     = cell_fill(color = "lightblue"),
-             locations = cells_body(rows = 12, columns = c(1, 2))) %>% 
+             locations = cells_body(rows = 12, columns = c(1, 2))) |> 
    tab_style(style     = cell_fill(color = "lightblue"),
              locations = cells_body(rows = 13, columns = c(1, 3)))
 ```
@@ -328,7 +328,7 @@ x3 * (-1)
 
 ```{r}
 #| filename: "Code 25"
-jes_df3 <- jes_df3 %>%
+jes_df3 <- jes_df3 |>
   mutate(Interest_r = 5 - Interest)
 
 jes_df3
@@ -359,9 +359,9 @@ modelsummary(list(fit3, fit4),
 modelsummary(list(fit3, fit4),
              estimate  = "{estimate} ({std.error})",
              statistic = NULL,
-             output    = "gt") %>% 
+             output    = "gt") |> 
    tab_style(style     = cell_fill(color = "lightblue"),
-             locations = cells_body(rows = 3, columns = c(1, 2))) %>% 
+             locations = cells_body(rows = 3, columns = c(1, 2))) |> 
    tab_style(style     = cell_fill(color = "lightblue"),
              locations = cells_body(rows = 13, columns = c(1, 3)))
 ```

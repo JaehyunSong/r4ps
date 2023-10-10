@@ -40,7 +40,7 @@ df
 
 ```{r}
 #| filename: "Code 02"
-sum_stat <- df %>%
+sum_stat <- df |>
   summarise(Mean = mean(Temp_Ishin, na.rm = TRUE),
             Var  = var(Temp_Ishin, na.rm = TRUE),
             N    = sum(!is.na(Temp_Ishin)))
@@ -52,7 +52,7 @@ sum_stat
 
 ```{r}
 #| filename: "Code 03"
-sum_stat <- sum_stat %>%
+sum_stat <- sum_stat |>
   mutate(SE      = sqrt(Var / N),
          .before = N)
 
@@ -77,7 +77,7 @@ qt(0.025, df = sum_stat$N - 1)
 ci95_df <- tibble(T       = seq(-5, 5, 0.01),
                   density = dt(seq(-5, 5, 0.01), df = 1997))
   
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = -1.961, linetype = 2, color = "gray50") +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -110,7 +110,7 @@ qt(0.975, df = sum_stat$N - 1)
 ci95_df <- tibble(T       = seq(-5, 5, 0.01),
                   density = dt(seq(-5, 5, 0.01), df = 1997))
   
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 1.961, linetype = 2, color = "gray50") +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -131,7 +131,7 @@ ci95_df %>%
 
 ```{r}
 #| filename: "Code 06"
-sum_stat <- sum_stat %>%
+sum_stat <- sum_stat |>
   mutate(CI_lower = Mean + qt(0.025, df = N - 1) * SE,
          CI_upper = Mean + qt(0.975, df = N - 1) * SE,
          .before  = N)
@@ -168,10 +168,10 @@ sum_stat$CI_upper # 95%信頼区間の上限
 ```{r}
 #| filename: "Code 11"
 # オブジェクトとして格納せず、結果だけを出力
-df %>%
+df |>
   summarise(Mean = mean(Temp_Ishin, na.rm = TRUE),
             Var  = var(Temp_Ishin, na.rm = TRUE),
-            N    = sum(!is.na(Temp_Ishin))) %>%
+            N    = sum(!is.na(Temp_Ishin))) |>
   mutate(SE       = sqrt(Var / N),
          t        = Mean / SE,
          CI_lower = Mean + qt(0.025, df = N - 1) * SE,

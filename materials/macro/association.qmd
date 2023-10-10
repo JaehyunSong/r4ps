@@ -51,8 +51,8 @@ gacha_df
 
 ```{r}
 #| filename: "Code 03"
-gacha_df %>%
-  select(-player) %>% # player列を除外してdescr()関数に渡す
+gacha_df |>
+  select(-player) |> # player列を除外してdescr()関数に渡す
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -63,12 +63,12 @@ gacha_df %>%
 
 ```{r}
 #| filename: "Code 04"
-gacha_df %>%
+gacha_df |>
   # ダミー化する変数が複数の場合、
   # select_columns = c("変数名1", "変数名2", "変数名3")
   # と書く
-  dummy_cols(select_columns = "stone_type", ignore_na = TRUE) %>%
-  select(-c(player, stone_type, result)) %>%
+  dummy_cols(select_columns = "stone_type", ignore_na = TRUE) |>
+  select(-c(player, stone_type, result)) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -77,8 +77,8 @@ gacha_df %>%
 
 ```{r}
 #| filename: "Code 05"
-mean_df <- gacha_df %>%
-  group_by(stone_type) %>%
+mean_df <- gacha_df |>
+  group_by(stone_type) |>
   summarise(SSR = mean(result_SSR, na.rm = TRUE))
 
 mean_df
@@ -88,7 +88,7 @@ mean_df
 
 ```{r}
 #| filename: "Code 06"
-mean_df %>%
+mean_df |>
   ggplot() +
   # geom_col()の代わりに、以下のgeom_bar()でもOK
   # geom_bar(aes(x = stone_type, y = SSR), stat = "identity") +
@@ -107,9 +107,9 @@ ifelse(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の
 
 ```{r}
 #| filename: "Code 07"
-mean_df %>%
+mean_df |>
   mutate(stone_type = ifelse(stone_type == "Free", "無償", "有償"),
-         SSR        = SSR * 100) %>%
+         SSR        = SSR * 100) |>
   ggplot() +
   geom_col(aes(x = stone_type, y = SSR)) +
   labs(x = "石の種類", y = "SSRの出現割合 (%)") +
@@ -163,8 +163,8 @@ subsidy_df
 
 ```{r}
 #| filename: "Code 11"
-subsidy_df %>%
-  select(Turnout, Subsidy) %>%
+subsidy_df |>
+  select(Turnout, Subsidy) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -176,7 +176,7 @@ subsidy_df %>%
 #| fig-width: 5
 #| fig-height: 5
 # subsidy_dfを使って
-subsidy_df %>%
+subsidy_df |>
   # キャンバスを用意する
   ggplot() +
   # 横軸（x）が投票率（Turnout）、縦軸（y）が補助金額（Subsidy）の
@@ -194,7 +194,7 @@ subsidy_df %>%
 #| filename: "Code 13"
 #| fig-width: 5
 #| fig-height: 5
-subsidy_df %>%
+subsidy_df |>
   ggplot() +
   geom_point(aes(x = Turnout, y = Subsidy)) +
   # 2つの変数間の関係を示す直線（回帰直線; method = "lm"）を引く
@@ -212,7 +212,7 @@ subsidy_df %>%
 #| filename: "Code 14"
 #| fig-width: 5
 #| fig-height: 5
-subsidy_df %>%
+subsidy_df |>
   # 2つの幾何オブジェクト（geom_関数）はマッピング（xとy）を共有するため
   # ggplot()内で定義した方が効率的
   ggplot(aes(x = Turnout, y = Subsidy)) +
@@ -254,7 +254,7 @@ pasta_df
 
 ```{r}
 #| filename: "Code 17"
-pasta_df <- pasta_df %>%
+pasta_df <- pasta_df |>
   mutate(Gender_D = ifelse(Female == 1, "Female", "Male"),
          Gender_D = factor(Gender_D, levels = c("Male", "Female")),
          Over40_D = ifelse(Over40 == 1, "41 to 80", "18 to 40"),
@@ -278,10 +278,10 @@ table(pasta_df$Over40_D, pasta_df$Pasta)
 
 ```{r}
 #| filename: "Code 19"
-table(pasta_df$Gender_D, pasta_df$Pasta) %>%
+table(pasta_df$Gender_D, pasta_df$Pasta) |>
   addmargins()
 
-table(pasta_df$Over40_D, pasta_df$Pasta) %>%
+table(pasta_df$Over40_D, pasta_df$Pasta) |>
   addmargins()
 ```
 
@@ -289,10 +289,10 @@ table(pasta_df$Over40_D, pasta_df$Pasta) %>%
 
 ```{r}
 #| filename: "Code 20"
-table(pasta_df$Gender_D, pasta_df$Pasta) %>%
+table(pasta_df$Gender_D, pasta_df$Pasta) |>
   prop.table()
 
-table(pasta_df$Over40_D, pasta_df$Pasta) %>%
+table(pasta_df$Over40_D, pasta_df$Pasta) |>
   prop.table()
 ```
 
@@ -300,12 +300,12 @@ table(pasta_df$Over40_D, pasta_df$Pasta) %>%
 
 ```{r}
 #| filename: "Code 21"
-table(pasta_df$Gender_D, pasta_df$Pasta) %>%
-  prop.table() %>%
+table(pasta_df$Gender_D, pasta_df$Pasta) |>
+  prop.table() |>
   addmargins()
 
-table(pasta_df$Over40_D, pasta_df$Pasta) %>%
-  prop.table() %>%
+table(pasta_df$Over40_D, pasta_df$Pasta) |>
+  prop.table() |>
   addmargins()
 ```
 
@@ -313,12 +313,12 @@ table(pasta_df$Over40_D, pasta_df$Pasta) %>%
 
 ```{r}
 #| filename: "Code 22"
-table(pasta_df$Gender_D, pasta_df$Pasta) %>%
-  prop.table() %>%
+table(pasta_df$Gender_D, pasta_df$Pasta) |>
+  prop.table() |>
   addmargins() * 100
 
-table(pasta_df$Over40_D, pasta_df$Pasta) %>%
-  prop.table() %>%
+table(pasta_df$Over40_D, pasta_df$Pasta) |>
+  prop.table() |>
   addmargins() * 100
 ```
 
@@ -326,7 +326,7 @@ table(pasta_df$Over40_D, pasta_df$Pasta) %>%
 
 ```{r}
 #| filename: "Code 23"
-table(pasta_df$Gender_D, pasta_df$Pasta) %>%
+table(pasta_df$Gender_D, pasta_df$Pasta) |>
   chisq.test()
 ```
 
@@ -334,7 +334,7 @@ table(pasta_df$Gender_D, pasta_df$Pasta) %>%
 
 ```{r}
 #| filename: "Code 24"
-table(pasta_df$Over40_D, pasta_df$Pasta) %>%
+table(pasta_df$Over40_D, pasta_df$Pasta) |>
   chisq.test()
 ```
 

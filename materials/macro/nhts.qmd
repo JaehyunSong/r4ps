@@ -52,8 +52,8 @@ tibble(Var = c("player", "trial", "stone_type", "result"),
        Dep = c("プレイヤーのID",
                "当該プレイヤーの何番目のガチャか",
                "使用した石のタイプ (Free: 無料石、Paid: 有償石)",
-               "ガチャの結果 (N, R, SR, SSR)")) %>%
-  gt() %>%
+               "ガチャの結果 (N, R, SR, SSR)")) |>
+  gt() |>
   cols_label(Var = "変数", Dep = "説明")
 ```
 
@@ -61,7 +61,7 @@ tibble(Var = c("player", "trial", "stone_type", "result"),
 
 ```{r}
 #| filename: "Code 02"
-gacha_df %>%
+gacha_df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -70,7 +70,7 @@ gacha_df %>%
 
 ```{r}
 #| filename: "Code 03"
-gacha_df <- gacha_df %>%
+gacha_df <- gacha_df |>
   mutate(result_N   = ifelse(result == "N", 1, 0),
          result_R   = ifelse(result == "R", 1, 0),
          result_SR  = ifelse(result == "SR", 1, 0),
@@ -86,7 +86,7 @@ gacha_df
 # 上記のコードは以下のように書くこともできる。
 # ignore_na = TRUE を指定しない場合、欠損値か否かを示すダミー変数も生成される。
 library(fastDummies)
-gacha_df <- gacha_df %>%
+gacha_df <- gacha_df |>
   dummy_cols(select_columns = "result", ignore_na = TRUE)
 
 gacha_df
@@ -96,8 +96,8 @@ gacha_df
 
 ```{r}
 #| filename: "Code 05"
-gacha_df %>%
-  select(-player) %>%
+gacha_df |>
+  select(-player) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -147,7 +147,7 @@ mean(gacha_df$result_SSR)
 ci95_df <- tibble(T       = seq(-4, 4, 0.01),
                   density = dt(seq(-4, 4, 0.01), df = 4771))
   
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -217,7 +217,7 @@ se    <- sd(gacha_df$result_SSR, na.rm = TRUE) / sqrt(n)  # 標準誤差
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -249,7 +249,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -281,7 +281,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -339,7 +339,7 @@ pt(-1 * abs(0.7888289), df = 4771) * 2
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -361,7 +361,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 3.5
 #| fig-height: 3
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -384,7 +384,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 3.5
 #| fig-height: 3
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -409,7 +409,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 3.5
 #| fig-height: 3
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -432,7 +432,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 3.5
 #| fig-height: 3
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), linewidth = 1) +
@@ -477,7 +477,7 @@ qt(0.975, df = 4771) # 有意水準が5% (0.05)の場合の上側臨界値
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2, color = "gray70") +
   geom_vline(xintercept = -1.96, linetype = 2) +
@@ -519,7 +519,7 @@ ci95_df %>%
 #| echo: false
 #| fig-width: 7
 #| fig-height: 3.5
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2, color = "gray70") +
   geom_vline(xintercept = -1.96, linetype = 2) +

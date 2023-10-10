@@ -565,7 +565,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sum_stat <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sum_stat <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Temp_Ishin, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb3-3"><a href="#cb3-3"></a>            <span class="at">Var  =</span> <span class="fu">var</span>(Temp_Ishin, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb3-4"><a href="#cb3-4"></a>            <span class="at">N    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Temp_Ishin)))</span>
@@ -585,7 +585,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 03</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>sum_stat <span class="ot">&lt;-</span> sum_stat <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>sum_stat <span class="ot">&lt;-</span> sum_stat <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">mutate</span>(<span class="at">SE      =</span> <span class="fu">sqrt</span>(Var <span class="sc">/</span> N),</span>
 <span id="cb5-3"><a href="#cb5-3"></a>         <span class="at">.before =</span> N)</span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
@@ -649,7 +649,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 06</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>sum_stat <span class="ot">&lt;-</span> sum_stat <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>sum_stat <span class="ot">&lt;-</span> sum_stat <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">mutate</span>(<span class="at">CI_lower =</span> Mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> SE,</span>
 <span id="cb11-3"><a href="#cb11-3"></a>         <span class="at">CI_upper =</span> Mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> SE,</span>
 <span id="cb11-4"><a href="#cb11-4"></a>         <span class="at">.before  =</span> N)</span>
@@ -716,10 +716,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><strong>Code 11</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># オブジェクトとして格納せず、結果だけを出力</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Temp_Ishin, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb21-4"><a href="#cb21-4"></a>            <span class="at">Var  =</span> <span class="fu">var</span>(Temp_Ishin, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb21-5"><a href="#cb21-5"></a>            <span class="at">N    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Temp_Ishin))) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>            <span class="at">N    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Temp_Ishin))) <span class="sc">|&gt;</span></span>
 <span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">mutate</span>(<span class="at">SE       =</span> <span class="fu">sqrt</span>(Var <span class="sc">/</span> N),</span>
 <span id="cb21-7"><a href="#cb21-7"></a>         <span class="at">t        =</span> Mean <span class="sc">/</span> SE,</span>
 <span id="cb21-8"><a href="#cb21-8"></a>         <span class="at">CI_lower =</span> Mean <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> SE,</span>

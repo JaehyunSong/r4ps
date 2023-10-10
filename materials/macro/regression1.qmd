@@ -42,7 +42,7 @@ beer_df
 
 ```{r}
 #| filename: "Code 02"
-beer_df %>%
+beer_df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -68,7 +68,7 @@ cor.test(beer_df$Temperature, beer_df$Beer)
 #| filename: "Code 04"
 #| fig-width: 10
 #| fig-height: 6
-beer_df %>%
+beer_df |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_point(size = 3) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -82,11 +82,11 @@ beer_df %>%
 #| echo: false
 #| fig-width: 10
 #| fig-height: 6
-beer_df %>%
-  #filter(Year == 2020, Beer >= 400, Beer <= 780) %>%
-  #mutate(Pred = 406.50 + 7.19 * Temperature) %>%
-  mutate(Pred = 576.227 + 7.355 * Temperature) %>%
-  select(Year, Month, Temperature, Beer, Pred) %>%
+beer_df |>
+  #filter(Year == 2020, Beer >= 400, Beer <= 780) |>
+  #mutate(Pred = 406.50 + 7.19 * Temperature) |>
+  mutate(Pred = 576.227 + 7.355 * Temperature) |>
+  select(Year, Month, Temperature, Beer, Pred) |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_segment(aes(x = Temperature, xend = Temperature,
                    y = Beer, yend = Pred), linetype = 2) +
@@ -141,8 +141,8 @@ pref_df
 
 ```{r}
 #| filename: "Code 07"
-pref_df %>%
-  select(-c(ID, Pref)) %>%
+pref_df |>
+  select(-c(ID, Pref)) |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -189,7 +189,7 @@ dagify(X ~ Z,
        exposure = "X",
        outcome  = "Y",
        coords   = list(x = c(X = 1, Y = 3, Z = 2),
-                  y = c(X = 1, Y = 1, Z = 2))) %>%
+                  y = c(X = 1, Y = 1, Z = 2))) |>
   ggdag(node_size = 9, text_size = 7) +
   coord_cartesian(ylim = c(0.5, 2.5)) +
   theme_dag_blank()
