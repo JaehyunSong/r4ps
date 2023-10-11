@@ -8,18 +8,19 @@ metadata-files:
 
 ## 本日の内容
 
-* 記述統計とは何か
-* どの変数にどの記述統計量を求めるべきか
-* 記述統計をどう報告するか
+* 記述統計とは何か。
+* どの変数にどの記述統計量を求めるべきか。
+* 記述統計量をどう報告するか。
 * Rの復習
    * 前期履修者でも数ヶ月はRを触っていないはずなので、ウォーミングアップ
-   * ゼロベースの解説では**ない**（Rの導入やデータの読み込みなどは解説しない）
+   * ゼロベースの解説では**ない**（Rの導入やデータの読み込みなどは解説しない）。
 
 # 変数の種類と記述統計
 
 ```{r}
 #| include: false
 pacman::p_load(tidyverse, gt, summarytools)
+options(width = 100)
 df <- read_csv("Data/descstat_data.csv")
 ```
 
@@ -28,12 +29,10 @@ df <- read_csv("Data/descstat_data.csv")
 **記述統計量**（descriptive statistics）
 
 * ある変数が持つ情報を要約した数値
-* データ分析を用いる論文、レポートにはデータ分析の結果を紹介する前に**必ず**分析に用いる変数の記述統計が必要
+* データ分析を用いる論文、レポートにはデータ分析の結果を紹介する前に**必ず**分析に用いる変数の記述統計量が必要
 * 記述統計量の種類
-   * 各変数を代表する値: 平均値、中央値、最頻値
-   * 値の散らばり具合: 標準偏差、分散、範囲（最大値 - 最小値）、四分位範囲など
-
-<!-- -->
+   * 各変数を代表する値：平均値、中央値、最頻値
+   * 値の散らばり具合：標準偏差、分散、範囲（最大値 - 最小値）、四分位範囲など
 
 ## 記述統計量の必要性
 
@@ -44,8 +43,6 @@ df <- read_csv("Data/descstat_data.csv")
 * **例2)** あるクラス（30人）の数学成績が82点、45点、69点、94点、...、63点なら
    * 「うちのクラスの数学成績は82点、45点、69点、94点、...、63点です！」は長い
    * 「うちのクラスの数学成績は平均して75点で、標準偏差は8点です。」
-
-<!-- -->
 
 ## 実習の準備
 
@@ -72,8 +69,6 @@ dim(df)
 names(df)
 ```
 
-<!-- -->
-
 ## データの加工（変数の抽出）
 
 分析に使用する変数だけを残し、新しいオブジェクトとして格納
@@ -86,9 +81,9 @@ names(df)
 ```{r}
 df2 <- df |>
   select(ID           = USER_ID, # 回答者ID
-         Gender       = sex,     # 性別
+         Gender       = gender,  # 性別
          Age          = age,     # 年齢
-         Education    = Q61,     # 最終学歴
+         Education    = Q61,     # 最終学歴（99は欠損値を意味する）
          Voted        = Q15,     # 投票参加 (2016参院選)
          VotedParty   = Q15S2,   # 投票先 (2016参院選)
          T_Jimin      = Q5_7,    # 自民に対する感情温度
@@ -103,11 +98,7 @@ df2 # print(df2)もOK
 
 :::
 
-<!-- -->
-
 # 連続変数の記述統計
-
-<!-- -->
 
 ## 連続変数（continuous variable）
 
@@ -127,8 +118,6 @@ df2 # print(df2)もOK
       * ただし、分析を行う場合、予め欠損値を含む行を削除 or 補完する場合が多い
    * その他
 
-<!-- -->
-
 ## 記述統計の計算: Base Rの場合
 
 ```{r}
@@ -139,8 +128,6 @@ min(df2$Age)         # Ageの最小値
 max(df2$Age)         # Ageの最大値
 sum(!is.na(df2$Age)) # Ageの有効ケース数
 ```
-
-<!-- -->
 
 ## 記述統計の計算: {dplyr}を利用する
 
@@ -155,8 +142,6 @@ df2 |>
             Max    = max(Age),          # Ageの最大値
             Obs    = sum(!is.na(Age)))  # Ageの有効ケース数
 ```
-
-<!-- -->
 
 ## 一つの表としてまとめる
 
@@ -193,7 +178,8 @@ df2 |>
 
 * {summarytools}の`descr()`関数
    * `descr()`内には記述統計を確認するdata.frame / tibbleのオブジェクト名
-   * **連続変数のみ**記述統計量が出力される。
+   * **数値型変数のみ**記述統計量が出力される。
+      * 文字型変数（character型、factor型）の場合、予めダミー変数に変換しておく（後述）
 
 :::{.panel-tabset}
 ### コード
@@ -221,41 +207,42 @@ df2 |>
 
 ## {summarytools}の利用（2）
 
-* 主要統計量のみ、行と列の交換、変数の順番は固定
+* 主要統計量のみ（`stats = ...`）、行と列の交換（`transpose = TRUE`）、変数の順番は固定（`sort = "p"`）
+   * 平均値（`mean`）、標準偏差（`sd`）、最小値（`min`）、最大値（`max`）、有効ケース数（`n.valid`）
 
 ```{r}
-#| code-line-numbers: "4-6"
+#| code-line-numbers: "4-5"
 df2 |>
   select(-ID) |>
   # 平均値、標準偏差、最小値、最大値、有効ケース数
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
-        transpose = TRUE, 
-        sort = "p")
+        transpose = TRUE, sort = "p")
 ```
 
-## 参考）Quarto/R markdownで{summarytools}を使う場合
+## 欠損値の扱いについて
 
-* Quartoを使う場合
-   * Chunkオプションとして`#| results: "asis"`を指定
-   * `descr()`内に`style = "rmarkdown"`と`plain.ascii = FALSE`を指定
+最終学歴（`Education`）は1〜4で測定されているものの、最大値が99（超高学歴の人ではない）
 
-```{{r}}
-#| results: "asis"
-df2 |>
-  select(-ID) |>
-  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
-        transpose = TRUE, sort = "p", 
-        style = "rmarkdown", plain.ascii = FALSE)
-```
+* ここでの99は欠損値（missing value）であり、必ず欠損値に変えておく必要がある（そうでないと分析結果がとんでもないものになってしまう）。
+   * `Education`の値が`99`なら`NA`に変更し、それ以外の場合は元の値とする。
+* 事前に欠損値処理されているデータもあれば、そうでないデータもある。**データを入手した場合は必ずコードブックに目を通しておく**こと！
 
 ```{r}
-#| results: "asis"
-#| echo: false
+df2 <- df2 |> 
+  mutate(Education = if_else(Education == 99, NA, Education))
+
+df2
+```
+
+## 欠損値処理後の記述統計
+
+```{r}
+#| code-line-numbers: "4-5"
 df2 |>
   select(-ID) |>
+  # 平均値、標準偏差、最小値、最大値、有効ケース数
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
-        transpose = TRUE, sort = "p", 
-        style = "rmarkdown", plain.ascii = FALSE)
+        transpose = TRUE, sort = "p")
 ```
 
 # カテゴリ変数の記述統計
@@ -302,16 +289,14 @@ tibble(x = c("投票した", "棄権した", "投票権がなかった"),
   gt() |>
   cols_align(columns = 2:3, align = "right") |>
   cols_label("x" = "値", "y" = "度数", "z" = "割合 (%)") |>
-  tab_options(table.font.size = 24)
+  tab_options(table.font.size = 32)
 ```
 :::
 ::::
 
-<!-- -->
-
 ## カテゴリ変数のfactor化
 
-`Voted`と`VotedParty`変数のfactor化
+`Voted`と`VotedParty`変数のfactor化（factor型変数：順序付きの文字型変数）
 
 * `factor()`関数を使用
    * `levels =`には元の値を、`labels =`には各値に対応するラベルを指定
@@ -322,9 +307,9 @@ df2 <- df2 |>
   mutate(Voted_F      = factor(Voted, levels = 1:3, labels = c("投票", "棄権", "選挙権なし")),
          VotedParty_F = factor(VotedParty, levels = 1:7,
                                labels = c("自民", "民進", "公明", "維新", "共産", "その他", "不明"))) 
-```
 
-<!-- -->
+df2
+```
 
 ## カテゴリ変数のfactor化
 
@@ -335,8 +320,6 @@ table(df2$Voted_F) |> prop.table() * 100 # パイプ演算子も使用可能
 table(df2$VotedParty_F) # VotedParty_Fの度数分布表
 table(df2$VotedParty_F) |> prop.table() * 100 # パイプ演算子も使用可能
 ```
-
-<!-- -->
 
 ## 論文・レポートでの掲載方法
 
@@ -352,8 +335,6 @@ tibble(X = c("1. 投票", "2. 棄権", "3. 投票権なし"),
              V = "割合 (%)", Z = "累積割合 (%)") |> 
   tab_options(table.font.size = 32)
 ```
-
-<!-- -->
 
 ## ダミー変数
 
@@ -400,25 +381,32 @@ df2 |>
 :::
 ::::
 
-<!-- -->
+## ダミー変数の作成（`if_else()`使用）
 
-## ダミー変数の作成
-
-`mutate()`内に`if_else()`で作成
-
-* {fastDummies}パッケージを使えばより簡単にダミー変換が可能
+* `mutate()`内に`if_else()`で作成
 
 ```{r}
-df2 <- df2 |>
+df3 <- df2 |>
   mutate(Voted_F_Vote       = if_else(Voted_F == "投票", 1, 0),
          Voted_F_Absent     = if_else(Voted_F == "棄権", 1, 0),
          Voted_F_Ineligible = if_else(Voted_F == "選挙権なし", 1, 0))
 
-df2 |>
+df3 |>
   select(ID, Voted_F:Voted_F_Ineligible)
 ```
 
-<!-- -->
+## ダミー変数の作成（{fastDummies}使用）
+
+* `if_else()`を使う場合、ダミー変数名を自分で指定できるが、`dummy_cols()`の場合は「`元の変数名_値`」になるため、必要に応じて`rename()`を使用し、変数名を修正すること。
+
+```{r}
+library(fastDummies)
+df4 <- df2 |>
+  dummy_cols(select_columns = "Voted_F") # Voted_F変数のダミー化（「"」で囲むこと）
+
+df4 |>
+  select(ID, Voted_F:Voted_F_選挙権なし)
+```
 
 ## 順序変数
 
@@ -428,21 +416,19 @@ df2 |>
 * カテゴリー変数のように扱うことも、連続変数のように扱うことも可能
    * 記述統計の表としてまとめる場合は、連続変数同様に扱う
 
-<!-- -->
-
 ## 記述統計掲載の例
 
 ```{r}
 #| echo: false
-df3 <- df |>
+df5 <- df |>
   select(ID          = USER_ID,   # 回答者ID
-         Gender      = sex,       # 性別
+         Gender      = gender,    # 性別
          Age         = age,       # 年齢
          Education   = Q61,       # 最終学歴
          Voted       = Q15,       # 投票参加 (2016参院選)
          VotedParty  = Q15S2,     # 投票先 (2016参院選)
-         T_Jimin    = Q5_7,      # 自民党に対する感情温度
-         T_Minshin   = Q5_11) |> # 立民に対する感情温度
+         T_Jimin     = Q5_7,      # 自民党に対する感情温度
+         T_Minshin   = Q5_11) |>  # 立民に対する感情温度
   mutate(Female     = ifelse(Gender == 1, 0, 1),
          Education  = ifelse(Education == 1, 1, 0),
          Voted1     = ifelse(Voted == 1, 1, 0),
@@ -458,8 +444,8 @@ df3 <- df |>
   select(Female, Age, Education, Voted1:Voted3, starts_with("Vote"),
          starts_with("T_"), -Voted, -VotedParty)
 
-tibble(Cov    = names(df3),
-       Vec    = map(Cov, ~select(df3, Cov = .x)),
+tibble(Cov    = names(df5),
+       Vec    = map(Cov, ~select(df5, Cov = .x)),
        Mean   = map_dbl(Vec, ~mean(.x$Cov, na.rm = TRUE)),
        Median = map_dbl(Vec, ~median(.x$Cov, na.rm = TRUE)),
        SD     = map_dbl(Vec, ~sd(.x$Cov, na.rm = TRUE)),
@@ -480,42 +466,6 @@ tibble(Cov    = names(df3),
   tab_options(table.font.size = 28)
 ```
 
-<!-- -->
-
-## 便利なパッケージ
-
-{summarytools}パッケージの`dfSummary()`関数
-
-* 結果は各自RStudioのViewerペインから確認すること
-
-```r
-df2 |>
-  # 記述統計を出力する変数を指定
-  select(Age, Education, Voted_F, VotedParty_F, T_Jimin, T_Minshin) |>
-  dfSummary() |> # 記述統計量を計算
-  view()          # RStudioのViewerペインに表示
-```
-
-<!-- -->
-
-## 離散変数間の関係
-
-クロス表 (corss tabulation)
-
-* `table(ベクトル1, ベクトル2)`で作成可能
-   * `with(データ名, table(変数名1, 変数名2))`も可能
-
-```{r}
-df2 <- df2 |>
-  mutate(Gender_F = factor(Gender, levels = 1:2, labels = c("男性", "女性")))
-
-# dfのGender_F変数とVotedParty_F変数のクロス表
-# with(df2, table(Gender_F, VotedParty_F)) もOK
-table(df2$Gender_F, df2$VotedParty_F)
-```
-
-<!-- -->
-
 ## グループごとの記述統計量
 
 ::::{.columns}
@@ -523,7 +473,7 @@ table(df2$Gender_F, df2$VotedParty_F)
 投票有無ごとの平均年齢
 
 ```{r}
-df2 |>
+df3 |>
   group_by(Voted_F) |>
   summarise(Age = mean(Age))
 ```
@@ -536,7 +486,7 @@ df2 |>
 投票先ごとの民進党に対する感情温度
 
 ```{r}
-df2 |>
+df3 |>
   # VotedParty_Fの値が欠損している行を除外
   drop_na(VotedParty_F) |> 
   group_by(VotedParty_F) |>
@@ -544,87 +494,6 @@ df2 |>
 ```
 :::
 ::::
-
-<!-- -->
-
-# 記述統計の示し方
-
-<!-- -->
-
-## 記述統計の可視化
-
-**グループごと**の記述統計を提示する際
-
-::::{.columns}
-:::{.column width=30%}
-* **表**: 情報量が多く、サイズも小さい
-   * 単純記述統計は主に表を使用
-
-```{r}
-#| echo: false
-df2 |>
-  drop_na(VotedParty_F) |>
-  group_by(VotedParty_F) |>
-  summarise(T_Jimin = mean(T_Jimin)) |>
-  gt() |>
-  cols_label("VotedParty_F" = "投票先", "T_Jimin" = "自民感情温度") |>
-  fmt_number(columns = 2, decimals = 2) |>
-  cols_align(columns = 2, align = "right") |>
-  cols_align(columns = 1, align = "left") |>
-  tab_options(table.font.size = 32)
-```
-:::
-
-:::{.column width=70%}
-* **図**: 全体的な傾向や差が読み取りやすい。主に棒グラフと箱ひげ図を利用
-   * 単純記述統計でも主要変数については更に図を使う場合がある。
-
-```{r}
-#| echo: false
-#| fig-width: 8
-#| fig-height: 4
-df2 |>
-  drop_na(VotedParty_F) |>
-  group_by(VotedParty_F) |>
-  summarise(T_Jimin = mean(T_Jimin)) |>
-  ggplot() +
-  geom_bar(aes(x = VotedParty_F, y = T_Jimin), stat = "identity") +
-  labs(x = "投票先 (2016参院選比例区)", y = "自民党に対する\n感情温度の平均値")
-```
-:::
-::::
-
-<!-- -->
-
-## グループごとの記述統計 (棒グラフ)
-
-```{r}
-#| fig-width: 8
-#| fig-height: 2.75
-df2 |>
-  drop_na(VotedParty_F) |>   # 投票先（VotedParty_F）列の値が欠損した行を除外
-  group_by(VotedParty_F) |>  # 投票先ごとに行をグルーピング
-  summarise(T_Minshin = mean(T_Minshin)) |> # 民進党に対する感情温度の平均値
-  ggplot() +
-  geom_bar(aes(x = VotedParty_F, y = T_Minshin), stat = "identity") +
-  labs(x = "投票先 (2016参院選比例区)", y = "民進党に対する\n感情温度の平均値")
-```
-
-<!-- -->
-
-## グループごとの記述統計 (箱ひげ図)
-
-```{r}
-#| fig-width: 8
-#| fig-height: 3
-df2 |>
-  drop_na(VotedParty_F) |>
-  ggplot() +
-  geom_boxplot(aes(x = VotedParty_F, y = T_Jimin)) +
-  labs(x = "投票先 (2016参院選比例区)", y = "自民党に対する感情温度")
-```
-
-<!-- -->
 
 ## 教科書との対応
 
