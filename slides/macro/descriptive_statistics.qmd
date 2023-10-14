@@ -6,16 +6,6 @@ metadata-files:
   - _slide.yml
 ---
 
-## 授業前に確認してください。
-
-* JDCat分析ツール（クラウド版のRStudio）のFile > New File > Quarto Document... を選択
-   1. 「New Quarto Document」というウィンドウが表示される。
-      * $\Rightarrow$ 問題なし
-   2. エラーのウィンドウが表示される。
-      * $\Rightarrow$ もう一度初期設定を行ってください。
-      * <https://www.jaysong.net/r4ps/intro/install.html>
-      * 既存のサーバーは削除してください。
-
 ## 本日の内容
 
 * 記述統計とは何か。
@@ -217,7 +207,7 @@ df2 |>
 
 ## {summarytools}の利用（2）
 
-* 主要統計量のみ（`stats = ...`）、行と列の交換（`transpose = TRUE`）、変数の順番は固定（`sort = "p"`）
+* 主要統計量のみ（`stats = ...`）、行と列の交換（`transpose = TRUE`）、変数の順番は固定（`order = "p"`）
    * 平均値（`mean`）、標準偏差（`sd`）、最小値（`min`）、最大値（`max`）、有効ケース数（`n.valid`）
 
 ```{r}
@@ -226,7 +216,7 @@ df2 |>
   select(-ID) |>
   # 平均値、標準偏差、最小値、最大値、有効ケース数
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
-        transpose = TRUE, sort = "p")
+        transpose = TRUE, order = "p")
 ```
 
 ## 欠損値の扱いについて
@@ -252,7 +242,7 @@ df2 |>
   select(-ID) |>
   # 平均値、標準偏差、最小値、最大値、有効ケース数
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
-        transpose = TRUE, sort = "p")
+        transpose = TRUE, order = "p")
 ```
 
 # カテゴリ変数の記述統計
