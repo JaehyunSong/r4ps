@@ -6,14 +6,36 @@ metadata-files:
   - _slide.yml
 ---
 
-# 母集団と標本
-
-## 知りたい対象は?
+## 授業開始前に
 
 ```{r}
 #| include: false
 pacman::p_load(tidyverse, gt, summarytools, gtools)
 ```
+
+すぐに実習できるように準備しておきましょう。
+
+1. JDCat分析ツールを起動しておいてください。
+2. 授業用のプロジェクトを作成 or 開いてください。
+3. LMSから実習用データ（`inference_data.csv`）をダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。
+   * スクリプトファイル（`.R`）、またはQuartoファイル（`.qmd`）の保存先は`Data`フォルダーで**なく、**プロジェクトフォルダーです。
+
+```{r}
+#| eval: false
+ishin_df <- read_csv("Data/inference_data.csv")
+
+# inference_data.csvのアップロード先に応じて、パスを適宜修正すること
+ishin_df
+```
+
+* トラブルが生じた場合、速やかにTAを呼んでください。
+
+# 母集団と標本
+
+## 知りたい対象は?
 
 * 問い: 経済成長は国の民主化をもたらす。
    * 研究の対象は世界におけるすべての国（約180）
@@ -37,8 +59,8 @@ tibble(問い = c("岸田内閣の支持率は?",
        母集団 = c("有権者全体", 
                "女性有権者全体", 
                "若者有権者全体", 
-               "高槻市における有権者全体")) %>%
-  gt() %>%
+               "高槻市における有権者全体")) |>
+  gt() |>
   tab_options(table.font.size = 24)
 ```
 
@@ -269,16 +291,16 @@ combn_df <- permutations(n = 5, r = 2, v = LETTERS[1:5], repeats.allowed = TRUE)
   mutate(Sample = 1:25) |> 
   select(Sample, Comb, Mean, Var)
 
-combn_df %>%
+combn_df |>
   add_row(tibble(Sample = NA, Comb = "平均",
                  Mean = mean(combn_df$Mean), Var = mean(combn_df$Var))) |> 
-  gt() %>%
-  fmt_number(columns = 3:4, decimals = 2) %>%
+  gt() |>
+  fmt_number(columns = 3:4, decimals = 2) |>
   cols_label(Sample = "標本ID",
              Comb   = "組み合わせ",
              Mean   = "標本平均",
-             Var    = "標本不偏分散") %>%
-  cols_align(columns = 3:4, align = "right") %>%
+             Var    = "標本不偏分散") |>
+  cols_align(columns = 3:4, align = "right") |>
   sub_missing(missing_text = "")
 ```
 :::
@@ -420,7 +442,7 @@ sd(sample_mean)
 
 :::{.column width=61%}
 ```r
-enframe(sample_mean) %>% # ベクトルをデータフレームに変換
+enframe(sample_mean) |> # ベクトルをデータフレームに変換
   ggplot(aes(x = value)) +
   geom_histogram(binwidth = 1, color = "white")
 ```
@@ -429,7 +451,7 @@ enframe(sample_mean) %>% # ベクトルをデータフレームに変換
 #| echo: false
 #| fig-width: 5
 #| fig-height: 3.5
-enframe(sample_mean) %>% # ベクトルをデータフレームに変換
+enframe(sample_mean) |> # ベクトルをデータフレームに変換
   ggplot() +
   geom_histogram(aes(x = value), binwidth = 1, color = "white") +
   labs(x = "標本平均の平均値 (cm)", y = "度数") +
@@ -559,14 +581,15 @@ sd(ishin_df$Temp_Ishin)
 * 「母平均は42.7度だろう」 $\rightarrow$ **点推定**（point estimation）
 * しかし、もう一回標本抽出を行えば、標本平均は変わる可能性が高い。
    * もう一回、調査を行えば、39や44なども出るかも知れない。
-   * 今回得られた標本平均42.7は無数の組み合わせの中の一つから得られた結果に過ぎない。
+   * 可能性は低いが、平均80度の可能性もゼロではない。
+   * 今回得られた標本平均42.7は無数の可能性（組み合わせ）の中の一つから得られた結果に過ぎない。
 * 「42.7度はどの程度確かな推定か」 $\rightarrow$ 推定における**不確実性**に注目
-   * 「母平均はXX度以上、YY度以下である」 $\rightarrow$ **区間推定**（interval estimation）
+   * 「母平均がXX〜YY度の範囲ならそこまで驚きではない」 $\rightarrow$ **区間推定**（interval estimation）
    * 標本平均の不確実性は...?
 
 ## 標準誤差: 不確実性の指標
 
-標本平均（$\bar{x}$）の標準偏差（SD）は 
+標本平均（$\bar{x}$）の標準偏差（Standard Deviation; SD）は 
 
 $$
 \mbox{SD}(\bar{x}) = \sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}} = \mbox{SE}(x)
@@ -588,14 +611,14 @@ T = \frac{\bar{x} - \mu}{\mbox{SE}(x)}
 $$
 
 * $T$は$t$分布という確率分布に従う。
-   * $t$分布は0を中心に左右対称のベル (bell)型確率分布
+   * $t$分布は0を中心に左右対称のベル（bell）型確率分布
    * $t$分布の性質は既知であるため、様々な活用が可能となる。
-   * $t$分布は**自由度** (degree of freedom; df)によって形が変わる。
-      * 自由度が$\infty$になると$t$分布は標準正規分布と一致する。
+   * $t$分布は**自由度**（degree of freedom; df）によって形が変わる。
+      * 自由度が$\infty$になると$t$分布は標準正規分布（平均0、標準偏差1の正規分布）と一致する。
 * 標本平均の区間推定の場合、自由度は$n-1$
-   * 今回の例の場合、自由度は1997 (= 1998 - 1)
+   * 今回の例の場合、自由度は1997（= 1998 - 1）
    * 自由度が小さいほど、両端の裾が厚い。
-* 確率分布における面積は必ず1 (= 100%)
+* すべての確率分布における面積は必ず1（= 100%）
    * 左右対称で$T$の$\bigcirc\bigcirc$%が入る区間を調べる。
 
 ## 自由度と$t$分布
@@ -607,15 +630,15 @@ $$
 tibble(T      = seq(-5, 5, 0.01),
        df1    = dt(seq(-5, 5, 0.01), df = 1),
        df5    = dt(seq(-5, 5, 0.01), df = 5),
-       df1997 = dt(seq(-5, 5, 0.01), df = 1997)) %>%
+       df1997 = dt(seq(-5, 5, 0.01), df = 1997)) |>
   pivot_longer(cols = df1:df1997, 
                names_to = "degree",
-               values_to = "density") %>%
+               values_to = "density") |>
   mutate(degree = recode(degree,
                          "df1"    = "1",
                          "df5"    = "5",
                          "df1997" = "1997"),
-         degree = factor(degree, levels = c("1", "5", "1997"))) %>%
+         degree = factor(degree, levels = c("1", "5", "1997"))) |>
   ggplot() +
   geom_line(aes(x = T, y = density, color = degree), size = 1) +
   labs(y = "確率密度", color = "自由度",
@@ -654,7 +677,7 @@ qt(0.975, df = 1997) # 上限
 ci95_df <- tibble(T       = seq(-5, 5, 0.01),
                   density = dt(seq(-5, 5, 0.01), df = 1997))
   
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = -1.96, linetype = 2, color = "gray50") +
   geom_vline(xintercept = 1.96, linetype = 2, color = "gray50") +
@@ -774,6 +797,7 @@ t.test(ishin_df$Temp_Ishin, conf.level = 0.95)
 ## 95%信頼区間の意味
 
 * **間違った**解釈: 「母数がこの区間に含まれている確率が95%である。」
+   * 母数は一つの値であるため、特定の区間に含まれる確率は0%か100%のどっちかである。
 * **正しい**解釈: 「95%の95%信頼区間に母数が含まれる。」
 
 ::::{.columns}
@@ -815,8 +839,8 @@ for (i in 1:100) {
   ci_sim_df$ul[i]   <- temp_t$conf.int[2]
   ci_sim_df$p[i]    <- temp_t$p.value
 }
-ci_sim_df %>%
-  mutate(sig = ifelse(p < 0.05, "Sig", "Insig")) %>%
+ci_sim_df |>
+  mutate(sig = ifelse(p < 0.05, "Sig", "Insig")) |>
   ggplot() +
   geom_pointrange(aes(x = xbar, xmin = ll, xmax = ul, y = trial,
                       color = sig), size = 0.25) +
