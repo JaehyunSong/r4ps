@@ -552,7 +552,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
 <span id="cb2-3"><a href="#cb2-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -825,10 +825,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Pr(&gt;|z|)   S 2.5 % 97.5 % Knowledge Female Age Educ Ideology
-    0.411  0.00285 8.5 0.355  0.469         3      1  20    4        5
+ Knowledge Female Age Educ Ideology Estimate Pr(&gt;|z|)   S 2.5 % 97.5 %
+         3      1  20    4        5    0.411  0.00285 8.5 0.355  0.469
 
-Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology </code></pre>
+Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology 
+Type:  invlink(link) </code></pre>
 </div>
 </div>
 <p>　<code>datagrid()</code>内で変数を特定の値で指定しない場合、その変数は自動的に<strong>平均値</strong>が代入される。たとえば、<code>Knowledge</code>が1〜5の場合の投票参加確率の予測値を計算してみよう。その他の変数はすべて平均値に固定する。計算結果は<code>fit1_pred</code>に格納する。</p>
@@ -843,14 +844,15 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Knowledg
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology Knowledge
-    0.329   &lt;0.001  25.7 0.277  0.386  0.458 50.9 3.21      5.4         1
-    0.471    0.182   2.5 0.428  0.514  0.458 50.9 3.21      5.4         2
-    0.617   &lt;0.001  52.7 0.590  0.643  0.458 50.9 3.21      5.4         3
-    0.744   &lt;0.001 335.6 0.725  0.762  0.458 50.9 3.21      5.4         4
-    0.840   &lt;0.001 376.1 0.820  0.859  0.458 50.9 3.21      5.4         5
+ Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology
+         1    0.329   &lt;0.001  25.7 0.277  0.386  0.458 50.9 3.21      5.4
+         2    0.471    0.182   2.5 0.428  0.514  0.458 50.9 3.21      5.4
+         3    0.617   &lt;0.001  52.7 0.590  0.643  0.458 50.9 3.21      5.4
+         4    0.744   &lt;0.001 335.6 0.725  0.762  0.458 50.9 3.21      5.4
+         5    0.840   &lt;0.001 376.1 0.820  0.859  0.458 50.9 3.21      5.4
 
-Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge </code></pre>
+Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge 
+Type:  invlink(link) </code></pre>
 </div>
 </div>
 <p>　<code>Knowledge</code>の値に応じた投票参加の予測確率（0以上、1以下）が<code>Estimate</code>列に出力され、95%信頼区間の下限と上限は<code>2.5%</code>、<code>97.5%</code>列に表示される。ただし、<strong>こちらで表示された列名は本当の列名ではない</strong>。つまり、この<code>fit1_pred</code>を用いて作図をする際、<code>Estimate</code>や<code>2.5%</code>という名前でマッピングすることはできない。今出力された列名はあくまでも読みやすさを重視したものであり、実際の列名は異なる。他にも実際にはあるものの出力されていない列も存在する。すべての列を、本当の列名と共に出力するなら、<code>print()</code>関数を使用し、<code>style = "data.frame"</code>を追加しよう。</p>
@@ -865,9 +867,9 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, 
 <pre><code>  rowid  estimate       p.value    s.value  conf.low conf.high    Voted
 1     1 0.3293996  1.896455e-08  25.652120 0.2771235 0.3862676 0.709589
 2     2 0.4705341  1.816377e-01   2.460865 0.4277233 0.5137829 0.709589
-3     3 0.6165432  1.395535e-16  52.670031 0.5895934 0.6427954 0.709589
-4     4 0.7441789 9.472818e-102 335.592872 0.7251353 0.7623355 0.709589
-5     5 0.8403326 5.872714e-114 376.145775 0.8201318 0.8586556 0.709589
+3     3 0.6165432  1.395534e-16  52.670032 0.5895934 0.6427954 0.709589
+4     4 0.7441789 9.472835e-102 335.592869 0.7251353 0.7623355 0.709589
+5     5 0.8403326 5.872783e-114 376.145759 0.8201318 0.8586556 0.709589
     Female      Age     Educ Ideology Knowledge
 1 0.458317 50.91155 3.207436 5.400391         1
 2 0.458317 50.91155 3.207436 5.400391         2
@@ -893,7 +895,7 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, 
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28" data-code-fold="true"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit1_pred <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb28" data-code-fold="true"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit1_pred <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Knowledge, <span class="at">y =</span> estimate, </span>
 <span id="cb28-4"><a href="#cb28-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
@@ -915,7 +917,7 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, 
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29" data-code-fold="true"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">86</span>)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb29" data-code-fold="true"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">86</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">y =</span> estimate, </span>
 <span id="cb29-4"><a href="#cb29-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
@@ -940,7 +942,7 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, 
 </div>
 <div class="sourceCode cell-code" id="cb30" data-code-fold="true"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fit1_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">86</span>))</span>
 <span id="cb30-2"><a href="#cb30-2"></a></span>
-<span id="cb30-3"><a href="#cb30-3"></a>fit1_pred2 <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>fit1_pred2 <span class="sc">|&gt;</span></span>
 <span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), </span>
 <span id="cb30-6"><a href="#cb30-6"></a>              <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span> </span>

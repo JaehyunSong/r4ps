@@ -42,7 +42,7 @@ df
 
 ```{r}
 #| filename: "Code 02"
-df %>%
+df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -60,7 +60,7 @@ df %>%
 tibble(x = c(1, 1, 1, 1, 1),
        xend = c(2, 2, 2, 2, 2),
        y = c(5, 4, 3, 2, 1),
-       yend = c(5, 5, 5, 5, 5)) %>%
+       yend = c(5, 5, 5, 5, 5)) |>
   ggplot() +
   geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
                arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
@@ -117,8 +117,8 @@ $$
 #| echo: false
 #| fig-width: 8
 #| figh-height: 4
-tibble(x = seq(-10, 10, 0.1)) %>%
-  mutate(y = 1 / (1 + exp(-x))) %>%
+tibble(x = seq(-10, 10, 0.1)) |>
+  mutate(y = 1 / (1 + exp(-x))) |>
   ggplot() +
   geom_line(aes(x = x, y = y), linewidth = 2) +
   labs(x = "x", y = "logistic(x)") +
@@ -210,8 +210,8 @@ sum(coef(fit1) * c(1, 3, 1, 20, 4, 5))
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4.3
-tibble(x = seq(-10, 10, 0.1)) %>%
-  mutate(y = 1 / (1 + exp(-x))) %>%
+tibble(x = seq(-10, 10, 0.1)) |>
+  mutate(y = 1 / (1 + exp(-x))) |>
   ggplot() +
   geom_line(aes(x = x, y = y), linewidth = 2) +
   geom_vline(xintercept = -0.3602094, color = "red") +
@@ -272,7 +272,7 @@ print(fit1_pred, style = "data.frame")
 #| fig-height: 4.5
 fit1_temp <- predictions(fit1, 
                          newdata = datagrid(Knowledge = seq(-10, 13, 0.1)))
-fit1_pred %>%
+fit1_pred |>
   ggplot() +
   geom_line(data = fit1_temp, aes(x = Knowledge, y = estimate)) +
   geom_point(aes(x = Knowledge, y = estimate), size = 3) +
@@ -291,7 +291,7 @@ fit1_pred %>%
 #| code-fold: true
 #| fig-width: 8
 #| fig-height: 4
-fit1_pred %>%
+fit1_pred |>
   ggplot() +
   geom_pointrange(aes(x = Knowledge, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -307,7 +307,7 @@ fit1_pred %>%
 #| code-fold: true
 #| fig-width: 8
 #| fig-height: 4
-predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
+predictions(fit1, newdata = datagrid(Age = 18:86)) |>
   ggplot() +
   geom_pointrange(aes(x = Age, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -326,7 +326,7 @@ predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
 #| fig-height: 4
 fit1_pred2 <- predictions(fit1, newdata = datagrid(Age = 18:86))
 
-fit1_pred2 %>%
+fit1_pred2 |>
   ggplot() +
   geom_ribbon(aes(x = Age, ymin = conf.low, ymax = conf.high), 
               fill = "gray80") + 
