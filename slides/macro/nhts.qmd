@@ -16,17 +16,22 @@ pacman::p_load(tidyverse, gt, summarytools)
 すぐに実習できるように準備しておきましょう。
 
 1. JDCat分析ツールを起動しておいてください。
-2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いておいてください。
-3. 授業サポートページから実習用データをダウンロードしておいてください。
-   * 実習用データは`Gacha.csv`です。
-4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしておいてください。
-5. 実習用コードを入力するスクリプト、またはR Markdownを開いておいてください。
-   * {tidyverse}パッケージに読み込み、データの読み込みまでやっておきましょう (p.5)。
-   * 時間が余ったら、p.6のコードも書いておきましょう。
+2. 授業用のプロジェクトを作成 or 開いてください。
+3. LMSから実習用データ（`Gacha.csv`）をダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。
+   * スクリプトファイル（`.R`）、またはQuartoファイル（`.qmd`）の保存先は`Data`フォルダーで**なく、**プロジェクトフォルダーです。
 
-<br/>
+```{r}
+#| eval: false
+# gacha_data.csvのアップロード先に応じて、パスを適宜修正すること
+gacha_df <- read_csv("Data/Gacha.csv")
 
-* トラブルが生じた場合、速やかにTAを読んでください。
+gacha_df
+```
+
+* トラブルが生じた場合、速やかにTAを呼んでください。
 
 # 統計的仮説検定の基礎
 
@@ -39,7 +44,7 @@ pacman::p_load(tidyverse, gt, summarytools)
 5. 検定統計量の値が棄却域に入るかどうかによって仮説検定を行う。
 6. 検定の結論を述べる。
 
-# 問題設定
+## 問題設定
 
 > 　あるソシャゲにおいて★5のキャラクター（SSR）をガチャで引ける確率は5%であると知られている。そこでプレイヤー100人が行った4772回分のガチャ記録（$n$ = 4772）を入手し、調べた結果、SSRは227回（= 4.757%）出現した。SSRが引けた場合1、引けなかった場合を0とした場合、標本不偏分散の平方根（$u$）は0.213であった。約0.243%ポイントの差（= 5 - 4.757）ではあるものの、怪しい。このガチャからSSRが引ける確率は本当に5%だろうか。
 
@@ -50,10 +55,11 @@ pacman::p_load(tidyverse, gt, summarytools)
 #| echo: false
 #| tbl-cap: "公式ホームページ上の情報"
 tibble(Rare = c("N (★★)", "R (★★★)", "SR (★★★★)", "SSR (★★★★★)"),
-       Prop = c("55%", "25%", "15%", "5%")) %>%
-  gt() %>%
-  cols_align(align = "right", columns = Prop) %>%
-  cols_label(Rare = "レア度", Prop = "獲得確率")
+       Prop = c("55%", "25%", "15%", "5%")) |>
+  gt() |>
+  cols_align(align = "right", columns = Prop) |>
+  cols_label(Rare = "レア度", Prop = "獲得確率") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 
@@ -68,13 +74,14 @@ tibble(Rare = c("N (★★)", "R (★★★)", "SR (★★★★)", "SSR (★★
 tibble(Rare = c("N", "R", "SR", "SSR", "計"),
        Freq = c(2657, 1188, 700, 227, 4772),
        Prop = c(55.7, 24.9, 14.7, 4.8, 100.0),
-       Cum  = c("55.7", "80.6", "95.2", "100.0", "")) %>%
-  gt() %>%
-  cols_align("right", columns = Cum) %>%
+       Cum  = c("55.7", "80.6", "95.2", "100.0", "")) |>
+  gt() |>
+  cols_align("right", columns = Cum) |>
   cols_label(Rare = "レア度", 
              Freq = "出現回数 (枚)",
              Prop = "割合 (%)",
-             Cum  = "累積割合 (%)")
+             Cum  = "累積割合 (%)") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 ::::
@@ -84,7 +91,7 @@ tibble(Rare = c("N", "R", "SR", "SSR", "計"),
 ## データの読み込み
 
 ::::{.columns}
-:::{.column width=45%}
+:::{.column width=48%}
 ```{r}
 library(tidyverse)
 gacha_df <- read_csv("data/Gacha.csv")
@@ -92,7 +99,7 @@ gacha_df
 ```
 :::
 
-:::{.column width=5%}
+:::{.column width=2%}
 :::
 
 :::{.column width=50%}
@@ -104,30 +111,31 @@ tibble(Var = c("player", "trial", "stone_type", "result"),
        Dep = c("プレイヤーのID",
                "当該プレイヤーの何番目のガチャか",
                "使用した石のタイプ (Free: 無料石、Paid: 有償石)",
-               "ガチャの結果 (N, R, SR, SSR)")) %>%
-  gt() %>%
-  cols_label(Var = "変数", Dep = "説明")
+               "ガチャの結果 (N, R, SR, SSR)")) |>
+  gt() |>
+  cols_label(Var = "変数", Dep = "説明") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 ::::
 
-## ガチャ結果をダミー変換する（`ifelse()`使用）
+## ガチャ結果をダミー変換する（`if_else()`使用）
 
 ```{r}
-gacha_df <- gacha_df %>%
-  mutate(result_N   = ifelse(result == "N", 1, 0),
-         result_R   = ifelse(result == "R", 1, 0),
-         result_SR  = ifelse(result == "SR", 1, 0),
-         result_SSR = ifelse(result == "SSR", 1, 0))
+gacha_df <- gacha_df |>
+  mutate(result_N   = if_else(result == "N", 1, 0),
+         result_R   = if_else(result == "R", 1, 0),
+         result_SR  = if_else(result == "SR", 1, 0),
+         result_SSR = if_else(result == "SSR", 1, 0))
 
 gacha_df
 ```
 
-## ガチャ結果をダミー変換する（`dummy_cols()`使用）
+## ガチャ結果をダミー変換する（{fastDummies}パッケージ使用）
 
 ```{r}
 library(fastDummies)
-gacha_df <- gacha_df %>%
+gacha_df <- gacha_df |>
   dummy_cols(select_columns = "result", ignore_na = TRUE)
 
 gacha_df
@@ -181,7 +189,7 @@ sd(gacha_df$result_SSR)
    * どれくらいかけ離れていれば帰無仮説は間違っていると言えるか?
 * 出現しうる統計量をすべて並べる
    * ガチャを4772回引いた場合の得られる結果（すべてSSR〜すべてSSR以外）を並べ、帰無仮説が仮定する母数（$\mu_0 = 0.5$）からA%分離れている場合、「帰無仮説から十分に離れている」と判断し、このA%が「有意水準（significance level）」
-   * **有意水準**: 帰無仮説が正しいにもかかわらず、誤って帰無仮説を棄却してしまう確率
+   * **有意水準**：帰無仮説が正しいにもかかわらず、誤って帰無仮説を棄却してしまう確率
    * 有意水準は通常、$\alpha$と表記し、有意水準が5%なら$\alpha = 0.05$
    * 社会科学では$\alpha = 0.05$を採用するケースが多い。
 
@@ -190,7 +198,7 @@ sd(gacha_df$result_SSR)
 標本平均を変形した$T = \frac{\bar{x} - \mu}{\text{SE}}$は自由度$n-1$の$t$分布に従う。
 
 * 帰無仮説が正しければ（$\mu = \mu_0$）、 $T = \frac{\bar{x} - \mu_0}{\text{SE}}$も$t$分布に従う。
-   * $t$ 分布の中心は0
+   * $t$分布の中心は0
    * もし、標本から得られた統計量（標本平均$\bar{x}$）が0.05（$\mu_0$）なら、$T = 0$となり、帰無仮説の妥当性は高いと判断される。
    * $\bar{x}$が0.05から離れるほど、統計量$T$も0から離れるようになる。
 * どれくらい離れている場合、「帰無仮説は怪しいぞ」と言えるだろうか。
@@ -201,11 +209,11 @@ sd(gacha_df$result_SSR)
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
+#| fig-height: 4
 ci95_df <- tibble(T       = seq(-4, 4, 0.01),
                   density = dt(seq(-4, 4, 0.01), df = 4771))
   
-ci95_df %>%
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), size = 1) +
@@ -217,17 +225,17 @@ ci95_df %>%
            label = expression(frac(alpha, 2))) +
   annotate("text", x =  3, y = 0.1, size = 4,
            label = expression(frac(alpha, 2))) +
-  geom_segment(aes(x = -3, y = 0.065, xend = -2.5, yend = 0.0176),
+  geom_segment(aes(x = -3, y = 0.065, xend = -2.1, yend = 0.0176),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = 3, y = 0.065, xend = 2.5, yend = 0.0176),
+  geom_segment(aes(x = 3, y = 0.065, xend = 2.1, yend = 0.0176),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
   labs(y = "確率密度",
        x = as.expression(bquote(bar(x) == mu[0] ~ "になる点"))) +
   scale_x_continuous(breaks = c(0),
                      labels = 0) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(legend.position = c(0.95, 0.8),
         legend.background = element_blank())
 
@@ -248,16 +256,16 @@ se    <- sd(gacha_df$result_SSR, na.rm = TRUE) / sqrt(n)  # 標準誤差
 (x_bar - 0.05) / se                                       # T統計量
 ```
 
-* $T$統計量は$-\infty$〜$\infty$の値を取るが、今回得られた$t$の絶対値$|t|$よりも極端な値をとる確率は? $\Rightarrow$ **$p$値**
+* $T$統計量は$-\infty \sim \infty$の値を取るが、今回得られた$t$の絶対値$|t|$よりも極端な値をとる確率は? $\Rightarrow$ **$p$値**
    * 対立仮説は「$\mu_0$ではない（$\mu_0 \neq 0$）」であるため、$\mu_0$から負の方向に離れる可能性も、正の方向に離れる可能性もある。したがって、$t$ではなく$|t|$より極端な値を取る確率を求める。
 
-## 検定統計量と$p$値 (=面積の合計)
+## 検定統計量と$p$値（=面積の合計）
 
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
-ci95_df %>%
+#| fig-height: 4
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), size = 1) +
@@ -269,29 +277,27 @@ ci95_df %>%
            label = expression(frac(p, 2))) +
   annotate("text", x =  3, y = 0.1, size = 4,
            label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.7, yend = 0.1),
+  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.4, yend = 0.1),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.7, yend = 0.1),
+  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.4, yend = 0.1),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-0.79, 0, 0.79),
                      labels = c("-|t|", "0", "|t|")) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 ```
 
-## $t$が0から大きく離れると...
-
-$p$値が小さくなる
+## $t$が0から大きく離れると、$p$値が小さくなる
 
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
-ci95_df %>%
+#| fig-height: 4
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), size = 1) +
@@ -303,29 +309,27 @@ ci95_df %>%
            label = expression(frac(p, 2))) +
   annotate("text", x =  3, y = 0.1, size = 4,
            label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -2.5, yend = 0.017),
+  geom_segment(aes(x = -2.85, y = 0.1, xend = -2.1, yend = 0.017),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 2.5, yend = 0.017),
+  geom_segment(aes(x = 2.85, y = 0.1, xend = 2.1, yend = 0.017),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-1.96, 0, 1.96),
                      labels = c("-|t|", "0", "|t|")) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 ```
 
-## $t$が0に近いと...
-
-$p$値が大きくなる
+## $t$が0に近いと、$p$値が大きくなる
 
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
-ci95_df %>%
+#| fig-height: 4
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2) +
   geom_line(aes(x = T, y = density), size = 1) +
@@ -337,16 +341,16 @@ ci95_df %>%
            label = expression(frac(p, 2))) +
   annotate("text", x =  3, y = 0.1, size = 4,
            label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.7, yend = 0.1),
+  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.2, yend = 0.1),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.7, yend = 0.1),
+  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.2, yend = 0.1),
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-0.2, 0, 0.2),
                      labels = c("-|t|", "0", "|t|")) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 ```
@@ -356,11 +360,11 @@ ci95_df %>%
 * $p$値とは、**帰無仮説が正しいとき、検定統計量が手元のデータから得られた値$|t|$以上に、分布の中心からかけ離れた値を取る確率**
    * 帰無仮説の下でのサンプルから得られた$t$の異常性を表す指標であり、$p$値が小さいほど、今回得られた$t$は異常な値であることを意味
 * 今回の$t$が異常なのは「帰無仮説が正しい」という仮定の下での判断であるため、帰無仮説が間違っていると考えるのが自然
-* $\Rightarrow$ $p$値が十分小さい場合 (=$t$の異常性が十分大きい場合)、帰無仮説は棄却される。
+* $\Rightarrow$ $p$値が十分小さい場合（= $t$の異常性が十分大きい場合）、帰無仮説は棄却される。
 
 <br/>
 
-参考) 今回の$p$値は`r round(pt(-0.788289, df = 4771) * 2, 3)`
+参考）今回の$p$値は`r round(pt(-0.788289, df = 4771) * 2, 3)`
 
 ```{r}
 # pt()の第一引数は「tの絶対値にマイナスをかけた値」にする
@@ -373,9 +377,9 @@ pt(-0.7888289, df = 4771) * 2
 
 「検定統計量がこの領域に入ると帰無仮説は棄却される」における「領域」を決める段階
 
-* $p$値が有意水準 ($\alpha$)より小さくなるような境界線: **臨界値** (critical value)
-* $t$分布の場合、左右対称であり、下側臨界値 ($C_L$)と上側臨界値 ($C_U$)が存在。
-   * 分布によっては臨界値が一つのみ存在するケースもある ($\chi^2$分布など)。
+* $p$値が有意水準（$\alpha$）より小さくなるような境界線：**臨界値**（critical value）
+* $t$分布の場合、左右対称であり、下側臨界値（$C_L$）と上側臨界値（$C_U$）が存在。
+   * 分布によっては臨界値が一つのみ存在するケースもある（$\chi^2$分布など）。
 
 ```{r}
 # 下側臨界値: 第一引数には「有意水準 / 2」
@@ -384,9 +388,9 @@ qt(0.025, df = 4771) # 有意水準が5% (0.05)の場合の下側臨界値
 qt(0.975, df = 4771) # 有意水準が5% (0.05)の場合の上側臨界値
 ```
 
-* **受容域** (acceptance region): [$C_L$, $C_U$]
+* **受容域**（acceptance region）：[$C_L$, $C_U$]
    * 検定統計量が受容域に含まれると、帰無仮説を受容する。
-* **棄却域** (rejection region): ($\infty$, $C_L$)と($C_U$, $\infty$)
+* **棄却域**（rejection region）：($\infty$, $C_L$)と($C_U$, $\infty$)
    * 検定統計量が棄却域に含まれると、帰無仮説を棄却し、対立仮説を支持する。
 
 ## 棄却域と受容域
@@ -394,8 +398,8 @@ qt(0.975, df = 4771) # 有意水準が5% (0.05)の場合の上側臨界値
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
-ci95_df %>%
+#| fig-height: 4
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2, color = "gray70") +
   geom_vline(xintercept = -1.96, linetype = 2) +
@@ -420,7 +424,7 @@ ci95_df %>%
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-1.96, 0, 1.96),
                      labels = c("下側臨界値", "0", "上側臨界値")) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 ```
@@ -429,16 +433,16 @@ ci95_df %>%
 
 帰無仮説の棄却有無を判断する2つの方法
 
-1. $p$値と有意水準 ($\alpha$)の比較
-   * $p < \alpha$: 帰無仮説を棄却する。
-   * $p \geq \alpha$: 帰無仮説を受容する。
+1. $p$値と有意水準（$\alpha$）の比較
+   * $p < \alpha$：帰無仮説を棄却する。
+   * $p \geq \alpha$：帰無仮説を受容する。
 2. 検定統計量と棄却域の比較
    * 検定統計量が棄却域に含まれると、帰無仮説を棄却し、対立仮説を支持する。
    * 検定統計量が受容域に含まれると、帰無仮説を受容する。
 
 ### 注意事項
 
-* 有意水準 ($\alpha$)を大きく設定すると、帰無仮説は棄却されやすくなる (=対立仮説が支持されやすくなる)。
+* 有意水準（$\alpha$）を大きく設定すると、帰無仮説は棄却されやすくなる（=対立仮説が支持されやすくなる）。
    * つまり、自分の主張が支持されやすくなる。
 * $\alpha$は検定統計量を求める前に予め決めておく。
    * 分析後に$\alpha$を決めることは研究倫理に反する。
@@ -448,8 +452,8 @@ ci95_df %>%
 ```{r}
 #| echo: false
 #| fig-width: 7
-#| fig-height: 3.5
-ci95_df %>%
+#| fig-height: 4
+ci95_df |>
   ggplot() +
   geom_vline(xintercept = 0, linetype = 2, color = "gray70") +
   geom_vline(xintercept = -1.96, linetype = 2) +
@@ -476,7 +480,7 @@ ci95_df %>%
   scale_x_continuous(breaks = c(-1.96, -0.789, 0, 1.96),
                      labels = c("下側臨界値\n-1.96", "検定統計量\n-0.789", 
                                 "0", "上側臨界値\n1.96")) +
-  theme_bw() +
+  theme_bw(base_size = 14) +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank())
 ```
@@ -486,26 +490,26 @@ ci95_df %>%
 いずれかの方法で判定する。
 
 1. $p$値による判定
-   * $p = 0.430$であり、$p \geq \alpha$であるため、帰無仮説を棄却できない (=帰無仮説を受容する)。 
+   * $p = 0.430$であり、$p \geq \alpha$であるため、帰無仮説を棄却できない（=帰無仮説を受容する）。
 2. 検定統計量による判定
    * $t = -0.789$であり、受容域に含まれる。
-   * 帰無仮説を棄却できない (=帰無仮説を受容する)。 
+   * 帰無仮説を棄却できない（=帰無仮説を受容する）。
 
 ### 意味
 
 * 帰無仮説が正しい場合、$\bar{x}$と$\mu_0$の差は0であるため、$t = 0$である。
    * ただし、「帰無仮説が正しい」ことは検証できない（後述）。
-   * 帰無仮説が棄却できなかった (=受容された)場合、「現時点では対立仮説が正しいとは言えない」だけであり、帰無仮説が正しいことを意味するものではない。
+   * 帰無仮説が棄却できなかった（=受容された）場合、「現時点では対立仮説が正しいとは言えない」だけであり、帰無仮説が正しいことを意味するものではない。
 * 帰無仮説が棄却された場合、$t \neq 0$であり、$\bar{x}$と$\mu_0$の間には**統計的**に有意味な差が存在することを意味する。
 
 ## 検定の結論の提示
 
-* **帰無仮説** ($H_0$): SSRキャラクターの本当の出現確率は5%である。
-* **対立仮説** ($H_a$): SSRキャラクターの本当の出現確率は5%ではない。
+* **帰無仮説**（$H_0$）：SSRキャラクターの本当の出現確率は5%である。
+* **対立仮説**（$H_a$）：SSRキャラクターの本当の出現確率は5%ではない。
 
 <br/>
 
-* $p$値は0.430であり、$\alpha$ (= 0.05) 以上であるため、帰無仮説は棄却されない。
+* $p$値は0.430であり、$\alpha$（= 0.05）以上であるため、帰無仮説は棄却されない。
    * SSRキャラクターの出現確率は5%である。 $\leftarrow \times$
    * SSRキャラクターの出現確率は5%である**とは言えない**。 $\leftarrow \bigcirc$
 * 開発元を訴えることは難しいかも知れない。
@@ -534,8 +538,8 @@ ci95_df %>%
 刑事裁判における無罪推定の原則
 
 * 無罪であることを前提に、裁判を進める仕組み
-   * $H_0$: 容疑者Xは罪を犯していない (= 容疑者Xは無実)。
-   * $H_a$: 容疑者Xは罪を犯した (= 容疑者Xは犯人)。
+   * $H_0$：容疑者Xは罪を犯していない (= 容疑者Xは無実)。
+   * $H_a$：容疑者Xは罪を犯した (= 容疑者Xは犯人)。
 
 <br/>
 
@@ -546,13 +550,13 @@ ci95_df %>%
 
 <br/>
 
-* 帰無仮説を棄却: 対立仮説の正当性を強く主張できる。
-* 帰無仮説を受容: 「対立仮説が正しいとは言えない」といった非常に弱い結論
+* 帰無仮説を棄却：対立仮説の正当性を強く主張できる。
+* 帰無仮説を受容：「対立仮説が正しいとは言えない」といった非常に弱い結論
 
 ## 例) 男女の身長差
 
-* $H_0$: 男性と女性の間に身長差はない。
-* $H_a$: 男性と女性の間に身長差はない。
+* $H_0$：男性と女性の間に身長差はない。
+* $H_a$：男性と女性の間に身長差はない。
 
 <br/>
 

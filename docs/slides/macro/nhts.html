@@ -425,21 +425,25 @@
 <p>すぐに実習できるように準備しておきましょう。</p>
 <ol type="1">
 <li>JDCat分析ツールを起動しておいてください。</li>
-<li>本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いておいてください。</li>
-<li>授業サポートページから実習用データをダウンロードしておいてください。
+<li>授業用のプロジェクトを作成 or 開いてください。</li>
+<li>LMSから実習用データ（<code>Gacha.csv</code>）をダウンロードしておいてください。</li>
+<li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
 <ul>
-<li>実習用データは<code>Gacha.csv</code>です。</li>
+<li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
 </ul></li>
-<li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしておいてください。</li>
-<li>実習用コードを入力するスクリプト、またはR Markdownを開いておいてください。
+<li>実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください。
 <ul>
-<li>{tidyverse}パッケージに読み込み、データの読み込みまでやっておきましょう (p.5)。</li>
-<li>時間が余ったら、p.6のコードも書いておきましょう。</li>
+<li>スクリプトファイル（<code>.R</code>）、またはQuartoファイル（<code>.qmd</code>）の保存先は<code>Data</code>フォルダーで<strong>なく、</strong>プロジェクトフォルダーです。</li>
 </ul></li>
 </ol>
-<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># gacha_data.csvのアップロード先に応じて、パスを適宜修正すること</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>gacha_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Gacha.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li>トラブルが生じた場合、速やかにTAを読んでください。</li>
+<li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
 </ul>
 </section>
 <section>
@@ -457,10 +461,9 @@
 <li>検定統計量の値が棄却域に入るかどうかによって仮説検定を行う。</li>
 <li>検定の結論を述べる。</li>
 </ol>
-</section></section>
-<section>
-<section id="問題設定" class="title-slide slide level1 center">
-<h1>問題設定</h1>
+</section>
+<section id="問題設定" class="slide level2">
+<h2>問題設定</h2>
 <blockquote>
 <p>　あるソシャゲにおいて★5のキャラクター（SSR）をガチャで引ける確率は5%であると知られている。そこでプレイヤー100人が行った4772回分のガチャ記録（<span class="math inline">\(n\)</span> = 4772）を入手し、調べた結果、SSRは227回（= 4.757%）出現した。SSRが引けた場合1、引けなかった場合を0とした場合、標本不偏分散の平方根（<span class="math inline">\(u\)</span>）は0.213であった。約0.243%ポイントの差（= 5 - 4.757）ではあるものの、怪しい。このガチャからSSRが引ける確率は本当に5%だろうか。</p>
 </blockquote>
@@ -469,30 +472,30 @@
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="tbl-gacha-hp">
-<div id="xxtempcsaq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xxtempcsaq table {
+<div id="jhwckwknwn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jhwckwknwn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xxtempcsaq thead, #xxtempcsaq tbody, #xxtempcsaq tfoot, #xxtempcsaq tr, #xxtempcsaq td, #xxtempcsaq th {
+#jhwckwknwn thead, #jhwckwknwn tbody, #jhwckwknwn tfoot, #jhwckwknwn tr, #jhwckwknwn td, #jhwckwknwn th {
   border-style: none;
 }
 
-#xxtempcsaq p {
+#jhwckwknwn p {
   margin: 0;
   padding: 0;
 }
 
-#xxtempcsaq .gt_table {
+#jhwckwknwn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
@@ -511,12 +514,12 @@
   border-left-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_caption {
+#jhwckwknwn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xxtempcsaq .gt_title {
+#jhwckwknwn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -528,7 +531,7 @@
   border-bottom-width: 0;
 }
 
-#xxtempcsaq .gt_subtitle {
+#jhwckwknwn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -540,7 +543,7 @@
   border-top-width: 0;
 }
 
-#xxtempcsaq .gt_heading {
+#jhwckwknwn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -552,13 +555,13 @@
   border-right-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_bottom_border {
+#jhwckwknwn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_col_headings {
+#jhwckwknwn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -573,7 +576,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_col_heading {
+#jhwckwknwn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -593,7 +596,7 @@
   overflow-x: hidden;
 }
 
-#xxtempcsaq .gt_column_spanner_outer {
+#jhwckwknwn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -605,15 +608,15 @@
   padding-right: 4px;
 }
 
-#xxtempcsaq .gt_column_spanner_outer:first-child {
+#jhwckwknwn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xxtempcsaq .gt_column_spanner_outer:last-child {
+#jhwckwknwn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xxtempcsaq .gt_column_spanner {
+#jhwckwknwn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -625,11 +628,11 @@
   width: 100%;
 }
 
-#xxtempcsaq .gt_spanner_row {
+#jhwckwknwn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xxtempcsaq .gt_group_heading {
+#jhwckwknwn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -655,7 +658,7 @@
   text-align: left;
 }
 
-#xxtempcsaq .gt_empty_group_heading {
+#jhwckwknwn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -670,15 +673,15 @@
   vertical-align: middle;
 }
 
-#xxtempcsaq .gt_from_md > :first-child {
+#jhwckwknwn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xxtempcsaq .gt_from_md > :last-child {
+#jhwckwknwn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xxtempcsaq .gt_row {
+#jhwckwknwn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -697,7 +700,7 @@
   overflow-x: hidden;
 }
 
-#xxtempcsaq .gt_stub {
+#jhwckwknwn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -710,7 +713,7 @@
   padding-right: 5px;
 }
 
-#xxtempcsaq .gt_stub_row_group {
+#jhwckwknwn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -724,15 +727,15 @@
   vertical-align: top;
 }
 
-#xxtempcsaq .gt_row_group_first td {
+#jhwckwknwn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xxtempcsaq .gt_row_group_first th {
+#jhwckwknwn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xxtempcsaq .gt_summary_row {
+#jhwckwknwn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -742,16 +745,16 @@
   padding-right: 5px;
 }
 
-#xxtempcsaq .gt_first_summary_row {
+#jhwckwknwn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_first_summary_row.thick {
+#jhwckwknwn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xxtempcsaq .gt_last_summary_row {
+#jhwckwknwn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -761,7 +764,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_grand_summary_row {
+#jhwckwknwn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -771,7 +774,7 @@
   padding-right: 5px;
 }
 
-#xxtempcsaq .gt_first_grand_summary_row {
+#jhwckwknwn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -781,7 +784,7 @@
   border-top-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_last_grand_summary_row_top {
+#jhwckwknwn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -791,11 +794,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_striped {
+#jhwckwknwn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xxtempcsaq .gt_table_body {
+#jhwckwknwn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -804,7 +807,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_footnotes {
+#jhwckwknwn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -818,7 +821,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_footnote {
+#jhwckwknwn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -827,7 +830,7 @@
   padding-right: 5px;
 }
 
-#xxtempcsaq .gt_sourcenotes {
+#jhwckwknwn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -841,7 +844,7 @@
   border-right-color: #D3D3D3;
 }
 
-#xxtempcsaq .gt_sourcenote {
+#jhwckwknwn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -849,63 +852,63 @@
   padding-right: 5px;
 }
 
-#xxtempcsaq .gt_left {
+#jhwckwknwn .gt_left {
   text-align: left;
 }
 
-#xxtempcsaq .gt_center {
+#jhwckwknwn .gt_center {
   text-align: center;
 }
 
-#xxtempcsaq .gt_right {
+#jhwckwknwn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xxtempcsaq .gt_font_normal {
+#jhwckwknwn .gt_font_normal {
   font-weight: normal;
 }
 
-#xxtempcsaq .gt_font_bold {
+#jhwckwknwn .gt_font_bold {
   font-weight: bold;
 }
 
-#xxtempcsaq .gt_font_italic {
+#jhwckwknwn .gt_font_italic {
   font-style: italic;
 }
 
-#xxtempcsaq .gt_super {
+#jhwckwknwn .gt_super {
   font-size: 65%;
 }
 
-#xxtempcsaq .gt_footnote_marks {
+#jhwckwknwn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xxtempcsaq .gt_asterisk {
+#jhwckwknwn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xxtempcsaq .gt_indent_1 {
+#jhwckwknwn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xxtempcsaq .gt_indent_2 {
+#jhwckwknwn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xxtempcsaq .gt_indent_3 {
+#jhwckwknwn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xxtempcsaq .gt_indent_4 {
+#jhwckwknwn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xxtempcsaq .gt_indent_5 {
+#jhwckwknwn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -940,30 +943,30 @@
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="tbl-gacha-real">
-<div id="nzbzorutrg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nzbzorutrg table {
+<div id="gwkpqslnps" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gwkpqslnps table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nzbzorutrg thead, #nzbzorutrg tbody, #nzbzorutrg tfoot, #nzbzorutrg tr, #nzbzorutrg td, #nzbzorutrg th {
+#gwkpqslnps thead, #gwkpqslnps tbody, #gwkpqslnps tfoot, #gwkpqslnps tr, #gwkpqslnps td, #gwkpqslnps th {
   border-style: none;
 }
 
-#nzbzorutrg p {
+#gwkpqslnps p {
   margin: 0;
   padding: 0;
 }
 
-#nzbzorutrg .gt_table {
+#gwkpqslnps .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
@@ -982,12 +985,12 @@
   border-left-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_caption {
+#gwkpqslnps .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nzbzorutrg .gt_title {
+#gwkpqslnps .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -999,7 +1002,7 @@
   border-bottom-width: 0;
 }
 
-#nzbzorutrg .gt_subtitle {
+#gwkpqslnps .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1011,7 +1014,7 @@
   border-top-width: 0;
 }
 
-#nzbzorutrg .gt_heading {
+#gwkpqslnps .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1023,13 +1026,13 @@
   border-right-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_bottom_border {
+#gwkpqslnps .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_col_headings {
+#gwkpqslnps .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1044,7 +1047,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_col_heading {
+#gwkpqslnps .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1064,7 +1067,7 @@
   overflow-x: hidden;
 }
 
-#nzbzorutrg .gt_column_spanner_outer {
+#gwkpqslnps .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1076,15 +1079,15 @@
   padding-right: 4px;
 }
 
-#nzbzorutrg .gt_column_spanner_outer:first-child {
+#gwkpqslnps .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nzbzorutrg .gt_column_spanner_outer:last-child {
+#gwkpqslnps .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nzbzorutrg .gt_column_spanner {
+#gwkpqslnps .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1096,11 +1099,11 @@
   width: 100%;
 }
 
-#nzbzorutrg .gt_spanner_row {
+#gwkpqslnps .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nzbzorutrg .gt_group_heading {
+#gwkpqslnps .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1126,7 +1129,7 @@
   text-align: left;
 }
 
-#nzbzorutrg .gt_empty_group_heading {
+#gwkpqslnps .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1141,15 +1144,15 @@
   vertical-align: middle;
 }
 
-#nzbzorutrg .gt_from_md > :first-child {
+#gwkpqslnps .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nzbzorutrg .gt_from_md > :last-child {
+#gwkpqslnps .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nzbzorutrg .gt_row {
+#gwkpqslnps .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1168,7 +1171,7 @@
   overflow-x: hidden;
 }
 
-#nzbzorutrg .gt_stub {
+#gwkpqslnps .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1181,7 +1184,7 @@
   padding-right: 5px;
 }
 
-#nzbzorutrg .gt_stub_row_group {
+#gwkpqslnps .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1195,15 +1198,15 @@
   vertical-align: top;
 }
 
-#nzbzorutrg .gt_row_group_first td {
+#gwkpqslnps .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nzbzorutrg .gt_row_group_first th {
+#gwkpqslnps .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nzbzorutrg .gt_summary_row {
+#gwkpqslnps .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1213,16 +1216,16 @@
   padding-right: 5px;
 }
 
-#nzbzorutrg .gt_first_summary_row {
+#gwkpqslnps .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_first_summary_row.thick {
+#gwkpqslnps .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nzbzorutrg .gt_last_summary_row {
+#gwkpqslnps .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1232,7 +1235,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_grand_summary_row {
+#gwkpqslnps .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1242,7 +1245,7 @@
   padding-right: 5px;
 }
 
-#nzbzorutrg .gt_first_grand_summary_row {
+#gwkpqslnps .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1252,7 +1255,7 @@
   border-top-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_last_grand_summary_row_top {
+#gwkpqslnps .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1262,11 +1265,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_striped {
+#gwkpqslnps .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nzbzorutrg .gt_table_body {
+#gwkpqslnps .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1275,7 +1278,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_footnotes {
+#gwkpqslnps .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1289,7 +1292,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_footnote {
+#gwkpqslnps .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1298,7 +1301,7 @@
   padding-right: 5px;
 }
 
-#nzbzorutrg .gt_sourcenotes {
+#gwkpqslnps .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1312,7 +1315,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nzbzorutrg .gt_sourcenote {
+#gwkpqslnps .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1320,63 +1323,63 @@
   padding-right: 5px;
 }
 
-#nzbzorutrg .gt_left {
+#gwkpqslnps .gt_left {
   text-align: left;
 }
 
-#nzbzorutrg .gt_center {
+#gwkpqslnps .gt_center {
   text-align: center;
 }
 
-#nzbzorutrg .gt_right {
+#gwkpqslnps .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nzbzorutrg .gt_font_normal {
+#gwkpqslnps .gt_font_normal {
   font-weight: normal;
 }
 
-#nzbzorutrg .gt_font_bold {
+#gwkpqslnps .gt_font_bold {
   font-weight: bold;
 }
 
-#nzbzorutrg .gt_font_italic {
+#gwkpqslnps .gt_font_italic {
   font-style: italic;
 }
 
-#nzbzorutrg .gt_super {
+#gwkpqslnps .gt_super {
   font-size: 65%;
 }
 
-#nzbzorutrg .gt_footnote_marks {
+#gwkpqslnps .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nzbzorutrg .gt_asterisk {
+#gwkpqslnps .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nzbzorutrg .gt_indent_1 {
+#gwkpqslnps .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nzbzorutrg .gt_indent_2 {
+#gwkpqslnps .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nzbzorutrg .gt_indent_3 {
+#gwkpqslnps .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nzbzorutrg .gt_indent_4 {
+#gwkpqslnps .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nzbzorutrg .gt_indent_5 {
+#gwkpqslnps .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1428,11 +1431,11 @@
 <section id="データの読み込み" class="slide level2">
 <h2>データの読み込み</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>gacha_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Gacha.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>gacha_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Gacha.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,772 × 4
    player trial stone_type result
@@ -1450,36 +1453,36 @@
 # ℹ 4,762 more rows</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:5%;">
+</div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="tbl-gacha-detail">
-<div id="kpkvxqaowy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kpkvxqaowy table {
+<div id="ejyrhyjewt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ejyrhyjewt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kpkvxqaowy thead, #kpkvxqaowy tbody, #kpkvxqaowy tfoot, #kpkvxqaowy tr, #kpkvxqaowy td, #kpkvxqaowy th {
+#ejyrhyjewt thead, #ejyrhyjewt tbody, #ejyrhyjewt tfoot, #ejyrhyjewt tr, #ejyrhyjewt td, #ejyrhyjewt th {
   border-style: none;
 }
 
-#kpkvxqaowy p {
+#ejyrhyjewt p {
   margin: 0;
   padding: 0;
 }
 
-#kpkvxqaowy .gt_table {
+#ejyrhyjewt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
@@ -1498,12 +1501,12 @@
   border-left-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_caption {
+#ejyrhyjewt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kpkvxqaowy .gt_title {
+#ejyrhyjewt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1515,7 +1518,7 @@
   border-bottom-width: 0;
 }
 
-#kpkvxqaowy .gt_subtitle {
+#ejyrhyjewt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1527,7 +1530,7 @@
   border-top-width: 0;
 }
 
-#kpkvxqaowy .gt_heading {
+#ejyrhyjewt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1539,13 +1542,13 @@
   border-right-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_bottom_border {
+#ejyrhyjewt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_col_headings {
+#ejyrhyjewt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1560,7 +1563,7 @@
   border-right-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_col_heading {
+#ejyrhyjewt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1580,7 +1583,7 @@
   overflow-x: hidden;
 }
 
-#kpkvxqaowy .gt_column_spanner_outer {
+#ejyrhyjewt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1592,15 +1595,15 @@
   padding-right: 4px;
 }
 
-#kpkvxqaowy .gt_column_spanner_outer:first-child {
+#ejyrhyjewt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kpkvxqaowy .gt_column_spanner_outer:last-child {
+#ejyrhyjewt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kpkvxqaowy .gt_column_spanner {
+#ejyrhyjewt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1612,11 +1615,11 @@
   width: 100%;
 }
 
-#kpkvxqaowy .gt_spanner_row {
+#ejyrhyjewt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kpkvxqaowy .gt_group_heading {
+#ejyrhyjewt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1642,7 +1645,7 @@
   text-align: left;
 }
 
-#kpkvxqaowy .gt_empty_group_heading {
+#ejyrhyjewt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1657,15 +1660,15 @@
   vertical-align: middle;
 }
 
-#kpkvxqaowy .gt_from_md > :first-child {
+#ejyrhyjewt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kpkvxqaowy .gt_from_md > :last-child {
+#ejyrhyjewt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kpkvxqaowy .gt_row {
+#ejyrhyjewt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1684,7 +1687,7 @@
   overflow-x: hidden;
 }
 
-#kpkvxqaowy .gt_stub {
+#ejyrhyjewt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1697,7 +1700,7 @@
   padding-right: 5px;
 }
 
-#kpkvxqaowy .gt_stub_row_group {
+#ejyrhyjewt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1711,15 +1714,15 @@
   vertical-align: top;
 }
 
-#kpkvxqaowy .gt_row_group_first td {
+#ejyrhyjewt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kpkvxqaowy .gt_row_group_first th {
+#ejyrhyjewt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kpkvxqaowy .gt_summary_row {
+#ejyrhyjewt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1729,16 +1732,16 @@
   padding-right: 5px;
 }
 
-#kpkvxqaowy .gt_first_summary_row {
+#ejyrhyjewt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_first_summary_row.thick {
+#ejyrhyjewt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kpkvxqaowy .gt_last_summary_row {
+#ejyrhyjewt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1748,7 +1751,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_grand_summary_row {
+#ejyrhyjewt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1758,7 +1761,7 @@
   padding-right: 5px;
 }
 
-#kpkvxqaowy .gt_first_grand_summary_row {
+#ejyrhyjewt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1768,7 +1771,7 @@
   border-top-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_last_grand_summary_row_top {
+#ejyrhyjewt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1778,11 +1781,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_striped {
+#ejyrhyjewt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kpkvxqaowy .gt_table_body {
+#ejyrhyjewt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1791,7 +1794,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_footnotes {
+#ejyrhyjewt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1805,7 +1808,7 @@
   border-right-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_footnote {
+#ejyrhyjewt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1814,7 +1817,7 @@
   padding-right: 5px;
 }
 
-#kpkvxqaowy .gt_sourcenotes {
+#ejyrhyjewt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1828,7 +1831,7 @@
   border-right-color: #D3D3D3;
 }
 
-#kpkvxqaowy .gt_sourcenote {
+#ejyrhyjewt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1836,63 +1839,63 @@
   padding-right: 5px;
 }
 
-#kpkvxqaowy .gt_left {
+#ejyrhyjewt .gt_left {
   text-align: left;
 }
 
-#kpkvxqaowy .gt_center {
+#ejyrhyjewt .gt_center {
   text-align: center;
 }
 
-#kpkvxqaowy .gt_right {
+#ejyrhyjewt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kpkvxqaowy .gt_font_normal {
+#ejyrhyjewt .gt_font_normal {
   font-weight: normal;
 }
 
-#kpkvxqaowy .gt_font_bold {
+#ejyrhyjewt .gt_font_bold {
   font-weight: bold;
 }
 
-#kpkvxqaowy .gt_font_italic {
+#ejyrhyjewt .gt_font_italic {
   font-style: italic;
 }
 
-#kpkvxqaowy .gt_super {
+#ejyrhyjewt .gt_super {
   font-size: 65%;
 }
 
-#kpkvxqaowy .gt_footnote_marks {
+#ejyrhyjewt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kpkvxqaowy .gt_asterisk {
+#ejyrhyjewt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kpkvxqaowy .gt_indent_1 {
+#ejyrhyjewt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kpkvxqaowy .gt_indent_2 {
+#ejyrhyjewt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kpkvxqaowy .gt_indent_3 {
+#ejyrhyjewt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kpkvxqaowy .gt_indent_4 {
+#ejyrhyjewt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kpkvxqaowy .gt_indent_5 {
+#ejyrhyjewt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1924,16 +1927,16 @@
 </div>
 </div>
 </section>
-<section id="ガチャ結果をダミー変換するifelse使用" class="slide level2">
-<h2>ガチャ結果をダミー変換する（<code>ifelse()</code>使用）</h2>
+<section id="ガチャ結果をダミー変換するif_else使用" class="slide level2">
+<h2>ガチャ結果をダミー変換する（<code>if_else()</code>使用）</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">mutate</span>(<span class="at">result_N   =</span> <span class="fu">ifelse</span>(result <span class="sc">==</span> <span class="st">"N"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb3-3"><a href="#cb3-3"></a>         <span class="at">result_R   =</span> <span class="fu">ifelse</span>(result <span class="sc">==</span> <span class="st">"R"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb3-4"><a href="#cb3-4"></a>         <span class="at">result_SR  =</span> <span class="fu">ifelse</span>(result <span class="sc">==</span> <span class="st">"SR"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb3-5"><a href="#cb3-5"></a>         <span class="at">result_SSR =</span> <span class="fu">ifelse</span>(result <span class="sc">==</span> <span class="st">"SSR"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">mutate</span>(<span class="at">result_N   =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"N"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-3"><a href="#cb4-3"></a>         <span class="at">result_R   =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"R"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-4"><a href="#cb4-4"></a>         <span class="at">result_SR  =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"SR"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>         <span class="at">result_SSR =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"SSR"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,772 × 8
    player trial stone_type result result_N result_R result_SR result_SSR
@@ -1952,14 +1955,14 @@
 </div>
 </div>
 </section>
-<section id="ガチャ結果をダミー変換するdummy_cols使用" class="slide level2">
-<h2>ガチャ結果をダミー変換する（<code>dummy_cols()</code>使用）</h2>
+<section id="ガチャ結果をダミー変換するfastdummiesパッケージ使用" class="slide level2">
+<h2>ガチャ結果をダミー変換する（{fastDummies}パッケージ使用）</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(fastDummies)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"result"</span>, <span class="at">ignore_na =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"result"</span>, <span class="at">ignore_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,772 × 8
    player trial stone_type result result_N result_R result_SR result_SSR
@@ -1984,7 +1987,7 @@
 <li>ガチャ結果の度数分布表</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">table</span>(gacha_df<span class="sc">$</span>result)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">table</span>(gacha_df<span class="sc">$</span>result)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    N    R   SR  SSR 
@@ -1995,7 +1998,7 @@
 <li><span class="math inline">\(\bar{x}\)</span>: SSR出現の平均値</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04756915</code></pre>
 </div>
@@ -2004,7 +2007,7 @@
 <li><span class="math inline">\(u\)</span>: SSR出現の標本不偏分散の平方根</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">sd</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sd</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2128751</code></pre>
 </div>
@@ -2048,7 +2051,7 @@
 <li>出現しうる統計量をすべて並べる
 <ul>
 <li>ガチャを4772回引いた場合の得られる結果（すべてSSR〜すべてSSR以外）を並べ、帰無仮説が仮定する母数（<span class="math inline">\(\mu_0 = 0.5\)</span>）からA%分離れている場合、「帰無仮説から十分に離れている」と判断し、このA%が「有意水準（significance level）」</li>
-<li><strong>有意水準</strong>: 帰無仮説が正しいにもかかわらず、誤って帰無仮説を棄却してしまう確率</li>
+<li><strong>有意水準</strong>：帰無仮説が正しいにもかかわらず、誤って帰無仮説を棄却してしまう確率</li>
 <li>有意水準は通常、<span class="math inline">\(\alpha\)</span>と表記し、有意水準が5%なら<span class="math inline">\(\alpha = 0.05\)</span></li>
 <li>社会科学では<span class="math inline">\(\alpha = 0.05\)</span>を採用するケースが多い。</li>
 </ul></li>
@@ -2060,7 +2063,7 @@
 <ul>
 <li>帰無仮説が正しければ（<span class="math inline">\(\mu = \mu_0\)</span>）、 <span class="math inline">\(T = \frac{\bar{x} - \mu_0}{\text{SE}}\)</span>も<span class="math inline">\(t\)</span>分布に従う。
 <ul>
-<li><span class="math inline">\(t\)</span> 分布の中心は0</li>
+<li><span class="math inline">\(t\)</span>分布の中心は0</li>
 <li>もし、標本から得られた統計量（標本平均<span class="math inline">\(\bar{x}\)</span>）が0.05（<span class="math inline">\(\mu_0\)</span>）なら、<span class="math inline">\(T = 0\)</span>となり、帰無仮説の妥当性は高いと判断される。</li>
 <li><span class="math inline">\(\bar{x}\)</span>が0.05から離れるほど、統計量<span class="math inline">\(T\)</span>も0から離れるようになる。</li>
 </ul></li>
@@ -2076,7 +2079,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-11-1.png" width="2100"></p>
+<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-12-1.png" width="2100"></p>
 </figure>
 </div>
 </div>
@@ -2089,36 +2092,23 @@
 t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{\bar{x} - \mu_0}{\frac{s}{\sqrt{n}}}
 \]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)          <span class="co"># 標本平均</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>n     <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(gacha_df<span class="sc">$</span>result_SSR))                 <span class="co"># サンプルサイズ</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>se    <span class="ot">&lt;-</span> <span class="fu">sd</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n)  <span class="co"># 標準誤差</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>(x_bar <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> se                                       <span class="co"># T統計量</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)          <span class="co"># 標本平均</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>n     <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(gacha_df<span class="sc">$</span>result_SSR))                 <span class="co"># サンプルサイズ</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>se    <span class="ot">&lt;-</span> <span class="fu">sd</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n)  <span class="co"># 標準誤差</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>(x_bar <span class="sc">-</span> <span class="fl">0.05</span>) <span class="sc">/</span> se                                       <span class="co"># T統計量</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.7888289</code></pre>
 </div>
 </div>
 <ul>
-<li><span class="math inline">\(T\)</span>統計量は<span class="math inline">\(-\infty\)</span>〜<span class="math inline">\(\infty\)</span>の値を取るが、今回得られた<span class="math inline">\(t\)</span>の絶対値<span class="math inline">\(|t|\)</span>よりも極端な値をとる確率は? <span class="math inline">\(\Rightarrow\)</span> <strong><span class="math inline">\(p\)</span>値</strong>
+<li><span class="math inline">\(T\)</span>統計量は<span class="math inline">\(-\infty \sim \infty\)</span>の値を取るが、今回得られた<span class="math inline">\(t\)</span>の絶対値<span class="math inline">\(|t|\)</span>よりも極端な値をとる確率は? <span class="math inline">\(\Rightarrow\)</span> <strong><span class="math inline">\(p\)</span>値</strong>
 <ul>
 <li>対立仮説は「<span class="math inline">\(\mu_0\)</span>ではない（<span class="math inline">\(\mu_0 \neq 0\)</span>）」であるため、<span class="math inline">\(\mu_0\)</span>から負の方向に離れる可能性も、正の方向に離れる可能性もある。したがって、<span class="math inline">\(t\)</span>ではなく<span class="math inline">\(|t|\)</span>より極端な値を取る確率を求める。</li>
 </ul></li>
 </ul>
 </section>
-<section id="検定統計量とp値-面積の合計" class="slide level2">
-<h2>検定統計量と<span class="math inline">\(p\)</span>値 (=面積の合計)</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-13-1.png" width="2100"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="tが0から大きく離れると" class="slide level2">
-<h2><span class="math inline">\(t\)</span>が0から大きく離れると…</h2>
-<p><span class="math inline">\(p\)</span>値が小さくなる</p>
+<section id="検定統計量とp値面積の合計" class="slide level2">
+<h2>検定統計量と<span class="math inline">\(p\)</span>値（=面積の合計）</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2129,14 +2119,25 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 </div>
 </div>
 </section>
-<section id="tが0に近いと" class="slide level2">
-<h2><span class="math inline">\(t\)</span>が0に近いと…</h2>
-<p><span class="math inline">\(p\)</span>値が大きくなる</p>
+<section id="tが0から大きく離れるとp値が小さくなる" class="slide level2">
+<h2><span class="math inline">\(t\)</span>が0から大きく離れると、<span class="math inline">\(p\)</span>値が小さくなる</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-15-1.png" width="2100"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tが0に近いとp値が大きくなる" class="slide level2">
+<h2><span class="math inline">\(t\)</span>が0に近いと、<span class="math inline">\(p\)</span>値が大きくなる</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-16-1.png" width="2100"></p>
 </figure>
 </div>
 </div>
@@ -2150,15 +2151,15 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <li>帰無仮説の下でのサンプルから得られた<span class="math inline">\(t\)</span>の異常性を表す指標であり、<span class="math inline">\(p\)</span>値が小さいほど、今回得られた<span class="math inline">\(t\)</span>は異常な値であることを意味</li>
 </ul></li>
 <li>今回の<span class="math inline">\(t\)</span>が異常なのは「帰無仮説が正しい」という仮定の下での判断であるため、帰無仮説が間違っていると考えるのが自然</li>
-<li><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(p\)</span>値が十分小さい場合 (=<span class="math inline">\(t\)</span>の異常性が十分大きい場合)、帰無仮説は棄却される。</li>
+<li><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(p\)</span>値が十分小さい場合（= <span class="math inline">\(t\)</span>の異常性が十分大きい場合）、帰無仮説は棄却される。</li>
 </ul>
 <p><br></p>
-<p>参考) 今回の<span class="math inline">\(p\)</span>値は0.431</p>
+<p>参考）今回の<span class="math inline">\(p\)</span>値は0.431</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># pt()の第一引数は「tの絶対値にマイナスをかけた値」にする</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># dfには自由度を割り当てる</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># 最終的には2をかける</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.7888289</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># pt()の第一引数は「tの絶対値にマイナスをかけた値」にする</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># dfには自由度を割り当てる</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co"># 最終的には2をかける</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fl">0.7888289</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4302512</code></pre>
 </div>
@@ -2168,30 +2169,30 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <h2>棄却域の設定</h2>
 <p>「検定統計量がこの領域に入ると帰無仮説は棄却される」における「領域」を決める段階</p>
 <ul>
-<li><span class="math inline">\(p\)</span>値が有意水準 (<span class="math inline">\(\alpha\)</span>)より小さくなるような境界線: <strong>臨界値</strong> (critical value)</li>
-<li><span class="math inline">\(t\)</span>分布の場合、左右対称であり、下側臨界値 (<span class="math inline">\(C_L\)</span>)と上側臨界値 (<span class="math inline">\(C_U\)</span>)が存在。
+<li><span class="math inline">\(p\)</span>値が有意水準（<span class="math inline">\(\alpha\)</span>）より小さくなるような境界線：<strong>臨界値</strong>（critical value）</li>
+<li><span class="math inline">\(t\)</span>分布の場合、左右対称であり、下側臨界値（<span class="math inline">\(C_L\)</span>）と上側臨界値（<span class="math inline">\(C_U\)</span>）が存在。
 <ul>
-<li>分布によっては臨界値が一つのみ存在するケースもある (<span class="math inline">\(\chi^2\)</span>分布など)。</li>
+<li>分布によっては臨界値が一つのみ存在するケースもある（<span class="math inline">\(\chi^2\)</span>分布など）。</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># 下側臨界値: 第一引数には「有意水準 / 2」</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の下側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># 下側臨界値: 第一引数には「有意水準 / 2」</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の下側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.960461</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># 上側臨界値: 第一引数には「1 - (有意水準 / 2)」</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の上側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># 上側臨界値: 第一引数には「1 - (有意水準 / 2)」</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の上側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.960461</code></pre>
 </div>
 </div>
 <ul>
-<li><strong>受容域</strong> (acceptance region): [<span class="math inline">\(C_L\)</span>, <span class="math inline">\(C_U\)</span>]
+<li><strong>受容域</strong>（acceptance region）：[<span class="math inline">\(C_L\)</span>, <span class="math inline">\(C_U\)</span>]
 <ul>
 <li>検定統計量が受容域に含まれると、帰無仮説を受容する。</li>
 </ul></li>
-<li><strong>棄却域</strong> (rejection region): (<span class="math inline">\(\infty\)</span>, <span class="math inline">\(C_L\)</span>)と(<span class="math inline">\(C_U\)</span>, <span class="math inline">\(\infty\)</span>)
+<li><strong>棄却域</strong>（rejection region）：(<span class="math inline">\(\infty\)</span>, <span class="math inline">\(C_L\)</span>)と(<span class="math inline">\(C_U\)</span>, <span class="math inline">\(\infty\)</span>)
 <ul>
 <li>検定統計量が棄却域に含まれると、帰無仮説を棄却し、対立仮説を支持する。</li>
 </ul></li>
@@ -2203,7 +2204,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-18-1.png" width="2100"></p>
+<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-19-1.png" width="2100"></p>
 </figure>
 </div>
 </div>
@@ -2213,10 +2214,10 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <h2>検定統計量と棄却域の比較</h2>
 <p>帰無仮説の棄却有無を判断する2つの方法</p>
 <ol type="1">
-<li><span class="math inline">\(p\)</span>値と有意水準 (<span class="math inline">\(\alpha\)</span>)の比較
+<li><span class="math inline">\(p\)</span>値と有意水準（<span class="math inline">\(\alpha\)</span>）の比較
 <ul>
-<li><span class="math inline">\(p &lt; \alpha\)</span>: 帰無仮説を棄却する。</li>
-<li><span class="math inline">\(p \geq \alpha\)</span>: 帰無仮説を受容する。</li>
+<li><span class="math inline">\(p &lt; \alpha\)</span>：帰無仮説を棄却する。</li>
+<li><span class="math inline">\(p \geq \alpha\)</span>：帰無仮説を受容する。</li>
 </ul></li>
 <li>検定統計量と棄却域の比較
 <ul>
@@ -2226,7 +2227,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 </ol>
 <h3 id="注意事項">注意事項</h3>
 <ul>
-<li>有意水準 (<span class="math inline">\(\alpha\)</span>)を大きく設定すると、帰無仮説は棄却されやすくなる (=対立仮説が支持されやすくなる)。
+<li>有意水準（<span class="math inline">\(\alpha\)</span>）を大きく設定すると、帰無仮説は棄却されやすくなる（=対立仮説が支持されやすくなる）。
 <ul>
 <li>つまり、自分の主張が支持されやすくなる。</li>
 </ul></li>
@@ -2242,7 +2243,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-19-1.png" width="2100"></p>
+<p><img data-src="nhts_files/figure-revealjs/unnamed-chunk-20-1.png" width="2100"></p>
 </figure>
 </div>
 </div>
@@ -2254,12 +2255,12 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <ol type="1">
 <li><span class="math inline">\(p\)</span>値による判定
 <ul>
-<li><span class="math inline">\(p = 0.430\)</span>であり、<span class="math inline">\(p \geq \alpha\)</span>であるため、帰無仮説を棄却できない (=帰無仮説を受容する)。</li>
+<li><span class="math inline">\(p = 0.430\)</span>であり、<span class="math inline">\(p \geq \alpha\)</span>であるため、帰無仮説を棄却できない（=帰無仮説を受容する）。</li>
 </ul></li>
 <li>検定統計量による判定
 <ul>
 <li><span class="math inline">\(t = -0.789\)</span>であり、受容域に含まれる。</li>
-<li>帰無仮説を棄却できない (=帰無仮説を受容する)。</li>
+<li>帰無仮説を棄却できない（=帰無仮説を受容する）。</li>
 </ul></li>
 </ol>
 <h3 id="意味">意味</h3>
@@ -2267,7 +2268,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <li>帰無仮説が正しい場合、<span class="math inline">\(\bar{x}\)</span>と<span class="math inline">\(\mu_0\)</span>の差は0であるため、<span class="math inline">\(t = 0\)</span>である。
 <ul>
 <li>ただし、「帰無仮説が正しい」ことは検証できない（後述）。</li>
-<li>帰無仮説が棄却できなかった (=受容された)場合、「現時点では対立仮説が正しいとは言えない」だけであり、帰無仮説が正しいことを意味するものではない。</li>
+<li>帰無仮説が棄却できなかった（=受容された）場合、「現時点では対立仮説が正しいとは言えない」だけであり、帰無仮説が正しいことを意味するものではない。</li>
 </ul></li>
 <li>帰無仮説が棄却された場合、<span class="math inline">\(t \neq 0\)</span>であり、<span class="math inline">\(\bar{x}\)</span>と<span class="math inline">\(\mu_0\)</span>の間には<strong>統計的</strong>に有意味な差が存在することを意味する。</li>
 </ul>
@@ -2275,12 +2276,12 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <section id="検定の結論の提示" class="slide level2">
 <h2>検定の結論の提示</h2>
 <ul>
-<li><strong>帰無仮説</strong> (<span class="math inline">\(H_0\)</span>): SSRキャラクターの本当の出現確率は5%である。</li>
-<li><strong>対立仮説</strong> (<span class="math inline">\(H_a\)</span>): SSRキャラクターの本当の出現確率は5%ではない。</li>
+<li><strong>帰無仮説</strong>（<span class="math inline">\(H_0\)</span>）：SSRキャラクターの本当の出現確率は5%である。</li>
+<li><strong>対立仮説</strong>（<span class="math inline">\(H_a\)</span>）：SSRキャラクターの本当の出現確率は5%ではない。</li>
 </ul>
 <p><br></p>
 <ul>
-<li><span class="math inline">\(p\)</span>値は0.430であり、<span class="math inline">\(\alpha\)</span> (= 0.05) 以上であるため、帰無仮説は棄却されない。
+<li><span class="math inline">\(p\)</span>値は0.430であり、<span class="math inline">\(\alpha\)</span>（= 0.05）以上であるため、帰無仮説は棄却されない。
 <ul>
 <li>SSRキャラクターの出現確率は5%である。 <span class="math inline">\(\leftarrow \times\)</span></li>
 <li>SSRキャラクターの出現確率は5%である<strong>とは言えない</strong>。 <span class="math inline">\(\leftarrow \bigcirc\)</span></li>
@@ -2322,8 +2323,8 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <ul>
 <li>無罪であることを前提に、裁判を進める仕組み
 <ul>
-<li><span class="math inline">\(H_0\)</span>: 容疑者Xは罪を犯していない (= 容疑者Xは無実)。</li>
-<li><span class="math inline">\(H_a\)</span>: 容疑者Xは罪を犯した (= 容疑者Xは犯人)。</li>
+<li><span class="math inline">\(H_0\)</span>：容疑者Xは罪を犯していない (= 容疑者Xは無実)。</li>
+<li><span class="math inline">\(H_a\)</span>：容疑者Xは罪を犯した (= 容疑者Xは犯人)。</li>
 </ul></li>
 </ul>
 <p><br></p>
@@ -2337,15 +2338,15 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 </ul>
 <p><br></p>
 <ul>
-<li>帰無仮説を棄却: 対立仮説の正当性を強く主張できる。</li>
-<li>帰無仮説を受容: 「対立仮説が正しいとは言えない」といった非常に弱い結論</li>
+<li>帰無仮説を棄却：対立仮説の正当性を強く主張できる。</li>
+<li>帰無仮説を受容：「対立仮説が正しいとは言えない」といった非常に弱い結論</li>
 </ul>
 </section>
 <section id="例-男女の身長差" class="slide level2">
 <h2>例) 男女の身長差</h2>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: 男性と女性の間に身長差はない。</li>
-<li><span class="math inline">\(H_a\)</span>: 男性と女性の間に身長差はない。</li>
+<li><span class="math inline">\(H_0\)</span>：男性と女性の間に身長差はない。</li>
+<li><span class="math inline">\(H_a\)</span>：男性と女性の間に身長差はない。</li>
 </ul>
 <p><br></p>
 <ul>
@@ -2370,8 +2371,8 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <li>第一引数は変数のベクトル、<code>mu</code>引数には帰無仮説上の母数（<span class="math inline">\(\mu_0\)</span>）を指定する。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># 帰無仮説においてSSRの確率は5%であるため、mu = 0.05</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.05</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># 帰無仮説においてSSRの確率は5%であるため、mu = 0.05</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.05</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -2391,10 +2392,10 @@ sample estimates:
 <h2>参考）母比率の検定</h2>
 <p><code>prop.test()</code>関数を使用: 詳細は講義資料を参照すること。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># x: SSRが得られた回数</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># n: ガチャの回数</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="co"># p: 帰無仮説におけるSSRの出現確率 (0 ~ 1)</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">227</span>, <span class="at">n =</span> <span class="dv">4772</span>, <span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># x: SSRが得られた回数</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># n: ガチャの回数</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co"># p: 帰無仮説におけるSSRの出現確率 (0 ~ 1)</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">227</span>, <span class="at">n =</span> <span class="dv">4772</span>, <span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test without continuity correction
