@@ -192,24 +192,28 @@ $$
 #| filename: "Code 08"
 # 標本平均
 x_bar <- mean(gacha_df$result_SSR, na.rm = TRUE)
+x_bar
 ```
 
 ```{r}
 #| filename: "Code 09"
 # サンプルサイズ
 n <- sum(!is.na(gacha_df$result_SSR))
+n
 ```
 
 ```{r}
 #| filename: "Code 10"
 # 標準誤差
 se <- sd(gacha_df$result_SSR, na.rm = TRUE) / sqrt(n)
+se
 ```
 
 ```{r}
 #| filename: "Code 11"
 # T統計量
-(x_bar - 0.05) / se
+t_stat <- (x_bar - 0.05) / se
+t_stat
 ```
 
 　$T$統計量は$-\infty \sim \infty$の値を取るが、今回得られた$t$の絶対値（$|t|$）よりも極端な値をとる確率を計算することで、我々の仮説の尤もらしさが分かる。そしてこの確率は$p$値と呼ばれる。ちなにみ、なぜ絶対値を使う理由は対立仮説は「$\mu_0$ではない（$\mu_0 \neq 0$）」であるため、$\mu_0$から負の方向に離れる可能性も、正の方向に離れる可能性もあるからだ。
