@@ -72,10 +72,10 @@ gacha_df |>
 ```{r}
 #| filename: "Code 03"
 gacha_df <- gacha_df |>
-  mutate(result_N   = ifelse(result == "N", 1, 0),
-         result_R   = ifelse(result == "R", 1, 0),
-         result_SR  = ifelse(result == "SR", 1, 0),
-         result_SSR = ifelse(result == "SSR", 1, 0))
+  mutate(result_N   = if_else(result == "N", 1, 0),
+         result_R   = if_else(result == "R", 1, 0),
+         result_SR  = if_else(result == "SR", 1, 0),
+         result_SSR = if_else(result == "SSR", 1, 0))
 
 gacha_df
 ```
