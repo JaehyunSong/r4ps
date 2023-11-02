@@ -1,5 +1,5 @@
 ---
-title: "第12回講義資料"
+title: "第11回講義資料"
 subtitle: "交互作用"
 toc: true
 metadata-files: 
@@ -76,8 +76,8 @@ $$ {#eq-03}
 #| fig-height: 4
 set.seed(1986)
 tibble(X = rnorm(100),
-       Z = sample(0:1, 100, replace = TRUE)) %>%
-  mutate(Y = 3 + 2 * X + 1 * Z + 3 * X * Z + rnorm(1, 0, 2)) %>%
+       Z = sample(0:1, 100, replace = TRUE)) |>
+  mutate(Y = 3 + 2 * X + 1 * Z + 3 * X * Z + rnorm(1, 0, 2)) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
@@ -112,8 +112,8 @@ $$ {#eq-04}
 #| fig-height: 4
 set.seed(1986)
 tibble(X = rnorm(100),
-       Z = sample(0:1, 100, replace = TRUE)) %>%
-  mutate(Y = 5 + 3 * X + 2 * Z - 1 * X * Z + rnorm(1, 0, 2)) %>%
+       Z = sample(0:1, 100, replace = TRUE)) |>
+  mutate(Y = 5 + 3 * X + 2 * Z - 1 * X * Z + rnorm(1, 0, 2)) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
@@ -157,7 +157,7 @@ jes_df
 
 ```{r}
 #| filename: "Code 03"
-jes_df %>%
+jes_df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -249,10 +249,10 @@ modelsummary(list(fit1, fit2))
 #| echo: false
 #| fig-width: 7
 #| fig-height: 4
-predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) %>%
+predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) |>
   mutate(Female = factor(Female, levels = 0:1, 
                          labels = c("男性 (女性ダミーの値 = 0)", 
-                                    "女性 (女性ダミーの値 = 1)"))) %>%
+                                    "女性 (女性ダミーの値 = 1)"))) |>
   ggplot() +
   geom_line(aes(x = Satisfaction, y = estimate, color = Female),
             linewidth = 1) +
@@ -282,9 +282,9 @@ predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) %>%
 #| fig-width: 7
 #| fig-height: 4
 predictions(fit2, newdata = datagrid(Satisfaction = 1:5, 
-                                     Age          = c(20, 40, 60))) %>%
+                                     Age          = c(20, 40, 60))) |>
   mutate(Age = factor(Age, levels = c(20, 40, 60),
-                      labels = c("20歳", "40歳", "60歳"))) %>%
+                      labels = c("20歳", "40歳", "60歳"))) |>
   ggplot() +
   geom_line(aes(x = Satisfaction, y = estimate, color = Age), 
             linewidth = 1) +
@@ -364,15 +364,15 @@ print(fit1_ame, style = "data.frame")
 
 ```{r}
 #| echo: false
-fit1_ame %>%
-  dplyr::select(Female, estimate, p.value, conf.low, conf.high) %>%
+fit1_ame |>
+  dplyr::select(Female, estimate, p.value, conf.low, conf.high) |>
   mutate(Female = if_else(Female == 0, "男性", "女性"),
-         p.value = "< 0.001") %>%
-  gt() %>%
+         p.value = "< 0.001") |>
+  gt() |>
   cols_label("Female" = "性別", "estimate" = "平均限界効果", "p.value" = "p値",
-             "conf.low" = "下限", "conf.high" = "上限") %>%
-  tab_spanner(columns = 4:5, label = "95%信頼区間") %>%
-  fmt_number(columns = c(2, 4, 5), decimals = 3) %>%
+             "conf.low" = "下限", "conf.high" = "上限") |>
+  tab_spanner(columns = 4:5, label = "95%信頼区間") |>
+  fmt_number(columns = c(2, 4, 5), decimals = 3) |>
   cols_align(columns = 2:5, align = "right")
 ```
 
@@ -390,8 +390,8 @@ fit2_ame
 
 ```{r}
 #| filename: "Code 13"
-fit2_ame %>%
-  mutate(p.value = round(p.value, 3)) %>%
+fit2_ame |>
+  mutate(p.value = round(p.value, 3)) |>
   print(nrow = Inf)
 ```
 
@@ -405,9 +405,9 @@ fit2_ame %>%
 #| code-fold: true
 #| fig-width: 4
 #| fig-height: 4
-fit1_ame %>%
+fit1_ame |>
   mutate(Female = factor(Female, levels = 0:1, 
-                         labels = c("男性", "女性"))) %>%
+                         labels = c("男性", "女性"))) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = Female, y = estimate, 
@@ -422,7 +422,7 @@ fit1_ame %>%
 #| code-fold: true
 #| fig-width: 4
 #| fig-height: 4
-fit2_ame %>%
+fit2_ame |>
   ggplot(aes(x = Age)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_hline(yintercept = 0) +
