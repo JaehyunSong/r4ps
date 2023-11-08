@@ -16,6 +16,8 @@ metadata-files:
 
 ## セットアップ
 
+　今回の実習で使用するパッケージとデータセットを読み込む。各データセットの詳細はスライドを参照すること。
+
 ```{r}
 #| filename: "Code 01"
 #| message: false
@@ -27,16 +29,6 @@ gacha_df   <- read_csv("Data/Gacha2.csv")
 subsidy_df <- read_csv("Data/Subsidy.csv")
 pasta_df   <- read_csv("Data/Pasta.csv")
 ```
-
-|変数1|変数2|手法|
-|:---|:---|:---|
-|名目変数|連続変数|平均値の差の検定（2群）|
-|名目変数|名目変数（ダミー変数）|比率の差の検定|
-|連続変数|連続変数|相関分析|
-|名目変数|名目変数|独立性の検定|
-|名目変数|順序変数|平均値の差の検定 or 独立性の検定|
-|順序変数|順序変数|相関分析 or 独立性の検定|
-|順序変数|連続変数|相関分析 or 平均値の差の検定|
 
 ## $t$検定
 
@@ -96,11 +88,11 @@ mean_df |>
   labs(x = "石の種類", y = "SSRの出現割合")
 ```
 
-　図に英語と日本語が混在することは良くないので、`mean_df`を`ggplot()`に渡す前に`stone_type`を日本語にリコーディングし、SSR列には100をかけて%に換算する。リコーディングは3値以上であれば、`case_when()`、または`recode()`を使うが、今回は`"Free"`か`"Paid"`かの2値となるので、`ifelse()`を使用する。
+　図に英語と日本語が混在することは良くないので、`mean_df`を`ggplot()`に渡す前に`stone_type`を日本語にリコーディングし、SSR列には100をかけて%に換算する。リコーディングは3値以上であれば、`case_when()`、または`recode()`を使うが、今回は`"Free"`か`"Paid"`かの2値となるので、`if_else()`を使用する。
 
 ```r
-# ifelse()の使い方
-ifelse(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の戻り値)
+# if_else()の使い方
+if_else(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の戻り値)
 ```
 
 　今回は`stone_type`が`"Feee"`であれば（`stone_type == "Free"`）、`"無償"`と、それ以外は`"有償"`とリコーディングする。
@@ -108,7 +100,7 @@ ifelse(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の
 ```{r}
 #| filename: "Code 07"
 mean_df |>
-  mutate(stone_type = ifelse(stone_type == "Free", "無償", "有償"),
+  mutate(stone_type = if_else(stone_type == "Free", "無償", "有償"),
          SSR        = SSR * 100) |>
   ggplot() +
   geom_col(aes(x = stone_type, y = SSR)) +
@@ -255,9 +247,9 @@ pasta_df
 ```{r}
 #| filename: "Code 17"
 pasta_df <- pasta_df |>
-  mutate(Gender_D = ifelse(Female == 1, "Female", "Male"),
+  mutate(Gender_D = if_else(Female == 1, "Female", "Male"),
          Gender_D = factor(Gender_D, levels = c("Male", "Female")),
-         Over40_D = ifelse(Over40 == 1, "41 to 80", "18 to 40"),
+         Over40_D = if_else(Over40 == 1, "41 to 80", "18 to 40"),
          Over40_D = factor(Over40_D, levels = c("18 to 40", "41 to 80")))
 
 pasta_df

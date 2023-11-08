@@ -430,7 +430,7 @@
 <ul>
 <li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
 </ul></li>
-<li>実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&amp;実行してください。</li>
+<li>実習用コードを入力するスクリプト、またはQuartoを開き、以下のコードを入力&amp;実行してください。</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -479,7 +479,7 @@
 <section id="問題設定" class="slide level2">
 <h2>問題設定</h2>
 <blockquote>
-<p>　あるソシャゲのガチャ確率を見ると、SSR (★5)の出現確率は5%と記載されている。しかし、ガチャでSSRが出現する確率が有償石か無料石かによって変わる噂を聞いた。これが本当なら大炎上するだろう。この噂は本当だろうか。</p>
+<p>　あるソシャゲのガチャ確率を見ると、SSR（★5）の出現確率は5%と記載されている。しかし、ガチャでSSRが出現する確率が有償石か無料石かによって変わる噂を聞いた。これが本当なら大炎上するだろう。この噂は本当だろうか。</p>
 </blockquote>
 <ul>
 <li>帰無仮説（<span class="math inline">\(H_0\)</span>）：無償石のSSRの確率と有償石のSSRの確率の差は0である。
@@ -514,8 +514,8 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>gacha_df <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">group_by</span>(stone_type) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>gacha_df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">group_by</span>(stone_type) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">summarise</span>(<span class="at">SSR =</span> <span class="fu">mean</span>(result_SSR) <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
@@ -696,7 +696,7 @@ sample estimates:
 <li><strong>負の相関：</strong>変数1が大きくなれば、変数2は小さくなる</li>
 <li><strong>無相関：</strong>変数1が大きくなっても、変数2は変わらない</li>
 </ul>
-<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-8_09fa8fe21c198915d3bed4f0a73c6ac4">
+<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-8_8abd94fb8a0dbb054a86ca509d465c49">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -727,7 +727,7 @@ sample estimates:
 <ul>
 <li>青の直線 = 回帰直線（次回にて解説）</li>
 </ul>
-<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-9_c4434fe790842a8d311596922fbc9649">
+<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-9_debac720e90e43402569f07ad8b2ac42">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -747,7 +747,7 @@ sample estimates:
 <li>（超）母集団においても相関しているだろうか。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>subsidy_df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>subsidy_df <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Turnout, <span class="at">y =</span> Subsidy)) <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="co"># 回帰直線を追加したい場合は以下のレイヤーを足す</span></span>
@@ -759,7 +759,7 @@ sample estimates:
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:45%;">
-<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-11_4c8863347dd4284db7fd0d10920530d3">
+<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-11_c052b4fc62456461ebe9c231334e33a2">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -5933,7 +5933,7 @@ sample estimates:
 </section>
 <section id="chi2分布の例" class="slide level2">
 <h2><span class="math inline">\(\chi^2\)</span>分布の例</h2>
-<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-28_3a7935615046aac06fc663622318ab5f">
+<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-28_c950d2cbed0ddc0a8c5fbd22266b255c">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -5952,7 +5952,7 @@ sample estimates:
 <pre><code>[1] 7.814728</code></pre>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-30_c20408074cb6b9ededac646e63122068">
+<div class="cell" data-layout-align="center" data-hash="association_cache/revealjs/unnamed-chunk-30_7704442478c98dc42cc922bce58463ae">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -5968,13 +5968,13 @@ sample estimates:
 <div class="column" style="width:49%;">
 <p>性別と好きなパスタの関係</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">table</span>(pasta_df<span class="sc">$</span>Female, pasta_df<span class="sc">$</span>Pasta) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">table</span>(pasta_df<span class="sc">$</span>Female, pasta_df<span class="sc">$</span>Pasta) <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">chisq.test</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
 
-data:  .
+data:  table(pasta_df$Female, pasta_df$Pasta)
 X-squared = 3.8204, df = 3, p-value = 0.2815</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># p値の計算は以下のようなやり方でもOK</span></span>
@@ -5988,13 +5988,13 @@ X-squared = 3.8204, df = 3, p-value = 0.2815</code></pre>
 </div><div class="column" style="width:49%;">
 <p>年齢と好きなパスタの関係</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">table</span>(pasta_df<span class="sc">$</span>Over40, pasta_df<span class="sc">$</span>Pasta) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">table</span>(pasta_df<span class="sc">$</span>Over40, pasta_df<span class="sc">$</span>Pasta) <span class="sc">|&gt;</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">chisq.test</span>() </span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
 
-data:  .
+data:  table(pasta_df$Over40, pasta_df$Pasta)
 X-squared = 22.515, df = 3, p-value = 5.095e-05</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># p値の計算は以下のようなやり方でもOK</span></span>

@@ -20,7 +20,7 @@ pacman::p_load(tidyverse, gt, summarytools, mvtnorm)
 3. LMSから実習用データ（3つ）をダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
    * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+5. 実習用コードを入力するスクリプト、またはQuartoを開き、以下のコードを入力&実行してください。
 
 ```{r}
 #| eval: false
@@ -49,7 +49,7 @@ gacha_df # gacha_dfの出力
 
 ## 問題設定
 
-> 　あるソシャゲのガチャ確率を見ると、SSR (★5)の出現確率は5%と記載されている。しかし、ガチャでSSRが出現する確率が有償石か無料石かによって変わる噂を聞いた。これが本当なら大炎上するだろう。この噂は本当だろうか。
+> 　あるソシャゲのガチャ確率を見ると、SSR（★5）の出現確率は5%と記載されている。しかし、ガチャでSSRが出現する確率が有償石か無料石かによって変わる噂を聞いた。これが本当なら大炎上するだろう。この噂は本当だろうか。
 
 * 帰無仮説（$H_0$）：無償石のSSRの確率と有償石のSSRの確率の差は0である。
    * 2つの確率が同じなら、その差分は0であるため
@@ -74,8 +74,8 @@ gacha_df # gacha_dfの出力
    * これは**統計的**に有意な差か
 
 ```{r}
-gacha_df %>%
-  group_by(stone_type) %>%
+gacha_df |>
+  group_by(stone_type) |>
   summarise(SSR = mean(result_SSR) * 100)
 ```
 
@@ -174,25 +174,25 @@ subsidy_df
 #| fig-height: 3
 set.seed(1986)
 col_df1 <- rmvnorm(100, mean = c(0, 0), 
-                   sigma = matrix(c(1, 0, 0, 1), nrow = 2)) %>%
+                   sigma = matrix(c(1, 0, 0, 1), nrow = 2)) |>
   as.data.frame()
 col_df2 <- rmvnorm(100, mean = c(0, 0), 
-                   sigma = matrix(c(1, 0.75, 0.75, 1), nrow = 2)) %>%
+                   sigma = matrix(c(1, 0.75, 0.75, 1), nrow = 2)) |>
   as.data.frame()
 col_df3 <- rmvnorm(100, mean = c(0, 0), 
-                   sigma = matrix(c(1, -0.75, -0.75, 1), nrow = 2)) %>%
+                   sigma = matrix(c(1, -0.75, -0.75, 1), nrow = 2)) |>
   as.data.frame()
 
 col_df <- bind_rows(list("Type 1" = col_df1, 
                          "Type 2" = col_df2,
                          "Type 3" = col_df3),
-                    .id = "Type") %>%
+                    .id = "Type") |>
   mutate(Type = recode(Type,
                        "Type 1" = "相関関係なし (相関係数 = 0)",
                        "Type 2" = "正の相関関係 (相関係数 = 0.75)",
                        "Type 3" = "負の相関関係 (相関係数 = -0.75)"))
 
-col_df %>%
+col_df |>
   ggplot() +
   geom_point(aes(x = V1, y = V2)) +
   facet_wrap(~Type, nrow = 1) +
@@ -224,23 +224,23 @@ col_df %>%
 #| fig-width: 8
 #| fig-height: 3
 set.seed(1986)
-col_df1 <- tibble(x = runif(100, -1, 1)) %>%
+col_df1 <- tibble(x = runif(100, -1, 1)) |>
   mutate(y = 1.5 * x + rnorm(100, 0, 3))
-col_df2 <- tibble(x = runif(100, -1, 1)) %>%
+col_df2 <- tibble(x = runif(100, -1, 1)) |>
   mutate(y = 1.5 * x + rnorm(100, 0, 1.5))
-col_df3 <- tibble(x = runif(100, -1, 1)) %>%
+col_df3 <- tibble(x = runif(100, -1, 1)) |>
   mutate(y = 1.5 * x + rnorm(100, 0, 0.6))
 
 col_df <- bind_rows(list("Type 1" = col_df1, 
                          "Type 2" = col_df2,
                          "Type 3" = col_df3),
-                    .id = "Type") %>%
+                    .id = "Type") |>
   mutate(Type = recode(Type,
                        "Type 1" = "相関係数 = 0.37",
                        "Type 2" = "相関係数 = 0.50",
                        "Type 3" = "相関係数 = 0.83"))
 
-col_df %>%
+col_df |>
   ggplot() +
   geom_point(aes(x = x, y = y)) +
   geom_smooth(aes(x = x, y = y), 
@@ -263,7 +263,7 @@ col_df %>%
 
 ```{r}
 #| eval: false
-subsidy_df %>%
+subsidy_df |>
   ggplot(aes(x = Turnout, y = Subsidy)) +
   geom_point() +
   # 回帰直線を追加したい場合は以下のレイヤーを足す
@@ -283,7 +283,7 @@ subsidy_df %>%
 #| echo: false
 #| fig-width: 5
 #| fig-height: 5
-subsidy_df %>%
+subsidy_df |>
   ggplot(aes(x = Turnout, y = Subsidy)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -470,8 +470,8 @@ table(pasta_df$Over40, pasta_df$Pasta)
 tibble(x = c("大阪", "神戸", "計"),
        coffee = c(10, 10, 20),
        sauce = c(10, 10, 20),
-       total = c(20, 20, 40)) %>%
-  gt() %>%
+       total = c(20, 20, 40)) |>
+  gt() |>
   cols_label("x" = "出身", "coffee" = "コーヒー", 
              "sauce" = "ソース", total = "計")
 ```
@@ -482,8 +482,8 @@ tibble(x = c("大阪", "神戸", "計"),
 tibble(x = c("大阪", "神戸", "計"),
        coffee = c(0.25, 0.25, 0.50),
        sauce = c(0.25, 0.25, 0.50),
-       total = c(0.50, 0.50, 1.00)) %>%
-  gt() %>%
+       total = c(0.50, 0.50, 1.00)) |>
+  gt() |>
   cols_label("x" = "出身", "coffee" = "コーヒー", 
              "sauce" = "ソース", total = "計")
 ```
@@ -501,8 +501,8 @@ tibble(x = c("大阪", "神戸", "計"),
 tibble(x = c("大阪", "神戸", "計"),
        coffee = c(0, 20, 20),
        sauce = c(20, 0, 20),
-       total = c(20, 20, 40)) %>%
-  gt() %>%
+       total = c(20, 20, 40)) |>
+  gt() |>
   cols_label("x" = "出身", "coffee" = "コーヒー", 
              "sauce" = "ソース", total = "計")
 ```
@@ -513,8 +513,8 @@ tibble(x = c("大阪", "神戸", "計"),
 tibble(x = c("大阪", "神戸", "計"),
        coffee = c(0.00, 0.50, 0.50),
        sauce = c(0.50, 0.00, 0.50),
-       total = c(0.50, 0.50, 1.00)) %>%
-  gt() %>%
+       total = c(0.50, 0.50, 1.00)) |>
+  gt() |>
   cols_label("x" = "出身", "coffee" = "コーヒー", 
              "sauce" = "ソース", total = "計")
 ```
@@ -562,8 +562,8 @@ tibble(x = c("40歳未満", "40歳以上", "計"),
        pasta4 = c(65, 133, 65 + 133),
        total = c(138 + 177 + 160 + 65,
                  140 + 184 + 138 + 133,
-                 138 + 177 + 160 + 65 + 140 + 184 + 138 + 133)) %>%
-  gt() %>%
+                 138 + 177 + 160 + 65 + 140 + 184 + 138 + 133)) |>
+  gt() |>
   cols_label("x" = "年齢", "total" = "計",
              "pasta1" = "カルボナーラ", "pasta2" = "ミートソース", 
              "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ")
@@ -580,12 +580,12 @@ tibble(x = c("40歳未満", "40歳以上", "計"),
        pasta4 = c(65, 133, 65 + 133),
        total = c(138 + 177 + 160 + 65,
                  140 + 184 + 138 + 133,
-                 138 + 177 + 160 + 65 + 140 + 184 + 138 + 133)) %>%
-  mutate(across(pasta1:total, ~(.x / 1135))) %>%
-  gt() %>%
+                 138 + 177 + 160 + 65 + 140 + 184 + 138 + 133)) |>
+  mutate(across(pasta1:total, ~(.x / 1135))) |>
+  gt() |>
   cols_label("x" = "年齢", "total" = "計",
              "pasta1" = "カルボナーラ", "pasta2" = "ミートソース", 
-             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") %>%
+             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") |>
   fmt_number(pasta1:total, decimals = 3)
 ```
 :::
@@ -603,11 +603,11 @@ tibble(x = c("40歳未満", "40歳以上", "計"),
        pasta2 = c(0.151, 0.167, 0.318),
        pasta3 = c(0.125, 0.138, 0.263),
        pasta4 = c(0.083, 0.091, 0.174),
-       total  = c(0.476, 0.524, 1.000)) %>%
-  gt() %>%
+       total  = c(0.476, 0.524, 1.000)) |>
+  gt() |>
   cols_label("x" = "年齢", "total" = "計",
              "pasta1" = "カルボナーラ", "pasta2" = "ミートソース", 
-             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") %>%
+             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") |>
   fmt_number(pasta1:total, decimals = 3)
 ```
 
@@ -620,12 +620,12 @@ tibble(x = c("40歳未満", "40歳以上", "計"),
        pasta2 = c(0.151, 0.167, 0.318),
        pasta3 = c(0.125, 0.138, 0.263),
        pasta4 = c(0.083, 0.091, 0.174),
-       total  = c(0.476, 0.524, 1.000)) %>%
-  mutate(across(pasta1:total, ~.x * 1135)) %>%
-  gt() %>%
+       total  = c(0.476, 0.524, 1.000)) |>
+  mutate(across(pasta1:total, ~.x * 1135)) |>
+  gt() |>
   cols_label("x" = "年齢", "total" = "計",
              "pasta1" = "カルボナーラ", "pasta2" = "ミートソース", 
-             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") %>%
+             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") |>
   fmt_number(pasta1:total, decimals = 0)
 ```
 :::
@@ -641,11 +641,11 @@ tibble(x = c("40歳未満", "40歳以上"),
        pasta1 = c("138 - 133 = 5",  "140 - 145 = -5"),
        pasta2 = c("177 - 171 = 6",  "184 - 190 = -6"),
        pasta3 = c("160 - 142 = 18", "138 - 157 = -19"),
-       pasta4 = c("65 - 94 = -29",  "133 - 103 = 30")) %>%
-  gt() %>%
+       pasta4 = c("65 - 94 = -29",  "133 - 103 = 30")) |>
+  gt() |>
   cols_label("x" = "年齢",
              "pasta1" = "カルボナーラ", "pasta2" = "ミートソース", 
-             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") %>%
+             "pasta3" = "ナポリタン", "pasta4" = "ペペロンチーノ") |>
   cols_align(columns = pasta1:pasta4, align = "center")
 ```
 
@@ -663,14 +663,14 @@ tibble(x      = c("40歳未満", "40歳以上"),
        pasta3 = c("18<sup>2</sup> / 142 = 2.28",
                   "-19<sup>2</sup> / 157 = 2.30"),
        pasta4 = c("-29<sup>2</sup> / 94 = 8.95",  
-                  "30<sup>2</sup> / 103 = 8.74")) %>%
-  gt() %>%
+                  "30<sup>2</sup> / 103 = 8.74")) |>
+  gt() |>
   cols_label("x"      = "年齢",
              "pasta1" = "カルボナーラ", 
              "pasta2" = "ミートソース", 
              "pasta3" = "ナポリタン",
-             "pasta4" = "ペペロンチーノ") %>%
-  cols_align(columns = pasta1:pasta4, align = "right") %>% 
+             "pasta4" = "ペペロンチーノ") |>
+  cols_align(columns = pasta1:pasta4, align = "right") |> 
   fmt_markdown(columns = pasta1:pasta4)
 ```
 
@@ -719,8 +719,8 @@ chisq_df <- tibble(x = c(seq(0, 25, 0.1),
                           rep("5", 251),
                           rep("10", 251))) 
 
-chisq_df %>%
-  mutate(df = factor(df, levels = c("1", "3", "5", "10"))) %>%
+chisq_df |>
+  mutate(df = factor(df, levels = c("1", "3", "5", "10"))) |>
   ggplot() +
   geom_line(aes(x = x, y = y, color = df), size = 1) +
   coord_cartesian(ylim = c(0, 0.5), xlim = c(0, 20)) +
@@ -743,8 +743,8 @@ qchisq(0.95, df = 3) # 0.95は「1 - 有意水準」、dfは自由度
 #| cache: true
 #| fig-width: 8
 #| fig-height: 3.5
-chisq_df %>%
-  filter(df == "3") %>%
+chisq_df |>
+  filter(df == "3") |>
   ggplot() +
   geom_line(aes(x = x, y = y), size = 1) +
   geom_area(data = filter(chisq_df, df == "3", x >= 7.814728),
@@ -779,7 +779,7 @@ chisq_df %>%
 性別と好きなパスタの関係
 
 ```{r}
-table(pasta_df$Female, pasta_df$Pasta) %>%
+table(pasta_df$Female, pasta_df$Pasta) |>
   chisq.test()
 
 # p値の計算は以下のようなやり方でもOK
@@ -794,7 +794,7 @@ table(pasta_df$Female, pasta_df$Pasta) %>%
 年齢と好きなパスタの関係
 
 ```{r}
-table(pasta_df$Over40, pasta_df$Pasta) %>%
+table(pasta_df$Over40, pasta_df$Pasta) |>
   chisq.test() 
 
 # p値の計算は以下のようなやり方でもOK

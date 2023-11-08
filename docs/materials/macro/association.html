@@ -290,15 +290,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   </li>  
         <li>
     <a class="dropdown-item" href="../../materials/macro/logit.html" rel="" target="">
- <span class="dropdown-text">第11回講義資料</span></a>
+ <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../materials/macro/interaction.html" rel="" target="">
- <span class="dropdown-text">第12回講義資料</span></a>
+ <span class="dropdown-text">第11回講義資料</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../materials/macro/reporting.html" rel="" target="">
- <span class="dropdown-text">第13回講義資料</span></a>
+ <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
     </ul>
   </li>
@@ -452,19 +452,19 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第11回講義資料</span></a>
+ <span class="menu-text">第10回講義資料</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../materials/macro/interaction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第12回講義資料</span></a>
+ <span class="menu-text">第11回講義資料</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">第13回講義資料</span></a>
+ <span class="menu-text">第12回講義資料</span></a>
   </div>
 </li>
     </ul>
@@ -512,6 +512,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="セットアップ" class="level2">
 <h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
+<p>　今回の実習で使用するパッケージとデータセットを読み込む。各データセットの詳細はスライドを参照すること。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -526,52 +527,6 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <span id="cb1-7"><a href="#cb1-7"></a>pasta_df   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Pasta.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<table class="table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">変数1</th>
-<th style="text-align: left;">変数2</th>
-<th style="text-align: left;">手法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">名目変数</td>
-<td style="text-align: left;">連続変数</td>
-<td style="text-align: left;">平均値の差の検定（2群）</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">名目変数</td>
-<td style="text-align: left;">名目変数（ダミー変数）</td>
-<td style="text-align: left;">比率の差の検定</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">連続変数</td>
-<td style="text-align: left;">連続変数</td>
-<td style="text-align: left;">相関分析</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">名目変数</td>
-<td style="text-align: left;">名目変数</td>
-<td style="text-align: left;">独立性の検定</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">名目変数</td>
-<td style="text-align: left;">順序変数</td>
-<td style="text-align: left;">平均値の差の検定 or 独立性の検定</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">順序変数</td>
-<td style="text-align: left;">順序変数</td>
-<td style="text-align: left;">相関分析 or 独立性の検定</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">順序変数</td>
-<td style="text-align: left;">連続変数</td>
-<td style="text-align: left;">相関分析 or 平均値の差の検定</td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="t検定" class="level2">
 <h2 class="anchored" data-anchor-id="t検定"><span class="math inline">\(t\)</span>検定</h2>
@@ -694,9 +649,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>　図に英語と日本語が混在することは良くないので、<code>mean_df</code>を<code>ggplot()</code>に渡す前に<code>stone_type</code>を日本語にリコーディングし、SSR列には100をかけて%に換算する。リコーディングは3値以上であれば、<code>case_when()</code>、または<code>recode()</code>を使うが、今回は<code>"Free"</code>か<code>"Paid"</code>かの2値となるので、<code>ifelse()</code>を使用する。</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># ifelse()の使い方</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ifelse</span>(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の戻り値)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>　図に英語と日本語が混在することは良くないので、<code>mean_df</code>を<code>ggplot()</code>に渡す前に<code>stone_type</code>を日本語にリコーディングし、SSR列には100をかけて%に換算する。リコーディングは3値以上であれば、<code>case_when()</code>、または<code>recode()</code>を使うが、今回は<code>"Free"</code>か<code>"Paid"</code>かの2値となるので、<code>if_else()</code>を使用する。</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># if_else()の使い方</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">if_else</span>(条件式, 条件がTRUEの場合の戻り値, 条件がFALSEの場合の戻り値)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>　今回は<code>stone_type</code>が<code>"Feee"</code>であれば（<code>stone_type == "Free"</code>）、<code>"無償"</code>と、それ以外は<code>"有償"</code>とリコーディングする。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -704,7 +659,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <pre><strong>Code 07</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>mean_df <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">mutate</span>(<span class="at">stone_type =</span> <span class="fu">ifelse</span>(stone_type <span class="sc">==</span> <span class="st">"Free"</span>, <span class="st">"無償"</span>, <span class="st">"有償"</span>),</span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">mutate</span>(<span class="at">stone_type =</span> <span class="fu">if_else</span>(stone_type <span class="sc">==</span> <span class="st">"Free"</span>, <span class="st">"無償"</span>, <span class="st">"有償"</span>),</span>
 <span id="cb12-3"><a href="#cb12-3"></a>         <span class="at">SSR        =</span> SSR <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb12-5"><a href="#cb12-5"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> stone_type, <span class="at">y =</span> SSR)) <span class="sc">+</span></span>
@@ -1004,9 +959,9 @@ sample estimates:
 <pre><strong>Code 17</strong></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>pasta_df <span class="ot">&lt;-</span> pasta_df <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender_D =</span> <span class="fu">ifelse</span>(Female <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender_D =</span> <span class="fu">if_else</span>(Female <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
 <span id="cb28-3"><a href="#cb28-3"></a>         <span class="at">Gender_D =</span> <span class="fu">factor</span>(Gender_D, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
-<span id="cb28-4"><a href="#cb28-4"></a>         <span class="at">Over40_D =</span> <span class="fu">ifelse</span>(Over40 <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"41 to 80"</span>, <span class="st">"18 to 40"</span>),</span>
+<span id="cb28-4"><a href="#cb28-4"></a>         <span class="at">Over40_D =</span> <span class="fu">if_else</span>(Over40 <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"41 to 80"</span>, <span class="st">"18 to 40"</span>),</span>
 <span id="cb28-5"><a href="#cb28-5"></a>         <span class="at">Over40_D =</span> <span class="fu">factor</span>(Over40_D, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"18 to 40"</span>, <span class="st">"41 to 80"</span>)))</span>
 <span id="cb28-6"><a href="#cb28-6"></a></span>
 <span id="cb28-7"><a href="#cb28-7"></a>pasta_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
