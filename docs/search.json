@@ -4372,7 +4372,7 @@
     "href": "slides/macro/regression1.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\n\nbeer_df &lt;- read_csv(\"Data/Beer.csv\")\npref_df &lt;- read_csv(\"Data/PrefData.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\n\nbeer_df &lt;- read_csv(\"Data/Beer.csv\")\npref_df &lt;- read_csv(\"Data/PrefData.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
     "objectID": "slides/macro/regression1.html#サンプルデータの読み込み",
@@ -4393,7 +4393,7 @@
     "href": "slides/macro/regression1.html#気温とビール売上の関係-1",
     "title": "マクロ政治データ分析実習",
     "section": "気温とビール売上の関係",
-    "text": "気温とビール売上の関係\n\n\nTemperatureとBeerの散布図\n\n原因と考えられる変数を横軸（x）にマッピング\n結果と考えられる変数を横軸（y）にマッピング\n\n\nbeer_df %&gt;%\n  ggplot(aes(x = Temperature, y = Beer)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(x = \"気温 (摂氏)\", \n       y = \"アサヒ・スーパードライ販売量 (万箱)\")"
+    "text": "気温とビール売上の関係\n\n\nTemperatureとBeerの散布図\n\n原因と考えられる変数を横軸（x）にマッピング\n結果と考えられる変数を横軸（y）にマッピング\n\n\nbeer_df |&gt;\n  ggplot(aes(x = Temperature, y = Beer)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(x = \"気温 (摂氏)\", \n       y = \"アサヒ・スーパードライ販売量 (万箱)\")"
   },
   {
     "objectID": "slides/macro/regression1.html#回帰直線",
@@ -4414,7 +4414,7 @@
     "href": "slides/macro/regression1.html#回帰直線を引くことは",
     "title": "マクロ政治データ分析実習",
     "section": "回帰直線を引くことは",
-    "text": "回帰直線を引くことは\n\n一次関数 ( \\(y = \\alpha + \\beta x\\) )において \\(x\\) と \\(y\\) がそれぞれ説明変数、応答変数の場合、点とのズレが最も小さい直線が描ける \\(\\alpha\\) と \\(\\beta\\) の値を明らかにする (=推定)すること\n\n\\(\\rightarrow\\) 回帰分析 (regression analysis)\n\nどのように \\(\\alpha\\) と \\(\\beta\\) の値を推定するか\n\n最小二乗法 (least squares methods)\nordinary least suqaresの略、OLSと呼ばれることも多い"
+    "text": "回帰直線を引くことは\n\n一次関数（\\(y = \\alpha + \\beta x\\)）において\\(x\\)と\\(y\\) がそれぞれ説明変数、応答変数の場合、点とのズレが最も小さい直線が描ける\\(\\alpha\\)と\\(\\beta\\)の値を明らかにする（=推定）すること\n\n\\(\\rightarrow\\) 回帰分析 (regression analysis)\n\nどのように\\(\\alpha\\)と\\(\\beta\\)の値を推定するか\n\n最小二乗法（least squares methods）\nOrdinary Least Squaresの略、OLSと呼ばれることも多い"
   },
   {
     "objectID": "slides/macro/regression1.html#残差",

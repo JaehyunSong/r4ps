@@ -20,7 +20,7 @@ pacman::p_load(tidyverse, gt, summarytools, latex2exp)
 3. LMSから実習用データをダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
    * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください。
 
 ```{r}
 #| eval: false
@@ -80,7 +80,7 @@ cor.test(beer_df$Temperature, beer_df$Beer)
 
 ```{r}
 #| eval: false
-beer_df %>%
+beer_df |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -94,7 +94,7 @@ beer_df %>%
 #| echo: false
 #| fig-width: 4
 #| fig-height: 4
-beer_df %>%
+beer_df |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -104,7 +104,7 @@ beer_df %>%
 ::::
 
 ```{r, include = FALSE}
-lm(Beer ~ Temperature, data = beer_df) %>%
+lm(Beer ~ Temperature, data = beer_df) |>
   summary()
 ```
 
@@ -132,7 +132,7 @@ $y = \alpha + \beta x$ の一次関数
 * $\beta$: 傾き（$x$が1増加した場合の$y$の増加量）
 
 ```{r, cache = TRUE, echo = FALSE, fig.width = 8, fig.height = 3.5}
-beer_df %>%
+beer_df |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_vline(xintercept = 10) +
   geom_hline(yintercept = 625) +
@@ -165,13 +165,13 @@ beer_df %>%
 
 ## 回帰直線を引くことは
 
-* 一次関数 ( $y = \alpha + \beta x$ )において $x$ と $y$ がそれぞれ説明変数、応答変数の場合、点とのズレが最も小さい直線が描ける $\alpha$ と $\beta$ の値を明らかにする (=推定)すること
+* 一次関数（$y = \alpha + \beta x$）において$x$と$y$ がそれぞれ説明変数、応答変数の場合、点とのズレが最も小さい直線が描ける$\alpha$と$\beta$の値を明らかにする（=推定）すること
    * $\rightarrow$ **回帰分析** (regression analysis)
-* どのように $\alpha$ と $\beta$ の値を推定するか
-   * **最小二乗法** (least squares methods)
-   * ordinary least suqaresの略、**OLS**と呼ばれることも多い
+* どのように$\alpha$と$\beta$の値を推定するか
+   * **最小二乗法**（least squares methods）
+   * Ordinary Least Squaresの略、**OLS**と呼ばれることも多い
 
-# 最小二乗法 (OLS)
+# 最小二乗法（OLS）
 
 ## 残差
 
@@ -184,7 +184,7 @@ beer_df %>%
 #### 観測値、予測値、残差
 
 * **観測値**: 実際に観察されている値
-   * 2016年5月 (`beer_df`の5行目)の「気温は20.2度であり、ビールの販売量は794万箱」である。
+   * 2016年5月（`beer_df`の5行目）の「気温は20.2度であり、ビールの販売量は794万箱」である。
    * $x_5$ = 20.2 / $y_5$ = 794
 * **予測値**: 推定された一次関数に観測値における説明変数を代入した場合に得られる値
    * 「ビールの販売量の予測値 = 576.227 + 7.355$\times$気温」であるため、気温20.2度を外挿すると、約725万箱となる
@@ -192,7 +192,7 @@ beer_df %>%
    * 794は応答変数の**観測値**（=$y$）であり、724.798は**予測値**であり、主に$\hat{y}$（ワイ・ハット）と表記する。
    * 予測値は回帰直線によって予測された値であるため、必ず回帰直線上に乗る
       * 回帰直線は予測値の集合として考えることも可能
-* **残差** (residual): 残差と予測値の距離（$e_i = y_i - \hat{y}_i$）
+* **残差**（residual）：残差と予測値の距離（$e_i = y_i - \hat{y}_i$）
 
 ## 観測値、予測値、残差
 
@@ -200,9 +200,9 @@ beer_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-beer_df %>%
-  filter(Year == 2020) %>%
-  mutate(Obs = ifelse(Year == 2020 & Month == 7, "1", "0")) %>%
+beer_df |>
+  filter(Year == 2020) |>
+  mutate(Obs = ifelse(Year == 2020 & Month == 7, "1", "0")) |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_segment(aes(x = 0, xend = 24.3, y = 702, yend = 702),
                linetype = 2) +
@@ -247,10 +247,10 @@ beer_df %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.5
-beer_df %>%
-  filter(Year == 2020, Beer >= 400, Beer <= 780) %>%
-  mutate(Pred = 406.50 + 7.19 * Temperature) %>%
-  select(Year, Month, Temperature, Beer, Pred) %>%
+beer_df |>
+  filter(Year == 2020, Beer >= 400, Beer <= 780) |>
+  mutate(Pred = 406.50 + 7.19 * Temperature) |>
+  select(Year, Month, Temperature, Beer, Pred) |>
   ggplot(aes(x = Temperature, y = Beer)) +
   geom_segment(aes(x = Temperature, xend = Temperature,
                    y = Beer, yend = Pred), linetype = 2) +
@@ -393,9 +393,9 @@ summary(jimin_fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(jimin_fit1) %>%
-  select(-statistic) %>%
-  gt() %>%
+broom::tidy(jimin_fit1) |>
+  select(-statistic) |>
+  gt() |>
   fmt_number(columns = 2:4, decimals = 3)
 ```
 :::
@@ -450,9 +450,9 @@ summary(jimin_fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(jimin_fit1) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
+broom::tidy(jimin_fit1) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
   cols_align(columns = 2:5, align = "right")
 ```
 :::
@@ -468,9 +468,9 @@ summary(jimin_fit2)
 
 ```{r}
 #| echo: false
-broom::tidy(jimin_fit2) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
+broom::tidy(jimin_fit2) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
   cols_align(columns = 2:5, align = "right")
 ```
 :::
@@ -487,9 +487,9 @@ summary(jimin_fit3)
 
 ```{r}
 #| echo: false
-broom::tidy(jimin_fit3) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
+broom::tidy(jimin_fit3) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
   cols_align(columns = 2:5, align = "right")
 ```
 :::
@@ -536,7 +536,7 @@ dagify(X ~ Z,
        exposure = "X",
        outcome  = "Y",
        coords   = list(x = c(X = 1, Y = 3, Z = 2),
-                  y = c(X = 1, Y = 1, Z = 2))) %>%
+                  y = c(X = 1, Y = 1, Z = 2))) |>
   ggdag(node_size = 9, text_size = 7) +
   coord_cartesian(ylim = c(0.5, 2.5)) +
   theme_dag_blank()
