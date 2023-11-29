@@ -12,7 +12,7 @@ metadata-files:
 #| include: false
 pacman::p_load(tidyverse, gt, summarytools, modelsummary,
                latex2exp, prediction,
-               fastDummies)
+               fastDummies, broom)
 ```
 
 すぐに実習できるように準備しておきましょう。
@@ -41,7 +41,7 @@ jes_df  <- read_csv("Data/JES6_W1.csv")
 
 ## 回帰分析における仮説検定
 
-問い: **説明変数Xは応答変数Yの変化をもたらすか。**
+問い：**説明変数Xは応答変数Yの変化をもたらすか。**
 
 * 例1) 気温が上がればビールの売上も上がる。
    * ビールの売上 = $\alpha$ + $\beta$ $\times$ 気温
@@ -86,11 +86,12 @@ jes_df  <- read_csv("Data/JES6_W1.csv")
 #| echo: false
 pref_df <- read_csv("Data/PrefData.csv")
 lm(Jimin ~ Over65 + Zaisei, data = pref_df) |>
-  broom::tidy() |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 4) |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = 2))
+   tidy() |>
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 4) |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = 2)) |> 
+   tab_options(table.font.size = 32)
 ```
 :::
 
@@ -145,8 +146,9 @@ tibble(Cov  = names(jes_df),
                 "1: 中卒以下 / 2: 高校卒 / 3: 高専・短大卒 / 4: 大卒以上",
                 "1: 勤め / 2: 自営業 / 3: 学生  / 4: 専業主婦・主夫 / 5: 無職 / 6: その他",
                 "円")) |>
-  gt() |>
-  cols_label("Cov" = "変数名", "Desc" = "説明", "Etc" = "備考")
+   gt() |>
+   cols_label("Cov" = "変数名", "Desc" = "説明", "Etc" = "備考") |> 
+   tab_options(table.font.size = 32)
 ```
 
 ## 記述統計
@@ -219,12 +221,12 @@ summary(dummy_fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(dummy_fit1) |>
+tidy(dummy_fit1) |>
   gt() |>
   fmt_number(columns = 2:5, decimals = 3) |>
   cols_label("term" = "", "estimate" = "係数", "std.error" = "標準誤差",
              "statistic" = "t統計量", "p.value" = "p値") |>
-  tab_options(table.font.size = 14)
+  tab_options(table.font.size = 24)
 ```
 :::
 
@@ -306,11 +308,12 @@ summary(dummy_fit1)
 ```{r}
 #| echo: false
 tidy(dummy_fit1) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = c(1, 4, 6:10)))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = c(1, 4, 6:10))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
@@ -326,11 +329,12 @@ summary(dummy_fit2)
 ```{r}
 #| echo: false
 tidy(dummy_fit2) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = c(1, 4, 6:10)))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = c(1, 4, 6:10))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
@@ -373,8 +377,9 @@ tidy(dummy_fit2) |>
 * `Income`を100万単位にするためには、`Income`を100万で割るだけで良い
 
 ```{r}
-# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。
-# 変数名は何でも良いが、ここではmillionの頭文字を使用
+# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、
+# jes_df3という新しいデータフレームを作成。
+# 変数名は何でも良いが、ここではmillionの頭文字（m）を使用
 jes_df3 <- jes_df |>
   mutate(Income_m = Income / 1000000)
 
@@ -399,11 +404,12 @@ summary(dummy_fit1)
 ```{r}
 #| echo: false
 tidy(dummy_fit1) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = (term == "Income")))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = (term == "Income"))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
@@ -420,11 +426,12 @@ summary(fit3)
 ```{r}
 #| echo: false
 tidy(fit3) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = (term == "Income_m")))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = (term == "Income_m"))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
@@ -436,7 +443,7 @@ tidy(fit3) |>
 
 `dummy_fit1`の政治関心の傾き係数は約-1.404
 
-### 問題点
+#### 問題点
 
 * 係数の解釈1: 「`Interest`が1単位上がると、立憲民主党への感情温度が約1.404度下がる。」
    * これだけだと「政治関心が高い人ほど、立憲民主党に反感を持つ」イメージ
@@ -483,11 +490,12 @@ summary(fit3)
 ```{r}
 #| echo: false
 tidy(fit3) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = (term == "Interest")))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = (term == "Interest"))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
@@ -504,17 +512,18 @@ summary(fit4)
 ```{r}
 #| echo: false
 tidy(fit4) |>
-  gt() |>
-  fmt_number(columns = 2:5, decimals = 3) |>
-  cols_align(columns = 2:5, align = "right") |>
-  tab_style(style = cell_fill(color = "#F7EFB2"),
-            locations = cells_body(rows = (term == "Interest_r")))
+   gt() |>
+   fmt_number(columns = 2:5, decimals = 3) |>
+   cols_align(columns = 2:5, align = "right") |>
+   tab_style(style = cell_fill(color = "#F7EFB2"),
+             locations = cells_body(rows = (term == "Interest_r"))) |> 
+   tab_options(table.font.size = 24)
 ```
 :::
 
 ::::
 
-## その他の線形変換
+## 様々な線形変換
 
 いずれもデータ分析の場面ではよく使われる方法
 
@@ -524,8 +533,8 @@ tidy(fit4) |>
    * $\frac{x - \mbox{min}(x)}{\mbox{max}(x) - \mbox{min}(x)}$をすると、最小値0、最大値1となる（$x \geq 0$の場合）。
       * 係数の解釈は「$x$が最小値から最大値へ変化した場合...」となる。
 * 中心化と標準化
-   * 中心化: ある変数の値からその変数の平均値を引く
-   * 標準化: 中心化した変数を更に標準偏差で割る
+   * 中心化：ある変数の値からその変数の平均値を引く。
+   * 標準化：中心化した変数を更に標準偏差で割る。
 * 対数変数
 
 # 課題
@@ -536,10 +545,5 @@ tidy(fit4) |>
    * 第10〜13章
    * 第12章では回帰分析の信頼性/妥当性に関わる非常に重要な内容
    * 第13章では本講義で紹介しなかった線形変換の一つである「中心化」を紹介
-* 本講義は「90分の授業でRでデータ分析ができるようになる」ことを想定していない。「Rでデータ分析ができるようになる」には
-   * 講義の受講と課題の提出
-   * 教科書の熟読とコードの実行
-   * サポートページを活用した予習 or 復習
-      * 予習は授業/実習をスムーズにしてくれる。
-      * 復習はh授業内容を頭に定着させてくれる。
-      * 予習/復習両方することをおすすめはするが、少なくとも片方はしよう。
+      * 連続変数を中心化（or 標準化）をすると切片の推定値が意味を持つようになる。
+* 課題の遂行有無は確認しないが、以降、読んだと仮定した上で講義を進める。

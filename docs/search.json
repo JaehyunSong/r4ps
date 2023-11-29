@@ -1516,7 +1516,7 @@
     "href": "slides/macro/regression2.html#回帰分析における仮説検定",
     "title": "マクロ政治データ分析実習",
     "section": "回帰分析における仮説検定",
-    "text": "回帰分析における仮説検定\n問い: 説明変数Xは応答変数Yの変化をもたらすか。\n\n例1) 気温が上がればビールの売上も上がる。\n\nビールの売上 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 気温\n\n例2) 高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 高齢者の割合\n\n例3) 都道府県の投票率が上がれば、その都道府県がもらう補助金額も上がる。\n\n補助金額 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 投票率\n\n\n\n\n\\(\\beta = 0\\)の場合、説明変数は応答変数の変化をもたらすとは言えない"
+    "text": "回帰分析における仮説検定\n問い：説明変数Xは応答変数Yの変化をもたらすか。\n\n例1) 気温が上がればビールの売上も上がる。\n\nビールの売上 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 気温\n\n例2) 高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 高齢者の割合\n\n例3) 都道府県の投票率が上がれば、その都道府県がもらう補助金額も上がる。\n\n補助金額 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 投票率\n\n\n\n\n\\(\\beta = 0\\)の場合、説明変数は応答変数の変化をもたらすとは言えない"
   },
   {
     "objectID": "slides/macro/regression2.html#帰無仮説と対立仮説",
@@ -1614,7 +1614,7 @@
     "href": "slides/macro/regression2.html#単位変換",
     "title": "マクロ政治データ分析実習",
     "section": "単位変換",
-    "text": "単位変換\n\nIncomeを100万単位にするためには、Incomeを100万で割るだけで良い\n\n\n# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。\n# 変数名は何でも良いが、ここではmillionの頭文字を使用\njes_df3 &lt;- jes_df |&gt;\n  mutate(Income_m = Income / 1000000)\n\n# 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入\nfit3 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
+    "text": "単位変換\n\nIncomeを100万単位にするためには、Incomeを100万で割るだけで良い\n\n\n# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、\n# jes_df3という新しいデータフレームを作成。\n# 変数名は何でも良いが、ここではmillionの頭文字（m）を使用\njes_df3 &lt;- jes_df |&gt;\n  mutate(Income_m = Income / 1000000)\n\n# 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入\nfit3 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
   },
   {
     "objectID": "slides/macro/regression2.html#結果の比較",
@@ -1656,7 +1656,7 @@
     "href": "slides/macro/regression2.html#課題-1",
     "title": "マクロ政治データ分析実習",
     "section": "課題",
-    "text": "課題\n\n教科書（『Rによる計量政治学』）を読む\n\n第10〜13章\n第12章では回帰分析の信頼性/妥当性に関わる非常に重要な内容\n第13章では本講義で紹介しなかった線形変換の一つである「中心化」を紹介\n\n本講義は「90分の授業でRでデータ分析ができるようになる」ことを想定していない。「Rでデータ分析ができるようになる」には\n\n講義の受講と課題の提出\n教科書の熟読とコードの実行\nサポートページを活用した予習 or 復習\n\n予習は授業/実習をスムーズにしてくれる。\n復習はh授業内容を頭に定着させてくれる。\n予習/復習両方することをおすすめはするが、少なくとも片方はしよう。\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "課題\n\n教科書（『Rによる計量政治学』）を読む\n\n第10〜13章\n第12章では回帰分析の信頼性/妥当性に関わる非常に重要な内容\n第13章では本講義で紹介しなかった線形変換の一つである「中心化」を紹介\n\n連続変数を中心化（or 標準化）をすると切片の推定値が意味を持つようになる。\n\n\n課題の遂行有無は確認しないが、以降、読んだと仮定した上で講義を進める。\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/macro/nhts.html#授業開始前に",
@@ -6382,5 +6382,12 @@
     "title": "マクロ政治データ分析実習",
     "section": "参考）自由度調整済み決定係数",
     "text": "参考）自由度調整済み決定係数\n説明変数が増えると決定係数は必ず大きくなるため、説明変数の数で決定係数にペナルティーを与える。\n\n回帰分析のモデルを評価する際、決定係数よりも以下の自由度調整済み決定係数を用いる。\n\n\\[\n\\text{Adjusted } R^2 = 1 - \\frac{(1 - R^2)(n - 1)}{(n - k - 1)}\n\\]\n\n\\(R^2\\)は決定係数、\\(n\\)は標本サイズ、\\(k\\)は説明変数の数\n\n\n1 - (((1 - R_2) * (47 - 1)) / (47 - 2 - 1))\n\n[1] 0.2823302"
+  },
+  {
+    "objectID": "slides/macro/regression2.html#様々な線形変換",
+    "href": "slides/macro/regression2.html#様々な線形変換",
+    "title": "マクロ政治データ分析実習",
+    "section": "様々な線形変換",
+    "text": "様々な線形変換\nいずれもデータ分析の場面ではよく使われる方法\n\n単位変換\nスケールの変換\n\nスケールの逆転\n\\(\\frac{x - \\mbox{min}(x)}{\\mbox{max}(x) - \\mbox{min}(x)}\\)をすると、最小値0、最大値1となる（\\(x \\geq 0\\)の場合）。\n\n係数の解釈は「\\(x\\)が最小値から最大値へ変化した場合…」となる。\n\n\n中心化と標準化\n\n中心化：ある変数の値からその変数の平均値を引く。\n標準化：中心化した変数を更に標準偏差で割る。\n\n対数変数"
   }
 ]
