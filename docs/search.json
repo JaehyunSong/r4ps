@@ -1509,28 +1509,28 @@
     "href": "slides/macro/regression2.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールのRStudioを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(fastDummies)\nlibrary(summarytools)\nlibrary(modelsummary)\n\njes_df  &lt;- read_csv(\"Data/JES6_W1.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(fastDummies)\nlibrary(summarytools)\nlibrary(modelsummary)\n\njes_df  &lt;- read_csv(\"Data/JES6_W1.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
     "objectID": "slides/macro/regression2.html#回帰分析における仮説検定",
     "href": "slides/macro/regression2.html#回帰分析における仮説検定",
     "title": "マクロ政治データ分析実習",
     "section": "回帰分析における仮説検定",
-    "text": "回帰分析における仮説検定\n問い: 説明変数Xは応答変数Yの変化をもたらすか。\n\n例1) 気温が上がればビールの売上も上がる。\n\nビールの売上 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 気温\n\n例2) 高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 高齢者の割合\n\n例3) 都道府県の投票率が上がれば、その都道府県がもらう補助金額も上がる。\n\n補助金額 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 投票率\n\n\n\n\n\\(\\beta = 0\\) の場合、説明変数は応答変数の変化をもたらすとは言えない"
+    "text": "回帰分析における仮説検定\n問い: 説明変数Xは応答変数Yの変化をもたらすか。\n\n例1) 気温が上がればビールの売上も上がる。\n\nビールの売上 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 気温\n\n例2) 高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 高齢者の割合\n\n例3) 都道府県の投票率が上がれば、その都道府県がもらう補助金額も上がる。\n\n補助金額 = \\(\\alpha\\) + \\(\\beta\\) \\(\\times\\) 投票率\n\n\n\n\n\\(\\beta = 0\\)の場合、説明変数は応答変数の変化をもたらすとは言えない"
   },
   {
     "objectID": "slides/macro/regression2.html#帰無仮説と対立仮説",
     "href": "slides/macro/regression2.html#帰無仮説と対立仮説",
     "title": "マクロ政治データ分析実習",
     "section": "帰無仮説と対立仮説",
-    "text": "帰無仮説と対立仮説\n例) 他の条件が同じ場合、高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta_1\\) \\(\\times\\) 高齢者の割合 + \\(\\beta_2\\) \\(\\times\\) 財政力指数\n\n\n帰無仮説 ( \\(H_0\\) ): 高齢者の割合は自民党の得票率を変化させない。\n\n「高齢者の割合」の傾き係数 ( \\(\\beta_1\\) )は0である ( \\(\\beta_1 = 0\\) )。\n\n対立仮説 ( \\(H_a\\) ): 高齢者の割合は自民党の得票率を変化させる。\n\n「高齢者の割合」の傾き係数 ( \\(\\beta_1\\) )は0ではない ( \\(\\beta_1 \\neq 0\\) )。\n\n\n\n\n傾きの係数が0か否かを検証する。\n\n使用する確率分布は自由度 \\(n - k - 1\\) の \\(t\\) 分布\n\n\\(n\\) は標本サイズ、 \\(k\\) は説明変数の数\n\n第13講で紹介するロジスティック回帰分析の場合は正規分布を使用\n\nただし、 \\(n\\) が十分大きい場合、 \\(t\\) 分布は正規分布に近似する。"
+    "text": "帰無仮説と対立仮説\n例) 他の条件が同じ場合、高齢者の割合が上がれば自民党の得票率も上がる。\n\n自民党の得票率 = \\(\\alpha\\) + \\(\\beta_1\\) \\(\\times\\) 高齢者の割合 + \\(\\beta_2\\) \\(\\times\\) 財政力指数\n\n\n帰無仮説（\\(H_0\\)）：高齢者の割合は自民党の得票率を変化させない。\n\n「高齢者の割合」の傾き係数（\\(\\beta_1\\)）は0である（\\(\\beta_1 = 0\\)）。\n\n対立仮説（\\(H_a\\)）：高齢者の割合は自民党の得票率を変化させる。\n\n「高齢者の割合」の傾き係数（\\(\\beta_1\\)）は0ではない（\\(\\beta_1 \\neq 0\\)）。\n\n\n\n\n傾きの係数が0か否かを検証する。\n\n使用する確率分布は自由度\\(n - k - 1\\)の\\(t\\)分布\n\n\\(n\\)は標本サイズ、\\(k\\)は説明変数の数\n\n次回紹介するロジスティック回帰分析の場合は正規分布を使用\n\nただし、\\(n\\)が十分大きい場合、\\(t\\)分布は正規分布に近似する。"
   },
   {
     "objectID": "slides/macro/regression2.html#検定統計量",
     "href": "slides/macro/regression2.html#検定統計量",
     "title": "マクロ政治データ分析実習",
     "section": "検定統計量",
-    "text": "検定統計量\n\n\nlm()で回帰分析を行うと、以下のような推定結果が得られる。\n\n\n\n\n\n\n  \n    \n    \n      term\n      estimate\n      std.error\n      statistic\n      p.value\n    \n  \n  \n    (Intercept)\n15.8910\n11.3983\n1.3942\n0.1703\n    Over65\n0.8810\n0.3366\n2.6170\n0.0121\n    Zaisei\n−4.5472\n4.8211\n−0.9432\n0.3507\n  \n  \n  \n\n\n\n\n\n\n\n\nestimate: 切片・傾きの推定値（\\(\\hat{\\alpha}\\)、\\(\\hat{\\beta_1}\\)、\\(\\hat{\\beta_2}\\)）\nstd.error: 推定値の標準誤差\nstatistic: 検定統計量（\\(T\\)統計量）\n\n\n0.8810 / 0.3366 # 係数を標準誤差で割る\n\n[1] 2.61735\n\n\n\np.value: \\(p\\)値\n\n\\(p &lt; \\alpha\\)の場合、帰無仮説を棄却\n\\(p \\geq \\alpha\\)の場合、帰無仮説を受容\n\n\n\n\n\n\\(\\alpha = 0.05\\)を仮定\n\n\\(p\\)値は約0.0121であり、\\(p &lt; \\alpha\\)であるため、帰無仮説を棄却する。したがって、他の条件が同じであれば、高齢者の割合は自民党の得票率を変化させると言える (or 高齢者の割合が高い都道府県ほど自民党の得票率も上がる)。"
+    "text": "検定統計量\n\n\nlm()で回帰分析を行うと、以下のような推定結果が得られる。\n\n\n\n\n\n\n  \n    \n    \n      term\n      estimate\n      std.error\n      statistic\n      p.value\n    \n  \n  \n    (Intercept)\n15.8910\n11.3983\n1.3942\n0.1703\n    Over65\n0.8810\n0.3366\n2.6170\n0.0121\n    Zaisei\n−4.5472\n4.8211\n−0.9432\n0.3507\n  \n  \n  \n\n\n\n\n\n\n\n\nestimate: 切片・傾きの推定値（\\(\\hat{\\alpha}\\)、\\(\\hat{\\beta_1}\\)、\\(\\hat{\\beta_2}\\)）\nstd.error: 推定値の標準誤差\nstatistic: 検定統計量（\\(T\\)統計量）\n\n\n0.8810 / 0.3366 # 係数を標準誤差で割る\n\n[1] 2.61735\n\n\n\np.value: \\(p\\)値\n\n\\(p &lt; \\alpha\\)の場合、帰無仮説を棄却\n\\(p \\geq \\alpha\\)の場合、帰無仮説を受容\n\n\n\n\n\n\\(\\alpha = 0.05\\)を仮定\n\n\\(p\\)値は約0.0121であり、\\(p &lt; \\alpha\\)であるため、帰無仮説を棄却する。したがって、他の条件が同じであれば、高齢者の割合は自民党の得票率を変化させると言える（or 高齢者の割合が高い都道府県ほど自民党の得票率も上がる）。"
   },
   {
     "objectID": "slides/macro/regression2.html#実習用データ",
@@ -1551,7 +1551,7 @@
     "href": "slides/macro/regression2.html#記述統計",
     "title": "マクロ政治データ分析実習",
     "section": "記述統計",
-    "text": "記述統計\n\n名目変数（GenderとJob）はダミー変数に変換\n\n\njes_df %&gt;%\n  dummy_cols(c(\"Gender\", \"Job\")) %&gt;%\n  relocate(Gender_1:Gender_2, .before = Gender) %&gt;% # Gender_1と_2列をGenderの前に\n  relocate(Job_1:Job_6, .before = Job) %&gt;%          # Job_1から_6列をJobの前に\n  select(-c(Gender, Job)) %&gt;%                       # GenderとJob列を除外してからdscer()に渡す\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \njes_df  \nN: 3000  \n\n                          Mean      Std.Dev         Min           Max   N.Valid\n----------------- ------------ ------------ ----------- ------------- ---------\n      Temp_Rikken        34.25        25.95        0.00        100.00   3000.00\n         Ideology         6.34         2.10        1.00         11.00   3000.00\n         Interest         2.26         0.83        1.00          4.00   3000.00\n         Gender_1         0.50         0.50        0.00          1.00   3000.00\n         Gender_2         0.50         0.50        0.00          1.00   3000.00\n              Age        47.34        15.63       18.00         75.00   3000.00\n        Education         3.11         0.89        1.00          4.00   3000.00\n            Job_1         0.50         0.50        0.00          1.00   3000.00\n            Job_2         0.08         0.28        0.00          1.00   3000.00\n            Job_3         0.05         0.21        0.00          1.00   3000.00\n            Job_4         0.20         0.40        0.00          1.00   3000.00\n            Job_5         0.15         0.35        0.00          1.00   3000.00\n            Job_6         0.02         0.14        0.00          1.00   3000.00\n           Income   6190334.00   4233639.26   643629.00   25286751.00   3000.00"
+    "text": "記述統計\n\n名目変数（GenderとJob）はダミー変数に変換\n\n\njes_df |&gt;\n  dummy_cols(c(\"Gender\", \"Job\")) |&gt;\n  relocate(Gender_1:Gender_2, .before = Gender) |&gt; # Gender_1と_2列をGenderの前に\n  relocate(Job_1:Job_6, .before = Job) |&gt;          # Job_1から_6列をJobの前に\n  select(-c(Gender, Job)) |&gt;                       # GenderとJob列を除外してからdscer()に渡す\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \n\n                          Mean      Std.Dev         Min           Max   N.Valid\n----------------- ------------ ------------ ----------- ------------- ---------\n      Temp_Rikken        34.25        25.95        0.00        100.00   3000.00\n         Ideology         6.34         2.10        1.00         11.00   3000.00\n         Interest         2.26         0.83        1.00          4.00   3000.00\n         Gender_1         0.50         0.50        0.00          1.00   3000.00\n         Gender_2         0.50         0.50        0.00          1.00   3000.00\n              Age        47.34        15.63       18.00         75.00   3000.00\n        Education         3.11         0.89        1.00          4.00   3000.00\n            Job_1         0.50         0.50        0.00          1.00   3000.00\n            Job_2         0.08         0.28        0.00          1.00   3000.00\n            Job_3         0.05         0.21        0.00          1.00   3000.00\n            Job_4         0.20         0.40        0.00          1.00   3000.00\n            Job_5         0.15         0.35        0.00          1.00   3000.00\n            Job_6         0.02         0.14        0.00          1.00   3000.00\n           Income   6190334.00   4233639.26   643629.00   25286751.00   3000.00"
   },
   {
     "objectID": "slides/macro/regression2.html#記述統計-1",
@@ -1565,14 +1565,14 @@
     "href": "slides/macro/regression2.html#回帰モデルに名目変数を投入する方法1",
     "title": "マクロ政治データ分析実習",
     "section": "回帰モデルに名目変数を投入する方法（1）",
-    "text": "回帰モデルに名目変数を投入する方法（1）\nlm()関数内のformulaにfactor化した名目変数を追加するだけ\n\nfactor型変数が説明変数として投入されると、自動的にダミー変数に変換されてから投入される。\n\n注意: ただし、全てのダミー変数が投入されるわけではなく、\\(k-1\\)個のダミー変数が投入される（\\(k\\)は当該factor型変数の水準数）。\n\n性別の場合、2つのダミー変数になるが、1つのみ投入される。\n職業の場合、6つのダミー変数になるが、5つのみ投入される。\n\n除外されたカテゴリーは「ベース・カテゴリー (base category)」、「参照カテゴリー/レファレンス・カテゴリー (reference category)」、「ベースライン (baseline)」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述）。\n解釈は「\\(\\bigcirc\\bigcirc\\) (ベース・カテゴリー)に比べ、〜」となる。\n\n\n\njes_df &lt;- jes_df %&gt;%\n  mutate(Gender = factor(Gender, levels = 1:2, labels = c(\"Male\", \"Female\")),\n         Job    = factor(Job, levels = 1:6, labels = c(\"Salary\", \"Self\", \"Student\", \"House\",\n                                                       \"Retire\", \"Etc\")))\n\ndummy_fit1 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income, \n                 data = jes_df)"
+    "text": "回帰モデルに名目変数を投入する方法（1）\nlm()関数内のformulaにfactor化した名目変数を追加するだけ\n\nfactor型変数が説明変数として投入されると、自動的にダミー変数に変換されてから投入される。\n\n注意: ただし、全てのダミー変数が投入されるわけではなく、\\(k-1\\)個のダミー変数が投入される（\\(k\\)は当該factor型変数の水準数）。\n\n性別の場合、2つのダミー変数になるが、1つのみ投入される。\n職業の場合、6つのダミー変数になるが、5つのみ投入される。\n\n除外されたカテゴリーは「ベース・カテゴリー（base category）」、「参照カテゴリー/レファレンス・カテゴリー（reference category）」、「ベースライン（baseline）」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述）。\n解釈は「\\(\\bigcirc\\bigcirc\\)（ベース・カテゴリー）に比べ、〜」となる。\n\n\n\njes_df &lt;- jes_df |&gt;\n  mutate(Gender = factor(Gender, levels = 1:2, labels = c(\"Male\", \"Female\")),\n         Job    = factor(Job, levels = 1:6, labels = c(\"Salary\", \"Self\", \"Student\", \"House\",\n                                                       \"Retire\", \"Etc\")))\n\ndummy_fit1 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income, \n                 data = jes_df)"
   },
   {
     "objectID": "slides/macro/regression2.html#推定結果",
     "href": "slides/macro/regression2.html#推定結果",
     "title": "マクロ政治データ分析実習",
     "section": "推定結果",
-    "text": "推定結果\n\n\n\nsummary(dummy_fit1)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t統計量\n      p値\n    \n  \n  \n    (Intercept)\n34.774\n3.558\n9.772\n0.000\n    Ideology\n−2.117\n0.220\n−9.616\n0.000\n    Interest\n−1.404\n0.610\n−2.302\n0.021\n    GenderFemale\n3.395\n1.071\n3.170\n0.002\n    Age\n0.187\n0.037\n5.026\n0.000\n    Education\n1.970\n0.540\n3.648\n0.000\n    JobSelf\n−2.187\n1.737\n−1.259\n0.208\n    JobStudent\n5.775\n2.369\n2.438\n0.015\n    JobHouse\n2.172\n1.415\n1.535\n0.125\n    JobRetire\n−1.160\n1.519\n−0.764\n0.445\n    JobEtc\n−0.807\n3.393\n−0.238\n0.812\n    Income\n0.000\n0.000\n−1.343\n0.179\n  \n  \n  \n\n\n\n\n\n\n\n\nIdeology: 保守的であるほど、立民に対する感情温度が低くなる。\n\nイデオロギーが1単位上がると、立民に対する感情温度は約2.113度下がる。\n\nInterest: 政治関心がないほど、立民に対する感情温度が低くなる。\nAge: 年齢が高いほど、立民に対する感情温度が高くなる。\nEducation: 高学歴ほど、立民に対する感情温度が低くなる。"
+    "text": "推定結果\n\n\n\nsummary(dummy_fit1)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t統計量\n      p値\n    \n  \n  \n    (Intercept)\n34.774\n3.558\n9.772\n0.000\n    Ideology\n−2.117\n0.220\n−9.616\n0.000\n    Interest\n−1.404\n0.610\n−2.302\n0.021\n    GenderFemale\n3.395\n1.071\n3.170\n0.002\n    Age\n0.187\n0.037\n5.026\n0.000\n    Education\n1.970\n0.540\n3.648\n0.000\n    JobSelf\n−2.187\n1.737\n−1.259\n0.208\n    JobStudent\n5.775\n2.369\n2.438\n0.015\n    JobHouse\n2.172\n1.415\n1.535\n0.125\n    JobRetire\n−1.160\n1.519\n−0.764\n0.445\n    JobEtc\n−0.807\n3.393\n−0.238\n0.812\n    Income\n0.000\n0.000\n−1.343\n0.179\n  \n  \n  \n\n\n\n\n\n\n\n\nIdeology：保守的であるほど、立民に対する感情温度が低くなる。\n\nイデオロギーが1単位上がると、立民に対する感情温度は約2.113度下がる。\n\nInterest：政治関心がないほど、立民に対する感情温度が低くなる。\nAge：年齢が高いほど、立民に対する感情温度が高くなる。\nEducation：高学歴ほど、立民に対する感情温度が低くなる。"
   },
   {
     "objectID": "slides/macro/regression2.html#ダミー変数の解釈",
@@ -1586,7 +1586,7 @@
     "href": "slides/macro/regression2.html#ベースカテゴリーの話",
     "title": "マクロ政治データ分析実習",
     "section": "ベース・カテゴリーの話",
-    "text": "ベース・カテゴリーの話\n\nFactor型変数の最初の水準（level）がベース・カテゴリーとなる。\n\n\nlevels(jes_df$Gender) # jes_dfのGender列の水準\n\n[1] \"Male\"   \"Female\"\n\nlevels(jes_df$Job) # jes_dfのJob列の水準\n\n[1] \"Salary\"  \"Self\"    \"Student\" \"House\"   \"Retire\"  \"Etc\"    \n\n\n\nベース・カテゴリーの変更\n\nFactor型変数の特定の水準を最初の水準にする場合は、fct_relevel()を使用\n\nFactor化済みの変数に使用\n2番目以降の水準は既存の順番そのまま\n\n\n\njes_df2 &lt;- jes_df %&gt;%\n  mutate(Gender = fct_relevel(Gender, \"Female\"), # Femaleを第1水準に\n         Job    = fct_relevel(Job, \"Etc\"))       # Etcを第1水準に\n\nlevels(jes_df2$Gender) # jes_dfのGender列の水準\n\n[1] \"Female\" \"Male\"  \n\nlevels(jes_df2$Job) # jes_dfのJob列の水準\n\n[1] \"Etc\"     \"Salary\"  \"Self\"    \"Student\" \"House\"   \"Retire\""
+    "text": "ベース・カテゴリーの話\n\nFactor型変数の最初の水準（level）がベース・カテゴリーとなる。\n\n\nlevels(jes_df$Gender) # jes_dfのGender列の水準\n\n[1] \"Male\"   \"Female\"\n\nlevels(jes_df$Job) # jes_dfのJob列の水準\n\n[1] \"Salary\"  \"Self\"    \"Student\" \"House\"   \"Retire\"  \"Etc\"    \n\n\n\nベース・カテゴリーの変更\n\nFactor型変数の特定の水準を最初の水準にする場合は、fct_relevel()を使用\n\nFactor化済みの変数に使用\n2番目以降の水準は既存の順番そのまま\n\n\n\njes_df2 &lt;- jes_df |&gt;\n  mutate(Gender = fct_relevel(Gender, \"Female\"), # Femaleを第1水準に\n         Job    = fct_relevel(Job, \"Etc\"))       # Etcを第1水準に\n\nlevels(jes_df2$Gender) # jes_dfのGender列の水準\n\n[1] \"Female\" \"Male\"  \n\nlevels(jes_df2$Job) # jes_dfのJob列の水準\n\n[1] \"Etc\"     \"Salary\"  \"Self\"    \"Student\" \"House\"   \"Retire\""
   },
   {
     "objectID": "slides/macro/regression2.html#ベースカテゴリーと推定結果",
@@ -1600,7 +1600,7 @@
     "href": "slides/macro/regression2.html#線形変換",
     "title": "マクロ政治データ分析実習",
     "section": "線形変換",
-    "text": "線形変換\nある変数を1次関数を用いて変換すること。\n\n主な使い道は「説明変数をある定数で割る/引く」\n\n例) 1円単位で測定された所得を100万円単位に変換する (= 所得を100万で割る)。\n\n説明変数の単位が変わる。\n\n例) 1、2、3、4で測定された変数を5から引く。\n\n説明変数のスケールが逆転される。\n\n\n線形変換を行うと、より解釈しやすくなる。"
+    "text": "線形変換\nある変数を1次関数を用いて変換すること。\n\n主な使い道は「説明変数をある定数で割る/引く」\n\n例）1円単位で測定された所得を100万円単位に変換する（= 所得を100万で割る）。\n\n説明変数の単位が変わる。\n\n例）1、2、3、4で測定された変数を5から引く。\n\n説明変数のスケールが逆転される。\n\n\n線形変換を行うと、より解釈しやすくなる。"
   },
   {
     "objectID": "slides/macro/regression2.html#結果の解釈",
@@ -1614,7 +1614,7 @@
     "href": "slides/macro/regression2.html#単位変換",
     "title": "マクロ政治データ分析実習",
     "section": "単位変換",
-    "text": "単位変換\n\nIncomeを100万単位にするためには、Incomeを100万で割るだけで良い\n\n\n# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。\n# 変数名は何でも良いが、ここではmillionの頭文字を使用\njes_df3 &lt;- jes_df %&gt;%\n  mutate(Income_m = Income / 1000000)\n\n# 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入\nfit3 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
+    "text": "単位変換\n\nIncomeを100万単位にするためには、Incomeを100万で割るだけで良い\n\n\n# jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。\n# 変数名は何でも良いが、ここではmillionの頭文字を使用\njes_df3 &lt;- jes_df |&gt;\n  mutate(Income_m = Income / 1000000)\n\n# 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入\nfit3 &lt;- lm(Temp_Rikken ~ Ideology + Interest + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
   },
   {
     "objectID": "slides/macro/regression2.html#結果の比較",
@@ -1635,7 +1635,7 @@
     "href": "slides/macro/regression2.html#スケールの逆転",
     "title": "マクロ政治データ分析実習",
     "section": "スケールの逆転",
-    "text": "スケールの逆転\n\n1〜\\(m\\)のスケールで測定された変数は\\(m + 1\\)から引くと、逆転される。\n\nInterestは1〜4であるため、5から引く\n「5 - 1 = 4」、「5 - 2 = 3」、「5 - 3 = 2」、「5 - 4 = 1」\n\n0〜\\(m\\)のスケールで測定された変数は\\(m\\)から引くと、逆転される。\n\\(-m\\)〜\\(m\\)のスケールで測定された変数は-1をかけると、逆転される。\n\n\n# jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。\n# 変数名は何でも良いが、ここではreverseの頭文字を使用\njes_df3 &lt;- jes_df3 %&gt;%\n  mutate(Interest_r = 5 - Interest)\n\n# 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入\nfit4 &lt;- lm(Temp_Rikken ~ Ideology + Interest_r + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
+    "text": "スケールの逆転\n\n1〜\\(m\\)のスケールで測定された変数は\\(m + 1\\)から引くと、逆転される。\n\nInterestは1〜4であるため、5から引く\n「5 - 1 = 4」、「5 - 2 = 3」、「5 - 3 = 2」、「5 - 4 = 1」\n\n0〜\\(m\\)のスケールで測定された変数は\\(m\\)から引くと、逆転される。\n\\(-m\\)〜\\(m\\)のスケールで測定された変数は-1をかけると、逆転される。\n\n\n# jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。\n# 変数名は何でも良いが、ここではreverseの頭文字を使用\njes_df3 &lt;- jes_df3 |&gt;\n  mutate(Interest_r = 5 - Interest)\n\n# 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入\nfit4 &lt;- lm(Temp_Rikken ~ Ideology + Interest_r + Gender + Age + Education + Job + Income_m, \n           data = jes_df3)"
   },
   {
     "objectID": "slides/macro/regression2.html#結果の比較-1",

@@ -17,12 +17,12 @@ pacman::p_load(tidyverse, gt, summarytools, modelsummary,
 
 すぐに実習できるように準備しておきましょう。
 
-1. JDCat分析ツールのRStudioを起動しておいてください。
-2. 本日授業用のプロジェクトを作成してください。
+1. JDCat分析ツールを起動しておいてください。
+2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
 3. LMSから実習用データをダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
    * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください。
 
 ```{r}
 #| eval: false
@@ -52,7 +52,7 @@ jes_df  <- read_csv("Data/JES6_W1.csv")
 
 <br/>
 
-* $\beta = 0$ の場合、説明変数は応答変数の変化をもたらすとは言えない
+* $\beta = 0$の場合、説明変数は応答変数の変化をもたらすとは言えない
 
 ## 帰無仮説と対立仮説
 
@@ -62,18 +62,18 @@ jes_df  <- read_csv("Data/JES6_W1.csv")
 自民党の得票率 = $\alpha$ + $\beta_1$ $\times$ 高齢者の割合 + $\beta_2$ $\times$ 財政力指数
 </center>
 
-* **帰無仮説** ( $H_0$ ): 高齢者の割合は自民党の得票率を変化させない。
-   * 「高齢者の割合」の傾き係数 ( $\beta_1$ )は0である ( $\beta_1 = 0$ )。
-* **対立仮説** ( $H_a$ ): 高齢者の割合は自民党の得票率を変化させる。 
-   * 「高齢者の割合」の傾き係数 ( $\beta_1$ )は0ではない ( $\beta_1 \neq 0$ )。
+* **帰無仮説**（$H_0$）：高齢者の割合は自民党の得票率を変化させない。
+   * 「高齢者の割合」の傾き係数（$\beta_1$）は0である（$\beta_1 = 0$）。
+* **対立仮説**（$H_a$）：高齢者の割合は自民党の得票率を変化させる。 
+   * 「高齢者の割合」の傾き係数（$\beta_1$）は0ではない（$\beta_1 \neq 0$）。
 
 <br/>
 
 * **傾きの係数が0か否かを検証**する。
-   * 使用する確率分布は自由度 $n - k - 1$ の $t$ 分布
-      * $n$ は標本サイズ、 $k$ は説明変数の数
-   * 第13講で紹介するロジスティック回帰分析の場合は正規分布を使用
-      * ただし、 $n$ が十分大きい場合、 $t$ 分布は正規分布に近似する。
+   * 使用する確率分布は自由度$n - k - 1$の$t$分布
+      * $n$は標本サイズ、$k$は説明変数の数
+   * 次回紹介するロジスティック回帰分析の場合は正規分布を使用
+      * ただし、$n$が十分大きい場合、$t$分布は正規分布に近似する。
 
 ## 検定統計量
 
@@ -85,10 +85,10 @@ jes_df  <- read_csv("Data/JES6_W1.csv")
 ```{r}
 #| echo: false
 pref_df <- read_csv("Data/PrefData.csv")
-lm(Jimin ~ Over65 + Zaisei, data = pref_df) %>%
-  broom::tidy() %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 4) %>%
+lm(Jimin ~ Over65 + Zaisei, data = pref_df) |>
+  broom::tidy() |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 4) |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = 2))
 ```
@@ -114,7 +114,7 @@ lm(Jimin ~ Over65 + Zaisei, data = pref_df) %>%
 ::::
 
 * $\alpha = 0.05$を仮定
-   * $p$値は約0.0121であり、$p < \alpha$であるため、帰無仮説を棄却する。したがって、他の条件が同じであれば、高齢者の割合は自民党の得票率を変化させると言える (or 高齢者の割合が高い都道府県ほど自民党の得票率も上がる)。
+   * $p$値は約0.0121であり、$p < \alpha$であるため、帰無仮説を棄却する。したがって、他の条件が同じであれば、高齢者の割合は自民党の得票率を変化させると言える（or 高齢者の割合が高い都道府県ほど自民党の得票率も上がる）。
 
 # 名目変数の利用
 
@@ -144,8 +144,8 @@ tibble(Cov  = names(jes_df),
                 "", 
                 "1: 中卒以下 / 2: 高校卒 / 3: 高専・短大卒 / 4: 大卒以上",
                 "1: 勤め / 2: 自営業 / 3: 学生  / 4: 専業主婦・主夫 / 5: 無職 / 6: その他",
-                "円")) %>%
-  gt() %>%
+                "円")) |>
+  gt() |>
   cols_label("Cov" = "変数名", "Desc" = "説明", "Etc" = "備考")
 ```
 
@@ -154,11 +154,11 @@ tibble(Cov  = names(jes_df),
 * 名目変数（`Gender`と`Job`）はダミー変数に変換
 
 ```{r}
-jes_df %>%
-  dummy_cols(c("Gender", "Job")) %>%
-  relocate(Gender_1:Gender_2, .before = Gender) %>% # Gender_1と_2列をGenderの前に
-  relocate(Job_1:Job_6, .before = Job) %>%          # Job_1から_6列をJobの前に
-  select(-c(Gender, Job)) %>%                       # GenderとJob列を除外してからdscer()に渡す
+jes_df |>
+  dummy_cols(c("Gender", "Job")) |>
+  relocate(Gender_1:Gender_2, .before = Gender) |> # Gender_1と_2列をGenderの前に
+  relocate(Job_1:Job_6, .before = Job) |>          # Job_1から_6列をJobの前に
+  select(-c(Gender, Job)) |>                       # GenderとJob列を除外してからdscer()に渡す
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -194,11 +194,11 @@ jes_df %>%
    * **注意:** ただし、全てのダミー変数が投入されるわけではなく、$k-1$個のダミー変数が投入される（$k$は当該factor型変数の水準数）。
       * 性別の場合、2つのダミー変数になるが、1つのみ投入される。
       * 職業の場合、6つのダミー変数になるが、5つのみ投入される。
-   * 除外されたカテゴリーは「ベース・カテゴリー (base category)」、「参照カテゴリー/レファレンス・カテゴリー (reference category)」、「ベースライン (baseline)」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述）。
-   * 解釈は「$\bigcirc\bigcirc$ (ベース・カテゴリー)に比べ、〜」となる。
+   * 除外されたカテゴリーは「ベース・カテゴリー（base category）」、「参照カテゴリー/レファレンス・カテゴリー（reference category）」、「ベースライン（baseline）」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述）。
+   * 解釈は「$\bigcirc\bigcirc$（ベース・カテゴリー）に比べ、〜」となる。
 
 ```{r}
-jes_df <- jes_df %>%
+jes_df <- jes_df |>
   mutate(Gender = factor(Gender, levels = 1:2, labels = c("Male", "Female")),
          Job    = factor(Job, levels = 1:6, labels = c("Salary", "Self", "Student", "House",
                                                        "Retire", "Etc")))
@@ -219,11 +219,11 @@ summary(dummy_fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(dummy_fit1) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
+broom::tidy(dummy_fit1) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
   cols_label("term" = "", "estimate" = "係数", "std.error" = "標準誤差",
-             "statistic" = "t統計量", "p.value" = "p値") %>%
+             "statistic" = "t統計量", "p.value" = "p値") |>
   tab_options(table.font.size = 14)
 ```
 :::
@@ -232,11 +232,11 @@ broom::tidy(dummy_fit1) %>%
 :::
 
 :::{.column width=49%}
-* `Ideology`: 保守的であるほど、立民に対する感情温度が低くなる。
+* `Ideology`：保守的であるほど、立民に対する感情温度が低くなる。
    * イデオロギーが1単位上がると、立民に対する感情温度は約2.113度下がる。
-* `Interest`: 政治関心がないほど、立民に対する感情温度が低くなる。
-* `Age`: 年齢が高いほど、立民に対する感情温度が高くなる。
-* `Education`: 高学歴ほど、立民に対する感情温度が低くなる。
+* `Interest`：政治関心がないほど、立民に対する感情温度が低くなる。
+* `Age`：年齢が高いほど、立民に対する感情温度が高くなる。
+* `Education`：高学歴ほど、立民に対する感情温度が低くなる。
 :::
 
 ::::
@@ -278,7 +278,7 @@ levels(jes_df$Job) # jes_dfのJob列の水準
    * 2番目以降の水準は既存の順番そのまま
 
 ```{r}
-jes_df2 <- jes_df %>%
+jes_df2 <- jes_df |>
   mutate(Gender = fct_relevel(Gender, "Female"), # Femaleを第1水準に
          Job    = fct_relevel(Job, "Etc"))       # Etcを第1水準に
 
@@ -305,10 +305,10 @@ summary(dummy_fit1)
 
 ```{r}
 #| echo: false
-tidy(dummy_fit1) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(dummy_fit1) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = c(1, 4, 6:10)))
 ```
@@ -325,10 +325,10 @@ summary(dummy_fit2)
 
 ```{r}
 #| echo: false
-tidy(dummy_fit2) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(dummy_fit2) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = c(1, 4, 6:10)))
 ```
@@ -343,9 +343,9 @@ tidy(dummy_fit2) %>%
 ある変数を1次関数を用いて変換すること。
 
 * 主な使い道は「説明変数をある定数で割る/引く」
-   * 例) 1円単位で測定された所得を100万円単位に変換する (= 所得を100万で割る)。
+   * 例）1円単位で測定された所得を100万円単位に変換する（= 所得を100万で割る）。
       * **説明変数の単位が変わる**。 
-   * 例) 1、2、3、4で測定された変数を5から引く。
+   * 例）1、2、3、4で測定された変数を5から引く。
       * 説明変数のスケールが逆転される。
 * 線形変換を行うと、より解釈しやすくなる。
 
@@ -375,7 +375,7 @@ tidy(dummy_fit2) %>%
 ```{r}
 # jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、jes_df3という新しいデータフレームを作成。
 # 変数名は何でも良いが、ここではmillionの頭文字を使用
-jes_df3 <- jes_df %>%
+jes_df3 <- jes_df |>
   mutate(Income_m = Income / 1000000)
 
 # 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入
@@ -398,10 +398,10 @@ summary(dummy_fit1)
 
 ```{r}
 #| echo: false
-tidy(dummy_fit1) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(dummy_fit1) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = (term == "Income")))
 ```
@@ -419,10 +419,10 @@ summary(fit3)
 
 ```{r}
 #| echo: false
-tidy(fit3) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(fit3) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = (term == "Income_m")))
 ```
@@ -459,7 +459,7 @@ tidy(fit3) %>%
 ```{r}
 # jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。
 # 変数名は何でも良いが、ここではreverseの頭文字を使用
-jes_df3 <- jes_df3 %>%
+jes_df3 <- jes_df3 |>
   mutate(Interest_r = 5 - Interest)
 
 # 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入
@@ -482,10 +482,10 @@ summary(fit3)
 
 ```{r}
 #| echo: false
-tidy(fit3) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(fit3) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = (term == "Interest")))
 ```
@@ -503,10 +503,10 @@ summary(fit4)
 
 ```{r}
 #| echo: false
-tidy(fit4) %>%
-  gt() %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  cols_align(columns = 2:5, align = "right") %>%
+tidy(fit4) |>
+  gt() |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  cols_align(columns = 2:5, align = "right") |>
   tab_style(style = cell_fill(color = "#F7EFB2"),
             locations = cells_body(rows = (term == "Interest_r")))
 ```
