@@ -653,7 +653,7 @@ Multiple R-squared:  0.1564,    Adjusted R-squared:  0.1014
 F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 </div>
 </div>
-<p>　しかし、これは<strong>分析する側</strong>が結果を確認するために用意されたものであり、「他人に見せる」ために用意されたものではない。レポートや論文に推定結果を示す場合は表を使う場合が多いが、<code>summary()</code>関数から得られたものはあくまでの文字列のみだ。ここで便利なのが{modelsummary}パッケージである。使い方は簡単で<code>modelsummary(回帰オブジェクト名)</code>のみで良い。</p>
+<p>　しかし、これは<strong>分析する側</strong>が結果を確認するために用意されたものであり、「他人に見せる」ために用意されたものではない。レポートや論文に推定結果を示す場合は表を使う場合が多いが、<code>summary()</code>関数から得られたものはあくまでの文字列のみだ。ここで便利なのが{modelsummary}パッケージである<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。使い方は簡単で<code>modelsummary(回帰オブジェクト名)</code>のみで良い。</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -720,7 +720,7 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 </div>
 </div>
 <p>　一発でかなりきれいな表ができた。デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。また、分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.））なども表示される。これでも十分良いが、ここからはより自分好みの表にするためにいくつかカスタマイズしてみよう。</p>
-<p>　その前に前提知識として<code>modelsummary()</code>では各変数に対応する統計量が2行構成になっていることを意識する必要がある。デフォルトだと1行目は点推定値、2行目はその標準誤差である。<code>modelsummary()</code>関数では<code>estimate</code>（1行目）と<code>statistic</code>（2行目）引数で出力される統計量を変更することができる。デフォルトだと<code>estimate</code>は点推定値（<code>"{estimate}"</code>）、<code>statistic</code>は標準誤差（<code>"{std.error}"</code>）になっている。つまり、<code>modelsummary(オブジェクト名)</code>は<code>modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "{std.error}")</code>と同じコードだ。このように<code>"{統計量}"</code>の形式で表示する統計量が選択できる。たとえば、<span class="math inline">\(p\)</span>値は<code>"{p.value}"</code>、95%信頼区間の下限は<code>"{conf.low}"</code>、上限は<code>"{conf.high}"</code>だ<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。もし、特定の行を消したい場合は<code>NULL</code>を割り当てる。</p>
+<p>　その前に前提知識として<code>modelsummary()</code>では各変数に対応する統計量が2行構成になっていることを意識する必要がある。デフォルトだと1行目は点推定値、2行目はその標準誤差である。<code>modelsummary()</code>関数では<code>estimate</code>（1行目）と<code>statistic</code>（2行目）引数で出力される統計量を変更することができる。デフォルトだと<code>estimate</code>は点推定値（<code>"{estimate}"</code>）、<code>statistic</code>は標準誤差（<code>"{std.error}"</code>）になっている。つまり、<code>modelsummary(オブジェクト名)</code>は<code>modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "{std.error}")</code>と同じコードだ。このように<code>"{統計量}"</code>の形式で表示する統計量が選択できる。たとえば、<span class="math inline">\(p\)</span>値は<code>"{p.value}"</code>、95%信頼区間の下限は<code>"{conf.low}"</code>、上限は<code>"{conf.high}"</code>だ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。もし、特定の行を消したい場合は<code>NULL</code>を割り当てる。</p>
 <p>　それではいくつかの例を確認してみよう。まずは標準誤差の代わりに<span class="math inline">\(p\)</span>値を表示する例からだ。</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1284,15 +1284,15 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-14">切片を表示しない</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-14">切片を表示しない</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="2" data-code-cell="annotated-cell-14">表示順番を「下」からDuraion、First、Orderの順に</span>
+<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-14">表示順番を「下」からDuraion、First、Orderの順に</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="3" data-code-cell="annotated-cell-14">x = 0に破線を引く</span>
+<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-14">x = 0に破線を引く</span>
 </dd>
 </dl>
 </div>
@@ -1304,7 +1304,7 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 </div>
 </div>
 </div>
-<p>　<code>modelplot()</code>から作成された図は{ggplot2}ベースなので<code>+</code>でレイヤーの追加および調整できる。本講義の履修者は{ggplot2}なしでは生きていけない人のはずなので非常に嬉しい知らせだろう。<code>modelplot()</code>の詳細はコンソール上で<code>?modelplot</code>を入力してヘルプを見るか<a href="https://modelsummary.com/vignettes/modelplot.html">公式ページ</a>で確認してみよう。他にも{<a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>}も人気だ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。</p>
+<p>　<code>modelplot()</code>から作成された図は{ggplot2}ベースなので<code>+</code>でレイヤーの追加および調整できる。本講義の履修者は{ggplot2}なしでは生きていけない人のはずなので非常に嬉しい知らせだろう。<code>modelplot()</code>の詳細はコンソール上で<code>?modelplot</code>を入力してヘルプを見るか<a href="https://modelsummary.com/vignettes/modelplot.html">公式ページ</a>で確認してみよう。他にも{<a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>}というパッケージも人気だ<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。</p>
 </section>
 </section>
 <section id="回帰分析結果の可視化" class="level2">
@@ -1590,15 +1590,15 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-26"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-26"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="2" data-code-cell="annotated-cell-26">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
+<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-26">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
 </dd>
 <dt data-target-cell="annotated-cell-26" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-annotation="3" data-code-cell="annotated-cell-26"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
+<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-26"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
 </dd>
 </dl>
 </div>
@@ -1729,8 +1729,9 @@ Type:  response </code></pre>
 <ol>
 <li id="fn1"><p>ロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>読み込んでいないパッケージの関数は<code>パッケージ名::関数名()</code>で使用可能だ。今回の場合以外にも、読み込んだ複数のパッケージに同じ名前の関数がある場合、「どのパッケージの関数か」を指定する際にも使用する。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>他にも<code>"{stars}"</code>というのもよく使われるが、これは邪悪なものなので間違ってでも調べないようにしよう。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>存在感のない{<a href="https://github.com/JaehyunSong/coefplotbl">coefplotbl</a>}という謎のパッケージもある。興味のある方でも間違ってでも調べないこと。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>{modelsummary}以外のも回帰表作成に特化した様々なパッケージがあり、その中でも{<a href="https://cran.r-project.org/web/packages/stargazer/index.html">stargazer</a>}という根強い人気を誇るパッケージもある。<span class="math inline">\(\LaTeX\)</span>ユーザーなら{stargazer}の方がカスタマイズの幅が広く、使い勝手が良いかも知れない。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>他にも<code>"{stars}"</code>というのもよく使われるが、これは邪悪なものなので間違ってでも調べないようにしよう。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>存在感のない{<a href="https://github.com/JaehyunSong/coefplotbl">coefplotbl</a>}という謎のパッケージもある。興味のある方でも間違ってでも調べないこと。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
