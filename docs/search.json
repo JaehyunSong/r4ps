@@ -1376,133 +1376,203 @@
     "href": "slides/macro/reporting.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールのRStudioを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSからダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\nfit_lm     &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\nfit_logit  &lt;- glm(Final ~ Order + First + Duration, data = df, family = binomial(\"logit\"))\nfit_inter1 &lt;- lm(Score_Mean ~ Order * First + Duration, data = df)\nfit_inter2 &lt;- lm(Score_Mean ~ Order * Duration + First, data = df)\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
-    "objectID": "slides/macro/reporting.html#可視化の手順",
-    "href": "slides/macro/reporting.html#可視化の手順",
+    "objectID": "slides/macro/reporting.html#分析結果をどう示すか",
+    "href": "slides/macro/reporting.html#分析結果をどう示すか",
     "title": "マクロ政治データ分析実習",
-    "section": "可視化の手順",
-    "text": "可視化の手順\n{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）\n\npredictions()（予測値）、slopes()（限界効果）関数で予測値、または限界効果を計算し、オブジェクトとして格納\n\n表形式オブジェクトとして格納される。\n\n予測値・限界効果オブジェクトの加工（ラベル付け/factor化）\n\n予測値/限界効果はestimate列\n95%信頼区間の下限と上限はconf.lowとconf.high列\n\n{ggplot2}を用いた作図\n\n予測値 + 95%信頼区間 / 限界効果 + 95%信頼区間\n横軸上の値が少ない場合、geom_pointrange()\n横軸上の値が多い場合、geom_line() + geom_ribbon()"
+    "section": "分析結果をどう示すか",
+    "text": "分析結果をどう示すか\n分析手法ごとに方法は異なるが、本講義では線形回帰分析に焦点を当てる1。\n\n回帰分析の結果（点推定値、標準誤差、信頼区間、\\(p\\)値など）\n\n表（回帰表; regression table）\n図\n\n応答変数の予測値予測値\n\n図\n\n\nロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。"
   },
   {
     "objectID": "slides/macro/reporting.html#データの概要",
     "href": "slides/macro/reporting.html#データの概要",
     "title": "マクロ政治データ分析実習",
     "section": "データの概要",
-    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
+    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
   },
   {
     "objectID": "slides/macro/reporting.html#モデルの推定",
     "href": "slides/macro/reporting.html#モデルの推定",
     "title": "マクロ政治データ分析実習",
     "section": "モデルの推定",
-    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n初出場ダミー\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nコンビー結成からの経過年数\n\n交互作用を仮定しない変数は統制変数として投入\n\n\n\nfit_lm     &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\nfit_logit  &lt;- glm(Final ~ Order + First + Duration, data = df, family = binomial(\"logit\"))\nfit_inter1 &lt;- lm(Score_Mean ~ Order * First + Duration, data = df)\nfit_inter2 &lt;- lm(Score_Mean ~ Order * Duration + First, data = df)"
+    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n初出場ダミー\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nコンビー結成からの経過年数\n\n交互作用を仮定しない変数は統制変数として投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の計算",
-    "href": "slides/macro/reporting.html#予測値の計算",
+    "objectID": "slides/macro/reporting.html#modelsummaryパッケージの利用",
+    "href": "slides/macro/reporting.html#modelsummaryパッケージの利用",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の計算",
-    "text": "予測値の計算\n\nコード1コード2\n\n\n\n予測値はEstimate列、95%信頼区間の下限と上限はそれぞれ2.5 %と97.5 %列\n\n\nlm_pred &lt;- predictions(fit_lm, newdata = datagrid(Order = 1:10))\nlm_pred\n\n\n Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration\n     1     90.2      0.553 163   &lt;0.001 Inf  89.1   91.2 0.517     10.6\n     2     90.4      0.468 193   &lt;0.001 Inf  89.5   91.3 0.517     10.6\n     3     90.7      0.393 231   &lt;0.001 Inf  89.9   91.5 0.517     10.6\n     4     90.9      0.333 273   &lt;0.001 Inf  90.3   91.6 0.517     10.6\n     5     91.2      0.299 305   &lt;0.001 Inf  90.6   91.8 0.517     10.6\n     6     91.5      0.299 306   &lt;0.001 Inf  90.9   92.0 0.517     10.6\n     7     91.7      0.333 275   &lt;0.001 Inf  91.1   92.4 0.517     10.6\n     8     92.0      0.393 234   &lt;0.001 Inf  91.2   92.7 0.517     10.6\n     9     92.2      0.468 197   &lt;0.001 Inf  91.3   93.1 0.517     10.6\n    10     92.5      0.553 167   &lt;0.001 Inf  91.4   93.6 0.517     10.6\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order \nType:  response \n\n\n\n\n\n作図の際の列名はdata.frame()関数で確認する。\n\n予測値はestimate、95%信頼区間の下限と上限はconf.lowとconf.high\n\n\n\ndata.frame(lm_pred)\n\n   rowid estimate std.error statistic p.value s.value conf.low conf.high\n1      1 90.16668 0.5527105  163.1355       0     Inf 89.08339  91.24997\n2      2 90.42488 0.4679791  193.2242       0     Inf 89.50766  91.34210\n3      3 90.68308 0.3926080  230.9761       0     Inf 89.91358  91.45257\n4      4 90.94127 0.3330148  273.0848       0     Inf 90.28858  91.59397\n5      5 91.19947 0.2987938  305.2254       0     Inf 90.61385  91.78510\n6      6 91.45767 0.2987938  306.0896       0     Inf 90.87205  92.04330\n7      7 91.71587 0.3330148  275.4108       0     Inf 91.06317  92.36857\n8      8 91.97407 0.3926081  234.2643       0     Inf 91.20457  92.74356\n9      9 92.23226 0.4679791  197.0863       0     Inf 91.31504  93.14949\n10    10 92.49046 0.5527105  167.3398       0     Inf 91.40717  93.57375\n   Score_Mean     First Duration Order\n1    91.32857 0.5166667     10.6     1\n2    91.32857 0.5166667     10.6     2\n3    91.32857 0.5166667     10.6     3\n4    91.32857 0.5166667     10.6     4\n5    91.32857 0.5166667     10.6     5\n6    91.32857 0.5166667     10.6     6\n7    91.32857 0.5166667     10.6     7\n8    91.32857 0.5166667     10.6     8\n9    91.32857 0.5166667     10.6     9\n10   91.32857 0.5166667     10.6    10"
+    "section": "{modelsummary}パッケージの利用",
+    "text": "{modelsummary}パッケージの利用\n使い方：modelsummary(回帰オブジェクト名)\n\n\n\nデフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。\n分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。\n\n\n\n\n\nmodelsummary(fit1)\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n90.078\n\n\n\n(0.649)\n\n\nOrder\n0.227\n\n\n\n(0.105)\n\n\nNum.Obs.\n60\n\n\nR2\n0.075\n\n\nR2 Adj.\n0.059\n\n\nAIC\n275.6\n\n\nBIC\n281.9\n\n\nLog.Lik.\n−134.800\n\n\nF\n4.727\n\n\nRMSE\n2.29"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化",
-    "href": "slides/macro/reporting.html#予測値の可視化",
+    "objectID": "slides/macro/reporting.html#統計量の変更",
+    "href": "slides/macro/reporting.html#統計量の変更",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化",
-    "text": "予測値の可視化\n\nコード結果\n\n\n\nlm_pred %&gt;%\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場順番\", y = \"平均得点（100点満点）\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) # Black & Whiteテーマを使用し、フォントサイズは14に\n\n\n参考: scale_x_continuous()について\n\n横軸上の変数が連続変数の場合、目盛りを調整する際に使用\nbreaksは目盛りの位置、lablesは目盛りのラベル\n\nbreaksとlabelsは同じ長さのベクトル"
+    "section": "統計量の変更",
+    "text": "統計量の変更\n\n前提知識例1例2例3\n\n\n\nmodelsummary()のestimateとstatistic引数で出力される統計量の変更が可能\n\nデフォルトだとestimateは点推定値（\"{estimate}\"）、statisticは標準誤差（\"{std.error}\"）になっている。\n\nつまり、デフォルトはmodelsummary(オブジェクト名, estiamte = \"{estimate}\", statistic = \"{std.error}\")\n\n\\(p\\)値は\"{p.value}\"、95%信頼区間の下限は\"{conf.low}\"、上限は\"{conf.high}\"\n行を消したい場合はNULLを割り当てる。\nnote引数で注を付けることもできる。\n\n\n\n\n標準誤差の代わりに\\(p\\)値を表示する（&lt;0.001は\\(p\\)値が0.001より小さいことを意味する）。\n\nmodelsummary(fit1, statistic = \"({p.value})\", note = \"注：カッコ内はp値\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n90.078\n\n\n\n(&lt;0.001)\n\n\nOrder\n0.227\n\n\n\n(0.034)\n\n\nNum.Obs.\n60\n\n\nR2\n0.075\n\n\nR2 Adj.\n0.059\n\n\nAIC\n275.6\n\n\nBIC\n281.9\n\n\nLog.Lik.\n−134.800\n\n\nF\n4.727\n\n\nRMSE\n2.29\n\n\n\n 注：カッコ内はp値\n\n\n\n\n\n\n\n\n\n\n\n点推定値と標準誤差を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} ({std.error})\",\n             statistic = NULL,\n             note      = \"注：カッコ内は標準誤差\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n90.078 (0.649)\n\n\nOrder\n0.227 (0.105)\n\n\nNum.Obs.\n60\n\n\nR2\n0.075\n\n\nR2 Adj.\n0.059\n\n\nAIC\n275.6\n\n\nBIC\n281.9\n\n\nLog.Lik.\n−134.800\n\n\nF\n4.727\n\n\nRMSE\n2.29\n\n\n\n 注：カッコ内は標準誤差\n\n\n\n\n\n\n\n\n\n\n\n点推定値と95%信頼区間を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} [{conf.low}, {conf.high}]\",\n             statistic = NULL,\n             note      = \"注：カッコ内は95%信頼区間\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n90.078 [88.779, 91.377]\n\n\nOrder\n0.227 [0.018, 0.437]\n\n\nNum.Obs.\n60\n\n\nR2\n0.075\n\n\nR2 Adj.\n0.059\n\n\nAIC\n275.6\n\n\nBIC\n281.9\n\n\nLog.Lik.\n−134.800\n\n\nF\n4.727\n\n\nRMSE\n2.29\n\n\n\n 注：カッコ内は95%信頼区間"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の計算-1",
-    "href": "slides/macro/reporting.html#予測値の計算-1",
+    "objectID": "slides/macro/reporting.html#適合度指標の変更",
+    "href": "slides/macro/reporting.html#適合度指標の変更",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の計算",
-    "text": "予測値の計算\n\nlogit_pred &lt;- predictions(fit_logit, newdata = datagrid(Order = 1:10))\n\ndata.frame(logit_pred)\n\n   rowid   estimate      p.value    s.value   conf.low conf.high Final\n1      1 0.09377992 0.0015122631  9.3690751 0.02484884 0.2959036   0.3\n2      2 0.11999376 0.0010328652  9.9191323 0.03982630 0.3095141   0.3\n3      3 0.15230355 0.0006962887 10.4880267 0.06245367 0.3264132   0.3\n4      4 0.19142073 0.0005522068 10.8225037 0.09462983 0.3490452   0.3\n5      5 0.23776669 0.0008474548 10.2045760 0.13596282 0.3820889   0.3\n6      6 0.29129134 0.0049144467  7.6687553 0.18113035 0.4330217   0.3\n7      7 0.35131170 0.0621843072  4.0073056 0.22135429 0.5078080   0.3\n8      8 0.41643237 0.3779831541  1.4036062 0.25206946 0.6017430   0.3\n9      9 0.48460633 0.8943248531  0.1611291 0.27479749 0.6999854   0.3\n10    10 0.55335806 0.7020656541  0.5103221 0.29245683 0.7878439   0.3\n       First Duration Order\n1  0.5166667     10.6     1\n2  0.5166667     10.6     2\n3  0.5166667     10.6     3\n4  0.5166667     10.6     4\n5  0.5166667     10.6     5\n6  0.5166667     10.6     6\n7  0.5166667     10.6     7\n8  0.5166667     10.6     8\n9  0.5166667     10.6     9\n10 0.5166667     10.6    10"
+    "section": "適合度指標の変更",
+    "text": "適合度指標の変更\n\n分析手法によって出力される適合度指標が異なる（get_gof()関数で確認可）。\n\n\nget_gof(fit3)\n\n       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik\n1 274.9891 285.4609 0.1437456    0.09787483 2.201864   60 3.133708 -132.4946\n\n\n\n\n\ngof_map引数で表示したい適合度指標を指定する。\n\n線形回帰分析なら\n\nサンプルサイズ（\"nobs\"）\n決定係数（r.squared）\n調整済み決定係数（\"adj.r.squared\"）程度で十分\n\n\n\n\nfit3 |&gt; # パイプ演算子も使用可\n  modelsummary(\n    estimate  = \"{estimate} ({p.value})\",\n    statistic = NULL,\n    gof_map   = c(\"nobs\", \"r.squared\", \"adj.r.squared\"),\n    note      = \"注：カッコ内はp値\"\n  )\n\n\n\n\n\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.605 (&lt;0.001)\n\n\nOrder\n0.258 (0.016)\n\n\nFirst\n−0.963 (0.128)\n\n\nDuration\n0.076 (0.381)\n\n\nNum.Obs.\n60\n\n\nR2\n0.144\n\n\nR2 Adj.\n0.098\n\n\n\n 注：カッコ内はp値"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化-1",
-    "href": "slides/macro/reporting.html#予測値の可視化-1",
+    "objectID": "slides/macro/reporting.html#複数モデルの表示",
+    "href": "slides/macro/reporting.html#複数モデルの表示",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化",
-    "text": "予測値の可視化\n\nコード結果\n\n\n\nlogit_pred %&gt;%\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw()"
+    "section": "複数モデルの表示",
+    "text": "複数モデルの表示\n回帰オブジェクトをlist()でまとめる（\"モデル名\" = オブジェクト名でモデル名も指定可）。\n\n例1例2\n\n\n\nmodelsummary(list(fit1, fit2, fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n(Intercept)\n90.078\n90.570\n89.605\n\n\n\n(0.649)\n(0.684)\n(1.291)\n\n\nOrder\n0.227\n0.245\n0.258\n\n\n\n(0.105)\n(0.103)\n(0.104)\n\n\nFirst\n\n−1.136\n−0.963\n\n\n\n\n(0.590)\n(0.623)\n\n\nDuration\n\n\n0.076\n\n\n\n\n\n(0.086)\n\n\nNum.Obs.\n60\n60\n60\n\n\nR2\n0.075\n0.132\n0.144\n\n\nR2 Adj.\n0.059\n0.101\n0.098\n\n\n\n\n\n\n\n\n\n\nmodelsummary(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\nModel 1\n Model 2\n Model 3\n\n\n\n\n(Intercept)\n90.078\n90.570\n89.605\n\n\n\n(0.649)\n(0.684)\n(1.291)\n\n\nOrder\n0.227\n0.245\n0.258\n\n\n\n(0.105)\n(0.103)\n(0.104)\n\n\nFirst\n\n−1.136\n−0.963\n\n\n\n\n(0.590)\n(0.623)\n\n\nDuration\n\n\n0.076\n\n\n\n\n\n(0.086)\n\n\nNum.Obs.\n60\n60\n60\n\n\nR2\n0.075\n0.132\n0.144\n\n\nR2 Adj.\n0.059\n0.101\n0.098"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の計算調整変数がダミー変数",
-    "href": "slides/macro/reporting.html#予測値の計算調整変数がダミー変数",
+    "objectID": "slides/macro/reporting.html#変数名の変更",
+    "href": "slides/macro/reporting.html#変数名の変更",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の計算（調整変数がダミー変数）",
-    "text": "予測値の計算（調整変数がダミー変数）\n\nコードコード（2）\n\n\n\nOrderだけでなく、調整変数（First）も残すこと\n\n\ninter1_pred &lt;- predictions(fit_inter1, newdata = datagrid(Order = 1:10,\n                                                          First = 0:1))\n\ndata.frame(inter1_pred)\n\n   rowid estimate std.error statistic p.value s.value conf.low conf.high\n1      1 90.86470 0.8053717  112.8233       0     Inf 89.28620  92.44320\n2      2 89.52837 0.7705321  116.1903       0     Inf 88.01815  91.03858\n3      3 91.07488 0.6783851  134.2525       0     Inf 89.74527  92.40449\n4      4 89.82365 0.6588672  136.3304       0     Inf 88.53229  91.11500\n5      5 91.28506 0.5672579  160.9234       0     Inf 90.17325  92.39686\n6      6 90.11893 0.5596161  161.0371       0     Inf 89.02210  91.21576\n7      7 91.49524 0.4830629  189.4065       0     Inf 90.54845  92.44203\n8      8 90.41421 0.4805312  188.1547       0     Inf 89.47239  91.35604\n9      9 91.70542 0.4414876  207.7191       0     Inf 90.84012  92.57072\n10    10 90.70950 0.4328121  209.5817       0     Inf 89.86120  91.55779\n11    11 91.91560 0.4543853  202.2856       0     Inf 91.02502  92.80618\n12    12 91.00478 0.4271047  213.0737       0     Inf 90.16767  91.84189\n13    13 92.12578 0.5177002  177.9520       0     Inf 91.11111  93.14045\n14    14 91.30006 0.4649589  196.3616       0     Inf 90.38876  92.21136\n15    15 92.33596 0.6160799  149.8766       0     Inf 91.12847  93.54345\n16    16 91.59534 0.5372430  170.4915       0     Inf 90.54237  92.64832\n17    17 92.54614 0.7355866  125.8127       0     Inf 91.10442  93.98786\n18    18 91.89062 0.6322577  145.3373       0     Inf 90.65142  93.12983\n19    19 92.75632 0.8675343  106.9195       0     Inf 91.05598  94.45666\n20    20 92.18591 0.7413147  124.3546       0     Inf 90.73296  93.63886\n   Score_Mean Duration Order First\n1    91.32857     10.6     1     0\n2    91.32857     10.6     1     1\n3    91.32857     10.6     2     0\n4    91.32857     10.6     2     1\n5    91.32857     10.6     3     0\n6    91.32857     10.6     3     1\n7    91.32857     10.6     4     0\n8    91.32857     10.6     4     1\n9    91.32857     10.6     5     0\n10   91.32857     10.6     5     1\n11   91.32857     10.6     6     0\n12   91.32857     10.6     6     1\n13   91.32857     10.6     7     0\n14   91.32857     10.6     7     1\n15   91.32857     10.6     8     0\n16   91.32857     10.6     8     1\n17   91.32857     10.6     9     0\n18   91.32857     10.6     9     1\n19   91.32857     10.6    10     0\n20   91.32857     10.6    10     1\n\n\n\n\n\nFirstにラベルを付け、factor化\n\n\ninter1_pred &lt;- inter1_pred %&gt;%\n  mutate(First = factor(First, levels = 0:1, labels = c(\"初出場\", \"出場経験あり\")))\n\ndata.frame(inter1_pred)\n\n   rowid estimate std.error statistic p.value s.value conf.low conf.high\n1      1 90.86470 0.8053717  112.8233       0     Inf 89.28620  92.44320\n2      2 89.52837 0.7705321  116.1903       0     Inf 88.01815  91.03858\n3      3 91.07488 0.6783851  134.2525       0     Inf 89.74527  92.40449\n4      4 89.82365 0.6588672  136.3304       0     Inf 88.53229  91.11500\n5      5 91.28506 0.5672579  160.9234       0     Inf 90.17325  92.39686\n6      6 90.11893 0.5596161  161.0371       0     Inf 89.02210  91.21576\n7      7 91.49524 0.4830629  189.4065       0     Inf 90.54845  92.44203\n8      8 90.41421 0.4805312  188.1547       0     Inf 89.47239  91.35604\n9      9 91.70542 0.4414876  207.7191       0     Inf 90.84012  92.57072\n10    10 90.70950 0.4328121  209.5817       0     Inf 89.86120  91.55779\n11    11 91.91560 0.4543853  202.2856       0     Inf 91.02502  92.80618\n12    12 91.00478 0.4271047  213.0737       0     Inf 90.16767  91.84189\n13    13 92.12578 0.5177002  177.9520       0     Inf 91.11111  93.14045\n14    14 91.30006 0.4649589  196.3616       0     Inf 90.38876  92.21136\n15    15 92.33596 0.6160799  149.8766       0     Inf 91.12847  93.54345\n16    16 91.59534 0.5372430  170.4915       0     Inf 90.54237  92.64832\n17    17 92.54614 0.7355866  125.8127       0     Inf 91.10442  93.98786\n18    18 91.89062 0.6322577  145.3373       0     Inf 90.65142  93.12983\n19    19 92.75632 0.8675343  106.9195       0     Inf 91.05598  94.45666\n20    20 92.18591 0.7413147  124.3546       0     Inf 90.73296  93.63886\n   Score_Mean Duration Order        First\n1    91.32857     10.6     1       初出場\n2    91.32857     10.6     1 出場経験あり\n3    91.32857     10.6     2       初出場\n4    91.32857     10.6     2 出場経験あり\n5    91.32857     10.6     3       初出場\n6    91.32857     10.6     3 出場経験あり\n7    91.32857     10.6     4       初出場\n8    91.32857     10.6     4 出場経験あり\n9    91.32857     10.6     5       初出場\n10   91.32857     10.6     5 出場経験あり\n11   91.32857     10.6     6       初出場\n12   91.32857     10.6     6 出場経験あり\n13   91.32857     10.6     7       初出場\n14   91.32857     10.6     7 出場経験あり\n15   91.32857     10.6     8       初出場\n16   91.32857     10.6     8 出場経験あり\n17   91.32857     10.6     9       初出場\n18   91.32857     10.6     9 出場経験あり\n19   91.32857     10.6    10       初出場\n20   91.32857     10.6    10 出場経験あり"
+    "section": "変数名の変更",
+    "text": "変数名の変更\ncoef_rename引数で調整（\"元の変数名\" = \"新しい変数名\"）\n\nmodelsummary(list(fit1, fit2, fit3),\n             coef_rename = c(\"(Intercept)\" = \"切片\",\n                             \"Order\"       = \"出場順番\",\n                             \"First\"       = \"初出場ダミー\",\n                             \"Duration\"    = \"結成からの経過年数\"),\n             gof_map     = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n切片\n90.078\n90.570\n89.605\n\n\n\n(0.649)\n(0.684)\n(1.291)\n\n\n出場順番\n0.227\n0.245\n0.258\n\n\n\n(0.105)\n(0.103)\n(0.104)\n\n\n初出場ダミー\n\n−1.136\n−0.963\n\n\n\n\n(0.590)\n(0.623)\n\n\n結成からの経過年数\n\n\n0.076\n\n\n\n\n\n(0.086)\n\n\nNum.Obs.\n60\n60\n60\n\n\nR2\n0.075\n0.132\n0.144\n\n\nR2 Adj.\n0.059\n0.101\n0.098"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数",
-    "href": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数",
+    "objectID": "slides/macro/reporting.html#参考回帰表の可視化",
+    "href": "slides/macro/reporting.html#参考回帰表の可視化",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化（調整変数がダミー変数）",
-    "text": "予測値の可視化（調整変数がダミー変数）\n\nコード結果\n\n\n\ninter1_pred %&gt;%\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high,\n                      color = First)) + # color引数で色分け\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", color = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")\n\n\n\n\n信頼区間が被っているため、読みにくい"
+    "section": "参考）回帰表の可視化",
+    "text": "参考）回帰表の可視化\n{modelsummary}のmodelplot()関数\n\nmodelplot()から作成された図は{ggplot2}ベースなので+でレイヤーの追加、調整が可能\n詳細は?modelplotか公式ページで確認すること。他にも{coefplot}も人気（存在感のない{coefplotbl}というのもある）\n\n\nmodelplot(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n1          coef_omit = \"(Intercept)\",\n2          coef_map  = c(\"Duration\", \"First\", \"Order\")) +\n3  geom_vline(xintercept = 0, linetype = 2)\n\n\n1\n\n切片を表示しない\n\n2\n\n表示順番を「下」からDuraion、First、Orderの順に\n\n3\n\nx = 0に破線を引く"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-1",
-    "href": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-1",
+    "objectID": "slides/macro/reporting.html#可視化の手順",
+    "href": "slides/macro/reporting.html#可視化の手順",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化（調整変数がダミー変数）",
-    "text": "予測値の可視化（調整変数がダミー変数）\n\nコード結果\n\n\n\n折れ線グラフを使用（線の太さはlinewidthで調整）\n\n\ninter1_pred %&gt;%\n  ggplot() +\n  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", color = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")\n\n\n\n\n95%信頼区間は?"
+    "section": "可視化の手順",
+    "text": "可視化の手順\n{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）\n\npredictions()関数で予測値を計算し、オブジェクトとして格納\n\n表形式オブジェクトとして格納される。\n\n予測値・限界効果オブジェクトの加工（ラベル付け/factor化）\n\n予測値/限界効果はestimate列\n95%信頼区間の下限と上限はconf.lowとconf.high列\n\n{ggplot2}を用いた作図\n\n予測値 + 95%信頼区間\n横軸上の値が少ない場合、geom_pointrange()\n横軸上の値が多い場合、geom_line() + geom_ribbon()\n\n\n\n\n\n\n\n参考）今後紹介するロジスティック回帰分析の場合、predictions()関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にもslopes()関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-2",
-    "href": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-2",
+    "objectID": "slides/macro/reporting.html#予測値の計算fit3の場合",
+    "href": "slides/macro/reporting.html#予測値の計算fit3の場合",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化（調整変数がダミー変数）",
-    "text": "予測値の可視化（調整変数がダミー変数）\n\nコード結果\n\n\n\ngeom_ribbon()で95%区間を線でなく面で表現する。\n\n面の色はcolorでなく、fillにマッピング\n半透明にするためにalpha = 0.3を指定（0に近いほど透明）\n\n\n\ninter1_pred %&gt;%\n  ggplot() +\n  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +\n  geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high, fill = First), alpha = 0.3) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"\", fill = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")"
+    "section": "予測値の計算（fit3の場合）",
+    "text": "予測値の計算（fit3の場合）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値は?\n\n\\[\n\\widehat{\\mbox{Score_Mean}} = 89.605 + 0.258 \\cdot \\mbox{Order} - 0.963 \\cdot \\mbox{First} + 0.076 \\cdot \\mbox{Duration}.\n\\]\n\nOrderとDurationは平均値（それぞれ5.5、10.6）に固定し、Firstだけ0と1を入れる。\n\n計算例\n\n初出場（First = 1）の場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 1 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 90.856\n\n初出場ではない（First = 0）場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 0 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 91.819\n\n{marginaleffects}のpredictions()関数を使えば簡単に計算可能\n\n\n新しいオブジェクト名 &lt;- predictions(回帰オブジェクト名,\n                                 newdata = datagrid(変数 = 値))"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-3",
-    "href": "slides/macro/reporting.html#予測値の可視化調整変数がダミー変数-3",
+    "objectID": "slides/macro/reporting.html#予測値の計算fit3利用",
+    "href": "slides/macro/reporting.html#予測値の計算fit3利用",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化（調整変数がダミー変数）",
-    "text": "予測値の可視化（調整変数がダミー変数）\n\nコード結果\n\n\n\ngeom_line()とgeom_ribbon()はxに対してマッピングを共有しているため、ggplot()内でマッピングした方がより効率的\n\n\ninter1_pred %&gt;%\n  ggplot(aes(x = Order)) +\n  geom_line(aes(y = estimate, color = First), linewidth = 1) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = First), alpha = 0.3) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"\", fill = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")"
+    "section": "予測値の計算（fit3利用）",
+    "text": "予測値の計算（fit3利用）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値を計算し、fit3_pred1という名のオブジェクトとして格納\n\n\nfit3_pred1 &lt;- predictions(fit3,\n                          newdata = datagrid(First = c(0, 1)))\n\nfit3_pred1\n\n\n First Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order Duration\n     0     91.8      0.436 211   &lt;0.001 Inf    91   92.7   5.5     10.6\n     1     90.9      0.421 216   &lt;0.001 Inf    90   91.7   5.5     10.6\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, Duration, First \nType:  response \n\n\n\nEstimate列が予測値、2.5%と97.5%列が95%信頼区間の下限と上限\nFirst以外の変数は平均値に固定される。"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の計算調整変数が連続変数",
-    "href": "slides/macro/reporting.html#予測値の計算調整変数が連続変数",
+    "objectID": "slides/macro/reporting.html#平均値以外に固定する方法",
+    "href": "slides/macro/reporting.html#平均値以外に固定する方法",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の計算（調整変数が連続変数）",
-    "text": "予測値の計算（調整変数が連続変数）\n\nコード（1）コード（2）\n\n\n\n結成からの経過年数（Duration） = 1、2、3、…全てに対して線を引くと表が読みにくくなるため、経過年数が2年、9年、16年のみの予測値を計算\n\n\ninter2_pred &lt;- predictions(fit_inter2, newdata = datagrid(Order = 1:10,\n                                                          Duration = c(2, 9, 16)))\n\ndata.frame(inter2_pred)\n\n   rowid estimate std.error statistic p.value s.value conf.low conf.high\n1      1 88.75862 1.5824446  56.08956       0     Inf 85.65708  91.86015\n2      2 89.86234 0.6614182 135.86313       0     Inf 88.56599  91.15870\n3      3 90.96607 0.9336240  97.43330       0     Inf 89.13620  92.79594\n4      4 89.18246 1.3390003  66.60377       0     Inf 86.55807  91.80685\n5      5 90.15477 0.5613935 160.59104       0     Inf 89.05446  91.25509\n6      6 91.12709 0.7872186 115.75830       0     Inf 89.58417  92.67001\n7      7 89.60630 1.1184768  80.11458       0     Inf 87.41413  91.79848\n8      8 90.44721 0.4701235 192.39030       0     Inf 89.52578  91.36863\n9      9 91.28811 0.6636048 137.56397       0     Inf 89.98747  92.58875\n10    10 90.03015 0.9371996  96.06294       0     Inf 88.19327  91.86703\n11    11 90.73964 0.3937421 230.45452       0     Inf 89.96792  91.51136\n12    12 91.44913 0.5776066 158.32425       0     Inf 90.31705  92.58122\n13    13 90.45399 0.8215707 110.09886       0     Inf 88.84374  92.06424\n14    14 91.03207 0.3423630 265.89342       0     Inf 90.36106  91.70309\n15    15 91.61016 0.5472538 167.39976       0     Inf 90.53756  92.68275\n16    16 90.87784 0.8005601 113.51782       0     Inf 89.30877  92.44691\n17    17 91.32451 0.3279560 278.46577       0     Inf 90.68173  91.96729\n18    18 91.77118 0.5813292 157.86440       0     Inf 90.63180  92.91056\n19    19 91.30168 0.8809639 103.63839       0     Inf 89.57502  93.02834\n20    20 91.61694 0.3550511 258.03876       0     Inf 90.92105  92.31283\n21    21 91.93220 0.6700747 137.19695       0     Inf 90.61888  93.24552\n22    22 91.72552 1.0395094  88.23925       0     Inf 89.68812  93.76293\n23    23 91.90937 0.4156087 221.14403       0     Inf 91.09480  92.72395\n24    24 92.09322 0.7953962 115.78284       0     Inf 90.53428  93.65217\n25    25 92.14937 1.2467350  73.91255       0     Inf 89.70581  94.59292\n26    26 92.20181 0.4975574 185.30890       0     Inf 91.22661  93.17700\n27    27 92.25425 0.9428210  97.84917       0     Inf 90.40635  94.10214\n28    28 92.57321 1.4823602  62.44988       0     Inf 89.66784  95.47858\n29    29 92.49424 0.5920808 156.21896       0     Inf 91.33378  93.65470\n30    30 92.41527 1.1035247  83.74554       0     Inf 90.25240  94.57814\n   Score_Mean     First Order Duration\n1    91.32857 0.5166667     1        2\n2    91.32857 0.5166667     1        9\n3    91.32857 0.5166667     1       16\n4    91.32857 0.5166667     2        2\n5    91.32857 0.5166667     2        9\n6    91.32857 0.5166667     2       16\n7    91.32857 0.5166667     3        2\n8    91.32857 0.5166667     3        9\n9    91.32857 0.5166667     3       16\n10   91.32857 0.5166667     4        2\n11   91.32857 0.5166667     4        9\n12   91.32857 0.5166667     4       16\n13   91.32857 0.5166667     5        2\n14   91.32857 0.5166667     5        9\n15   91.32857 0.5166667     5       16\n16   91.32857 0.5166667     6        2\n17   91.32857 0.5166667     6        9\n18   91.32857 0.5166667     6       16\n19   91.32857 0.5166667     7        2\n20   91.32857 0.5166667     7        9\n21   91.32857 0.5166667     7       16\n22   91.32857 0.5166667     8        2\n23   91.32857 0.5166667     8        9\n24   91.32857 0.5166667     8       16\n25   91.32857 0.5166667     9        2\n26   91.32857 0.5166667     9        9\n27   91.32857 0.5166667     9       16\n28   91.32857 0.5166667    10        2\n29   91.32857 0.5166667    10        9\n30   91.32857 0.5166667    10       16\n\n\n\n\n\nDurationにラベルを付け、factor化\n\n\ninter2_pred &lt;- inter2_pred %&gt;%\n  mutate(Duration = factor(Duration, levels = c(2, 9, 16), \n                           labels = c(\"2年目\", \"9年目\", \"16年目\")))\n\ndata.frame(inter2_pred)\n\n   rowid estimate std.error statistic p.value s.value conf.low conf.high\n1      1 88.75862 1.5824446  56.08956       0     Inf 85.65708  91.86015\n2      2 89.86234 0.6614182 135.86313       0     Inf 88.56599  91.15870\n3      3 90.96607 0.9336240  97.43330       0     Inf 89.13620  92.79594\n4      4 89.18246 1.3390003  66.60377       0     Inf 86.55807  91.80685\n5      5 90.15477 0.5613935 160.59104       0     Inf 89.05446  91.25509\n6      6 91.12709 0.7872186 115.75830       0     Inf 89.58417  92.67001\n7      7 89.60630 1.1184768  80.11458       0     Inf 87.41413  91.79848\n8      8 90.44721 0.4701235 192.39030       0     Inf 89.52578  91.36863\n9      9 91.28811 0.6636048 137.56397       0     Inf 89.98747  92.58875\n10    10 90.03015 0.9371996  96.06294       0     Inf 88.19327  91.86703\n11    11 90.73964 0.3937421 230.45452       0     Inf 89.96792  91.51136\n12    12 91.44913 0.5776066 158.32425       0     Inf 90.31705  92.58122\n13    13 90.45399 0.8215707 110.09886       0     Inf 88.84374  92.06424\n14    14 91.03207 0.3423630 265.89342       0     Inf 90.36106  91.70309\n15    15 91.61016 0.5472538 167.39976       0     Inf 90.53756  92.68275\n16    16 90.87784 0.8005601 113.51782       0     Inf 89.30877  92.44691\n17    17 91.32451 0.3279560 278.46577       0     Inf 90.68173  91.96729\n18    18 91.77118 0.5813292 157.86440       0     Inf 90.63180  92.91056\n19    19 91.30168 0.8809639 103.63839       0     Inf 89.57502  93.02834\n20    20 91.61694 0.3550511 258.03876       0     Inf 90.92105  92.31283\n21    21 91.93220 0.6700747 137.19695       0     Inf 90.61888  93.24552\n22    22 91.72552 1.0395094  88.23925       0     Inf 89.68812  93.76293\n23    23 91.90937 0.4156087 221.14403       0     Inf 91.09480  92.72395\n24    24 92.09322 0.7953962 115.78284       0     Inf 90.53428  93.65217\n25    25 92.14937 1.2467350  73.91255       0     Inf 89.70581  94.59292\n26    26 92.20181 0.4975574 185.30890       0     Inf 91.22661  93.17700\n27    27 92.25425 0.9428210  97.84917       0     Inf 90.40635  94.10214\n28    28 92.57321 1.4823602  62.44988       0     Inf 89.66784  95.47858\n29    29 92.49424 0.5920808 156.21896       0     Inf 91.33378  93.65470\n30    30 92.41527 1.1035247  83.74554       0     Inf 90.25240  94.57814\n   Score_Mean     First Order Duration\n1    91.32857 0.5166667     1    2年目\n2    91.32857 0.5166667     1    9年目\n3    91.32857 0.5166667     1   16年目\n4    91.32857 0.5166667     2    2年目\n5    91.32857 0.5166667     2    9年目\n6    91.32857 0.5166667     2   16年目\n7    91.32857 0.5166667     3    2年目\n8    91.32857 0.5166667     3    9年目\n9    91.32857 0.5166667     3   16年目\n10   91.32857 0.5166667     4    2年目\n11   91.32857 0.5166667     4    9年目\n12   91.32857 0.5166667     4   16年目\n13   91.32857 0.5166667     5    2年目\n14   91.32857 0.5166667     5    9年目\n15   91.32857 0.5166667     5   16年目\n16   91.32857 0.5166667     6    2年目\n17   91.32857 0.5166667     6    9年目\n18   91.32857 0.5166667     6   16年目\n19   91.32857 0.5166667     7    2年目\n20   91.32857 0.5166667     7    9年目\n21   91.32857 0.5166667     7   16年目\n22   91.32857 0.5166667     8    2年目\n23   91.32857 0.5166667     8    9年目\n24   91.32857 0.5166667     8   16年目\n25   91.32857 0.5166667     9    2年目\n26   91.32857 0.5166667     9    9年目\n27   91.32857 0.5166667     9   16年目\n28   91.32857 0.5166667    10    2年目\n29   91.32857 0.5166667    10    9年目\n30   91.32857 0.5166667    10   16年目"
+    "section": "平均値以外に固定する方法",
+    "text": "平均値以外に固定する方法\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値を計算し、fit3_pred2という名のオブジェクトとして格納\n\nただし、出場順番は5番目（Order = 5）、結成からの年数は5年（Duration = 5）と固定する。\n\n\n\nfit3_pred2 &lt;- predictions(fit3,\n                          newdata = datagrid(First    = c(0, 1),\n                                             Order    = 5,\n                                             Duration = 5))\n\nfit3_pred2\n\n\n First Order Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 %\n     0     5        5     91.3      0.725 126   &lt;0.001 Inf  89.9   92.7\n     1     5        5     90.3      0.572 158   &lt;0.001 Inf  89.2   91.4\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration \nType:  response"
   },
   {
-    "objectID": "slides/macro/reporting.html#予測値の可視化調整変数が連続変数",
-    "href": "slides/macro/reporting.html#予測値の可視化調整変数が連続変数",
+    "objectID": "slides/macro/reporting.html#作図の際の注意事項",
+    "href": "slides/macro/reporting.html#作図の際の注意事項",
     "title": "マクロ政治データ分析実習",
-    "section": "予測値の可視化（調整変数が連続変数）",
-    "text": "予測値の可視化（調整変数が連続変数）\n\nコード結果\n\n\n\ninter2_pred %&gt;%\n  ggplot(aes(x = Order)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Duration), \n              alpha = 0.3) +\n  geom_line(aes(y = estimate, color = Duration), linewidth = 1) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"結成からの経過年数\", fill = \"結成からの経過年数\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")"
+    "section": "作図の際の注意事項",
+    "text": "作図の際の注意事項\n\nfit3_pred2で表示される列名は「本当の」列名ではない!!\n\nユーザーが読みやすいように列名が変更されてから出力される。\nたとえば、予測値の本当の列名はestimateだが、表示名はEstimateになっている。\n\n「本当の」列名が見たい場合はprint(オブジェクト名, style = \"data.frame\")\n\n\nprint(fit3_pred2, style = \"data.frame\")\n\n  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order Duration\n1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541   91.32857     0     5        5\n2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246   91.32857     1     5        5\n\n\n\n作図によく使うのは予測値（estimate）、信頼区間の下限（conf.low）と上限（conf.high）、動かしている変数名（ここではFirst）"
   },
   {
-    "objectID": "slides/macro/reporting.html#限界効果の計算調整変数がダミー変数",
-    "href": "slides/macro/reporting.html#限界効果の計算調整変数がダミー変数",
+    "objectID": "slides/macro/reporting.html#作図の例",
+    "href": "slides/macro/reporting.html#作図の例",
     "title": "マクロ政治データ分析実習",
-    "section": "限界効果の計算（調整変数がダミー変数）",
-    "text": "限界効果の計算（調整変数がダミー変数）\n\nコード（1）コード（2）\n\n\n\n主な説明変数（ここではOrder列）は抽出しなくても良い\n\n\ninter1_ame &lt;- slopes(fit_inter1, variables = \"Order\",\n                     newdata = datagrid(First = 0:1))\ninter1_ame &lt;- inter1_ame %&gt;%\n  select(First, predicted, std.error, conf.low, conf.high)\n\ninter1_ame\n\n\n Std. Error  CI low CI high\n      0.158 -0.0991   0.520\n      0.139  0.0238   0.567\n\nColumns: First, predicted, std.error, conf.low, conf.high \n\n\n\n\n\nFirstにラベルを付け、factor化\n\n\ninter1_ame &lt;- inter1_ame %&gt;%\n  mutate(First = factor(First, levels = 0:1, labels = c(\"初出場\", \"出場経験あり\")))\n\ninter1_ame\n\n\n Std. Error  CI low CI high\n      0.158 -0.0991   0.520\n      0.139  0.0238   0.567\n\nColumns: First, predicted, std.error, conf.low, conf.high"
+    "section": "作図の例",
+    "text": "作図の例\nPointrangeプロットを使用する。\n\n\ngeom_pointrange()レイヤー\n\nx：説明変数\ny：予測値\nymin：信頼区間の下限\nymax：信頼区間の上限\n\n\nfit3_pred2_plot1 &lt;- fit3_pred2 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = First, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"初出場ダミー\", \n       y = \"予測点数と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n\n\n\nfit3_pred2_plot1"
   },
   {
-    "objectID": "slides/macro/reporting.html#限界効果の可視化調整変数がダミー変数",
-    "href": "slides/macro/reporting.html#限界効果の可視化調整変数がダミー変数",
+    "objectID": "slides/macro/reporting.html#無駄の目盛りの削除",
+    "href": "slides/macro/reporting.html#無駄の目盛りの削除",
     "title": "マクロ政治データ分析実習",
-    "section": "限界効果の可視化（調整変数がダミー変数）",
-    "text": "限界効果の可視化（調整変数がダミー変数）\n\nコード結果\n\n\n\ninter1_ame %&gt;%\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = First, y = predicted, ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場経験\", y = \"出場順番の平均限界効果\") +\n  theme_bw(base_size = 12)"
+    "section": "無駄の目盛りの削除",
+    "text": "無駄の目盛りの削除\n\n横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。\n\n\n\nscale_x_continuous()で目盛り調整\n\nbreaks：目盛りの位置\nlabels：目盛りのラベル\n\n\nfit3_pred2_plot1 +\n  scale_x_continuous(breaks = c(0, 1),\n                     labels = c(\"0\", \"1\"))"
   },
   {
-    "objectID": "slides/macro/reporting.html#限界効果の計算調整変数が連続変数",
-    "href": "slides/macro/reporting.html#限界効果の計算調整変数が連続変数",
+    "objectID": "slides/macro/reporting.html#出場順番と平均得点間の関係計算",
+    "href": "slides/macro/reporting.html#出場順番と平均得点間の関係計算",
     "title": "マクロ政治データ分析実習",
-    "section": "限界効果の計算（調整変数が連続変数）",
-    "text": "限界効果の計算（調整変数が連続変数）\n\n調整変数が連続変数の場合、調整変数のfactor化は不要（やっても良い）\n\n\ninter2_ame &lt;- slopes(fit_inter2, variables = \"Order\",\n                     newdata = datagrid(Duration = 2:16))\n\ninter2_ame &lt;- inter2_ame %&gt;%\n  select(Duration, predicted, std.error, conf.low, conf.high)\n\ninter2_ame\n\n\n Std. Error   CI low CI high\n      0.292 -0.14865   0.996\n      0.263 -0.11069   0.921\n      0.235 -0.07390   0.846\n      0.207 -0.03875   0.774\n      0.182 -0.00878   0.706\n      0.158  0.02062   0.639\n      0.136  0.04458   0.578\n      0.119  0.06009   0.525\n      0.108  0.06219   0.485\n      0.105  0.04943   0.460\n      0.110  0.01992   0.452\n      0.124 -0.02521   0.460\n      0.143 -0.08149   0.479\n      0.166 -0.14508   0.505\n      0.191 -0.21336   0.535\n\nColumns: Duration, predicted, std.error, conf.low, conf.high"
+    "section": "出場順番と平均得点間の関係（計算）",
+    "text": "出場順番と平均得点間の関係（計算）\n\nfit3_pred3 &lt;- predictions(fit3, newdata = datagrid(Order = 1:10))\nfit3_pred3\n\n\n Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration\n     1     90.2      0.553 163   &lt;0.001 Inf  89.1   91.2 0.517     10.6\n     2     90.4      0.468 193   &lt;0.001 Inf  89.5   91.3 0.517     10.6\n     3     90.7      0.393 231   &lt;0.001 Inf  89.9   91.5 0.517     10.6\n     4     90.9      0.333 273   &lt;0.001 Inf  90.3   91.6 0.517     10.6\n     5     91.2      0.299 305   &lt;0.001 Inf  90.6   91.8 0.517     10.6\n     6     91.5      0.299 306   &lt;0.001 Inf  90.9   92.0 0.517     10.6\n     7     91.7      0.333 275   &lt;0.001 Inf  91.1   92.4 0.517     10.6\n     8     92.0      0.393 234   &lt;0.001 Inf  91.2   92.7 0.517     10.6\n     9     92.2      0.468 197   &lt;0.001 Inf  91.3   93.1 0.517     10.6\n    10     92.5      0.553 167   &lt;0.001 Inf  91.4   93.6 0.517     10.6\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order \nType:  response"
   },
   {
-    "objectID": "slides/macro/reporting.html#限界効果の可視化調整変数が連続変数",
-    "href": "slides/macro/reporting.html#限界効果の可視化調整変数が連続変数",
+    "objectID": "slides/macro/reporting.html#出場順番と平均得点間の関係可視化",
+    "href": "slides/macro/reporting.html#出場順番と平均得点間の関係可視化",
     "title": "マクロ政治データ分析実習",
-    "section": "限界効果の可視化（調整変数が連続変数）",
-    "text": "限界効果の可視化（調整変数が連続変数）\n\nコード結果\n\n\n\ninter2_ame %&gt;%\n  ggplot(aes(x = Duration)) +\n  geom_hline(yintercept = 0) +\n  geom_ribbon(aes(y = predicted, ymin = conf.low, ymax = conf.high),\n              alpha = 0.3) +\n  geom_line(aes(y = predicted), linewidth = 1) +\n  labs(x = \"結成からの経過年数\", y = \"出場順番の平均限界効果\") +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "section": "出場順番と平均得点間の関係（可視化）",
+    "text": "出場順番と平均得点間の関係（可視化）\n\nfit3_pred3 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  labs(x = \"出場順番\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#芸歴と平均得点間の関係計算",
+    "href": "slides/macro/reporting.html#芸歴と平均得点間の関係計算",
+    "title": "マクロ政治データ分析実習",
+    "section": "芸歴と平均得点間の関係（計算）",
+    "text": "芸歴と平均得点間の関係（計算）\n\nfit3_pred4 &lt;- predictions(fit3, newdata = datagrid(Duration = 2:16))\nfit3_pred4\n\n\n Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order First\n        2     90.7      0.793 114   &lt;0.001 Inf  89.1   92.2   5.5 0.517\n        3     90.8      0.714 127   &lt;0.001 Inf  89.4   92.2   5.5 0.517\n        4     90.8      0.637 143   &lt;0.001 Inf  89.6   92.1   5.5 0.517\n        5     90.9      0.563 162   &lt;0.001 Inf  89.8   92.0   5.5 0.517\n        6     91.0      0.492 185   &lt;0.001 Inf  90.0   91.9   5.5 0.517\n        7     91.1      0.426 214   &lt;0.001 Inf  90.2   91.9   5.5 0.517\n        8     91.1      0.369 247   &lt;0.001 Inf  90.4   91.9   5.5 0.517\n        9     91.2      0.325 281   &lt;0.001 Inf  90.6   91.8   5.5 0.517\n       10     91.3      0.299 306   &lt;0.001 Inf  90.7   91.9   5.5 0.517\n       11     91.4      0.296 308   &lt;0.001 Inf  90.8   91.9   5.5 0.517\n       12     91.4      0.318 288   &lt;0.001 Inf  90.8   92.1   5.5 0.517\n       13     91.5      0.359 255   &lt;0.001 Inf  90.8   92.2   5.5 0.517\n       14     91.6      0.414 221   &lt;0.001 Inf  90.8   92.4   5.5 0.517\n       15     91.7      0.478 192   &lt;0.001 Inf  90.7   92.6   5.5 0.517\n       16     91.7      0.548 167   &lt;0.001 Inf  90.7   92.8   5.5 0.517\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, First, Duration \nType:  response"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#芸歴と平均得点間の関係可視化",
+    "href": "slides/macro/reporting.html#芸歴と平均得点間の関係可視化",
+    "title": "マクロ政治データ分析実習",
+    "section": "芸歴と平均得点間の関係（可視化）",
+    "text": "芸歴と平均得点間の関係（可視化）\n\nfit3_pred4 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = Duration, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#折れ線グラフとリボンgeom_ribbonの組み合わせ",
+    "href": "slides/macro/reporting.html#折れ線グラフとリボンgeom_ribbonの組み合わせ",
+    "title": "マクロ政治データ分析実習",
+    "section": "折れ線グラフとリボン（geom_ribbon()）の組み合わせ",
+    "text": "折れ線グラフとリボン（geom_ribbon()）の組み合わせ\n\n横軸が細かいほどpoint-rangeプロットは気持ち悪くなる（ムカデのような見た目になる）。\ngeom_ribbon()はx、ymin、ymaxにマッピング\n\ngeom_pointrange()と使い方は同じだが、予測値の情報を持たないため、yは不要\n\n\n\nfit3_pred4 |&gt; \n  ggplot() +\n  geom_ribbon(aes(x = Duration, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#折れ線グラフ-リボン",
+    "href": "slides/macro/reporting.html#折れ線グラフ-リボン",
+    "title": "マクロ政治データ分析実習",
+    "section": "折れ線グラフ + リボン",
+    "text": "折れ線グラフ + リボン\n\nfit3_pred4 |&gt; \n1  ggplot(aes(x = Duration)) +\n2  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = \"gray70\") +\n3  geom_line(aes(y = estimate), linewidth = 1) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n1\n\ngeom_ribbon()とgeom_line()は同じ横軸を共有するため、ここでマッピングした方が効率的\n\n2\n\nデフォルトのリボンは暗い色なので、明るめの色に変える。\n\n3\n\nlinewidthで折れ線グラフの太さを調整（1だとデフォルトよりやや太め）"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#出場順番と平均得点間の関係",
+    "href": "slides/macro/reporting.html#出場順番と平均得点間の関係",
+    "title": "マクロ政治データ分析実習",
+    "section": "出場順番と平均得点間の関係",
+    "text": "出場順番と平均得点間の関係\n今回得られた回帰直線"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#もう一度過去に戻ってm-1をやったら1",
+    "href": "slides/macro/reporting.html#もう一度過去に戻ってm-1をやったら1",
+    "title": "マクロ政治データ分析実習",
+    "section": "もう一度、過去に戻ってM-1をやったら…（1）",
+    "text": "もう一度、過去に戻ってM-1をやったら…（1）\nこんな回帰直線が得られたとしてもおかしくはない（多分）"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#もう一度過去に戻ってm-1をやったら2",
+    "href": "slides/macro/reporting.html#もう一度過去に戻ってm-1をやったら2",
+    "title": "マクロ政治データ分析実習",
+    "section": "もう一度、過去に戻ってM-1をやったら…（2）",
+    "text": "もう一度、過去に戻ってM-1をやったら…（2）\nこんな回帰直線が得られる可能性は非常に低い（多分）"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#信頼区間の意味",
+    "href": "slides/macro/reporting.html#信頼区間の意味",
+    "title": "マクロ政治データ分析実習",
+    "section": "信頼区間の意味",
+    "text": "信頼区間の意味\nこの範囲（信頼区間）外の直線が得られる可能性は非常に低い！"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#信頼区間の意味2",
+    "href": "slides/macro/reporting.html#信頼区間の意味2",
+    "title": "マクロ政治データ分析実習",
+    "section": "信頼区間の意味（2）",
+    "text": "信頼区間の意味（2）\n傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。\n\n\n\n\\(\\alpha\\) = 0.05で統計的有意だったOrder（\\(p\\) = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。\n右は統計的に有意でないDuration変数の例（\\(p\\) = 0.381）\n\n水平線も、右上がり直線も、右下がり直線も引ける。\n\\(\\Rightarrow\\) DurationとScore_Meanの関係は現段階では判断できない。\n\n\\(\\alpha\\) = 0.1を仮定するのであれば、90%（\\(= (1 - \\alpha) \\times 100\\)）信頼区間を使うこととなる。"
+  },
+  {
+    "objectID": "slides/macro/reporting.html#有意水準と信頼区間",
+    "href": "slides/macro/reporting.html#有意水準と信頼区間",
+    "title": "マクロ政治データ分析実習",
+    "section": "有意水準と信頼区間",
+    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/macro/regression2.html#授業開始前に",
@@ -2699,42 +2769,224 @@
     "href": "materials/macro/reporting.html",
     "title": "第10回講義資料",
     "section": "",
-    "text": "新しいタブで開く"
+    "text": "新しいタブで開く\n\n\n\n\n\n\n\n解説は作成中です。\n\n\n\n授業日まで完成します…!!!!!"
   },
   {
     "objectID": "materials/macro/reporting.html#スライド",
     "href": "materials/macro/reporting.html#スライド",
     "title": "第10回講義資料",
     "section": "",
-    "text": "新しいタブで開く"
+    "text": "新しいタブで開く\n\n\n\n\n\n\n\n解説は作成中です。\n\n\n\n授業日まで完成します…!!!!!"
   },
   {
     "objectID": "materials/macro/reporting.html#セットアップ",
     "href": "materials/macro/reporting.html#セットアップ",
     "title": "第10回講義資料",
     "section": "セットアップ",
-    "text": "セットアップ\n　本日使用するパッケージとLMSからダウンロードして実習用データを読み込む。読み込むデータはdfに格納し、中身を確認してみよう。\n\n\n\nCode 01\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(summarytools)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\ndf\n\n\n# A tibble: 50 × 8\n      No  Year Name               Duration First Final Order Score_Mean\n   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;\n 1    13  2017 ゆにばーす                5     1     0     1       89.4\n 2    13  2017 カミナリ                  7     0     0     2       88.3\n 3    13  2017 とろサーモン             16     1     1     3       92.1\n 4    13  2017 スーパーマラドーナ       15     1     0     4       91.4\n 5    13  2017 かまいたち               14     0     0     5       91.4\n 6    13  2017 マヂカルラブリー         11     1     0     6       86.7\n 7    13  2017 さや香                    4     1     0     7       89.7\n 8    13  2017 ミキ                      6     1     1     8       92.9\n 9    13  2017 和牛                     12     0     1     9       93.3\n10    13  2017 ジャルジャル             15     0     0    10       90.9\n# ℹ 40 more rows\n\n\n　続いて、dfの記述統計量を計算する。コンビー名（Name）列の記述統計は不要であるため、予め除外しておこう。\n\n\n\nCode 02\n\ndf |&gt;\n  select(-Name) |&gt;\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\n\nDescriptive Statistics  \n\n                      Mean   Std.Dev       Min       Max   N.Valid\n---------------- --------- --------- --------- --------- ---------\n              No     15.00      1.43     13.00     17.00     50.00\n            Year   2019.00      1.43   2017.00   2021.00     50.00\n        Duration     10.76      3.74      2.00     16.00     50.00\n           First      0.52      0.50      0.00      1.00     50.00\n           Final      0.30      0.46      0.00      1.00     50.00\n           Order      5.50      2.90      1.00     10.00     50.00\n      Score_Mean     91.20      2.40     84.86     97.29     50.00\n\n\n　データの紹介は以下ととおりである。\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値\n\n\n\n　今回はdfを使って、M-1グランプリにおける出場順番と得点の関係を調べるとする。応答変数は得点の合計を審査委員の数で割った値である平均得点（Score_Mean）とファイナルステージへの進出有無（Final）である。説明変数は出場順番（Order; 主な説明変数）、初出場ダミー（First）、コンビー結成からの経過年数（Duration）である。また、出場順番と初出場ダミー、または経過年数の交互作用も検討し、交互作用を仮定しない変数は統制変数として投入する。ここでは以下の4モデルを推定するとしよう。\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n調整変数は「初出場ダミー」\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nチョ制変数は「コンビー結成からの経過年数」\n\n\n\n\n\nCode 03\n\nfit_lm     &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\nfit_logit  &lt;- glm(Final ~ Order + First + Duration, data = df, \n                  family = binomial(\"logit\"))\nfit_inter1 &lt;- lm(Score_Mean ~ Order * First + Duration, data = df)\nfit_inter2 &lt;- lm(Score_Mean ~ Order * Duration + First, data = df)\n\n\n　{modelsummary}のmodelsummary()関数を使って、4つのモデルを概観してみよう。\n\n\n\nCode 04\n\nmodelsummary(list(\"線形\"           = fit_lm, \n                  \"ロジスティック\" = fit_logit, \n                  \"交互作用（1）\"  = fit_inter1, \n                  \"交互作用（2）\"  = fit_inter2),\n             statistic = \"({p.value})\")\n\n\n\n\n\n\n線形\nロジスティック\n交互作用（1）\n 交互作用（2）\n\n\n\n\n(Intercept)\n88.826\n−2.968\n89.219\n87.217\n\n\n\n(&lt;0.001)\n(0.068)\n(&lt;0.001)\n(&lt;0.001)\n\n\nOrder\n0.312\n0.261\n0.238\n0.621\n\n\n\n(0.009)\n(0.043)\n(0.184)\n(0.111)\n\n\nFirst\n−0.521\n−0.705\n−1.218\n−0.564\n\n\n\n(0.443)\n(0.308)\n(0.397)\n(0.409)\n\n\nDuration\n0.086\n0.085\n0.086\n0.232\n\n\n\n(0.357)\n(0.394)\n(0.359)\n(0.242)\n\n\nOrder × First\n\n\n0.128\n\n\n\n\n\n\n(0.581)\n\n\n\nOrder × Duration\n\n\n\n−0.029\n\n\n\n\n\n\n(0.401)\n\n\nNum.Obs.\n50\n50\n50\n50\n\n\nR2\n0.156\n\n0.162\n0.170\n\n\nR2 Adj.\n0.101\n\n0.088\n0.096\n\n\nAIC\n230.0\n63.0\n231.6\n231.2\n\n\nBIC\n239.5\n70.6\n243.1\n242.7\n\n\nLog.Lik.\n−109.988\n−27.494\n−109.816\n−109.592\n\n\nF\n2.843\n1.656\n2.178\n2.299\n\n\nRMSE\n2.18\n0.43\n2.18\n2.17"
+    "text": "セットアップ\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
-    "objectID": "materials/macro/reporting.html#線形回帰分析",
-    "href": "materials/macro/reporting.html#線形回帰分析",
+    "objectID": "materials/macro/reporting.html#分析結果をどう示すか",
+    "href": "materials/macro/reporting.html#分析結果をどう示すか",
     "title": "第10回講義資料",
-    "section": "線形回帰分析",
-    "text": "線形回帰分析\n　線形回帰分析の場合、推定結果を表で示すだけでも良いが、予測値のグラフも示すと読者によってより理解しやすくなる。今回の例（fit_lm）の場合、出場順番（Order）と平均得点間の関係をグラフを示してみよう。出場順番は1番目から10番目まであるため、Orderの値が1、2、3、…、10の場合に対し、予測値（平均得点の予測値）とその95%信頼区間を出してみよう。使用するのは{marginaleffects}のpredictions()関数である。\n　第1引数は回帰分析のオブジェクト名、第2引数はnewdataにdatagrid()関数を割り当てたものである。datagrid()の中には説明変数名 = 値を指定する。1のみならOrder = 1の場合の予測値が計算され、c(1, 2, 3)ならOrderの値が1、2、3の場合の予測値が計算される。公差1の等差数列は:演算子で表現することもできるので、今回は1:10とする。計算結果はlm_predに格納し、出力する。\n\n\n\nCode 05\n\nlm_pred &lt;- predictions(fit_lm, newdata = datagrid(Order = 1:10))\n\nlm_pred\n\n\n\n Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration\n     1     89.8      0.607 148   &lt;0.001 Inf  88.6   91.0  0.52     10.8\n     2     90.1      0.513 176   &lt;0.001 Inf  89.1   91.1  0.52     10.8\n     3     90.4      0.430 210   &lt;0.001 Inf  89.6   91.3  0.52     10.8\n     4     90.7      0.365 249   &lt;0.001 Inf  90.0   91.4  0.52     10.8\n     5     91.0      0.327 278   &lt;0.001 Inf  90.4   91.7  0.52     10.8\n     6     91.4      0.327 279   &lt;0.001 Inf  90.7   92.0  0.52     10.8\n     7     91.7      0.365 251   &lt;0.001 Inf  91.0   92.4  0.52     10.8\n     8     92.0      0.430 214   &lt;0.001 Inf  91.1   92.8  0.52     10.8\n     9     92.3      0.513 180   &lt;0.001 Inf  91.3   93.3  0.52     10.8\n    10     92.6      0.607 153   &lt;0.001 Inf  91.4   93.8  0.52     10.8\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order \nType:  response \n\n\n　大量の列が出力されているが、作図のために必要な変数はOrder（出場順番）、estimate（予測値）、conf.low（95%信頼区間の下限）、conf.high（95%信頼区間の上限）列のみだ。これらにstd.error列を加え、lm_predを上書きしよう。\n\n\n\nCode 06\n\nlm_pred &lt;- lm_pred |&gt;\n  select(Order, estimate, std.error, conf.low, conf.high)\n\nlm_pred\n\n\n\n Estimate Std. Error CI low CI high\n     89.8      0.607   88.6    91.0\n     90.1      0.513   89.1    91.1\n     90.4      0.430   89.6    91.3\n     90.7      0.365   90.0    91.4\n     91.0      0.327   90.4    91.7\n     91.4      0.327   90.7    92.0\n     91.7      0.365   91.0    92.4\n     92.0      0.430   91.1    92.8\n     92.3      0.513   91.3    93.3\n     92.6      0.607   91.4    93.8\n\nColumns: Order, estimate, std.error, conf.low, conf.high \n\n\n　だいぶ読みやすい表としてまとまった。あとは、このlm_predオブジェクトを使って作図をするだけだ。点推定値と区間を同時に示すときにはpoint-rangeプロットが有効である（本資料の後半では線と面を組み合わせたグラフの作り方も紹介するが、その方法でも良い）。使用する幾何オブジェクトはgeom_pointrange()であり、aes()内部でマッピングを行う。最低でもx、y、ymin、ymaxのマッピングが必要であり、xとyはそれぞれ横軸と縦軸に対応する変数、yminとymaxは区間の下限と上限に対応する変数を指定する。また、横軸の目盛りを1刻みにするため、scale_x_continuous()レイターを足す。scale_x_continuous()はbreaksに目盛りの位置を、labelsには各目盛りに付けるラベルのベクトルを割り当てる。breaksとlabelsは同じ長さのベクトルである必要がある。\n\n\n\nCode 07\n\nlm_pred |&gt;\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場順番\", y = \"平均得点（100点満点）\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　各point-rangeを線で繋ぐためにはgeom_line()オブジェクトで折れ線グラフを追加する。\n\n\n\nCode 08\n\nlm_pred |&gt;\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  geom_line(aes(x = Order, y = estimate)) +\n  labs(x = \"出場順番\", y = \"平均得点（100点満点）\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　この場合、geom_pointrange()とgeom_line()はxとyに対して同じマッピングを共有するため、ggplot()内部でマッピングした方がより効率的な書き方だ。\n\n\n\nCode 09\n\nlm_pred |&gt;\n  ggplot(aes(x = Order, y = estimate)) +\n  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +\n  geom_line() +\n  labs(x = \"出場順番\", y = \"平均得点（100点満点）\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　ここで予測値の図における95%信頼区間の意味について説明する。先程の図における右上がりの直線が実は「回帰直線（regression line）」であり、2つの変数の関係を1次関数で示したのもである。しかし、1次関数の係数（\\(\\alpha\\)や\\(\\beta_1\\)など）には不確実性が存在し、だからこそ統計的有意性検定を行うことである。これらの係数が1次関数の切片と傾きであるが、不確実性が存在する以上、回帰直線にも不確実性が存在すると考えた方が自然だろう。この95%信頼区間の内部には以下のように無数の直線が引ける。\n\n\n\n\n\n\n\n\n\n　青色の直線が推定結果から得られた回帰直線であるが、青以外の直線も95%信頼区間内部に存在する。これらの直線は今回の推定結果から得られた直線ではないが、あり得る回帰直線である。つまり、もう一度、2013年から同じやり方でM-1グランプリを実施し、同じやり方でデータ収集&分析をすれば、緑やオレンジ色のような回帰直線が得られたとしてもそこまで不思議ではないことを意味する。ちなみにここで最も説明変数の影響力が小さいのはオレンジ色の直線である。一つ言えるのは、説明変数の傾き係数が統計的有意であれば、いくら効果量が小さい直線であっても、右上がり関係を示すことである（つまり、右下がりにはならない）。一方、統計的に有意でない場合は、区間内に右上がりと右下がりの直線が共存することになる。"
+    "section": "分析結果をどう示すか",
+    "text": "分析結果をどう示すか\n分析手法ごとに方法は異なるが、本講義では線形回帰分析に焦点を当てる1。\n\n回帰分析の結果（点推定値、標準誤差、信頼区間、\\(p\\)値など）\n\n表（回帰表; regression table）\n図\n\n応答変数の予測値予測値\n\n図"
   },
   {
-    "objectID": "materials/macro/reporting.html#ロジスティック回帰分析",
-    "href": "materials/macro/reporting.html#ロジスティック回帰分析",
+    "objectID": "materials/macro/reporting.html#データの概要",
+    "href": "materials/macro/reporting.html#データの概要",
     "title": "第10回講義資料",
-    "section": "ロジスティック回帰分析",
-    "text": "ロジスティック回帰分析\n　ロジスティック回帰分析は線形回帰分析とは区別される手法であるが、説明変数の値ごとの予測値を可視化する方法は同じだ。つまり、predictions()で予測値を計算し、その計算結果が格納された表形式データ（data.frame、またはtibbleと呼ばれる）と{ggplot2}を用いた作図をするだけだ。まずはOrderの値が1、2、…、10の場合のファイナルステージへの進出確率の予測値を計算し、logit_predに格納する。このlogit_predを使ってそのまま作図へ移行しても良いが、自分で具体的な数値を確認したい場合は、必要な列だけ抽出しておくと良い。\n\n\n\nCode 10\n\nlogit_pred &lt;- predictions(fit_logit, newdata = datagrid(Order = 1:10))\n\nlogit_pred &lt;- logit_pred |&gt;\n  select(Order, estimate, conf.low, conf.high)\n\nlogit_pred\n\n\n\n Estimate CI low CI high\n    0.104 0.0257   0.338\n    0.131 0.0411   0.346\n    0.164 0.0641   0.358\n    0.202 0.0965   0.376\n    0.248 0.1378   0.405\n    0.300 0.1819   0.451\n    0.357 0.2199   0.522\n    0.419 0.2470   0.613\n    0.483 0.2651   0.708\n    0.548 0.2775   0.793\n\nColumns: Order, estimate, conf.low, conf.high \n\n\n　続いて、{ggplot2}を用いて作図をする。基本的に線形回帰分析と同じコードであるが、今回の縦軸は「平均得点」の予測値でなく、「ファイナルステージへの進出確率」の予測値であるため、軸ラベルを修正する。\n\n\n\nCode 10\n\nlogit_pred |&gt;\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14)"
+    "section": "データの概要",
+    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
   },
   {
-    "objectID": "materials/macro/reporting.html#交互作用",
-    "href": "materials/macro/reporting.html#交互作用",
+    "objectID": "materials/macro/reporting.html#モデルの推定",
+    "href": "materials/macro/reporting.html#モデルの推定",
     "title": "第10回講義資料",
-    "section": "交互作用",
-    "text": "交互作用\n\n予測値（調整変数がダミー変数）\n　交差項を含むモデル（線形回帰・ロジスティック回帰両方）の場合でも基本的な手順はこれまでと同じである。しかし、主な説明変数（ここではOrder）が応答変数に与える影響は調整変数（ここではFirst、またはDuration）によって異なる。したがって、調整変数の値ごとに別々の回帰直線を計算する必要がある。そのためにはpredictions()のnewdata = datagrid()内に主な説明変数だけでなく、調整変数の値も指定する必要がある。たとえば、調整変数がダミー変数（ここではFirst）の場合、Firstの値が0と1の場合に分けて、Orderの値が1、2、3、…、10の場合の予測値を計算する必要がある。\n\n\n\nCode 11\n\ninter1_pred &lt;- predictions(fit_inter1, newdata = datagrid(Order = 1:10,\n                                                          First = 0:1))\n\ninter1_pred\n\n\n\n Order First Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 % Duration\n     1     0     90.4      0.913  99.0   &lt;0.001 Inf  88.6   92.2     10.8\n     1     1     89.3      0.823 108.5   &lt;0.001 Inf  87.7   90.9     10.8\n     2     0     90.6      0.768 118.0   &lt;0.001 Inf  89.1   92.1     10.8\n     2     1     89.7      0.704 127.4   &lt;0.001 Inf  88.3   91.0     10.8\n     3     0     90.9      0.640 142.0   &lt;0.001 Inf  89.6   92.1     10.8\n     3     1     90.0      0.598 150.4   &lt;0.001 Inf  88.9   91.2     10.8\n     4     0     91.1      0.539 168.9   &lt;0.001 Inf  90.0   92.2     10.8\n     4     1     90.4      0.516 175.3   &lt;0.001 Inf  89.4   91.4     10.8\n     5     0     91.3      0.485 188.5   &lt;0.001 Inf  90.4   92.3     10.8\n     5     1     90.8      0.467 194.3   &lt;0.001 Inf  89.8   91.7     10.8\n     6     0     91.6      0.491 186.6   &lt;0.001 Inf  90.6   92.5     10.8\n     6     1     91.1      0.464 196.2   &lt;0.001 Inf  90.2   92.0     10.8\n     7     0     91.8      0.556 165.1   &lt;0.001 Inf  90.7   92.9     10.8\n     7     1     91.5      0.508 180.2   &lt;0.001 Inf  90.5   92.5     10.8\n     8     0     92.1      0.663 138.8   &lt;0.001 Inf  90.8   93.3     10.8\n     8     1     91.9      0.587 156.4   &lt;0.001 Inf  90.7   93.0     10.8\n     9     0     92.3      0.795 116.0   &lt;0.001 Inf  90.7   93.8     10.8\n     9     1     92.2      0.691 133.5   &lt;0.001 Inf  90.9   93.6     10.8\n    10     0     92.5      0.942  98.2   &lt;0.001 Inf  90.7   94.4     10.8\n    10     1     92.6      0.808 114.5   &lt;0.001 Inf  91.0   94.2     10.8\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Duration, Order, First \nType:  response \n\n\n　作図に必要な列（+標準誤差であるstd.error列）のみを抽出する。今回の例はOrder以外にもFirstの値も2パターン（0と1）あるため、First列も抽出する。\n\n\n\nCode 12\n\ninter1_pred &lt;- inter1_pred |&gt;\n  select(Order, First, estimate, std.error, conf.low, conf.high)\n\ninter1_pred\n\n\n\n Estimate Std. Error CI low CI high\n     90.4      0.913   88.6    92.2\n     89.3      0.823   87.7    90.9\n     90.6      0.768   89.1    92.1\n     89.7      0.704   88.3    91.0\n     90.9      0.640   89.6    92.1\n     90.0      0.598   88.9    91.2\n     91.1      0.539   90.0    92.2\n     90.4      0.516   89.4    91.4\n     91.3      0.485   90.4    92.3\n     90.8      0.467   89.8    91.7\n     91.6      0.491   90.6    92.5\n     91.1      0.464   90.2    92.0\n     91.8      0.556   90.7    92.9\n     91.5      0.508   90.5    92.5\n     92.1      0.663   90.8    93.3\n     91.9      0.587   90.7    93.0\n     92.3      0.795   90.7    93.8\n     92.2      0.691   90.9    93.6\n     92.5      0.942   90.7    94.4\n     92.6      0.808   91.0    94.2\n\nColumns: Order, First, estimate, std.error, conf.low, conf.high \n\n\n　続いて、First列をリコーディングする。分析する側はFirstの値が1だと「初出場」、0だと「出場経験あり」とうことが分かるが、一般読者は分からないだろう。ここではFirstをfactor化し、0と1にそれぞれ「出場経験あり」、「初出場」とラベルを付けておこう。\n\n\n\nCode 13\n\ninter1_pred &lt;- inter1_pred |&gt;\n  mutate(First = factor(First, levels = c(0, 1), labels = c(\"出場経験あり\", \"初出場\")))\n\ninter1_pred\n\n\n\n Estimate Std. Error CI low CI high\n     90.4      0.913   88.6    92.2\n     89.3      0.823   87.7    90.9\n     90.6      0.768   89.1    92.1\n     89.7      0.704   88.3    91.0\n     90.9      0.640   89.6    92.1\n     90.0      0.598   88.9    91.2\n     91.1      0.539   90.0    92.2\n     90.4      0.516   89.4    91.4\n     91.3      0.485   90.4    92.3\n     90.8      0.467   89.8    91.7\n     91.6      0.491   90.6    92.5\n     91.1      0.464   90.2    92.0\n     91.8      0.556   90.7    92.9\n     91.5      0.508   90.5    92.5\n     92.1      0.663   90.8    93.3\n     91.9      0.587   90.7    93.0\n     92.3      0.795   90.7    93.8\n     92.2      0.691   90.9    93.6\n     92.5      0.942   90.7    94.4\n     92.6      0.808   91.0    94.2\n\nColumns: Order, First, estimate, std.error, conf.low, conf.high \n\n\n　それでは作図をしてみよう。作図のコードもこれまでと大きく変わらない。しかし、今回は「初出場」か「出場経験あり」かで別のpoint-rangeが出力される。この2種類のpoint-rangeを今回は色分けしてみよう。特定の変数の値に応じて色分けをする場合はaes()の内部でcolor変数にその変数を指定する。ここだと、color = Firstとなる。\n\n\n\nCode 14\n\ninter1_pred |&gt;\n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, \n                      ymin = conf.low, ymax = conf.high,\n                      color = First)) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", color = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n　これだと予測値（点）と信頼区間（線）が重なって読みにくい。このように予測値/限界効果を2つ以上のグループに分けて可視化する場合は、線（line）と面（ribbon）を組み合わせた方が良い。まずは、折れ線グラフを追加してみよう。折れ線グラフの幾何オブジェクトはgeom_line()だ。折れ線グラフは基本的にxとyのみマッピングで良いが、ここではFirstの値ごとに線の色分けがしたいのでcolorにもマッピングする。\n\n\n\nCode 15\n\ninter1_pred |&gt;\n  ggplot() +\n  geom_line(aes(x = Order, y = estimate, color = First)) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", color = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n　つづいて、信頼区間だ。信頼区間を面で示す場合はgeom_ribbon()幾何オブジェクトを使用する。マッピングはgeom_pointrange()と似ているが、yのマッピングは不要である。また、線の色はcolorにマッピングをしたが、面の色はfillである。\n\n\n\nCode 16\n\ninter1_pred |&gt;\n  ggplot() +\n  geom_line(aes(x = Order, y = estimate, color = First)) +\n  geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high,\n                  fill = First)) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"\", fill = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n　今回は面が重なってしまう。しかも線と面が同じいろなので、線が見えなくなってしまった。この場合は面を半透明にすれば良い。すべての面に適用するものはaes()外側に書くが、透明度を調整する引数はalphaであり、0に近いほど透明になる。今回は透明度30%（alpha = 0.3）をaes()の外側に追加する。また、線の太さも太めにしたいので、geom_line()のaes()の外側にlinewidth引数を追加して線の太さを調整する。最後に、geom_line()とgeom_ribbon()の順番を変えることで、線が面より上に表示されるようにする（{ggplot2}は後で追加したレイヤーがより上に位置する）。\n\n\n\nCode 17\n\ninter1_pred |&gt;\n  ggplot() +\n  geom_ribbon(aes(x = Order, ymin = conf.low, ymax = conf.high,\n                  fill = First), alpha = 0.3) +\n  geom_line(aes(x = Order, y = estimate, color = First), linewidth = 1) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"\", fill = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n　これで作図は終わったが、2つの幾何オブジェクトがxに対して同じマッピングを共有しているため、こちらはggplot()内にマッピングするとより簡潔なコードになる。\n\n\n\nCode 18\n\ninter1_pred |&gt;\n  ggplot(aes(x = Order)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = First), \n              alpha = 0.3) +\n  geom_line(aes(y = estimate, color = First), linewidth = 1) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"\", fill = \"\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\n\n予測値（調整変数が連続変数）\n　調整変数が連続変数の場合でも同じ手順で可視化する。まずは、{marginaleffects}のpredictions()で予測値を計算し、表形式オブジェクトとして格納する。ただし、Durationの値が2、3、4、…、16の場合の予測値をすべて出してしまうと15本の線（と面）が表示されるため、非常に可読性が落ちてしまう。したがって、ここではDurationの最小値（2）、最大値（16）とその中間である9に固定して予測値を計算する。計算結果はinter2_predに格納する。\n\n\n\nCode 19\n\ninter2_pred &lt;- predictions(fit_inter2, newdata = datagrid(Order = 1:10,\n                                                          Duration = c(2, 9, 16)))\n\ninter2_pred\n\n\n\n Order Duration Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 % First\n     1        2     88.0      1.684  52.2   &lt;0.001 Inf  84.6   91.3  0.52\n     1        9     89.4      0.728 122.8   &lt;0.001 Inf  87.9   90.8  0.52\n     1       16     90.8      0.966  93.9   &lt;0.001 Inf  88.9   92.7  0.52\n     2        2     88.5      1.422  62.2   &lt;0.001 Inf  85.7   91.3  0.52\n     2        9     89.7      0.618 145.1   &lt;0.001 Inf  88.5   90.9  0.52\n     2       16     91.0      0.807 112.6   &lt;0.001 Inf  89.4   92.5  0.52\n     3        2     89.1      1.187  75.0   &lt;0.001 Inf  86.8   91.4  0.52\n     3        9     90.1      0.519 173.6   &lt;0.001 Inf  89.1   91.1  0.52\n     3       16     91.1      0.677 134.6   &lt;0.001 Inf  89.8   92.4  0.52\n     4        2     89.6      1.000  89.6   &lt;0.001 Inf  87.7   91.6  0.52\n     4        9     90.5      0.435 207.8   &lt;0.001 Inf  89.6   91.3  0.52\n     4       16     91.3      0.594 153.7   &lt;0.001 Inf  90.1   92.4  0.52\n     5        2     90.2      0.890 101.3   &lt;0.001 Inf  88.5   92.0  0.52\n     5        9     90.8      0.379 239.8   &lt;0.001 Inf  90.1   91.6  0.52\n     5       16     91.4      0.579 157.8   &lt;0.001 Inf  90.3   92.6  0.52\n     6        2     90.8      0.888 102.2   &lt;0.001 Inf  89.0   92.5  0.52\n     6        9     91.2      0.362 252.1   &lt;0.001 Inf  90.5   91.9  0.52\n     6       16     91.6      0.638 143.6   &lt;0.001 Inf  90.4   92.9  0.52\n     7        2     91.3      0.993  92.0   &lt;0.001 Inf  89.4   93.3  0.52\n     7        9     91.6      0.390 234.9   &lt;0.001 Inf  90.8   92.3  0.52\n     7       16     91.8      0.753 121.9   &lt;0.001 Inf  90.3   93.2  0.52\n     8        2     91.9      1.178  78.0   &lt;0.001 Inf  89.6   94.2  0.52\n     8        9     91.9      0.454 202.3   &lt;0.001 Inf  91.0   92.8  0.52\n     8       16     91.9      0.902 101.9   &lt;0.001 Inf  90.2   93.7  0.52\n     9        2     92.5      1.411  65.5   &lt;0.001 Inf  89.7   95.2  0.52\n     9        9     92.3      0.543 170.0   &lt;0.001 Inf  91.2   93.3  0.52\n     9       16     92.1      1.073  85.9   &lt;0.001 Inf  90.0   94.2  0.52\n    10        2     93.0      1.672  55.6   &lt;0.001 Inf  89.7   96.3  0.52\n    10        9     92.6      0.645 143.6   &lt;0.001 Inf  91.4   93.9  0.52\n    10       16     92.3      1.255  73.5   &lt;0.001 Inf  89.8   94.7  0.52\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration \nType:  response \n\n\n\n\n\nCode 20\n\ninter2_pred &lt;- inter2_pred |&gt;\n  select(Order, Duration, estimate, std.error, conf.low, conf.high)\n\ninter2_pred\n\n\n\n Estimate Std. Error CI low CI high\n     88.0      1.684   84.6    91.3\n     89.4      0.728   87.9    90.8\n     90.8      0.966   88.9    92.7\n     88.5      1.422   85.7    91.3\n     89.7      0.618   88.5    90.9\n     91.0      0.807   89.4    92.5\n     89.1      1.187   86.8    91.4\n     90.1      0.519   89.1    91.1\n     91.1      0.677   89.8    92.4\n     89.6      1.000   87.7    91.6\n     90.5      0.435   89.6    91.3\n     91.3      0.594   90.1    92.4\n     90.2      0.890   88.5    92.0\n     90.8      0.379   90.1    91.6\n     91.4      0.579   90.3    92.6\n     90.8      0.888   89.0    92.5\n     91.2      0.362   90.5    91.9\n     91.6      0.638   90.4    92.9\n     91.3      0.993   89.4    93.3\n     91.6      0.390   90.8    92.3\n     91.8      0.753   90.3    93.2\n     91.9      1.178   89.6    94.2\n     91.9      0.454   91.0    92.8\n     91.9      0.902   90.2    93.7\n     92.5      1.411   89.7    95.2\n     92.3      0.543   91.2    93.3\n     92.1      1.073   90.0    94.2\n     93.0      1.672   89.7    96.3\n     92.6      0.645   91.4    93.9\n     92.3      1.255   89.8    94.7\n\nColumns: Order, Duration, estimate, std.error, conf.low, conf.high \n\n\n　続いて、調整変数をfactor化する。inter2_predのDuration列は2、9、16の値で構成されており（これはlevelsで指定する）、それぞれ「2年目」、「9年目」、「16年目」とラベルを付ける（これはlabelsで指定する）。\n\n\n\nCode 21\n\ninter2_pred &lt;- inter2_pred |&gt;\n  mutate(Duration = factor(Duration, levels = c(2, 9, 16), \n                           labels = c(\"2年目\", \"9年目\", \"16年目\")))\n\ninter2_pred\n\n\n\n Estimate Std. Error CI low CI high\n     88.0      1.684   84.6    91.3\n     89.4      0.728   87.9    90.8\n     90.8      0.966   88.9    92.7\n     88.5      1.422   85.7    91.3\n     89.7      0.618   88.5    90.9\n     91.0      0.807   89.4    92.5\n     89.1      1.187   86.8    91.4\n     90.1      0.519   89.1    91.1\n     91.1      0.677   89.8    92.4\n     89.6      1.000   87.7    91.6\n     90.5      0.435   89.6    91.3\n     91.3      0.594   90.1    92.4\n     90.2      0.890   88.5    92.0\n     90.8      0.379   90.1    91.6\n     91.4      0.579   90.3    92.6\n     90.8      0.888   89.0    92.5\n     91.2      0.362   90.5    91.9\n     91.6      0.638   90.4    92.9\n     91.3      0.993   89.4    93.3\n     91.6      0.390   90.8    92.3\n     91.8      0.753   90.3    93.2\n     91.9      1.178   89.6    94.2\n     91.9      0.454   91.0    92.8\n     91.9      0.902   90.2    93.7\n     92.5      1.411   89.7    95.2\n     92.3      0.543   91.2    93.3\n     92.1      1.073   90.0    94.2\n     93.0      1.672   89.7    96.3\n     92.6      0.645   91.4    93.9\n     92.3      1.255   89.8    94.7\n\nColumns: Order, Duration, estimate, std.error, conf.low, conf.high \n\n\n　最後に{ggplot2}で作図する。使用する幾何オブジェクトはこれまでと同様、geom_line()とgeom_ribbon()だ。\n\n\n\nCode 22\n\ninter2_pred |&gt;\n  ggplot(aes(x = Order)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Duration), \n              alpha = 0.3) +\n  geom_line(aes(y = estimate, color = Duration), linewidth = 1) +\n  labs(x = \"出場順番\", y = \"ファイナルステージへの進出確率\", \n       color = \"結成からの経過年数\", fill = \"結成からの経過年数\") +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\n\n限界効果（調整変数がダミー変数）\n　以上の例は{marginaleffects}パッケージのpredictions()関数を使って予測値を計算してきたが、ここからは同じパッケージのmarginaleffects()関数を使って限界効果を計算し、{ggplot2}で可視化する。marginaleffects()の場合、限界効果を計算した変数はvariables引数に、調整変数はこれまでと同様、newdata = datagrid()内に指定する。限界効果を計算したい変数、つまり交差項の中で調整変数ではないものが主な制つ名変数であり、今回の例だと出場順番（Order）である。この変数を\"を囲み、variablesに割り当てる。調整変数は初出場ダミー（First）が調整変数であれば、newdata = datagrid()のdatagrid()内にFirst = 0:1を割り当てる。計算結果はinter1_ameに格納する。\n\n\n\nCode 23\n\ninter1_ame &lt;- marginaleffects(fit_inter1, variables = \"Order\",\n                              newdata = datagrid(First = 0:1))\n\ninter1_ame\n\n\n\n  Term First Estimate Std. Error    z Pr(&gt;|z|)   S   2.5 % 97.5 %\n Order     0    0.238      0.176 1.35   0.1766 2.5 -0.1072  0.583\n Order     1    0.366      0.150 2.43   0.0151 6.1  0.0708  0.660\n\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, First, predicted_lo, predicted_hi, predicted, Score_Mean, Order, Duration \nType:  response \n\n\n　作図に必要な列（と標準誤差を意味するstd.error列）を抽出する。一つ注意すべき点は予測値はestimate列であったのに対し、限界効果の計算結果には当該列が存在せず、estimate列に格納されている点だ。また、限界効果を可視化する際、Orderの値は不要であるため、省略しても良い。\n\n\n\nCode 24\n\ninter1_ame &lt;- inter1_ame |&gt;\n  select(First, estimate, std.error, conf.low, conf.high)\n\ninter1_ame\n\n\n\n Estimate Std. Error  CI low CI high\n    0.238      0.176 -0.1072   0.583\n    0.366      0.150  0.0708   0.660\n\nColumns: First, estimate, std.error, conf.low, conf.high \n\n\n　続いて、inter1_ameのFirst列をfactor化する。\n\n\n\nCode 25\n\ninter1_ame &lt;- inter1_ame |&gt;\n  mutate(First = factor(First, levels = 0:1, labels = c(\"出場経験あり\", \"初出場\")))\n\ninter1_ame\n\n\n\n Estimate Std. Error  CI low CI high\n    0.238      0.176 -0.1072   0.583\n    0.366      0.150  0.0708   0.660\n\nColumns: First, estimate, std.error, conf.low, conf.high \n\n\n　それでは作図してみよう。調整変数が連続変数であれ、ダミー変数であれ、取り得る値が数個程度ならgeom_pointrange()を使用する。横軸（x）は調整変数、縦軸（y）は限界効果にし、限界効果の95%信頼区間の下限と上限はそれぞれyminとymaxにマッピングする。また、限界効果の統計的有意性を確認するために、y = 0の箇所に水平線を引く。水平線の幾何オブジェクトはgeom_hline()であり、()内にyintercept = 0を入れると、y = 0のところに水平線が表示される。\n\n\n\nCode 26\n\ninter1_ame |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = First, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"出場経験\", y = \"出場順番の平均限界効果\") +\n  theme_bw(base_size = 12)\n\n\n\n\n\n\n\n\n\n　95％信頼区間内に0が含まれる場合、当該限界効果は統計的に有意でないことを意味する。たとえば、上の図だと初出場の場合のみ、出場順番の限界効果が統計的有意であることが分かる。つまり、「初出場の人の場合、出場順番が遅いほど平均得点が高い傾向がある」と解釈できる。一方、既に出場経験がある場合、出場順番の限界効果が統計的有意ではない。これは、「M-1グランプリの出場経験がある場合、出場順番が遅いほど平均得点が高い傾向があるとは言えない」と解釈できる。「〜する傾向はない」ではなく、「〜する傾向があるとは言えない」と解釈する点に注意すること。一般的な統計的有意性検定において「ない」と言い切ることは至難の業である。\n\n\n限界効果（調整変数が連続変数）\n　最後に調整変数が連続変数（ここではDuration）の場合について考えてみよう。基本的なやり方はこれまでと同じである。しかし、予測値の可視化の際、Durationの値が2、9、16の場合の予測値を計算した。なぜなら、この値が3つでなく、5つになると線の数が増えてしまい、図の可読性が低下するからだ。情報量が多少減っても、可読性の低い図は存在意義がないため、線の本数を減らしたわけだ。しかし、今回の例だと、Durationが線の色分けでなく、横軸として使用される。したがって、Durationのすべての値を対象に限界効果を計算した方が良い。datagrid()内にはDuration = c(1, 2, 3, 4, 5)と書いても良いが、Duration = 2:16の方がより効率的な書き方である。\n\n\n\nCode 27\n\ninter2_ame &lt;- marginaleffects(fit_inter2, variables = \"Order\",\n                              newdata = datagrid(Duration = 2:16))\n\ninter2_ame\n\n\n\n  Term Duration Estimate Std. Error     z Pr(&gt;|z|)   S    2.5 % 97.5 %\n Order        2    0.564      0.319 1.768  0.07708 3.7 -0.06126  1.189\n Order        3    0.535      0.288 1.860  0.06282 4.0 -0.02863  1.099\n Order        4    0.507      0.257 1.971  0.04876 4.4  0.00275  1.010\n Order        5    0.478      0.228 2.092  0.03640 4.8  0.03025  0.926\n Order        6    0.449      0.199 2.259  0.02389 5.4  0.05944  0.839\n Order        7    0.421      0.172 2.440  0.01470 6.1  0.08271  0.759\n Order        8    0.392      0.148 2.642  0.00824 6.9  0.10120  0.683\n Order        9    0.363      0.130 2.794  0.00520 7.6  0.10851  0.618\n Order       10    0.335      0.118 2.844  0.00446 7.8  0.10404  0.566\n Order       11    0.306      0.115 2.661  0.00780 7.0  0.08064  0.532\n Order       12    0.278      0.121 2.289  0.02207 5.5  0.03991  0.515\n Order       13    0.249      0.137 1.813  0.06977 3.8 -0.02012  0.518\n Order       14    0.220      0.158 1.391  0.16408 2.6 -0.09001  0.531\n Order       15    0.192      0.181 1.057  0.29034 1.8 -0.16362  0.547\n Order       16    0.163      0.211 0.774  0.43880 1.2 -0.24973  0.576\n\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Duration, predicted_lo, predicted_hi, predicted, Score_Mean, Order, First \nType:  response \n\n\n　続いて、作図に必要な列を出力する。今回の場合、連続変数であるため、factor化は不要だ。\n\n\n\nCode 28\n\ninter2_ame &lt;- inter2_ame |&gt;\n  select(Duration, estimate, std.error, conf.low, conf.high)\n\ninter2_ame\n\n\n\n Estimate Std. Error   CI low CI high\n    0.564      0.319 -0.06126   1.189\n    0.535      0.288 -0.02863   1.099\n    0.507      0.257  0.00275   1.010\n    0.478      0.228  0.03025   0.926\n    0.449      0.199  0.05944   0.839\n    0.421      0.172  0.08271   0.759\n    0.392      0.148  0.10120   0.683\n    0.363      0.130  0.10851   0.618\n    0.335      0.118  0.10404   0.566\n    0.306      0.115  0.08064   0.532\n    0.278      0.121  0.03991   0.515\n    0.249      0.137 -0.02012   0.518\n    0.220      0.158 -0.09001   0.531\n    0.192      0.181 -0.16362   0.547\n    0.163      0.211 -0.24973   0.576\n\nColumns: Duration, estimate, std.error, conf.low, conf.high \n\n\n　続いて作図をする。今回は調整変数が連続変数であるため、線（geom_line()）と面（geom_ribbon()）の図を出力してみよう。面の透明度指定を忘れないこと（一度、alpha = 0.3なしでコードを走らせてみても良いだろう）。\n\n\n\nCode 29\n\ninter2_ame |&gt;\n  ggplot(aes(x = Duration)) +\n  geom_hline(yintercept = 0) +\n  geom_ribbon(aes(y = estimate, ymin = conf.low, ymax = conf.high),\n              alpha = 0.3) +\n  geom_line(aes(y = estimate), linewidth = 1) +\n  labs(x = \"結成からの経過年数\", y = \"出場順番の平均限界効果\") +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　今回、Durationは2から16まで、つまり14の値で構成されている。この場合、pointrangeプロットを作成しても良いかも知れない。むしろ、結果を解釈する時にはpointrangeプロットの方がやりやすい。\n\n\n\nCode 30\n\ninter2_ame |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Duration, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"結成からの経過年数\", y = \"出場順番の平均限界効果\") +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　横軸の目盛りを1年刻みに修正してみよう。\n\n\n\nCode 30\n\ninter2_ame |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Duration, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"結成からの経過年数\", y = \"出場順番の平均限界効果\") +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  theme_bw(base_size = 14)\n\n\n\n\n\n\n\n\n\n　限界効果が統計的に有意な箇所はDurationの値が4以上、12以下の時である。つまり、「コンビー結成から4年以上、12年以下経過した場合、出場順番が遅いほど平均得点が高い傾向がある」と解釈できる。また、「コンビー結成から3年以下、13年以上経過した場合、出場順番が遅いほど平均得点が高い傾向があるとは言えない」といった解釈もできる。\n　おまけに統計的有意性検定の結果も同時に示す方法も紹介する。具体的には限界効果が統計的有意である場合は黒に、非有意である場合はグレーに出力する。コードの説明は割愛するため、興味のある方はぜひコードの中身を解読してみよう。\n\n\n\nCode 31\n\ninter2_ame |&gt;\n  mutate(Sig = if_else(conf.low * conf.high &gt; 0, \"Sig\", \"Insig\")) |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Duration, y = estimate, \n                      ymin = conf.low, ymax = conf.high,\n                      color = Sig)) +\n  labs(x = \"結成からの経過年数\", y = \"出場順番の平均限界効果\") +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  scale_color_manual(values = c(\"Sig\" = \"black\", \"Insig\" = \"gray70\")) +\n  theme_bw(base_size = 14) +\n  theme(legend.position = \"none\")"
+    "section": "モデルの推定",
+    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n初出場ダミー\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nコンビー結成からの経過年数\n\n交互作用を仮定しない変数は統制変数として投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#modelsummaryパッケージの利用",
+    "href": "materials/macro/reporting.html#modelsummaryパッケージの利用",
+    "title": "第10回講義資料",
+    "section": "{modelsummary}パッケージの利用",
+    "text": "{modelsummary}パッケージの利用\n使い方：modelsummary(回帰オブジェクト名)\n\n\n\nデフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。\n分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。\n\n\n\n\n\nmodelsummary(fit1)\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(0.696)\n\n\nOrder\n0.286\n\n\n\n(0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#統計量の変更",
+    "href": "materials/macro/reporting.html#統計量の変更",
+    "title": "第10回講義資料",
+    "section": "統計量の変更",
+    "text": "統計量の変更\n\n前提知識例1例2例3\n\n\n\nmodelsummary()のestimateとstatistic引数で出力される統計量の変更が可能\n\nデフォルトだとestimateは点推定値（\"{estimate}\"）、statisticは標準誤差（\"{std.error}\"）になっている。\n\nつまり、デフォルトはmodelsummary(オブジェクト名, estiamte = \"{estimate}\", statistic = \"{std.error}\")\n\n\\(p\\)値は\"{p.value}\"、95%信頼区間の下限は\"{conf.low}\"、上限は\"{conf.high}\"\n行を消したい場合はNULLを割り当てる。\nnote引数で注を付けることもできる。\n\n\n\n\n標準誤差の代わりに\\(p\\)値を表示する（&lt;0.001は\\(p\\)値が0.001より小さいことを意味する）。\n\nmodelsummary(fit1, statistic = \"({p.value})\", note = \"注：カッコ内はp値\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(&lt;0.001)\n\n\nOrder\n0.286\n\n\n\n(0.014)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内はp値\n\n\n\n\n\n\n\n\n\n\n\n点推定値と標準誤差を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} ({std.error})\",\n             statistic = NULL,\n             note      = \"注：カッコ内は標準誤差\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 (0.696)\n\n\nOrder\n0.286 (0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は標準誤差\n\n\n\n\n\n\n\n\n\n\n\n点推定値と95%信頼区間を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} [{conf.low}, {conf.high}]\",\n             statistic = NULL,\n             note      = \"注：カッコ内は95%信頼区間\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 [88.228, 91.025]\n\n\nOrder\n0.286 [0.060, 0.511]\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は95%信頼区間"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#適合度指標の変更",
+    "href": "materials/macro/reporting.html#適合度指標の変更",
+    "title": "第10回講義資料",
+    "section": "適合度指標の変更",
+    "text": "適合度指標の変更\n\n分析手法によって出力される適合度指標が異なる（get_gof()関数で確認可）。\n\n\nget_gof(fit3)\n\n       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik\n1 229.9754 239.5355 0.1564347     0.1014196 2.183251   50 2.843485 -109.9877\n\n\n\n\n\ngof_map引数で表示したい適合度指標を指定する。\n\n線形回帰分析なら\n\nサンプルサイズ（\"nobs\"）\n決定係数（r.squared）\n調整済み決定係数（\"adj.r.squared\"）程度で十分\n\n\n\n\nfit3 |&gt; # パイプ演算子も使用可\n  modelsummary(\n    estimate  = \"{estimate} ({p.value})\",\n    statistic = NULL,\n    gof_map   = c(\"nobs\", \"r.squared\", \"adj.r.squared\"),\n    note      = \"注：カッコ内はp値\"\n  )\n\n\n\n\n\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n88.826 (&lt;0.001)\n\n\nOrder\n0.312 (0.009)\n\n\nFirst\n−0.521 (0.443)\n\n\nDuration\n0.086 (0.357)\n\n\nNum.Obs.\n50\n\n\nR2\n0.156\n\n\nR2 Adj.\n0.101\n\n\n\n 注：カッコ内はp値"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#複数モデルの表示",
+    "href": "materials/macro/reporting.html#複数モデルの表示",
+    "title": "第10回講義資料",
+    "section": "複数モデルの表示",
+    "text": "複数モデルの表示\n回帰オブジェクトをlist()でまとめる（\"モデル名\" = オブジェクト名でモデル名も指定可）。\n\n例1例2\n\n\n\nmodelsummary(list(fit1, fit2, fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101\n\n\n\n\n\n\n\n\n\n\nmodelsummary(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\nModel 1\n Model 2\n Model 3\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#変数名の変更",
+    "href": "materials/macro/reporting.html#変数名の変更",
+    "title": "第10回講義資料",
+    "section": "変数名の変更",
+    "text": "変数名の変更\ncoef_rename引数で調整（\"元の変数名\" = \"新しい変数名\"）\n\nmodelsummary(list(fit1, fit2, fit3),\n             coef_rename = c(\"(Intercept)\" = \"切片\",\n                             \"Order\"       = \"出場順番\",\n                             \"First\"       = \"初出場ダミー\",\n                             \"Duration\"    = \"結成からの経過年数\"),\n             gof_map     = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n切片\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\n出場順番\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\n初出場ダミー\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\n結成からの経過年数\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#参考回帰表の可視化",
+    "href": "materials/macro/reporting.html#参考回帰表の可視化",
+    "title": "第10回講義資料",
+    "section": "参考）回帰表の可視化",
+    "text": "参考）回帰表の可視化\n{modelsummary}のmodelplot()関数\n\nmodelplot()から作成された図は{ggplot2}ベースなので+でレイヤーの追加、調整が可能\n詳細は?modelplotか公式ページで確認すること。他にも{coefplot}も人気（存在感のない{coefplotbl}というのもある）\n\n\nmodelplot(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n1          coef_omit = \"(Intercept)\",\n2          coef_map  = c(\"Duration\", \"First\", \"Order\")) +\n3  geom_vline(xintercept = 0, linetype = 2)\n\n\n1\n\n切片を表示しない\n\n2\n\n表示順番を「下」からDuraion、First、Orderの順に\n\n3\n\nx = 0に破線を引く"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#可視化の手順",
+    "href": "materials/macro/reporting.html#可視化の手順",
+    "title": "第10回講義資料",
+    "section": "可視化の手順",
+    "text": "可視化の手順\n{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）\n\npredictions()関数で予測値を計算し、オブジェクトとして格納\n\n表形式オブジェクトとして格納される。\n\n予測値・限界効果オブジェクトの加工（ラベル付け/factor化）\n\n予測値/限界効果はestimate列\n95%信頼区間の下限と上限はconf.lowとconf.high列\n\n{ggplot2}を用いた作図\n\n予測値 + 95%信頼区間\n横軸上の値が少ない場合、geom_pointrange()\n横軸上の値が多い場合、geom_line() + geom_ribbon()\n\n\n\n\n\n\n\n\n\n\n参考）今後紹介するロジスティック回帰分析の場合、predictions()関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にもslopes()関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#予測値の計算fit3の場合",
+    "href": "materials/macro/reporting.html#予測値の計算fit3の場合",
+    "title": "第10回講義資料",
+    "section": "予測値の計算（fit3の場合）",
+    "text": "予測値の計算（fit3の場合）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値は?\n\n\\[\n\\widehat{\\mbox{Score_Mean}} = 89.605 + 0.258 \\cdot \\mbox{Order} - 0.963 \\cdot \\mbox{First} + 0.076 \\cdot \\mbox{Duration}.\n\\]\n\nOrderとDurationは平均値（それぞれ5.5、10.6）に固定し、Firstだけ0と1を入れる。\n\n\n計算例\n\n初出場（First = 1）の場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 1 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 90.856\n\n初出場ではない（First = 0）場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 0 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 91.819\n\n{marginaleffects}のpredictions()関数を使えば簡単に計算可能\n\n\n新しいオブジェクト名 &lt;- predictions(回帰オブジェクト名,\n                                 newdata = datagrid(変数 = 値))"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#予測値の計算fit3利用",
+    "href": "materials/macro/reporting.html#予測値の計算fit3利用",
+    "title": "第10回講義資料",
+    "section": "予測値の計算（fit3利用）",
+    "text": "予測値の計算（fit3利用）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値を計算し、fit3_pred1という名のオブジェクトとして格納\n\n\nfit3_pred1 &lt;- predictions(fit3,\n                          newdata = datagrid(First = c(0, 1)))\n\nfit3_pred1\n\n\n First Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order Duration\n     0     91.5      0.476 192   &lt;0.001 Inf  90.5   92.4   5.5     10.8\n     1     90.9      0.456 199   &lt;0.001 Inf  90.1   91.8   5.5     10.8\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, Duration, First \nType:  response \n\n\n\nEstimate列が予測値、2.5%と97.5%列が95%信頼区間の下限と上限\nFirst以外の変数は平均値に固定される。"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#平均値以外に固定する方法",
+    "href": "materials/macro/reporting.html#平均値以外に固定する方法",
+    "title": "第10回講義資料",
+    "section": "平均値以外に固定する方法",
+    "text": "平均値以外に固定する方法\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値を計算し、fit3_pred2という名のオブジェクトとして格納\n\nただし、出場順番は5番目（Order = 5）、結成からの年数は5年（Duration = 5）と固定する。\n\n\n\nfit3_pred2 &lt;- predictions(fit3,\n                          newdata = datagrid(First    = c(0, 1),\n                                             Order    = 5,\n                                             Duration = 5))\n\nfit3_pred2\n\n\n First Order Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 %\n     0     5        5     90.8      0.793 114   &lt;0.001 Inf  89.3   92.4\n     1     5        5     90.3      0.639 141   &lt;0.001 Inf  89.0   91.5\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration \nType:  response"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#作図の際の注意事項",
+    "href": "materials/macro/reporting.html#作図の際の注意事項",
+    "title": "第10回講義資料",
+    "section": "作図の際の注意事項",
+    "text": "作図の際の注意事項\n\nfit3_pred2で表示される列名は「本当の」列名ではない!!\n\nユーザーが読みやすいように列名が変更されてから出力される。\nたとえば、予測値の本当の列名はestimateだが、表示名はEstimateになっている。\n\n「本当の」列名が見たい場合はprint(オブジェクト名, style = \"data.frame\")\n\n\nprint(fit3_pred2, style = \"data.frame\")\n\n  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order Duration\n1     1 90.81712 0.7933713  114.4699       0     Inf 89.26214  92.37210   91.19714     0     5        5\n2     2 90.29596 0.6386978  141.3751       0     Inf 89.04414  91.54778   91.19714     1     5        5\n\n\n\n作図によく使うのは予測値（estimate）、信頼区間の下限（conf.low）と上限（conf.high）、動かしている変数名（ここではFirst）"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#作図の例",
+    "href": "materials/macro/reporting.html#作図の例",
+    "title": "第10回講義資料",
+    "section": "作図の例",
+    "text": "作図の例\nPointrangeプロットを使用する。\n\n\ngeom_pointrange()レイヤー\n\nx：説明変数\ny：予測値\nymin：信頼区間の下限\nymax：信頼区間の上限\n\n\nfit3_pred2_plot1 &lt;- fit3_pred2 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = First, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"初出場ダミー\", \n       y = \"予測点数と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n\n\n\nfit3_pred2_plot1"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#無駄の目盛りの削除",
+    "href": "materials/macro/reporting.html#無駄の目盛りの削除",
+    "title": "第10回講義資料",
+    "section": "無駄の目盛りの削除",
+    "text": "無駄の目盛りの削除\n\n横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。\n\n\n\nscale_x_continuous()で目盛り調整\n\nbreaks：目盛りの位置\nlabels：目盛りのラベル\n\n\nfit3_pred2_plot1 +\n  scale_x_continuous(breaks = c(0, 1),\n                     labels = c(\"0\", \"1\"))"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#出場順番と平均得点間の関係計算",
+    "href": "materials/macro/reporting.html#出場順番と平均得点間の関係計算",
+    "title": "第10回講義資料",
+    "section": "出場順番と平均得点間の関係（計算）",
+    "text": "出場順番と平均得点間の関係（計算）\n\nfit3_pred3 &lt;- predictions(fit3, newdata = datagrid(Order = 1:10))\nfit3_pred3\n\n\n Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration\n     1     89.8      0.607 148   &lt;0.001 Inf  88.6   91.0  0.52     10.8\n     2     90.1      0.513 176   &lt;0.001 Inf  89.1   91.1  0.52     10.8\n     3     90.4      0.430 210   &lt;0.001 Inf  89.6   91.3  0.52     10.8\n     4     90.7      0.365 249   &lt;0.001 Inf  90.0   91.4  0.52     10.8\n     5     91.0      0.327 278   &lt;0.001 Inf  90.4   91.7  0.52     10.8\n     6     91.4      0.327 279   &lt;0.001 Inf  90.7   92.0  0.52     10.8\n     7     91.7      0.365 251   &lt;0.001 Inf  91.0   92.4  0.52     10.8\n     8     92.0      0.430 214   &lt;0.001 Inf  91.1   92.8  0.52     10.8\n     9     92.3      0.513 180   &lt;0.001 Inf  91.3   93.3  0.52     10.8\n    10     92.6      0.607 153   &lt;0.001 Inf  91.4   93.8  0.52     10.8\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order \nType:  response"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#出場順番と平均得点間の関係可視化",
+    "href": "materials/macro/reporting.html#出場順番と平均得点間の関係可視化",
+    "title": "第10回講義資料",
+    "section": "出場順番と平均得点間の関係（可視化）",
+    "text": "出場順番と平均得点間の関係（可視化）\n\nfit3_pred3 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 1:10, labels = 1:10) +\n  labs(x = \"出場順番\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#芸歴と平均得点間の関係計算",
+    "href": "materials/macro/reporting.html#芸歴と平均得点間の関係計算",
+    "title": "第10回講義資料",
+    "section": "芸歴と平均得点間の関係（計算）",
+    "text": "芸歴と平均得点間の関係（計算）\n\nfit3_pred4 &lt;- predictions(fit3, newdata = datagrid(Duration = 2:16))\nfit3_pred4\n\n\n Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order First\n        2     90.4      0.871 104   &lt;0.001 Inf  88.7   92.2   5.5  0.52\n        3     90.5      0.786 115   &lt;0.001 Inf  89.0   92.1   5.5  0.52\n        4     90.6      0.702 129   &lt;0.001 Inf  89.2   92.0   5.5  0.52\n        5     90.7      0.622 146   &lt;0.001 Inf  89.5   91.9   5.5  0.52\n        6     90.8      0.545 167   &lt;0.001 Inf  89.7   91.9   5.5  0.52\n        7     90.9      0.473 192   &lt;0.001 Inf  89.9   91.8   5.5  0.52\n        8     91.0      0.411 222   &lt;0.001 Inf  90.2   91.8   5.5  0.52\n        9     91.0      0.361 252   &lt;0.001 Inf  90.3   91.8   5.5  0.52\n       10     91.1      0.329 277   &lt;0.001 Inf  90.5   91.8   5.5  0.52\n       11     91.2      0.323 283   &lt;0.001 Inf  90.6   91.9   5.5  0.52\n       12     91.3      0.342 267   &lt;0.001 Inf  90.6   92.0   5.5  0.52\n       13     91.4      0.383 239   &lt;0.001 Inf  90.6   92.1   5.5  0.52\n       14     91.5      0.439 208   &lt;0.001 Inf  90.6   92.3   5.5  0.52\n       15     91.6      0.507 181   &lt;0.001 Inf  90.6   92.6   5.5  0.52\n       16     91.6      0.581 158   &lt;0.001 Inf  90.5   92.8   5.5  0.52\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, First, Duration \nType:  response"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#芸歴と平均得点間の関係可視化",
+    "href": "materials/macro/reporting.html#芸歴と平均得点間の関係可視化",
+    "title": "第10回講義資料",
+    "section": "芸歴と平均得点間の関係（可視化）",
+    "text": "芸歴と平均得点間の関係（可視化）\n\nfit3_pred4 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = Duration, y = estimate, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#折れ線グラフとリボンgeom_ribbonの組み合わせ",
+    "href": "materials/macro/reporting.html#折れ線グラフとリボンgeom_ribbonの組み合わせ",
+    "title": "第10回講義資料",
+    "section": "折れ線グラフとリボン（geom_ribbon()）の組み合わせ",
+    "text": "折れ線グラフとリボン（geom_ribbon()）の組み合わせ\n\n横軸が細かいほどpoint-rangeプロットは気持ち悪くなる（ムカデのような見た目になる）。\ngeom_ribbon()はx、ymin、ymaxにマッピング\n\ngeom_pointrange()と使い方は同じだが、予測値の情報を持たないため、yは不要\n\n\n\nfit3_pred4 |&gt; \n  ggplot() +\n  geom_ribbon(aes(x = Duration, ymin = conf.low, ymax = conf.high)) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#折れ線グラフ-リボン",
+    "href": "materials/macro/reporting.html#折れ線グラフ-リボン",
+    "title": "第10回講義資料",
+    "section": "折れ線グラフ + リボン",
+    "text": "折れ線グラフ + リボン\n\nfit3_pred4 |&gt; \n1  ggplot(aes(x = Duration)) +\n2  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = \"gray70\") +\n3  geom_line(aes(y = estimate), linewidth = 1) +\n  scale_x_continuous(breaks = 2:16, labels = 2:16) +\n  labs(x = \"コンビ結成からの経過年数\", y = \"平均得点の予測値と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n1\n\ngeom_ribbon()とgeom_line()は同じ横軸を共有するため、ここでマッピングした方が効率的\n\n2\n\nデフォルトのリボンは暗い色なので、明るめの色に変える。\n\n3\n\nlinewidthで折れ線グラフの太さを調整（1だとデフォルトよりやや太め）"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#出場順番と平均得点間の関係",
+    "href": "materials/macro/reporting.html#出場順番と平均得点間の関係",
+    "title": "第10回講義資料",
+    "section": "出場順番と平均得点間の関係",
+    "text": "出場順番と平均得点間の関係\n今回得られた回帰直線"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#もう一度過去に戻ってm-1をやったら1",
+    "href": "materials/macro/reporting.html#もう一度過去に戻ってm-1をやったら1",
+    "title": "第10回講義資料",
+    "section": "もう一度、過去に戻ってM-1をやったら…（1）",
+    "text": "もう一度、過去に戻ってM-1をやったら…（1）\nこんな回帰直線が得られたとしてもおかしくはない（多分）"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#もう一度過去に戻ってm-1をやったら2",
+    "href": "materials/macro/reporting.html#もう一度過去に戻ってm-1をやったら2",
+    "title": "第10回講義資料",
+    "section": "もう一度、過去に戻ってM-1をやったら…（2）",
+    "text": "もう一度、過去に戻ってM-1をやったら…（2）\nこんな回帰直線が得られる可能性は非常に低い（多分）"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#信頼区間の意味",
+    "href": "materials/macro/reporting.html#信頼区間の意味",
+    "title": "第10回講義資料",
+    "section": "信頼区間の意味",
+    "text": "信頼区間の意味\nこの範囲（信頼区間）外の直線が得られる可能性は非常に低い！"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#信頼区間の意味2",
+    "href": "materials/macro/reporting.html#信頼区間の意味2",
+    "title": "第10回講義資料",
+    "section": "信頼区間の意味（2）",
+    "text": "信頼区間の意味（2）\n傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。\n\n\n\n\\(\\alpha\\) = 0.05で統計的有意だったOrder（\\(p\\) = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。\n右は統計的に有意でないDuration変数の例（\\(p\\) = 0.381）\n\n水平線も、右上がり直線も、右下がり直線も引ける。\n\\(\\Rightarrow\\) DurationとScore_Meanの関係は現段階では判断できない。\n\n\\(\\alpha\\) = 0.1を仮定するのであれば、90%（\\(= (1 - \\alpha) \\times 100\\)）信頼区間を使うこととなる。"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#有意水準と信頼区間",
+    "href": "materials/macro/reporting.html#有意水準と信頼区間",
+    "title": "第10回講義資料",
+    "section": "有意水準と信頼区間",
+    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間"
+  },
+  {
+    "objectID": "materials/macro/reporting.html#footnotes",
+    "href": "materials/macro/reporting.html#footnotes",
+    "title": "第10回講義資料",
+    "section": "注",
+    "text": "注\n\n\nロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。↩︎"
   },
   {
     "objectID": "materials/macro/regression2.html",
