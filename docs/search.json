@@ -1390,14 +1390,14 @@
     "href": "slides/macro/reporting.html#データの概要",
     "title": "マクロ政治データ分析実習",
     "section": "データの概要",
-    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
+    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n第13回（2017年）から\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
   },
   {
     "objectID": "slides/macro/reporting.html#モデルの推定",
     "href": "slides/macro/reporting.html#モデルの推定",
     "title": "マクロ政治データ分析実習",
     "section": "モデルの推定",
-    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n初出場ダミー\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nコンビー結成からの経過年数\n\n交互作用を仮定しない変数は統制変数として投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
+    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\n平均得点（Score_Mean）を応答変数とした線形回帰モデル\nfit1：出場順番（Order）のみ投入\nfit2：出場順番（Order）、初出場ダミー（First）を投入\nfit3：出場順番（Order）、初出場ダミー（First）、芸歴（Duration）を投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
   },
   {
     "objectID": "slides/macro/reporting.html#modelsummaryパッケージの利用",
@@ -1572,7 +1572,7 @@
     "href": "slides/macro/reporting.html#有意水準と信頼区間",
     "title": "マクロ政治データ分析実習",
     "section": "有意水準と信頼区間",
-    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40%信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/macro/regression2.html#授業開始前に",
@@ -2783,7 +2783,7 @@
     "href": "materials/macro/reporting.html#セットアップ",
     "title": "第10回講義資料",
     "section": "セットアップ",
-    "text": "セットアップ\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "セットアップ"
   },
   {
     "objectID": "materials/macro/reporting.html#分析結果をどう示すか",
@@ -2797,42 +2797,42 @@
     "href": "materials/macro/reporting.html#データの概要",
     "title": "第10回講義資料",
     "section": "データの概要",
-    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値"
+    "text": "データの概要\n\nlibrary(tidyverse)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/M1.csv\")\n\n\n\n\n変数名\n説明\n備考\n\n\n\n\nNo\n第X回大会\n第13回（2017年）から\n\n\nYear\n大会年度\n\n\n\nName\nコンビ名\n\n\n\nDuration\n結成からの経過年数\n\n\n\nFirst\n初出場ダミー\n1 = 初出場 / 0 = その他\n\n\nFinal\nファイナルステージへの進出有無\n\n\n\nOrder\n出場順番\n1から10\n\n\nScore_Mean\n平均得点\n7人の審査委員からの評価の平均値\n\n\n\n\ndf |&gt; \n  summarytools::descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n                      transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \ndf  \nN: 50  \n\n                      Mean   Std.Dev       Min       Max   N.Valid\n---------------- --------- --------- --------- --------- ---------\n              No     15.00      1.43     13.00     17.00     50.00\n            Year   2019.00      1.43   2017.00   2021.00     50.00\n        Duration     10.76      3.74      2.00     16.00     50.00\n           First      0.52      0.50      0.00      1.00     50.00\n           Final      0.30      0.46      0.00      1.00     50.00\n           Order      5.50      2.90      1.00     10.00     50.00\n      Score_Mean     91.20      2.40     84.86     97.29     50.00"
   },
   {
     "objectID": "materials/macro/reporting.html#モデルの推定",
     "href": "materials/macro/reporting.html#モデルの推定",
     "title": "第10回講義資料",
     "section": "モデルの推定",
-    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\nfit_lm: 線形回帰分析（応答変数: 平均得点）\nfit_logit: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）\nfit_inter1: 線形回帰分析 + 交互作用（ダミー変数）\n\n初出場ダミー\n\nfit_inter2: 線形回帰分析 + 交互作用（連続変数）\n\nコンビー結成からの経過年数\n\n交互作用を仮定しない変数は統制変数として投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
+    "text": "モデルの推定\n\nM-1グランプリにおける出場順番と得点の関係\n\n平均得点（Score_Mean）を応答変数とした線形回帰モデル\nfit1：出場順番（Order）のみ投入\nfit2：出場順番（Order）、初出場ダミー（First）を投入\nfit3：出場順番（Order）、初出場ダミー（First）、芸歴（Duration）を投入\n\n\n\nfit1 &lt;- lm(Score_Mean ~ Order, data = df)\nfit2 &lt;- lm(Score_Mean ~ Order + First, data = df)\nfit3 &lt;- lm(Score_Mean ~ Order + First + Duration, data = df)"
   },
   {
     "objectID": "materials/macro/reporting.html#modelsummaryパッケージの利用",
     "href": "materials/macro/reporting.html#modelsummaryパッケージの利用",
     "title": "第10回講義資料",
     "section": "{modelsummary}パッケージの利用",
-    "text": "{modelsummary}パッケージの利用\n使い方：modelsummary(回帰オブジェクト名)\n\n\n\nデフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。\n分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。\n\n\n\n\n\nmodelsummary(fit1)\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(0.696)\n\n\nOrder\n0.286\n\n\n\n(0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23"
+    "text": "{modelsummary}パッケージの利用\n使い方：modelsummary(回帰オブジェクト名)\n\nデフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。\n分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。\n\n\nmodelsummary(fit1)\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(0.696)\n\n\nOrder\n0.286\n\n\n\n(0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23"
   },
   {
     "objectID": "materials/macro/reporting.html#統計量の変更",
     "href": "materials/macro/reporting.html#統計量の変更",
     "title": "第10回講義資料",
     "section": "統計量の変更",
-    "text": "統計量の変更\n\n前提知識例1例2例3\n\n\n\nmodelsummary()のestimateとstatistic引数で出力される統計量の変更が可能\n\nデフォルトだとestimateは点推定値（\"{estimate}\"）、statisticは標準誤差（\"{std.error}\"）になっている。\n\nつまり、デフォルトはmodelsummary(オブジェクト名, estiamte = \"{estimate}\", statistic = \"{std.error}\")\n\n\\(p\\)値は\"{p.value}\"、95%信頼区間の下限は\"{conf.low}\"、上限は\"{conf.high}\"\n行を消したい場合はNULLを割り当てる。\nnote引数で注を付けることもできる。\n\n\n\n\n標準誤差の代わりに\\(p\\)値を表示する（&lt;0.001は\\(p\\)値が0.001より小さいことを意味する）。\n\nmodelsummary(fit1, statistic = \"({p.value})\", note = \"注：カッコ内はp値\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(&lt;0.001)\n\n\nOrder\n0.286\n\n\n\n(0.014)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内はp値\n\n\n\n\n\n\n\n\n\n\n\n点推定値と標準誤差を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} ({std.error})\",\n             statistic = NULL,\n             note      = \"注：カッコ内は標準誤差\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 (0.696)\n\n\nOrder\n0.286 (0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は標準誤差\n\n\n\n\n\n\n\n\n\n\n\n点推定値と95%信頼区間を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} [{conf.low}, {conf.high}]\",\n             statistic = NULL,\n             note      = \"注：カッコ内は95%信頼区間\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 [88.228, 91.025]\n\n\nOrder\n0.286 [0.060, 0.511]\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は95%信頼区間"
+    "text": "統計量の変更\n\n前提知識\n\nmodelsummary()のestimateとstatistic引数で出力される統計量の変更が可能\n\nデフォルトだとestimateは点推定値（\"{estimate}\"）、statisticは標準誤差（\"{std.error}\"）になっている。\n\nつまり、デフォルトはmodelsummary(オブジェクト名, estiamte = \"{estimate}\", statistic = \"{std.error}\")\n\n\\(p\\)値は\"{p.value}\"、95%信頼区間の下限は\"{conf.low}\"、上限は\"{conf.high}\"\n行を消したい場合はNULLを割り当てる。\nnote引数で注を付けることもできる。\n\n\n\n\n例1\n標準誤差の代わりに\\(p\\)値を表示する（&lt;0.001は\\(p\\)値が0.001より小さいことを意味する）。\n\nmodelsummary(fit1, statistic = \"({p.value})\", note = \"注：カッコ内はp値\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627\n\n\n\n(&lt;0.001)\n\n\nOrder\n0.286\n\n\n\n(0.014)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内はp値\n\n\n\n\n\n\n\n\n\n\n\n例2\n点推定値と標準誤差を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} ({std.error})\",\n             statistic = NULL,\n             note      = \"注：カッコ内は標準誤差\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 (0.696)\n\n\nOrder\n0.286 (0.112)\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は標準誤差\n\n\n\n\n\n\n\n\n\n\n\n例3\n点推定値と95%信頼区間を一行にまとめる。\n\nmodelsummary(fit1, \n             estimate  = \"{estimate} [{conf.low}, {conf.high}]\",\n             statistic = NULL,\n             note      = \"注：カッコ内は95%信頼区間\")\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n89.627 [88.228, 91.025]\n\n\nOrder\n0.286 [0.060, 0.511]\n\n\nNum.Obs.\n50\n\n\nR2\n0.119\n\n\nR2 Adj.\n0.101\n\n\nAIC\n228.1\n\n\nBIC\n233.9\n\n\nLog.Lik.\n−111.072\n\n\nF\n6.486\n\n\nRMSE\n2.23\n\n\n\n 注：カッコ内は95%信頼区間"
   },
   {
     "objectID": "materials/macro/reporting.html#適合度指標の変更",
     "href": "materials/macro/reporting.html#適合度指標の変更",
     "title": "第10回講義資料",
     "section": "適合度指標の変更",
-    "text": "適合度指標の変更\n\n分析手法によって出力される適合度指標が異なる（get_gof()関数で確認可）。\n\n\nget_gof(fit3)\n\n       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik\n1 229.9754 239.5355 0.1564347     0.1014196 2.183251   50 2.843485 -109.9877\n\n\n\n\n\ngof_map引数で表示したい適合度指標を指定する。\n\n線形回帰分析なら\n\nサンプルサイズ（\"nobs\"）\n決定係数（r.squared）\n調整済み決定係数（\"adj.r.squared\"）程度で十分\n\n\n\n\nfit3 |&gt; # パイプ演算子も使用可\n  modelsummary(\n    estimate  = \"{estimate} ({p.value})\",\n    statistic = NULL,\n    gof_map   = c(\"nobs\", \"r.squared\", \"adj.r.squared\"),\n    note      = \"注：カッコ内はp値\"\n  )\n\n\n\n\n\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n88.826 (&lt;0.001)\n\n\nOrder\n0.312 (0.009)\n\n\nFirst\n−0.521 (0.443)\n\n\nDuration\n0.086 (0.357)\n\n\nNum.Obs.\n50\n\n\nR2\n0.156\n\n\nR2 Adj.\n0.101\n\n\n\n 注：カッコ内はp値"
+    "text": "適合度指標の変更\n\n分析手法によって出力される適合度指標が異なる（get_gof()関数で確認可）。\n\n\nget_gof(fit3)\n\n       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik\n1 229.9754 239.5355 0.1564347     0.1014196 2.183251   50 2.843485 -109.9877\n\n\n\ngof_map引数で表示したい適合度指標を指定する。\n\n線形回帰分析なら\n\nサンプルサイズ（\"nobs\"）\n決定係数（r.squared）\n調整済み決定係数（\"adj.r.squared\"）程度で十分\n\n\n\n\nfit3 |&gt; # パイプ演算子も使用可\n  modelsummary(\n    estimate  = \"{estimate} ({p.value})\",\n    statistic = NULL,\n    gof_map   = c(\"nobs\", \"r.squared\", \"adj.r.squared\"),\n    note      = \"注：カッコ内はp値\"\n  )\n\n\n\n\n\n (1)\n\n\n\n\n(Intercept)\n88.826 (&lt;0.001)\n\n\nOrder\n0.312 (0.009)\n\n\nFirst\n−0.521 (0.443)\n\n\nDuration\n0.086 (0.357)\n\n\nNum.Obs.\n50\n\n\nR2\n0.156\n\n\nR2 Adj.\n0.101\n\n\n\n 注：カッコ内はp値"
   },
   {
     "objectID": "materials/macro/reporting.html#複数モデルの表示",
     "href": "materials/macro/reporting.html#複数モデルの表示",
     "title": "第10回講義資料",
     "section": "複数モデルの表示",
-    "text": "複数モデルの表示\n回帰オブジェクトをlist()でまとめる（\"モデル名\" = オブジェクト名でモデル名も指定可）。\n\n例1例2\n\n\n\nmodelsummary(list(fit1, fit2, fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101\n\n\n\n\n\n\n\n\n\n\nmodelsummary(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\nModel 1\n Model 2\n Model 3\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101"
+    "text": "複数モデルの表示\n回帰オブジェクトをlist()でまとめる（\"モデル名\" = オブジェクト名でモデル名も指定可）。\n\n例1\n\nmodelsummary(list(fit1, fit2, fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\n (1)\n  (2)\n  (3)\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101\n\n\n\n\n\n\n\n\n\n例2\n\nmodelsummary(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n             gof_map = c(\"nobs\", \"r.squared\", \"adj.r.squared\"))\n\n\n\n\n\nModel 1\n Model 2\n Model 3\n\n\n\n\n(Intercept)\n89.627\n89.953\n88.826\n\n\n\n(0.696)\n(0.757)\n(1.428)\n\n\nOrder\n0.286\n0.292\n0.312\n\n\n\n(0.112)\n(0.112)\n(0.114)\n\n\nFirst\n\n−0.699\n−0.521\n\n\n\n\n(0.644)\n(0.673)\n\n\nDuration\n\n\n0.086\n\n\n\n\n\n(0.092)\n\n\nNum.Obs.\n50\n50\n50\n\n\nR2\n0.119\n0.141\n0.156\n\n\nR2 Adj.\n0.101\n0.104\n0.101"
   },
   {
     "objectID": "materials/macro/reporting.html#変数名の変更",
@@ -2846,21 +2846,21 @@
     "href": "materials/macro/reporting.html#参考回帰表の可視化",
     "title": "第10回講義資料",
     "section": "参考）回帰表の可視化",
-    "text": "参考）回帰表の可視化\n{modelsummary}のmodelplot()関数\n\nmodelplot()から作成された図は{ggplot2}ベースなので+でレイヤーの追加、調整が可能\n詳細は?modelplotか公式ページで確認すること。他にも{coefplot}も人気（存在感のない{coefplotbl}というのもある）\n\n\nmodelplot(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n1          coef_omit = \"(Intercept)\",\n2          coef_map  = c(\"Duration\", \"First\", \"Order\")) +\n3  geom_vline(xintercept = 0, linetype = 2)\n\n\n1\n\n切片を表示しない\n\n2\n\n表示順番を「下」からDuraion、First、Orderの順に\n\n3\n\nx = 0に破線を引く"
+    "text": "参考）回帰表の可視化\n{modelsummary}のmodelplot()関数\n\nmodelplot()から作成された図は{ggplot2}ベースなので+でレイヤーの追加、調整が可能\n詳細は?modelplotか公式ページで確認すること。他にも{coefplot}も人気2\n\n\nmodelplot(list(\"Model 1\" = fit1, \"Model 2\" = fit2, \"Model 3\" = fit3),\n1          coef_omit = \"(Intercept)\",\n2          coef_map  = c(\"Duration\", \"First\", \"Order\")) +\n3  geom_vline(xintercept = 0, linetype = 2)\n\n\n1\n\n切片を表示しない\n\n2\n\n表示順番を「下」からDuraion、First、Orderの順に\n\n3\n\nx = 0に破線を引く"
   },
   {
     "objectID": "materials/macro/reporting.html#可視化の手順",
     "href": "materials/macro/reporting.html#可視化の手順",
     "title": "第10回講義資料",
     "section": "可視化の手順",
-    "text": "可視化の手順\n{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）\n\npredictions()関数で予測値を計算し、オブジェクトとして格納\n\n表形式オブジェクトとして格納される。\n\n予測値・限界効果オブジェクトの加工（ラベル付け/factor化）\n\n予測値/限界効果はestimate列\n95%信頼区間の下限と上限はconf.lowとconf.high列\n\n{ggplot2}を用いた作図\n\n予測値 + 95%信頼区間\n横軸上の値が少ない場合、geom_pointrange()\n横軸上の値が多い場合、geom_line() + geom_ribbon()\n\n\n\n\n\n\n\n\n\n\n参考）今後紹介するロジスティック回帰分析の場合、predictions()関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にもslopes()関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。"
+    "text": "可視化の手順\n{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）\n\npredictions()関数で予測値を計算し、オブジェクトとして格納\n\n表形式オブジェクトとして格納される。\n\n予測値・限界効果オブジェクトの加工（ラベル付け/factor化）\n\n予測値/限界効果はestimate列\n95%信頼区間の下限と上限はconf.lowとconf.high列\n\n{ggplot2}を用いた作図\n\n予測値 + 95%信頼区間\n横軸上の値が少ない場合、geom_pointrange()\n横軸上の値が多い場合、geom_line() + geom_ribbon()\n\n\n今後紹介するロジスティック回帰分析の場合、predictions()関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にもslopes()関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。"
   },
   {
     "objectID": "materials/macro/reporting.html#予測値の計算fit3の場合",
     "href": "materials/macro/reporting.html#予測値の計算fit3の場合",
     "title": "第10回講義資料",
     "section": "予測値の計算（fit3の場合）",
-    "text": "予測値の計算（fit3の場合）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値は?\n\n\\[\n\\widehat{\\mbox{Score_Mean}} = 89.605 + 0.258 \\cdot \\mbox{Order} - 0.963 \\cdot \\mbox{First} + 0.076 \\cdot \\mbox{Duration}.\n\\]\n\nOrderとDurationは平均値（それぞれ5.5、10.6）に固定し、Firstだけ0と1を入れる。\n\n\n計算例\n\n初出場（First = 1）の場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 1 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 90.856\n\n初出場ではない（First = 0）場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 0 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 91.819\n\n{marginaleffects}のpredictions()関数を使えば簡単に計算可能\n\n\n新しいオブジェクト名 &lt;- predictions(回帰オブジェクト名,\n                                 newdata = datagrid(変数 = 値))"
+    "text": "予測値の計算（fit3の場合）\n\n例）初出場ダミー（First）の値が0の場合と1の場合の、Score_Meanの予測値は?\n\n\\[\n\\widehat{\\mbox{Score\\_Mean}} = 89.605 + 0.258 \\cdot \\mbox{Order} - 0.963 \\cdot \\mbox{First} + 0.076 \\cdot \\mbox{Duration}.\n\\]\n\nOrderとDurationは平均値（それぞれ5.5、10.6）に固定し、Firstだけ0と1を入れる。\n\n\n計算例\n\n初出場（First = 1）の場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 1 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 90.856\n\n初出場ではない（First = 0）場合\n\n89.605 + 0.256 \\(\\times\\) 5.5 - 0.963 \\(\\times\\) 0 + 0.076 \\(\\times\\) 10.6 \\(\\simeq\\) 91.819\n\n{marginaleffects}のpredictions()関数を使えば簡単に計算可能\n\n\n新しいオブジェクト名 &lt;- predictions(回帰オブジェクト名,\n                                 newdata = datagrid(変数 = 値))"
   },
   {
     "objectID": "materials/macro/reporting.html#予測値の計算fit3利用",
@@ -2888,14 +2888,14 @@
     "href": "materials/macro/reporting.html#作図の例",
     "title": "第10回講義資料",
     "section": "作図の例",
-    "text": "作図の例\nPointrangeプロットを使用する。\n\n\ngeom_pointrange()レイヤー\n\nx：説明変数\ny：予測値\nymin：信頼区間の下限\nymax：信頼区間の上限\n\n\nfit3_pred2_plot1 &lt;- fit3_pred2 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = First, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"初出場ダミー\", \n       y = \"予測点数と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n\n\n\nfit3_pred2_plot1"
+    "text": "作図の例\nPointrangeプロットを使用する。\ngeom_pointrange()レイヤー\n\nx：説明変数\ny：予測値\nymin：信頼区間の下限\nymax：信頼区間の上限\n\n\nfit3_pred2_plot1 &lt;- fit3_pred2 |&gt; \n  ggplot() +\n  geom_pointrange(aes(x = First, y = estimate, \n                      ymin = conf.low, ymax = conf.high)) +\n  labs(x = \"初出場ダミー\", \n       y = \"予測点数と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\nfit3_pred2_plot1"
   },
   {
     "objectID": "materials/macro/reporting.html#無駄の目盛りの削除",
     "href": "materials/macro/reporting.html#無駄の目盛りの削除",
     "title": "第10回講義資料",
     "section": "無駄の目盛りの削除",
-    "text": "無駄の目盛りの削除\n\n横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。\n\n\n\nscale_x_continuous()で目盛り調整\n\nbreaks：目盛りの位置\nlabels：目盛りのラベル\n\n\nfit3_pred2_plot1 +\n  scale_x_continuous(breaks = c(0, 1),\n                     labels = c(\"0\", \"1\"))"
+    "text": "無駄の目盛りの削除\n\n横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。\n\nscale_x_continuous()で目盛り調整\n\nbreaks：目盛りの位置\nlabels：目盛りのラベル\n\n\nfit3_pred2_plot1 +\n  scale_x_continuous(breaks = c(0, 1),\n                     labels = c(\"0\", \"1\"))"
   },
   {
     "objectID": "materials/macro/reporting.html#出場順番と平均得点間の関係計算",
@@ -2972,21 +2972,21 @@
     "href": "materials/macro/reporting.html#信頼区間の意味2",
     "title": "第10回講義資料",
     "section": "信頼区間の意味（2）",
-    "text": "信頼区間の意味（2）\n傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。\n\n\n\n\\(\\alpha\\) = 0.05で統計的有意だったOrder（\\(p\\) = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。\n右は統計的に有意でないDuration変数の例（\\(p\\) = 0.381）\n\n水平線も、右上がり直線も、右下がり直線も引ける。\n\\(\\Rightarrow\\) DurationとScore_Meanの関係は現段階では判断できない。\n\n\\(\\alpha\\) = 0.1を仮定するのであれば、90%（\\(= (1 - \\alpha) \\times 100\\)）信頼区間を使うこととなる。"
+    "text": "信頼区間の意味（2）\n傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。\n\n\\(\\alpha\\) = 0.05で統計的有意だったOrder（\\(p\\) = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。\n右は統計的に有意でないDuration変数の例（\\(p\\) = 0.381）\n\n水平線も、右上がり直線も、右下がり直線も引ける。\n\\(\\Rightarrow\\) DurationとScore_Meanの関係は現段階では判断できない。\n\n\\(\\alpha\\) = 0.1を仮定するのであれば、90%（\\(= (1 - \\alpha) \\times 100\\)）信頼区間を使うこととなる。"
   },
   {
     "objectID": "materials/macro/reporting.html#有意水準と信頼区間",
     "href": "materials/macro/reporting.html#有意水準と信頼区間",
     "title": "第10回講義資料",
     "section": "有意水準と信頼区間",
-    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間"
+    "text": "有意水準と信頼区間\n（ありえないが、）\\(\\alpha\\) = 0.6を採用する場合、40%信頼区間（\\((1 - \\alpha) \\times 100\\)%信頼区間）を使うことになる。\n\n以下は40%信頼区間を採用した例（predictions()内にconf_level = 0.4を追加する）\n\nただし、よく使うのは90%（\\(\\alpha\\) = 0.1）、95%（\\(\\alpha\\) = 0.05）、99%（\\(\\alpha\\) = 0.01）信頼区間"
   },
   {
     "objectID": "materials/macro/reporting.html#footnotes",
     "href": "materials/macro/reporting.html#footnotes",
     "title": "第10回講義資料",
     "section": "注",
-    "text": "注\n\n\nロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。↩︎"
+    "text": "注\n\n\nロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。↩︎\n存在感のない{coefplotbl}という謎のパッケージもある。興味のある方でも間違ってでも調べないこと。↩︎"
   },
   {
     "objectID": "materials/macro/regression2.html",

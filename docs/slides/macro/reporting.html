@@ -492,7 +492,7 @@
 <tr class="odd">
 <td style="text-align: left;"><code>No</code></td>
 <td style="text-align: left;">第X回大会</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">第13回（2017年）から</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>Year</code></td>
@@ -537,17 +537,10 @@
 <ul>
 <li>M-1グランプリにおける出場順番と得点の関係
 <ul>
-<li><code>fit_lm</code>: 線形回帰分析（応答変数: 平均得点）</li>
-<li><code>fit_logit</code>: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）</li>
-<li><code>fit_inter1</code>: 線形回帰分析 + 交互作用（ダミー変数）
-<ul>
-<li>初出場ダミー</li>
-</ul></li>
-<li><code>fit_inter2</code>: 線形回帰分析 + 交互作用（連続変数）
-<ul>
-<li>コンビー結成からの経過年数</li>
-</ul></li>
-<li>交互作用を仮定しない変数は統制変数として投入</li>
+<li>平均得点（<code>Score_Mean</code>）を応答変数とした線形回帰モデル</li>
+<li><code>fit1</code>：出場順番（<code>Order</code>）のみ投入</li>
+<li><code>fit2</code>：出場順番（<code>Order</code>）、初出場ダミー（<code>First</code>）を投入</li>
+<li><code>fit3</code>：出場順番（<code>Order</code>）、初出場ダミー（<code>First</code>）、芸歴（<code>Duration</code>）を投入</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -1260,15 +1253,15 @@
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-6" data-code-annotation="1">切片を表示しない</span>
+<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-6">切片を表示しない</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-6" data-code-annotation="2">表示順番を「下」からDuraion、First、Orderの順に</span>
+<span data-code-lines="3" data-code-annotation="2" data-code-cell="annotated-cell-6">表示順番を「下」からDuraion、First、Orderの順に</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-6" data-code-annotation="3">x = 0に破線を引く</span>
+<span data-code-lines="4" data-code-annotation="3" data-code-cell="annotated-cell-6">x = 0に破線を引く</span>
 </dd>
 </dl>
 </div>
@@ -1614,15 +1607,15 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-16" data-code-annotation="1"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
+<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-16"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-16" data-code-annotation="2">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
+<span data-code-lines="3" data-code-annotation="2" data-code-cell="annotated-cell-16">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-16" data-code-annotation="3"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
+<span data-code-lines="4" data-code-annotation="3" data-code-cell="annotated-cell-16"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
 </dd>
 </dl>
 </div>
@@ -1723,7 +1716,7 @@ Type:  response </code></pre>
 </section>
 <section id="有意水準と信頼区間" class="slide level2">
 <h2>有意水準と信頼区間</h2>
-<p>（ありえないが、）<span class="math inline">\(\alpha\)</span> = 0.6を採用する場合、40信頼区間（<span class="math inline">\((1 - \alpha) \times 100\)</span>%信頼区間）を使うことになる。</p>
+<p>（ありえないが、）<span class="math inline">\(\alpha\)</span> = 0.6を採用する場合、40%信頼区間（<span class="math inline">\((1 - \alpha) \times 100\)</span>%信頼区間）を使うことになる。</p>
 <ul>
 <li>以下は40%信頼区間を採用した例（<code>predictions()</code>内に<code>conf_level = 0.4</code>を追加する）
 <ul>

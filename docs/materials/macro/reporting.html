@@ -113,7 +113,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -490,9 +490,19 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <li><a href="#表を用いた推定結果の報告" id="toc-表を用いた推定結果の報告" class="nav-link" data-scroll-target="#表を用いた推定結果の報告">表を用いた推定結果の報告</a>
   <ul class="collapse">
   <li><a href="#modelsummaryパッケージの利用" id="toc-modelsummaryパッケージの利用" class="nav-link" data-scroll-target="#modelsummaryパッケージの利用">{modelsummary}パッケージの利用</a></li>
-  <li><a href="#統計量の変更" id="toc-統計量の変更" class="nav-link" data-scroll-target="#統計量の変更">統計量の変更</a></li>
+  <li><a href="#統計量の変更" id="toc-統計量の変更" class="nav-link" data-scroll-target="#統計量の変更">統計量の変更</a>
+  <ul class="collapse">
+  <li><a href="#前提知識" id="toc-前提知識" class="nav-link" data-scroll-target="#前提知識">前提知識</a></li>
+  <li><a href="#例1" id="toc-例1" class="nav-link" data-scroll-target="#例1">例1</a></li>
+  <li><a href="#例2" id="toc-例2" class="nav-link" data-scroll-target="#例2">例2</a></li>
+  <li><a href="#例3" id="toc-例3" class="nav-link" data-scroll-target="#例3">例3</a></li>
+  </ul></li>
   <li><a href="#適合度指標の変更" id="toc-適合度指標の変更" class="nav-link" data-scroll-target="#適合度指標の変更">適合度指標の変更</a></li>
-  <li><a href="#複数モデルの表示" id="toc-複数モデルの表示" class="nav-link" data-scroll-target="#複数モデルの表示">複数モデルの表示</a></li>
+  <li><a href="#複数モデルの表示" id="toc-複数モデルの表示" class="nav-link" data-scroll-target="#複数モデルの表示">複数モデルの表示</a>
+  <ul class="collapse">
+  <li><a href="#例1-1" id="toc-例1-1" class="nav-link" data-scroll-target="#例1-1">例1</a></li>
+  <li><a href="#例2-1" id="toc-例2-1" class="nav-link" data-scroll-target="#例2-1">例2</a></li>
+  </ul></li>
   <li><a href="#変数名の変更" id="toc-変数名の変更" class="nav-link" data-scroll-target="#変数名の変更">変数名の変更</a></li>
   <li><a href="#参考回帰表の可視化" id="toc-参考回帰表の可視化" class="nav-link" data-scroll-target="#参考回帰表の可視化">参考）回帰表の可視化</a></li>
   </ul></li>
@@ -525,7 +535,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -565,32 +575,6 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="セットアップ" class="level2">
 <h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
-<p>すぐに実習できるように準備しておきましょう。</p>
-<ol type="1">
-<li>JDCat分析ツールを起動しておいてください。</li>
-<li>本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。</li>
-<li>LMSから実習用データをダウンロードしておいてください。</li>
-<li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
-<ul>
-<li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
-</ul></li>
-<li>実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
-</ol>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/M1.csv"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order, <span class="at">data =</span> df)</span>
-<span id="cb1-8"><a href="#cb1-8"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First, <span class="at">data =</span> df)</span>
-<span id="cb1-9"><a href="#cb1-9"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First <span class="sc">+</span> Duration, <span class="at">data =</span> df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>トラブルが生じた場合、速やかにTAを読んでください。</li>
-<li>時間に余裕があれば、スライド内のコードも書いておきましょう。</li>
-</ul>
 </section>
 <section id="分析結果の報告" class="level1">
 <h1>分析結果の報告</h1>
@@ -612,11 +596,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="データの概要" class="level2">
 <h2 class="anchored" data-anchor-id="データの概要">データの概要</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/M1.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/M1.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="table">
 <thead>
@@ -630,7 +614,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <tr class="odd">
 <td style="text-align: left;"><code>No</code></td>
 <td style="text-align: left;">第X回大会</td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">第13回（2017年）から</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>Year</code></td>
@@ -669,29 +653,42 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>  summarytools<span class="sc">::</span><span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                      <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+df  
+N: 50  
+
+                      Mean   Std.Dev       Min       Max   N.Valid
+---------------- --------- --------- --------- --------- ---------
+              No     15.00      1.43     13.00     17.00     50.00
+            Year   2019.00      1.43   2017.00   2021.00     50.00
+        Duration     10.76      3.74      2.00     16.00     50.00
+           First      0.52      0.50      0.00      1.00     50.00
+           Final      0.30      0.46      0.00      1.00     50.00
+           Order      5.50      2.90      1.00     10.00     50.00
+      Score_Mean     91.20      2.40     84.86     97.29     50.00</code></pre>
+</div>
+</div>
 </section>
 <section id="モデルの推定" class="level2">
 <h2 class="anchored" data-anchor-id="モデルの推定">モデルの推定</h2>
 <ul>
 <li>M-1グランプリにおける出場順番と得点の関係
 <ul>
-<li><code>fit_lm</code>: 線形回帰分析（応答変数: 平均得点）</li>
-<li><code>fit_logit</code>: ロジスティック回帰分析（応答変数: ファイナルステージへの進出有無）</li>
-<li><code>fit_inter1</code>: 線形回帰分析 + 交互作用（ダミー変数）
-<ul>
-<li>初出場ダミー</li>
-</ul></li>
-<li><code>fit_inter2</code>: 線形回帰分析 + 交互作用（連続変数）
-<ul>
-<li>コンビー結成からの経過年数</li>
-</ul></li>
-<li>交互作用を仮定しない変数は統制変数として投入</li>
+<li>平均得点（<code>Score_Mean</code>）を応答変数とした線形回帰モデル</li>
+<li><code>fit1</code>：出場順番（<code>Order</code>）のみ投入</li>
+<li><code>fit2</code>：出場順番（<code>Order</code>）、初出場ダミー（<code>First</code>）を投入</li>
+<li><code>fit3</code>：出場順番（<code>Order</code>）、初出場ダミー（<code>First</code>）、芸歴（<code>Duration</code>）を投入</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order, <span class="at">data =</span> df)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First, <span class="at">data =</span> df)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First <span class="sc">+</span> Duration, <span class="at">data =</span> df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order, <span class="at">data =</span> df)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First, <span class="at">data =</span> df)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First <span class="sc">+</span> Duration, <span class="at">data =</span> df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -700,17 +697,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <section id="modelsummaryパッケージの利用" class="level2">
 <h2 class="anchored" data-anchor-id="modelsummaryパッケージの利用">{modelsummary}パッケージの利用</h2>
 <p>使い方：<code>modelsummary(回帰オブジェクト名)</code></p>
-<div class="columns">
-<div class="column" style="width:68%;">
 <ul>
 <li>デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。</li>
 <li>分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。</li>
 </ul>
-</div><div class="column" style="width:2%;">
-
-</div><div class="column" style="width:30%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -774,15 +766,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-</div>
 </section>
 <section id="統計量の変更" class="level2">
 <h2 class="anchored" data-anchor-id="統計量の変更">統計量の変更</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">前提知識</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">例1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">例2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">例3</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<section id="前提知識" class="level3">
+<h3 class="anchored" data-anchor-id="前提知識">前提知識</h3>
 <ul>
 <li><code>modelsummary()</code>の<code>estimate</code>と<code>statistic</code>引数で出力される統計量の変更が可能
 <ul>
@@ -795,11 +783,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <li><code>note</code>引数で注を付けることもできる。</li>
 </ul></li>
 </ul>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+</section>
+<section id="例1" class="level3">
+<h3 class="anchored" data-anchor-id="例1">例1</h3>
 <p>標準誤差の代わりに<span class="math inline">\(p\)</span>値を表示する（<code>&lt;0.001</code>は<span class="math inline">\(p\)</span>値が0.001より小さいことを意味する）。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -869,14 +858,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+</section>
+<section id="例2" class="level3">
+<h3 class="anchored" data-anchor-id="例2">例2</h3>
 <p>点推定値と標準誤差を一行にまとめる。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">modelsummary</span>(fit1, </span>
-<span id="cb6-2"><a href="#cb6-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -938,14 +928,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+</section>
+<section id="例3" class="level3">
+<h3 class="anchored" data-anchor-id="例3">例3</h3>
 <p>点推定値と95%信頼区間を一行にまとめる。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1, </span>
-<span id="cb7-2"><a href="#cb7-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} [{conf.low}, {conf.high}]"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は95%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} [{conf.low}, {conf.high}]"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は95%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1007,9 +998,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="適合度指標の変更" class="level2">
 <h2 class="anchored" data-anchor-id="適合度指標の変更">適合度指標の変更</h2>
@@ -1017,14 +1006,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <li>分析手法によって出力される適合度指標が異なる（<code>get_gof()</code>関数で確認可）。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">get_gof</span>(fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">get_gof</span>(fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik
 1 229.9754 239.5355 0.1564347     0.1014196 2.183251   50 2.843485 -109.9877</code></pre>
 </div>
 </div>
-<div class="columns">
-<div class="column" style="width:65%;">
 <ul>
 <li><code>gof_map</code>引数で表示したい適合度指標を指定する。
 <ul>
@@ -1037,18 +1024,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>fit3 <span class="sc">|&gt;</span> <span class="co"># パイプ演算子も使用可</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">modelsummary</span>(</span>
-<span id="cb10-3"><a href="#cb10-3"></a>    <span class="at">estimate  =</span> <span class="st">"{estimate} ({p.value})"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4"></a>    <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
-<span id="cb10-5"><a href="#cb10-5"></a>    <span class="at">gof_map   =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>    <span class="at">note      =</span> <span class="st">"注：カッコ内はp値"</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>  )</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:2%;">
-
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit3 <span class="sc">|&gt;</span> <span class="co"># パイプ演算子も使用可</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">modelsummary</span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="at">estimate  =</span> <span class="st">"{estimate} ({p.value})"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>    <span class="at">gof_map   =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6"></a>    <span class="at">note      =</span> <span class="st">"注：カッコ内はp値"</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  )</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1098,19 +1080,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-</div>
 </section>
 <section id="複数モデルの表示" class="level2">
 <h2 class="anchored" data-anchor-id="複数モデルの表示">複数モデルの表示</h2>
 <p>回帰オブジェクトを<code>list()</code>でまとめる（<code>"モデル名" = オブジェクト名</code>でモデル名も指定可）。</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">例1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">例2</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<section id="例1-1" class="level3">
+<h3 class="anchored" data-anchor-id="例1-1">例1</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
-<span id="cb11-2"><a href="#cb11-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
+<span id="cb12-2"><a href="#cb12-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1194,11 +1172,12 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+</section>
+<section id="例2-1" class="level3">
+<h3 class="anchored" data-anchor-id="例2-1">例2</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
-<span id="cb12-2"><a href="#cb12-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
+<span id="cb13-2"><a href="#cb13-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1282,20 +1261,18 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
 </section>
 <section id="変数名の変更" class="level2">
 <h2 class="anchored" data-anchor-id="変数名の変更">変数名の変更</h2>
 <p><code>coef_rename</code>引数で調整（<code>"元の変数名" = "新しい変数名"</code>）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
-<span id="cb13-2"><a href="#cb13-2"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"切片"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3"></a>                             <span class="st">"Order"</span>       <span class="ot">=</span> <span class="st">"出場順番"</span>,</span>
-<span id="cb13-4"><a href="#cb13-4"></a>                             <span class="st">"First"</span>       <span class="ot">=</span> <span class="st">"初出場ダミー"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5"></a>                             <span class="st">"Duration"</span>    <span class="ot">=</span> <span class="st">"結成からの経過年数"</span>),</span>
-<span id="cb13-6"><a href="#cb13-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
+<span id="cb14-2"><a href="#cb14-2"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"切片"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3"></a>                             <span class="st">"Order"</span>       <span class="ot">=</span> <span class="st">"出場順番"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>                             <span class="st">"First"</span>       <span class="ot">=</span> <span class="st">"初出場ダミー"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>                             <span class="st">"Duration"</span>    <span class="ot">=</span> <span class="st">"結成からの経過年数"</span>),</span>
+<span id="cb14-6"><a href="#cb14-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1385,42 +1362,42 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>{modelsummary}の<code>modelplot()</code>関数</p>
 <ul>
 <li><code>modelplot()</code>から作成された図は{ggplot2}ベースなので<code>+</code>でレイヤーの追加、調整が可能</li>
-<li>詳細は<code>?modelplot</code>か<a href="https://modelsummary.com/vignettes/modelplot.html">公式ページ</a>で確認すること。他にも{<a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>}も人気<del>（存在感のない{<a href="https://github.com/JaehyunSong/coefplotbl">coefplotbl</a>}というのもある）</del></li>
+<li>詳細は<code>?modelplot</code>か<a href="https://modelsummary.com/vignettes/modelplot.html">公式ページ</a>で確認すること。他にも{<a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>}も人気<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1"></a><span class="fu">modelplot</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2"></a>          <span class="at">coef_omit =</span> <span class="st">"(Intercept)"</span>,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3"></a>          <span class="at">coef_map  =</span> <span class="fu">c</span>(<span class="st">"Duration"</span>, <span class="st">"First"</span>, <span class="st">"Order"</span>)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3">3</button><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1"></a><span class="fu">modelplot</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-2" class="code-annotation-target"><a href="#annotated-cell-13-2"></a>          <span class="at">coef_omit =</span> <span class="st">"(Intercept)"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2">2</button><span id="annotated-cell-13-3" class="code-annotation-target"><a href="#annotated-cell-13-3"></a>          <span class="at">coef_map  =</span> <span class="fu">c</span>(<span class="st">"Duration"</span>, <span class="st">"First"</span>, <span class="st">"Order"</span>)) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3">3</button><span id="annotated-cell-13-4" class="code-annotation-target"><a href="#annotated-cell-13-4"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-annotation="1" data-code-lines="2">切片を表示しない</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-13" data-code-lines="2">切片を表示しない</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-annotation="2" data-code-lines="3">表示順番を「下」からDuraion、First、Orderの順に</span>
+<span data-code-annotation="2" data-code-cell="annotated-cell-13" data-code-lines="3">表示順番を「下」からDuraion、First、Orderの順に</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-annotation="3" data-code-lines="4">x = 0に破線を引く</span>
+<span data-code-annotation="3" data-code-cell="annotated-cell-13" data-code-lines="4">x = 0に破線を引く</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="回帰分析結果の可視化" class="level1 page-columns page-full">
+<section id="回帰分析結果の可視化" class="level1">
 <h1>回帰分析結果の可視化</h1>
-<section id="可視化の手順" class="level2 page-columns page-full">
+<section id="可視化の手順" class="level2">
 <h2 class="anchored" data-anchor-id="可視化の手順">可視化の手順</h2>
 <p>{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）</p>
 <ol type="1">
@@ -1440,26 +1417,15 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <li>横軸上の値が多い場合、<code>geom_line()</code> + <code>geom_ribbon()</code></li>
 </ul></li>
 </ol>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>参考）</strong>今後紹介するロジスティック回帰分析の場合、<code>predictions()</code>関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にも<code>slopes()</code>関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。</p>
-</div>
-</div>
-</div>
-</div></div></section>
+<p>今後紹介するロジスティック回帰分析の場合、<code>predictions()</code>関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にも<code>slopes()</code>関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。</p>
+</section>
 <section id="予測値の計算fit3の場合" class="level2">
 <h2 class="anchored" data-anchor-id="予測値の計算fit3の場合">予測値の計算（<code>fit3</code>の場合）</h2>
 <ul>
 <li><strong>例）</strong>初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値は?</li>
 </ul>
 <p><span class="math display">\[
-\widehat{\mbox{Score_Mean}} = 89.605 + 0.258 \cdot \mbox{Order} - 0.963 \cdot \mbox{First} + 0.076 \cdot \mbox{Duration}.
+\widehat{\mbox{Score\_Mean}} = 89.605 + 0.258 \cdot \mbox{Order} - 0.963 \cdot \mbox{First} + 0.076 \cdot \mbox{Duration}.
 \]</span></p>
 <ul>
 <li><code>Order</code>と<code>Duration</code>は平均値（それぞれ5.5、10.6）に固定し、<code>First</code>だけ0と1を入れる。</li>
@@ -1478,8 +1444,8 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <li>{marginaleffects}の<code>predictions()</code>関数を使えば簡単に計算可能</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
-<span id="cb14-2"><a href="#cb14-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
+<span id="cb15-2"><a href="#cb15-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1489,10 +1455,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <li><strong>例）</strong>初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値を計算し、<code>fit3_pred1</code>という名のオブジェクトとして格納</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
-<span id="cb15-2"><a href="#cb15-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
-<span id="cb15-3"><a href="#cb15-3"></a></span>
-<span id="cb15-4"><a href="#cb15-4"></a>fit3_pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<span id="cb16-2"><a href="#cb16-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>fit3_pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  First Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order Duration
@@ -1517,12 +1483,12 @@ Type:  response </code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
-<span id="cb17-2"><a href="#cb17-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb17-3"><a href="#cb17-3"></a>                                             <span class="at">Order    =</span> <span class="dv">5</span>,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>                                             <span class="at">Duration =</span> <span class="dv">5</span>))</span>
-<span id="cb17-5"><a href="#cb17-5"></a></span>
-<span id="cb17-6"><a href="#cb17-6"></a>fit3_pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<span id="cb18-2"><a href="#cb18-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb18-3"><a href="#cb18-3"></a>                                             <span class="at">Order    =</span> <span class="dv">5</span>,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>                                             <span class="at">Duration =</span> <span class="dv">5</span>))</span>
+<span id="cb18-5"><a href="#cb18-5"></a></span>
+<span id="cb18-6"><a href="#cb18-6"></a>fit3_pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  First Order Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 %
@@ -1545,7 +1511,7 @@ Type:  response </code></pre>
 <li>「本当の」列名が見たい場合は<code>print(オブジェクト名, style = "data.frame")</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order Duration
 1     1 90.81712 0.7933713  114.4699       0     Inf 89.26214  92.37210   91.19714     0     5        5
@@ -1559,8 +1525,6 @@ Type:  response </code></pre>
 <section id="作図の例" class="level2">
 <h2 class="anchored" data-anchor-id="作図の例">作図の例</h2>
 <p>Pointrangeプロットを使用する。</p>
-<div class="columns">
-<div class="column" style="width:65%;">
 <p><code>geom_pointrange()</code>レイヤー</p>
 <ul>
 <li><code>x</code>：説明変数</li>
@@ -1569,26 +1533,20 @@ Type:  response </code></pre>
 <li><code>ymax</code>：信頼区間の上限</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> First, <span class="at">y =</span> estimate, </span>
-<span id="cb21-4"><a href="#cb21-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"初出場ダミー"</span>, </span>
-<span id="cb21-6"><a href="#cb21-6"></a>       <span class="at">y =</span> <span class="st">"予測点数と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:2%;">
-
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit3_pred2_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> First, <span class="at">y =</span> estimate, </span>
+<span id="cb22-4"><a href="#cb22-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"初出場ダミー"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6"></a>       <span class="at">y =</span> <span class="st">"予測点数と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a>fit3_pred2_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1598,8 +1556,6 @@ Type:  response </code></pre>
 <ul>
 <li>横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。</li>
 </ul>
-<div class="columns">
-<div class="column" style="width:65%;">
 <p><code>scale_x_continuous()</code>で目盛り調整</p>
 <ul>
 <li><code>breaks</code>：目盛りの位置</li>
@@ -1609,18 +1565,11 @@ Type:  response </code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
 <span id="cb23-3"><a href="#cb23-3"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:2%;">
-
-</div><div class="column" style="width:33%;">
-<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1661,7 +1610,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1225"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="1225"></p>
 </figure>
 </div>
 </div>
@@ -1708,7 +1657,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1225"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="1225"></p>
 </figure>
 </div>
 </div>
@@ -1733,7 +1682,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1742,33 +1691,33 @@ Type:  response </code></pre>
 <section id="折れ線グラフ-リボン" class="level2">
 <h2 class="anchored" data-anchor-id="折れ線グラフ-リボン">折れ線グラフ + リボン</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="annotated-cell-16"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1">1</button><span id="annotated-cell-16-2" class="code-annotation-target"><a href="#annotated-cell-16-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="2">2</button><span id="annotated-cell-16-3" class="code-annotation-target"><a href="#annotated-cell-16-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="3">3</button><span id="annotated-cell-16-4" class="code-annotation-target"><a href="#annotated-cell-16-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-16-5"><a href="#annotated-cell-16-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-16-6"><a href="#annotated-cell-16-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-16-7"><a href="#annotated-cell-16-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-25"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-2" class="code-annotation-target"><a href="#annotated-cell-25-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="2">2</button><span id="annotated-cell-25-3" class="code-annotation-target"><a href="#annotated-cell-25-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="3">3</button><span id="annotated-cell-25-4" class="code-annotation-target"><a href="#annotated-cell-25-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-25-5"><a href="#annotated-cell-25-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-25-6"><a href="#annotated-cell-25-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-25-7"><a href="#annotated-cell-25-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-annotation="1" data-code-lines="2"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-25" data-code-lines="2"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-25" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-annotation="2" data-code-lines="3">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
+<span data-code-annotation="2" data-code-cell="annotated-cell-25" data-code-lines="3">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
 </dd>
-<dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-25" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-16" data-code-annotation="3" data-code-lines="4"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
+<span data-code-annotation="3" data-code-cell="annotated-cell-25" data-code-lines="4"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1784,7 +1733,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1797,7 +1746,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1810,7 +1759,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1823,7 +1772,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1832,8 +1781,6 @@ Type:  response </code></pre>
 <section id="信頼区間の意味2" class="level2">
 <h2 class="anchored" data-anchor-id="信頼区間の意味2">信頼区間の意味（2）</h2>
 <p>傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。</p>
-<div class="columns">
-<div class="column" style="width:49%;">
 <ul>
 <li><span class="math inline">\(\alpha\)</span> = 0.05で統計的有意だった<code>Order</code>（<span class="math inline">\(p\)</span> = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。</li>
 <li>右は統計的に有意でない<code>Duration</code>変数の例（<span class="math inline">\(p\)</span> = 0.381）
@@ -1843,24 +1790,19 @@ Type:  response </code></pre>
 </ul></li>
 <li><span class="math inline">\(\alpha\)</span> = 0.1を仮定するのであれば、90%（<span class="math inline">\(= (1 - \alpha) \times 100\)</span>）信頼区間を使うこととなる。</li>
 </ul>
-</div><div class="column" style="width:1%;">
-
-</div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="900"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="900"></p>
 </figure>
-</div>
-</div>
 </div>
 </div>
 </div>
 </section>
 <section id="有意水準と信頼区間" class="level2">
 <h2 class="anchored" data-anchor-id="有意水準と信頼区間">有意水準と信頼区間</h2>
-<p>（ありえないが、）<span class="math inline">\(\alpha\)</span> = 0.6を採用する場合、40信頼区間（<span class="math inline">\((1 - \alpha) \times 100\)</span>%信頼区間）を使うことになる。</p>
+<p>（ありえないが、）<span class="math inline">\(\alpha\)</span> = 0.6を採用する場合、40%信頼区間（<span class="math inline">\((1 - \alpha) \times 100\)</span>%信頼区間）を使うことになる。</p>
 <ul>
 <li>以下は40%信頼区間を採用した例（<code>predictions()</code>内に<code>conf_level = 0.4</code>を追加する）
 <ul>
@@ -1871,7 +1813,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="900"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="900"></p>
 </figure>
 </div>
 </div>
@@ -1886,6 +1828,7 @@ Type:  response </code></pre>
 
 <ol>
 <li id="fn1"><p>ロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>存在感のない{<a href="https://github.com/JaehyunSong/coefplotbl">coefplotbl</a>}という謎のパッケージもある。興味のある方でも間違ってでも調べないこと。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
