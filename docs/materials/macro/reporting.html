@@ -487,7 +487,11 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <li><a href="#複数モデルの例" id="toc-複数モデルの例" class="nav-link" data-scroll-target="#複数モデルの例">複数モデルの例</a></li>
   <li><a href="#回帰表の可視化" id="toc-回帰表の可視化" class="nav-link" data-scroll-target="#回帰表の可視化">回帰表の可視化</a></li>
   </ul></li>
-  <li><a href="#回帰分析結果の可視化" id="toc-回帰分析結果の可視化" class="nav-link" data-scroll-target="#回帰分析結果の可視化">回帰分析結果の可視化</a></li>
+  <li><a href="#予測値の可視化" id="toc-予測値の可視化" class="nav-link" data-scroll-target="#予測値の可視化">予測値の可視化</a>
+  <ul class="collapse">
+  <li><a href="#予測値の計算" id="toc-予測値の計算" class="nav-link" data-scroll-target="#予測値の計算">予測値の計算</a></li>
+  <li><a href="#作図" id="toc-作図" class="nav-link" data-scroll-target="#作図">作図</a></li>
+  </ul></li>
   <li><a href="#信頼区間の話" id="toc-信頼区間の話" class="nav-link" data-scroll-target="#信頼区間の話">信頼区間の話</a></li>
   </ul>
 </nav>
@@ -603,17 +607,17 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 df  
-N: 50  
+N: 60  
 
                       Mean   Std.Dev       Min       Max   N.Valid
 ---------------- --------- --------- --------- --------- ---------
-              No     15.00      1.43     13.00     17.00     50.00
-            Year   2019.00      1.43   2017.00   2021.00     50.00
-        Duration     10.76      3.74      2.00     16.00     50.00
-           First      0.52      0.50      0.00      1.00     50.00
-           Final      0.30      0.46      0.00      1.00     50.00
-           Order      5.50      2.90      1.00     10.00     50.00
-      Score_Mean     91.20      2.40     84.86     97.29     50.00</code></pre>
+              No     15.50      1.72     13.00     18.00     60.00
+            Year   2019.50      1.72   2017.00   2022.00     60.00
+        Duration     10.60      3.70      2.00     16.00     60.00
+           First      0.52      0.50      0.00      1.00     60.00
+           Final      0.30      0.46      0.00      1.00     60.00
+           Order      5.50      2.90      1.00     10.00     60.00
+      Score_Mean     91.33      2.40     84.86     97.29     60.00</code></pre>
 </div>
 </div>
 <p>　本日の内容は分析結果をどう報告するかに関するものなので、予めいくつかの回帰モデルを推定しておこう。今回は平均得点（<code>Score_Mean</code>）を応答変数とした線形回帰モデルを推定する。説明変数は出場順番（<code>Order</code>）、初出場ダミー（<code>First</code>）、芸歴（<code>Duration</code>）の3つを用意する。出場順番（<code>Order</code>）のみ投入した単回帰モデルを<code>fit1</code>、初出場ダミー（<code>First</code>）を加えたものを<code>fit2</code>、全て投入したモデルを<code>fit3</code>と名付ける。</p>
@@ -637,20 +641,20 @@ lm(formula = Score_Mean ~ Order + First + Duration, data = df)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--6.3582 -1.2054  0.3995  1.0814  5.6779 
+-6.7504 -1.1301  0.4781  1.1794  5.8539 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 88.82624    1.42843  62.184  &lt; 2e-16 ***
-Order        0.31226    0.11427   2.733  0.00889 ** 
-First       -0.52116    0.67304  -0.774  0.44269    
-Duration     0.08592    0.09234   0.930  0.35700    
+(Intercept) 89.60482    1.29065  69.426   &lt;2e-16 ***
+Order        0.25820    0.10397   2.483    0.016 *  
+First       -0.96314    0.62264  -1.547    0.128    
+Duration     0.07559    0.08566   0.883    0.381    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.276 on 46 degrees of freedom
-Multiple R-squared:  0.1564,    Adjusted R-squared:  0.1014 
-F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
+Residual standard error: 2.279 on 56 degrees of freedom
+Multiple R-squared:  0.1437,    Adjusted R-squared:  0.09787 
+F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </div>
 </div>
 <p>　しかし、これは<strong>分析する側</strong>が結果を確認するために用意されたものであり、「他人に見せる」ために用意されたものではない。レポートや論文に推定結果を示す場合は表を使う場合が多いが、<code>summary()</code>関数から得られたものはあくまでの文字列のみだ。ここで便利なのが{modelsummary}パッケージである<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。使い方は簡単で<code>modelsummary(回帰オブジェクト名)</code>のみで良い。</p>
@@ -667,51 +671,51 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627</td>
+<td style="text-align: center;">90.078</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.696)</td>
+<td style="text-align: center;">(0.649)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.286</td>
+<td style="text-align: center;">0.227</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.112)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.105)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
+<td style="text-align: center;">0.075</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.059</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AIC</td>
-<td style="text-align: center;">228.1</td>
+<td style="text-align: center;">275.6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">BIC</td>
-<td style="text-align: center;">233.9</td>
+<td style="text-align: center;">281.9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−111.072</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
-<td style="text-align: center;">6.486</td>
+<td style="text-align: center;">4.727</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.23</td>
+<td style="text-align: center;">2.29</td>
 </tr>
 </tbody>
 </table>
@@ -735,7 +739,7 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627</td>
+<td style="text-align: center;">90.078</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -743,43 +747,43 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.286</td>
+<td style="text-align: center;">0.227</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.014)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.034)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
+<td style="text-align: center;">0.075</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.059</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AIC</td>
-<td style="text-align: center;">228.1</td>
+<td style="text-align: center;">275.6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">BIC</td>
-<td style="text-align: center;">233.9</td>
+<td style="text-align: center;">281.9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−111.072</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
-<td style="text-align: center;">6.486</td>
+<td style="text-align: center;">4.727</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.23</td>
+<td style="text-align: center;">2.29</td>
 </tr>
 </tbody><tfoot>
 <tr class="odd">
@@ -811,43 +815,43 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627 (0.696)</td>
+<td style="text-align: center;">90.078 (0.649)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;">Order</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.286 (0.112)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">0.227 (0.105)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
+<td style="text-align: center;">0.075</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.059</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AIC</td>
-<td style="text-align: center;">228.1</td>
+<td style="text-align: center;">275.6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">BIC</td>
-<td style="text-align: center;">233.9</td>
+<td style="text-align: center;">281.9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−111.072</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
-<td style="text-align: center;">6.486</td>
+<td style="text-align: center;">4.727</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.23</td>
+<td style="text-align: center;">2.29</td>
 </tr>
 </tbody><tfoot>
 <tr class="odd">
@@ -879,51 +883,51 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627</td>
+<td style="text-align: center;">90.078</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">[88.460, 90.793]</td>
+<td style="text-align: center;">[88.993, 91.163]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.286</td>
+<td style="text-align: center;">0.227</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">[0.097, 0.474]</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">[0.053, 0.402]</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
+<td style="text-align: center;">0.075</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.059</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AIC</td>
-<td style="text-align: center;">228.1</td>
+<td style="text-align: center;">275.6</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">BIC</td>
-<td style="text-align: center;">233.9</td>
+<td style="text-align: center;">281.9</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−111.072</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
-<td style="text-align: center;">6.486</td>
+<td style="text-align: center;">4.727</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.23</td>
+<td style="text-align: center;">2.29</td>
 </tr>
 </tbody><tfoot>
 <tr class="odd">
@@ -942,7 +946,7 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">get_gof</span>(fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik
-1 229.9754 239.5355 0.1564347     0.1014196 2.183251   50 2.843485 -109.9877</code></pre>
+1 274.9891 285.4609 0.1437456    0.09787483 2.201864   60 3.133708 -132.4946</code></pre>
 </div>
 </div>
 <p>　基本的には上記のすべての適合度指標が<code>modelsummary()</code>で出力されるが、<code>gof_map</code>引数で一部だけ出力させることもできる。今回のような線形回帰分析ならサンプルサイズ（<code>"nobs"</code>）、決定係数（<code>r.squared</code>）、調整済み決定係数（<code>"adj.r.squared"</code>）程度で十分だろう。それではこの3つの指標のみ出してみよう。3つの指標となるので<code>c()</code>でcharacter型ベクトルを割り当てれば良い。</p>
@@ -965,31 +969,31 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">88.826 (&lt;0.001)</td>
+<td style="text-align: center;">89.605 (&lt;0.001)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.312 (0.009)</td>
+<td style="text-align: center;">0.258 (0.016)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">First</td>
-<td style="text-align: center;">−0.521 (0.443)</td>
+<td style="text-align: center;">−0.963 (0.128)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;">Duration</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.086 (0.357)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">0.076 (0.381)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.156</td>
+<td style="text-align: center;">0.144</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.098</td>
 </tr>
 </tbody><tfoot>
 <tr class="even">
@@ -1023,69 +1027,69 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627</td>
-<td style="text-align: center;">89.953</td>
-<td style="text-align: center;">88.826</td>
+<td style="text-align: center;">90.078</td>
+<td style="text-align: center;">90.570</td>
+<td style="text-align: center;">89.605</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.696)</td>
-<td style="text-align: center;">(0.757)</td>
-<td style="text-align: center;">(1.428)</td>
+<td style="text-align: center;">(0.649)</td>
+<td style="text-align: center;">(0.684)</td>
+<td style="text-align: center;">(1.291)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.286</td>
-<td style="text-align: center;">0.292</td>
-<td style="text-align: center;">0.312</td>
+<td style="text-align: center;">0.227</td>
+<td style="text-align: center;">0.245</td>
+<td style="text-align: center;">0.258</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.114)</td>
+<td style="text-align: center;">(0.105)</td>
+<td style="text-align: center;">(0.103)</td>
+<td style="text-align: center;">(0.104)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">First</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">−0.699</td>
-<td style="text-align: center;">−0.521</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">(0.644)</td>
-<td style="text-align: center;">(0.673)</td>
+<td style="text-align: center;">(0.590)</td>
+<td style="text-align: center;">(0.623)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Duration</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">0.086</td>
+<td style="text-align: center;">0.076</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.092)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
-<td style="text-align: center;">0.141</td>
-<td style="text-align: center;">0.156</td>
+<td style="text-align: center;">0.075</td>
+<td style="text-align: center;">0.132</td>
+<td style="text-align: center;">0.144</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.059</td>
 <td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.104</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.098</td>
 </tr>
 </tbody>
 </table>
@@ -1110,69 +1114,69 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.627</td>
-<td style="text-align: center;">89.953</td>
-<td style="text-align: center;">88.826</td>
+<td style="text-align: center;">90.078</td>
+<td style="text-align: center;">90.570</td>
+<td style="text-align: center;">89.605</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.696)</td>
-<td style="text-align: center;">(0.757)</td>
-<td style="text-align: center;">(1.428)</td>
+<td style="text-align: center;">(0.649)</td>
+<td style="text-align: center;">(0.684)</td>
+<td style="text-align: center;">(1.291)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.286</td>
-<td style="text-align: center;">0.292</td>
-<td style="text-align: center;">0.312</td>
+<td style="text-align: center;">0.227</td>
+<td style="text-align: center;">0.245</td>
+<td style="text-align: center;">0.258</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.114)</td>
+<td style="text-align: center;">(0.105)</td>
+<td style="text-align: center;">(0.103)</td>
+<td style="text-align: center;">(0.104)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">First</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">−0.699</td>
-<td style="text-align: center;">−0.521</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">(0.644)</td>
-<td style="text-align: center;">(0.673)</td>
+<td style="text-align: center;">(0.590)</td>
+<td style="text-align: center;">(0.623)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Duration</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">0.086</td>
+<td style="text-align: center;">0.076</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.092)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
-<td style="text-align: center;">0.141</td>
-<td style="text-align: center;">0.156</td>
+<td style="text-align: center;">0.075</td>
+<td style="text-align: center;">0.132</td>
+<td style="text-align: center;">0.144</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.059</td>
 <td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.104</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.098</td>
 </tr>
 </tbody>
 </table>
@@ -1201,69 +1205,69 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">切片</td>
-<td style="text-align: center;">89.627</td>
-<td style="text-align: center;">89.953</td>
-<td style="text-align: center;">88.826</td>
+<td style="text-align: center;">90.078</td>
+<td style="text-align: center;">90.570</td>
+<td style="text-align: center;">89.605</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.696)</td>
-<td style="text-align: center;">(0.757)</td>
-<td style="text-align: center;">(1.428)</td>
+<td style="text-align: center;">(0.649)</td>
+<td style="text-align: center;">(0.684)</td>
+<td style="text-align: center;">(1.291)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">出場順番</td>
-<td style="text-align: center;">0.286</td>
-<td style="text-align: center;">0.292</td>
-<td style="text-align: center;">0.312</td>
+<td style="text-align: center;">0.227</td>
+<td style="text-align: center;">0.245</td>
+<td style="text-align: center;">0.258</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.112)</td>
-<td style="text-align: center;">(0.114)</td>
+<td style="text-align: center;">(0.105)</td>
+<td style="text-align: center;">(0.103)</td>
+<td style="text-align: center;">(0.104)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">初出場ダミー</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">−0.699</td>
-<td style="text-align: center;">−0.521</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">(0.644)</td>
-<td style="text-align: center;">(0.673)</td>
+<td style="text-align: center;">(0.590)</td>
+<td style="text-align: center;">(0.623)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">結成からの経過年数</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">0.086</td>
+<td style="text-align: center;">0.076</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.092)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">50</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">60</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.119</td>
-<td style="text-align: center;">0.141</td>
-<td style="text-align: center;">0.156</td>
+<td style="text-align: center;">0.075</td>
+<td style="text-align: center;">0.132</td>
+<td style="text-align: center;">0.144</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.059</td>
 <td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.104</td>
-<td style="text-align: center;">0.101</td>
+<td style="text-align: center;">0.098</td>
 </tr>
 </tbody>
 </table>
@@ -1284,15 +1288,15 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-14">切片を表示しない</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="2" data-code-annotation="1">切片を表示しない</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-14">表示順番を「下」からDuraion、First、Orderの順に</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="3" data-code-annotation="2">表示順番を「下」からDuraion、First、Orderの順に</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-14">x = 0に破線を引く</span>
+<span data-code-cell="annotated-cell-14" data-code-lines="4" data-code-annotation="3">x = 0に破線を引く</span>
 </dd>
 </dl>
 </div>
@@ -1307,101 +1311,92 @@ F-statistic: 2.843 on 3 and 46 DF,  p-value: 0.04794</code></pre>
 <p>　<code>modelplot()</code>から作成された図は{ggplot2}ベースなので<code>+</code>でレイヤーの追加および調整できる。本講義の履修者は{ggplot2}なしでは生きていけない人のはずなので非常に嬉しい知らせだろう。<code>modelplot()</code>の詳細はコンソール上で<code>?modelplot</code>を入力してヘルプを見るか<a href="https://modelsummary.com/vignettes/modelplot.html">公式ページ</a>で確認してみよう。他にも{<a href="https://cran.r-project.org/web/packages/coefplot/index.html">coefplot</a>}というパッケージも人気だ<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。</p>
 </section>
 </section>
-<section id="回帰分析結果の可視化" class="level2">
-<h2 class="anchored" data-anchor-id="回帰分析結果の可視化">回帰分析結果の可視化</h2>
-<p>可視化の手順</p>
-<p>{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）</p>
+<section id="予測値の可視化" class="level2">
+<h2 class="anchored" data-anchor-id="予測値の可視化">予測値の可視化</h2>
+<p>　これまでは推定結果をどう示すかに焦点を当ててきた。回帰表のみを示し、言葉でその解釈をする程度で終わるレポート、論文も多いが、説明変数と応答変数間の関係をより直感的に示す方法もある。それは予測値を可視化することである。「出場順番が1番目は予測点数がXX点、2番目はYY点、….」というのを棒グラフや折れ線グラフなどで示すと、分析結果がより理解しやすくなるだろう。ここでは{marginaleffects}と{ggplot2}<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>パッケージを使用し、予測値を可視化方法を紹介する。具体的な手順は以下の通りだ。</p>
 <ol type="1">
-<li><code>predictions()</code>関数で予測値を計算し、オブジェクトとして格納
-<ul>
-<li>表形式オブジェクトとして格納される。</li>
-</ul></li>
-<li>予測値・限界効果オブジェクトの加工（ラベル付け/factor化）
-<ul>
-<li>予測値/限界効果は<code>estimate</code>列</li>
-<li>95%信頼区間の下限と上限は<code>conf.low</code>と<code>conf.high</code>列</li>
-</ul></li>
-<li>{ggplot2}を用いた作図
-<ul>
-<li>予測値 + 95%信頼区間</li>
-<li>横軸上の値が少ない場合、<code>geom_pointrange()</code></li>
-<li>横軸上の値が多い場合、<code>geom_line()</code> + <code>geom_ribbon()</code></li>
-</ul></li>
+<li>{marignaleffects}の<code>predictions()</code>関数で予測値<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>を計算し、オブジェクトとして格納する。ここから表形式オブジェクトが得られる。</li>
+<li>1から得られた表を加工する。<code>predictions()</code>から得られる表には規則があり、予測値は<code>estimate</code>列、信頼区間の下限と上限は<code>conf.low</code>と<code>conf.high</code>列という決まりがある。加工せず可視化に移るケースも多いが、必要があればラベル付けやfactor化などを施す。</li>
+<li>{ggplot2}を用いて作図する。予測値と信頼区間（主に95%信頼区間を使用する）を示すのが一般的であり、横軸上の値が少ない場合、point-rangeプロット（<code>geom_pointrange()</code>）を、横軸上の値が多い場合、折れ線グラフ（<code>geom_line()</code>）とリボン（<code>geom_ribbon()</code>）を組み合わせて紹介する。</li>
 </ol>
-<p>今後紹介するロジスティック回帰分析の場合、<code>predictions()</code>関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にも<code>slopes()</code>関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。</p>
-<p>予測値の計算（<code>fit3</code>の場合）</p>
-<ul>
-<li><strong>例）</strong>初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値は?</li>
-</ul>
+<section id="予測値の計算" class="level3">
+<h3 class="anchored" data-anchor-id="予測値の計算">予測値の計算</h3>
+<p>　まず、予測値の計算から始めよう。ここでは3つの説明変数をすべて投入した<code>fit3</code>を利用する。最初の例として初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値（<span class="math inline">\(\widehat{\mbox{Score\_Mean}}\)</span>）はを計算してみよう。<code>fit3</code>の推定結果、以下のような1次関数が得られた。</p>
 <p><span class="math display">\[
 \widehat{\mbox{Score\_Mean}} = 89.605 + 0.258 \cdot \mbox{Order} - 0.963 \cdot \mbox{First} + 0.076 \cdot \mbox{Duration}.
 \]</span></p>
-<ul>
-<li><code>Order</code>と<code>Duration</code>は平均値（それぞれ5.5、10.6）に固定し、<code>First</code>だけ0と1を入れる。</li>
-</ul>
-<p>計算例</p>
-<ul>
-<li>初出場（<code>First = 1</code>）の場合
-<ul>
-<li>89.605 + 0.256 <span class="math inline">\(\times\)</span> 5.5 - 0.963 <span class="math inline">\(\times\)</span> 1 + 0.076 <span class="math inline">\(\times\)</span> 10.6 <span class="math inline">\(\simeq\)</span> 90.856</li>
-</ul></li>
-<li>初出場ではない（<code>First = 0</code>）場合
-<ul>
-<li>89.605 + 0.256 <span class="math inline">\(\times\)</span> 5.5 - 0.963 <span class="math inline">\(\times\)</span> 0 + 0.076 <span class="math inline">\(\times\)</span> 10.6 <span class="math inline">\(\simeq\)</span> 91.819</li>
-</ul></li>
-<li>{marginaleffects}の<code>predictions()</code>関数を使えば簡単に計算可能</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
-<span id="cb17-2"><a href="#cb17-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>　この数式の<code>First</code>の箇所に0を入れた場合と、1を入れた場合の<span class="math inline">\(\widehat{\mbox{Score\_Mean}}\)</span>を計算すれば良いが、問題は<code>Order</code>と<code>Duration</code>である。何らかの数字を入れる必要はあるが、ここに0を入れるのは不自然なのでここでは<code>Order</code>と<code>Duration</code>はその平均値（それぞれ5.5、10.6）を入れ、<code>First</code>だけ0と1を入れる。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>予測値の計算（<code>fit3</code>利用）</p>
-<ul>
-<li><strong>例）</strong>初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値を計算し、<code>fit3_pred1</code>という名のオブジェクトとして格納</li>
-</ul>
+<div class="callout-title-container flex-fill">
+平均値を代入する = 固定する
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>　「<code>Order</code>と<code>Duration</code>はその平均値（それぞれ5.5、10.6）を入れ、<code>First</code>だけ0と1を入れる」という言葉は、論文では「<code>Order</code>と<code>Duration</code>はその平均値に<strong>固定</strong>し、<code>First</code>のみを動かす」とよく表現される。今回の例だと「<code>First</code>以外の共変量はすべて平均値に固定する」とも言えよう。</p>
+</div>
+</div>
+<p>　まず、初出場（<code>First = 1</code>）の場合の平均得点の予測値を計算してみよう。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
-<span id="cb18-2"><a href="#cb18-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
-<span id="cb18-3"><a href="#cb18-3"></a></span>
-<span id="cb18-4"><a href="#cb18-4"></a>fit3_pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 90.8556</code></pre>
+</div>
+</div>
+<p>　続いて、初出場ではない（<code>First = 0</code>）場合も計算してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 91.8186</code></pre>
+</div>
+</div>
+<p>　他の条件が平均である場合、初出場コンビの予測平均得点は90.8556点、2回以上出場したコンビの予測平均得点は91.8186点である。</p>
+<p>　今回は<code>First</code>の値が2種類（0と1）しかなかったため、これだけでも良いかも知れないが、<code>Order</code>や<code>Duration</code>は10以上の値で構成されているため、このような作業は非常に面倒だ。ここで、{marginaleffects}の<code>predictions()</code>関数を使えば簡単に計算ができるようになる。使い方は以下の通りだ。</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>　全く同じ計算を<code>predictions()</code>関数で行い、結果を<code>fit3_pred1</code>という名の新しいオブジェクトを作業環境内に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<span id="cb22-2"><a href="#cb22-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a>fit3_pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  First Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order Duration
-     0     91.5      0.476 192   &lt;0.001 Inf  90.5   92.4   5.5     10.8
-     1     90.9      0.456 199   &lt;0.001 Inf  90.1   91.8   5.5     10.8
+     0     91.8      0.436 211   &lt;0.001 Inf    91   92.7   5.5     10.6
+     1     90.9      0.421 216   &lt;0.001 Inf    90   91.7   5.5     10.6
 
 Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, Duration, First 
 Type:  response </code></pre>
 </div>
 </div>
-<ul>
-<li><code>Estimate</code>列が予測値、<code>2.5%</code>と<code>97.5%</code>列が95%信頼区間の下限と上限</li>
-<li><code>First</code>以外の変数は平均値に固定される。</li>
-</ul>
-<p>平均値以外に固定する方法</p>
-<ul>
-<li><strong>例）</strong>初出場ダミー（<code>First</code>）の値が0の場合と1の場合の、<code>Score_Mean</code>の予測値を計算し、<code>fit3_pred2</code>という名のオブジェクトとして格納
-<ul>
-<li>ただし、出場順番は5番目（<code>Order = 5</code>）、結成からの年数は5年（<code>Duration = 5</code>）と固定する。</li>
-</ul></li>
-</ul>
+<p>　この結果に無駄な情報はないが、とりあえず注目するのは<code>First</code>の値、予測値、予測値の不確実性指標（主に信頼区間）である。ここでは<code>Estimate</code>列が予測値、<code>2.5%</code>と<code>97.5%</code>列が95%信頼区間の下限と上限だ。また、<code>Order</code>と<code>Duration</code>列を見るとそれぞれ5.5と10.6で固定されていることが分かる。</p>
+<p>　むろん、<code>First</code>以外の変数を平均値以外に固定することもできる。何より、「出場順番が5.5」というのはあり得ないし、芸歴10.6年というのも分かりにくい。以下では先ほどと同じ計算をするが、出場順番を5番目、芸歴を5年に固定してみよう。これは<code>datagrid()</code>内で指定できる。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
-<span id="cb20-2"><a href="#cb20-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb20-3"><a href="#cb20-3"></a>                                             <span class="at">Order    =</span> <span class="dv">5</span>,</span>
-<span id="cb20-4"><a href="#cb20-4"></a>                                             <span class="at">Duration =</span> <span class="dv">5</span>))</span>
-<span id="cb20-5"><a href="#cb20-5"></a></span>
-<span id="cb20-6"><a href="#cb20-6"></a>fit3_pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<span id="cb24-2"><a href="#cb24-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb24-3"><a href="#cb24-3"></a>                                             <span class="at">Order    =</span> <span class="dv">5</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>                                             <span class="at">Duration =</span> <span class="dv">5</span>))</span>
+<span id="cb24-5"><a href="#cb24-5"></a></span>
+<span id="cb24-6"><a href="#cb24-6"></a>fit3_pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  First Order Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 %
-     0     5        5     90.8      0.793 114   &lt;0.001 Inf  89.3   92.4
-     1     5        5     90.3      0.639 141   &lt;0.001 Inf  89.0   91.5
+     0     5        5     91.3      0.725 126   &lt;0.001 Inf  89.9   92.7
+     1     5        5     90.3      0.572 158   &lt;0.001 Inf  89.2   91.4
 
 Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration 
 Type:  response </code></pre>
 </div>
 </div>
+</section>
+<section id="作図" class="level3">
+<h3 class="anchored" data-anchor-id="作図">作図</h3>
 <p>作図の際の注意事項</p>
 <ul>
 <li><code>fit3_pred2</code>で表示される列名は「本当の」列名ではない!!
@@ -1412,11 +1407,11 @@ Type:  response </code></pre>
 <li>「本当の」列名が見たい場合は<code>print(オブジェクト名, style = "data.frame")</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order
-1     1 90.81712 0.7933713  114.4699       0     Inf 89.26214  92.37210   91.19714     0     5
-2     2 90.29596 0.6386978  141.3751       0     Inf 89.04414  91.54778   91.19714     1     5
+1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541   91.32857     0     5
+2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246   91.32857     1     5
   Duration
 1        5
 2        5</code></pre>
@@ -1435,19 +1430,19 @@ Type:  response </code></pre>
 <li><code>ymax</code>：信頼区間の上限</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> First, <span class="at">y =</span> estimate, </span>
-<span id="cb24-4"><a href="#cb24-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"初出場ダミー"</span>, </span>
-<span id="cb24-6"><a href="#cb24-6"></a>       <span class="at">y =</span> <span class="st">"予測点数と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
-<span id="cb24-8"><a href="#cb24-8"></a></span>
-<span id="cb24-9"><a href="#cb24-9"></a>fit3_pred2_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> First, <span class="at">y =</span> estimate, </span>
+<span id="cb28-4"><a href="#cb28-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"初出場ダミー"</span>, </span>
+<span id="cb28-6"><a href="#cb28-6"></a>       <span class="at">y =</span> <span class="st">"予測点数と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb28-8"><a href="#cb28-8"></a></span>
+<span id="cb28-9"><a href="#cb28-9"></a>fit3_pred2_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1462,34 +1457,34 @@ Type:  response </code></pre>
 <li><code>labels</code>：目盛りのラベル</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb25-3"><a href="#cb25-3"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb29-3"><a href="#cb29-3"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>出場順番と平均得点間の関係（計算）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit3_pred3 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
-<span id="cb26-2"><a href="#cb26-2"></a>fit3_pred3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fit3_pred3 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb30-2"><a href="#cb30-2"></a>fit3_pred3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration
-     1     89.8      0.607 148   &lt;0.001 Inf  88.6   91.0  0.52     10.8
-     2     90.1      0.513 176   &lt;0.001 Inf  89.1   91.1  0.52     10.8
-     3     90.4      0.430 210   &lt;0.001 Inf  89.6   91.3  0.52     10.8
-     4     90.7      0.365 249   &lt;0.001 Inf  90.0   91.4  0.52     10.8
-     5     91.0      0.327 278   &lt;0.001 Inf  90.4   91.7  0.52     10.8
-     6     91.4      0.327 279   &lt;0.001 Inf  90.7   92.0  0.52     10.8
-     7     91.7      0.365 251   &lt;0.001 Inf  91.0   92.4  0.52     10.8
-     8     92.0      0.430 214   &lt;0.001 Inf  91.1   92.8  0.52     10.8
-     9     92.3      0.513 180   &lt;0.001 Inf  91.3   93.3  0.52     10.8
-    10     92.6      0.607 153   &lt;0.001 Inf  91.4   93.8  0.52     10.8
+     1     90.2      0.553 163   &lt;0.001 Inf  89.1   91.2 0.517     10.6
+     2     90.4      0.468 193   &lt;0.001 Inf  89.5   91.3 0.517     10.6
+     3     90.7      0.393 231   &lt;0.001 Inf  89.9   91.5 0.517     10.6
+     4     90.9      0.333 273   &lt;0.001 Inf  90.3   91.6 0.517     10.6
+     5     91.2      0.299 305   &lt;0.001 Inf  90.6   91.8 0.517     10.6
+     6     91.5      0.299 306   &lt;0.001 Inf  90.9   92.0 0.517     10.6
+     7     91.7      0.333 275   &lt;0.001 Inf  91.1   92.4 0.517     10.6
+     8     92.0      0.393 234   &lt;0.001 Inf  91.2   92.7 0.517     10.6
+     9     92.2      0.468 197   &lt;0.001 Inf  91.3   93.1 0.517     10.6
+    10     92.5      0.553 167   &lt;0.001 Inf  91.4   93.6 0.517     10.6
 
 Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order 
 Type:  response </code></pre>
@@ -1497,42 +1492,42 @@ Type:  response </code></pre>
 </div>
 <p>出場順番と平均得点間の関係（可視化）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit3_pred3 <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fit3_pred3 <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="1225"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1225"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>芸歴と平均得点間の関係（計算）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fit3_pred4 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
-<span id="cb29-2"><a href="#cb29-2"></a>fit3_pred4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>fit3_pred4 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
+<span id="cb33-2"><a href="#cb33-2"></a>fit3_pred4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order First
-        2     90.4      0.871 104   &lt;0.001 Inf  88.7   92.2   5.5  0.52
-        3     90.5      0.786 115   &lt;0.001 Inf  89.0   92.1   5.5  0.52
-        4     90.6      0.702 129   &lt;0.001 Inf  89.2   92.0   5.5  0.52
-        5     90.7      0.622 146   &lt;0.001 Inf  89.5   91.9   5.5  0.52
-        6     90.8      0.545 167   &lt;0.001 Inf  89.7   91.9   5.5  0.52
-        7     90.9      0.473 192   &lt;0.001 Inf  89.9   91.8   5.5  0.52
-        8     91.0      0.411 222   &lt;0.001 Inf  90.2   91.8   5.5  0.52
-        9     91.0      0.361 252   &lt;0.001 Inf  90.3   91.8   5.5  0.52
-       10     91.1      0.329 277   &lt;0.001 Inf  90.5   91.8   5.5  0.52
-       11     91.2      0.323 283   &lt;0.001 Inf  90.6   91.9   5.5  0.52
-       12     91.3      0.342 267   &lt;0.001 Inf  90.6   92.0   5.5  0.52
-       13     91.4      0.383 239   &lt;0.001 Inf  90.6   92.1   5.5  0.52
-       14     91.5      0.439 208   &lt;0.001 Inf  90.6   92.3   5.5  0.52
-       15     91.6      0.507 181   &lt;0.001 Inf  90.6   92.6   5.5  0.52
-       16     91.6      0.581 158   &lt;0.001 Inf  90.5   92.8   5.5  0.52
+        2     90.7      0.793 114   &lt;0.001 Inf  89.1   92.2   5.5 0.517
+        3     90.8      0.714 127   &lt;0.001 Inf  89.4   92.2   5.5 0.517
+        4     90.8      0.637 143   &lt;0.001 Inf  89.6   92.1   5.5 0.517
+        5     90.9      0.563 162   &lt;0.001 Inf  89.8   92.0   5.5 0.517
+        6     91.0      0.492 185   &lt;0.001 Inf  90.0   91.9   5.5 0.517
+        7     91.1      0.426 214   &lt;0.001 Inf  90.2   91.9   5.5 0.517
+        8     91.1      0.369 247   &lt;0.001 Inf  90.4   91.9   5.5 0.517
+        9     91.2      0.325 281   &lt;0.001 Inf  90.6   91.8   5.5 0.517
+       10     91.3      0.299 306   &lt;0.001 Inf  90.7   91.9   5.5 0.517
+       11     91.4      0.296 308   &lt;0.001 Inf  90.8   91.9   5.5 0.517
+       12     91.4      0.318 288   &lt;0.001 Inf  90.8   92.1   5.5 0.517
+       13     91.5      0.359 255   &lt;0.001 Inf  90.8   92.2   5.5 0.517
+       14     91.6      0.414 221   &lt;0.001 Inf  90.8   92.4   5.5 0.517
+       15     91.7      0.478 192   &lt;0.001 Inf  90.7   92.6   5.5 0.517
+       16     91.7      0.548 167   &lt;0.001 Inf  90.7   92.8   5.5 0.517
 
 Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, First, Duration 
 Type:  response </code></pre>
@@ -1540,16 +1535,16 @@ Type:  response </code></pre>
 </div>
 <p>芸歴と平均得点間の関係（可視化）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1225"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1225"></p>
 </figure>
 </div>
 </div>
@@ -1563,53 +1558,54 @@ Type:  response </code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>折れ線グラフ + リボン</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="annotated-cell-26"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1">1</button><span id="annotated-cell-26-2" class="code-annotation-target"><a href="#annotated-cell-26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="2">2</button><span id="annotated-cell-26-3" class="code-annotation-target"><a href="#annotated-cell-26-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="3">3</button><span id="annotated-cell-26-4" class="code-annotation-target"><a href="#annotated-cell-26-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-26-5"><a href="#annotated-cell-26-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-26-6"><a href="#annotated-cell-26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-26-7"><a href="#annotated-cell-26-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1">1</button><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2">2</button><span id="annotated-cell-28-3" class="code-annotation-target"><a href="#annotated-cell-28-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3">3</button><span id="annotated-cell-28-4" class="code-annotation-target"><a href="#annotated-cell-28-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-28-5"><a href="#annotated-cell-28-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-28-6"><a href="#annotated-cell-28-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-26" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-26"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
+<span data-code-cell="annotated-cell-28" data-code-lines="2" data-code-annotation="1"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
 </dd>
-<dt data-target-cell="annotated-cell-26" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-26">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
+<span data-code-cell="annotated-cell-28" data-code-lines="3" data-code-annotation="2">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
 </dd>
-<dt data-target-cell="annotated-cell-26" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-26"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
+<span data-code-cell="annotated-cell-28" data-code-lines="4" data-code-annotation="3"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="信頼区間の話" class="level2">
 <h2 class="anchored" data-anchor-id="信頼区間の話">信頼区間の話</h2>
@@ -1619,7 +1615,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1630,7 +1626,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1640,7 +1636,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1651,7 +1647,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="1200"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1667,24 +1663,24 @@ Type:  response </code></pre>
 <li><span class="math inline">\(\alpha\)</span> = 0.1を仮定するのであれば、90%（<span class="math inline">\(= (1 - \alpha) \times 100\)</span>）信頼区間を使うこととなる。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span> </span>
-<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">91</span>, <span class="at">yend =</span> <span class="dv">91</span>),</span>
-<span id="cb33-5"><a href="#cb33-5"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#00798C"</span>) <span class="sc">+</span></span>
-<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">90</span>, <span class="at">yend =</span> <span class="dv">92</span>),</span>
-<span id="cb33-7"><a href="#cb33-7"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#D1495B"</span>) <span class="sc">+</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">92</span>, <span class="at">yend =</span> <span class="dv">91</span>),</span>
-<span id="cb33-9"><a href="#cb33-9"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#66A182"</span>) <span class="sc">+</span></span>
-<span id="cb33-10"><a href="#cb33-10"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb33-11"><a href="#cb33-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb33-12"><a href="#cb33-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb33-13"><a href="#cb33-13"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
-<span id="cb33-14"><a href="#cb33-14"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">91</span>, <span class="at">yend =</span> <span class="dv">91</span>),</span>
+<span id="cb37-5"><a href="#cb37-5"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#00798C"</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">90</span>, <span class="at">yend =</span> <span class="dv">92</span>),</span>
+<span id="cb37-7"><a href="#cb37-7"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#D1495B"</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="dv">92</span>, <span class="at">yend =</span> <span class="dv">91</span>),</span>
+<span id="cb37-9"><a href="#cb37-9"></a>               <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"#66A182"</span>) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb37-11"><a href="#cb37-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb37-12"><a href="#cb37-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb37-13"><a href="#cb37-13"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="#cb37-14"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="900"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="900"></p>
 </figure>
 </div>
 </div>
@@ -1698,23 +1694,23 @@ Type:  response </code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
-<span id="cb34-2"><a href="#cb34-2"></a>            <span class="at">conf_level =</span> <span class="fl">0.4</span>) <span class="sc">|&gt;</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span> </span>
-<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="fl">91.09444</span>, <span class="at">yend =</span> <span class="fl">91.44930</span>),</span>
-<span id="cb34-6"><a href="#cb34-6"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#00798C"</span>) <span class="sc">+</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="fl">90.26250</span>, <span class="at">yend =</span> <span class="fl">92.02425</span>),</span>
-<span id="cb34-8"><a href="#cb34-8"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#D1495B"</span>) <span class="sc">+</span></span>
-<span id="cb34-9"><a href="#cb34-9"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb34-10"><a href="#cb34-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb34-11"><a href="#cb34-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb34-12"><a href="#cb34-12"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
-<span id="cb34-13"><a href="#cb34-13"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
+<span id="cb38-2"><a href="#cb38-2"></a>            <span class="at">conf_level =</span> <span class="fl">0.4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="fl">91.09444</span>, <span class="at">yend =</span> <span class="fl">91.44930</span>),</span>
+<span id="cb38-6"><a href="#cb38-6"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#00798C"</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">xend =</span> <span class="dv">16</span>, <span class="at">y =</span> <span class="fl">90.26250</span>, <span class="at">yend =</span> <span class="fl">92.02425</span>),</span>
+<span id="cb38-8"><a href="#cb38-8"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#D1495B"</span>) <span class="sc">+</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="#cb38-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="900"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="900"></p>
 </figure>
 </div>
 </div>
@@ -1732,6 +1728,8 @@ Type:  response </code></pre>
 <li id="fn3"><p>{modelsummary}以外のも回帰表作成に特化した様々なパッケージがあり、その中でも{<a href="https://cran.r-project.org/web/packages/stargazer/index.html">stargazer</a>}という根強い人気を誇るパッケージもある。<span class="math inline">\(\LaTeX\)</span>ユーザーなら{stargazer}の方がカスタマイズの幅が広く、使い勝手が良いかも知れない。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>他にも<code>"{stars}"</code>というのもよく使われるが、これは邪悪なものなので間違ってでも調べないようにしよう。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>存在感のない{<a href="https://github.com/JaehyunSong/coefplotbl">coefplotbl</a>}という謎のパッケージもある。興味のある方でも間違ってでも調べないこと。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>{ggplot2}パッケージは{tidyverse}パッケージと一緒に読み込まれるので別途読み込む必要はない。<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>今後紹介するロジスティック回帰分析の場合、<code>predictions()</code>関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にも<code>slopes()</code>関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
