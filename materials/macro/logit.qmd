@@ -18,9 +18,10 @@ metadata-files:
 
 ```{r}
 #| include: false
+options(width = 100)
 pacman::p_load(tidyverse, gt, summarytools, modelsummary,
                latex2exp, marginaleffects, DescTools)
-# df <- read_csv("materials/Data/Hino_Song.csv")
+# df <- read_csv("materials/macro/Data/Hino_Song.csv")
 df <- read_csv("Data/Hino_Song.csv")
 ```
 
@@ -334,3 +335,78 @@ fit1_pred2 |>
   scale_x_continuous(breaks = c(20, 30, 40, 50, 60, 70, 80), labels = c(20, 30, 40, 50, 60, 70, 80)) +
   theme_bw(base_size = 14)
 ```
+
+## LPMとの比較
+
+　線形回帰分析（線形確率モデル; LPM）は予測値として0未満か1より大きい値、つまり理論上あり得ない予測値が得られる可能性がある。一方、ロジスティック回帰の場合、予測**確率**が計算されるので必ず0以上1以下の値が得られる。しかし、実践の場面において線形回帰分析とロジスティック回帰分析は似たような予測値/予測確率を出す場合も多い。たとえば、本日の例における線形回帰モデル（`lm_fit`）とロジスティック回帰モデル（`fit1`）を比較してみよう。
+
+```{r}
+#| filename: "Code 15"
+modelsummary(list("線形回帰"           = lm_fit, 
+                  "ロジスティック回帰" = fit1),
+             statistic = "({p.value})")
+```
+
+　そもそも異なるモデルを使用しているため、係数が大きく異なるのは仕方ない。重要なのは予測値/予測確率だろう。今回は主観的な政治知識（`Knowledge`）を1から5まで1単位で動かし、その他の共変量は平均値に固定した上で、投票参加の予測確率を計算してみよう。それぞれ計算結果は`lm_pred`と`lgoit_pred`という名のオブジェクトとして作業環境内に格納する。
+
+```{r}
+#| filename: "Code 16"
+lm_pred <- predictions(lm_fit, newdata = datagrid(Knowledge = 1:5))
+
+lm_pred
+```
+
+```{r}
+#| filename: "Code 17"
+logit_pred <- predictions(fit1,   newdata = datagrid(Knowledge = 1:5))
+
+logit_pred
+```
+
+　この2つの表を`bind_rows()`関数を使って一つにまとめる。`bind_rows()`を使い方は[前期の第11回講義](../micro/handling3.qmd)を参照すること。結合後の表は`compare_pred`と名付ける。
+
+```{r}
+#| filename: "Code 18"
+compare_pred <- bind_rows(list("線形回帰"           = lm_pred,
+                               "ロジスティック回帰"   = logit_pred),
+                          .id = "Model")
+
+print(compare_pred, style = "data.frame")
+```
+
+　これまでと同様、予測値のpoint-rangeプロットを作成し、`Model`列を基準にファセットを分割する。ファセット分割については前期の[第13回](../micro/visualization2.qmd)、[第14回](../micro/visualization3.qmd)資料を参照すること。
+
+```{r}
+#| filename: "Code 19"
+#| fig-width: 6
+#| fig-height: 3.5
+compare_pred |> 
+  ggplot() +
+  geom_pointrange(aes(x = Knowledge, y = estimate,
+                      ymin = conf.low, ymax = conf.high)) +
+  facet_wrap(~Model) +
+  labs(x = "主観的な政治知識", 
+       y = "投票に参加する確率の予測値") +
+  theme_bw(base_size = 12)
+```
+
+　また、以下のように一つのファセットにまとめることもできる。point-rangeの色（`color`）に`Model`変数でマッピングすれば良い。この場合、`aes()`の**外**側に`position = position_dodge2(0.5)`を追加してpoint-rangeをずらしておく必要がある。
+
+```{r}
+#| filename: "Code 20"
+#| fig-width: 6
+#| fig-height: 5
+compare_pred |> 
+  ggplot() +
+  geom_pointrange(aes(x = Knowledge, y = estimate,
+                      ymin = conf.low, ymax = conf.high,
+                      color = Model),
+                  position = position_dodge2(0.5)) +
+  labs(x     = "主観的な政治知識", 
+       y     = "投票に参加する確率の予測値",
+       color = "モデル") +
+  theme_bw(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+　今回の場合、線形回帰モデルとロジスティック回帰モデル間に大きな差は見られない（むろん、差がないわけではない）。最終的にはロジスティック回帰分析を行うとしても、その前段階として解釈しやすい線形回帰分析をしてみることも一つの選択肢だろう（そもそも応答変数が0/1の二値変数でもロジスティック回帰が推奨されない場合もある）。
