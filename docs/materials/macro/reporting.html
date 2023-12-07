@@ -651,11 +651,13 @@ Residuals:
 -6.7504 -1.1301  0.4781  1.1794  5.8539 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept) 89.60482    1.29065  69.426   &lt;2e-16
-Order        0.25820    0.10397   2.483    0.016
-First       -0.96314    0.62264  -1.547    0.128
-Duration     0.07559    0.08566   0.883    0.381
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 89.60482    1.29065  69.426   &lt;2e-16 ***
+Order        0.25820    0.10397   2.483    0.016 *  
+First       -0.96314    0.62264  -1.547    0.128    
+Duration     0.07559    0.08566   0.883    0.381    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 2.279 on 56 degrees of freedom
 Multiple R-squared:  0.1437,    Adjusted R-squared:  0.09787 
@@ -717,7 +719,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-134.800</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
@@ -734,7 +736,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </div>
 </div>
 <p>　一発でかなりきれいな表ができた。デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。また、分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.））なども表示される。これでも十分良いが、ここからはより自分好みの表にするためにいくつかカスタマイズしてみよう。</p>
-<p>　その前に前提知識として<code>modelsummary()</code>では各変数に対応する統計量が2行構成になっていることを意識する必要がある。デフォルトだと1行目は点推定値、2行目はその標準誤差である。<code>modelsummary()</code>関数では<code>estimate</code>（1行目）と<code>statistic</code>（2行目）引数で出力される統計量を変更することができる。デフォルトだと<code>estimate</code>は点推定値（<code>"{estimate}"</code>）、<code>statistic</code>は標準誤差（<code>"{std.error}"</code>）になっている。つまり、<code>modelsummary(オブジェクト名)</code>は<code>modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "{std.error}")</code>と同じコードだ。このように<code>"{統計量}"</code>の形式で表示する統計量が選択できる。たとえば、<span class="math inline">\(p\)</span>値は<code>"{p.value}"</code>、95%信頼区間の下限は<code>"{conf.low}"</code>、上限は<code>"{conf.high}"</code>だ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。もし、特定の行を消したい場合は<code>NULL</code>を割り当てる。</p>
+<p>　その前に前提知識として<code>modelsummary()</code>では各変数に対応する統計量が2行構成になっていることを意識する必要がある。デフォルトだと1行目は点推定値、2行目はその標準誤差である。<code>modelsummary()</code>関数では<code>estimate</code>（1行目）と<code>statistic</code>（2行目）引数で出力される統計量を変更することができる。デフォルトだと<code>estimate</code>は点推定値（<code>"{estimate}"</code>）、<code>statistic</code>は標準誤差（<code>"({std.error})"</code>）になっている（カッコ付き）。つまり、<code>modelsummary(オブジェクト名)</code>は<code>modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "({std.error})")</code>と同じコードだ。このように<code>"{統計量}"</code>の形式で表示する統計量が選択できる。たとえば、<span class="math inline">\(p\)</span>値は<code>"{p.value}"</code>、95%信頼区間の下限は<code>"{conf.low}"</code>、上限は<code>"{conf.high}"</code>だ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。もし、特定の行を消したい場合は<code>NULL</code>を割り当てる。</p>
 <p>　それではいくつかの例を確認してみよう。まずは標準誤差の代わりに<span class="math inline">\(p\)</span>値を表示する例からだ。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -790,7 +792,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-134.800</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
@@ -863,7 +865,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-134.800</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
@@ -944,7 +946,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-134.800</td>
+<td style="text-align: center;">−134.800</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
@@ -1012,7 +1014,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">First</td>
-<td style="text-align: center;">-0.963 (0.128)</td>
+<td style="text-align: center;">−0.963 (0.128)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;">Duration</td>
@@ -1092,8 +1094,8 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <tr class="odd">
 <td style="text-align: left;">First</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">-1.136</td>
-<td style="text-align: center;">-0.963</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -1184,8 +1186,8 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <tr class="odd">
 <td style="text-align: left;">First</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">-1.136</td>
-<td style="text-align: center;">-0.963</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -1280,8 +1282,8 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <tr class="odd">
 <td style="text-align: left;">初出場ダミー</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">-1.136</td>
-<td style="text-align: center;">-0.963</td>
+<td style="text-align: center;">−1.136</td>
+<td style="text-align: center;">−0.963</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
@@ -1343,15 +1345,15 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-14" data-code-annotation="1">切片を表示しない</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-14">切片を表示しない</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-14" data-code-annotation="2">表示順番を「下」からDuraion、First、Orderの順に</span>
+<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-14">表示順番を「下」からDuraion、First、Orderの順に</span>
 </dd>
 <dt data-target-cell="annotated-cell-14" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-14" data-code-annotation="3">x = 0に破線を引く</span>
+<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-14">x = 0に破線を引く</span>
 </dd>
 </dl>
 </div>
@@ -1692,15 +1694,15 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-28" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-28" data-code-annotation="1"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
+<span data-code-annotation="1" data-code-lines="2" data-code-cell="annotated-cell-28"><code>geom_ribbon()</code>と<code>geom_line()</code>は同じ横軸を共有するため、ここでマッピングした方が効率的</span>
 </dd>
 <dt data-target-cell="annotated-cell-28" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-28" data-code-annotation="2">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
+<span data-code-annotation="2" data-code-lines="3" data-code-cell="annotated-cell-28">デフォルトのリボンは暗い色なので、明るめの色に変える。</span>
 </dd>
 <dt data-target-cell="annotated-cell-28" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-28" data-code-annotation="3"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
+<span data-code-annotation="3" data-code-lines="4" data-code-cell="annotated-cell-28"><code>linewidth</code>で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）</span>
 </dd>
 </dl>
 </div>
