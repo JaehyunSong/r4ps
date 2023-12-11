@@ -424,14 +424,13 @@
 <p>すぐに実習できるように準備しておきましょう。</p>
 <ol type="1">
 <li>JDCat分析ツールを起動しておいてください。</li>
-<li>本日授業用のプロジェクトを作成してください。</li>
+<li>本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。</li>
 <li>LMSから実習用データをダウンロードしておいてください。</li>
 <li>ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
 <ul>
 <li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
 </ul></li>
-<li>コンソール上に<code>install.packages("marginaleffects")</code>を入力し、インストールしてください。</li>
-<li>実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&amp;実行してください。</li>
+<li>実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -459,10 +458,14 @@
 </figure>
 </div>
 <ul>
-<li><span class="math inline">\(Z\)</span> は<strong>調整変数</strong> (moderation variable; moderator)と呼ばれる。
+<li><span class="math inline">\(Z\)</span>は<strong>調整変数</strong> (moderation variable; moderator)と呼ばれる。
 <ul>
 <li>調整変数はダミー変数でも、連続変数でも可能</li>
-<li><span class="math inline">\(X\)</span> が <span class="math inline">\(Y\)</span> に与える影響は <span class="math inline">\(Z\)</span> によって変わる。</li>
+<li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>によって変わる。</li>
+</ul></li>
+<li>例）<span class="math inline">\(Z=1\)</span>の場合、<span class="math inline">\(X\)</span>が1上がると<span class="math inline">\(Y\)</span>は2上がるが、<span class="math inline">\(Z=2\)</span>の場合、<span class="math inline">\(X\)</span>が1上がると<span class="math inline">\(Y\)</span>は5上がる。
+<ul>
+<li><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(Z\)</span>の値によって<span class="math inline">\(X \rightarrow Y\)</span>の効果（傾き）が変わる。</li>
 </ul></li>
 </ul>
 </section>
@@ -507,11 +510,11 @@
 \]</span></p>
 <ul>
 <li>調整変数（<span class="math inline">\(Z\)</span>）が0か1かによって、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響が変化する。</li>
-<li><span class="math inline">\(Z = 0\)</span>の場合: <span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z\)</span>
+<li><span class="math inline">\(Z = 0\)</span>の場合：<span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z\)</span>
 <ul>
 <li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span> に与える影響は<span class="math inline">\(\beta_1\)</span></li>
 </ul></li>
-<li><span class="math inline">\(Z = 1\)</span>の場合: <span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z\)</span>
+<li><span class="math inline">\(Z = 1\)</span>の場合：<span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z\)</span>
 <ul>
 <li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(\beta_1 + \beta_3\)</span></li>
 </ul></li>
@@ -548,29 +551,30 @@
 <ul>
 <li><span class="math inline">\(\hat{Y} = 3 + 5X + 1Z\)</span>であるため、<span class="math inline">\(X\)</span>が1上がると、<span class="math inline">\(Y\)</span>は5上がる。</li>
 </ul></li>
+<li><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(Z\)</span>の値に応じて<span class="math inline">\(X\)</span>の傾きが変化する。</li>
 </ul>
 </div>
 </div>
 </section>
 <section id="調整変数が連続変数の場合" class="slide level2">
 <h2>調整変数が連続変数の場合</h2>
-<p>調整変数 <span class="math inline">\(Z\)</span> が無数の値をとる連続変数の場合</p>
+<p>調整変数<span class="math inline">\(Z\)</span>が無数の値をとる連続変数の場合</p>
 <p><span class="math display">\[
 \hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
 \]</span></p>
 <ul>
-<li>調整変数 ( <span class="math inline">\(Z\)</span> )の値によって、 <span class="math inline">\(X\)</span> が <span class="math inline">\(Y\)</span> に与える影響が変化する。</li>
-<li><span class="math inline">\(Z\)</span> が1の場合: <span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot 1 = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z\)</span>
+<li>調整変数（<span class="math inline">\(Z\)</span>）の値によって、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響が変化する。</li>
+<li><span class="math inline">\(Z\)</span>が1の場合：<span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot 1 = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z\)</span>
 <ul>
-<li><span class="math inline">\(X\)</span> が <span class="math inline">\(Y\)</span> に与える影響は <span class="math inline">\(\beta_1 + \beta_3\)</span></li>
+<li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(\beta_1 + \beta_3\)</span></li>
 </ul></li>
-<li><span class="math inline">\(Z\)</span> が2.5の場合: <span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 2.5 \cdot X = \alpha + (\beta_1 + 2.5\beta_3) X + \beta_2 Z\)</span>
+<li><span class="math inline">\(Z\)</span>が2.5の場合：<span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 2.5 \cdot X = \alpha + (\beta_1 + 2.5\beta_3) X + \beta_2 Z\)</span>
 <ul>
-<li><span class="math inline">\(X\)</span> が <span class="math inline">\(Y\)</span> に与える影響は <span class="math inline">\(\beta_1 + 2.5\beta_3\)</span></li>
+<li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(\beta_1 + 2.5\beta_3\)</span></li>
 </ul></li>
-<li><span class="math inline">\(Z\)</span> が6の場合: <span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 6 \cdot X = \alpha + (\beta_1 + 6\beta_3) X + \beta_2 Z\)</span>
+<li><span class="math inline">\(Z\)</span>が6の場合：<span class="math inline">\(\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 6 \cdot X = \alpha + (\beta_1 + 6\beta_3) X + \beta_2 Z\)</span>
 <ul>
-<li><span class="math inline">\(X\)</span> が <span class="math inline">\(Y\)</span> に与える影響は <span class="math inline">\(\beta_1 + 6\beta_3\)</span></li>
+<li><span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(\beta_1 + 6\beta_3\)</span></li>
 </ul></li>
 <li>無数のケースがあり得る。</li>
 </ul>
@@ -598,15 +602,15 @@
 \]</span></p>
 <ul>
 <li><span class="math inline">\(X\)</span>の係数は<span class="math inline">\(3 - Z\)</span></li>
-<li><span class="math inline">\(Z = -1\)</span>なら… (赤)
+<li><span class="math inline">\(Z = -1\)</span>なら…（赤）
 <ul>
 <li><span class="math inline">\(\hat{Y} = 2 + 4X + 2Z\)</span>であるため、<span class="math inline">\(X\)</span>が1上がると、<span class="math inline">\(Y\)</span>は4上がる。</li>
 </ul></li>
-<li><span class="math inline">\(Z = 2\)</span>なら… (緑)
+<li><span class="math inline">\(Z = 2\)</span>なら…（緑）
 <ul>
 <li><span class="math inline">\(\hat{Y} = 2 + 1X + 2Z\)</span>であるため、<span class="math inline">\(X\)</span>が1上がると、<span class="math inline">\(Y\)</span>は1上がる。</li>
 </ul></li>
-<li><span class="math inline">\(Z = 3.5\)</span>なら… (青)
+<li><span class="math inline">\(Z = 3.5\)</span>なら…（青）
 <ul>
 <li><span class="math inline">\(\hat{Y} = 2 - 0.5 X + 2Z\)</span>であるため、<span class="math inline">\(X\)</span>が1上がると、<span class="math inline">\(Y\)</span>は0.5下がる。</li>
 </ul></li>
@@ -695,7 +699,7 @@
 <li>名目変数もダミー変数になると連続変数と同じ扱いでOK</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>jes_df <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>jes_df <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
 <span id="cb4-3"><a href="#cb4-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -721,30 +725,30 @@ N: 3000
 </blockquote>
 <p><strong>モデル1</strong></p>
 <ul>
-<li>主な説明変数: 政治満足度 (<code>Satisfaction</code>)</li>
-<li>応答変数: 共産党に対する感情温度 (<code>TempKoysan</code>)</li>
-<li>調整変数: 女性ダミー (<code>Female</code>)</li>
-<li>統制変数: 政治関心 (<code>Interest</code>)、イデオロギー (<code>Ideology</code>)、年齢 (<code>Age</code>)</li>
+<li>応答変数：共産党に対する感情温度（<code>TempKoysan</code>）</li>
+<li>主な説明変数：政治満足度（<code>Satisfaction</code>）</li>
+<li>調整変数：<strong>女性ダミー</strong>（<code>Female</code>）<span class="math inline">\(\leftarrow\)</span> ダミー変数（二値変数）</li>
+<li>統制変数：政治関心（<code>Interest</code>）、イデオロギー（<code>Ideology</code>）、年齢（<code>Age</code>）</li>
 </ul>
 <p><strong>モデル2</strong></p>
 <ul>
-<li>主な説明変数: 政治満足度 (<code>Satisfaction</code>)</li>
-<li>応答変数: 共産党に対する感情温度 (<code>TempKoysan</code>)</li>
-<li>調整変数: 年齢 (<code>Age</code>)</li>
-<li>統制変数: 政治関心 (<code>Interest</code>)、イデオロギー (<code>Ideology</code>)、女性ダミー (<code>Female</code>)</li>
+<li>応答変数：共産党に対する感情温度（<code>TempKoysan</code>）</li>
+<li>主な説明変数：政治満足度（<code>Satisfaction</code>）</li>
+<li>調整変数：<strong>年齢</strong>（<code>Age</code>）<span class="math inline">\(\leftarrow\)</span> 連続変数</li>
+<li>統制変数：政治関心（<code>Interest</code>）、イデオロギー（<code>Ideology</code>）、女性ダミー（<code>Female</code>）</li>
 </ul>
 </section>
-<section id="調整変数がダミー変数の場合-モデル1" class="slide level2">
-<h2>調整変数がダミー変数の場合 (モデル1)</h2>
-<p>政治満足度 (= <strong>説明変数</strong>)が共産党に対する感情温度 (= <strong>応答変数</strong>)に与える影響は性別 (= <strong>調整変数</strong>)によって変わる。</p>
+<section id="調整変数がダミー変数の場合モデル1" class="slide level2">
+<h2>調整変数がダミー変数の場合（モデル1）</h2>
+<p>政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は性別（= <strong>調整変数</strong>）によって変わる。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/12/12.003.png"></p>
 </figure>
 </div>
 </section>
-<section id="調整変数がダミー変数の場合の回帰式-モデル1" class="slide level2">
-<h2>調整変数がダミー変数の場合の回帰式 (モデル1)</h2>
+<section id="調整変数がダミー変数の場合の回帰式モデル1" class="slide level2">
+<h2>調整変数がダミー変数の場合の回帰式（モデル1）</h2>
 <p><span class="math display">\[
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Female} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Age} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Female})
 \]</span></p>
@@ -754,17 +758,17 @@ N: 3000
 </figure>
 </div>
 </section>
-<section id="調整変数が連続変数の場合-モデル2" class="slide level2">
-<h2>調整変数が連続変数の場合 (モデル2)</h2>
-<p>政治満足度 (= <strong>説明変数</strong>)が共産党に対する感情温度 (= <strong>応答変数</strong>)に与える影響は年齢 (= <strong>調整変数</strong>)によって変わる。</p>
+<section id="調整変数が連続変数の場合モデル2" class="slide level2">
+<h2>調整変数が連続変数の場合（モデル2）</h2>
+<p>政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は年齢（= <strong>調整変数</strong>）によって変わる。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Figs/12/12.005.png"></p>
 </figure>
 </div>
 </section>
-<section id="調整変数が連続変数の場合の回帰式-モデル2" class="slide level2">
-<h2>調整変数が連続変数の場合の回帰式 (モデル2)</h2>
+<section id="調整変数が連続変数の場合の回帰式モデル2" class="slide level2">
+<h2>調整変数が連続変数の場合の回帰式（モデル2）</h2>
 <p><span class="math display">\[
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
 \]</span></p>
@@ -776,7 +780,7 @@ N: 3000
 </section>
 <section id="交差項を入れた回帰分析の推定方法" class="slide level2">
 <h2>交差項を入れた回帰分析の推定方法</h2>
-<p><code>lm()</code>内の回帰式 (formula)に2つの変数を<code>*</code>でつなぐだけ</p>
+<p><code>lm()</code>内の回帰式（formula）に2つの変数を<code>*</code>でつなぐだけ</p>
 <ul>
 <li><code>A * B</code>は説明変数として<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>が同時に投入することを意味する。</li>
 </ul>
@@ -816,7 +820,7 @@ N: 3000
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
@@ -1250,11 +1254,11 @@ N: 3000
 <td headers="std.error" class="gt_row gt_right">2.587</td>
 <td headers="statistic" class="gt_row gt_right">19.047</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td></tr>
-    <tr><td headers="term" class="gt_row gt_left">政治満足度</td>
-<td headers="estimate" class="gt_row gt_right">−4.732</td>
-<td headers="std.error" class="gt_row gt_right">0.561</td>
-<td headers="statistic" class="gt_row gt_right">−8.429</td>
-<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td></tr>
+    <tr><td headers="term" class="gt_row gt_left" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">政治満足度</td>
+<td headers="estimate" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">−4.732</td>
+<td headers="std.error" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.561</td>
+<td headers="statistic" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">−8.429</td>
+<td headers="p.value" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">&lt; 0.001</td></tr>
     <tr><td headers="term" class="gt_row gt_left">女性</td>
 <td headers="estimate" class="gt_row gt_right">2.752</td>
 <td headers="std.error" class="gt_row gt_right">2.186</td>
@@ -1275,11 +1279,11 @@ N: 3000
 <td headers="std.error" class="gt_row gt_right">0.030</td>
 <td headers="statistic" class="gt_row gt_right">−1.347</td>
 <td headers="p.value" class="gt_row gt_right">0.178</td></tr>
-    <tr><td headers="term" class="gt_row gt_left">政治満足度 * 女性</td>
-<td headers="estimate" class="gt_row gt_right">0.902</td>
-<td headers="std.error" class="gt_row gt_right">0.817</td>
-<td headers="statistic" class="gt_row gt_right">1.104</td>
-<td headers="p.value" class="gt_row gt_right">0.270</td></tr>
+    <tr><td headers="term" class="gt_row gt_left" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">政治満足度 * 女性</td>
+<td headers="estimate" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.902</td>
+<td headers="std.error" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.817</td>
+<td headers="statistic" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">1.104</td>
+<td headers="p.value" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.270</td></tr>
   </tbody>
   
   
@@ -1319,7 +1323,7 @@ N: 3000
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 16px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   background-color: #FFFFFF;
@@ -1753,11 +1757,11 @@ N: 3000
 <td headers="std.error" class="gt_row gt_right">4.164</td>
 <td headers="statistic" class="gt_row gt_right">6.784</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td></tr>
-    <tr><td headers="term" class="gt_row gt_left">政治満足度</td>
-<td headers="estimate" class="gt_row gt_right">3.308</td>
-<td headers="std.error" class="gt_row gt_right">1.354</td>
-<td headers="statistic" class="gt_row gt_right">2.442</td>
-<td headers="p.value" class="gt_row gt_right">0.015</td></tr>
+    <tr><td headers="term" class="gt_row gt_left" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">政治満足度</td>
+<td headers="estimate" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">3.308</td>
+<td headers="std.error" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">1.354</td>
+<td headers="statistic" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">2.442</td>
+<td headers="p.value" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.015</td></tr>
     <tr><td headers="term" class="gt_row gt_left">年齢</td>
 <td headers="estimate" class="gt_row gt_right">0.357</td>
 <td headers="std.error" class="gt_row gt_right">0.073</td>
@@ -1778,11 +1782,11 @@ N: 3000
 <td headers="std.error" class="gt_row gt_right">0.888</td>
 <td headers="statistic" class="gt_row gt_right">5.698</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td></tr>
-    <tr><td headers="term" class="gt_row gt_left">政治満足度 * 年齢</td>
-<td headers="estimate" class="gt_row gt_right">−0.157</td>
-<td headers="std.error" class="gt_row gt_right">0.026</td>
-<td headers="statistic" class="gt_row gt_right">−5.920</td>
-<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td></tr>
+    <tr><td headers="term" class="gt_row gt_left" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">政治満足度 * 年齢</td>
+<td headers="estimate" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">−0.157</td>
+<td headers="std.error" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">0.026</td>
+<td headers="statistic" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">−5.920</td>
+<td headers="p.value" class="gt_row gt_right" style="background-color: rgba(128,188,216,0.8); color: #000000; font-weight: bold;">&lt; 0.001</td></tr>
   </tbody>
   
   
@@ -1793,8 +1797,8 @@ N: 3000
 </div>
 </div>
 </section>
-<section id="調整変数がダミー変数の場合-fit1" class="slide level2">
-<h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
+<section id="調整変数がダミー変数の場合fit1" class="slide level2">
+<h2>調整変数がダミー変数の場合（<code>fit1</code>）</h2>
 <ul>
 <li>推定結果
 <ul>
@@ -1804,13 +1808,13 @@ N: 3000
 </ul>
 <p><br></p>
 <ul>
-<li>政治満足度が共産感情温度に与える影響: -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミーの値)
+<li>政治満足度が共産感情温度に与える影響：-(4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミーの値)
 <ul>
-<li>男性の場合 (女性ダミーの値 = 0): -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 0) = -4.73
+<li>男性の場合 (女性ダミーの値 = 0)：-(4.73 - 0.90 <span class="math inline">\(\times\)</span> 0) = -4.73
 <ul>
 <li>男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる。</li>
 </ul></li>
-<li>女性の場合 (女性ダミーの値 = 1): -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 1) = -3.83
+<li>女性の場合 (女性ダミーの値 = 1)：-(4.73 - 0.90 <span class="math inline">\(\times\)</span> 1) = -3.83
 <ul>
 <li>女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる。</li>
 </ul></li>
@@ -1818,8 +1822,8 @@ N: 3000
 </ul></li>
 </ul>
 </section>
-<section id="調整変数がダミー変数の場合-fit1-1" class="slide level2">
-<h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
+<section id="調整変数がダミー変数の場合fit1-1" class="slide level2">
+<h2>調整変数がダミー変数の場合（<code>fit1</code>）</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1830,8 +1834,8 @@ N: 3000
 </div>
 </div>
 </section>
-<section id="調整変数が連続変数の場合-fit2" class="slide level2">
-<h2>調整変数が連続変数の場合 (<code>fit2</code>)</h2>
+<section id="調整変数が連続変数の場合fit2" class="slide level2">
+<h2>調整変数が連続変数の場合（<code>fit2</code>）</h2>
 <ul>
 <li>推定結果
 <ul>
@@ -1843,15 +1847,15 @@ N: 3000
 <ul>
 <li>政治満足度が共産感情温度に与える影響 = (3.31 - 0.16 <span class="math inline">\(\times\)</span> 年齢の値)
 <ul>
-<li>20歳の場合 (<code>Age</code>の値 = 20): 3.31 - 0.16 <span class="math inline">\(\times\)</span> 20 = 0.11
+<li>20歳の場合 (<code>Age</code>の値 = 20)：3.31 - 0.16 <span class="math inline">\(\times\)</span> 20 = 0.11
 <ul>
 <li>20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる。</li>
 </ul></li>
-<li>40歳の場合 (<code>Age</code>の値 = 40): 3.31 - 0.16 <span class="math inline">\(\times\)</span> 40 = -3.09
+<li>40歳の場合 (<code>Age</code>の値 = 40)：3.31 - 0.16 <span class="math inline">\(\times\)</span> 40 = -3.09
 <ul>
 <li>40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる。</li>
 </ul></li>
-<li>60歳の場合 (<code>Age</code>の値 = 60): 3.31 - 0.16 <span class="math inline">\(\times\)</span> 60 = -6.29
+<li>60歳の場合 (<code>Age</code>の値 = 60)：3.31 - 0.16 <span class="math inline">\(\times\)</span> 60 = -6.29
 <ul>
 <li>60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる。</li>
 </ul></li>
@@ -1859,7 +1863,7 @@ N: 3000
 </ul></li>
 </ul>
 </section>
-<section id="調整変数が連続変数の場合-fit2-1" class="slide level2">
+<section id="調整変数が連続変数の場合-fit2" class="slide level2">
 <h2>調整変数が連続変数の場合 (<code>fit2</code>)</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1884,10 +1888,9 @@ N: 3000
 <ul>
 <li><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(Z\)</span>の値によって<span class="math inline">\(X \rightarrow Y\)</span>の統計的有意性は変わる。</li>
 </ul></li>
-<li>調整変数の値ごとに、説明変数が応答変数に与える影響（= <strong>限界効果</strong>; marginal effects）を計算するだけでなく、95%信頼区間 or <span class="math inline">\(p\)</span>値も示すこと。
+<li>調整変数の値ごとに、説明変数が応答変数に与える影響（= <strong>限界効果</strong>; marginal effects）と95%信頼区間を図示する。
 <ul>
-<li>95%信頼区間内に0が含まれない = <span class="math inline">\(p &lt; 0.05\)</span>の場合、統計的に有意な関連があると判断する。</li>
-<li>表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</li>
+<li>仮説検定に使用する有意水準（<span class="math inline">\(\alpha\)</span>）が0.1なら90%信頼区間、0.01なら99%信頼区間を使用</li>
 </ul></li>
 </ul>
 </section>
@@ -1899,6 +1902,7 @@ N: 3000
 <span id="cb9-2"><a href="#cb9-2"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
+<li><code>variables</code>には説明変数名を指定する（変数名は<code>"</code>で囲むこと）</li>
 <li><code>fit1</code>の場合：<code>Female</code>の値が0と1の場合の限界効果
 <ul>
 <li><code>datagrid(Female = c(0, 1))</code>、または<code>datagrid(Female = 0:1)</code></li>
@@ -1908,9 +1912,10 @@ N: 3000
 <li><code>datagrid(Age = 18:75)</code></li>
 </ul></li>
 <li>限界効果は<code>estimate</code>列、<span class="math inline">\(p\)</span>値は<code>p.value</code>列、95%信頼区間は<code>conf.low</code>（下限）と<code>conf.high</code>（上限）</li>
+<li>仮説検定に使用する有意水準（<span class="math inline">\(\alpha\)</span>）が0.1な<code>conf_level = 0.9</code>、0.01なら<code>conf_level = 0.99</code>を追加</li>
 </ul>
 </section>
-<section id="調整変数がダミー変数の場合-fit1-2" class="slide level2">
+<section id="調整変数がダミー変数の場合-fit1" class="slide level2">
 <h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
 <p>性別と関係なく、政治満足度は共産感情温度に負の影響を与える。</p>
 <div class="cell" data-layout-align="center">
@@ -1927,99 +1932,182 @@ N: 3000
 Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Female, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Age 
 Type:  response </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Female, estimate<span class="sc">:</span>conf.high) <span class="co"># 必要な情報だけ出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>Female</code>の値が0の場合
+<ul>
+<li><code>Satisfaction</code>が1単位上がると<code>TempKyosan</code>は約-4.73度下がり、<span class="math inline">\(\alpha = 0.05\)</span>の水準で統計的に有意である。</li>
+</ul></li>
+<li><code>Female</code>の値が1の場合
+<ul>
+<li><code>Satisfaction</code>が1単位上がると<code>TempKyosan</code>は約-3.83度下がり、<span class="math inline">\(\alpha = 0.05\)</span>の水準で統計的に有意である。</li>
+</ul></li>
+</ul>
+</section>
+<section id="調整変数が連続変数の場合fit2-1" class="slide level2">
+<h2>調整変数が連続変数の場合（<code>fit2</code>）</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
+<span id="cb12-2"><a href="#cb12-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Estimate Std. Error     z Pr(&gt;|z|)    S CI low CI high
-    -4.73      0.561 -8.43   &lt;0.001 54.7  -5.83   -3.63
-    -3.83      0.611 -6.27   &lt;0.001 31.4  -5.03   -2.63
+         Term Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %
+ Satisfaction  18   0.4860      0.912   0.5326    0.594 0.8  -1.30   2.27
+ Satisfaction  19   0.3292      0.889   0.3704    0.711 0.5  -1.41   2.07
+ Satisfaction  20   0.1725      0.866   0.1992    0.842 0.2  -1.52   1.87
+ Satisfaction  21   0.0157      0.843   0.0186    0.985 0.0  -1.64   1.67
+ Satisfaction  22  -0.1411      0.820  -0.1721    0.863 0.2  -1.75   1.47
+--- 48 rows omitted. See ?avg_slopes and ?print.marginaleffects --- 
+ Satisfaction  71  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24  -6.40
+ Satisfaction  72  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44  -6.52
+ Satisfaction  73  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64  -6.63
+ Satisfaction  74  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84  -6.74
+ Satisfaction  75  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04  -6.86
+Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female 
+Type:  response </code></pre>
+</div>
+</div>
+<ul>
+<li><code>Age</code>が18の場合、<code>Satisfaction</code>は<code>TempKyosan</code>に影響を与えているとは言えない（<span class="math inline">\(p \geq 0.05\)</span>のため）。</li>
+<li><code>Age</code>が19の場合、<code>Satisfaction</code>は<code>TempKyosan</code>に影響を与えているとは言えない（<span class="math inline">\(p \geq 0.05\)</span>のため）。</li>
+<li>（省略）</li>
+<li><code>Age</code>が75の場合、<code>Satisfaction</code>が1単位上がると<code>TempKyosan</code>は約-8.4度下がり、<span class="math inline">\(\alpha = 0.05\)</span>の水準で統計的に有意である。</li>
+</ul>
+</section>
+<section id="省略された行の表示" class="slide level2">
+<h2>省略された行の表示</h2>
+<p><code>print()</code>内に<code>topn = Inf</code>を追加する。</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+         Term Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 %  97.5 %
+ Satisfaction  18   0.4860      0.912   0.5326  0.59428   0.8  -1.30  2.2744
+ Satisfaction  19   0.3292      0.889   0.3704  0.71111   0.5  -1.41  2.0716
+ Satisfaction  20   0.1725      0.866   0.1992  0.84207   0.2  -1.52  1.8692
+ Satisfaction  21   0.0157      0.843   0.0186  0.98512   0.0  -1.64  1.6672
+ Satisfaction  22  -0.1411      0.820  -0.1721  0.86336   0.2  -1.75  1.4653
+ Satisfaction  23  -0.2978      0.797  -0.3737  0.70861   0.5  -1.86  1.2641
+ Satisfaction  24  -0.4546      0.774  -0.5870  0.55723   0.8  -1.97  1.0634
+ Satisfaction  25  -0.6114      0.752  -0.8126  0.41642   1.3  -2.09  0.8631
+ Satisfaction  26  -0.7681      0.730  -1.0515  0.29302   1.8  -2.20  0.6636
+ Satisfaction  27  -0.9249      0.709  -1.3048  0.19196   2.4  -2.31  0.4644
+ Satisfaction  28  -1.0817      0.688  -1.5731  0.11570   3.1  -2.43  0.2660
+ Satisfaction  29  -1.2384      0.667  -1.8574  0.06325   4.0  -2.55  0.0684
+ Satisfaction  30  -1.3952      0.646  -2.1587  0.03087   5.0  -2.66 -0.1285
+ Satisfaction  31  -1.5520      0.626  -2.4774  0.01324   6.2  -2.78 -0.3241
+ Satisfaction  32  -1.7087      0.607  -2.8156  0.00487   7.7  -2.90 -0.5193
+ Satisfaction  33  -1.8655      0.588  -3.1730  0.00151   9.4  -3.02 -0.7132
+ Satisfaction  34  -2.0223      0.570  -3.5504  &lt; 0.001  11.3  -3.14 -0.9059
+ Satisfaction  35  -2.1790      0.552  -3.9488  &lt; 0.001  13.6  -3.26 -1.0975
+ Satisfaction  36  -2.3358      0.535  -4.3666  &lt; 0.001  16.3  -3.38 -1.2874
+ Satisfaction  37  -2.4926      0.519  -4.8048  &lt; 0.001  19.3  -3.51 -1.4758
+ Satisfaction  38  -2.6493      0.503  -5.2627  &lt; 0.001  22.7  -3.64 -1.6627
+ Satisfaction  39  -2.8061      0.489  -5.7368  &lt; 0.001  26.6  -3.76 -1.8474
+ Satisfaction  40  -2.9629      0.476  -6.2272  &lt; 0.001  31.0  -3.90 -2.0303
+ Satisfaction  41  -3.1196      0.464  -6.7279  &lt; 0.001  35.8  -4.03 -2.2108
+ Satisfaction  42  -3.2764      0.453  -7.2373  &lt; 0.001  41.0  -4.16 -2.3891
+ Satisfaction  43  -3.4332      0.443  -7.7476  &lt; 0.001  46.6  -4.30 -2.5647
+ Satisfaction  44  -3.5900      0.435  -8.2545  &lt; 0.001  52.5  -4.44 -2.7375
+ Satisfaction  45  -3.7467      0.428  -8.7510  &lt; 0.001  58.7  -4.59 -2.9076
+ Satisfaction  46  -3.9035      0.423  -9.2287  &lt; 0.001  65.0  -4.73 -3.0745
+ Satisfaction  47  -4.0603      0.419  -9.6810  &lt; 0.001  71.2  -4.88 -3.2382
+ Satisfaction  48  -4.2170      0.417 -10.1008  &lt; 0.001  77.3  -5.04 -3.3988
+ Satisfaction  49  -4.3738      0.417 -10.4824  &lt; 0.001  83.0  -5.19 -3.5560
+ Satisfaction  50  -4.5306      0.419 -10.8208  &lt; 0.001  88.2  -5.35 -3.7099
+ Satisfaction  51  -4.6873      0.422 -11.1130  &lt; 0.001  92.9  -5.51 -3.8606
+ Satisfaction  52  -4.8441      0.427 -11.3569  &lt; 0.001  96.9  -5.68 -4.0081
+ Satisfaction  53  -5.0009      0.433 -11.5545  &lt; 0.001 100.2  -5.85 -4.1526
+ Satisfaction  54  -5.1576      0.441 -11.7057  &lt; 0.001 102.7  -6.02 -4.2941
+ Satisfaction  55  -5.3144      0.450 -11.8152  &lt; 0.001 104.6  -6.20 -4.4328
+ Satisfaction  56  -5.4712      0.460 -11.8847  &lt; 0.001 105.8  -6.37 -4.5689
+ Satisfaction  57  -5.6279      0.472 -11.9182  &lt; 0.001 106.4  -6.55 -4.7024
+ Satisfaction  58  -5.7847      0.485 -11.9239  &lt; 0.001 106.5  -6.74 -4.8339
+ Satisfaction  59  -5.9415      0.499 -11.9026  &lt; 0.001 106.1  -6.92 -4.9631
+ Satisfaction  60  -6.0982      0.514 -11.8597  &lt; 0.001 105.4  -7.11 -5.0904
+ Satisfaction  61  -6.2550      0.530 -11.7980  &lt; 0.001 104.3  -7.29 -5.2159
+ Satisfaction  62  -6.4118      0.547 -11.7235  &lt; 0.001 103.0  -7.48 -5.3398
+ Satisfaction  63  -6.5685      0.564 -11.6394  &lt; 0.001 101.6  -7.67 -5.4625
+ Satisfaction  64  -6.7253      0.583 -11.5442  &lt; 0.001 100.0  -7.87 -5.5835
+ Satisfaction  65  -6.8821      0.601 -11.4457  &lt; 0.001  98.4  -8.06 -5.7036
+ Satisfaction  66  -7.0388      0.621 -11.3415  &lt; 0.001  96.6  -8.26 -5.8224
+ Satisfaction  67  -7.1956      0.640 -11.2347  &lt; 0.001  94.9  -8.45 -5.9403
+ Satisfaction  68  -7.3524      0.661 -11.1239  &lt; 0.001  93.1  -8.65 -6.0569
+ Satisfaction  69  -7.5092      0.682 -11.0166  &lt; 0.001  91.3  -8.85 -6.1732
+ Satisfaction  70  -7.6659      0.703 -10.9084  &lt; 0.001  89.6  -9.04 -6.2886
+ Satisfaction  71  -7.8227      0.724 -10.8001  &lt; 0.001  87.9  -9.24 -6.4031
+ Satisfaction  72  -7.9795      0.746 -10.6958  &lt; 0.001  86.3  -9.44 -6.5173
+ Satisfaction  73  -8.1362      0.768 -10.5922  &lt; 0.001  84.7  -9.64 -6.6307
+ Satisfaction  74  -8.2930      0.790 -10.4908  &lt; 0.001  83.1  -9.84 -6.7436
+ Satisfaction  75  -8.4498      0.813 -10.3908  &lt; 0.001  81.6 -10.04 -6.8559
 
-Columns: Female, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high </code></pre>
+Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female 
+Type:  response </code></pre>
 </div>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong><code>::</code>って何?おいしいの?</strong></p>
-</div>
-<div class="callout-content">
-<p>同じ名前を持つ関数が複数のパッケージで提供される場合がある。今回の<code>select()</code>関数は{marginaleffects}（厳密には{MASS}）にも含まれており、これまで使用してきた{tidyverse}（厳密には{dplyr}）の<code>select()</code>関数と衝突するため、「どのパッケージの<code>select()</code>」かを明記する必要があり、<code>パッケージ名::関数()</code>と表記する。</p>
-</div>
-</div>
-</div>
+<ul>
+<li>30歳未満の場合、政治満足度（<code>Satisfaction</code>）は共産感情温度（<code>TempKyosan</code>）に影響を与えるとは言えない。</li>
+<li>30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。</li>
+</ul>
 </section>
-<section id="調整変数が連続変数の場合-fit2-2" class="slide level2">
-<h2>調整変数が連続変数の場合 (<code>fit2</code>)</h2>
-<p>30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。</p>
+<section id="限界効果の可視化" class="slide level2">
+<h2>限界効果の可視化</h2>
+<ul>
+<li>可視化の方法は第10回を参照</li>
+<li>95%信頼区間内に0が含まれていれば、説明変数は応答変数に影響を与えるとは言えないと解釈</li>
+<li>0が95%信頼区間外にあれば、説明変数は応答変数に影響を与えると解釈可能</li>
+</ul>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">コード（<code>fit1_ame</code>）</a></li><li><a href="#tabset-1-2">図（<code>fit1_ame</code>）</a></li><li><a href="#tabset-1-3">コード（<code>fit2_ame</code>）</a></li><li><a href="#tabset-1-4">図（<code>fit2_ame</code>）</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb14-2"><a href="#cb14-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
-<span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a>fit2_ame <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Age, estimate<span class="sc">:</span>conf.high) <span class="sc">%&gt;%</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="co"># p値を小数点3桁で丸める</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error        z Pr(&gt;|z|)   S CI low CI high
-   0.4860      0.912   0.5326    0.594 0.8  -1.30    2.27
-   0.3292      0.889   0.3704    0.711 0.5  -1.41    2.07
-   0.1725      0.866   0.1992    0.842 0.2  -1.52    1.87
-   0.0157      0.843   0.0186    0.985 0.0  -1.64    1.67
-  -0.1411      0.820  -0.1721    0.863 0.2  -1.75    1.47
---- 48 rows omitted. See ?print.marginaleffects --- 
-  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24   -6.40
-  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44   -6.52
-  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64   -6.63
-  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84   -6.74
-  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04   -6.86
-Columns: Age, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high </code></pre>
-</div>
-</div>
-</section>
-<section id="限界効果の可視化詳細は第13回で解説" class="slide level2">
-<h2>限界効果の可視化（詳細は第13回で解説）</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<details>
-<summary>コード</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit1_ame <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">mutate</span>(<span class="at">Female =</span> <span class="fu">factor</span>(Female, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
-<span id="cb16-3"><a href="#cb16-3"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
-<span id="cb16-7"><a href="#cb16-7"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high),</span>
-<span id="cb16-8"><a href="#cb16-8"></a>                  <span class="at">size =</span> <span class="dv">1</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit1_ame <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
+<span id="cb16-5"><a href="#cb16-5"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high),</span>
+<span id="cb16-6"><a href="#cb16-6"></a>                  <span class="at">size =</span> <span class="dv">1</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
+<span id="cb16-8"><a href="#cb16-8"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)) <span class="sc">+</span></span>
 <span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-17-1.png" width="1200"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-19-1.png" width="700"></p>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+</div>
+<div id="tabset-1-3">
 <div class="cell" data-layout-align="center">
-<details>
-<summary>コード</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit2_ame <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit2_ame <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度が共産感情温度に</span><span class="sc">\n</span><span class="st">与える影響と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">75</span>),</span>
+<span id="cb17-8"><a href="#cb17-8"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">75</span>)) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-4">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-18-1.png" width="1200"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-21-1.png" width="1200"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>

@@ -4197,14 +4197,14 @@
     "href": "slides/macro/interaction.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\nコンソール上にinstall.packages(\"marginaleffects\")を入力し、インストールしてください。\n実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(summarytools)\nlibrary(marginaleffects)\n\njes_df &lt;- read_csv(\"Data/JES6_W1_2.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(summarytools)\nlibrary(marginaleffects)\n\njes_df &lt;- read_csv(\"Data/JES6_W1_2.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
     "objectID": "slides/macro/interaction.html#交互作用とは-1",
     "href": "slides/macro/interaction.html#交互作用とは-1",
     "title": "マクロ政治データ分析実習",
     "section": "交互作用とは",
-    "text": "交互作用とは\n主な説明変数（\\(X\\)）と応答変数（\\(Y\\)）の関係において、\\(X\\)が\\(Y\\)に与える影響がその他の変数（\\(Z\\)）の影響を受ける場合\n\n\n\n\n\n\n\\(Z\\) は調整変数 (moderation variable; moderator)と呼ばれる。\n\n調整変数はダミー変数でも、連続変数でも可能\n\\(X\\) が \\(Y\\) に与える影響は \\(Z\\) によって変わる。"
+    "text": "交互作用とは\n主な説明変数（\\(X\\)）と応答変数（\\(Y\\)）の関係において、\\(X\\)が\\(Y\\)に与える影響がその他の変数（\\(Z\\)）の影響を受ける場合\n\n\n\n\n\n\n\\(Z\\)は調整変数 (moderation variable; moderator)と呼ばれる。\n\n調整変数はダミー変数でも、連続変数でも可能\n\\(X\\)が\\(Y\\)に与える影響は\\(Z\\)によって変わる。\n\n例）\\(Z=1\\)の場合、\\(X\\)が1上がると\\(Y\\)は2上がるが、\\(Z=2\\)の場合、\\(X\\)が1上がると\\(Y\\)は5上がる。\n\n\\(\\Rightarrow\\) \\(Z\\)の値によって\\(X \\rightarrow Y\\)の効果（傾き）が変わる。"
   },
   {
     "objectID": "slides/macro/interaction.html#回帰分析における交互作用",
@@ -4218,28 +4218,28 @@
     "href": "slides/macro/interaction.html#調整変数がダミー変数の場合",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数がダミー変数の場合",
-    "text": "調整変数がダミー変数の場合\n調整変数\\(Z\\)が0、または1の値のみをとるダミー変数の場合（\\(Z \\in \\{0, 1\\}\\)）\n\\[\n\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot Z\n\\]\n\n調整変数（\\(Z\\)）が0か1かによって、\\(X\\)が\\(Y\\)に与える影響が変化する。\n\\(Z = 0\\)の場合: \\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\) に与える影響は\\(\\beta_1\\)\n\n\\(Z = 1\\)の場合: \\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X = \\alpha + (\\beta_1 + \\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\)に与える影響は\\(\\beta_1 + \\beta_3\\)"
+    "text": "調整変数がダミー変数の場合\n調整変数\\(Z\\)が0、または1の値のみをとるダミー変数の場合（\\(Z \\in \\{0, 1\\}\\)）\n\\[\n\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot Z\n\\]\n\n調整変数（\\(Z\\)）が0か1かによって、\\(X\\)が\\(Y\\)に与える影響が変化する。\n\\(Z = 0\\)の場合：\\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\) に与える影響は\\(\\beta_1\\)\n\n\\(Z = 1\\)の場合：\\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X = \\alpha + (\\beta_1 + \\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\)に与える影響は\\(\\beta_1 + \\beta_3\\)"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合-1",
     "href": "slides/macro/interaction.html#調整変数がダミー変数の場合-1",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数がダミー変数の場合",
-    "text": "調整変数がダミー変数の場合\n\n\n\n\n\n\n\n\n\n\n\n\n以下のモデルの場合…\n\\[\n\\begin{align}\n\\hat{Y} & = 3 + 2 X + 1 Z + 3 X \\cdot Z \\\\\n& = 3 + (2 + 3Z) X + 1 Z\n\\end{align}\n\\]\n\n\\(X\\)の係数は\\(2 + 3Z\\)\n\\(Z = 0\\)なら… (赤)\n\n\\(\\hat{Y} = 3 + 2X + 1Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は2上がる。\n\n\\(Z = 1\\)なら… (青)\n\n\\(\\hat{Y} = 3 + 5X + 1Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は5上がる。"
+    "text": "調整変数がダミー変数の場合\n\n\n\n\n\n\n\n\n\n\n\n\n以下のモデルの場合…\n\\[\n\\begin{align}\n\\hat{Y} & = 3 + 2 X + 1 Z + 3 X \\cdot Z \\\\\n& = 3 + (2 + 3Z) X + 1 Z\n\\end{align}\n\\]\n\n\\(X\\)の係数は\\(2 + 3Z\\)\n\\(Z = 0\\)なら… (赤)\n\n\\(\\hat{Y} = 3 + 2X + 1Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は2上がる。\n\n\\(Z = 1\\)なら… (青)\n\n\\(\\hat{Y} = 3 + 5X + 1Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は5上がる。\n\n\\(\\Rightarrow\\) \\(Z\\)の値に応じて\\(X\\)の傾きが変化する。"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合",
     "href": "slides/macro/interaction.html#調整変数が連続変数の場合",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数が連続変数の場合",
-    "text": "調整変数が連続変数の場合\n調整変数 \\(Z\\) が無数の値をとる連続変数の場合\n\\[\n\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot Z\n\\]\n\n調整変数 ( \\(Z\\) )の値によって、 \\(X\\) が \\(Y\\) に与える影響が変化する。\n\\(Z\\) が1の場合: \\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot 1 = \\alpha + (\\beta_1 + \\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\) が \\(Y\\) に与える影響は \\(\\beta_1 + \\beta_3\\)\n\n\\(Z\\) が2.5の場合: \\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 2.5 \\cdot X = \\alpha + (\\beta_1 + 2.5\\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\) が \\(Y\\) に与える影響は \\(\\beta_1 + 2.5\\beta_3\\)\n\n\\(Z\\) が6の場合: \\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 6 \\cdot X = \\alpha + (\\beta_1 + 6\\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\) が \\(Y\\) に与える影響は \\(\\beta_1 + 6\\beta_3\\)\n\n無数のケースがあり得る。"
+    "text": "調整変数が連続変数の場合\n調整変数\\(Z\\)が無数の値をとる連続変数の場合\n\\[\n\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot Z\n\\]\n\n調整変数（\\(Z\\)）の値によって、\\(X\\)が\\(Y\\)に与える影響が変化する。\n\\(Z\\)が1の場合：\\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 X \\cdot 1 = \\alpha + (\\beta_1 + \\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\)に与える影響は\\(\\beta_1 + \\beta_3\\)\n\n\\(Z\\)が2.5の場合：\\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 2.5 \\cdot X = \\alpha + (\\beta_1 + 2.5\\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\)に与える影響は\\(\\beta_1 + 2.5\\beta_3\\)\n\n\\(Z\\)が6の場合：\\(\\hat{Y} = \\alpha + \\beta_1 X + \\beta_2 Z + \\beta_3 6 \\cdot X = \\alpha + (\\beta_1 + 6\\beta_3) X + \\beta_2 Z\\)\n\n\\(X\\)が\\(Y\\)に与える影響は\\(\\beta_1 + 6\\beta_3\\)\n\n無数のケースがあり得る。"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合-1",
     "href": "slides/macro/interaction.html#調整変数が連続変数の場合-1",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数が連続変数の場合",
-    "text": "調整変数が連続変数の場合\n\n\n\n\n\n\n\n\n\n\n\n\n以下のモデルの場合…\n\\[\n\\begin{align}\n\\hat{Y} & = 2 + 3 X + 2 Z - 1 X \\cdot Z \\\\\n& = 2 + (3 - 1Z) X + 2 Z\n\\end{align}\n\\]\n\n\\(X\\)の係数は\\(3 - Z\\)\n\\(Z = -1\\)なら… (赤)\n\n\\(\\hat{Y} = 2 + 4X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は4上がる。\n\n\\(Z = 2\\)なら… (緑)\n\n\\(\\hat{Y} = 2 + 1X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は1上がる。\n\n\\(Z = 3.5\\)なら… (青)\n\n\\(\\hat{Y} = 2 - 0.5 X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は0.5下がる。"
+    "text": "調整変数が連続変数の場合\n\n\n\n\n\n\n\n\n\n\n\n\n以下のモデルの場合…\n\\[\n\\begin{align}\n\\hat{Y} & = 2 + 3 X + 2 Z - 1 X \\cdot Z \\\\\n& = 2 + (3 - 1Z) X + 2 Z\n\\end{align}\n\\]\n\n\\(X\\)の係数は\\(3 - Z\\)\n\\(Z = -1\\)なら…（赤）\n\n\\(\\hat{Y} = 2 + 4X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は4上がる。\n\n\\(Z = 2\\)なら…（緑）\n\n\\(\\hat{Y} = 2 + 1X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は1上がる。\n\n\\(Z = 3.5\\)なら…（青）\n\n\\(\\hat{Y} = 2 - 0.5 X + 2Z\\)であるため、\\(X\\)が1上がると、\\(Y\\)は0.5下がる。"
   },
   {
     "objectID": "slides/macro/interaction.html#実習用データ",
@@ -4260,14 +4260,14 @@
     "href": "slides/macro/interaction.html#記述統計量",
     "title": "マクロ政治データ分析実習",
     "section": "記述統計量",
-    "text": "記述統計量\n今回のデータはすべて連続変数扱いとなるため、前処理は不要\n\n名目変数もダミー変数になると連続変数と同じ扱いでOK\n\n\njes_df %&gt;%\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \njes_df  \nN: 3000  \n\n                      Mean   Std.Dev     Min      Max   N.Valid\n------------------ ------- --------- ------- -------- ---------\n        TempKyosan   26.88     24.95    0.00   100.00   3000.00\n            Female    0.50      0.50    0.00     1.00   3000.00\n               Age   47.34     15.63   18.00    75.00   3000.00\n      Satisfaction    2.45      1.08    1.00     5.00   3000.00\n          Interest    2.74      0.83    1.00     4.00   3000.00\n          Ideology    6.34      2.10    1.00    11.00   3000.00"
+    "text": "記述統計量\n今回のデータはすべて連続変数扱いとなるため、前処理は不要\n\n名目変数もダミー変数になると連続変数と同じ扱いでOK\n\n\njes_df |&gt;\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \njes_df  \nN: 3000  \n\n                      Mean   Std.Dev     Min      Max   N.Valid\n------------------ ------- --------- ------- -------- ---------\n        TempKyosan   26.88     24.95    0.00   100.00   3000.00\n            Female    0.50      0.50    0.00     1.00   3000.00\n               Age   47.34     15.63   18.00    75.00   3000.00\n      Satisfaction    2.45      1.08    1.00     5.00   3000.00\n          Interest    2.74      0.83    1.00     4.00   3000.00\n          Ideology    6.34      2.10    1.00    11.00   3000.00"
   },
   {
     "objectID": "slides/macro/interaction.html#問題設定",
     "href": "slides/macro/interaction.html#問題設定",
     "title": "マクロ政治データ分析実習",
     "section": "問題設定",
-    "text": "問題設定\n\n　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。\n\nモデル1\n\n主な説明変数: 政治満足度 (Satisfaction)\n応答変数: 共産党に対する感情温度 (TempKoysan)\n調整変数: 女性ダミー (Female)\n統制変数: 政治関心 (Interest)、イデオロギー (Ideology)、年齢 (Age)\n\nモデル2\n\n主な説明変数: 政治満足度 (Satisfaction)\n応答変数: 共産党に対する感情温度 (TempKoysan)\n調整変数: 年齢 (Age)\n統制変数: 政治関心 (Interest)、イデオロギー (Ideology)、女性ダミー (Female)"
+    "text": "問題設定\n\n　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。\n\nモデル1\n\n応答変数：共産党に対する感情温度（TempKoysan）\n主な説明変数：政治満足度（Satisfaction）\n調整変数：女性ダミー（Female）\\(\\leftarrow\\) ダミー変数（二値変数）\n統制変数：政治関心（Interest）、イデオロギー（Ideology）、年齢（Age）\n\nモデル2\n\n応答変数：共産党に対する感情温度（TempKoysan）\n主な説明変数：政治満足度（Satisfaction）\n調整変数：年齢（Age）\\(\\leftarrow\\) 連続変数\n統制変数：政治関心（Interest）、イデオロギー（Ideology）、女性ダミー（Female）"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合-モデル1",
@@ -4302,14 +4302,14 @@
     "href": "slides/macro/interaction.html#交差項を入れた回帰分析の推定方法",
     "title": "マクロ政治データ分析実習",
     "section": "交差項を入れた回帰分析の推定方法",
-    "text": "交差項を入れた回帰分析の推定方法\nlm()内の回帰式 (formula)に2つの変数を*でつなぐだけ\n\nA * Bは説明変数としてA、B、A\\(\\times\\)Bが同時に投入することを意味する。\n\n\nfit1 &lt;- lm(TempKyosan ~ Satisfaction * Female + Interest + Ideology + Age, data = jes_df)\nfit2 &lt;- lm(TempKyosan ~ Satisfaction * Age + Interest + Ideology + Female + Age, data = jes_df)\n\n\n\n\n\nsummary(fit1)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t値\n      p値\n    \n  \n  \n    切片\n49.275\n2.587\n19.047\n&lt; 0.001\n    政治満足度\n−4.732\n0.561\n−8.429\n&lt; 0.001\n    女性\n2.752\n2.186\n1.259\n0.208\n    政治関心\n0.217\n0.571\n0.381\n0.703\n    イデオロギー\n−1.887\n0.214\n−8.815\n&lt; 0.001\n    年齢\n−0.040\n0.030\n−1.347\n0.178\n    政治満足度 * 女性\n0.902\n0.817\n1.104\n0.270\n  \n  \n  \n\n\n\n\n\n\n\n\nsummary(fit2)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t値\n      p値\n    \n  \n  \n    切片\n28.250\n4.164\n6.784\n&lt; 0.001\n    政治満足度\n3.308\n1.354\n2.442\n0.015\n    年齢\n0.357\n0.073\n4.877\n&lt; 0.001\n    政治関心\n−0.118\n0.570\n−0.207\n0.836\n    イデオロギー\n−1.690\n0.215\n−7.845\n&lt; 0.001\n    女性\n5.061\n0.888\n5.698\n&lt; 0.001\n    政治満足度 * 年齢\n−0.157\n0.026\n−5.920\n&lt; 0.001"
+    "text": "交差項を入れた回帰分析の推定方法\nlm()内の回帰式（formula）に2つの変数を*でつなぐだけ\n\nA * Bは説明変数としてA、B、A\\(\\times\\)Bが同時に投入することを意味する。\n\n\nfit1 &lt;- lm(TempKyosan ~ Satisfaction * Female + Interest + Ideology + Age, data = jes_df)\nfit2 &lt;- lm(TempKyosan ~ Satisfaction * Age + Interest + Ideology + Female + Age, data = jes_df)\n\n\n\n\n\nsummary(fit1)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t値\n      p値\n    \n  \n  \n    切片\n49.275\n2.587\n19.047\n&lt; 0.001\n    政治満足度\n−4.732\n0.561\n−8.429\n&lt; 0.001\n    女性\n2.752\n2.186\n1.259\n0.208\n    政治関心\n0.217\n0.571\n0.381\n0.703\n    イデオロギー\n−1.887\n0.214\n−8.815\n&lt; 0.001\n    年齢\n−0.040\n0.030\n−1.347\n0.178\n    政治満足度 * 女性\n0.902\n0.817\n1.104\n0.270\n  \n  \n  \n\n\n\n\n\n\n\n\nsummary(fit2)\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      t値\n      p値\n    \n  \n  \n    切片\n28.250\n4.164\n6.784\n&lt; 0.001\n    政治満足度\n3.308\n1.354\n2.442\n0.015\n    年齢\n0.357\n0.073\n4.877\n&lt; 0.001\n    政治関心\n−0.118\n0.570\n−0.207\n0.836\n    イデオロギー\n−1.690\n0.215\n−7.845\n&lt; 0.001\n    女性\n5.061\n0.888\n5.698\n&lt; 0.001\n    政治満足度 * 年齢\n−0.157\n0.026\n−5.920\n&lt; 0.001"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合-fit1",
     "href": "slides/macro/interaction.html#調整変数がダミー変数の場合-fit1",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数がダミー変数の場合 (fit1)",
-    "text": "調整変数がダミー変数の場合 (fit1)\n\n推定結果\n\n共産に対する感情温度の予測値 = 49.28 - 4.73 \\(\\times\\) 政治満足度 + 2.75 \\(\\times\\) 女性ダミー + 0.22 \\(\\times\\) 政治関心 - 1.89 \\(\\times\\) イデオロギー - 0.04 \\(\\times\\) 年齢 + 0.90 \\(\\times\\) 政治満足度 \\(\\times\\) 女性ダミー\n共産に対する感情温度の予測値 = 49.28 - (4.73 - 0.90 \\(\\times\\) 女性ダミー) \\(\\times\\) 政治満足度 + 2.75 \\(\\times\\) 女性ダミー + 0.22 \\(\\times\\) 政治関心 - 1.89 \\(\\times\\) イデオロギー - 0.04 \\(\\times\\) 年齢\n\n\n\n\n政治満足度が共産感情温度に与える影響: -(4.73 - 0.90 \\(\\times\\) 女性ダミーの値)\n\n男性の場合 (女性ダミーの値 = 0): -(4.73 - 0.90 \\(\\times\\) 0) = -4.73\n\n男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる。\n\n女性の場合 (女性ダミーの値 = 1): -(4.73 - 0.90 \\(\\times\\) 1) = -3.83\n\n女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる。\n\n\\(\\rightarrow\\) 政治満足度が共産に対する感情温度に与える影響は性別によって変わる。"
+    "text": "調整変数がダミー変数の場合 (fit1)\n性別と関係なく、政治満足度は共産感情温度に負の影響を与える。\n\nfit1_ame &lt;- slopes(fit1, variables = \"Satisfaction\", \n                   newdata = datagrid(Female = c(0, 1)))\n\nfit1_ame\n\n\n         Term Female Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %\n Satisfaction      0    -4.73      0.561 -8.43   &lt;0.001 54.7 -5.83  -3.63\n Satisfaction      1    -3.83      0.611 -6.27   &lt;0.001 31.4 -5.03  -2.63\n\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Female, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Age \nType:  response \n\n\n\nFemaleの値が0の場合\n\nSatisfactionが1単位上がるとTempKyosanは約-4.73度下がり、\\(\\alpha = 0.05\\)の水準で統計的に有意である。\n\nFemaleの値が1の場合\n\nSatisfactionが1単位上がるとTempKyosanは約-3.83度下がり、\\(\\alpha = 0.05\\)の水準で統計的に有意である。"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合-fit1-1",
@@ -4323,28 +4323,28 @@
     "href": "slides/macro/interaction.html#調整変数が連続変数の場合-fit2",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数が連続変数の場合 (fit2)",
-    "text": "調整変数が連続変数の場合 (fit2)\n\n推定結果\n\n共産に対する感情温度の予測値 = 28.25 + 3.31 \\(\\times\\) 政治満足度 + 0.37 \\(\\times\\) 年齢 - 0.12 \\(\\times\\) 政治関心 - 1.69 \\(\\times\\) イデオロギー + 5.06 \\(\\times\\) 女性ダミー - 0.16 \\(\\times\\) 政治満足度 \\(\\times\\) 年齢\n共産に対する感情温度の予測値 = 28.25 + (3.31 - 0.16 \\(\\times\\) 年齢) \\(\\times\\) 政治満足度 + 0.37 \\(\\times\\) 年齢 - 0.12 \\(\\times\\) 政治関心 - 1.69 \\(\\times\\) イデオロギー + 5.06 \\(\\times\\) 女性ダミー\n\n\n\n\n政治満足度が共産感情温度に与える影響 = (3.31 - 0.16 \\(\\times\\) 年齢の値)\n\n20歳の場合 (Ageの値 = 20): 3.31 - 0.16 \\(\\times\\) 20 = 0.11\n\n20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる。\n\n40歳の場合 (Ageの値 = 40): 3.31 - 0.16 \\(\\times\\) 40 = -3.09\n\n40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる。\n\n60歳の場合 (Ageの値 = 60): 3.31 - 0.16 \\(\\times\\) 60 = -6.29\n\n60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる。\n\n\\(\\rightarrow\\) 政治満足度が共産に対する感情温度に与える影響は年齢によって変わる。"
+    "text": "調整変数が連続変数の場合 (fit2)"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合-fit2-1",
     "href": "slides/macro/interaction.html#調整変数が連続変数の場合-fit2-1",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数が連続変数の場合 (fit2)",
-    "text": "調整変数が連続変数の場合 (fit2)"
+    "text": "調整変数が連続変数の場合 (fit2)\n30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。\n\nfit2_ame &lt;- slopes(fit2, variables = \"Satisfaction\", \n                   newdata = datagrid(Age = 18:75))\n\nfit2_ame\n\n\n         Term Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %\n Satisfaction  18   0.4860      0.912   0.5326    0.594 0.8  -1.30   2.27\n Satisfaction  19   0.3292      0.889   0.3704    0.711 0.5  -1.41   2.07\n Satisfaction  20   0.1725      0.866   0.1992    0.842 0.2  -1.52   1.87\n Satisfaction  21   0.0157      0.843   0.0186    0.985 0.0  -1.64   1.67\n Satisfaction  22  -0.1411      0.820  -0.1721    0.863 0.2  -1.75   1.47\n--- 48 rows omitted. See ?avg_slopes and ?print.marginaleffects --- \n Satisfaction  71  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24  -6.40\n Satisfaction  72  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44  -6.52\n Satisfaction  73  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64  -6.63\n Satisfaction  74  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84  -6.74\n Satisfaction  75  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04  -6.86\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female \nType:  response"
   },
   {
     "objectID": "slides/macro/interaction.html#交互作用をどう報告するか",
     "href": "slides/macro/interaction.html#交互作用をどう報告するか",
     "title": "マクロ政治データ分析実習",
     "section": "交互作用をどう報告するか",
-    "text": "交互作用をどう報告するか\n交互作用: 説明変数が応答変数に与える影響は調整変数の値によって変わる\n\n\\(X\\)が\\(Y\\)に与える影響の統計的有意性を検定する際に用いられる検定統計量は「\\(X\\)の係数 / \\(X\\)の標準誤差」であるが、ここでの\\(X\\)の係数（と標準誤差）は\\(Z\\)の値によって変わる。\n\n\\(\\Rightarrow\\) \\(Z\\)の値によって\\(X \\rightarrow Y\\)の統計的有意性は変わる。\n\n調整変数の値ごとに、説明変数が応答変数に与える影響（= 限界効果; marginal effects）を計算するだけでなく、95%信頼区間 or \\(p\\)値も示すこと。\n\n95%信頼区間内に0が含まれない = \\(p &lt; 0.05\\)の場合、統計的に有意な関連があると判断する。\n表で\\(p\\)値を報告する場合、\\(p\\)値が非常に小さいケースがある（たとえば、\\(p\\) = 0.0000000235）。この場合、「\\(p\\) = 0.000」と表記せず、「\\(p\\) &lt; 0.001」と表記すること。\\(p\\)値がぴったり0になることは実質的にあり得ない。"
+    "text": "交互作用をどう報告するか\n交互作用: 説明変数が応答変数に与える影響は調整変数の値によって変わる\n\n\\(X\\)が\\(Y\\)に与える影響の統計的有意性を検定する際に用いられる検定統計量は「\\(X\\)の係数 / \\(X\\)の標準誤差」であるが、ここでの\\(X\\)の係数（と標準誤差）は\\(Z\\)の値によって変わる。\n\n\\(\\Rightarrow\\) \\(Z\\)の値によって\\(X \\rightarrow Y\\)の統計的有意性は変わる。\n\n調整変数の値ごとに、説明変数が応答変数に与える影響（= 限界効果; marginal effects）と95%信頼区間を図示する。\n\n仮説検定に使用する有意水準（\\(\\alpha\\)）が0.1なら90%信頼区間、0.01なら99%信頼区間を使用"
   },
   {
     "objectID": "slides/macro/interaction.html#marginaleffectパッケージを用いた限界効果の計算",
     "href": "slides/macro/interaction.html#marginaleffectパッケージを用いた限界効果の計算",
     "title": "マクロ政治データ分析実習",
     "section": "{marginaleffect}パッケージを用いた限界効果の計算",
-    "text": "{marginaleffect}パッケージを用いた限界効果の計算\n{marginaleffect}パッケージのslopes()関数\n\nslopes(回帰オブジェクト名, variables = \"説明変数名\", \n       newdata = datagrid(調整変数名 = 調整変数の値))\n\n\nfit1の場合：Femaleの値が0と1の場合の限界効果\n\ndatagrid(Female = c(0, 1))、またはdatagrid(Female = 0:1)\n\nfit2の場合：Ageの値が18、19、20、…、75の場合の限界効果\n\ndatagrid(Age = 18:75)\n\n限界効果はestimate列、\\(p\\)値はp.value列、95%信頼区間はconf.low（下限）とconf.high（上限）"
+    "text": "{marginaleffect}パッケージを用いた限界効果の計算\n{marginaleffect}パッケージのslopes()関数\n\nslopes(回帰オブジェクト名, variables = \"説明変数名\", \n       newdata = datagrid(調整変数名 = 調整変数の値))\n\n\nvariablesには説明変数名を指定する（変数名は\"で囲むこと）\nfit1の場合：Femaleの値が0と1の場合の限界効果\n\ndatagrid(Female = c(0, 1))、またはdatagrid(Female = 0:1)\n\nfit2の場合：Ageの値が18、19、20、…、75の場合の限界効果\n\ndatagrid(Age = 18:75)\n\n限界効果はestimate列、\\(p\\)値はp.value列、95%信頼区間はconf.low（下限）とconf.high（上限）\n仮説検定に使用する有意水準（\\(\\alpha\\)）が0.1なconf_level = 0.9、0.01ならconf_level = 0.99を追加"
   },
   {
     "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合-fit1-2",
@@ -4358,21 +4358,21 @@
     "href": "slides/macro/interaction.html#調整変数が連続変数の場合-fit2-2",
     "title": "マクロ政治データ分析実習",
     "section": "調整変数が連続変数の場合 (fit2)",
-    "text": "調整変数が連続変数の場合 (fit2)\n30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。\n\nfit2_ame &lt;- slopes(fit2, variables = \"Satisfaction\", \n                   newdata = datagrid(Age = 18:75))\n\nfit2_ame %&gt;%\n  dplyr::select(Age, estimate:conf.high) %&gt;%\n  mutate(p.value = round(p.value, 3)) # p値を小数点3桁で丸める\n\n\n Estimate Std. Error        z Pr(&gt;|z|)   S CI low CI high\n   0.4860      0.912   0.5326    0.594 0.8  -1.30    2.27\n   0.3292      0.889   0.3704    0.711 0.5  -1.41    2.07\n   0.1725      0.866   0.1992    0.842 0.2  -1.52    1.87\n   0.0157      0.843   0.0186    0.985 0.0  -1.64    1.67\n  -0.1411      0.820  -0.1721    0.863 0.2  -1.75    1.47\n--- 48 rows omitted. See ?print.marginaleffects --- \n  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24   -6.40\n  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44   -6.52\n  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64   -6.63\n  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84   -6.74\n  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04   -6.86\nColumns: Age, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high"
+    "text": "調整変数が連続変数の場合 (fit2)\n30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。\n\nfit2_ame &lt;- slopes(fit2, variables = \"Satisfaction\", \n                   newdata = datagrid(Age = 18:75))\n\nfit2_ame |&gt;\n  dplyr::select(Age, estimate:conf.high) |&gt;\n  mutate(p.value = round(p.value, 3)) # p値を小数点3桁で丸める\n\n\n Estimate Std. Error        z Pr(&gt;|z|)   S CI low CI high\n   0.4860      0.912   0.5326    0.594 0.8  -1.30    2.27\n   0.3292      0.889   0.3704    0.711 0.5  -1.41    2.07\n   0.1725      0.866   0.1992    0.842 0.2  -1.52    1.87\n   0.0157      0.843   0.0186    0.985 0.0  -1.64    1.67\n  -0.1411      0.820  -0.1721    0.863 0.2  -1.75    1.47\n--- 48 rows omitted. See ?print.marginaleffects --- \n  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24   -6.40\n  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44   -6.52\n  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64   -6.63\n  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84   -6.74\n  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04   -6.86\nColumns: Age, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high"
   },
   {
     "objectID": "slides/macro/interaction.html#限界効果の可視化詳細は第13回で解説",
     "href": "slides/macro/interaction.html#限界効果の可視化詳細は第13回で解説",
     "title": "マクロ政治データ分析実習",
     "section": "限界効果の可視化（詳細は第13回で解説）",
-    "text": "限界効果の可視化（詳細は第13回で解説）\n\n\n\n\nコード\nfit1_ame %&gt;%\n  mutate(Female = factor(Female, levels = 0:1, \n                         labels = c(\"男性\", \"女性\"))) %&gt;%\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Female, y = estimate, \n                      ymin = conf.low, ymax = conf.high),\n                  size = 1, linewidth = 1) +\n  labs(x = \"性別\", y = \"政治満足度の平均限界効果と95%信頼区間\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\n\n\n\nコード\nfit2_ame %&gt;%\n  ggplot(aes(x = Age)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = \"gray80\") +\n  geom_hline(yintercept = 0) +\n  geom_line(aes(y = estimate), linewidth = 1) +\n  labs(x = \"年齢\", y = \"政治満足度の平均限界効果と95%信頼区間\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "限界効果の可視化（詳細は第13回で解説）\n\n\n\n\nコード\nfit1_ame |&gt;\n  mutate(Female = factor(Female, levels = 0:1, \n                         labels = c(\"男性\", \"女性\"))) |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Female, y = estimate, \n                      ymin = conf.low, ymax = conf.high),\n                  size = 1, linewidth = 1) +\n  labs(x = \"性別\", y = \"政治満足度の平均限界効果と95%信頼区間\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\n\n\n\nコード\nfit2_ame |&gt;\n  ggplot(aes(x = Age)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = \"gray80\") +\n  geom_hline(yintercept = 0) +\n  geom_line(aes(y = estimate), linewidth = 1) +\n  labs(x = \"年齢\", y = \"政治満足度の平均限界効果と95%信頼区間\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   },
   {
     "objectID": "slides/macro/logit.html#授業開始前に",
     "href": "slides/macro/logit.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成してください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(summarytools)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/Hino_Song.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データをダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。\n\n\nlibrary(tidyverse)\nlibrary(summarytools)\nlibrary(modelsummary)\nlibrary(marginaleffects)\n\ndf &lt;- read_csv(\"Data/Hino_Song.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
     "objectID": "slides/macro/logit.html#実習用データ",
@@ -4386,7 +4386,7 @@
     "href": "slides/macro/logit.html#問題設定",
     "title": "マクロ政治データ分析実習",
     "section": "問題設定",
-    "text": "問題設定\n\n　有権者の投票参加を規定する要因を調べたい。投票所に足を運ぶには予め投票先を決めておく必要があろう。しかし、数多い選択肢（候補者、政党）の中から自分の望みを実現してくれそうな選択肢を見つけることは簡単な作業ではない。政治に関する知識があれば、比較的簡単に見つかるため、投票参加しやすいと考えられる。一方、そうでない有権者は自分にとっても最適な選択肢を見つけることを諦め、棄権するだろう。これは本当だろうか。\n\n\n応答変数: 投票参加（Voted）\n\n「投票（= 1）」と「棄権（= 0）」の値のみを取るダミー変数（= 二値変数、バイナリー変数）\n説明変数として0/1の値を取る変数は「ダミー変数」と呼ぶが、応答変数として使われる場合も「バイナリー変数」、または「二値変数」の方がより一般的\n\n主な説明変数: 回答者の主観的な政治知識（Knowledge）\n統制変数: 性別（Female）、年齢（Age）、学歴（Educ）、イデオロギー（Ideology）"
+    "text": "問題設定\n\n　有権者の投票参加を規定する要因を調べたい。投票所に足を運ぶには予め投票先を決めておく必要があろう。しかし、数多い選択肢（候補者、政党）の中から自分の望みを実現してくれそうな選択肢を見つけることは簡単な作業ではない。政治に関する知識があれば、比較的簡単に見つかるため、投票参加しやすいと考えられる。一方、そうでない有権者は自分にとっても最適な選択肢を見つけることを諦め、棄権するだろう。これは本当だろうか。\n\n\n応答変数：投票参加（Voted）\n\n「投票（= 1）」と「棄権（= 0）」の値のみを取るダミー変数（= 二値変数、バイナリー変数）\n説明変数として0/1の値を取る変数は「ダミー変数」と呼ぶが、応答変数として使われる場合も「バイナリー変数」、または「二値変数」の方がより一般的\n\n主な説明変数：回答者の主観的な政治知識（Knowledge）\n統制変数：性別（Female）、年齢（Age）、学歴（Educ）、イデオロギー（Ideology）"
   },
   {
     "objectID": "slides/macro/logit.html#モデル",
@@ -4400,28 +4400,28 @@
     "href": "slides/macro/logit.html#記述統計",
     "title": "マクロ政治データ分析実習",
     "section": "記述統計",
-    "text": "記述統計\n\ndf %&gt;%\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \ndf  \nN: 2555  \n\n                   Mean   Std.Dev     Min     Max   N.Valid\n--------------- ------- --------- ------- ------- ---------\n          Voted    0.71      0.45    0.00    1.00   2555.00\n         Female    0.46      0.50    0.00    1.00   2555.00\n            Age   50.91     15.69   18.00   86.00   2555.00\n           Educ    3.21      0.90    1.00    4.00   2555.00\n      Knowledge    3.95      1.12    1.00    5.00   2555.00\n       Ideology    5.40      2.16    0.00   10.00   2555.00"
+    "text": "記述統計\n\ndf |&gt;\n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \ndf  \nN: 2555  \n\n                   Mean   Std.Dev     Min     Max   N.Valid\n--------------- ------- --------- ------- ------- ---------\n          Voted    0.71      0.45    0.00    1.00   2555.00\n         Female    0.46      0.50    0.00    1.00   2555.00\n            Age   50.91     15.69   18.00   86.00   2555.00\n           Educ    3.21      0.90    1.00    4.00   2555.00\n      Knowledge    3.95      1.12    1.00    5.00   2555.00\n       Ideology    5.40      2.16    0.00   10.00   2555.00"
   },
   {
     "objectID": "slides/macro/logit.html#線形確率モデル",
     "href": "slides/macro/logit.html#線形確率モデル",
     "title": "マクロ政治データ分析実習",
     "section": "線形確率モデル",
-    "text": "線形確率モデル\nバイナリー変数を応答変数とする線形回帰モデル: 線形確率モデル (linear probability model; LPM)\n\nlm_fit &lt;- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)\n\n\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      検定統計量\n      p値\n    \n  \n  \n    切片\n−0.109\n0.056\n−1.959\n0.050\n    主観的な政治知識\n0.119\n0.008\n15.359\n&lt; 0.001\n    女性ダミー\n−0.055\n0.017\n−3.213\n0.001\n    年齢\n0.005\n0.001\n8.408\n&lt; 0.001\n    学歴\n0.036\n0.010\n3.714\n&lt; 0.001\n    イデオロギー\n0.004\n0.004\n1.054\n0.292\n  \n  \n  \n\n\n\n\n\n\n政治知識の係数は約0.119\n\n政治知識が1上がると、投票に参加する確率は約11.9%p上がる。\n分かりやすい解釈であるものの、一つ、深刻な問題がある。\nたとえば?"
+    "text": "線形確率モデル\nバイナリー変数を応答変数とする線形回帰モデル：線形確率モデル (linear probability model；LPM)\n\nlm_fit &lt;- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)\n\n\n\n\n\n\n\n\n\n  \n    \n    \n      \n      係数\n      標準誤差\n      検定統計量\n      p値\n    \n  \n  \n    切片\n−0.109\n0.056\n−1.959\n0.050\n    主観的な政治知識\n0.119\n0.008\n15.359\n&lt; 0.001\n    女性ダミー\n−0.055\n0.017\n−3.213\n0.001\n    年齢\n0.005\n0.001\n8.408\n&lt; 0.001\n    学歴\n0.036\n0.010\n3.714\n&lt; 0.001\n    イデオロギー\n0.004\n0.004\n1.054\n0.292\n  \n  \n  \n\n\n\n\n\n\n政治知識の係数は約0.119\n\n政治知識が1上がると、投票に参加する確率は約11.9%p上がる。\n分かりやすい解釈であるものの、一つ、深刻な問題がある。\nたとえば?"
   },
   {
     "objectID": "slides/macro/logit.html#線形確率モデルの限界",
     "href": "slides/macro/logit.html#線形確率モデルの限界",
     "title": "マクロ政治データ分析実習",
     "section": "線形確率モデルの限界",
-    "text": "線形確率モデルの限界\n主観的政治知識が5、男性、86歳、教育水準が4、イデオロギーが10の回答者がいる場合、投票に参加する確率の予測値は?\n\n-0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10\n\n[1] 1.07141\n\n\n\n投票参加確率の予測値は1.07141 \\(\\rightarrow\\) 107.141%\n確率は0以上、1以下 (0%〜100%)であるものの、あり得ない予測値が出る。\n他にも線形確率モデルにはいくつかの問題がある (分散の不均一性など)。\n\n\n\n参考) 応答変数がバイナリー変数であっても、線形確率モデルが推奨される場合もある。\n\nFreedman, David A.. 2008. “Randomization Does Not Justify Logistic Regression,” Statistical Science, 23 (2): 237-249."
+    "text": "線形確率モデルの限界\n主観的政治知識が5、男性、86歳、教育水準が4、イデオロギーが10の回答者がいる場合、投票に参加する確率の予測値は?\n\n# -0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10\nlm_fit |&gt; \n  predictions(newdata = datagrid(Knowledge = 5,\n                                 Female    = 0,\n                                 Age       = 86,\n                                 Educ      = 4,\n                                 Ideology  = 10))\n\n\n Knowledge Female Age Educ Ideology Estimate Std. Error  z Pr(&gt;|z|)     S 2.5 % 97.5 %\n         5      0  86    4       10     1.07     0.0306 35   &lt;0.001 887.0  1.01   1.13\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology \nType:  response \n\n\n\n投票参加確率の予測値は1.07141 \\(\\rightarrow\\) 107.141%\n確率は0以上、1以下（0%〜100%）であるものの、あり得ない予測値が出る。\n他にも線形確率モデルにはいくつかの問題がある（分散の不均一性など）。\n\n\n\n参考) 応答変数がバイナリー変数であっても、線形確率モデルが推奨される場合もある。\n\nFreedman, David A.. 2008. “Randomization Does Not Justify Logistic Regression,” Statistical Science, 23 (2): 237-249."
   },
   {
     "objectID": "slides/macro/logit.html#ロジスティック関数-1",
     "href": "slides/macro/logit.html#ロジスティック関数-1",
     "title": "マクロ政治データ分析実習",
     "section": "ロジスティック関数",
-    "text": "ロジスティック関数\n\\[\n\\mbox{logistic}(x) = \\frac{1}{1 + e^{-x}}\n\\]\n\n\\(e\\)はネイピア数: \\(e = 1 + 1 + \\frac{1}{2!} + \\frac{1}{3!} + \\frac{1}{4!} + ... \\frac{1}{\\infty!}\\) = 2.71828184590…\n\\(x\\)は\\(-\\infty \\sim \\infty\\)の値を取り得る。\n\n\\(x\\)が\\(-\\infty\\)の場合、\\(e^{-x}\\)は\\(e^{-(-\\infty)} = \\infty\\)、\\(x\\)が\\(\\infty\\)の場合、\\(e^{-x}\\)は\\(e^{-(\\infty)} = 0\\)\n\\(\\rightarrow\\) \\(e^{-x}\\) は\\(0 \\sim \\infty\\)\n\n\\(e^{-x}\\) は \\(0 \\sim \\infty\\) の値をとる。\n\n\\(e^{-x}\\)が0の場合、\\(\\mbox{logistic}(x)\\)は1、\\(e^{-x}\\)が\\(\\infty\\)の場合、\\(\\mbox{logistic}(x)\\)は0\n\\(\\rightarrow\\) \\(\\mbox{logistic}(x)\\)は0以上、1以下\n\\(\\rightarrow\\) \\(x\\)の値が大きいほど、\\(\\mbox{logistic}(x)\\)は1へ近づく"
+    "text": "ロジスティック関数\n\\[\n\\mbox{logistic}(x) = \\frac{1}{1 + e^{-x}}\n\\]\n\n\\(e\\)はネイピア数：\\(e = 1 + 1 + \\frac{1}{2!} + \\frac{1}{3!} + \\frac{1}{4!} + ... \\frac{1}{\\infty!}\\) = 2.71828184590…\n\\(x\\)は\\(-\\infty \\sim \\infty\\)の値を取り得る。\n\n\\(x\\)が\\(-\\infty\\)の場合、\\(e^{-x}\\)は\\(e^{-(-\\infty)} = \\infty\\)、\\(x\\)が\\(\\infty\\)の場合、\\(e^{-x}\\)は\\(e^{-(\\infty)} = 0\\)\n\\(\\rightarrow\\) \\(e^{-x}\\) は\\(0 \\sim \\infty\\)\n\n\\(e^{-x}\\)は\\(0 \\sim \\infty\\)の値をとる。\n\n\\(e^{-x}\\)が0の場合、\\(\\mbox{logistic}(x)\\)は1、\\(e^{-x}\\)が\\(\\infty\\)の場合、\\(\\mbox{logistic}(x)\\)は0\n\\(\\rightarrow\\) \\(\\mbox{logistic}(x)\\)は0以上、1以下\n\\(\\rightarrow\\) \\(x\\)の値が大きいほど、\\(\\mbox{logistic}(x)\\)は1へ近づく"
   },
   {
     "objectID": "slides/macro/logit.html#ロジスティック関数-図",
@@ -4477,28 +4477,28 @@
     "href": "slides/macro/logit.html#予測値を計算する方法2",
     "title": "マクロ政治データ分析実習",
     "section": "予測値を計算する方法（2）",
-    "text": "予測値を計算する方法（2）\n{marginaleffects}パッケージのpredictions()関数の利用\n\npredictions(回帰分析オブジェクト名, \n            type    = \"response\",\n            newdata = datagrid(説明変数名1 = 値,\n                               説明変数名2 = 値,\n                               ...))\n\n\nnewdataで指定されなかった説明変数は平均値に固定される。\n\n論文、レポートでは「XXは1、ZZは5、…に固定し、その他の説明変数は平均値に固定した予測値を算出した」と書く。"
+    "text": "予測値を計算する方法（2）\n{marginaleffects}パッケージのpredictions()関数の利用\n\npredictions(回帰分析オブジェクト名, \n            newdata = datagrid(説明変数名1 = 値,\n                               説明変数名2 = 値,\n                               ...))\n\n\nnewdataで指定されなかった説明変数は平均値に固定される。\n\n論文、レポートでは「XXは1、ZZは5、…に固定し、その他の説明変数は平均値に固定した予測値を算出した」と書く。\n詳細は第10回の講義資料を参照"
   },
   {
     "objectID": "slides/macro/logit.html#marginaleffectsを使った予測値の計算例",
     "href": "slides/macro/logit.html#marginaleffectsを使った予測値の計算例",
     "title": "マクロ政治データ分析実習",
     "section": "{marginaleffects}を使った予測値の計算（例）",
-    "text": "{marginaleffects}を使った予測値の計算（例）\n先ほどの手計算（?）の結果を{marginaleffects}のpredictions()関数で再現\n\n# 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、\n# イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率\npredictions(fit1, type = \"response\",\n            newdata = datagrid(Knowledge = 3, \n                               Female    = 1,\n                               Age       = 20, \n                               Educ      = 4, \n                               Ideology  = 5))\n\n\n Knowledge Female Age Educ Ideology Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %\n         3      1  20    4        5    0.411     0.0292 14.1   &lt;0.001 146.7 0.354  0.468\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology \nType:  response \n\n\n\nEstimate列の値が予測確率: 0.411（約41%）"
+    "text": "{marginaleffects}を使った予測値の計算（例）\n先ほどの手計算（?）の結果を{marginaleffects}のpredictions()関数で再現\n\n# 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、\n# イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率\npredictions(fit1, \n            newdata = datagrid(Knowledge = 3, \n                               Female    = 1,\n                               Age       = 20, \n                               Educ      = 4, \n                               Ideology  = 5))\n\n\n Knowledge Female Age Educ Ideology Estimate Pr(&gt;|z|)   S 2.5 % 97.5 %\n         3      1  20    4        5    0.411  0.00285 8.5 0.355  0.469\n\nColumns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Knowledge, Female, Age, Educ, Ideology \nType:  invlink(link) \n\n\n\nEstimate列の値が予測確率: 0.411（約41%）\n\n本当の列名はestimate（第10回参照）"
   },
   {
     "objectID": "slides/macro/logit.html#marginaleffectsを使った予測値の計算",
     "href": "slides/macro/logit.html#marginaleffectsを使った予測値の計算",
     "title": "マクロ政治データ分析実習",
     "section": "{marginaleffects}を使った予測値の計算",
-    "text": "{marginaleffects}を使った予測値の計算\nKnowledgeが1〜5の場合の投票参加確率の予測値\n\nfit1_pred &lt;- predictions(fit1, type = \"response\",\n                         newdata = datagrid(Knowledge = 1:5))\nfit1_pred\n\n\n Knowledge Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology\n         1    0.329    0.02794 11.8   &lt;0.001 104.2 0.275  0.384  0.458 50.9 3.21      5.4\n         2    0.471    0.02201 21.4   &lt;0.001 334.5 0.427  0.514  0.458 50.9 3.21      5.4\n         3    0.617    0.01358 45.4   &lt;0.001   Inf 0.590  0.643  0.458 50.9 3.21      5.4\n         4    0.744    0.00949 78.4   &lt;0.001   Inf 0.726  0.763  0.458 50.9 3.21      5.4\n         5    0.840    0.00982 85.6   &lt;0.001   Inf 0.821  0.860  0.458 50.9 3.21      5.4\n\nColumns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge \nType:  response \n\n\n\nKnowledgeがVotedに与える影響は一定ではない。\n\nKnowledgeの値が1の場合: 投票に参加する確率は32.94%\nKnowledgeの値が2の場合: 投票に参加する確率は47.05% (14.11%p増加)\nKnowledgeの値が3の場合: 投票に参加する確率は61.65% (14.60%p増加)\nKnowledgeの値が4の場合: 投票に参加する確率は74.42% (12.77%p増加)\nKnowledgeの値が5の場合: 投票に参加する確率は84.03% (9.61%p増加)"
+    "text": "{marginaleffects}を使った予測値の計算\nKnowledgeが1〜5の場合の投票参加確率の予測値\n\nfit1_pred &lt;- predictions(fit1, \n                         newdata = datagrid(Knowledge = 1:5))\nfit1_pred\n\n\n Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology\n         1    0.329   &lt;0.001  25.7 0.277  0.386  0.458 50.9 3.21      5.4\n         2    0.471    0.182   2.5 0.428  0.514  0.458 50.9 3.21      5.4\n         3    0.617   &lt;0.001  52.7 0.590  0.643  0.458 50.9 3.21      5.4\n         4    0.744   &lt;0.001 335.6 0.725  0.762  0.458 50.9 3.21      5.4\n         5    0.840   &lt;0.001 376.1 0.820  0.859  0.458 50.9 3.21      5.4\n\nColumns: rowid, estimate, p.value, s.value, conf.low, conf.high, Voted, Female, Age, Educ, Ideology, Knowledge \nType:  invlink(link) \n\n\n\nKnowledgeがVotedに与える影響は一定ではない。\n\nKnowledgeの値が1の場合: 投票に参加する確率は32.94%\nKnowledgeの値が2の場合: 投票に参加する確率は47.05% (14.11%p増加)\nKnowledgeの値が3の場合: 投票に参加する確率は61.65% (14.60%p増加)\nKnowledgeの値が4の場合: 投票に参加する確率は74.42% (12.77%p増加)\nKnowledgeの値が5の場合: 投票に参加する確率は84.03% (9.61%p増加)"
   },
   {
     "objectID": "slides/macro/logit.html#予測値の可視化",
     "href": "slides/macro/logit.html#予測値の可視化",
     "title": "マクロ政治データ分析実習",
     "section": "予測値の可視化",
-    "text": "予測値の可視化\n\n可視化は第14回で解説"
+    "text": "予測値の可視化\n\n可視化は第10回を参照"
   },
   {
     "objectID": "slides/macro/logit.html#説明変数が連続変数の場合",
@@ -6515,5 +6515,82 @@
     "title": "マクロ政治データ分析実習",
     "section": "注",
     "text": "注\n\n\nロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。↩︎"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合モデル1",
+    "href": "slides/macro/interaction.html#調整変数がダミー変数の場合モデル1",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数がダミー変数の場合（モデル1）",
+    "text": "調整変数がダミー変数の場合（モデル1）\n政治満足度（= 説明変数）が共産党に対する感情温度（= 応答変数）に与える影響は性別（= 調整変数）によって変わる。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合の回帰式モデル1",
+    "href": "slides/macro/interaction.html#調整変数がダミー変数の場合の回帰式モデル1",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数がダミー変数の場合の回帰式（モデル1）",
+    "text": "調整変数がダミー変数の場合の回帰式（モデル1）\n\\[\n\\widehat{\\mbox{TempKyosan}} = \\alpha + \\beta_1 \\mbox{Satisfaction} + \\beta_2 \\mbox{Female} + \\beta_3 \\mbox{Interest} + \\beta_4 \\mbox{Ideology} + \\beta_5 \\mbox{Age} + \\beta_6 (\\mbox{Satisfaction} \\cdot \\mbox{Female})\n\\]"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合モデル2",
+    "href": "slides/macro/interaction.html#調整変数が連続変数の場合モデル2",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数が連続変数の場合（モデル2）",
+    "text": "調整変数が連続変数の場合（モデル2）\n政治満足度（= 説明変数）が共産党に対する感情温度（= 応答変数）に与える影響は年齢（= 調整変数）によって変わる。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合の回帰式モデル2",
+    "href": "slides/macro/interaction.html#調整変数が連続変数の場合の回帰式モデル2",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数が連続変数の場合の回帰式（モデル2）",
+    "text": "調整変数が連続変数の場合の回帰式（モデル2）\n\\[\n\\widehat{\\mbox{TempKyosan}} = \\alpha + \\beta_1 \\mbox{Satisfaction} + \\beta_2 \\mbox{Age} + \\beta_3 \\mbox{Interest} + \\beta_4 \\mbox{Ideology} + \\beta_5 \\mbox{Female} + \\beta_6 (\\mbox{Satisfaction} \\cdot \\mbox{Age})\n\\]"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合fit1",
+    "href": "slides/macro/interaction.html#調整変数がダミー変数の場合fit1",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数がダミー変数の場合（fit1）",
+    "text": "調整変数がダミー変数の場合（fit1）\n\n推定結果\n\n共産に対する感情温度の予測値 = 49.28 - 4.73 \\(\\times\\) 政治満足度 + 2.75 \\(\\times\\) 女性ダミー + 0.22 \\(\\times\\) 政治関心 - 1.89 \\(\\times\\) イデオロギー - 0.04 \\(\\times\\) 年齢 + 0.90 \\(\\times\\) 政治満足度 \\(\\times\\) 女性ダミー\n共産に対する感情温度の予測値 = 49.28 - (4.73 - 0.90 \\(\\times\\) 女性ダミー) \\(\\times\\) 政治満足度 + 2.75 \\(\\times\\) 女性ダミー + 0.22 \\(\\times\\) 政治関心 - 1.89 \\(\\times\\) イデオロギー - 0.04 \\(\\times\\) 年齢\n\n\n\n\n政治満足度が共産感情温度に与える影響：-(4.73 - 0.90 \\(\\times\\) 女性ダミーの値)\n\n男性の場合 (女性ダミーの値 = 0)：-(4.73 - 0.90 \\(\\times\\) 0) = -4.73\n\n男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる。\n\n女性の場合 (女性ダミーの値 = 1)：-(4.73 - 0.90 \\(\\times\\) 1) = -3.83\n\n女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる。\n\n\\(\\rightarrow\\) 政治満足度が共産に対する感情温度に与える影響は性別によって変わる。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数がダミー変数の場合fit1-1",
+    "href": "slides/macro/interaction.html#調整変数がダミー変数の場合fit1-1",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数がダミー変数の場合（fit1）",
+    "text": "調整変数がダミー変数の場合（fit1）"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合fit2",
+    "href": "slides/macro/interaction.html#調整変数が連続変数の場合fit2",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数が連続変数の場合（fit2）",
+    "text": "調整変数が連続変数の場合（fit2）\n\n推定結果\n\n共産に対する感情温度の予測値 = 28.25 + 3.31 \\(\\times\\) 政治満足度 + 0.37 \\(\\times\\) 年齢 - 0.12 \\(\\times\\) 政治関心 - 1.69 \\(\\times\\) イデオロギー + 5.06 \\(\\times\\) 女性ダミー - 0.16 \\(\\times\\) 政治満足度 \\(\\times\\) 年齢\n共産に対する感情温度の予測値 = 28.25 + (3.31 - 0.16 \\(\\times\\) 年齢) \\(\\times\\) 政治満足度 + 0.37 \\(\\times\\) 年齢 - 0.12 \\(\\times\\) 政治関心 - 1.69 \\(\\times\\) イデオロギー + 5.06 \\(\\times\\) 女性ダミー\n\n\n\n\n政治満足度が共産感情温度に与える影響 = (3.31 - 0.16 \\(\\times\\) 年齢の値)\n\n20歳の場合 (Ageの値 = 20)：3.31 - 0.16 \\(\\times\\) 20 = 0.11\n\n20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる。\n\n40歳の場合 (Ageの値 = 40)：3.31 - 0.16 \\(\\times\\) 40 = -3.09\n\n40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる。\n\n60歳の場合 (Ageの値 = 60)：3.31 - 0.16 \\(\\times\\) 60 = -6.29\n\n60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる。\n\n\\(\\rightarrow\\) 政治満足度が共産に対する感情温度に与える影響は年齢によって変わる。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#調整変数が連続変数の場合fit2-1",
+    "href": "slides/macro/interaction.html#調整変数が連続変数の場合fit2-1",
+    "title": "マクロ政治データ分析実習",
+    "section": "調整変数が連続変数の場合（fit2）",
+    "text": "調整変数が連続変数の場合（fit2）\n\nfit2_ame &lt;- slopes(fit2, variables = \"Satisfaction\", \n                   newdata = datagrid(Age = 18:75))\n\nfit2_ame\n\n\n         Term Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %\n Satisfaction  18   0.4860      0.912   0.5326    0.594 0.8  -1.30   2.27\n Satisfaction  19   0.3292      0.889   0.3704    0.711 0.5  -1.41   2.07\n Satisfaction  20   0.1725      0.866   0.1992    0.842 0.2  -1.52   1.87\n Satisfaction  21   0.0157      0.843   0.0186    0.985 0.0  -1.64   1.67\n Satisfaction  22  -0.1411      0.820  -0.1721    0.863 0.2  -1.75   1.47\n--- 48 rows omitted. See ?avg_slopes and ?print.marginaleffects --- \n Satisfaction  71  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24  -6.40\n Satisfaction  72  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44  -6.52\n Satisfaction  73  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64  -6.63\n Satisfaction  74  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84  -6.74\n Satisfaction  75  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04  -6.86\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female \nType:  response \n\n\n\nAgeが18の場合、SatisfactionはTempKyosanに影響を与えているとは言えない（\\(p \\geq 0.05\\)のため）。\nAgeが19の場合、SatisfactionはTempKyosanに影響を与えているとは言えない（\\(p \\geq 0.05\\)のため）。\n（省略）\nAgeが75の場合、Satisfactionが1単位上がるとTempKyosanは約-8.4度下がり、\\(\\alpha = 0.05\\)の水準で統計的に有意である。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#a",
+    "href": "slides/macro/interaction.html#a",
+    "title": "マクロ政治データ分析実習",
+    "section": "a",
+    "text": "a\n\nprint(fit2_ame, topn = Inf)\n\n\n         Term Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 %  97.5 %\n Satisfaction  18   0.4860      0.912   0.5326  0.59428   0.8  -1.30  2.2744\n Satisfaction  19   0.3292      0.889   0.3704  0.71111   0.5  -1.41  2.0716\n Satisfaction  20   0.1725      0.866   0.1992  0.84207   0.2  -1.52  1.8692\n Satisfaction  21   0.0157      0.843   0.0186  0.98512   0.0  -1.64  1.6672\n Satisfaction  22  -0.1411      0.820  -0.1721  0.86336   0.2  -1.75  1.4653\n Satisfaction  23  -0.2978      0.797  -0.3737  0.70861   0.5  -1.86  1.2641\n Satisfaction  24  -0.4546      0.774  -0.5870  0.55723   0.8  -1.97  1.0634\n Satisfaction  25  -0.6114      0.752  -0.8126  0.41642   1.3  -2.09  0.8631\n Satisfaction  26  -0.7681      0.730  -1.0515  0.29302   1.8  -2.20  0.6636\n Satisfaction  27  -0.9249      0.709  -1.3048  0.19196   2.4  -2.31  0.4644\n Satisfaction  28  -1.0817      0.688  -1.5731  0.11570   3.1  -2.43  0.2660\n Satisfaction  29  -1.2384      0.667  -1.8574  0.06325   4.0  -2.55  0.0684\n Satisfaction  30  -1.3952      0.646  -2.1587  0.03087   5.0  -2.66 -0.1285\n Satisfaction  31  -1.5520      0.626  -2.4774  0.01324   6.2  -2.78 -0.3241\n Satisfaction  32  -1.7087      0.607  -2.8156  0.00487   7.7  -2.90 -0.5193\n Satisfaction  33  -1.8655      0.588  -3.1730  0.00151   9.4  -3.02 -0.7132\n Satisfaction  34  -2.0223      0.570  -3.5504  &lt; 0.001  11.3  -3.14 -0.9059\n Satisfaction  35  -2.1790      0.552  -3.9488  &lt; 0.001  13.6  -3.26 -1.0975\n Satisfaction  36  -2.3358      0.535  -4.3666  &lt; 0.001  16.3  -3.38 -1.2874\n Satisfaction  37  -2.4926      0.519  -4.8048  &lt; 0.001  19.3  -3.51 -1.4758\n Satisfaction  38  -2.6493      0.503  -5.2627  &lt; 0.001  22.7  -3.64 -1.6627\n Satisfaction  39  -2.8061      0.489  -5.7368  &lt; 0.001  26.6  -3.76 -1.8474\n Satisfaction  40  -2.9629      0.476  -6.2272  &lt; 0.001  31.0  -3.90 -2.0303\n Satisfaction  41  -3.1196      0.464  -6.7279  &lt; 0.001  35.8  -4.03 -2.2108\n Satisfaction  42  -3.2764      0.453  -7.2373  &lt; 0.001  41.0  -4.16 -2.3891\n Satisfaction  43  -3.4332      0.443  -7.7476  &lt; 0.001  46.6  -4.30 -2.5647\n Satisfaction  44  -3.5900      0.435  -8.2545  &lt; 0.001  52.5  -4.44 -2.7375\n Satisfaction  45  -3.7467      0.428  -8.7510  &lt; 0.001  58.7  -4.59 -2.9076\n Satisfaction  46  -3.9035      0.423  -9.2287  &lt; 0.001  65.0  -4.73 -3.0745\n Satisfaction  47  -4.0603      0.419  -9.6810  &lt; 0.001  71.2  -4.88 -3.2382\n Satisfaction  48  -4.2170      0.417 -10.1008  &lt; 0.001  77.3  -5.04 -3.3988\n Satisfaction  49  -4.3738      0.417 -10.4824  &lt; 0.001  83.0  -5.19 -3.5560\n Satisfaction  50  -4.5306      0.419 -10.8208  &lt; 0.001  88.2  -5.35 -3.7099\n Satisfaction  51  -4.6873      0.422 -11.1130  &lt; 0.001  92.9  -5.51 -3.8606\n Satisfaction  52  -4.8441      0.427 -11.3569  &lt; 0.001  96.9  -5.68 -4.0081\n Satisfaction  53  -5.0009      0.433 -11.5545  &lt; 0.001 100.2  -5.85 -4.1526\n Satisfaction  54  -5.1576      0.441 -11.7057  &lt; 0.001 102.7  -6.02 -4.2941\n Satisfaction  55  -5.3144      0.450 -11.8152  &lt; 0.001 104.6  -6.20 -4.4328\n Satisfaction  56  -5.4712      0.460 -11.8847  &lt; 0.001 105.8  -6.37 -4.5689\n Satisfaction  57  -5.6279      0.472 -11.9182  &lt; 0.001 106.4  -6.55 -4.7024\n Satisfaction  58  -5.7847      0.485 -11.9239  &lt; 0.001 106.5  -6.74 -4.8339\n Satisfaction  59  -5.9415      0.499 -11.9026  &lt; 0.001 106.1  -6.92 -4.9631\n Satisfaction  60  -6.0982      0.514 -11.8597  &lt; 0.001 105.4  -7.11 -5.0904\n Satisfaction  61  -6.2550      0.530 -11.7980  &lt; 0.001 104.3  -7.29 -5.2159\n Satisfaction  62  -6.4118      0.547 -11.7235  &lt; 0.001 103.0  -7.48 -5.3398\n Satisfaction  63  -6.5685      0.564 -11.6394  &lt; 0.001 101.6  -7.67 -5.4625\n Satisfaction  64  -6.7253      0.583 -11.5442  &lt; 0.001 100.0  -7.87 -5.5835\n Satisfaction  65  -6.8821      0.601 -11.4457  &lt; 0.001  98.4  -8.06 -5.7036\n Satisfaction  66  -7.0388      0.621 -11.3415  &lt; 0.001  96.6  -8.26 -5.8224\n Satisfaction  67  -7.1956      0.640 -11.2347  &lt; 0.001  94.9  -8.45 -5.9403\n Satisfaction  68  -7.3524      0.661 -11.1239  &lt; 0.001  93.1  -8.65 -6.0569\n Satisfaction  69  -7.5092      0.682 -11.0166  &lt; 0.001  91.3  -8.85 -6.1732\n Satisfaction  70  -7.6659      0.703 -10.9084  &lt; 0.001  89.6  -9.04 -6.2886\n Satisfaction  71  -7.8227      0.724 -10.8001  &lt; 0.001  87.9  -9.24 -6.4031\n Satisfaction  72  -7.9795      0.746 -10.6958  &lt; 0.001  86.3  -9.44 -6.5173\n Satisfaction  73  -8.1362      0.768 -10.5922  &lt; 0.001  84.7  -9.64 -6.6307\n Satisfaction  74  -8.2930      0.790 -10.4908  &lt; 0.001  83.1  -9.84 -6.7436\n Satisfaction  75  -8.4498      0.813 -10.3908  &lt; 0.001  81.6 -10.04 -6.8559\n\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female \nType:  response"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#省略された行の表示",
+    "href": "slides/macro/interaction.html#省略された行の表示",
+    "title": "マクロ政治データ分析実習",
+    "section": "省略された行の表示",
+    "text": "省略された行の表示\nprint()内にtopn = Infを追加する。\n\nprint(fit2_ame, topn = Inf)\n\n\n         Term Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 %  97.5 %\n Satisfaction  18   0.4860      0.912   0.5326  0.59428   0.8  -1.30  2.2744\n Satisfaction  19   0.3292      0.889   0.3704  0.71111   0.5  -1.41  2.0716\n Satisfaction  20   0.1725      0.866   0.1992  0.84207   0.2  -1.52  1.8692\n Satisfaction  21   0.0157      0.843   0.0186  0.98512   0.0  -1.64  1.6672\n Satisfaction  22  -0.1411      0.820  -0.1721  0.86336   0.2  -1.75  1.4653\n Satisfaction  23  -0.2978      0.797  -0.3737  0.70861   0.5  -1.86  1.2641\n Satisfaction  24  -0.4546      0.774  -0.5870  0.55723   0.8  -1.97  1.0634\n Satisfaction  25  -0.6114      0.752  -0.8126  0.41642   1.3  -2.09  0.8631\n Satisfaction  26  -0.7681      0.730  -1.0515  0.29302   1.8  -2.20  0.6636\n Satisfaction  27  -0.9249      0.709  -1.3048  0.19196   2.4  -2.31  0.4644\n Satisfaction  28  -1.0817      0.688  -1.5731  0.11570   3.1  -2.43  0.2660\n Satisfaction  29  -1.2384      0.667  -1.8574  0.06325   4.0  -2.55  0.0684\n Satisfaction  30  -1.3952      0.646  -2.1587  0.03087   5.0  -2.66 -0.1285\n Satisfaction  31  -1.5520      0.626  -2.4774  0.01324   6.2  -2.78 -0.3241\n Satisfaction  32  -1.7087      0.607  -2.8156  0.00487   7.7  -2.90 -0.5193\n Satisfaction  33  -1.8655      0.588  -3.1730  0.00151   9.4  -3.02 -0.7132\n Satisfaction  34  -2.0223      0.570  -3.5504  &lt; 0.001  11.3  -3.14 -0.9059\n Satisfaction  35  -2.1790      0.552  -3.9488  &lt; 0.001  13.6  -3.26 -1.0975\n Satisfaction  36  -2.3358      0.535  -4.3666  &lt; 0.001  16.3  -3.38 -1.2874\n Satisfaction  37  -2.4926      0.519  -4.8048  &lt; 0.001  19.3  -3.51 -1.4758\n Satisfaction  38  -2.6493      0.503  -5.2627  &lt; 0.001  22.7  -3.64 -1.6627\n Satisfaction  39  -2.8061      0.489  -5.7368  &lt; 0.001  26.6  -3.76 -1.8474\n Satisfaction  40  -2.9629      0.476  -6.2272  &lt; 0.001  31.0  -3.90 -2.0303\n Satisfaction  41  -3.1196      0.464  -6.7279  &lt; 0.001  35.8  -4.03 -2.2108\n Satisfaction  42  -3.2764      0.453  -7.2373  &lt; 0.001  41.0  -4.16 -2.3891\n Satisfaction  43  -3.4332      0.443  -7.7476  &lt; 0.001  46.6  -4.30 -2.5647\n Satisfaction  44  -3.5900      0.435  -8.2545  &lt; 0.001  52.5  -4.44 -2.7375\n Satisfaction  45  -3.7467      0.428  -8.7510  &lt; 0.001  58.7  -4.59 -2.9076\n Satisfaction  46  -3.9035      0.423  -9.2287  &lt; 0.001  65.0  -4.73 -3.0745\n Satisfaction  47  -4.0603      0.419  -9.6810  &lt; 0.001  71.2  -4.88 -3.2382\n Satisfaction  48  -4.2170      0.417 -10.1008  &lt; 0.001  77.3  -5.04 -3.3988\n Satisfaction  49  -4.3738      0.417 -10.4824  &lt; 0.001  83.0  -5.19 -3.5560\n Satisfaction  50  -4.5306      0.419 -10.8208  &lt; 0.001  88.2  -5.35 -3.7099\n Satisfaction  51  -4.6873      0.422 -11.1130  &lt; 0.001  92.9  -5.51 -3.8606\n Satisfaction  52  -4.8441      0.427 -11.3569  &lt; 0.001  96.9  -5.68 -4.0081\n Satisfaction  53  -5.0009      0.433 -11.5545  &lt; 0.001 100.2  -5.85 -4.1526\n Satisfaction  54  -5.1576      0.441 -11.7057  &lt; 0.001 102.7  -6.02 -4.2941\n Satisfaction  55  -5.3144      0.450 -11.8152  &lt; 0.001 104.6  -6.20 -4.4328\n Satisfaction  56  -5.4712      0.460 -11.8847  &lt; 0.001 105.8  -6.37 -4.5689\n Satisfaction  57  -5.6279      0.472 -11.9182  &lt; 0.001 106.4  -6.55 -4.7024\n Satisfaction  58  -5.7847      0.485 -11.9239  &lt; 0.001 106.5  -6.74 -4.8339\n Satisfaction  59  -5.9415      0.499 -11.9026  &lt; 0.001 106.1  -6.92 -4.9631\n Satisfaction  60  -6.0982      0.514 -11.8597  &lt; 0.001 105.4  -7.11 -5.0904\n Satisfaction  61  -6.2550      0.530 -11.7980  &lt; 0.001 104.3  -7.29 -5.2159\n Satisfaction  62  -6.4118      0.547 -11.7235  &lt; 0.001 103.0  -7.48 -5.3398\n Satisfaction  63  -6.5685      0.564 -11.6394  &lt; 0.001 101.6  -7.67 -5.4625\n Satisfaction  64  -6.7253      0.583 -11.5442  &lt; 0.001 100.0  -7.87 -5.5835\n Satisfaction  65  -6.8821      0.601 -11.4457  &lt; 0.001  98.4  -8.06 -5.7036\n Satisfaction  66  -7.0388      0.621 -11.3415  &lt; 0.001  96.6  -8.26 -5.8224\n Satisfaction  67  -7.1956      0.640 -11.2347  &lt; 0.001  94.9  -8.45 -5.9403\n Satisfaction  68  -7.3524      0.661 -11.1239  &lt; 0.001  93.1  -8.65 -6.0569\n Satisfaction  69  -7.5092      0.682 -11.0166  &lt; 0.001  91.3  -8.85 -6.1732\n Satisfaction  70  -7.6659      0.703 -10.9084  &lt; 0.001  89.6  -9.04 -6.2886\n Satisfaction  71  -7.8227      0.724 -10.8001  &lt; 0.001  87.9  -9.24 -6.4031\n Satisfaction  72  -7.9795      0.746 -10.6958  &lt; 0.001  86.3  -9.44 -6.5173\n Satisfaction  73  -8.1362      0.768 -10.5922  &lt; 0.001  84.7  -9.64 -6.6307\n Satisfaction  74  -8.2930      0.790 -10.4908  &lt; 0.001  83.1  -9.84 -6.7436\n Satisfaction  75  -8.4498      0.813 -10.3908  &lt; 0.001  81.6 -10.04 -6.8559\n\nColumns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female \nType:  response \n\n\n\n30歳未満の場合、政治満足度（Satisfaction）は共産感情温度（TempKyosan）に影響を与えるとは言えない。\n30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。"
+  },
+  {
+    "objectID": "slides/macro/interaction.html#限界効果の可視化",
+    "href": "slides/macro/interaction.html#限界効果の可視化",
+    "title": "マクロ政治データ分析実習",
+    "section": "限界効果の可視化",
+    "text": "限界効果の可視化\n\n可視化の方法は第10回を参照\n95%信頼区間内に0が含まれていれば、説明変数は応答変数に影響を与えるとは言えないと解釈\n0が95%信頼区間外にあれば、説明変数は応答変数に影響を与えると解釈可能\n\n\nコード（fit1_ame）図（fit1_ame）コード（fit2_ame）図（fit2_ame）\n\n\n\nfit1_ame |&gt;\n  ggplot() +\n  geom_hline(yintercept = 0) +\n  geom_pointrange(aes(x = Female, y = estimate, \n                      ymin = conf.low, ymax = conf.high),\n                  size = 1, linewidth = 1) +\n  scale_x_continuous(breaks = 0:1,\n                     labels = c(\"男性\", \"女性\")) +\n  labs(x = \"性別\", y = \"政治満足度の平均限界効果と95%信頼区間\") +\n  theme_bw(base_size = 12)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfit2_ame |&gt;\n  ggplot(aes(x = Age)) +\n  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = \"gray80\") +\n  geom_hline(yintercept = 0) +\n  geom_line(aes(y = estimate), linewidth = 1) +\n  labs(x = \"年齢\", y = \"政治満足度が共産感情温度に\\n与える影響と95%信頼区間\") +\n  scale_x_continuous(breaks = c(18, 20, 30, 40, 50, 60, 70, 75),\n                     labels = c(18, 20, 30, 40, 50, 60, 70, 75)) +\n  theme_bw(base_size = 12)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
   }
 ]

@@ -19,16 +19,17 @@ options(width = 120)
 すぐに実習できるように準備しておきましょう。
 
 1. JDCat分析ツールを起動しておいてください。
-2. 本日授業用のプロジェクトを作成してください。
+2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
 3. LMSから実習用データをダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
    * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。
 
 ```{r}
 #| eval: false
 library(tidyverse)
 library(summarytools)
+library(modelsummary)
 library(marginaleffects)
 
 df <- read_csv("Data/Hino_Song.csv")
@@ -64,8 +65,8 @@ tibble(Cov  = names(df),
                 "回答者の年齢",
                 "回答者の学歴(1: 中卒以下; 2: 高卒; 3: 短大卒; 4: 大卒以上)",
                 "回答者の主観的な政治知識 (高いほど知識あり)",
-                "回答者のイデオロギー(0:革新〜5:中道〜10:保守)")) %>%
-  gt() %>%
+                "回答者のイデオロギー(0:革新〜5:中道〜10:保守)")) |>
+  gt() |>
   cols_label("Cov" = "変数名", "Desc" = "説明")
 ```
 :::
@@ -75,11 +76,11 @@ tibble(Cov  = names(df),
 
 > 　有権者の投票参加を規定する要因を調べたい。投票所に足を運ぶには予め投票先を決めておく必要があろう。しかし、数多い選択肢（候補者、政党）の中から自分の望みを実現してくれそうな選択肢を見つけることは簡単な作業ではない。政治に関する知識があれば、比較的簡単に見つかるため、投票参加しやすいと考えられる。一方、そうでない有権者は自分にとっても最適な選択肢を見つけることを諦め、棄権するだろう。これは本当だろうか。
 
-* 応答変数: 投票参加（`Voted`）
+* 応答変数：投票参加（`Voted`）
    * 「投票（= 1）」と「棄権（= 0）」の値のみを取るダミー変数（= **二値変数**、**バイナリー変数**）
    * 説明変数として0/1の値を取る変数は「ダミー変数」と呼ぶが、応答変数として使われる場合も「バイナリー変数」、または「二値変数」の方がより一般的
-* 主な説明変数: 回答者の主観的な政治知識（`Knowledge`）
-* 統制変数: 性別（`Female`）、年齢（`Age`）、学歴（`Educ`）、イデオロギー（`Ideology`）
+* 主な説明変数：回答者の主観的な政治知識（`Knowledge`）
+* 統制変数：性別（`Female`）、年齢（`Age`）、学歴（`Educ`）、イデオロギー（`Ideology`）
 
 ## モデル
 
@@ -90,7 +91,7 @@ tibble(Cov  = names(df),
 tibble(x = c(1, 1, 1, 1, 1),
        xend = c(2, 2, 2, 2, 2),
        y = c(5, 4, 3, 2, 1),
-       yend = c(5, 5, 5, 5, 5)) %>%
+       yend = c(5, 5, 5, 5, 5)) |>
   ggplot() +
   geom_segment(aes(x = x, xend = xend, y = y, yend = yend),
                arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
@@ -108,14 +109,14 @@ tibble(x = c(1, 1, 1, 1, 1),
 ## 記述統計
 
 ```{r}
-df %>%
+df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
 
 ## 線形確率モデル
 
-バイナリー変数を応答変数とする線形回帰モデル: **線形確率モデル** (linear probability model; LPM)
+バイナリー変数を応答変数とする線形回帰モデル：**線形確率モデル** (**l**inear **p**robability **m**odel；LPM)
 
 ```{r}
 lm_fit <- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)
@@ -125,16 +126,17 @@ lm_fit <- lm(Voted ~ Knowledge + Female + Age + Educ + Ideology, data = df)
 :::{.column width=55%}
 ```{r}
 #| echo: false
-broom::tidy(lm_fit) %>%
+broom::tidy(lm_fit) |>
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
-                  "学歴", "イデオロギー")) %>%
-  gt() %>%
+                  "学歴", "イデオロギー")) |>
+  gt() |>
   cols_label(term = "", estimate = "係数", std.error = "標準誤差",
-             statistic = "検定統計量", p.value = "p値") %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  fmt_missing(columns = 5, missing_text = "< 0.001") %>%
-  cols_align(columns = 2:5, align = "right")
+             statistic = "検定統計量", p.value = "p値") |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  fmt_missing(columns = 5, missing_text = "< 0.001") |>
+  cols_align(columns = 2:5, align = "right") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 
@@ -151,12 +153,18 @@ broom::tidy(lm_fit) %>%
 主観的政治知識が5、男性、86歳、教育水準が4、イデオロギーが10の回答者がいる場合、投票に参加する確率の予測値は?
 
 ```{r}
--0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10
+# -0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10
+lm_fit |> 
+  predictions(newdata = datagrid(Knowledge = 5,
+                                 Female    = 0,
+                                 Age       = 86,
+                                 Educ      = 4,
+                                 Ideology  = 10))
 ```
 
 * 投票参加確率の予測値は1.07141 $\rightarrow$ 107.141%
-* 確率は0以上、1以下 (0%〜100%)であるものの、あり得ない予測値が出る。
-* 他にも線形確率モデルにはいくつかの問題がある (分散の不均一性など)。
+* 確率は0以上、1以下（0%〜100%）であるものの、あり得ない予測値が出る。
+* 他にも線形確率モデルにはいくつかの問題がある（分散の不均一性など）。
 
 <br/>
 
@@ -170,24 +178,27 @@ $$
 \mbox{logistic}(x) = \frac{1}{1 + e^{-x}}
 $$
 
-* $e$はネイピア数: $e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + ... \frac{1}{\infty!}$ = 2.71828184590...
+* $e$はネイピア数：$e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + ... \frac{1}{\infty!}$ = 2.71828184590...
 * $x$は$-\infty \sim \infty$の値を取り得る。
    * $x$が$-\infty$の場合、$e^{-x}$は$e^{-(-\infty)} = \infty$、$x$が$\infty$の場合、$e^{-x}$は$e^{-(\infty)} = 0$
    * $\rightarrow$ $e^{-x}$ は$0 \sim \infty$
-* $e^{-x}$ は $0 \sim \infty$ の値をとる。
+* $e^{-x}$は$0 \sim \infty$の値をとる。
    * $e^{-x}$が0の場合、$\mbox{logistic}(x)$は1、$e^{-x}$が$\infty$の場合、$\mbox{logistic}(x)$は0
    * $\rightarrow$ $\mbox{logistic}(x)$は0以上、1以下
    * $\rightarrow$ $x$の値が大きいほど、$\mbox{logistic}(x)$は1へ近づく
 
 ## ロジスティック関数 (図)
 
-```{r, fig.width = 8, fig.height = 3.75, echo = FALSE}
-tibble(x = seq(-10, 10, 0.1)) %>%
-  mutate(y = 1 / (1 + exp(-x))) %>%
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+tibble(x = seq(-10, 10, 0.1)) |>
+  mutate(y = 1 / (1 + exp(-x))) |>
   ggplot() +
   geom_line(aes(x = x, y = y), size = 2) +
   labs(x = "x", y = "logistic(x)") +
-  theme_bw()
+  theme_bw(base_size = 14)
 ```
 
 ## ロジスティック回帰分析
@@ -244,15 +255,16 @@ summary(fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(fit1) %>%
+broom::tidy(fit1) |>
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
-                  "学歴", "イデオロギー")) %>%
-  gt() %>%
+                  "学歴", "イデオロギー")) |>
+  gt() |>
   cols_label(term = "", estimate = "係数", std.error = "標準誤差",
-             statistic = "検定統計量", p.value = "p値") %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  fmt_missing(columns = 5, missing_text = "< 0.001")
+             statistic = "検定統計量", p.value = "p値") |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  fmt_missing(columns = 5, missing_text = "< 0.001") |> 
+  tab_options(table.font.size = 32)
 ```
 
 * ロジスティック回帰分析の場合、決定係数（$R^2$）は表示されない。
@@ -275,15 +287,16 @@ summary(fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(fit1) %>%
+broom::tidy(fit1) |>
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "主観的な政治知識", "女性ダミー", "年齢",
-                  "学歴", "イデオロギー")) %>%
-  gt() %>%
+                  "学歴", "イデオロギー")) |>
+  gt() |>
   cols_label(term = "", estimate = "係数", std.error = "標準誤差",
-             statistic = "検定統計量", p.value = "p値") %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  fmt_missing(columns = 5, missing_text = "< 0.001")
+             statistic = "検定統計量", p.value = "p値") |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  fmt_missing(columns = 5, missing_text = "< 0.001") |> 
+  tab_options(table.font.size = 32)
 ```
 :::
 
@@ -330,17 +343,24 @@ sum(coef(fit1) * c(1, 3, 1, 20, 4, 5))
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4.3
-tibble(x = seq(-10, 10, 0.1)) %>%
-  mutate(y = 1 / (1 + exp(-x))) %>%
+tibble(x = seq(-10, 10, 0.1)) |>
+  mutate(y = 1 / (1 + exp(-x))) |>
   ggplot() +
   geom_line(aes(x = x, y = y), size = 2) +
-  geom_vline(xintercept = -0.3602094, color = "red") +
-  geom_hline(yintercept = 0.4109089, color = "red") +
+  geom_segment(aes(x = -0.3602094, xend = -0.3602094,
+                   y = -1, yend = 0.4109089), 
+               color = "red", linetype = 2) +
+  geom_segment(aes(x = -12, xend = -0.3602094,
+                   y = 0.4109089, yend = 0.4109089), 
+               color = "red", linetype = 2) +
+  geom_point(aes(x =-0.3602094, y = 0.4109089),
+             color = "red", size = 3) +
   labs(x = "x", y = expression(frac(1, (1+e^-x)))) +
   scale_y_continuous(breaks = c(0, 0.25, 0.41, 0.50, 0.75, 1.00),
                      labels = c(0, 0.25, 0.41, 0.50, 0.75, 1.00)) +
   scale_x_continuous(breaks = c(-10, -5, -0.36, 0, 5, 10),
                      labels = c(-10, -5, -0.36, "", 5, 10)) +
+  coord_cartesian(xlim = c(-10, 10), ylim = c(0, 1)) +
   theme_bw() +
   theme(panel.grid = element_blank())
 ```
@@ -352,7 +372,6 @@ tibble(x = seq(-10, 10, 0.1)) %>%
 ```{r}
 #| eval: false
 predictions(回帰分析オブジェクト名, 
-            type    = "response",
             newdata = datagrid(説明変数名1 = 値,
                                説明変数名2 = 値,
                                ...))
@@ -360,6 +379,7 @@ predictions(回帰分析オブジェクト名,
 
 * `newdata`で指定されなかった説明変数は平均値に固定される。
    * 論文、レポートでは「XXは1、ZZは5、...に固定し、その他の説明変数は平均値に固定した予測値を算出した」と書く。
+   * 詳細は第10回の講義資料を参照
    
 ## {marginaleffects}を使った予測値の計算（例）
 
@@ -368,7 +388,7 @@ predictions(回帰分析オブジェクト名,
 ```{r}
 # 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、
 # イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率
-predictions(fit1, type = "response",
+predictions(fit1, 
             newdata = datagrid(Knowledge = 3, 
                                Female    = 1,
                                Age       = 20, 
@@ -377,13 +397,14 @@ predictions(fit1, type = "response",
 ```
 
 * `Estimate`列の値が予測確率: 0.411（約41%）
+   * 本当の列名は`estimate`（第10回参照）
 
 ## {marginaleffects}を使った予測値の計算
 
 `Knowledge`が1〜5の場合の投票参加確率の予測値
 
 ```{r}
-fit1_pred <- predictions(fit1, type = "response",
+fit1_pred <- predictions(fit1, 
                          newdata = datagrid(Knowledge = 1:5))
 fit1_pred
 ```
@@ -397,13 +418,13 @@ fit1_pred
 
 ## 予測値の可視化
 
-* 可視化は第14回で解説
+* 可視化は第10回を参照
 
 ```{r}
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4.1
-fit1_pred %>%
+fit1_pred |>
   ggplot() +
   geom_pointrange(aes(x = Knowledge, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -421,7 +442,7 @@ fit1_pred %>%
 #| echo: false
 #| fig-width: 8
 #| fig-height: 3.8
-predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
+predictions(fit1, newdata = datagrid(Age = 18:86)) |>
   ggplot() +
   geom_pointrange(aes(x = Age, y = estimate, 
                       ymin = conf.low, ymax = conf.high)) +
@@ -439,7 +460,7 @@ predictions(fit1, newdata = datagrid(Age = 18:86)) %>%
 #| echo: false
 fit1_pred2 <- predictions(fit1, newdata = datagrid(Age = 18:86))
 
-fit1_pred2 %>%
+fit1_pred2 |>
   ggplot() +
   geom_ribbon(aes(x = Age, ymin = conf.low, ymax = conf.high), 
               fill = "gray80") + 

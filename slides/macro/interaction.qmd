@@ -10,8 +10,8 @@ metadata-files:
 
 ```{r}
 #| include: false
-pacman::p_load(tidyverse, gt, summarytools, modelsummary,
-               marginaleffects, prediction)
+pacman::p_load(tidyverse, gt, gtExtras, summarytools, modelsummary,
+               marginaleffects)
 # jes_df <- read_csv("slides/macro/Data/JES6_W1_2.csv")
 jes_df <- read_csv("Data/JES6_W1_2.csv")
 ```
@@ -19,12 +19,11 @@ jes_df <- read_csv("Data/JES6_W1_2.csv")
 すぐに実習できるように準備しておきましょう。
 
 1. JDCat分析ツールを起動しておいてください。
-2. 本日授業用のプロジェクトを作成してください。
+2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
 3. LMSから実習用データをダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
    * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. コンソール上に`install.packages("marginaleffects")`を入力し、インストールしてください。
-6. 実習用コードを入力するスクリプト、またはR Markdownを開き、以下のコードを入力&実行してください。
+5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。
 
 ```{r}
 #| eval: false
@@ -46,9 +45,11 @@ jes_df <- read_csv("Data/JES6_W1_2.csv")
 
 ![](Figs/12/12.001.png){fig-align="center"}
 
-* $Z$ は**調整変数** (moderation variable; moderator)と呼ばれる。
+* $Z$は**調整変数** (moderation variable; moderator)と呼ばれる。
    * 調整変数はダミー変数でも、連続変数でも可能
-   * $X$ が $Y$ に与える影響は $Z$ によって変わる。
+   * $X$が$Y$に与える影響は$Z$によって変わる。
+* 例）$Z=1$の場合、$X$が1上がると$Y$は2上がるが、$Z=2$の場合、$X$が1上がると$Y$は5上がる。
+   * $\Rightarrow$ $Z$の値によって$X \rightarrow Y$の効果（傾き）が変わる。
 
 ## 回帰分析における交互作用
 
@@ -88,9 +89,9 @@ $$
 $$
 
 * 調整変数（$Z$）が0か1かによって、$X$が$Y$に与える影響が変化する。
-* $Z = 0$の場合: $\hat{Y} = \alpha + \beta_1 X + \beta_2 Z$
+* $Z = 0$の場合：$\hat{Y} = \alpha + \beta_1 X + \beta_2 Z$
    * $X$が$Y$ に与える影響は$\beta_1$
-* $Z = 1$の場合: $\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z$
+* $Z = 1$の場合：$\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z$
    * $X$が$Y$に与える影響は$\beta_1 + \beta_3$
 
 ## 調整変数がダミー変数の場合
@@ -103,8 +104,8 @@ $$
 #| fig-height: 4
 set.seed(1986)
 tibble(X = rnorm(100),
-       Z = sample(0:1, 100, replace = TRUE)) %>%
-  mutate(Y = 3 + 2 * X + 1 * Z + 3 * X * Z + rnorm(1, 0, 2)) %>%
+       Z = sample(0:1, 100, replace = TRUE)) |>
+  mutate(Y = 3 + 2 * X + 1 * Z + 3 * X * Z + rnorm(1, 0, 2)) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
@@ -136,24 +137,25 @@ $$
    * $\hat{Y} = 3 + 2X + 1Z$であるため、$X$が1上がると、$Y$は2上がる。
 * $Z = 1$なら... (青)
    * $\hat{Y} = 3 + 5X + 1Z$であるため、$X$が1上がると、$Y$は5上がる。
+* $\Rightarrow$ $Z$の値に応じて$X$の傾きが変化する。
 :::
 ::::
 
 ## 調整変数が連続変数の場合
 
-調整変数 $Z$ が無数の値をとる連続変数の場合
+調整変数$Z$が無数の値をとる連続変数の場合
 
 $$
 \hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
 $$
 
-* 調整変数 ( $Z$ )の値によって、 $X$ が $Y$ に与える影響が変化する。
-* $Z$ が1の場合: $\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot 1 = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z$
-   * $X$ が $Y$ に与える影響は $\beta_1 + \beta_3$
-* $Z$ が2.5の場合: $\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 2.5 \cdot X = \alpha + (\beta_1 + 2.5\beta_3) X + \beta_2 Z$
-   * $X$ が $Y$ に与える影響は $\beta_1 + 2.5\beta_3$
-* $Z$ が6の場合: $\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 6 \cdot X = \alpha + (\beta_1 + 6\beta_3) X + \beta_2 Z$
-   * $X$ が $Y$ に与える影響は $\beta_1 + 6\beta_3$
+* 調整変数（$Z$）の値によって、$X$が$Y$に与える影響が変化する。
+* $Z$が1の場合：$\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot 1 = \alpha + (\beta_1 + \beta_3) X + \beta_2 Z$
+   * $X$が$Y$に与える影響は$\beta_1 + \beta_3$
+* $Z$が2.5の場合：$\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 2.5 \cdot X = \alpha + (\beta_1 + 2.5\beta_3) X + \beta_2 Z$
+   * $X$が$Y$に与える影響は$\beta_1 + 2.5\beta_3$
+* $Z$が6の場合：$\hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 6 \cdot X = \alpha + (\beta_1 + 6\beta_3) X + \beta_2 Z$
+   * $X$が$Y$に与える影響は$\beta_1 + 6\beta_3$
 * 無数のケースがあり得る。
 
 ## 調整変数が連続変数の場合
@@ -166,8 +168,8 @@ $$
 #| fig-height: 4
 set.seed(1986)
 tibble(X = rnorm(100),
-       Z = sample(0:1, 100, replace = TRUE)) %>%
-  mutate(Y = 5 + 3 * X + 2 * Z - 1 * X * Z + rnorm(1, 0, 2)) %>%
+       Z = sample(0:1, 100, replace = TRUE)) |>
+  mutate(Y = 5 + 3 * X + 2 * Z - 1 * X * Z + rnorm(1, 0, 2)) |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
@@ -197,11 +199,11 @@ $$
 $$
 
 * $X$の係数は$3 - Z$
-* $Z = -1$なら... (赤)
+* $Z = -1$なら...（赤）
    * $\hat{Y} = 2 + 4X + 2Z$であるため、$X$が1上がると、$Y$は4上がる。
-* $Z = 2$なら... (緑)
+* $Z = 2$なら...（緑）
    * $\hat{Y} = 2 + 1X + 2Z$であるため、$X$が1上がると、$Y$は1上がる。
-* $Z = 3.5$なら... (青)
+* $Z = 3.5$なら...（青）
    * $\hat{Y} = 2 - 0.5 X + 2Z$であるため、$X$が1上がると、$Y$は0.5下がる。
 :::
 ::::
@@ -219,14 +221,14 @@ jes_df
 
 ## 実習用データの概要
 
-|変数|説明|備考|
-|:---|:---|:---|
-|`TempKyosan`|日本共産党に対する感情温度|高いほど好感|
-|`Female`|女性ダミー|0: 男性 / 1: 女性|
-|`Age`|回答者の年齢||
-|`Satisfaction`|政治満足度|高いほど満足|
-|`Interest`|回答者の政治関心|高いほど関心あり|
-|`Ideology`|回答者のイデオロギー|高いほど保守的|
+| 変数           | 説明                       | 備考              |
+| :------------- | :------------------------- | :---------------- |
+| `TempKyosan`   | 日本共産党に対する感情温度 | 高いほど好感      |
+| `Female`       | 女性ダミー                 | 0: 男性 / 1: 女性 |
+| `Age`          | 回答者の年齢               |                   |
+| `Satisfaction` | 政治満足度                 | 高いほど満足      |
+| `Interest`     | 回答者の政治関心           | 高いほど関心あり  |
+| `Ideology`     | 回答者のイデオロギー       | 高いほど保守的    |
 
 ## 記述統計量
 
@@ -235,7 +237,7 @@ jes_df
 * 名目変数もダミー変数になると連続変数と同じ扱いでOK
 
 ```{r}
-jes_df %>%
+jes_df |>
   descr(stats = c("mean", "sd", "min", "max", "n.valid"),
         transpose = TRUE, order = "p")
 ```
@@ -246,25 +248,25 @@ jes_df %>%
 
 **モデル1**
 
-* 主な説明変数: 政治満足度 (`Satisfaction`)
-* 応答変数: 共産党に対する感情温度 (`TempKoysan`)
-* 調整変数: 女性ダミー (`Female`)
-* 統制変数: 政治関心 (`Interest`)、イデオロギー (`Ideology`)、年齢 (`Age`)
+* 応答変数：共産党に対する感情温度（`TempKoysan`）
+* 主な説明変数：政治満足度（`Satisfaction`）
+* 調整変数：**女性ダミー**（`Female`）$\leftarrow$ ダミー変数（二値変数）
+* 統制変数：政治関心（`Interest`）、イデオロギー（`Ideology`）、年齢（`Age`）
 
 **モデル2**
 
-* 主な説明変数: 政治満足度 (`Satisfaction`)
-* 応答変数: 共産党に対する感情温度 (`TempKoysan`)
-* 調整変数: 年齢 (`Age`)
-* 統制変数: 政治関心 (`Interest`)、イデオロギー (`Ideology`)、女性ダミー (`Female`)
+* 応答変数：共産党に対する感情温度（`TempKoysan`）
+* 主な説明変数：政治満足度（`Satisfaction`）
+* 調整変数：**年齢**（`Age`）$\leftarrow$ 連続変数
+* 統制変数：政治関心（`Interest`）、イデオロギー（`Ideology`）、女性ダミー（`Female`）
 
-## 調整変数がダミー変数の場合 (モデル1)
+## 調整変数がダミー変数の場合（モデル1）
 
-政治満足度 (= **説明変数**)が共産党に対する感情温度 (= **応答変数**)に与える影響は性別 (= **調整変数**)によって変わる。
+政治満足度（= **説明変数**）が共産党に対する感情温度（= **応答変数**）に与える影響は性別（= **調整変数**）によって変わる。
 
 ![](Figs/12/12.003.png){fig-align="center"}
 
-## 調整変数がダミー変数の場合の回帰式 (モデル1)
+## 調整変数がダミー変数の場合の回帰式（モデル1）
 
 $$
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Female} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Age} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Female})
@@ -272,13 +274,13 @@ $$
 
 ![](Figs/12/12.004.png){fig-align="center"}
 
-## 調整変数が連続変数の場合 (モデル2)
+## 調整変数が連続変数の場合（モデル2）
 
-政治満足度 (= **説明変数**)が共産党に対する感情温度 (= **応答変数**)に与える影響は年齢 (= **調整変数**)によって変わる。
+政治満足度（= **説明変数**）が共産党に対する感情温度（= **応答変数**）に与える影響は年齢（= **調整変数**）によって変わる。
 
 ![](Figs/12/12.005.png){fig-align="center"}
 
-## 調整変数が連続変数の場合の回帰式 (モデル2)
+## 調整変数が連続変数の場合の回帰式（モデル2）
 
 $$
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
@@ -288,7 +290,7 @@ $$
 
 ## 交差項を入れた回帰分析の推定方法
 
-`lm()`内の回帰式 (formula)に2つの変数を`*`でつなぐだけ
+`lm()`内の回帰式（formula）に2つの変数を`*`でつなぐだけ
 
 * `A * B`は説明変数として`A`、`B`、`A`$\times$`B`が同時に投入することを意味する。
 
@@ -308,15 +310,17 @@ summary(fit1)
 
 ```{r}
 #| echo: false
-broom::tidy(fit1) %>%
+broom::tidy(fit1) |>
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "政治満足度", "女性", "政治関心",
-                  "イデオロギー", "年齢", "政治満足度 * 女性")) %>%
-  gt() %>%
+                  "イデオロギー", "年齢", "政治満足度 * 女性")) |>
+  gt() |>
   cols_label(term = "", estimate = "係数", std.error = "標準誤差",
-             statistic = "t値", p.value = "p値") %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  sub_missing(columns = 5, missing_text = "< 0.001")
+             statistic = "t値", p.value = "p値") |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  sub_missing(columns = 5, missing_text = "< 0.001") |> 
+  tab_options(table.font.size = 32) |> 
+  gt_highlight_rows(rows = c(2, 7))
 ```
 :::
 
@@ -331,20 +335,22 @@ summary(fit2)
 
 ```{r}
 #| echo: false
-broom::tidy(fit2) %>%
+broom::tidy(fit2) |>
   mutate(p.value = ifelse(p.value < 0.001, NA, p.value),
          term = c("切片", "政治満足度", "年齢", "政治関心",
-                  "イデオロギー", "女性", "政治満足度 * 年齢")) %>%
-  gt() %>%
+                  "イデオロギー", "女性", "政治満足度 * 年齢")) |>
+  gt() |>
   cols_label(term = "", estimate = "係数", std.error = "標準誤差",
-             statistic = "t値", p.value = "p値") %>%
-  fmt_number(columns = 2:5, decimals = 3) %>%
-  sub_missing(columns = 5, missing_text = "< 0.001")
+             statistic = "t値", p.value = "p値") |>
+  fmt_number(columns = 2:5, decimals = 3) |>
+  sub_missing(columns = 5, missing_text = "< 0.001") |> 
+  tab_options(table.font.size = 32) |> 
+  gt_highlight_rows(rows = c(2, 7))
 ```
 :::
 ::::
 
-## 調整変数がダミー変数の場合 (`fit1`)
+## 調整変数がダミー変数の場合（`fit1`）
 
 * 推定結果
    * 共産に対する感情温度の予測値 = 49.28 - 4.73 $\times$ **政治満足度** + 2.75 $\times$ 女性ダミー + 0.22 $\times$ 政治関心 - 1.89 $\times$ イデオロギー - 0.04 $\times$ 年齢 + 0.90 $\times$ **政治満足度** $\times$ 女性ダミー
@@ -352,35 +358,33 @@ broom::tidy(fit2) %>%
 
 <br/>
 
-* 政治満足度が共産感情温度に与える影響: -(4.73 - 0.90 $\times$ 女性ダミーの値)
-   * 男性の場合 (女性ダミーの値 = 0): -(4.73 - 0.90 $\times$ 0) = -4.73
+* 政治満足度が共産感情温度に与える影響：-(4.73 - 0.90 $\times$ 女性ダミーの値)
+   * 男性の場合 (女性ダミーの値 = 0)：-(4.73 - 0.90 $\times$ 0) = -4.73
       * 男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる。
-   * 女性の場合 (女性ダミーの値 = 1): -(4.73 - 0.90 $\times$ 1) = -3.83
+   * 女性の場合 (女性ダミーの値 = 1)：-(4.73 - 0.90 $\times$ 1) = -3.83
       * 女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる。
    * $\rightarrow$ 政治満足度が共産に対する感情温度に与える影響は性別によって変わる。
 
-## 調整変数がダミー変数の場合 (`fit1`)
+## 調整変数がダミー変数の場合（`fit1`）
 
 ```{r}
 #| echo: false
 #| fig-width: 7
 #| fig-height: 4
-prediction(fit1, at = list(Satisfaction = 1:5, Female = 0:1)) %>%
-  summary() %>%
-  rename("Female" = "at(Female)",
-         "Satis"  = "at(Satisfaction)") %>%
+predictions(fit1, newdata = datagrid(Satisfaction = 1:5, 
+                                     Female       = 0:1)) |>
   mutate(Female = factor(Female, levels = 0:1, 
                          labels = c("男性 (女性ダミーの値 = 0)", 
-                                    "女性 (女性ダミーの値 = 1)"))) %>%
+                                    "女性 (女性ダミーの値 = 1)"))) |>
   ggplot() +
-  geom_line(aes(x = Satis, y = Prediction, color = Female), linewidth = 1) +
+  geom_line(aes(x = Satisfaction, y = estimate, color = Female), linewidth = 1) +
   labs(x = "政治満足度", y = "共産感情温度の予測値 (度)",
        color = "") +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
 
-## 調整変数が連続変数の場合 (`fit2`)
+## 調整変数が連続変数の場合（`fit2`）
 
 * 推定結果
    * 共産に対する感情温度の予測値 = 28.25 + 3.31 $\times$ **政治満足度** + 0.37 $\times$ 年齢 - 0.12 $\times$ 政治関心 - 1.69 $\times$ イデオロギー + 5.06 $\times$ 女性ダミー - 0.16 $\times$ 政治満足度 $\times$ 年齢
@@ -389,11 +393,11 @@ prediction(fit1, at = list(Satisfaction = 1:5, Female = 0:1)) %>%
 <br/>
 
 * 政治満足度が共産感情温度に与える影響 = (3.31 - 0.16 $\times$ 年齢の値)
-   * 20歳の場合 (`Age`の値 = 20): 3.31 - 0.16 $\times$ 20 = 0.11
+   * 20歳の場合 (`Age`の値 = 20)：3.31 - 0.16 $\times$ 20 = 0.11
       * 20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる。
-  * 40歳の場合 (`Age`の値 = 40): 3.31 - 0.16 $\times$ 40 = -3.09
+  * 40歳の場合 (`Age`の値 = 40)：3.31 - 0.16 $\times$ 40 = -3.09
       * 40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる。
-  * 60歳の場合 (`Age`の値 = 60): 3.31 - 0.16 $\times$ 60 = -6.29
+  * 60歳の場合 (`Age`の値 = 60)：3.31 - 0.16 $\times$ 60 = -6.29
       * 60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる。
    * $\rightarrow$ 政治満足度が共産に対する感情温度に与える影響は年齢によって変わる。
 
@@ -403,14 +407,12 @@ prediction(fit1, at = list(Satisfaction = 1:5, Female = 0:1)) %>%
 #| echo: false
 #| fig-width: 7
 #| fig-height: 4
-prediction(fit2, at = list(Satisfaction = 1:5, Age = c(20, 40, 60))) %>%
-  summary() %>%
-  rename("Age"   = "at(Age)",
-         "Satis" = "at(Satisfaction)") %>%
+predictions(fit2, newdata = datagrid(Satisfaction = 1:5, 
+                                     Age          = c(20, 40, 60))) |>
   mutate(Age = factor(Age, levels = c(20, 40, 60),
-                      labels = c("20歳", "40歳", "60歳"))) %>%
+                      labels = c("20歳", "40歳", "60歳"))) |>
   ggplot() +
-  geom_line(aes(x = Satis, y = Prediction, color = Age), linewidth = 1) +
+  geom_line(aes(x = Satisfaction, y = estimate, color = Age), linewidth = 1) +
   labs(x = "政治満足度", y = "共産感情温度の予測値 (度)",
        color = "年齢") +
   theme_bw() +
@@ -425,10 +427,9 @@ prediction(fit2, at = list(Satisfaction = 1:5, Age = c(20, 40, 60))) %>%
 
 * $X$が$Y$に与える影響の統計的有意性を検定する際に用いられる検定統計量は「$X$の係数 / $X$の標準誤差」であるが、ここでの$X$の係数（と標準誤差）は$Z$の値によって変わる。
    * $\Rightarrow$ $Z$の値によって$X \rightarrow Y$の統計的有意性は変わる。
-* 調整変数の値ごとに、説明変数が応答変数に与える影響（= **限界効果**; marginal effects）を計算するだけでなく、95%信頼区間 or $p$値も示すこと。
-   * 95%信頼区間内に0が含まれない = $p < 0.05$の場合、統計的に有意な関連があると判断する。
-   * 表で$p$値を報告する場合、$p$値が非常に小さいケースがある（たとえば、$p$ = 0.0000000235）。この場合、「$p$ = 0.000」と表記せず、「$p$ < 0.001」と表記すること。$p$値がぴったり0になることは実質的にあり得ない。
-
+* 調整変数の値ごとに、説明変数が応答変数に与える影響（= **限界効果**; marginal effects）と95%信頼区間を図示する。
+   * 仮説検定に使用する有意水準（$\alpha$）が0.1なら90%信頼区間、0.01なら99%信頼区間を使用
+   
 ## {marginaleffect}パッケージを用いた限界効果の計算
 
 {marginaleffect}パッケージの`slopes()`関数
@@ -439,11 +440,13 @@ slopes(回帰オブジェクト名, variables = "説明変数名",
        newdata = datagrid(調整変数名 = 調整変数の値))
 ```
 
+* `variables`には説明変数名を指定する（変数名は`"`で囲むこと）
 * `fit1`の場合：`Female`の値が0と1の場合の限界効果
    * `datagrid(Female = c(0, 1))`、または`datagrid(Female = 0:1)`
 * `fit2`の場合：`Age`の値が18、19、20、...、75の場合の限界効果
    * `datagrid(Age = 18:75)`
 * 限界効果は`estimate`列、$p$値は`p.value`列、95%信頼区間は`conf.low`（下限）と`conf.high`（上限）
+* 仮説検定に使用する有意水準（$\alpha$）が0.1な`conf_level = 0.9`、0.01なら`conf_level = 0.99`を追加
 
 ## 調整変数がダミー変数の場合 (`fit1`)
 
@@ -454,63 +457,111 @@ fit1_ame <- slopes(fit1, variables = "Satisfaction",
                    newdata = datagrid(Female = c(0, 1)))
 
 fit1_ame
-
-fit1_ame %>%
-  dplyr::select(Female, estimate:conf.high) # 必要な情報だけ出力
 ```
 
-:::{.callout-note icon=false}
-## `::`って何?おいしいの?
+* `Female`の値が0の場合
+   * `Satisfaction`が1単位上がると`TempKyosan`は約-4.73度下がり、$\alpha = 0.05$の水準で統計的に有意である。
+* `Female`の値が1の場合
+   * `Satisfaction`が1単位上がると`TempKyosan`は約-3.83度下がり、$\alpha = 0.05$の水準で統計的に有意である。
 
-同じ名前を持つ関数が複数のパッケージで提供される場合がある。今回の`select()`関数は{marginaleffects}（厳密には{MASS}）にも含まれており、これまで使用してきた{tidyverse}（厳密には{dplyr}）の`select()`関数と衝突するため、「どのパッケージの`select()`」かを明記する必要があり、`パッケージ名::関数()`と表記する。
-:::
-
-## 調整変数が連続変数の場合 (`fit2`)
-
-30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。
+## 調整変数が連続変数の場合（`fit2`）
 
 ```{r}
 fit2_ame <- slopes(fit2, variables = "Satisfaction", 
                    newdata = datagrid(Age = 18:75))
 
-fit2_ame %>%
-  dplyr::select(Age, estimate:conf.high) %>%
-  mutate(p.value = round(p.value, 3)) # p値を小数点3桁で丸める
+fit2_ame
 ```
 
-## 限界効果の可視化（詳細は第13回で解説）
+* `Age`が18の場合、`Satisfaction`は`TempKyosan`に影響を与えているとは言えない（$p \geq 0.05$のため）。
+* `Age`が19の場合、`Satisfaction`は`TempKyosan`に影響を与えているとは言えない（$p \geq 0.05$のため）。
+* （省略）
+* `Age`が75の場合、`Satisfaction`が1単位上がると`TempKyosan`は約-8.4度下がり、$\alpha = 0.05$の水準で統計的に有意である。
 
-::::{.columns}
-:::{.column width=50%}
+## 省略された行の表示
+
+`print()`内に`topn = Inf`を追加する。
+
 ```{r}
-#| code-fold: true
-#| fig-width: 4
-#| fig-height: 4
-fit1_ame %>%
-  mutate(Female = factor(Female, levels = 0:1, 
-                         labels = c("男性", "女性"))) %>%
+print(fit2_ame, topn = Inf)
+```
+
+* 30歳未満の場合、政治満足度（`Satisfaction`）は共産感情温度（`TempKyosan`）に影響を与えるとは言えない。
+* 30歳以上の場合のみ、政治満足度は共産感情温度に負の影響を与える。
+
+## 限界効果の可視化
+
+* 可視化の方法は第10回を参照
+* 95%信頼区間内に0が含まれていれば、説明変数は応答変数に影響を与えるとは言えないと解釈
+* 0が95%信頼区間外にあれば、説明変数は応答変数に影響を与えると解釈可能
+
+:::{.panel-tabset}
+## コード（`fit1_ame`）
+
+```{r}
+#| eval: false
+fit1_ame |>
   ggplot() +
   geom_hline(yintercept = 0) +
   geom_pointrange(aes(x = Female, y = estimate, 
                       ymin = conf.low, ymax = conf.high),
                   size = 1, linewidth = 1) +
+  scale_x_continuous(breaks = 0:1,
+                     labels = c("男性", "女性")) +
   labs(x = "性別", y = "政治満足度の平均限界効果と95%信頼区間") +
-  theme_bw()
+  theme_bw(base_size = 12)
 ```
-:::
 
-:::{.column width=50%}
+## 図（`fit1_ame`）
+
 ```{r}
-#| code-fold: true
+#| echo: false
 #| fig-width: 4
 #| fig-height: 4
-fit2_ame %>%
+#| dpi: 175
+fit1_ame |>
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_pointrange(aes(x = Female, y = estimate, 
+                      ymin = conf.low, ymax = conf.high),
+                  size = 1, linewidth = 1) +
+  scale_x_continuous(breaks = 0:1,
+                     labels = c("男性", "女性")) +
+  labs(x = "性別", y = "政治満足度の平均限界効果と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+
+## コード（`fit2_ame`）
+
+```{r}
+#| eval: false
+fit2_ame |>
   ggplot(aes(x = Age)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_hline(yintercept = 0) +
   geom_line(aes(y = estimate), linewidth = 1) +
-  labs(x = "年齢", y = "政治満足度の平均限界効果と95%信頼区間") +
-  theme_bw()
+  labs(x = "年齢", y = "政治満足度が共産感情温度に\n与える影響と95%信頼区間") +
+  scale_x_continuous(breaks = c(18, 20, 30, 40, 50, 60, 70, 75),
+                     labels = c(18, 20, 30, 40, 50, 60, 70, 75)) +
+  theme_bw(base_size = 12)
+```
+
+## 図（`fit2_ame`）
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 3.5
+#| dpi: 200
+fit2_ame |>
+  ggplot(aes(x = Age)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
+  geom_hline(yintercept = 0) +
+  geom_line(aes(y = estimate), linewidth = 1) +
+  labs(x = "年齢", y = "政治満足度が共産感情温度に\n与える影響と95%信頼区間") +
+  scale_x_continuous(breaks = c(18, 20, 30, 40, 50, 60, 70, 75),
+                     labels = c(18, 20, 30, 40, 50, 60, 70, 75)) +
+  theme_bw(base_size = 12)
 ```
 :::
-::::
+
