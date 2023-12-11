@@ -689,7 +689,7 @@ N: 3000
 </div>
 <p>　このデータを用い、以下の問いに答えるとする。</p>
 <blockquote class="blockquote">
-<p>　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。</p>
+<p>　政治満足度が共産党に対する感情温度に与える影響を調べたい。ただし、この影響は一定ではなく、性別や年齢によって異なるかも知れない。政治満足度が共産党に対する感情温度に与える影響の不均一性を調べるためにはどうすれば良いだろうか。仮説検定に使用する有意水準は5%とする（<span class="math inline">\(\alpha = 0.05\)</span>）。</p>
 </blockquote>
 <p>　この問いにおける応答変数は「共産党に対する感情温度（<code>TempKyosan</code>）」、主な説明変数は「政治満足度（<code>Satisfaction</code>）」だ。ただし、政治満足度が共産感情温度に与える影響は性別（<code>Female</code>）や年齢（<code>Age</code>）に依存する可能性がある。調整変数が2つであるため、ここでは2つのモデルを作成する。</p>
 <p><strong>モデル1</strong></p>
@@ -810,7 +810,8 @@ N: 3000
 <div class="code-with-filename-file">
 <pre><strong>Code 05</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2),</span>
+<span id="cb7-2"><a href="#cb7-2"></a>             <span class="at">statistic =</span> <span class="st">"({p.value})"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
@@ -829,8 +830,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(2.587)</td>
-<td style="text-align: center;">(4.164)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Satisfaction</td>
@@ -839,8 +840,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.561)</td>
-<td style="text-align: center;">(1.354)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
+<td style="text-align: center;">(0.015)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Female</td>
@@ -849,8 +850,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(2.186)</td>
-<td style="text-align: center;">(0.888)</td>
+<td style="text-align: center;">(0.208)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Interest</td>
@@ -859,8 +860,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.571)</td>
-<td style="text-align: center;">(0.570)</td>
+<td style="text-align: center;">(0.703)</td>
+<td style="text-align: center;">(0.836)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Ideology</td>
@@ -869,8 +870,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.214)</td>
-<td style="text-align: center;">(0.215)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Age</td>
@@ -879,8 +880,8 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.030)</td>
-<td style="text-align: center;">(0.073)</td>
+<td style="text-align: center;">(0.178)</td>
+<td style="text-align: center;">(&lt;0.001)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Satisfaction × Female</td>
@@ -889,7 +890,7 @@ N: 3000
 </tr>
 <tr class="even">
 <td style="text-align: left;"></td>
-<td style="text-align: center;">(0.817)</td>
+<td style="text-align: center;">(0.270)</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
@@ -900,7 +901,7 @@ N: 3000
 <tr class="even">
 <td style="text-align: left; box-shadow: 0px 1.5px;"></td>
 <td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.026)</td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(&lt;0.001)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Num.Obs.</td>
@@ -1602,97 +1603,92 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 Type:  response </code></pre>
 </div>
 </div>
-<p>　いくつか気になる点がある。普通に<code>fit2_ame</code>のみ入力して出力すると、最初の5行と最後の5行のみが出力され、48行分が省略される。もし、すべての行を出力したい場合は、<code>print()</code>関数を使用し、<code>nrow = Inf</code>引数を追加すれば良い。はた、<code>round()</code>関数を使って<span class="math inline">\(p\)</span>値を小数点3桁までにまとめてみよう。<code>round()</code>の第1引数は丸めたい変数名、第2引数は小数点の桁数を入れるが、<span class="math inline">\(p\)</span>値の列名は<code>p.value</code>列である。この操作は<code>print()</code>関数の前に行う必要があるため、<code>fit2_ame</code>と<code>print()</code>の間に入れる。</p>
+<p>　いくつか気になる点がある。普通に<code>fit2_ame</code>のみ入力して出力すると、最初の5行と最後の5行のみが出力され、48行分が省略される。もし、すべての行を出力したい場合は、<code>print()</code>関数を使用し、<code>topn = Inf</code>引数を追加すれば良い。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>fit2_ame <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">mutate</span>(<span class="at">p.value =</span> <span class="fu">round</span>(p.value, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">print</span>(<span class="at">nrow =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-         Term Estimate Std. Error        z Pr(&gt;|z|)     S CI low CI high
- Satisfaction   0.4860      0.912   0.5326    0.594   0.8  -1.30  2.2744
- Satisfaction   0.3292      0.889   0.3704    0.711   0.5  -1.41  2.0716
- Satisfaction   0.1725      0.866   0.1992    0.842   0.2  -1.52  1.8692
- Satisfaction   0.0157      0.843   0.0186    0.985   0.0  -1.64  1.6672
- Satisfaction  -0.1411      0.820  -0.1721    0.863   0.2  -1.75  1.4653
- Satisfaction  -0.2978      0.797  -0.3737    0.709   0.5  -1.86  1.2641
- Satisfaction  -0.4546      0.774  -0.5870    0.557   0.8  -1.97  1.0634
- Satisfaction  -0.6114      0.752  -0.8126    0.416   1.3  -2.09  0.8631
- Satisfaction  -0.7681      0.730  -1.0515    0.293   1.8  -2.20  0.6636
- Satisfaction  -0.9249      0.709  -1.3048    0.192   2.4  -2.31  0.4644
- Satisfaction  -1.0817      0.688  -1.5731    0.116   3.1  -2.43  0.2660
- Satisfaction  -1.2384      0.667  -1.8574    0.063   4.0  -2.55  0.0684
- Satisfaction  -1.3952      0.646  -2.1587    0.031   5.0  -2.66 -0.1285
- Satisfaction  -1.5520      0.626  -2.4774    0.013   6.2  -2.78 -0.3241
- Satisfaction  -1.7087      0.607  -2.8156    0.005   7.7  -2.90 -0.5193
- Satisfaction  -1.8655      0.588  -3.1730    0.002   9.4  -3.02 -0.7132
- Satisfaction  -2.0223      0.570  -3.5504   &lt;0.001  11.3  -3.14 -0.9059
- Satisfaction  -2.1790      0.552  -3.9488   &lt;0.001  13.6  -3.26 -1.0975
- Satisfaction  -2.3358      0.535  -4.3666   &lt;0.001  16.3  -3.38 -1.2874
- Satisfaction  -2.4926      0.519  -4.8048   &lt;0.001  19.3  -3.51 -1.4758
- Satisfaction  -2.6493      0.503  -5.2627   &lt;0.001  22.7  -3.64 -1.6627
- Satisfaction  -2.8061      0.489  -5.7368   &lt;0.001  26.6  -3.76 -1.8474
- Satisfaction  -2.9629      0.476  -6.2272   &lt;0.001  31.0  -3.90 -2.0303
- Satisfaction  -3.1196      0.464  -6.7279   &lt;0.001  35.8  -4.03 -2.2108
- Satisfaction  -3.2764      0.453  -7.2373   &lt;0.001  41.0  -4.16 -2.3891
- Satisfaction  -3.4332      0.443  -7.7476   &lt;0.001  46.6  -4.30 -2.5647
- Satisfaction  -3.5900      0.435  -8.2545   &lt;0.001  52.5  -4.44 -2.7375
- Satisfaction  -3.7467      0.428  -8.7510   &lt;0.001  58.7  -4.59 -2.9076
- Satisfaction  -3.9035      0.423  -9.2287   &lt;0.001  65.0  -4.73 -3.0745
- Satisfaction  -4.0603      0.419  -9.6810   &lt;0.001  71.2  -4.88 -3.2382
- Satisfaction  -4.2170      0.417 -10.1008   &lt;0.001  77.3  -5.04 -3.3988
- Satisfaction  -4.3738      0.417 -10.4824   &lt;0.001  83.0  -5.19 -3.5560
- Satisfaction  -4.5306      0.419 -10.8208   &lt;0.001  88.2  -5.35 -3.7099
- Satisfaction  -4.6873      0.422 -11.1130   &lt;0.001  92.9  -5.51 -3.8606
- Satisfaction  -4.8441      0.427 -11.3569   &lt;0.001  96.9  -5.68 -4.0081
- Satisfaction  -5.0009      0.433 -11.5545   &lt;0.001 100.2  -5.85 -4.1526
- Satisfaction  -5.1576      0.441 -11.7057   &lt;0.001 102.7  -6.02 -4.2941
- Satisfaction  -5.3144      0.450 -11.8152   &lt;0.001 104.6  -6.20 -4.4328
- Satisfaction  -5.4712      0.460 -11.8847   &lt;0.001 105.8  -6.37 -4.5689
- Satisfaction  -5.6279      0.472 -11.9182   &lt;0.001 106.4  -6.55 -4.7024
- Satisfaction  -5.7847      0.485 -11.9239   &lt;0.001 106.5  -6.74 -4.8339
- Satisfaction  -5.9415      0.499 -11.9026   &lt;0.001 106.1  -6.92 -4.9631
- Satisfaction  -6.0982      0.514 -11.8597   &lt;0.001 105.4  -7.11 -5.0904
- Satisfaction  -6.2550      0.530 -11.7980   &lt;0.001 104.3  -7.29 -5.2159
- Satisfaction  -6.4118      0.547 -11.7235   &lt;0.001 103.0  -7.48 -5.3398
- Satisfaction  -6.5685      0.564 -11.6394   &lt;0.001 101.6  -7.67 -5.4625
- Satisfaction  -6.7253      0.583 -11.5442   &lt;0.001 100.0  -7.87 -5.5835
- Satisfaction  -6.8821      0.601 -11.4457   &lt;0.001  98.4  -8.06 -5.7036
- Satisfaction  -7.0388      0.621 -11.3415   &lt;0.001  96.6  -8.26 -5.8224
- Satisfaction  -7.1956      0.640 -11.2347   &lt;0.001  94.9  -8.45 -5.9403
- Satisfaction  -7.3524      0.661 -11.1239   &lt;0.001  93.1  -8.65 -6.0569
- Satisfaction  -7.5092      0.682 -11.0166   &lt;0.001  91.3  -8.85 -6.1732
- Satisfaction  -7.6659      0.703 -10.9084   &lt;0.001  89.6  -9.04 -6.2886
- Satisfaction  -7.8227      0.724 -10.8001   &lt;0.001  87.9  -9.24 -6.4031
- Satisfaction  -7.9795      0.746 -10.6958   &lt;0.001  86.3  -9.44 -6.5173
- Satisfaction  -8.1362      0.768 -10.5922   &lt;0.001  84.7  -9.64 -6.6307
- Satisfaction  -8.2930      0.790 -10.4908   &lt;0.001  83.1  -9.84 -6.7436
- Satisfaction  -8.4498      0.813 -10.3908   &lt;0.001  81.6 -10.04 -6.8559
+         Term Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 %  97.5 %
+ Satisfaction  18   0.4860      0.912   0.5326  0.59428   0.8  -1.30  2.2744
+ Satisfaction  19   0.3292      0.889   0.3704  0.71111   0.5  -1.41  2.0716
+ Satisfaction  20   0.1725      0.866   0.1992  0.84207   0.2  -1.52  1.8692
+ Satisfaction  21   0.0157      0.843   0.0186  0.98512   0.0  -1.64  1.6672
+ Satisfaction  22  -0.1411      0.820  -0.1721  0.86336   0.2  -1.75  1.4653
+ Satisfaction  23  -0.2978      0.797  -0.3737  0.70861   0.5  -1.86  1.2641
+ Satisfaction  24  -0.4546      0.774  -0.5870  0.55723   0.8  -1.97  1.0634
+ Satisfaction  25  -0.6114      0.752  -0.8126  0.41642   1.3  -2.09  0.8631
+ Satisfaction  26  -0.7681      0.730  -1.0515  0.29302   1.8  -2.20  0.6636
+ Satisfaction  27  -0.9249      0.709  -1.3048  0.19196   2.4  -2.31  0.4644
+ Satisfaction  28  -1.0817      0.688  -1.5731  0.11570   3.1  -2.43  0.2660
+ Satisfaction  29  -1.2384      0.667  -1.8574  0.06325   4.0  -2.55  0.0684
+ Satisfaction  30  -1.3952      0.646  -2.1587  0.03087   5.0  -2.66 -0.1285
+ Satisfaction  31  -1.5520      0.626  -2.4774  0.01324   6.2  -2.78 -0.3241
+ Satisfaction  32  -1.7087      0.607  -2.8156  0.00487   7.7  -2.90 -0.5193
+ Satisfaction  33  -1.8655      0.588  -3.1730  0.00151   9.4  -3.02 -0.7132
+ Satisfaction  34  -2.0223      0.570  -3.5504  &lt; 0.001  11.3  -3.14 -0.9059
+ Satisfaction  35  -2.1790      0.552  -3.9488  &lt; 0.001  13.6  -3.26 -1.0975
+ Satisfaction  36  -2.3358      0.535  -4.3666  &lt; 0.001  16.3  -3.38 -1.2874
+ Satisfaction  37  -2.4926      0.519  -4.8048  &lt; 0.001  19.3  -3.51 -1.4758
+ Satisfaction  38  -2.6493      0.503  -5.2627  &lt; 0.001  22.7  -3.64 -1.6627
+ Satisfaction  39  -2.8061      0.489  -5.7368  &lt; 0.001  26.6  -3.76 -1.8474
+ Satisfaction  40  -2.9629      0.476  -6.2272  &lt; 0.001  31.0  -3.90 -2.0303
+ Satisfaction  41  -3.1196      0.464  -6.7279  &lt; 0.001  35.8  -4.03 -2.2108
+ Satisfaction  42  -3.2764      0.453  -7.2373  &lt; 0.001  41.0  -4.16 -2.3891
+ Satisfaction  43  -3.4332      0.443  -7.7476  &lt; 0.001  46.6  -4.30 -2.5647
+ Satisfaction  44  -3.5900      0.435  -8.2545  &lt; 0.001  52.5  -4.44 -2.7375
+ Satisfaction  45  -3.7467      0.428  -8.7510  &lt; 0.001  58.7  -4.59 -2.9076
+ Satisfaction  46  -3.9035      0.423  -9.2287  &lt; 0.001  65.0  -4.73 -3.0745
+ Satisfaction  47  -4.0603      0.419  -9.6810  &lt; 0.001  71.2  -4.88 -3.2382
+ Satisfaction  48  -4.2170      0.417 -10.1008  &lt; 0.001  77.3  -5.04 -3.3988
+ Satisfaction  49  -4.3738      0.417 -10.4824  &lt; 0.001  83.0  -5.19 -3.5560
+ Satisfaction  50  -4.5306      0.419 -10.8208  &lt; 0.001  88.2  -5.35 -3.7099
+ Satisfaction  51  -4.6873      0.422 -11.1130  &lt; 0.001  92.9  -5.51 -3.8606
+ Satisfaction  52  -4.8441      0.427 -11.3569  &lt; 0.001  96.9  -5.68 -4.0081
+ Satisfaction  53  -5.0009      0.433 -11.5545  &lt; 0.001 100.2  -5.85 -4.1526
+ Satisfaction  54  -5.1576      0.441 -11.7057  &lt; 0.001 102.7  -6.02 -4.2941
+ Satisfaction  55  -5.3144      0.450 -11.8152  &lt; 0.001 104.6  -6.20 -4.4328
+ Satisfaction  56  -5.4712      0.460 -11.8847  &lt; 0.001 105.8  -6.37 -4.5689
+ Satisfaction  57  -5.6279      0.472 -11.9182  &lt; 0.001 106.4  -6.55 -4.7024
+ Satisfaction  58  -5.7847      0.485 -11.9239  &lt; 0.001 106.5  -6.74 -4.8339
+ Satisfaction  59  -5.9415      0.499 -11.9026  &lt; 0.001 106.1  -6.92 -4.9631
+ Satisfaction  60  -6.0982      0.514 -11.8597  &lt; 0.001 105.4  -7.11 -5.0904
+ Satisfaction  61  -6.2550      0.530 -11.7980  &lt; 0.001 104.3  -7.29 -5.2159
+ Satisfaction  62  -6.4118      0.547 -11.7235  &lt; 0.001 103.0  -7.48 -5.3398
+ Satisfaction  63  -6.5685      0.564 -11.6394  &lt; 0.001 101.6  -7.67 -5.4625
+ Satisfaction  64  -6.7253      0.583 -11.5442  &lt; 0.001 100.0  -7.87 -5.5835
+ Satisfaction  65  -6.8821      0.601 -11.4457  &lt; 0.001  98.4  -8.06 -5.7036
+ Satisfaction  66  -7.0388      0.621 -11.3415  &lt; 0.001  96.6  -8.26 -5.8224
+ Satisfaction  67  -7.1956      0.640 -11.2347  &lt; 0.001  94.9  -8.45 -5.9403
+ Satisfaction  68  -7.3524      0.661 -11.1239  &lt; 0.001  93.1  -8.65 -6.0569
+ Satisfaction  69  -7.5092      0.682 -11.0166  &lt; 0.001  91.3  -8.85 -6.1732
+ Satisfaction  70  -7.6659      0.703 -10.9084  &lt; 0.001  89.6  -9.04 -6.2886
+ Satisfaction  71  -7.8227      0.724 -10.8001  &lt; 0.001  87.9  -9.24 -6.4031
+ Satisfaction  72  -7.9795      0.746 -10.6958  &lt; 0.001  86.3  -9.44 -6.5173
+ Satisfaction  73  -8.1362      0.768 -10.5922  &lt; 0.001  84.7  -9.64 -6.6307
+ Satisfaction  74  -8.2930      0.790 -10.4908  &lt; 0.001  83.1  -9.84 -6.7436
+ Satisfaction  75  -8.4498      0.813 -10.3908  &lt; 0.001  81.6 -10.04 -6.8559
 
-Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female </code></pre>
+Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female 
+Type:  response </code></pre>
 </div>
 </div>
 <p>　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、<span class="math inline">\(p \geq 0.05\)</span>）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、<span class="math inline">\(p &lt; 0.05\)</span>）。ちなみに、<code>&lt;2e-16</code>と表示されるのは0に極めて近いことを意味し、表で示す際は<code>&lt; 0.001</code>とかで表記するのが一般的だ。</p>
-<p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。回帰分析の結果の可視化は次回解説するが、ここでは限界効果のグラフの読み方を紹介しよう。</p>
+<p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。予測値のグラフ同様、限界効果（<code>estimate</code>列）と信頼区間の上限と下限（それぞれ<code>conf.low</code>と<code>conf.high</code>）を示すだけで良い。</p>
 <p>　以下の図は<code>fit1</code>における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
 <div class="cell" data-layout-align="center">
-<details>
-<summary>コード</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>fit1_ame <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Female =</span> <span class="fu">factor</span>(Female, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
-<span id="cb25-3"><a href="#cb25-3"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
-<span id="cb25-7"><a href="#cb25-7"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
+<span id="cb25-5"><a href="#cb25-5"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1701,26 +1697,24 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 </div>
 </div>
 </div>
-<p>　続いて、<code>fit2</code>における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
+<p>　続いて、<code>fit2</code>における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。また縦軸を「政治満足度の平均限界効果」でなく、「政治満足度が共産感情温度に与える影響」にすることで、交互作用の知識のない読者にとって解釈しやすくした（途中の<code>\n</code>は改行を意味する）。</p>
 <div class="cell" data-layout-align="center">
-<details>
-<summary>コード</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit2_ame <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
 <span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate)) <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度が共産感情温度に</span><span class="sc">\n</span><span class="st">与える影響と95%信頼区間"</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="900"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>　29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に対する感情温度は下がる」ことを意味する。一方、「30歳未満の有権者の場合、政治満足度が共産党に対する感情温度に影響を与えるとは言えない」とも解釈できる。</p>
 
 
 </section>
