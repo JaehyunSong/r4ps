@@ -957,16 +957,146 @@ N: 3000
 <p>共産に対する感情温度の予測値 = 49.28 - (4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミー) <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 2.75 <span class="math inline">\(\times\)</span> 女性ダミー + 0.22 <span class="math inline">\(\times\)</span> 政治関心 - 1.89 <span class="math inline">\(\times\)</span> イデオロギー - 0.04 <span class="math inline">\(\times\)</span> 年齢</p>
 <p>になる。つまり、政治満足度が共産感情温度に与える影響は「-(4.73 - 0.90 <span class="math inline">\(\times\)</span> 女性ダミーの値)」だ。女性ダミーが取り得る値は0（男性）か1（女性）しかないので、ここでは2つのケースにおける政治満足度が共産感情温度に与える影響を計算してみよう。</p>
 <p>　まず、男性の場合（<code>Female</code>の値 = 0）、政治満足度が共産感情温度に与える影響は約-4.73（= -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 0) ）である。これは男性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる」と解釈できる。また、女性の場合（<code>Female</code>の値 = 1）、政治満足度が共産感情温度に与える影響は約-3.83（= -(4.73 - 0.90 <span class="math inline">\(\times\)</span> 1) ）である。これもまた、女性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる」と解釈できる。</p>
-<p>　以上の結果を回帰直線で示したものが以下の図である。</p>
+<p>　以上の結果を可視化してみよう。まず、{marginaleffects}パッケージの<code>predictions()</code>関数で予測値を計算する。今回は<code>Satisfaction</code>と<code>Female</code>が取りうるすべての組み合わせに応じて予測値を計算する必要がある。つまり、<code>datagrid()</code>内には主な説明変数（<code>Satisfaction</code>）だけでなく、調整変数（<code>Female</code>）の値も指定する必要がある。</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>fit1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>                                                  <span class="at">Female       =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a>fit1_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Satisfaction Female Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 % Interest Ideology  Age
+            1      0     31.3      1.048 29.85   &lt;0.001 647.8 29.22   33.3     2.74     6.34 47.3
+            1      1     34.9      1.057 33.05   &lt;0.001 793.3 32.85   37.0     2.74     6.34 47.3
+            2      0     26.5      0.685 38.75   &lt;0.001   Inf 25.20   27.9     2.74     6.34 47.3
+            2      1     31.1      0.668 46.55   &lt;0.001   Inf 29.78   32.4     2.74     6.34 47.3
+            3      0     21.8      0.686 31.78   &lt;0.001 733.8 20.46   23.2     2.74     6.34 47.3
+            3      1     27.3      0.723 37.72   &lt;0.001   Inf 25.85   28.7     2.74     6.34 47.3
+            4      0     17.1      1.050 16.26   &lt;0.001 195.1 15.02   19.1     2.74     6.34 47.3
+            4      1     23.4      1.160 20.20   &lt;0.001 299.1 21.16   25.7     2.74     6.34 47.3
+            5      0     12.3      1.538  8.03   &lt;0.001  49.8  9.33   15.4     2.74     6.34 47.3
+            5      1     19.6      1.707 11.48   &lt;0.001  99.0 16.26   22.9     2.74     6.34 47.3
+
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, TempKyosan, Interest, Ideology, Age, Satisfaction, Female 
+Type:  response </code></pre>
+</div>
+</div>
+<p>　続いて、<code>fit1_pred</code>の<code>Female</code>列を修正しよう。0/1だと読者側から見れば読みにくいので、<code>Female</code>列の値が1であれば「女性」、その他の場合は「男性」にリコーディングしよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>fit1_pred <span class="ot">&lt;-</span> fit1_pred <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">mutate</span>(<span class="at">Female =</span> <span class="fu">if_else</span>(Female <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"女性"</span>, <span class="st">"男性"</span>)) </span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>fit1_pred</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Estimate Std. Error     z Pr(&gt;|z|)     S CI low CI high
+     31.3      1.048 29.85   &lt;0.001 647.8  29.22    33.3
+     34.9      1.057 33.05   &lt;0.001 793.3  32.85    37.0
+     26.5      0.685 38.75   &lt;0.001   Inf  25.20    27.9
+     31.1      0.668 46.55   &lt;0.001   Inf  29.78    32.4
+     21.8      0.686 31.78   &lt;0.001 733.8  20.46    23.2
+     27.3      0.723 37.72   &lt;0.001   Inf  25.85    28.7
+     17.1      1.050 16.26   &lt;0.001 195.1  15.02    19.1
+     23.4      1.160 20.20   &lt;0.001 299.1  21.16    25.7
+     12.3      1.538  8.03   &lt;0.001  49.8   9.33    15.4
+     19.6      1.707 11.48   &lt;0.001  99.0  16.26    22.9
+
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, TempKyosan, Interest, Ideology, Age, Satisfaction, Female </code></pre>
+</div>
+</div>
+<p>　これまで普通に表示されていた<code>Female</code>列が見えなくなった。これは{marginaleffects}の仕様上の問題だが、<code>print()</code>関数の中に<code>style = "data.frame"</code>を指定すると問題なく表示される。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">print</span>(fit1_pred, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   rowid estimate std.error statistic       p.value   s.value  conf.low conf.high TempKyosan
+1      1 31.26953 1.0476813 29.846411 9.772659e-196 647.80916 29.216108  33.32294     26.882
+2      2 34.92279 1.0566911 33.049191 1.597783e-239 793.26474 32.851711  36.99386     26.882
+3      3 26.53784 0.6849277 38.745466  0.000000e+00       Inf 25.195410  27.88028     26.882
+4      4 31.09269 0.6679046 46.552583  0.000000e+00       Inf 29.783617  32.40175     26.882
+5      5 21.80616 0.6861641 31.779807 1.230741e-221 733.84658 20.461305  23.15102     26.882
+6      6 27.26258 0.7226681 37.724903  0.000000e+00       Inf 25.846181  28.67899     26.882
+7      7 17.07448 1.0501055 16.259777  1.904310e-59 195.06449 15.016312  19.13265     26.882
+8      8 23.43248 1.1597646 20.204515  8.934294e-91 299.13610 21.159385  25.70558     26.882
+9      9 12.34280 1.5377994  8.026273  1.004781e-15  49.82204  9.328767  15.35683     26.882
+10    10 19.60238 1.7071942 11.482221  1.620634e-30  98.96128 16.256341  22.94842     26.882
+   Interest Ideology   Age Satisfaction Female
+1  2.736333 6.340667 47.34            1   男性
+2  2.736333 6.340667 47.34            1   女性
+3  2.736333 6.340667 47.34            2   男性
+4  2.736333 6.340667 47.34            2   女性
+5  2.736333 6.340667 47.34            3   男性
+6  2.736333 6.340667 47.34            3   女性
+7  2.736333 6.340667 47.34            4   男性
+8  2.736333 6.340667 47.34            4   女性
+9  2.736333 6.340667 47.34            5   男性
+10 2.736333 6.340667 47.34            5   女性</code></pre>
+</div>
+</div>
+<p>　問題なく<code>Female</code>列がリコーディングされていることが分かる。それではこの<code>fit1_pred</code>を利用し、可視化してみよう。ここではpoint-rangeプロットを作成し、性別に応じてpoint-rangeの色分けを行う。また、性別ごとのpoint-rangeを横方向にずらすために<code>aes()</code>の<strong>外</strong>側に<code>position = position_dodge2(0.5)</code>を追加する。この0.5の数値が小さいほど2つのpoint-rangeはより近くなる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>fit1_pred <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Satisfaction, </span>
+<span id="cb14-4"><a href="#cb14-4"></a>                      <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high, </span>
+<span id="cb14-5"><a href="#cb14-5"></a>                      <span class="at">color =</span> Female),</span>
+<span id="cb14-6"><a href="#cb14-6"></a>                  <span class="at">position =</span> <span class="fu">position_dodge2</span>(<span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"政治満足度"</span>, <span class="at">y =</span> <span class="st">"共産感情温度の予測値と95%信頼区間 (度)"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8"></a>       <span class="at">fill =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>　もう一つの可視化方法はリボンと折れ線グラフの組み合わせである。リボンの色塗りは<code>fill</code>でマッピングし、リボンが重なる可能性を考慮し<code>aes()</code>の<strong>外</strong>側に<code>alpha</code>引数を追加して透明度を調整しよう。宋のおすすめは0.3だ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>fit1_pred <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Satisfaction)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high, <span class="at">fill =</span> Female), </span>
+<span id="cb15-4"><a href="#cb15-4"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate, <span class="at">color =</span> Female), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"政治満足度"</span>, <span class="at">y =</span> <span class="st">"共産感情温度の予測値と95%信頼区間 (度)"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7"></a>       <span class="at">fill =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="interaction_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1050"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　Point-rangeプロットにするか、リボン+折れ線の組み合わせにするかは好みの問題なので自分からみて読みやすいと思う図にしよう。</p>
 </section>
 <section id="モデル2の解釈" class="level3">
 <h3 class="anchored" data-anchor-id="モデル2の解釈">モデル2の解釈</h3>
@@ -976,71 +1106,35 @@ N: 3000
 <p>共産に対する感情温度の予測値 = 28.25 + (3.31 - 0.16 <span class="math inline">\(\times\)</span> 年齢) <span class="math inline">\(\times\)</span> <strong>政治満足度</strong> + 0.36 <span class="math inline">\(\times\)</span> 年齢 - 0.12 <span class="math inline">\(\times\)</span> 政治関心 - 1.69 <span class="math inline">\(\times\)</span> イデオロギー + 5.06 <span class="math inline">\(\times\)</span> 女性ダミー</p>
 <p>になる。つまり、政治満足度が共産感情温度に与える影響は「(3.31 - 0.16 <span class="math inline">\(\times\)</span> 年齢の値)」だ。年齢は18、19、20、…など様々な値を取り得る。これら全てに対して計算することは効率的ではないため、ここでは年齢が20歳、40歳、60歳の場合に絞って政治満足度が共産感情温度に与える影響を計算してみよう。</p>
 <p>　まず、20歳の場合（<code>Age</code>の値 = 20）、政治満足度が共産感情温度に与える影響は約0.11（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 20）である（小数点7桁まで計算すると約0.1724813）。これは「20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる」ことを意味する。つづいて、40歳の場合（<code>Age</code>の値 = 40）、政治満足度が共産感情温度に与える影響は約-3.09（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 40）である（小数点7桁まで計算すると約-2.962879）。これは「40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる」ことを意味する。最後に60歳の場合（<code>Age</code>の値 = 60）、政治満足度が共産感情温度に与える影響は約-6.29（= 3.31 - 0.16 <span class="math inline">\(\times\)</span> 60）だ（小数点7桁まで計算すると約-6.098239）。これは「60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる」ことを意味する。</p>
-<p>　以上の結果を回帰直線で示したものが以下の図である。</p>
+<p>　以上の結果を回帰直線で示したものが以下の図である。<code>fit2</code>の調整変数は連続変数であるためすべての年齢に応じた回帰直線を出すのはあまりにも非効率的である。したがって、ここでは20、40、60歳の場合の回帰直線を可視化してみよう。今回は一連の作業をすべてパイプ演算子（<code>|&gt;</code>）で繋ぎ、一つのコードにまとめてみた。</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit2 <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">predictions</span>(<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<span id="cb16-3"><a href="#cb16-3"></a>                                 <span class="at">Age          =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">recode</span>(Age, </span>
+<span id="cb16-5"><a href="#cb16-5"></a>                      <span class="st">"20"</span> <span class="ot">=</span> <span class="st">"20歳"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>                      <span class="st">"40"</span> <span class="ot">=</span> <span class="st">"40歳"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7"></a>                      <span class="st">"60"</span> <span class="ot">=</span> <span class="st">"60歳"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Satisfaction)) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high, <span class="at">fill =</span> Age),</span>
+<span id="cb16-10"><a href="#cb16-10"></a>              <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate, <span class="at">color =</span> Age), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"政治満足度"</span>, <span class="at">y =</span> <span class="st">"共産感情温度の予測値 (度)"</span>, <span class="at">fill =</span> <span class="st">"年齢"</span>, <span class="at">color =</span> <span class="st">"年齢"</span>) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>　今回は計算を簡単にするために小数点2桁目まで丸めた係数を用いたが、より性格に計算するためには<code>coef()</code>関数から抽出した係数を用いた方が良い。<code>fit2</code>の係数を抽出してみよう。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 06</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">coef</span>(fit2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     (Intercept)     Satisfaction              Age         Interest 
-      28.2497444        3.3078413        0.3572177       -0.1180184 
-        Ideology           Female Satisfaction:Age 
-      -1.6902682        5.0610601       -0.1567680 </code></pre>
-</div>
-</div>
-<p>　ここで政治満足度（<code>Satisfication</code>）の係数は2番目であるため、<code>coef(fit2)</code>の後ろに<code>[2]</code>を付けると2番目の要素のみ抽出できる。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 07</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">2</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Satisfaction 
-    3.307841 </code></pre>
-</div>
-</div>
-<p>　同じく交差項の係数は7番目であるため、<code>coef(fit2)[7]</code>で抽出できる。</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 08</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">7</span>]</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Satisfaction:Age 
-       -0.156768 </code></pre>
-</div>
-</div>
-<p>　この数値を使えば、政治満足度が共産感情温度に与える影響をより正確な数値で計算できる。たとえば、60歳における政治満足度が共産感情温度に与える影響は</p>
-<div class="cell" data-layout-align="center">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Code 09</strong></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">coef</span>(fit2)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">coef</span>(fit2)[<span class="dv">7</span>] <span class="sc">*</span> <span class="dv">60</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Satisfaction 
-   -6.098239 </code></pre>
-</div>
-</div>
-<p>のように計算できる。</p>
 </section>
 </section>
 <section id="限界効果の話" class="level2">
@@ -1050,25 +1144,24 @@ N: 3000
 <p>　限界効果の計算方法については解説済みである。しかし、統計的有意性に関しては説明がやや難しくなるため、これはRパッケージにお任せするとしよう。もし、数学的な背景に関心のある履修者は<a href="https://www.cambridge.org/core/journals/political-analysis/article/abs/understanding-interaction-models-improving-empirical-analyses/9BA57B3720A303C61EBEC6DDFA40744B">Brambor (2006)</a>を参照されたい。</p>
 <p>　今回使用するパッケージ&amp;関数は、冒頭で読み込んだ{marginaleffect}パッケージの<code>slopes()</code>関数だ。これは回帰モデルの限界効果と統計的有意性検定までやってくれる大変便利なパッケージである。使い方は以下の通り。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">slopes</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
-<span id="cb16-2"><a href="#cb16-2"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">slopes</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
+<span id="cb17-2"><a href="#cb17-2"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>　<code>fit1</code>の場合、<code>Female</code>の値が0と1の場合の<code>Satisfacton</code>の限界効果を求めることになる。したがって、回帰オブジェクト名は<code>fit1</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Female = 0:1</code>または<code>Female = c(0, 1)</code>だ。計算結果を<code>fit1_ame</code>に格納し、中身を確認する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 10</strong></pre>
+<pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb17-2"><a href="#cb17-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
-<span id="cb17-3"><a href="#cb17-3"></a></span>
-<span id="cb17-4"><a href="#cb17-4"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
          Term Female Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
  Satisfaction      0    -4.73      0.561 -8.43   &lt;0.001 54.7 -5.83  -3.63
- Satisfaction      1    -3.83      0.611 -6.27   &lt;0.001 31.4 -5.03  -2.63
+ Satisfaction      1    -3.83      0.611 -6.27   &lt;0.001 31.3 -5.03  -2.63
 
 Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Female, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Age 
 Type:  response </code></pre>
@@ -1079,23 +1172,20 @@ Type:  response </code></pre>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 11</strong></pre>
+<pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">print</span>(fit1_ame, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">print</span>(fit1_ame, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid         term  estimate std.error statistic      p.value  s.value
-1     1 Satisfaction -4.731682 0.5613086 -8.429734 3.464517e-17 54.68012
-2     2 Satisfaction -3.830102 0.6107677 -6.270964 3.588207e-10 31.37602
-   conf.low conf.high Female predicted_lo predicted_hi predicted TempKyosan
-1 -5.831826 -3.631537      0     24.41332     24.41143  24.41332     26.882
-2 -5.027184 -2.633019      1     29.37297     29.37144  29.37297     26.882
-  Satisfaction Interest Ideology   Age
-1        2.449 2.736333 6.340667 47.34
-2        2.449 2.736333 6.340667 47.34</code></pre>
+<pre><code>  rowid         term  estimate std.error statistic      p.value  s.value  conf.low conf.high Female
+1     1 Satisfaction -4.731682 0.5613381 -8.429291 3.477671e-17 54.67466 -5.831884 -3.631479      0
+2     2 Satisfaction -3.830102 0.6111591 -6.266947 3.681947e-10 31.33881 -5.027952 -2.632252      1
+  predicted_lo predicted_hi predicted TempKyosan Satisfaction Interest Ideology   Age
+1     24.41427     24.41237  24.41332     26.882        2.449 2.736333 6.340667 47.34
+2     29.37374     29.37220  29.37297     26.882        2.449 2.736333 6.340667 47.34</code></pre>
 </div>
 </div>
-<p>　限界効果の解釈に話を戻そう。<code>Female = 0</code>の場合の<code>Satisfaction</code>の限界効果は約-4.732、<code>Female = 1</code>の場合のそれは約-3.830である。また、いずれも<span class="math inline">\(p\)</span>値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。</p>
+<p>　限界効果の解釈に話を戻そう。限界効果は<code>estiamte</code>列に表示されており、<code>Female = 0</code>の場合の<code>Satisfaction</code>の限界効果は約-4.732、<code>Female = 1</code>の場合のそれは約-3.830である。また、いずれも<span class="math inline">\(p\)</span>値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。</p>
 <p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1561,12 +1651,12 @@ Type:  response </code></pre>
 <td headers="estimate" class="gt_row gt_right">−4.732</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
 <td headers="conf.low" class="gt_row gt_right">−5.832</td>
-<td headers="conf.high" class="gt_row gt_right">−3.632</td></tr>
+<td headers="conf.high" class="gt_row gt_right">−3.631</td></tr>
     <tr><td headers="Female" class="gt_row gt_left">女性</td>
 <td headers="estimate" class="gt_row gt_right">−3.830</td>
 <td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
-<td headers="conf.low" class="gt_row gt_right">−5.027</td>
-<td headers="conf.high" class="gt_row gt_right">−2.633</td></tr>
+<td headers="conf.low" class="gt_row gt_right">−5.028</td>
+<td headers="conf.high" class="gt_row gt_right">−2.632</td></tr>
   </tbody>
   
   
@@ -1574,31 +1664,30 @@ Type:  response </code></pre>
 </div>
 </div>
 </div>
-<p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ。</p>
+<p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ（18から75まで公差1の等差数列）。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 12</strong></pre>
+<pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb21-2"><a href="#cb21-2"></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
-<span id="cb21-3"><a href="#cb21-3"></a></span>
-<span id="cb21-4"><a href="#cb21-4"></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
          Term Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %
- Satisfaction  18   0.4860      0.912   0.5326    0.594 0.8  -1.30   2.27
- Satisfaction  19   0.3292      0.889   0.3704    0.711 0.5  -1.41   2.07
- Satisfaction  20   0.1725      0.866   0.1992    0.842 0.2  -1.52   1.87
+ Satisfaction  18   0.4860      0.913   0.5323    0.595 0.8  -1.30   2.28
+ Satisfaction  19   0.3292      0.890   0.3700    0.711 0.5  -1.42   2.07
+ Satisfaction  20   0.1725      0.866   0.1992    0.842 0.2  -1.53   1.87
  Satisfaction  21   0.0157      0.843   0.0186    0.985 0.0  -1.64   1.67
- Satisfaction  22  -0.1411      0.820  -0.1721    0.863 0.2  -1.75   1.47
+ Satisfaction  22  -0.1411      0.820  -0.1720    0.863 0.2  -1.75   1.47
 --- 48 rows omitted. See ?avg_slopes and ?print.marginaleffects --- 
- Satisfaction  71  -7.8227      0.724 -10.8001   &lt;0.001 87.9  -9.24  -6.40
- Satisfaction  72  -7.9795      0.746 -10.6958   &lt;0.001 86.3  -9.44  -6.52
- Satisfaction  73  -8.1362      0.768 -10.5922   &lt;0.001 84.7  -9.64  -6.63
- Satisfaction  74  -8.2930      0.790 -10.4908   &lt;0.001 83.1  -9.84  -6.74
- Satisfaction  75  -8.4498      0.813 -10.3908   &lt;0.001 81.6 -10.04  -6.86
+ Satisfaction  71  -7.8227      0.724 -10.8071   &lt;0.001 88.0  -9.24  -6.40
+ Satisfaction  72  -7.9795      0.746 -10.7029   &lt;0.001 86.4  -9.44  -6.52
+ Satisfaction  73  -8.1362      0.768 -10.5965   &lt;0.001 84.7  -9.64  -6.63
+ Satisfaction  74  -8.2930      0.791 -10.4875   &lt;0.001 83.1  -9.84  -6.74
+ Satisfaction  75  -8.4498      0.813 -10.3960   &lt;0.001 81.7 -10.04  -6.86
 Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female 
 Type:  response </code></pre>
 </div>
@@ -1607,71 +1696,71 @@ Type:  response </code></pre>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>Code 13</strong></pre>
+<pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
          Term Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 %  97.5 %
- Satisfaction  18   0.4860      0.912   0.5326  0.59428   0.8  -1.30  2.2744
- Satisfaction  19   0.3292      0.889   0.3704  0.71111   0.5  -1.41  2.0716
- Satisfaction  20   0.1725      0.866   0.1992  0.84207   0.2  -1.52  1.8692
- Satisfaction  21   0.0157      0.843   0.0186  0.98512   0.0  -1.64  1.6672
- Satisfaction  22  -0.1411      0.820  -0.1721  0.86336   0.2  -1.75  1.4653
- Satisfaction  23  -0.2978      0.797  -0.3737  0.70861   0.5  -1.86  1.2641
- Satisfaction  24  -0.4546      0.774  -0.5870  0.55723   0.8  -1.97  1.0634
- Satisfaction  25  -0.6114      0.752  -0.8126  0.41642   1.3  -2.09  0.8631
- Satisfaction  26  -0.7681      0.730  -1.0515  0.29302   1.8  -2.20  0.6636
- Satisfaction  27  -0.9249      0.709  -1.3048  0.19196   2.4  -2.31  0.4644
- Satisfaction  28  -1.0817      0.688  -1.5731  0.11570   3.1  -2.43  0.2660
- Satisfaction  29  -1.2384      0.667  -1.8574  0.06325   4.0  -2.55  0.0684
- Satisfaction  30  -1.3952      0.646  -2.1587  0.03087   5.0  -2.66 -0.1285
- Satisfaction  31  -1.5520      0.626  -2.4774  0.01324   6.2  -2.78 -0.3241
- Satisfaction  32  -1.7087      0.607  -2.8156  0.00487   7.7  -2.90 -0.5193
- Satisfaction  33  -1.8655      0.588  -3.1730  0.00151   9.4  -3.02 -0.7132
- Satisfaction  34  -2.0223      0.570  -3.5504  &lt; 0.001  11.3  -3.14 -0.9059
- Satisfaction  35  -2.1790      0.552  -3.9488  &lt; 0.001  13.6  -3.26 -1.0975
- Satisfaction  36  -2.3358      0.535  -4.3666  &lt; 0.001  16.3  -3.38 -1.2874
- Satisfaction  37  -2.4926      0.519  -4.8048  &lt; 0.001  19.3  -3.51 -1.4758
- Satisfaction  38  -2.6493      0.503  -5.2627  &lt; 0.001  22.7  -3.64 -1.6627
- Satisfaction  39  -2.8061      0.489  -5.7368  &lt; 0.001  26.6  -3.76 -1.8474
- Satisfaction  40  -2.9629      0.476  -6.2272  &lt; 0.001  31.0  -3.90 -2.0303
- Satisfaction  41  -3.1196      0.464  -6.7279  &lt; 0.001  35.8  -4.03 -2.2108
- Satisfaction  42  -3.2764      0.453  -7.2373  &lt; 0.001  41.0  -4.16 -2.3891
+ Satisfaction  18   0.4860      0.913   0.5323  0.59453   0.8  -1.30  2.2756
+ Satisfaction  19   0.3292      0.890   0.3700  0.71142   0.5  -1.42  2.0736
+ Satisfaction  20   0.1725      0.866   0.1992  0.84214   0.2  -1.53  1.8700
+ Satisfaction  21   0.0157      0.843   0.0186  0.98513   0.0  -1.64  1.6681
+ Satisfaction  22  -0.1411      0.820  -0.1720  0.86345   0.2  -1.75  1.4664
+ Satisfaction  23  -0.2978      0.797  -0.3735  0.70878   0.5  -1.86  1.2650
+ Satisfaction  24  -0.4546      0.775  -0.5866  0.55747   0.8  -1.97  1.0643
+ Satisfaction  25  -0.6114      0.753  -0.8121  0.41676   1.3  -2.09  0.8642
+ Satisfaction  26  -0.7681      0.731  -1.0506  0.29346   1.8  -2.20  0.6649
+ Satisfaction  27  -0.9249      0.709  -1.3038  0.19230   2.4  -2.32  0.4655
+ Satisfaction  28  -1.0817      0.688  -1.5718  0.11599   3.1  -2.43  0.2671
+ Satisfaction  29  -1.2384      0.667  -1.8567  0.06336   4.0  -2.55  0.0689
+ Satisfaction  30  -1.3952      0.646  -2.1589  0.03086   5.0  -2.66 -0.1286
+ Satisfaction  31  -1.5520      0.627  -2.4754  0.01331   6.2  -2.78 -0.3232
+ Satisfaction  32  -1.7087      0.608  -2.8102  0.00495   7.7  -2.90 -0.5170
+ Satisfaction  33  -1.8655      0.588  -3.1710  0.00152   9.4  -3.02 -0.7124
+ Satisfaction  34  -2.0223      0.570  -3.5507  &lt; 0.001  11.3  -3.14 -0.9060
+ Satisfaction  35  -2.1790      0.552  -3.9465  &lt; 0.001  13.6  -3.26 -1.0969
+ Satisfaction  36  -2.3358      0.535  -4.3637  &lt; 0.001  16.3  -3.38 -1.2867
+ Satisfaction  37  -2.4926      0.519  -4.8017  &lt; 0.001  19.3  -3.51 -1.4752
+ Satisfaction  38  -2.6493      0.504  -5.2573  &lt; 0.001  22.7  -3.64 -1.6616
+ Satisfaction  39  -2.8061      0.490  -5.7325  &lt; 0.001  26.6  -3.77 -1.8467
+ Satisfaction  40  -2.9629      0.476  -6.2219  &lt; 0.001  30.9  -3.90 -2.0295
+ Satisfaction  41  -3.1196      0.464  -6.7230  &lt; 0.001  35.7  -4.03 -2.2102
+ Satisfaction  42  -3.2764      0.453  -7.2319  &lt; 0.001  40.9  -4.16 -2.3885
  Satisfaction  43  -3.4332      0.443  -7.7476  &lt; 0.001  46.6  -4.30 -2.5647
- Satisfaction  44  -3.5900      0.435  -8.2545  &lt; 0.001  52.5  -4.44 -2.7375
- Satisfaction  45  -3.7467      0.428  -8.7510  &lt; 0.001  58.7  -4.59 -2.9076
- Satisfaction  46  -3.9035      0.423  -9.2287  &lt; 0.001  65.0  -4.73 -3.0745
- Satisfaction  47  -4.0603      0.419  -9.6810  &lt; 0.001  71.2  -4.88 -3.2382
- Satisfaction  48  -4.2170      0.417 -10.1008  &lt; 0.001  77.3  -5.04 -3.3988
- Satisfaction  49  -4.3738      0.417 -10.4824  &lt; 0.001  83.0  -5.19 -3.5560
- Satisfaction  50  -4.5306      0.419 -10.8208  &lt; 0.001  88.2  -5.35 -3.7099
- Satisfaction  51  -4.6873      0.422 -11.1130  &lt; 0.001  92.9  -5.51 -3.8606
- Satisfaction  52  -4.8441      0.427 -11.3569  &lt; 0.001  96.9  -5.68 -4.0081
- Satisfaction  53  -5.0009      0.433 -11.5545  &lt; 0.001 100.2  -5.85 -4.1526
- Satisfaction  54  -5.1576      0.441 -11.7057  &lt; 0.001 102.7  -6.02 -4.2941
- Satisfaction  55  -5.3144      0.450 -11.8152  &lt; 0.001 104.6  -6.20 -4.4328
- Satisfaction  56  -5.4712      0.460 -11.8847  &lt; 0.001 105.8  -6.37 -4.5689
- Satisfaction  57  -5.6279      0.472 -11.9182  &lt; 0.001 106.4  -6.55 -4.7024
- Satisfaction  58  -5.7847      0.485 -11.9239  &lt; 0.001 106.5  -6.74 -4.8339
- Satisfaction  59  -5.9415      0.499 -11.9026  &lt; 0.001 106.1  -6.92 -4.9631
- Satisfaction  60  -6.0982      0.514 -11.8597  &lt; 0.001 105.4  -7.11 -5.0904
- Satisfaction  61  -6.2550      0.530 -11.7980  &lt; 0.001 104.3  -7.29 -5.2159
- Satisfaction  62  -6.4118      0.547 -11.7235  &lt; 0.001 103.0  -7.48 -5.3398
- Satisfaction  63  -6.5685      0.564 -11.6394  &lt; 0.001 101.6  -7.67 -5.4625
- Satisfaction  64  -6.7253      0.583 -11.5442  &lt; 0.001 100.0  -7.87 -5.5835
- Satisfaction  65  -6.8821      0.601 -11.4457  &lt; 0.001  98.4  -8.06 -5.7036
- Satisfaction  66  -7.0388      0.621 -11.3415  &lt; 0.001  96.6  -8.26 -5.8224
- Satisfaction  67  -7.1956      0.640 -11.2347  &lt; 0.001  94.9  -8.45 -5.9403
- Satisfaction  68  -7.3524      0.661 -11.1239  &lt; 0.001  93.1  -8.65 -6.0569
- Satisfaction  69  -7.5092      0.682 -11.0166  &lt; 0.001  91.3  -8.85 -6.1732
- Satisfaction  70  -7.6659      0.703 -10.9084  &lt; 0.001  89.6  -9.04 -6.2886
- Satisfaction  71  -7.8227      0.724 -10.8001  &lt; 0.001  87.9  -9.24 -6.4031
- Satisfaction  72  -7.9795      0.746 -10.6958  &lt; 0.001  86.3  -9.44 -6.5173
- Satisfaction  73  -8.1362      0.768 -10.5922  &lt; 0.001  84.7  -9.64 -6.6307
- Satisfaction  74  -8.2930      0.790 -10.4908  &lt; 0.001  83.1  -9.84 -6.7436
- Satisfaction  75  -8.4498      0.813 -10.3908  &lt; 0.001  81.6 -10.04 -6.8559
+ Satisfaction  44  -3.5900      0.435  -8.2483  &lt; 0.001  52.5  -4.44 -2.7369
+ Satisfaction  45  -3.7467      0.428  -8.7458  &lt; 0.001  58.6  -4.59 -2.9071
+ Satisfaction  46  -3.9035      0.424  -9.2165  &lt; 0.001  64.8  -4.73 -3.0734
+ Satisfaction  47  -4.0603      0.420  -9.6765  &lt; 0.001  71.2  -4.88 -3.2379
+ Satisfaction  48  -4.2170      0.418 -10.0965  &lt; 0.001  77.2  -5.04 -3.3984
+ Satisfaction  49  -4.3738      0.417 -10.4787  &lt; 0.001  82.9  -5.19 -3.5557
+ Satisfaction  50  -4.5306      0.419 -10.8114  &lt; 0.001  88.1  -5.35 -3.7092
+ Satisfaction  51  -4.6873      0.422 -11.1103  &lt; 0.001  92.9  -5.51 -3.8604
+ Satisfaction  52  -4.8441      0.427 -11.3534  &lt; 0.001  96.8  -5.68 -4.0078
+ Satisfaction  53  -5.0009      0.433 -11.5539  &lt; 0.001 100.2  -5.85 -4.1525
+ Satisfaction  54  -5.1576      0.441 -11.7037  &lt; 0.001 102.7  -6.02 -4.2939
+ Satisfaction  55  -5.3144      0.450 -11.8161  &lt; 0.001 104.6  -6.20 -4.4329
+ Satisfaction  56  -5.4712      0.461 -11.8789  &lt; 0.001 105.7  -6.37 -4.5685
+ Satisfaction  57  -5.6279      0.472 -11.9191  &lt; 0.001 106.4  -6.55 -4.7025
+ Satisfaction  58  -5.7847      0.485 -11.9240  &lt; 0.001 106.5  -6.74 -4.8339
+ Satisfaction  59  -5.9415      0.499 -11.9041  &lt; 0.001 106.1  -6.92 -4.9632
+ Satisfaction  60  -6.0982      0.514 -11.8646  &lt; 0.001 105.4  -7.11 -5.0908
+ Satisfaction  61  -6.2550      0.530 -11.7955  &lt; 0.001 104.3  -7.29 -5.2157
+ Satisfaction  62  -6.4118      0.547 -11.7245  &lt; 0.001 103.0  -7.48 -5.3399
+ Satisfaction  63  -6.5685      0.564 -11.6421  &lt; 0.001 101.6  -7.67 -5.4627
+ Satisfaction  64  -6.7253      0.582 -11.5471  &lt; 0.001 100.0  -7.87 -5.5838
+ Satisfaction  65  -6.8821      0.601 -11.4468  &lt; 0.001  98.4  -8.06 -5.7037
+ Satisfaction  66  -7.0388      0.620 -11.3461  &lt; 0.001  96.7  -8.25 -5.8229
+ Satisfaction  67  -7.1956      0.640 -11.2416  &lt; 0.001  95.0  -8.45 -5.9411
+ Satisfaction  68  -7.3524      0.661 -11.1268  &lt; 0.001  93.1  -8.65 -6.0573
+ Satisfaction  69  -7.5092      0.682 -11.0140  &lt; 0.001  91.3  -8.85 -6.1729
+ Satisfaction  70  -7.6659      0.702 -10.9129  &lt; 0.001  89.7  -9.04 -6.2891
+ Satisfaction  71  -7.8227      0.724 -10.8071  &lt; 0.001  88.0  -9.24 -6.4040
+ Satisfaction  72  -7.9795      0.746 -10.7029  &lt; 0.001  86.4  -9.44 -6.5182
+ Satisfaction  73  -8.1362      0.768 -10.5965  &lt; 0.001  84.7  -9.64 -6.6313
+ Satisfaction  74  -8.2930      0.791 -10.4875  &lt; 0.001  83.1  -9.84 -6.7432
+ Satisfaction  75  -8.4498      0.813 -10.3960  &lt; 0.001  81.7 -10.04 -6.8567
 
 Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Age, predicted_lo, predicted_hi, predicted, TempKyosan, Satisfaction, Interest, Ideology, Female 
 Type:  response </code></pre>
@@ -1679,16 +1768,32 @@ Type:  response </code></pre>
 </div>
 <p>　18〜29歳の場合、政治満足度が共産感情温度に与える影響は確認できない（つまり、<span class="math inline">\(p \geq 0.05\)</span>）。一方、回答者の年齢が30歳以上の場合、政治満足度は共産感情温度に負の影響を与えるが確認できる（つまり、<span class="math inline">\(p &lt; 0.05\)</span>）。ちなみに、<code>&lt;2e-16</code>と表示されるのは0に極めて近いことを意味し、表で示す際は<code>&lt; 0.001</code>とかで表記するのが一般的だ。</p>
 <p>　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。予測値のグラフ同様、限界効果（<code>estimate</code>列）と信頼区間の上限と下限（それぞれ<code>conf.low</code>と<code>conf.high</code>）を示すだけで良い。</p>
-<p>　以下の図は<code>fit1</code>における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。</p>
+<p>　まず<code>fit1</code>における政治満足度の限界効果（<code>fit1_ame</code>）を可視化してみよう。調整変数（<code>Female</code>）は2つの値（0と1）しかとらないので、point-rangeプロットが適切だろう。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>fit1_ame <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
-<span id="cb25-5"><a href="#cb25-5"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)) <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="annotated-cell-17"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-17-1"><a href="#annotated-cell-17-1"></a>fit1_ame <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-17-2"><a href="#annotated-cell-17-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-3" class="code-annotation-target"><a href="#annotated-cell-17-3"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-17-4"><a href="#annotated-cell-17-4"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="annotated-cell-17-5"><a href="#annotated-cell-17-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="2">2</button><span id="annotated-cell-17-6" class="code-annotation-target"><a href="#annotated-cell-17-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)) <span class="sc">+</span></span>
+<span id="annotated-cell-17-7"><a href="#annotated-cell-17-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-annotation="1" data-code-cell="annotated-cell-17" data-code-lines="3">y = 0の水平線を追加する。</span>
+</dd>
+<dt data-target-cell="annotated-cell-17" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-annotation="2" data-code-cell="annotated-cell-17" data-code-lines="6">目盛りを0と1のみとし、それぞれ「男性」、「女性」のラベルを付ける。</span>
+</dd>
+</dl>
+</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1697,8 +1802,13 @@ Type:  response </code></pre>
 </div>
 </div>
 </div>
-<p>　続いて、<code>fit2</code>における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。また縦軸を「政治満足度の平均限界効果」でなく、「政治満足度が共産感情温度に与える影響」にすることで、交互作用の知識のない読者にとって解釈しやすくした（途中の<code>\n</code>は改行を意味する）。</p>
+<p>　男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも統計的に有意な負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。もうちょっと具体的に解釈すると「男性の場合、政治満足度が1単位上がると共産党に対する感情温度は約4.73度低くなり、女性の場合は3.83度低くなる」ということになる。</p>
+<p>　続いて、<code>fit2</code>における政治満足度の限界効果（<code>fit2_ame</code>）も確認してみよう。ここでは調整変数が取りうる値が多すぎるので、95%信頼区間を垂直線でなく、リボンとする。また縦軸を「政治満足度の平均限界効果」でなく、「政治満足度が共産感情温度に与える影響」にすることで、交互作用の知識のない読者にとって解釈しやすくした（途中の<code>\n</code>は改行を意味する）。</p>
 <div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>fit2_ame <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
@@ -1706,6 +1816,7 @@ Type:  response </code></pre>
 <span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate)) <span class="sc">+</span></span>
 <span id="cb26-6"><a href="#cb26-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度が共産感情温度に</span><span class="sc">\n</span><span class="st">与える影響と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb26-7"><a href="#cb26-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1714,7 +1825,7 @@ Type:  response </code></pre>
 </div>
 </div>
 </div>
-<p>　29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に対する感情温度は下がる」ことを意味する。一方、「30歳未満の有権者の場合、政治満足度が共産党に対する感情温度に影響を与えるとは言えない」とも解釈できる。</p>
+<p>　29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に対する感情温度は下がる」ことを意味する。一方、「30歳未満の有権者の場合、政治満足度が共産党に対する感情温度に影響を与えるとは言えない」とも解釈できる。ここで更に詳しく解釈すると「30歳の有権者の場合、政治満足度が1度上がると、共産党に対する感情温度が約-1.40度下がり、60歳は約6.10度下がる」とも言えよう（何歳を解釈の基準にするかは好みによる）。</p>
 
 
 </section>

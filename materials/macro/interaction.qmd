@@ -18,6 +18,7 @@ metadata-files:
 
 ```{r}
 #| include: false
+options(width = 100)
 pacman::p_load(tidyverse, gt, gtExtras, 
                summarytools, modelsummary,
                marginaleffects)
@@ -245,23 +246,69 @@ modelsummary(list(fit1, fit2),
 
 　まず、男性の場合（`Female`の値 = 0）、政治満足度が共産感情温度に与える影響は約-4.73（= -(4.73 - 0.90 $\times$ 0) ）である。これは男性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「男性の場合、政治満足度が1単位上がると、共産に対する感情温度は約4.73度下がる」と解釈できる。また、女性の場合（`Female`の値 = 1）、政治満足度が共産感情温度に与える影響は約-3.83（= -(4.73 - 0.90 $\times$ 1) ）である。これもまた、女性の場合、政治満足度が上がると共産感情温度が下がることを意味し、具体的には「女性の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.83度下がる」と解釈できる。
 
-　以上の結果を回帰直線で示したものが以下の図である。
+　以上の結果を可視化してみよう。まず、{marginaleffects}パッケージの`predictions()`関数で予測値を計算する。今回は`Satisfaction`と`Female`が取りうるすべての組み合わせに応じて予測値を計算する必要がある。つまり、`datagrid()`内には主な説明変数（`Satisfaction`）だけでなく、調整変数（`Female`）の値も指定する必要がある。
 
 ```{r}
-#| echo: false
+#| filename: "Code 06"
+fit1_pred <- predictions(fit1, newdata = datagrid(Satisfaction = 1:5, 
+                                                  Female       = 0:1))
+
+fit1_pred
+```
+
+　続いて、`fit1_pred`の`Female`列を修正しよう。0/1だと読者側から見れば読みにくいので、`Female`列の値が1であれば「女性」、その他の場合は「男性」にリコーディングしよう。
+
+```{r}
+#| filename: "Code 07"
+fit1_pred <- fit1_pred |> 
+  mutate(Female = if_else(Female == 1, "女性", "男性")) 
+
+fit1_pred
+```
+
+　これまで普通に表示されていた`Female`列が見えなくなった。これは{marginaleffects}の仕様上の問題だが、`print()`関数の中に`style = "data.frame"`を指定すると問題なく表示される。
+
+```{r}
+#| filename: "Code 08"
+print(fit1_pred, style = "data.frame")
+```
+
+　問題なく`Female`列がリコーディングされていることが分かる。それではこの`fit1_pred`を利用し、可視化してみよう。ここではpoint-rangeプロットを作成し、性別に応じてpoint-rangeの色分けを行う。また、性別ごとのpoint-rangeを横方向にずらすために`aes()`の**外**側に`position = position_dodge2(0.5)`を追加する。この0.5の数値が小さいほど2つのpoint-rangeはより近くなる。
+
+```{r}
+#| filename: "Code 09"
 #| fig-width: 7
 #| fig-height: 4
-predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) |>
-  mutate(Female = factor(Female, levels = 0:1, 
-                         labels = c("男性 (女性ダミーの値 = 0)", 
-                                    "女性 (女性ダミーの値 = 1)"))) |>
+fit1_pred |> 
   ggplot() +
-  geom_line(aes(x = Satisfaction, y = estimate, color = Female),
-            linewidth = 1) +
-  labs(x = "政治満足度", y = "共産感情温度の予測値 (度)", color = "") +
+  geom_pointrange(aes(x = Satisfaction, 
+                      y = estimate, ymin = conf.low, ymax = conf.high, 
+                      color = Female),
+                  position = position_dodge2(0.5)) +
+  labs(x = "政治満足度", y = "共産感情温度の予測値と95%信頼区間 (度)",
+       fill = "", color = "") +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
+
+　もう一つの可視化方法はリボンと折れ線グラフの組み合わせである。リボンの色塗りは`fill`でマッピングし、リボンが重なる可能性を考慮し`aes()`の**外**側に`alpha`引数を追加して透明度を調整しよう。宋のおすすめは0.3だ。
+
+```{r}
+#| filename: "Code 10"
+#| fig-width: 7
+#| fig-height: 4
+fit1_pred |> 
+  ggplot(aes(x = Satisfaction)) +
+  geom_ribbon(aes(y = estimate, ymin = conf.low, ymax = conf.high, fill = Female), 
+              alpha = 0.3) +
+  geom_line(aes(y = estimate, color = Female), linewidth = 1) +
+  labs(x = "政治満足度", y = "共産感情温度の予測値と95%信頼区間 (度)",
+       fill = "", color = "") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+　Point-rangeプロットにするか、リボン+折れ線の組み合わせにするかは好みの問題なので自分からみて読みやすいと思う図にしよう。
 
 ### モデル2の解釈
 
@@ -277,53 +324,27 @@ predictions(fit1, newdata = datagrid(Satisfaction = 1:5, Female = 0:1)) |>
 
 　まず、20歳の場合（`Age`の値 = 20）、政治満足度が共産感情温度に与える影響は約0.11（= 3.31 - 0.16 $\times$ 20）である（小数点7桁まで計算すると約0.1724813）。これは「20歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約0.11度上がる」ことを意味する。つづいて、40歳の場合（`Age`の値 = 40）、政治満足度が共産感情温度に与える影響は約-3.09（= 3.31 - 0.16 $\times$ 40）である（小数点7桁まで計算すると約-2.962879）。これは「40歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約3.09度下がる」ことを意味する。最後に60歳の場合（`Age`の値 = 60）、政治満足度が共産感情温度に与える影響は約-6.29（= 3.31 - 0.16 $\times$ 60）だ（小数点7桁まで計算すると約-6.098239）。これは「60歳の場合、政治満足度が1単位上がると、共産に対する感情温度は約6.29度下がる」ことを意味する。
 
-　以上の結果を回帰直線で示したものが以下の図である。
+　以上の結果を回帰直線で示したものが以下の図である。`fit2`の調整変数は連続変数であるためすべての年齢に応じた回帰直線を出すのはあまりにも非効率的である。したがって、ここでは20、40、60歳の場合の回帰直線を可視化してみよう。今回は一連の作業をすべてパイプ演算子（`|>`）で繋ぎ、一つのコードにまとめてみた。
 
 ```{r}
-#| echo: false
+#| filename: "Code 11"
 #| fig-width: 7
 #| fig-height: 4
-predictions(fit2, newdata = datagrid(Satisfaction = 1:5, 
-                                     Age          = c(20, 40, 60))) |>
-  mutate(Age = factor(Age, levels = c(20, 40, 60),
-                      labels = c("20歳", "40歳", "60歳"))) |>
-  ggplot() +
-  geom_line(aes(x = Satisfaction, y = estimate, color = Age), 
-            linewidth = 1) +
-  labs(x = "政治満足度", y = "共産感情温度の予測値 (度)", color = "年齢") +
+fit2 |> 
+  predictions(newdata = datagrid(Satisfaction = 1:5, 
+                                 Age          = c(20, 40, 60))) |>
+  mutate(Age = recode(Age, 
+                      "20" = "20歳",
+                      "40" = "40歳",
+                      "60" = "60歳")) |>
+  ggplot(aes(Satisfaction)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = Age),
+              alpha = 0.3) +
+  geom_line(aes(y = estimate, color = Age), linewidth = 1) +
+  labs(x = "政治満足度", y = "共産感情温度の予測値 (度)", fill = "年齢", color = "年齢") +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
-
-　今回は計算を簡単にするために小数点2桁目まで丸めた係数を用いたが、より性格に計算するためには`coef()`関数から抽出した係数を用いた方が良い。`fit2`の係数を抽出してみよう。
-
-```{r}
-#| filename: "Code 06"
-coef(fit2)
-```
-
-　ここで政治満足度（`Satisfication`）の係数は2番目であるため、`coef(fit2)`の後ろに`[2]`を付けると2番目の要素のみ抽出できる。
-
-```{r}
-#| filename: "Code 07"
-coef(fit2)[2]
-```
-
-　同じく交差項の係数は7番目であるため、`coef(fit2)[7]`で抽出できる。
-
-```{r}
-#| filename: "Code 08"
-coef(fit2)[7]
-```
-
-　この数値を使えば、政治満足度が共産感情温度に与える影響をより正確な数値で計算できる。たとえば、60歳における政治満足度が共産感情温度に与える影響は
-
-```{r}
-#| filename: "Code 09"
-coef(fit2)[2] + coef(fit2)[7] * 60
-```
-
-のように計算できる。
 
 ## 限界効果の話
 
@@ -344,9 +365,8 @@ slopes(回帰オブジェクト名, variables = "説明変数名",
 　`fit1`の場合、`Female`の値が0と1の場合の`Satisfacton`の限界効果を求めることになる。したがって、回帰オブジェクト名は`fit1`、`variables`の実引数は`"Satisfaction"`（`"`で囲む）、`datagrid()`の中身は`Female = 0:1`または`Female = c(0, 1)`だ。計算結果を`fit1_ame`に格納し、中身を確認する。
 
 ```{r}
-#| filename: "Code 10"
-fit1_ame <- slopes(fit1, variables = "Satisfaction", 
-                   newdata = datagrid(Female = c(0, 1)))
+#| filename: "Code 12"
+fit1_ame <- slopes(fit1, variables = "Satisfaction", newdata = datagrid(Female = c(0, 1)))
 
 fit1_ame
 ```
@@ -356,11 +376,11 @@ fit1_ame
 　前回の講義では、`predictions()`関数から得られた推定結果のオブジェクトを出力すると表示される列名と実際の列名は異なることを説明したが、`slopes()`も同様である。実際の列名を見たい場合は`print()`関数を使用し、`style = "data.frame"`引数を追加しよう。
 
 ```{r}
-#| filename: "Code 11"
+#| filename: "Code 13"
 print(fit1_ame, style = "data.frame")
 ```
 
-　限界効果の解釈に話を戻そう。`Female = 0`の場合の`Satisfaction`の限界効果は約-4.732、`Female = 1`の場合のそれは約-3.830である。また、いずれも$p$値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。
+　限界効果の解釈に話を戻そう。限界効果は`estiamte`列に表示されており、`Female = 0`の場合の`Satisfaction`の限界効果は約-4.732、`Female = 1`の場合のそれは約-3.830である。また、いずれも$p$値が0.05を下回ることから統計的に有意な関係であることがわかる。つまり、性別と関係なく、政治満足度は共産感情温度に負の影響を与えることが分かる。
 
 　これらの結果を表でまとめると以下のようになる。表で$p$値を報告する場合、$p$値が非常に小さいケースがある（たとえば、$p$ = 0.0000000235）。この場合、「$p$ = 0.000」と表記せず、「$p$ < 0.001」と表記すること。$p$値がぴったり0になることは実質的にあり得ない。
 
@@ -378,12 +398,11 @@ fit1_ame |>
   cols_align(columns = 2:5, align = "right")
 ```
 
-　続いて、`fit2`の場合の`Age`の値が18、19、20、...、75の場合の`Satisfaction`の限界効果を求めるてみよう。回帰オブジェクト名は`fit2`、`variables`の実引数は`"Satisfaction"`（`"`で囲む）、`datagrid()`の中身は`Age = 18:75`だ。
+　続いて、`fit2`の場合の`Age`の値が18、19、20、...、75の場合の`Satisfaction`の限界効果を求めるてみよう。回帰オブジェクト名は`fit2`、`variables`の実引数は`"Satisfaction"`（`"`で囲む）、`datagrid()`の中身は`Age = 18:75`だ（18から75まで公差1の等差数列）。
 
 ```{r}
-#| filename: "Code 12"
-fit2_ame <- slopes(fit2, variables = "Satisfaction", 
-                   newdata = datagrid(Age = 18:75))
+#| filename: "Code 14"
+fit2_ame <- slopes(fit2, variables = "Satisfaction", newdata = datagrid(Age = 18:75))
 
 fit2_ame
 ```
@@ -391,7 +410,7 @@ fit2_ame
 　いくつか気になる点がある。普通に`fit2_ame`のみ入力して出力すると、最初の5行と最後の5行のみが出力され、48行分が省略される。もし、すべての行を出力したい場合は、`print()`関数を使用し、`topn = Inf`引数を追加すれば良い。
 
 ```{r}
-#| filename: "Code 13"
+#| filename: "Code 15"
 print(fit2_ame, topn = Inf)
 ```
 
@@ -399,24 +418,30 @@ print(fit2_ame, topn = Inf)
 
 　交互作用を含む回帰モデルの場合、調整変数ごとの予測値の図と限界効果のグラフを示すのが一般的である。予測値のグラフ同様、限界効果（`estimate`列）と信頼区間の上限と下限（それぞれ`conf.low`と`conf.high`）を示すだけで良い。
 
-　以下の図は`fit1`における政治満足度の（平均）限界効果である。男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。
+　まず`fit1`における政治満足度の限界効果（`fit1_ame`）を可視化してみよう。調整変数（`Female`）は2つの値（0と1）しかとらないので、point-rangeプロットが適切だろう。
 
 ```{r}
+#| filename: "Code 16"
 #| fig-width: 4
 #| fig-height: 4
 fit1_ame |>
   ggplot() +
-  geom_hline(yintercept = 0) +
-  geom_pointrange(aes(x = Female, y = estimate, 
-                      ymin = conf.low, ymax = conf.high)) +
-  labs(x = "性別", y = "政治満足度の平均限界効果と95%信頼区間") +
-  scale_x_continuous(breaks = 0:1, labels = c("男性", "女性")) +
+  geom_hline(yintercept = 0) + # <1>
+  geom_pointrange(aes(x = Female, y = estimate, ymin = conf.low, ymax = conf.high)) +
+  labs(x = "性別", y = "政治満足度の限界効果と95%信頼区間") +
+  scale_x_continuous(breaks = 0:1, labels = c("男性", "女性")) + # <2>
   theme_bw(base_size = 12)
 ```
 
-　続いて、`fit2`における政治満足度の（平均）限界効果である。ここでは95%信頼区間が垂直線でなく、領域（ribbon）で示される。また縦軸を「政治満足度の平均限界効果」でなく、「政治満足度が共産感情温度に与える影響」にすることで、交互作用の知識のない読者にとって解釈しやすくした（途中の`\n`は改行を意味する）。
+1. y = 0の水平線を追加する。
+2. 目盛りを0と1のみとし、それぞれ「男性」、「女性」のラベルを付ける。
+
+　男性でも女性でも95%信頼区間内に0が含まれておらず、どちらも統計的に有意な負の限界効果である。これは「性別と関係なく政治満足度が高まると共産党に感情温度は下がる」ことを意味する。もうちょっと具体的に解釈すると「男性の場合、政治満足度が1単位上がると共産党に対する感情温度は約4.73度低くなり、女性の場合は3.83度低くなる」ということになる。
+
+　続いて、`fit2`における政治満足度の限界効果（`fit2_ame`）も確認してみよう。ここでは調整変数が取りうる値が多すぎるので、95%信頼区間を垂直線でなく、リボンとする。また縦軸を「政治満足度の平均限界効果」でなく、「政治満足度が共産感情温度に与える影響」にすることで、交互作用の知識のない読者にとって解釈しやすくした（途中の`\n`は改行を意味する）。
 
 ```{r}
+#| filename: "Code 17"
 #| fig-width: 6
 #| fig-height: 4
 fit2_ame |>
@@ -428,4 +453,4 @@ fit2_ame |>
   theme_bw(base_size = 12)
 ```
 
-　29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に対する感情温度は下がる」ことを意味する。一方、「30歳未満の有権者の場合、政治満足度が共産党に対する感情温度に影響を与えるとは言えない」とも解釈できる。
+　29歳までは95%信頼区間に0が含まれている。30歳からは限界効果が負となり、統計的に有意な関係を示している。これは「30歳以上の有権者のみにおいて、政治満足度が高まると共産党に対する感情温度は下がる」ことを意味する。一方、「30歳未満の有権者の場合、政治満足度が共産党に対する感情温度に影響を与えるとは言えない」とも解釈できる。ここで更に詳しく解釈すると「30歳の有権者の場合、政治満足度が1度上がると、共産党に対する感情温度が約-1.40度下がり、60歳は約6.10度下がる」とも言えよう（何歳を解釈の基準にするかは好みによる）。
