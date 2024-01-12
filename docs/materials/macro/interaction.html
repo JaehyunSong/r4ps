@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.542">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,6 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -102,7 +109,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </script>
-
 <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
@@ -111,15 +117,42 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../Figs/logo.png" alt="" class="navbar-logo">
     </a>
@@ -134,232 +167,232 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">シラバス</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
  <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
  <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../syllabus/session.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/session.html">
  <span class="dropdown-text">セッション情報</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Rの使い方</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
         <li>
-    <a class="dropdown-item" href="../../intro/install.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/install.html">
  <span class="dropdown-text">Rの導入</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/rstudio.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/rstudio.html">
  <span class="dropdown-text">RStudioの設定</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/filesystem.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/filesystem.html">
  <span class="dropdown-text">ファイル・システム</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/project.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/project.html">
  <span class="dropdown-text">プロジェクト管理</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/file.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/file.html">
  <span class="dropdown-text">ファイル管理</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/packages.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/packages.html">
  <span class="dropdown-text">パッケージ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/homework.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/homework.html">
  <span class="dropdown-text">課題の取り組み方</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/faq.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/faq.html">
  <span class="dropdown-text">この授業の「あるある」</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">前期講義資料</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
         <li>
-    <a class="dropdown-item" href="../../materials/micro/introduction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
  <span class="dropdown-text">第1回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/r.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/r.html">
  <span class="dropdown-text">第2回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/basic.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
  <span class="dropdown-text">第3回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/programming.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
  <span class="dropdown-text">第4回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/quarto.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/quarto.html">
  <span class="dropdown-text">第5回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/dataset.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
  <span class="dropdown-text">第6回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/datatype.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
  <span class="dropdown-text">第7回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/datastructure.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
  <span class="dropdown-text">第8回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
  <span class="dropdown-text">第9回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
  <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling3.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
  <span class="dropdown-text">第11回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
  <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
  <span class="dropdown-text">第13回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization3.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
  <span class="dropdown-text">第14回講義資料</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">後期講義資料</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
         <li>
-    <a class="dropdown-item" href="../../materials/macro/introduction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
  <span class="dropdown-text">第1回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/research_design.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
  <span class="dropdown-text">第2・3回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
  <span class="dropdown-text">第4回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/inference.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
  <span class="dropdown-text">第5回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/nhts.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
  <span class="dropdown-text">第6回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/association.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/association.html">
  <span class="dropdown-text">第7回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/regression1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
  <span class="dropdown-text">第8回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/regression2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
  <span class="dropdown-text">第9回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/reporting.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
  <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/logit.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
  <span class="dropdown-text">第11回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/interaction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
  <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">課題</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
         <li>
-    <a class="dropdown-item" href="../../intro/homework.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/homework.html">
  <span class="dropdown-text">課題の取り組み方</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">ミクロ</li>
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW05.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
  <span class="dropdown-text">[前期] 第5回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW10.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
  <span class="dropdown-text">[前期] 第10回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW11.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
  <span class="dropdown-text">[前期] 第11回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW13.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
  <span class="dropdown-text">[前期] 第13回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW14.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
  <span class="dropdown-text">[前期] 第14回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_Final.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
  <span class="dropdown-text">[前期] 期末レポート</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW04.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
  <span class="dropdown-text">[後期] 第4回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW07.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW07.html">
  <span class="dropdown-text">[後期] 第7回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW10.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW10.html">
  <span class="dropdown-text">[後期] 第10回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW12.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW12.html">
  <span class="dropdown-text">[後期] 第12回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_Final.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_Final.html">
  <span class="dropdown-text">[後期] 期末レポート</span></a>
   </li>  
     </ul>
@@ -367,41 +400,41 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/" rel="" target=""><i class="bi bi-terminal" role="img">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"> <i class="bi bi-terminal" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.jaysong.net/RBook/" rel="" target=""><i class="bi bi-book" role="img">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"> <i class="bi bi-book" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
 </a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/interaction.html">第12回講義資料</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/interaction.html">第12回講義資料</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -473,7 +506,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -510,7 +543,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   </div>
   
 
+
 </header>
+
 
 <section id="スライド" class="level2 unlisted">
 <h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
@@ -538,24 +573,24 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　以下の図のように主な説明変数（<span class="math inline">\(X\)</span>）と応答変数（<span class="math inline">\(Y\)</span>）の関係において、<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響がその他の変数（<span class="math inline">\(Z\)</span>）の影響を受ける場合を考えてみよう。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/01.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/01.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p>　これは<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は一定ではないことを意味する（= <span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>に依存する）。ここで、<span class="math inline">\(Z\)</span>は<strong>調整変数</strong> (moderation variable; moderator)と呼ばれる。調整変数はダミー変数でも、連続変数でも可能だ。</p>
 <p>　この交互作用を実際の回帰式として表すと以下のようになる。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/02.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/02.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p><span id="eq-01"><span class="math display">\[
 \hat{Y} = \alpha + \beta_1 X + \beta_2 Z + \beta_3 X \cdot Z
 \tag{1}\]</span></span></p>
-<p>　ここで説明変数に調整変数をかけた変数（<span class="math inline">\(X \cdot Z\)</span>）は<strong>交差項</strong> (interaction term)と呼ばれる。これまでの（重）回帰分析では変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は<span class="math inline">\(\beta_1\)</span>であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において<span class="math inline">\(X\)</span>は<span class="math inline">\(\beta_3\)</span>にも登場するからである。これは <a href="#eq-01">式&nbsp;1</a> を変形してみると分かりやすい。</p>
+<p>　ここで説明変数に調整変数をかけた変数（<span class="math inline">\(X \cdot Z\)</span>）は<strong>交差項</strong> (interaction term)と呼ばれる。これまでの（重）回帰分析では変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は<span class="math inline">\(\beta_1\)</span>であると解説したが、回帰式に交差項が含まれている場合は解釈に注意が必要だ。なぜなら回帰式において<span class="math inline">\(X\)</span>は<span class="math inline">\(\beta_3\)</span>にも登場するからである。これは <a href="#eq-01" class="quarto-xref">式&nbsp;1</a> を変形してみると分かりやすい。</p>
 <p><span id="eq-02"><span class="math display">\[
 \hat{Y} = \alpha + (\beta_1 + \beta_3 Z) X + \beta_2 Z
 \tag{2}\]</span></span></p>
-<p>　<a href="#eq-02">式&nbsp;2</a> によると、変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果、つまり<span class="math inline">\(X\)</span>の傾き係数は<span class="math inline">\(\beta_1\)</span>でなく、<span class="math inline">\(\beta_1 + \beta_3 Z\)</span>だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。</p>
+<p>　<a href="#eq-02" class="quarto-xref">式&nbsp;2</a> によると、変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果、つまり<span class="math inline">\(X\)</span>の傾き係数は<span class="math inline">\(\beta_1\)</span>でなく、<span class="math inline">\(\beta_1 + \beta_3 Z\)</span>だということが分かる。交互作用を仮定したモデルに解釈はやや面倒ではないが、難しい数式が登場するわけではない。ここでは調整変数がダミー変数の場合と連続変数の場合の例を紹介する。</p>
 <p>　まず、調整変数<span class="math inline">\(Z\)</span>が0、または1の値のみをとるダミー変数の場合（<span class="math inline">\(Z \in \{0, 1\}\)</span>）だ。回帰分析の結果、以下のような1次関数が得られたとしよう。</p>
 <p><span id="eq-03"><span class="math display">\[
 \begin{align}
@@ -568,7 +603,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
 </figure>
 </div>
 </div>
@@ -586,7 +621,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
 </figure>
 </div>
 </div>
@@ -764,13 +799,13 @@ N: 3000
 <p>　モデル1は政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は性別（= <strong>調整変数</strong>）に依存することを意味し、以下のような図として表現できる。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/03.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/03.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
-<p>　これを回帰式にする場合、 <a href="#eq-05">式&nbsp;5</a> のような1次関数になる（以下の図参照）。</p>
+<p>　これを回帰式にする場合、 <a href="#eq-05" class="quarto-xref">式&nbsp;5</a> のような1次関数になる（以下の図参照）。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/04.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/04.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p><span id="eq-05"><span class="math display">\[
@@ -779,16 +814,16 @@ N: 3000
 <p>　つづいて、モデル2は政治満足度（= <strong>説明変数</strong>）が共産党に対する感情温度（= <strong>応答変数</strong>）に与える影響は年齢（= <strong>調整変数</strong>）に依存することを意味し以下のような図として表現できる。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/05.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/05.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
-<p>　これを回帰式にする場合、 <a href="#eq-06">式&nbsp;6</a> のような1次関数になる（以下の図参照）。</p>
+<p>　これを回帰式にする場合、 <a href="#eq-06" class="quarto-xref">式&nbsp;6</a> のような1次関数になる（以下の図参照）。</p>
 <p><span id="eq-06"><span class="math display">\[
 \widehat{\mbox{TempKyosan}} = \alpha + \beta_1 \mbox{Satisfaction} + \beta_2 \mbox{Age} + \beta_3 \mbox{Interest} + \beta_4 \mbox{Ideology} + \beta_5 \mbox{Female} + \beta_6 (\mbox{Satisfaction} \cdot \mbox{Age})
 \tag{6}\]</span></span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/12/06.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="Figs/12/06.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 <p>　推定にはこれまでと同様、<code>lm()</code>関数を使用する。注意するところは第1引数である回帰式（formula）であり、交互作用が存在すると考えられる2つの変数を<code>+</code>でなく、<code>*</code>でつなぐだけだ。ここで<code>A * B</code>の意味は<code>A</code><span class="math inline">\(\times\)</span><code>b</code>だけでなく、<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>が同時に投入することを意味する。</p>
@@ -1067,7 +1102,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1091,7 +1126,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1130,7 +1165,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1189,7 +1224,6 @@ Type:  response </code></pre>
 <p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="gkihyucnjw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gkihyucnjw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1630,37 +1664,38 @@ Type:  response </code></pre>
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings gt_spanner_row">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="性別">性別</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="平均限界効果">平均限界効果</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" scope="col" id="p値">p値</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="95%信頼区間">
-        <span class="gt_column_spanner">95%信頼区間</span>
-      </th>
-    </tr>
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="下限">下限</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="上限">上限</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Female" class="gt_row gt_left">男性</td>
-<td headers="estimate" class="gt_row gt_right">−4.732</td>
-<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
-<td headers="conf.low" class="gt_row gt_right">−5.832</td>
-<td headers="conf.high" class="gt_row gt_right">−3.631</td></tr>
-    <tr><td headers="Female" class="gt_row gt_left">女性</td>
-<td headers="estimate" class="gt_row gt_right">−3.830</td>
-<td headers="p.value" class="gt_row gt_right">&lt; 0.001</td>
-<td headers="conf.low" class="gt_row gt_right">−5.028</td>
-<td headers="conf.high" class="gt_row gt_right">−2.632</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings gt_spanner_row">
+<th rowspan="2" id="性別" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">性別</th>
+<th rowspan="2" id="平均限界効果" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">平均限界効果</th>
+<th rowspan="2" id="p値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p値</th>
+<th colspan="2" id="95%信頼区間" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">95%信頼区間</span></th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="下限" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">下限</th>
+<th id="上限" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">上限</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Female">男性</td>
+<td class="gt_row gt_right" headers="estimate">−4.732</td>
+<td class="gt_row gt_right" headers="p.value">&lt; 0.001</td>
+<td class="gt_row gt_right" headers="conf.low">−5.832</td>
+<td class="gt_row gt_right" headers="conf.high">−3.631</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Female">女性</td>
+<td class="gt_row gt_right" headers="estimate">−3.830</td>
+<td class="gt_row gt_right" headers="p.value">&lt; 0.001</td>
+<td class="gt_row gt_right" headers="conf.low">−5.028</td>
+<td class="gt_row gt_right" headers="conf.high">−2.632</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1797,7 +1832,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="600"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
 </figure>
 </div>
 </div>
@@ -1820,7 +1855,7 @@ Type:  response </code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="interaction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="900"></p>
+<p><img src="interaction_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="900"></p>
 </figure>
 </div>
 </div>
@@ -1910,10 +1945,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1923,8 +1977,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1937,6 +2000,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1980,6 +2157,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2005,8 +2183,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Handle positioning of the toggle
-      window.addEventListener(
+        // Handle positioning of the toggle
+    window.addEventListener(
       "resize",
       throttle(() => {
         elRect = undefined;
@@ -2014,23 +2192,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           selectCodeLines(selectedAnnoteEl);
         }
       }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
       for (let i=0; i<annoteTargets.length; i++) {
         const annoteTarget = annoteTargets[i];
@@ -2075,7 +2253,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -2127,28 +2305,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-left">
+<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
@@ -2170,6 +2334,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 

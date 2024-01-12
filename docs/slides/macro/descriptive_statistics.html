@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.542">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-10-12">
@@ -33,7 +33,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -234,7 +234,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -469,10 +470,10 @@
 <h2>実習の準備</h2>
 <p>パッケージとデータの読み込み（データはLMSから入手可能）</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># {tidyverse}パッケージを読み込む</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/descstat_data.csv"</span>)　<span class="co"># Dataフォルダー内のdescstat_dataを読み込み、dfと名付ける</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">print</span>(df) <span class="co"># dfの最初の10行を確認</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse) <span class="co"># {tidyverse}パッケージを読み込む</span></span>
+<span id="cb1-2"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/descstat_data.csv"</span>)　<span class="co"># Dataフォルダー内のdescstat_dataを読み込み、dfと名付ける</span></span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a><span class="fu">print</span>(df) <span class="co"># dfの最初の10行を確認</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 48
    USER_ID    Q1    Q2    Q3    Q4  Q5_1  Q5_2  Q5_3  Q5_4  Q5_5  Q5_6  Q5_7  Q5_8  Q5_9 Q5_10 Q5_11
@@ -500,14 +501,14 @@
 <h2>データの確認</h2>
 <p>データの大きさ（行数と列数）の確認</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">dim</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">dim</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3000   48</code></pre>
 </div>
 </div>
 <p>変数名の確認</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">names</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">names</span>(df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "USER_ID" "Q1"      "Q2"      "Q3"      "Q4"      "Q5_1"    "Q5_2"    "Q5_3"    "Q5_4"   
 [10] "Q5_5"    "Q5_6"    "Q5_7"    "Q5_8"    "Q5_9"    "Q5_10"   "Q5_11"   "Q5_12"   "Q6_1"   
@@ -529,20 +530,20 @@
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(<span class="at">ID           =</span> USER_ID, <span class="co"># 回答者ID</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>         <span class="at">Gender       =</span> gender,  <span class="co"># 性別</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>         <span class="at">Age          =</span> age,     <span class="co"># 年齢</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>         <span class="at">Education    =</span> Q61,     <span class="co"># 最終学歴（99は欠損値を意味する）</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>         <span class="at">Voted        =</span> Q15,     <span class="co"># 投票参加 (2016参院選)</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>         <span class="at">VotedParty   =</span> Q15S2,   <span class="co"># 投票先 (2016参院選)</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>         <span class="at">T_Jimin      =</span> Q5_7,    <span class="co"># 自民に対する感情温度</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>         <span class="at">T_Minshin    =</span> Q5_11)   <span class="co"># 民進に対する感情温度</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">select</span>(<span class="at">ID           =</span> USER_ID, <span class="co"># 回答者ID</span></span>
+<span id="cb7-3"><a></a>         <span class="at">Gender       =</span> gender,  <span class="co"># 性別</span></span>
+<span id="cb7-4"><a></a>         <span class="at">Age          =</span> age,     <span class="co"># 年齢</span></span>
+<span id="cb7-5"><a></a>         <span class="at">Education    =</span> Q61,     <span class="co"># 最終学歴（99は欠損値を意味する）</span></span>
+<span id="cb7-6"><a></a>         <span class="at">Voted        =</span> Q15,     <span class="co"># 投票参加 (2016参院選)</span></span>
+<span id="cb7-7"><a></a>         <span class="at">VotedParty   =</span> Q15S2,   <span class="co"># 投票先 (2016参院選)</span></span>
+<span id="cb7-8"><a></a>         <span class="at">T_Jimin      =</span> Q5_7,    <span class="co"># 自民に対する感情温度</span></span>
+<span id="cb7-9"><a></a>         <span class="at">T_Minshin    =</span> Q5_11)   <span class="co"># 民進に対する感情温度</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df2 <span class="co"># print(df2)もOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>df2 <span class="co"># print(df2)もOK</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 8
       ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin
@@ -597,27 +598,27 @@
 <section id="記述統計の計算-base-rの場合" class="slide level2">
 <h2>記述統計の計算: Base Rの場合</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">mean</span>(df2<span class="sc">$</span>Age)        <span class="co"># Ageの平均値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">mean</span>(df2<span class="sc">$</span>Age)        <span class="co"># Ageの平均値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 47.34</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">median</span>(df2<span class="sc">$</span>Age)      <span class="co"># Ageの中央値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">median</span>(df2<span class="sc">$</span>Age)      <span class="co"># Ageの中央値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 47</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">sd</span>(df2<span class="sc">$</span>Age)          <span class="co"># Ageの標準偏差</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">sd</span>(df2<span class="sc">$</span>Age)          <span class="co"># Ageの標準偏差</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15.62839</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">min</span>(df2<span class="sc">$</span>Age)         <span class="co"># Ageの最小値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">min</span>(df2<span class="sc">$</span>Age)         <span class="co"># Ageの最小値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 18</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">max</span>(df2<span class="sc">$</span>Age)         <span class="co"># Ageの最大値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">max</span>(df2<span class="sc">$</span>Age)         <span class="co"># Ageの最大値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 75</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(df2<span class="sc">$</span>Age)) <span class="co"># Ageの有効ケース数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(df2<span class="sc">$</span>Age)) <span class="co"># Ageの有効ケース数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3000</code></pre>
 </div>
@@ -627,13 +628,13 @@
 <h2>記述統計の計算: {dplyr}を利用する</h2>
 <p><code>summarise()</code>関数を使用</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>df2 <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">summarise</span>(<span class="at">Mean   =</span> <span class="fu">mean</span>(Age),         <span class="co"># Ageの平均値</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a>            <span class="at">Median =</span> <span class="fu">median</span>(Age),       <span class="co"># Ageの中央値</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>            <span class="at">SD     =</span> <span class="fu">sd</span>(Age),           <span class="co"># Ageの標準偏差</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>            <span class="at">Min    =</span> <span class="fu">min</span>(Age),          <span class="co"># Ageの最小値</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a>            <span class="at">Max    =</span> <span class="fu">max</span>(Age),          <span class="co"># Ageの最大値</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a>            <span class="at">Obs    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Age)))  <span class="co"># Ageの有効ケース数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Mean   =</span> <span class="fu">mean</span>(Age),         <span class="co"># Ageの平均値</span></span>
+<span id="cb22-3"><a></a>            <span class="at">Median =</span> <span class="fu">median</span>(Age),       <span class="co"># Ageの中央値</span></span>
+<span id="cb22-4"><a></a>            <span class="at">SD     =</span> <span class="fu">sd</span>(Age),           <span class="co"># Ageの標準偏差</span></span>
+<span id="cb22-5"><a></a>            <span class="at">Min    =</span> <span class="fu">min</span>(Age),          <span class="co"># Ageの最小値</span></span>
+<span id="cb22-6"><a></a>            <span class="at">Max    =</span> <span class="fu">max</span>(Age),          <span class="co"># Ageの最大値</span></span>
+<span id="cb22-7"><a></a>            <span class="at">Obs    =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Age)))  <span class="co"># Ageの有効ケース数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
    Mean Median    SD   Min   Max   Obs
@@ -647,7 +648,6 @@
 <p>論文、レポートに記述統計を掲載する際は一つの表としてまとめること</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="ljafqbgzyj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ljafqbgzyj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1088,37 +1088,42 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="平均値">平均値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="標準偏差">標準偏差</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="最小値">最小値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="最大値">最大値</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Variable" class="gt_row gt_left">年齢</td>
-<td headers="Mean" class="gt_row gt_right">47.340</td>
-<td headers="SD" class="gt_row gt_right">15.628</td>
-<td headers="Min" class="gt_row gt_right">18</td>
-<td headers="Max" class="gt_row gt_right">75</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">感情温度: 自由民主党</td>
-<td headers="Mean" class="gt_row gt_right">41.130</td>
-<td headers="SD" class="gt_row gt_right">28.015</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">100</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">感情温度: 民進党</td>
-<td headers="Mean" class="gt_row gt_right">34.248</td>
-<td headers="SD" class="gt_row gt_right">25.947</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">100</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="平均値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">平均値</th>
+<th id="標準偏差" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">標準偏差</th>
+<th id="最小値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最小値</th>
+<th id="最大値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最大値</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">年齢</td>
+<td class="gt_row gt_right" headers="Mean">47.340</td>
+<td class="gt_row gt_right" headers="SD">15.628</td>
+<td class="gt_row gt_right" headers="Min">18</td>
+<td class="gt_row gt_right" headers="Max">75</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">感情温度: 自由民主党</td>
+<td class="gt_row gt_right" headers="Mean">41.130</td>
+<td class="gt_row gt_right" headers="SD">28.015</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">100</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">感情温度: 民進党</td>
+<td class="gt_row gt_right" headers="Mean">34.248</td>
+<td class="gt_row gt_right" headers="SD">25.947</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">100</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1141,11 +1146,11 @@
 <div class="tab-content">
 <div id="tabset-2-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># インストールされていない場合はRコンソール上にinstall.pacakges("summarytools")</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb24-3"><a href="#cb24-3"></a>df2 <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span> <span class="co"># 回答者IDの記述統計量は不要なので除外</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">descr</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># インストールされていない場合はRコンソール上にinstall.pacakges("summarytools")</span></span>
+<span id="cb24-2"><a></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb24-3"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span> <span class="co"># 回答者IDの記述統計量は不要なので除外</span></span>
+<span id="cb24-5"><a></a>  <span class="fu">descr</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-2">
@@ -1186,11 +1191,11 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df2 <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>  <span class="co"># 平均値、標準偏差、最小値、最大値、有効ケース数</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb26-5"><a href="#cb26-5"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a></a>  <span class="co"># 平均値、標準偏差、最小値、最大値、有効ケース数</span></span>
+<span id="cb26-4"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb26-5"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 
@@ -1217,10 +1222,10 @@
 <li>事前に欠損値処理されているデータもあれば、そうでないデータもある。<strong>データを入手した場合は必ずコードブックに目を通しておく</strong>こと！</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">mutate</span>(<span class="at">Education =</span> <span class="fu">if_else</span>(Education <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, Education))</span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Education =</span> <span class="fu">if_else</span>(Education <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, Education))</span>
+<span id="cb28-3"><a></a></span>
+<span id="cb28-4"><a></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 8
       ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin
@@ -1242,11 +1247,11 @@
 <section id="欠損値処理後の記述統計" class="slide level2">
 <h2>欠損値処理後の記述統計</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>df2 <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="co"># 平均値、標準偏差、最小値、最大値、有効ケース数</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb30-5"><a href="#cb30-5"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>df2 <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a></a>  <span class="co"># 平均値、標準偏差、最小値、最大値、有効ケース数</span></span>
+<span id="cb30-4"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb30-5"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 
@@ -1302,19 +1307,19 @@
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted) <span class="co"># 度数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted) <span class="co"># 度数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    1    2    3 
 2208  687  105 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df2<span class="sc">$</span>Voted)) <span class="co"># 割合</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df2<span class="sc">$</span>Voted)) <span class="co"># 割合</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1     2     3 
 0.736 0.229 0.035 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df2<span class="sc">$</span>Voted)) <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パーセントで出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df2<span class="sc">$</span>Voted)) <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パーセントで出力</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    1    2    3 
@@ -1324,7 +1329,6 @@
 </div><div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="wpvxiharbs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#wpvxiharbs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1765,29 +1769,35 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false"><caption><p>度数分布表の例</p></caption>
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="値">値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="度数">度数</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="割合 (%)">割合 (%)</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="x" class="gt_row gt_left">投票した</td>
-<td headers="y" class="gt_row gt_right">2208</td>
-<td headers="z" class="gt_row gt_right">73.6</td></tr>
-    <tr><td headers="x" class="gt_row gt_left">棄権した</td>
-<td headers="y" class="gt_row gt_right">687</td>
-<td headers="z" class="gt_row gt_right">22.9</td></tr>
-    <tr><td headers="x" class="gt_row gt_left">投票権がなかった</td>
-<td headers="y" class="gt_row gt_right">105</td>
-<td headers="z" class="gt_row gt_right">3.5</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<caption>度数分布表の例</caption>
+<thead>
+<tr class="header gt_col_headings">
+<th id="値" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">値</th>
+<th id="度数" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">度数</th>
+<th id="割合 (%)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">割合 (%)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="x">投票した</td>
+<td class="gt_row gt_right" headers="y">2208</td>
+<td class="gt_row gt_right" headers="z">73.6</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="x">棄権した</td>
+<td class="gt_row gt_right" headers="y">687</td>
+<td class="gt_row gt_right" headers="z">22.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="x">投票権がなかった</td>
+<td class="gt_row gt_right" headers="y">105</td>
+<td class="gt_row gt_right" headers="z">3.5</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -1804,12 +1814,12 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">mutate</span>(<span class="at">Voted_F      =</span> <span class="fu">factor</span>(Voted, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"投票"</span>, <span class="st">"棄権"</span>, <span class="st">"選挙権なし"</span>)),</span>
-<span id="cb38-3"><a href="#cb38-3"></a>         <span class="at">VotedParty_F =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
-<span id="cb38-4"><a href="#cb38-4"></a>                               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"自民"</span>, <span class="st">"民進"</span>, <span class="st">"公明"</span>, <span class="st">"維新"</span>, <span class="st">"共産"</span>, <span class="st">"その他"</span>, <span class="st">"不明"</span>))) </span>
-<span id="cb38-5"><a href="#cb38-5"></a></span>
-<span id="cb38-6"><a href="#cb38-6"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Voted_F      =</span> <span class="fu">factor</span>(Voted, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"投票"</span>, <span class="st">"棄権"</span>, <span class="st">"選挙権なし"</span>)),</span>
+<span id="cb38-3"><a></a>         <span class="at">VotedParty_F =</span> <span class="fu">factor</span>(VotedParty, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,</span>
+<span id="cb38-4"><a></a>                               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"自民"</span>, <span class="st">"民進"</span>, <span class="st">"公明"</span>, <span class="st">"維新"</span>, <span class="st">"共産"</span>, <span class="st">"その他"</span>, <span class="st">"不明"</span>))) </span>
+<span id="cb38-5"><a></a></span>
+<span id="cb38-6"><a></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 10
       ID Gender   Age Education Voted VotedParty T_Jimin T_Minshin Voted_F VotedParty_F
@@ -1831,25 +1841,25 @@
 <section id="カテゴリ変数のfactor化-1" class="slide level2">
 <h2>カテゴリ変数のfactor化</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted_F) <span class="co"># Voted_Fの度数分布表</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted_F) <span class="co"># Voted_Fの度数分布表</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       投票       棄権 選挙権なし 
       2208        687        105 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted_F) <span class="sc">|&gt;</span> <span class="fu">prop.table</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パイプ演算子も使用可能</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">table</span>(df2<span class="sc">$</span>Voted_F) <span class="sc">|&gt;</span> <span class="fu">prop.table</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パイプ演算子も使用可能</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       投票       棄権 選挙権なし 
       73.6       22.9        3.5 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">table</span>(df2<span class="sc">$</span>VotedParty_F) <span class="co"># VotedParty_Fの度数分布表</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">table</span>(df2<span class="sc">$</span>VotedParty_F) <span class="co"># VotedParty_Fの度数分布表</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   自民   民進   公明   維新   共産 その他   不明 
    880    439    113    220    173     24    359 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">table</span>(df2<span class="sc">$</span>VotedParty_F) <span class="sc">|&gt;</span> <span class="fu">prop.table</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パイプ演算子も使用可能</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="fu">table</span>(df2<span class="sc">$</span>VotedParty_F) <span class="sc">|&gt;</span> <span class="fu">prop.table</span>() <span class="sc">*</span> <span class="dv">100</span> <span class="co"># パイプ演算子も使用可能</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      自民      民進      公明      維新      共産    その他      不明 
@@ -1862,7 +1872,6 @@
 <p>値、度数、割合、累積割合を掲載</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="sorwyeujug" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#sorwyeujug table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2303,33 +2312,38 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="度数 (人)">度数 (人)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="割合 (%)">割合 (%)</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="累積割合 (%)">累積割合 (%)</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="X" class="gt_row gt_left">1. 投票</td>
-<td headers="Y" class="gt_row gt_right">2208</td>
-<td headers="V" class="gt_row gt_right">73.6</td>
-<td headers="Z" class="gt_row gt_right">73.6</td></tr>
-    <tr><td headers="X" class="gt_row gt_left">2. 棄権</td>
-<td headers="Y" class="gt_row gt_right">687</td>
-<td headers="V" class="gt_row gt_right">22.9</td>
-<td headers="Z" class="gt_row gt_right">96.5</td></tr>
-    <tr><td headers="X" class="gt_row gt_left">3. 投票権なし</td>
-<td headers="Y" class="gt_row gt_right">105</td>
-<td headers="V" class="gt_row gt_right">3.5</td>
-<td headers="Z" class="gt_row gt_right">100.0</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="度数 (人)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">度数 (人)</th>
+<th id="割合 (%)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">割合 (%)</th>
+<th id="累積割合 (%)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">累積割合 (%)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="X">1. 投票</td>
+<td class="gt_row gt_right" headers="Y">2208</td>
+<td class="gt_row gt_right" headers="V">73.6</td>
+<td class="gt_row gt_right" headers="Z">73.6</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="X">2. 棄権</td>
+<td class="gt_row gt_right" headers="Y">687</td>
+<td class="gt_row gt_right" headers="V">22.9</td>
+<td class="gt_row gt_right" headers="Z">96.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="X">3. 投票権なし</td>
+<td class="gt_row gt_right" headers="Y">105</td>
+<td class="gt_row gt_right" headers="V">3.5</td>
+<td class="gt_row gt_right" headers="Z">100.0</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -2346,7 +2360,6 @@
 <p>ダミー変換<strong>前</strong></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="yqydeieypo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#yqydeieypo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2787,37 +2800,54 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ID">ID</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Voted_F">Voted_F</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="ID" class="gt_row gt_right">39</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">40</td>
-<td headers="Voted_F" class="gt_row gt_left">選挙権なし</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">41</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">42</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">46</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">47</td>
-<td headers="Voted_F" class="gt_row gt_left">棄権</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">48</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">53</td>
-<td headers="Voted_F" class="gt_row gt_left">選挙権なし</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">54</td>
-<td headers="Voted_F" class="gt_row gt_left">棄権</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="ID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ID</th>
+<th id="Voted_F" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Voted_F</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">39</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">40</td>
+<td class="gt_row gt_left" headers="Voted_F">選挙権なし</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">41</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">42</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">46</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">47</td>
+<td class="gt_row gt_left" headers="Voted_F">棄権</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">48</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">53</td>
+<td class="gt_row gt_left" headers="Voted_F">選挙権なし</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">54</td>
+<td class="gt_row gt_left" headers="Voted_F">棄権</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -2827,7 +2857,6 @@
 <p>ダミー変換<strong>後</strong></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="sfctucyomh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#sfctucyomh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3268,67 +3297,84 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="ID">ID</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Voted_F">Voted_F</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="投票">投票</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="棄権">棄権</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="選挙権なし">選挙権なし</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="ID" class="gt_row gt_right">39</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">1</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">40</td>
-<td headers="Voted_F" class="gt_row gt_left">選挙権なし</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">0</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">1</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">41</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">1</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">42</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">1</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">46</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">1</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">47</td>
-<td headers="Voted_F" class="gt_row gt_left">棄権</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">0</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">1</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">48</td>
-<td headers="Voted_F" class="gt_row gt_left">投票</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">1</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">53</td>
-<td headers="Voted_F" class="gt_row gt_left">選挙権なし</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">0</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">0</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">1</td></tr>
-    <tr><td headers="ID" class="gt_row gt_right">54</td>
-<td headers="Voted_F" class="gt_row gt_left">棄権</td>
-<td headers="Voted_F_投票" class="gt_row gt_right">0</td>
-<td headers="Voted_F_棄権" class="gt_row gt_right">1</td>
-<td headers="Voted_F_選挙権なし" class="gt_row gt_right">0</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="ID" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ID</th>
+<th id="Voted_F" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Voted_F</th>
+<th id="投票" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">投票</th>
+<th id="棄権" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">棄権</th>
+<th id="選挙権なし" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">選挙権なし</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">39</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">1</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">40</td>
+<td class="gt_row gt_left" headers="Voted_F">選挙権なし</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">0</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">1</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">41</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">1</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">42</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">1</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">46</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">1</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">47</td>
+<td class="gt_row gt_left" headers="Voted_F">棄権</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">0</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">1</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">48</td>
+<td class="gt_row gt_left" headers="Voted_F">投票</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">1</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ID">53</td>
+<td class="gt_row gt_left" headers="Voted_F">選挙権なし</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">0</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">0</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">1</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ID">54</td>
+<td class="gt_row gt_left" headers="Voted_F">棄権</td>
+<td class="gt_row gt_right" headers="Voted_F_投票">0</td>
+<td class="gt_row gt_right" headers="Voted_F_棄権">1</td>
+<td class="gt_row gt_right" headers="Voted_F_選挙権なし">0</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -3341,13 +3387,13 @@
 <li><code>mutate()</code>内に<code>if_else()</code>で作成</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>df3 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">mutate</span>(<span class="at">Voted_F_Vote       =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"投票"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb48-3"><a href="#cb48-3"></a>         <span class="at">Voted_F_Absent     =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"棄権"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb48-4"><a href="#cb48-4"></a>         <span class="at">Voted_F_Ineligible =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"選挙権なし"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb48-5"><a href="#cb48-5"></a></span>
-<span id="cb48-6"><a href="#cb48-6"></a>df3 <span class="sc">|&gt;</span></span>
-<span id="cb48-7"><a href="#cb48-7"></a>  <span class="fu">select</span>(ID, Voted_F<span class="sc">:</span>Voted_F_Ineligible)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>df3 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Voted_F_Vote       =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"投票"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb48-3"><a></a>         <span class="at">Voted_F_Absent     =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"棄権"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb48-4"><a></a>         <span class="at">Voted_F_Ineligible =</span> <span class="fu">if_else</span>(Voted_F <span class="sc">==</span> <span class="st">"選挙権なし"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb48-5"><a></a></span>
+<span id="cb48-6"><a></a>df3 <span class="sc">|&gt;</span></span>
+<span id="cb48-7"><a></a>  <span class="fu">select</span>(ID, Voted_F<span class="sc">:</span>Voted_F_Ineligible)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 6
       ID Voted_F VotedParty_F Voted_F_Vote Voted_F_Absent Voted_F_Ineligible
@@ -3372,12 +3418,12 @@
 <li><code>if_else()</code>を使う場合、ダミー変数名を自分で指定できるが、<code>dummy_cols()</code>の場合は「<code>元の変数名_値</code>」になるため、必要に応じて<code>rename()</code>を使用し、変数名を修正すること。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">library</span>(fastDummies)</span>
-<span id="cb50-2"><a href="#cb50-2"></a>df4 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"Voted_F"</span>) <span class="co"># Voted_F変数のダミー化（「"」で囲むこと）</span></span>
-<span id="cb50-4"><a href="#cb50-4"></a></span>
-<span id="cb50-5"><a href="#cb50-5"></a>df4 <span class="sc">|&gt;</span></span>
-<span id="cb50-6"><a href="#cb50-6"></a>  <span class="fu">select</span>(ID, Voted_F<span class="sc">:</span>Voted_F_選挙権なし)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb50-2"><a></a>df4 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"Voted_F"</span>) <span class="co"># Voted_F変数のダミー化（「"」で囲むこと）</span></span>
+<span id="cb50-4"><a></a></span>
+<span id="cb50-5"><a></a>df4 <span class="sc">|&gt;</span></span>
+<span id="cb50-6"><a></a>  <span class="fu">select</span>(ID, Voted_F<span class="sc">:</span>Voted_F_選挙権なし)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 6
       ID Voted_F VotedParty_F Voted_F_投票 Voted_F_棄権 Voted_F_選挙権なし
@@ -3411,7 +3457,6 @@
 <h2>記述統計掲載の例</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-
 <div id="drbtunyhyk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#drbtunyhyk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3852,129 +3897,158 @@
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="平均値">平均値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="中央値">中央値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="標準偏差">標準偏差</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="最小値">最小値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="最大値">最大値</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="有効ケース数">有効ケース数</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Cov" class="gt_row gt_left">女性</td>
-<td headers="Mean" class="gt_row gt_right">0.503</td>
-<td headers="Median" class="gt_row gt_right">1</td>
-<td headers="SD" class="gt_row gt_right">0.500</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">年齢</td>
-<td headers="Mean" class="gt_row gt_right">47.340</td>
-<td headers="Median" class="gt_row gt_right">47</td>
-<td headers="SD" class="gt_row gt_right">15.628</td>
-<td headers="Min" class="gt_row gt_right">18</td>
-<td headers="Max" class="gt_row gt_right">75</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">最終学歴</td>
-<td headers="Mean" class="gt_row gt_right">0.018</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.133</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票有無: 投票</td>
-<td headers="Mean" class="gt_row gt_right">0.736</td>
-<td headers="Median" class="gt_row gt_right">1</td>
-<td headers="SD" class="gt_row gt_right">0.441</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票有無: 棄権</td>
-<td headers="Mean" class="gt_row gt_right">0.229</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.420</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票有無: 選挙権なし</td>
-<td headers="Mean" class="gt_row gt_right">0.035</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.184</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 自民</td>
-<td headers="Mean" class="gt_row gt_right">0.399</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.490</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 民進</td>
-<td headers="Mean" class="gt_row gt_right">0.199</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.399</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 公明</td>
-<td headers="Mean" class="gt_row gt_right">0.051</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.220</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 維新</td>
-<td headers="Mean" class="gt_row gt_right">0.100</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.300</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 共産</td>
-<td headers="Mean" class="gt_row gt_right">0.078</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.269</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: その他</td>
-<td headers="Mean" class="gt_row gt_right">0.011</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.104</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">投票先: 不明</td>
-<td headers="Mean" class="gt_row gt_right">0.163</td>
-<td headers="Median" class="gt_row gt_right">0</td>
-<td headers="SD" class="gt_row gt_right">0.369</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">1</td>
-<td headers="Obs" class="gt_row gt_right">2208</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">感情温度: 自民</td>
-<td headers="Mean" class="gt_row gt_right">41.130</td>
-<td headers="Median" class="gt_row gt_right">50</td>
-<td headers="SD" class="gt_row gt_right">28.015</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">100</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-    <tr><td headers="Cov" class="gt_row gt_left">感情温度: 民進</td>
-<td headers="Mean" class="gt_row gt_right">34.248</td>
-<td headers="Median" class="gt_row gt_right">40</td>
-<td headers="SD" class="gt_row gt_right">25.947</td>
-<td headers="Min" class="gt_row gt_right">0</td>
-<td headers="Max" class="gt_row gt_right">100</td>
-<td headers="Obs" class="gt_row gt_right">3000</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="平均値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">平均値</th>
+<th id="中央値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">中央値</th>
+<th id="標準偏差" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">標準偏差</th>
+<th id="最小値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最小値</th>
+<th id="最大値" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最大値</th>
+<th id="有効ケース数" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">有効ケース数</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">女性</td>
+<td class="gt_row gt_right" headers="Mean">0.503</td>
+<td class="gt_row gt_right" headers="Median">1</td>
+<td class="gt_row gt_right" headers="SD">0.500</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">年齢</td>
+<td class="gt_row gt_right" headers="Mean">47.340</td>
+<td class="gt_row gt_right" headers="Median">47</td>
+<td class="gt_row gt_right" headers="SD">15.628</td>
+<td class="gt_row gt_right" headers="Min">18</td>
+<td class="gt_row gt_right" headers="Max">75</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">最終学歴</td>
+<td class="gt_row gt_right" headers="Mean">0.018</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.133</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">投票有無: 投票</td>
+<td class="gt_row gt_right" headers="Mean">0.736</td>
+<td class="gt_row gt_right" headers="Median">1</td>
+<td class="gt_row gt_right" headers="SD">0.441</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">投票有無: 棄権</td>
+<td class="gt_row gt_right" headers="Mean">0.229</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.420</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">投票有無: 選挙権なし</td>
+<td class="gt_row gt_right" headers="Mean">0.035</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.184</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">投票先: 自民</td>
+<td class="gt_row gt_right" headers="Mean">0.399</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.490</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">投票先: 民進</td>
+<td class="gt_row gt_right" headers="Mean">0.199</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.399</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">投票先: 公明</td>
+<td class="gt_row gt_right" headers="Mean">0.051</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.220</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">投票先: 維新</td>
+<td class="gt_row gt_right" headers="Mean">0.100</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.300</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">投票先: 共産</td>
+<td class="gt_row gt_right" headers="Mean">0.078</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.269</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">投票先: その他</td>
+<td class="gt_row gt_right" headers="Mean">0.011</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.104</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">投票先: 不明</td>
+<td class="gt_row gt_right" headers="Mean">0.163</td>
+<td class="gt_row gt_right" headers="Median">0</td>
+<td class="gt_row gt_right" headers="SD">0.369</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">1</td>
+<td class="gt_row gt_right" headers="Obs">2208</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Cov">感情温度: 自民</td>
+<td class="gt_row gt_right" headers="Mean">41.130</td>
+<td class="gt_row gt_right" headers="Median">50</td>
+<td class="gt_row gt_right" headers="SD">28.015</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">100</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Cov">感情温度: 民進</td>
+<td class="gt_row gt_right" headers="Mean">34.248</td>
+<td class="gt_row gt_right" headers="Median">40</td>
+<td class="gt_row gt_right" headers="SD">25.947</td>
+<td class="gt_row gt_right" headers="Min">0</td>
+<td class="gt_row gt_right" headers="Max">100</td>
+<td class="gt_row gt_right" headers="Obs">3000</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
 </div>
@@ -3985,9 +4059,9 @@
 <div class="column" style="width:45%;">
 <p>投票有無ごとの平均年齢</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>df3 <span class="sc">|&gt;</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">group_by</span>(Voted_F) <span class="sc">|&gt;</span></span>
-<span id="cb52-3"><a href="#cb52-3"></a>  <span class="fu">summarise</span>(<span class="at">Age =</span> <span class="fu">mean</span>(Age))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>df3 <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a></a>  <span class="fu">group_by</span>(Voted_F) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a></a>  <span class="fu">summarise</span>(<span class="at">Age =</span> <span class="fu">mean</span>(Age))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   Voted_F      Age
@@ -4002,11 +4076,11 @@
 </div><div class="column" style="width:45%;">
 <p>投票先ごとの民進党に対する感情温度</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>df3 <span class="sc">|&gt;</span></span>
-<span id="cb54-2"><a href="#cb54-2"></a>  <span class="co"># VotedParty_Fの値が欠損している行を除外</span></span>
-<span id="cb54-3"><a href="#cb54-3"></a>  <span class="fu">drop_na</span>(VotedParty_F) <span class="sc">|&gt;</span> </span>
-<span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">group_by</span>(VotedParty_F) <span class="sc">|&gt;</span></span>
-<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">summarise</span>(<span class="at">T_Minshin =</span> <span class="fu">mean</span>(T_Minshin))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>df3 <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a></a>  <span class="co"># VotedParty_Fの値が欠損している行を除外</span></span>
+<span id="cb54-3"><a></a>  <span class="fu">drop_na</span>(VotedParty_F) <span class="sc">|&gt;</span> </span>
+<span id="cb54-4"><a></a>  <span class="fu">group_by</span>(VotedParty_F) <span class="sc">|&gt;</span></span>
+<span id="cb54-5"><a></a>  <span class="fu">summarise</span>(<span class="at">T_Minshin =</span> <span class="fu">mean</span>(T_Minshin))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   VotedParty_F T_Minshin
@@ -4037,9 +4111,11 @@
 </ul>
 <p>Rの操作になれていない場合、当該章のみを読んでも内容を理解することは難しい。これは文法を勉強せずに辞書を調べることと同じ行為である。プログラミング、ソフトウェアの使い方は積み上げが重要であるため、第1章から読むことを推奨（当該章のみ抜粋して読むことは、その後の話）</p>
 
+<div class="quarto-auto-generated-content">
 <p><img src="Figs/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p><a href="https://www.jaysong.net/r4ps/" class="uri">https://www.jaysong.net/r4ps/</a></p>
+</div>
 </div>
 </section></section>
     </div>
@@ -4069,7 +4145,6 @@
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -4369,10 +4444,27 @@
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+              // target, if specified
+              link.setAttribute("target", "_blank");
+              if (link.getAttribute("rel") === null) {
+                link.setAttribute("rel", "noopener");
+              }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -4382,8 +4474,17 @@
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -4441,6 +4542,7 @@
                 }
                 div.style.top = top - 2 + "px";
                 div.style.height = height + 4 + "px";
+                div.style.left = 0;
                 let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
                 if (gutterDiv === null) {
                   gutterDiv = window.document.createElement("div");
@@ -4466,8 +4568,8 @@
             });
             selectedAnnoteEl = undefined;
           };
-          // Handle positioning of the toggle
-          window.addEventListener(
+            // Handle positioning of the toggle
+        window.addEventListener(
           "resize",
           throttle(() => {
             elRect = undefined;
@@ -4475,23 +4577,23 @@
               selectCodeLines(selectedAnnoteEl);
             }
           }, 10)
-          );
-          function throttle(fn, ms) {
-          let throttle = false;
-          let timer;
-            return (...args) => {
-              if(!throttle) { // first call gets through
+        );
+        function throttle(fn, ms) {
+        let throttle = false;
+        let timer;
+          return (...args) => {
+            if(!throttle) { // first call gets through
+                fn.apply(this, args);
+                throttle = true;
+            } else { // all the others get throttled
+                if(timer) clearTimeout(timer); // cancel #2
+                timer = setTimeout(() => {
                   fn.apply(this, args);
-                  throttle = true;
-              } else { // all the others get throttled
-                  if(timer) clearTimeout(timer); // cancel #2
-                  timer = setTimeout(() => {
-                    fn.apply(this, args);
-                    timer = throttle = false;
-                  }, ms);
-              }
-            };
-          }
+                  timer = throttle = false;
+                }, ms);
+            }
+          };
+        }
           const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
           for (let i=0; i<annoteTargets.length; i++) {
             const annoteTarget = annoteTargets[i];
@@ -4536,7 +4638,7 @@
                   options: {
                     flipVariations: false, // true by default
                     allowedAutoPlacements: ['right'],
-                    fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                    fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
                   },
                 },
                 {
@@ -4588,20 +4690,6 @@
           });
         }
       }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-              // target, if specified
-              link.setAttribute("target", "_blank");
-          }
-        }
     });
     </script>
     

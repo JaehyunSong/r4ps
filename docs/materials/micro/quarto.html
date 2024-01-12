@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.542">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,6 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -108,15 +115,42 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../Figs/logo.png" alt="" class="navbar-logo">
     </a>
@@ -131,232 +165,232 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">シラバス</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
  <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
  <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../syllabus/session.html" rel="" target="">
+    <a class="dropdown-item" href="../../syllabus/session.html">
  <span class="dropdown-text">セッション情報</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Rの使い方</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
         <li>
-    <a class="dropdown-item" href="../../intro/install.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/install.html">
  <span class="dropdown-text">Rの導入</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/rstudio.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/rstudio.html">
  <span class="dropdown-text">RStudioの設定</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/filesystem.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/filesystem.html">
  <span class="dropdown-text">ファイル・システム</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/project.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/project.html">
  <span class="dropdown-text">プロジェクト管理</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/file.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/file.html">
  <span class="dropdown-text">ファイル管理</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/packages.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/packages.html">
  <span class="dropdown-text">パッケージ</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/homework.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/homework.html">
  <span class="dropdown-text">課題の取り組み方</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../intro/faq.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/faq.html">
  <span class="dropdown-text">この授業の「あるある」</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">前期講義資料</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
         <li>
-    <a class="dropdown-item" href="../../materials/micro/introduction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
  <span class="dropdown-text">第1回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/r.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/r.html">
  <span class="dropdown-text">第2回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/basic.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
  <span class="dropdown-text">第3回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/programming.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
  <span class="dropdown-text">第4回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/quarto.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/quarto.html">
  <span class="dropdown-text">第5回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/dataset.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
  <span class="dropdown-text">第6回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/datatype.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
  <span class="dropdown-text">第7回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/datastructure.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
  <span class="dropdown-text">第8回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
  <span class="dropdown-text">第9回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
  <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/handling3.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
  <span class="dropdown-text">第11回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
  <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
  <span class="dropdown-text">第13回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/micro/visualization3.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
  <span class="dropdown-text">第14回講義資料</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">後期講義資料</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
         <li>
-    <a class="dropdown-item" href="../../materials/macro/introduction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
  <span class="dropdown-text">第1回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/research_design.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
  <span class="dropdown-text">第2・3回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
  <span class="dropdown-text">第4回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/inference.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
  <span class="dropdown-text">第5回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/nhts.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
  <span class="dropdown-text">第6回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/association.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/association.html">
  <span class="dropdown-text">第7回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/regression1.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
  <span class="dropdown-text">第8回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/regression2.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
  <span class="dropdown-text">第9回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/reporting.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
  <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/logit.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
  <span class="dropdown-text">第11回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/interaction.html" rel="" target="">
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
  <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">課題</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
         <li>
-    <a class="dropdown-item" href="../../intro/homework.html" rel="" target="">
+    <a class="dropdown-item" href="../../intro/homework.html">
  <span class="dropdown-text">課題の取り組み方</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">ミクロ</li>
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW05.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
  <span class="dropdown-text">[前期] 第5回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW10.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
  <span class="dropdown-text">[前期] 第10回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW11.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
  <span class="dropdown-text">[前期] 第11回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW13.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
  <span class="dropdown-text">[前期] 第13回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW14.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
  <span class="dropdown-text">[前期] 第14回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Micro_Final.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
  <span class="dropdown-text">[前期] 期末レポート</span></a>
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW04.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
  <span class="dropdown-text">[後期] 第4回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW07.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW07.html">
  <span class="dropdown-text">[後期] 第7回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW10.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW10.html">
  <span class="dropdown-text">[後期] 第10回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW12.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_HW12.html">
  <span class="dropdown-text">[後期] 第12回課題</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../HW/Macro_Final.html" rel="" target="">
+    <a class="dropdown-item" href="../../HW/Macro_Final.html">
  <span class="dropdown-text">[後期] 期末レポート</span></a>
   </li>  
     </ul>
@@ -364,41 +398,41 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/" rel="" target=""><i class="bi bi-terminal" role="img">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"> <i class="bi bi-terminal" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.jaysong.net/RBook/" rel="" target=""><i class="bi bi-book" role="img">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"> <i class="bi bi-book" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
 </a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/micro/quarto.html">第5回講義資料</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/micro/quarto.html">第5回講義資料</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -488,7 +522,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -542,7 +576,9 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   </div>
   
 
+
 </header>
+
 
 <section id="スライド" class="level2 unlisted">
 <h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
@@ -555,7 +591,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p><strong>手順2:</strong> File &gt; New &gt; Quarto Document…を選択する。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/rmarkdown/Setup_1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="Figs/rmarkdown/Setup_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
 <p><strong>手順3:</strong> OKをクリックする。</p>
@@ -564,7 +600,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/rmarkdown/Setup_2.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="Figs/rmarkdown/Setup_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
 <p><strong>手順4:</strong> タイトル情報などを以下のように修正する。</p>
@@ -572,7 +608,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <div class="column" style="width:40%;">
 <p><strong>変更前</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="false"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Untitled"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -582,34 +618,34 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div><div class="column" style="width:58%;">
 <p><strong>変更後</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="annotated-cell-1" data-code-line-numbers="false"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのR Markdown"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"関大花子"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023/5/11"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-34"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="1">1</button><span id="annotated-cell-34-2" class="code-annotation-target"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのR Markdown"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="2">2</button><span id="annotated-cell-34-3" class="code-annotation-target"><a href="#annotated-cell-34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"関大花子"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="3">3</button><span id="annotated-cell-34-4" class="code-annotation-target"><a href="#annotated-cell-34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023/5/11"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="4">4</button><span id="annotated-cell-34-5" class="code-annotation-target"><a href="#annotated-cell-34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="5">5</button><span id="annotated-cell-34-6" class="code-annotation-target"><a href="#annotated-cell-34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="annotated-cell-34-7"><a href="#annotated-cell-34-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-34" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-1" data-code-annotation="1">タイトル</span>
+<span data-code-cell="annotated-cell-34" data-code-lines="2" data-code-annotation="1">タイトル</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-34" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-1" data-code-annotation="2">作成者名</span>
+<span data-code-cell="annotated-cell-34" data-code-lines="3" data-code-annotation="2">作成者名</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-34" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-1" data-code-annotation="3">作成日</span>
+<span data-code-cell="annotated-cell-34" data-code-lines="4" data-code-annotation="3">作成日</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-34" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="5" data-code-cell="annotated-cell-1" data-code-annotation="4">文書の言語</span>
+<span data-code-cell="annotated-cell-34" data-code-lines="5" data-code-annotation="4">文書の言語</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-34" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="6" data-code-cell="annotated-cell-1" data-code-annotation="5">出力フォーマット</span>
+<span data-code-cell="annotated-cell-34" data-code-lines="6" data-code-annotation="5">出力フォーマット</span>
 </dd>
 </dl>
 </div>
@@ -636,7 +672,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p><strong>手順6:</strong> Sourceペイン上段のRenderをクリックする。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Figs/rmarkdown/Setup_3.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<p><img src="Figs/rmarkdown/Setup_3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
 <p><strong>手順7:</strong> 新しいウィンドウ、またはViewerペインに出力物が表示される。</p>
@@ -662,7 +698,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　Markdownにおける改行はやや特殊である。特殊といっても難しいことではない。普段よりもう一行改行するだけだ。Markdownの場合、1回の改行は改行として判定されず、同じ行の連続と認識する。たとえば、<strong>Input</strong>のように入力すると<strong>Output</strong>のように文章1と文章2が繋がってしまう。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>文章2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
@@ -670,7 +706,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　文章1と文章2を改行するためにはもう一行、改行する必要がある。以下の例を見てみよう。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>文章2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -684,13 +720,13 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　文章の一部を強調する方法として<strong>太字</strong>、<em>イタリック</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>、<u>アンダーライン</u>があり、強調ではないが、ついでに<del>取り消し線</del>についても紹介する。いずれも強調したい箇所を記号で囲むだけだ。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>文章の一部を**太字**にしてみましょう。</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>文章の一部を**太字**にしてみましょう。</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>*イタリック*もいいですね。</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>~~取り消し線~~はあまり使わないかも。</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;u&gt;</span>アンダーライン<span class="kw">&lt;/u&gt;</span>はHTMLタグを使います。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>&lt;u&gt;アンダーライン&lt;/u&gt;はHTMLタグを使います。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <p>文章の一部を<strong>太字</strong>にしてみましょう。</p>
@@ -703,7 +739,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　箇条書きには順序<strong>なし</strong>と順序<strong>付き</strong>がある。順序なしの場合<code>*</code>または<code>-</code>の後に半角スペースを1つ入れるだけである。また、3文字以上の字下げで下位項目を追加することもできる。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>項目1</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>項目1</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>項目1-1</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>項目1-2</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ss">      - </span>項目1-2-1</span>
@@ -732,7 +768,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　順序付き箇条書きは、これは<code>-</code>（または<code>*</code>）を<code>数字.</code>に換えるだけである。順序なしの場合と違って数字の後にピリオド（<code>.</code>）が付くことに注意すること。また、順序付き箇条書きと順序なし箇条書きは組み合わせて使うことも出来る。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>項目1</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>項目1</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">   1. </span>項目1-1</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">   2. </span>項目1-2</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>項目2</span>
@@ -760,7 +796,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　章、節、段落のタイトルを付ける際は<code>#</code>を使う。<code>#</code>の数が多いほど文字が小さくなる。章の見出しを<code>##</code>にするなら節は<code>###</code>、小節または段落は<code>####</code>が適切だろう。R Markdownの使用上、見出しは<code>####</code>まで使える。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 見出し1</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 見出し1</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 見出し2</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -779,7 +815,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　区切り線は<code>---</code>または<code>***</code>を使う。ただし、<code>---</code>または<code>***</code>の前後には必ず改行を行うこと。とりわけ、<code>---</code>の前に空いた行がないと、見出しとして認識されるケースがある。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <hr>
@@ -789,7 +825,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　Markdownの表は非常にシンプルな書き方をしている。行は改行で、列は<code>|</code>で区切られる。ただ、表の第1行はヘッダー（変数名や列名が表示される行）扱いとなり、ヘッダーと内容の区分は<code>|---|</code>で行う。以下はMarkdownを利用した簡単な表の例である。ここでは可読性のために、適宜スペースを入れたが、スペースの有無は結果に影響を与えない。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>|ID   |Name     |Math    |English |Favorite food|</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>|ID   |Name     |Math    |English |Favorite food|</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>|:---:|---------|-------:|-------:|-------------|</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>|1    |SONG     |15      |10      |Ramen        |</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>|2    |Yanai    |100     |100     |Cat food     |</span>
@@ -846,37 +882,37 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　例えば、<code>Figs</code>フォルダー内の<code>favicon.png</code>というファイルを読み込む場合、以下のように書く。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』ロゴ](Figs/favicon.png)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』ロゴ](Figs/favicon.png)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../../Figs/favicon.png" class="img-fluid figure-img" style="width:25.0%"></p>
-<figcaption class="figure-caption">『私たちのR』ロゴ</figcaption>
+<figcaption>『私たちのR』ロゴ</figcaption>
 </figure>
 </div>
 <p>　ファイルのパスの代わりにURLを入れると、ウェブ上の画像を入れることもできる。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.jaysong.net/RBook/Figs/Cover.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">『私たちのR』のカバー</figcaption>
+<figcaption>『私たちのR』のカバー</figcaption>
 </figure>
 </div>
 <p>　<code>![キャプション](パス or URL)</code>の後ろに<code>{}</code>を付けるといくつかのオプションが指定できる。たとえば、画像の幅を25%にしたい場合は<code>width=25%</code>を追加する。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)</span>{width=25%}</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="al">![『私たちのR』のカバー](https://www.jaysong.net/RBook/Figs/Cover.png)</span>{width=25%}</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://www.jaysong.net/RBook/Figs/Cover.png" class="img-fluid figure-img" style="width:25.0%"></p>
-<figcaption class="figure-caption">『私たちのR』のカバー</figcaption>
+<figcaption>『私たちのR』のカバー</figcaption>
 </figure>
 </div>
 </section>
@@ -885,7 +921,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　ハイパーリンクは<code>[テキスト](URL)</code>のように書く。<code>[]</code>内は実際に表示されるテキストであり、<code>()</code>は飛ばすURLとなる。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>毎日1回は<span class="co">[</span><span class="ot">SONGのホームページ</span><span class="co">](https://www.jaysong.net)</span>へアクセスしましょう。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>毎日1回は<span class="co">[</span><span class="ot">SONGのホームページ</span><span class="co">](https://www.jaysong.net)</span>へアクセスしましょう。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <p>毎日1回は<a href="https://www.jaysong.net">SONGのホームページ</a>へアクセスしましょう。</p>
@@ -895,7 +931,7 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　脚注は<code>[^固有識別子]</code>と<code>[^固有識別子]: 脚注内容</code>の2つの要素が必要だ。まず、文末脚注を入れる箇所に<code>[^xxxx]</code>を挿入する。<code>xxxx</code>は任意の文字列で良い。しかし、同じR Markdown内においてこの識別子は被らないように注意すること（<strong>固有</strong>識別子だから）。実際の脚注の内容は<code>[^xxxx]: 内容</code>のように入力する。これはどこに位置しても問題ない。文書の途中でも、最後に入れても、脚注の内容は文末に位置する。ただし、脚注を入れる段落のすぐ後の方が作成する側としては読みやすいだろう。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>これは普通の文章です<span class="ot">[^foot1]</span>。</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>これは普通の文章です<span class="ot">[^foot1]</span>。</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ot">[^foot1]: </span>これは普通の脚注です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -908,14 +944,14 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p>　インライン数式は<code>$数式$</code>で埋め込むことができる。数式は<span class="math inline">\(\LaTeX\)</span>の書き方とほぼ同じだ。ちなみに、R Markdown/Quartoの数式は<a href="https://www.mathjax.org">MathJax</a>によってレンダリングされる。このMathJaxライブラリはHTMLに埋め込まれているのではないため、インターネットに接続せずにHTMLファイルを開くと数式が正しく出力されない可能性がある。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>アインシュタインと言えば、$e = mc^2$でしょう。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>アインシュタインと言えば、$e = mc^2$でしょう。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <p>アインシュタインと言えば、<span class="math inline">\(e = mc^2\)</span>でしょう。</p>
 <p>　数式を独立した行として出力する場合は、<code>$</code>の代わりに<code>$$</code>を使用する。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>独立した数式の書き方</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>独立した数式の書き方</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).</span>
@@ -929,7 +965,7 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <p>　もし数式が複数の行で構成されている場合は<code>$$</code>内にaligned環境（<code>\begin{aligned}</code> … <code>\end{aligned}</code>）を使用する。むろん、使い方は<span class="math inline">\(\LaTeX\)</span>と同じである。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>複数の行にわたる数式の書き方</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>複数の行にわたる数式の書き方</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
@@ -951,7 +987,7 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <p>　ここまで見れば<span class="math inline">\(\LaTeX\)</span>ユーザーはお分かりだろうが、<code>$$</code>の中には<span class="math inline">\(\LaTeX\)</span>コマンドが使える。たとえば、行列を作成する際は以下のように<code>\begin{bmatrix}</code>環境を使う。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>行列の書き方</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>行列の書き方</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>X = \begin{bmatrix}</span>
@@ -976,7 +1012,7 @@ X = \begin{bmatrix}
 <p>　引用の際は文章の最初に<code>&gt;</code>を入れるだけだ。<code>&gt;</code>の後に半角のスペースを1つ入れること。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>「政治とは何か」についてイーストンは以下のように定義しました。</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>「政治とは何か」についてイーストンは以下のように定義しました。</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">A</span><span class="co">]</span><span class="at"> political system can be designated as those interactions through which values are authoritatively allocated for a society.</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -991,7 +1027,7 @@ X = \begin{bmatrix}
 <p>　Markdownにもコメントを付けることができる。とりあえず書いたが要らなくなった段落や文章があって、消すことがもったいない場合はコメントアウトするのも1つの方法だろう。ただし、Rのコメントアウトの方法は<code>#</code>だったが、これはMarkdownでは見出しの記号である。Markdownのコメントは<code>&lt;!--</code>と<code>--&gt;</code>で囲む必要がある。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="false"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>文章1</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">ここはコメントです。</span></span>
@@ -1030,7 +1066,7 @@ X = \begin{bmatrix}
 <div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a>"Hello World!"を出力するコード</span>
 <span id="cb21-2"><a href="#cb21-2"></a></span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="in">```{r}</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="fu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="in">print("Hello World!")</span></span>
 <span id="cb21-5"><a href="#cb21-5"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <p>“Hello World!”を出力するコード</p>
@@ -1045,18 +1081,18 @@ X = \begin{bmatrix}
 <div class="sourceCode" id="cb24"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a>以下のコードは{tidyverse}パッケージを読み込み、irisデータセットを可視化するコードである。</span>
 <span id="cb24-2"><a href="#cb24-2"></a></span>
 <span id="cb24-3"><a href="#cb24-3"></a><span class="in">```{r}</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># パッケージの読み込み</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co"># R内蔵データセットのirisを使った可視化</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a>iris <span class="sc">|&gt;</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">mutate</span>(<span class="at">Species2 =</span> <span class="fu">recode</span>(Species,</span>
-<span id="cb24-9"><a href="#cb24-9"></a>                           <span class="st">"setosa"</span>     <span class="ot">=</span> <span class="st">"セトナ"</span>,</span>
-<span id="cb24-10"><a href="#cb24-10"></a>                           <span class="st">"versicolor"</span> <span class="ot">=</span> <span class="st">"バーシクル"</span>,</span>
-<span id="cb24-11"><a href="#cb24-11"></a>                           <span class="st">"virginica"</span>  <span class="ot">=</span> <span class="st">"バージニカ"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-12"><a href="#cb24-12"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb24-13"><a href="#cb24-13"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, <span class="at">color =</span> Species2)) <span class="sc">+</span></span>
-<span id="cb24-14"><a href="#cb24-14"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"萼片の長さ (cm)"</span>, <span class="at">y =</span> <span class="st">"萼片の幅 (cm)"</span>, <span class="at">color =</span> <span class="st">"品種"</span>) <span class="sc">+</span></span>
-<span id="cb24-15"><a href="#cb24-15"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="in"># パッケージの読み込み</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="in"># R内蔵データセットのirisを使った可視化</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="in">iris |&gt;</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="in">  mutate(Species2 = recode(Species,</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="in">                           "setosa"     = "セトナ",</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="in">                           "versicolor" = "バーシクル",</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="in">                           "virginica"  = "バージニカ")) |&gt;</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="in">  ggplot() +</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="in">  geom_point(aes(x = Sepal.Length, y = Sepal.Width, color = Species2)) +</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="in">  labs(x = "萼片の長さ (cm)", y = "萼片の幅 (cm)", color = "品種") +</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="in">  theme_minimal(base_size = 12)</span></span>
 <span id="cb24-16"><a href="#cb24-16"></a><span class="in">```</span></span>
 <span id="cb24-17"><a href="#cb24-17"></a></span>
 <span id="cb24-18"><a href="#cb24-18"></a>ggplot()関数は{ggplot2}パッケージが提供するものであるが、{tidyverse}を読み込めば{ggplot2}も自動的に読み込まれるので、{ggplot2}パッケージを別途読み込む必要はない。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1078,7 +1114,7 @@ X = \begin{bmatrix}
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="quarto_files/figure-html/rmarkdown-code-2-1.png" class="img-fluid figure-img" width="1050"></p>
+<p><img src="quarto_files/figure-html/rmarkdown-code-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
 </figure>
 </div>
 </div>
@@ -1103,7 +1139,7 @@ X = \begin{bmatrix}
 <p>　他にも文中にRコードを埋め込むこともできる（これをinline codeと呼ぶ）。例えば、ベクトル<code>X &lt;- c(2, 3, 5, 7, 12)</code>があり、この平均値を文中で示したいとする。むろん、文中に「5.8」と書いても問題なし。しかし、実は<code>X</code>の入力ミスが見つかり、実は<code>c(2, 3, 5, 7, 11)</code>になったらどうなるだろうか。この「5.8」と書いた箇所を見つけて5.6と修正したいといけない。これは非常に面倒な作業であり、ミスも起こりやすい。文中にRコードを入れるためには<code>`r Rコード`</code>のように入力する。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="in">X &lt;- c(2, 3, 5, 7, 11)</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a><span class="in">```</span></span>
 <span id="cb26-4"><a href="#cb26-4"></a></span>
 <span id="cb26-5"><a href="#cb26-5"></a>変数<span class="in">`X`</span>の平均値は<span class="in">`r mean(X)`</span>です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1121,8 +1157,8 @@ X = \begin{bmatrix}
 <p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="co">#| echo: false</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="in">#| echo: false</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="in">print("Rは楽しい!")</span></span>
 <span id="cb28-4"><a href="#cb28-4"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <div class="cell" data-layout-align="center">
@@ -1136,8 +1172,8 @@ X = \begin{bmatrix}
 <p>　一方、<code>#| eval: false</code>を指定すれば、結果は表示されず、コードのみ表示される。本ページのようにマニュアルや技術書を書く際、時々使われる。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1"></a><span class="in">```{r}</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="co">#| eval: false</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="fu">print</span>(<span class="st">"Rは楽しい!"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="in">#| eval: false</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="in">print("Rは楽しい!")</span></span>
 <span id="cb30-4"><a href="#cb30-4"></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
 <div class="cell" data-layout-align="center">
@@ -1212,23 +1248,23 @@ Continue the installation anyway? (Y/N) </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-32" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="19" data-code-cell="annotated-cell-32" data-code-annotation="1">図の文字化け防止</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="19" data-code-annotation="1">図の文字化け防止</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="20" data-code-cell="annotated-cell-32" data-code-annotation="2">画像は中央揃え</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="20" data-code-annotation="2">画像は中央揃え</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="21" data-code-cell="annotated-cell-32" data-code-annotation="3">図の解像度（印刷を考えるなら300以上）</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="21" data-code-annotation="3">図の解像度（印刷を考えるなら300以上）</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="22" data-code-cell="annotated-cell-32" data-code-annotation="4">警告メッセージを表示させない</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="22" data-code-annotation="4">警告メッセージを表示させない</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="23" data-code-cell="annotated-cell-32" data-code-annotation="5">メッセージを表示させない</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="23" data-code-annotation="5">メッセージを表示させない</span>
 </dd>
 </dl>
 <p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。</p>
@@ -1338,10 +1374,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1351,8 +1406,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1365,6 +1429,120 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1408,6 +1586,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1433,8 +1612,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Handle positioning of the toggle
-      window.addEventListener(
+        // Handle positioning of the toggle
+    window.addEventListener(
       "resize",
       throttle(() => {
         elRect = undefined;
@@ -1442,23 +1621,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           selectCodeLines(selectedAnnoteEl);
         }
       }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
       for (let i=0; i<annoteTargets.length; i++) {
         const annoteTarget = annoteTargets[i];
@@ -1503,7 +1682,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1555,28 +1734,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          // default icon
-          link.classList.add("external");
-      }
-    }
 });
 </script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></div>   
+    <div class="nav-footer-left">
+<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
@@ -1598,6 +1763,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 
