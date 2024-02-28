@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.542">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-04-27">
@@ -922,13 +922,13 @@ div.cell-output > pre > code {
 <li>Rで起こるあらゆることは関数の呼び出しである (Chambers, 2016)
 <ul>
 <li>Everything that happens in R is a function call。</li>
+<li>自分で関数を作成することも可能</li>
 </ul></li>
-<li>使い方: <code>関数名(関数の入力となるオブジェクト)</code>
+<li>関数には<strong>引数（ひきすう）</strong>が必要</li>
+<li>使い方：<code>関数名(関数の入力となるオブジェクト)</code>
 <ul>
 <li>例) <code>class(my_vec1)</code>、<code>sum(my_vec1)</code></li>
 </ul></li>
-<li>自分で関数を作成することも可能</li>
-<li>関数には<strong>引数（ひきすう）</strong>が必要</li>
 </ul>
 </section>
 <section id="引数" class="slide level2">
@@ -937,21 +937,52 @@ div.cell-output > pre > code {
 <div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">sum</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>関数名は<code>sum</code></li>
-<li><strong>仮引数 (parameter)</strong>: <code>na.rm</code></li>
-<li><strong>実引数 (argument)</strong>: <code>c(1, 2, 3, NA, 5)</code>、<code>TRUE</code>
+<li><strong>仮引数（parameter）：</strong><code>na.rm</code></li>
+<li><strong>実引数（argument）：</strong><code>c(1, 2, 3, NA, 5)</code>、<code>TRUE</code>
 <ul>
 <li><code>c(1, 2, 3, NA, 5)</code>の仮引数名はない（ヘルプを見ると<code>...</code>と表示される）。このように仮引数名が存在しないケースもある。</li>
 </ul></li>
-<li>第一引数の仮引数は省略するケースが多い</li>
+<li><strong>第一引数の仮引数は省略するケースが多い</strong>。</li>
 <li>第二引数以降は仮引数名を明記（実引数がどの仮引数に対応するかを明示）
 <ul>
 <li>関数によっては引数は数十個ある場合も</li>
 </ul></li>
-<li>引数には既定値 (default value)が指定されているものもあり、省略可能。既定値がない引数はすべて指定する。
+<li>引数には既定値（default value）が指定されているものもあり、省略可能。既定値がない引数はすべて指定する。
 <ul>
 <li>たとえば、<code>mean()</code>の<code>trim</code>引数の既定値は<code>0</code>（<code>?mean</code>参照）</li>
 <li>Usageに<code>仮引数 = 実引数</code>と表記されている場合、既定値が存在する</li>
-<li>Arguemntsにan optional…と書いていれば、既定値はないが、指定しなくても関数は動くことを意味する。</li>
+<li>Argumentsにan optional…と書いていれば、既定値はないが、指定しなくても関数は動くことを意味する。</li>
+</ul></li>
+</ul>
+</section>
+<section id="数学における関数との比較" class="slide level2">
+<h2>数学における関数との比較</h2>
+<ul>
+<li>例：<span class="math inline">\(f(x) = x + 1\)</span>の場合
+<ul>
+<li>関数名は<span class="math inline">\(f()\)</span>、必要な引数は<span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(y = f(x = 5)\)</span>の場合、<span class="math inline">\(y = 6\)</span>となる。
+<ul>
+<li>引数が1つしかないので、<span class="math inline">\(y = f(5)\)</span>と表記しても問題ないだろう。</li>
+<li>Rだと<code>y &lt;- f(x = 5)</code>か<code>y &lt;- f(5)</code>と表記する。</li>
+</ul></li>
+</ul></li>
+<li>例：<span class="math inline">\(g(a, b) = a \times b\)</span>の場合
+<ul>
+<li>関数名は<span class="math inline">\(g()\)</span>、必要な引数は<span class="math inline">\(a\)</span>と<span class="math inline">\(b\)</span></li>
+<li><span class="math inline">\(z = g(a = 3, b = 5)\)</span>の場合、<span class="math inline">\(z = 15\)</span>となる。
+<ul>
+<li>書き方は<span class="math inline">\(z = g(a = 3, b = 5)\)</span>、<span class="math inline">\(z = g(3, 5)\)</span>、<span class="math inline">\(z = g(b = 5, a = 3)\)</span>どれでも良い</li>
+<li>Rだと<code>z &lt;- g(a = 3, b = 5)</code>か<code>z &lt;- g(3, 5)</code>と表記する。</li>
+</ul></li>
+</ul></li>
+<li>実引数として関数を指定することも可能
+<ul>
+<li><span class="math inline">\(p = g(a = f(2), b = 9)\)</span>の場合
+<ul>
+<li><span class="math inline">\(f(2) = 3\)</span>であるため、<span class="math inline">\(p = g(a = 3, b = 9)\)</span>となる。</li>
+<li>Rだと<code>p &lt;- g(a = f(2), b = 9)</code>と表記</li>
+</ul></li>
 </ul></li>
 </ul>
 </section></section>

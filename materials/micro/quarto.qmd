@@ -52,11 +52,11 @@ format: html
 ```{yaml}
 #| code-line-numbers: false
 ---
-title: "はじめてのR Markdown" # <1>
-author: "関大花子"            # <2>
-date: "2023/5/11"             # <3>
-lang: ja                      # <4>
-format: html                  # <5>
+title: "はじめてのQuarto" # <1>
+author: "関大花子"        # <2>
+date: "2023/5/11"         # <3>
+lang: ja                  # <4>
+format: html              # <5>
 ---
 ```
 
@@ -71,14 +71,16 @@ format: html                  # <5>
 :::{.callout-tip}
 ## 自動的に日付を付けたい
 
-`date:`の内容を`` date: "`r "\x60r Sys.Date()\x60"`"``に修正するとRenderした日付が自動的につけられる。
+`date:`の内容を`date: today`に修正するとRenderした日付が自動的につけられる。
 :::
 
 **手順5:** ファイルを保存する。ファイル名は適宜付けること。
 
-* ファイルの保存はFile > Saveか、ショートカットキー（macOSだとCmd (⌘) + S、WindowsだとControl (Ctrl) + S）で出来る。
+* ファイルの保存はFile > Saveか、ショートカットキー（macOSだとCmd + S（{{< kbd Command-S >}}）、WindowsだとControl + S（{{< kbd Control-S >}}））で出来る。
 
 **手順6:** Sourceペイン上段のRenderをクリックする。
+
+* ショートカットが便利。macOSはCmd + Shift + K（{{< kbd Command-Shift-K >}}）、WindowsはControl + Shift + K（{{< kbd Control-Shift-K >}}））で出来る。
 
 ![](Figs/rmarkdown/Setup_3.png){width=75% fig-align="center"}
 
@@ -87,7 +89,7 @@ format: html                  # <5>
 :::{.callout-note}
 ## 出力物が新しいウィンドウに表示されて面倒くさい
 
-宋が推奨する[RStudioの設定](../../intro/rstudio.html)だと出力物がRStudioと同じ画面（Viewerペイン）に表示される。具体的にはTools > Global Options... > R Markdownへ移動し、Show output preview in:をWindowから**Viewer Pane**に変更すれば良い。
+　宋が推奨する[RStudioの設定](../../intro/rstudio.html)だと出力物がRStudioと同じ画面（Viewerペイン）に表示される。具体的にはTools > Global Options... > R Markdownへ移動し、Show output preview in:をWindowから**Viewer Pane**に変更すれば良い。
 :::
 
 ## Markdown文法の基本
@@ -287,7 +289,11 @@ format: html                  # <5>
 
 ### 画像
 
-　Markdownに画像を入れるには`![代替テキスト](ファイル名)`と入力する。画像ファイル名はパス付きを指定する必要がある。`[代替テキスト]`は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため`![](ファイル名)`でも画像の添付は出来る。
+　Markdownに画像を入れるには`![代替テキスト](画像ファイル名)`と入力する。画像ファイル名はパス付きのファイル名[^img_path]か画像のURL[^img_url]を指定する必要がある。`[代替テキスト]`は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため`![](ファイル名)`でも画像の添付は出来る。
+
+[^img_path]: たとえば、`.qmd`フィアルと画像ファイルが同じフォルダーにある場合は`image.png`のように入力する。もし、`.qmd`フィアルと画像ファイルが同じフォルダーに**ない**場合は`Figs/image.png`（相対パス）や`/MyProject/Figs/images.png`（絶対パス）のように画像ファイルの格納場所を明記する必要がある。
+
+[^img_url]: たとえば、`https://www.jaysong.net/RBook/Figs/Cover.png`など
 
 　例えば、`Figs`フォルダー内の`favicon.png`というファイルを読み込む場合、以下のように書く。
 

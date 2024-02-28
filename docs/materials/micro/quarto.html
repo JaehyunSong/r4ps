@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.542">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,6 +73,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -619,7 +621,7 @@ window.Quarto = {
 <p><strong>変更後</strong></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="annotated-cell-34"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="1">1</button><span id="annotated-cell-34-2" class="code-annotation-target"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのR Markdown"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="1">1</button><span id="annotated-cell-34-2" class="code-annotation-target"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"はじめてのQuarto"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="2">2</button><span id="annotated-cell-34-3" class="code-annotation-target"><a href="#annotated-cell-34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"関大花子"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="3">3</button><span id="annotated-cell-34-4" class="code-annotation-target"><a href="#annotated-cell-34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023/5/11"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="4">4</button><span id="annotated-cell-34-5" class="code-annotation-target"><a href="#annotated-cell-34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
@@ -662,14 +664,17 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>date:</code>の内容を<code>date: "`r Sys.Date()`"</code>に修正するとRenderした日付が自動的につけられる。</p>
+<p><code>date:</code>の内容を<code>date: today</code>に修正するとRenderした日付が自動的につけられる。</p>
 </div>
 </div>
 <p><strong>手順5:</strong> ファイルを保存する。ファイル名は適宜付けること。</p>
 <ul>
-<li>ファイルの保存はFile &gt; Saveか、ショートカットキー（macOSだとCmd (⌘) + S、WindowsだとControl (Ctrl) + S）で出来る。</li>
+<li>ファイルの保存はFile &gt; Saveか、ショートカットキー（macOSだとCmd + S（<kbd aria-hidden="true">Command-S</kbd><span class="visually-hidden">Command-S</span>）、WindowsだとControl + S（<kbd aria-hidden="true">Control-S</kbd><span class="visually-hidden">Control-S</span>））で出来る。</li>
 </ul>
 <p><strong>手順6:</strong> Sourceペイン上段のRenderをクリックする。</p>
+<ul>
+<li>ショートカットが便利。macOSはCmd + Shift + K（<kbd aria-hidden="true">Command-Shift-K</kbd><span class="visually-hidden">Command-Shift-K</span>）、WindowsはControl + Shift + K（<kbd aria-hidden="true">Control-Shift-K</kbd><span class="visually-hidden">Control-Shift-K</span>））で出来る。</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figs/rmarkdown/Setup_3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
@@ -878,7 +883,7 @@ window.Quarto = {
 </section>
 <section id="画像" class="level3">
 <h3 class="anchored" data-anchor-id="画像">画像</h3>
-<p>　Markdownに画像を入れるには<code>![代替テキスト](ファイル名)</code>と入力する。画像ファイル名はパス付きを指定する必要がある。<code>[代替テキスト]</code>は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため<code>![](ファイル名)</code>でも画像の添付は出来る。</p>
+<p>　Markdownに画像を入れるには<code>![代替テキスト](画像ファイル名)</code>と入力する。画像ファイル名はパス付きのファイル名<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>か画像のURL<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>を指定する必要がある。<code>[代替テキスト]</code>は画像を読み込めなかった場合に出力されるテキストを意味する。これは画像が読み込めなかった場合の代替テキストでもあるが、視覚障害者用のウェブブラウザーのためにも使われる。これらのウェブブラウザーはテキストのみ出力されるものが多く、画像の代わりには代替テキストが読み込まれる。また、場合によっては代替テキストが図のタイトル（キャプション）として機能する場合もある（以下の例がそうである）。この代替テキストは必須でないため<code>![](ファイル名)</code>でも画像の添付は出来る。</p>
 <p>　例えば、<code>Figs</code>フォルダー内の<code>favicon.png</code>というファイルを読み込む場合、以下のように書く。</p>
 <p><strong>Input:</strong></p>
 <div class="cell" data-layout-align="center">
@@ -936,7 +941,7 @@ window.Quarto = {
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ot">[^foot1]: </span>これは普通の脚注です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Output:</strong></p>
-<p>これは普通の文章です<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。</p>
+<p>これは普通の文章です<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。</p>
 </section>
 <section id="数式" class="level3">
 <h3 class="anchored" data-anchor-id="数式">数式</h3>
@@ -1048,7 +1053,7 @@ X = \begin{bmatrix}
 <section id="rコードの入れ方" class="level3">
 <h3 class="anchored" data-anchor-id="rコードの入れ方">Rコードの入れ方</h3>
 <p>　以上の内容まで抑えると、R Markdown/Quartoを使って、簡単な文法のみで構造化された文書が作成できる。しかし、R Markdown/Quartoの意義は文章とコード、結果が統合されることだろう。それでは文書内にRコードとその実行結果を入れる方法を紹介する。</p>
-<p>　コードは<code>```{r}</code>と<code>```</code>の間に入力するだけだ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。これでコードと結果が同時に出力される。たとえば、<code>print("Hello World!")</code>を走らせるコードを入れてみよう。</p>
+<p>　コードは<code>```{r}</code>と<code>```</code>の間に入力するだけだ<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>。これでコードと結果が同時に出力される。たとえば、<code>print("Hello World!")</code>を走らせるコードを入れてみよう。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1154,7 +1159,7 @@ X = \begin{bmatrix}
 <h3 class="anchored" data-anchor-id="コードの非表示">コードの非表示</h3>
 <p>　既に説明した通り、R Markdown（Quarto）はR + Markdownである。Rはチャンク<strong>内</strong>、Markdownはチャンク<strong>外</strong>の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。</p>
 <p>　チャンクは<code>```{r}</code>で始まるが、実は<code>{r}</code>の箇所にオプションを追加することができる。具体的にはチャンクの最上行に「<code>#|</code> + 半角スペース」でオプションを指定する。ここではよく使う2つのオプションを紹介する。</p>
-<p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
+<p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1"></a><span class="in">```{r}</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a><span class="in">#| echo: false</span></span>
@@ -1225,7 +1230,7 @@ Continue the installation anyway? (Y/N) </code></pre>
 <span id="annotated-cell-32-2"><a href="#annotated-cell-32-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"かっこいいタイトルを付けよう"</span></span>
 <span id="annotated-cell-32-3"><a href="#annotated-cell-32-3"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"こちらにもかっこいいサブタイトルを！"</span></span>
 <span id="annotated-cell-32-4"><a href="#annotated-cell-32-4"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"児島惟謙"</span></span>
-<span id="annotated-cell-32-5"><a href="#annotated-cell-32-5"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2023-07-11"</span></span>
+<span id="annotated-cell-32-5"><a href="#annotated-cell-32-5"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-02-28"</span></span>
 <span id="annotated-cell-32-6"><a href="#annotated-cell-32-6"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
 <span id="annotated-cell-32-7"><a href="#annotated-cell-32-7"></a><span class="co"># PDF設定</span></span>
 <span id="annotated-cell-32-8"><a href="#annotated-cell-32-8"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -1290,9 +1295,11 @@ Continue the installation anyway? (Y/N) </code></pre>
 <ol>
 <li id="fn1"><p>HTMLに慣れている読者なら<code>&lt;br/&gt;</code>を使った改行もできる。ただし、一般的なMarkdownの改行よりも行間が狭いことには注意する必要がある。HTMLに慣れている履修者なら分かるだろうが、Markdownの改行（2行改行）はHTMLの<code>&lt;p&gt;&lt;/p&gt;</code>に相当するものである。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>ただし、イタリックの場合、日本語には使わないのが鉄則である。強調の意味としてイタリックを使うのはローマ字のみである。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>これは普通の脚注です。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>ちなみに<code>`</code>は「バッククォート（back quote）」と読む。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>むろん、コードも同時に提出する必要があれば、その指示に従おう。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>たとえば、<code>.qmd</code>フィアルと画像ファイルが同じフォルダーにある場合は<code>image.png</code>のように入力する。もし、<code>.qmd</code>フィアルと画像ファイルが同じフォルダーに<strong>ない</strong>場合は<code>Figs/image.png</code>（相対パス）や<code>/MyProject/Figs/images.png</code>（絶対パス）のように画像ファイルの格納場所を明記する必要がある。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>たとえば、<code>https://www.jaysong.net/RBook/Figs/Cover.png</code>など<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>これは普通の脚注です。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>ちなみに<code>`</code>は「バッククォート（back quote）」と読む。<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>むろん、コードも同時に提出する必要があれば、その指示に従おう。<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1476,7 +1483,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
