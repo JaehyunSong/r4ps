@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.542">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-09-21">
@@ -427,7 +427,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Figs/introduction/R.png" class="quarto-figure quarto-figure-center" width="300"></p>
+<p><img data-src="Figs/introduction/R.png" width="300"></p>
 <figcaption>R</figcaption>
 </figure>
 </div>
@@ -435,7 +435,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Figs/introduction/RStudio.png" class="quarto-figure quarto-figure-center" width="250"></p>
+<p><img data-src="Figs/introduction/RStudio.png" width="250"></p>
 <figcaption>RStudio</figcaption>
 </figure>
 </div>
@@ -443,7 +443,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Figs/introduction/Quarto.png" class="quarto-figure quarto-figure-center" width="250"></p>
+<p><img data-src="Figs/introduction/Quarto.png" width="250"></p>
 <figcaption>Quarto</figcaption>
 </figure>
 </div>
@@ -462,6 +462,7 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="ysmkkemype" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ysmkkemype table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -940,6 +941,7 @@
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 </div>
@@ -1447,6 +1449,11 @@
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
               // target, if specified
               link.setAttribute("target", "_blank");
               if (link.getAttribute("rel") === null) {
@@ -1490,7 +1497,11 @@
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
           let selectedAnnoteEl;

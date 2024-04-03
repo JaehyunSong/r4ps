@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.542">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -349,52 +349,8 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">ミクロ</li>
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
- <span class="dropdown-text">[前期] 第5回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
- <span class="dropdown-text">[前期] 第10回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
- <span class="dropdown-text">[前期] 第11回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
- <span class="dropdown-text">[前期] 第13回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
- <span class="dropdown-text">[前期] 第14回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_Final.html">
- <span class="dropdown-text">[前期] 期末レポート</span></a>
-  </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
- <span class="dropdown-text">[後期] 第4回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW07.html">
- <span class="dropdown-text">[後期] 第7回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW10.html">
- <span class="dropdown-text">[後期] 第10回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW12.html">
- <span class="dropdown-text">[後期] 第12回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_Final.html">
- <span class="dropdown-text">[後期] 期末レポート</span></a>
-  </li>  
     </ul>
   </li>
 </ul>
@@ -708,6 +664,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -770,6 +727,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　一発でかなりきれいな表ができた。デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。また、分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.））なども表示される。これでも十分良いが、ここからはより自分好みの表にするためにいくつかカスタマイズしてみよう。</p>
 <p>　その前に前提知識として<code>modelsummary()</code>では各変数に対応する統計量が2行構成になっていることを意識する必要がある。デフォルトだと1行目は点推定値、2行目はその標準誤差である。<code>modelsummary()</code>関数では<code>estimate</code>（1行目）と<code>statistic</code>（2行目）引数で出力される統計量を変更することができる。デフォルトだと<code>estimate</code>は点推定値（<code>"{estimate}"</code>）、<code>statistic</code>は標準誤差（<code>"({std.error})"</code>）になっている（カッコ付き）。つまり、<code>modelsummary(オブジェクト名)</code>は<code>modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "({std.error})")</code>と同じコードだ。このように<code>"{統計量}"</code>の形式で表示する統計量が選択できる。たとえば、<span class="math inline">\(p\)</span>値は<code>"{p.value}"</code>、95%信頼区間の下限は<code>"{conf.low}"</code>、上限は<code>"{conf.high}"</code>だ<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。もし、特定の行を消したい場合は<code>NULL</code>を割り当てる。</p>
 <p>　それではいくつかの例を確認してみよう。まずは標準誤差の代わりに<span class="math inline">\(p\)</span>値を表示する例からだ。</p>
@@ -781,6 +739,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -849,6 +808,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　切片（(Intercept)）の<span class="math inline">\(p\)</span>値が<code>&lt;0.001</code>と表示されているが、これは<span class="math inline">\(p\)</span>値が0.001より小さい、つまり非常に小さいことを意味する。これなら<span class="math inline">\(\alpha = 0.001\)</span>で検定を行っても統計的に有意であると判定できる水準である。また、<code>note</code>引数で表の下に注も付けることができる。2行目の統計量が何の統計量か分からない人もいるかも知れないので、このように付けておくことをおすすめする。</p>
 <p>　次の例は、点推定値と標準誤差を一行にまとめる例だ。たとえば「点推定値 (標準誤差)」のようにまとめるとする。2行目（<code>statistics</code>）には<code>NULL</code>を割り当てて各変数の2行目を削除し、1行目（<code>estimate</code>）は<code>"{estimate} ({std.error})"</code>と指定すれば良い。</p>
 <div class="cell" data-layout-align="center">
@@ -862,6 +822,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb9-4"><a href="#cb9-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -922,6 +883,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　また、以下のように標準誤差を90%信頼区間に変えることもできる。デフォルトでは95%信頼区間が表示されるので、90%を使いたい場合は<code>conf_level</code>を0.9に変える必要がある。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -935,6 +897,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb10-5"><a href="#cb10-5"></a>             <span class="at">note       =</span> <span class="st">"注：カッコ内は90%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1003,6 +966,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　モデルの当てはまりの良さ、評価指標として本講義では決定係数（<span class="math inline">\(R^2\)</span>）と調整済み決定係数（Adjusted <span class="math inline">\(R^2\)</span>）を紹介した。これらの統計量は適合度指標（goodness of fit; gof）と呼ばれるが、分析手法によって使用可能な適合度指標が異なる。{modelsummary}の<code>get_gof()</code>関数を使えば、使用可能な適合度指標が出力される。以下は<code>fit3</code>の適合度指標を出力するコードだ。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -1031,6 +995,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb13-7"><a href="#cb13-7"></a>  )</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1079,6 +1044,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="複数モデルの例" class="level3">
 <h3 class="anchored" data-anchor-id="複数モデルの例">複数モデルの例</h3>
@@ -1092,6 +1058,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb14-2"><a href="#cb14-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1174,6 +1141,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　自動的に（1）、（2）、…のようにモデル名が付くが<code>"モデル名" = オブジェクト名</code>のように書くと任意のモデル名も指定できる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -1184,6 +1152,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb15-2"><a href="#cb15-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1266,6 +1235,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 
 </div>
 </div>
+</div>
 <p>　やや話がずれるが、表示される変数名を変えることもできる。変数名のままになると読者は「この変数って何？」と思うかも知れない。いきなり表を見せつけられても解釈ができる表が良い表なので、なるべく元の変数名ではなく、ちゃんと言葉で書いておこう。変数名の修正は<code>coef_rename</code>引数で調整でき、書き方は<code>"元の変数名" = "新しい変数名"</code>である。複数の変数名を変更する場合、<code>c()</code>でまとめる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -1280,6 +1250,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb16-6"><a href="#cb16-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1360,6 +1331,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 </table>
 
 
+</div>
 </div>
 </div>
 </section>
@@ -1572,12 +1544,12 @@ Type:  response </code></pre>
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="750"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="750"></p>
 <figcaption>例1</figcaption>
 </figure>
 </div>
@@ -1585,7 +1557,7 @@ Type:  response </code></pre>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="750"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid figure-img" width="750"></p>
 <figcaption>例2</figcaption>
 </figure>
 </div>
@@ -1830,12 +1802,12 @@ Type:  response </code></pre>
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="1050"></p>
 <figcaption>95%信頼区間</figcaption>
 </figure>
 </div>
@@ -1843,7 +1815,7 @@ Type:  response </code></pre>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="reporting_files/figure-html/unnamed-chunk-37-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050"></p>
+<p><img src="reporting_files/figure-html/unnamed-chunk-37-2.png" class="img-fluid figure-img" width="1050"></p>
 <figcaption>70%信頼区間</figcaption>
 </figure>
 </div>
@@ -1992,6 +1964,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -2035,7 +2012,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2083,7 +2064,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2347,7 +2333,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+<p>Copyright 2024, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

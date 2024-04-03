@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-05-18">
@@ -372,6 +372,7 @@
 <p>データの構造は基本的に「<strong>四角形</strong>」</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="blfonktnoe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#blfonktnoe table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1207,6 +1208,7 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="行と列" class="slide level2">
 <h2>行と列</h2>
@@ -1237,6 +1239,7 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="xyppqoijkq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#xyppqoijkq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1743,6 +1746,7 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="分析単位-2" class="slide level2">
 <h2>分析単位</h2>
@@ -1753,6 +1757,7 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="fhjuarlsdk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fhjuarlsdk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2270,6 +2275,7 @@
 </div>
 </div>
 </div>
+</div>
 </section></section>
 <section>
 <section id="尺度" class="title-slide slide level1 center">
@@ -2705,6 +2711,7 @@
 <div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="qeuhkqynzw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#qeuhkqynzw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3493,6 +3500,7 @@
 </div>
 </div>
 </div>
+</div>
 <div id="tabset-1-2">
 <p>可視化は第12回講義以降で解説</p>
 <div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
@@ -3898,6 +3906,11 @@ F-statistic: 0.1773 on 2 and 44 DF,  p-value: 0.8381</code></pre>
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
               // target, if specified
               link.setAttribute("target", "_blank");
               if (link.getAttribute("rel") === null) {
@@ -3941,7 +3954,11 @@ F-statistic: 0.1773 on 2 and 44 DF,  p-value: 0.8381</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

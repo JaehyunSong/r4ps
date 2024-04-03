@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.542">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2023-12-14">
@@ -483,6 +483,7 @@
 </div><div class="column" style="width:48%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="bghwtqksgs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#bghwtqksgs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -964,6 +965,7 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="問題設定" class="slide level2">
 <h2>問題設定</h2>
@@ -1024,6 +1026,7 @@ N: 2555
 <div class="column" style="width:55%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="rrbxhuyzme" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#rrbxhuyzme table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1524,6 +1527,7 @@ N: 2555
 </div>
 </div>
 </div>
+</div>
 </div><div class="column" style="width:45%;">
 <ul>
 <li>政治知識の係数は約0.119
@@ -1655,6 +1659,7 @@ Type:  response </code></pre>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="vveuxvnsxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#vveuxvnsxx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2155,6 +2160,7 @@ Type:  response </code></pre>
 </div>
 </div>
 </div>
+</div>
 <ul>
 <li>ロジスティック回帰分析の場合、決定係数（<span class="math inline">\(R^2\)</span>）は表示されない。
 <ul>
@@ -2180,6 +2186,7 @@ Type:  response </code></pre>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="ogzpqnxubq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ogzpqnxubq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -2677,6 +2684,7 @@ Type:  response </code></pre>
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 </div>
@@ -3258,6 +3266,11 @@ Type:  invlink(link) </code></pre>
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
               // target, if specified
               link.setAttribute("target", "_blank");
               if (link.getAttribute("rel") === null) {
@@ -3301,7 +3314,11 @@ Type:  invlink(link) </code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
           let selectedAnnoteEl;

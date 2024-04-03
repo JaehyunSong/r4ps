@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.542">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -349,52 +349,8 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">ミクロ</li>
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
- <span class="dropdown-text">[前期] 第5回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
- <span class="dropdown-text">[前期] 第10回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
- <span class="dropdown-text">[前期] 第11回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW13.html">
- <span class="dropdown-text">[前期] 第13回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_HW14.html">
- <span class="dropdown-text">[前期] 第14回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Micro_Final.html">
- <span class="dropdown-text">[前期] 期末レポート</span></a>
-  </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
- <span class="dropdown-text">[後期] 第4回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW07.html">
- <span class="dropdown-text">[後期] 第7回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW10.html">
- <span class="dropdown-text">[後期] 第10回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_HW12.html">
- <span class="dropdown-text">[後期] 第12回課題</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../HW/Macro_Final.html">
- <span class="dropdown-text">[後期] 期末レポート</span></a>
-  </li>  
     </ul>
   </li>
 </ul>
@@ -849,6 +805,7 @@ N: 3000
 <span id="cb7-2"><a href="#cb7-2"></a>             <span class="at">statistic =</span> <span class="st">"({p.value})"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -982,6 +939,7 @@ N: 3000
 </table>
 
 
+</div>
 </div>
 </div>
 <section id="モデル1の解釈" class="level3">
@@ -1224,6 +1182,7 @@ Type:  response </code></pre>
 <p>　これらの結果を表でまとめると以下のようになる。表で<span class="math inline">\(p\)</span>値を報告する場合、<span class="math inline">\(p\)</span>値が非常に小さいケースがある（たとえば、<span class="math inline">\(p\)</span> = 0.0000000235）。この場合、「<span class="math inline">\(p\)</span> = 0.000」と表記せず、「<span class="math inline">\(p\)</span> &lt; 0.001」と表記すること。<span class="math inline">\(p\)</span>値がぴったり0になることは実質的にあり得ない。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <div id="gkihyucnjw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#gkihyucnjw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1699,6 +1658,7 @@ Type:  response </code></pre>
 </div>
 </div>
 </div>
+</div>
 <p>　続いて、<code>fit2</code>の場合の<code>Age</code>の値が18、19、20、…、75の場合の<code>Satisfaction</code>の限界効果を求めるてみよう。回帰オブジェクト名は<code>fit2</code>、<code>variables</code>の実引数は<code>"Satisfaction"</code>（<code>"</code>で囲む）、<code>datagrid()</code>の中身は<code>Age = 18:75</code>だ（18から75まで公差1の等差数列）。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
@@ -1956,6 +1916,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -1999,7 +1964,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2047,7 +2016,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -2311,7 +2285,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Copyright 2023, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+<p>Copyright 2024, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
