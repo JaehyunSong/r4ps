@@ -189,8 +189,8 @@ metadata-files:
 
 ```markdown
 * 箇条書き1
-  * 箇条書き1A
-  * 箇条書き1B
+   * 箇条書き1A
+   * 箇条書き1B
 * 箇条書き2
 * 箇条書き3
 ```
@@ -203,10 +203,56 @@ metadata-files:
 **Output**
 
 * 箇条書き1
-  * 箇条書き1A
-  * 箇条書き1B
+   * 箇条書き1A
+   * 箇条書き1B
 * 箇条書き2
 * 箇条書き3
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="33%"}
+**Markup**
+
+```html
+<ol>
+  <li>箇条書き1</li>
+    <ol>
+      <li>箇条書き1A</li>
+      <li>箇条書き1B</li>
+    </ol>
+  <li>箇条書き2</li>
+  <li>箇条書き3</li>
+</ol>
+```
+:::
+
+::: {.column width="1%"}
+:::
+
+::: {.column width="32%"}
+**Markdown**
+
+```markdown
+1. 箇条書き1
+   1. 箇条書き1-1
+1. 箇条書き2
+1. 箇条書き3
+```
+:::
+
+::: {.column width="1%"}
+:::
+
+::: {.column width="33%"}
+**Output**
+
+1. 箇条書き1
+   1. 箇条書き1-1
+1. 箇条書き2
+1. 箇条書き3
 :::
 
 ::::
@@ -221,9 +267,9 @@ metadata-files:
 1. OKをクリックする。
 1. YAMLヘッダーを修正する。
 1. ファイルを保存する（File > Save）。
-   * ショートカットキー: ⌘ + S（macOS）、または Ctrl + S (Windows)
+   * ショートカットキー: ⌘ + S（macOS）、または Ctrl + S（Linux/Windows）
 1. Sourceペイン上段のRenderをクリックする。
-   * ショートカットキー: ⌘ + Shift + K（macOS）、または Ctrl + Shift + K (Windows)
+   * ショートカットキー: ⌘ + Shift + K（macOS）、または Ctrl + Shift + K（Linux/Windows）
 
 ## YAMLヘッダー
 
@@ -235,7 +281,7 @@ metadata-files:
 ---
 title: "はじめてのQuarto"
 author: "関大花子"
-date: "2024/5/2"
+date: "2024/5/9"
 format: html
 lang: ja
 ---
@@ -245,13 +291,14 @@ lang: ja
    * `subtitle:`でサブタイトルも付けられる。
 * `author`: 文書の作成者
 * `date`: 日付（「年/月/日」形式で入力）
-  * `date: today`に修正すると、Renderした日の日付が自動的につけられる。
+   * `date: today`に修正すると、Renderした日の日付が自動的につけられる。
 * `format`: 出力形式（`html`のままで良い）
-* `lang`: 出力言語（デフォルトは`en`）
+   * 他にもPDF、Microsoft Word、スライド、ウェブページ、書籍などにも対応
+* `lang`: 出力言語（デフォルトは`en`; `ja`は日本語）
 
 # Markdown文法
 
-## Markdownの文法: 文章の改行
+## Markdownの文法：文章の改行
 
 1回のみの改行は連続した文字列として認識するため、文章を改行するためには、必ず**2回**改行が必要
 
@@ -292,9 +339,10 @@ lang: ja
 
 ::::
 
-## Markdownの文法: 強調
+## Markdownの文法：強調
 
 * 英語の強調はイタリック、日本語の強調は太字を使用
+   * イタリックの日本語は使用しない。
 
 **Input**
 
@@ -318,7 +366,7 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 
 <u>アンダーライン</u>はHTMLタグを使います。
 
-## Markdownの文法: リンク
+## Markdownの文法：リンク
 
 * `[リンク文](URL)`
 * `[]`で囲まれた文章をクリックすると`()`内で指定したURLへ移動
@@ -333,7 +381,7 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 
 [ここ](https://www.jaysong.net)をクリックすると、宋のHPへ移動します。
 
-## Markdownの文法: 見出し
+## Markdownの文法：見出し
 
 * `#` + 半角スペース + 見出し（`#`が多いほど小さくなる）
 
@@ -353,7 +401,7 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 <p style="font-size:2em;margin-top:0px;margin-bottom:0px;">見出し3  (ヘッディング3)</p>
 <p style="font-size:1.5em;margin-top:0px;margin-bottom:0px;">見出し4  (ヘッディング4)</p>
 
-## Markdownの文法: 水平線
+## Markdownの文法：水平線
 
 * 任意の行に`---`を挿入
 * 章と章の区切り、節と節の区切りなどに使用
@@ -376,10 +424,10 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 
 文章2
 
-## Markdownの文法: 箇条書き（順序なし）
+## Markdownの文法：箇条書き（順序なし）
 
 * `*` + 半角スペース + 文字列
-* 階層構造にする場合、`*`の前に半角スペースを3個以上入れる
+* 階層構造にする場合、`*`の前に半角スペースを3個入れる
 * `*`の代わりに`-`も可
 
 :::: {.columns}
@@ -415,7 +463,7 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 
 ::::
 
-## Markdownの文法: 箇条書き（順序付き）
+## Markdownの文法：箇条書き（順序付き）
 
 * `1.` + 半角スペース + 文字列
 * `1.`の箇所は任意の数字でもOK。`1.`、`2.`、...も可
@@ -455,15 +503,15 @@ The G7 consists of Canada, France, Germany, Italy, *Japan*, UK, and USA.
 
 ::::
 
-## Markdownの文法: 数式
+## Markdownの文法：数式
 
-* 文中数式は`$数式$`、独立した行の数式は`$$`で囲む
-* $\LaTeX$ の数式表記法を理解する必要がある
+* 文中数式は`$数式$`、独立した行の数式は`$$`で囲む。
+* $\LaTeX$の数式表記法を理解する必要がある。
 
 **Input**
 
 ```markdown
-文中の数式の例: $e = mc^2$
+文中の数式の例：$e = mc^2$
 
 独立した数式の例は、
 
@@ -476,7 +524,7 @@ $$
 
 **Output**
 
-文中の数式の例: $e = mc^2$
+文中の数式の例：$e = mc^2$
 
 独立した数式の例は、
 
@@ -486,7 +534,7 @@ $$
 
 のように書きます。
 
-## Markdownの文法: 表
+## Markdownの文法：表
 
 * 行は改行で、列は`|`で区切る
 * 1行目は表のヘッダーであり、`|---|`で区切る（`-`は1個以上でOK）
@@ -531,7 +579,7 @@ $$
 
 ::::
 
-## Markdownの文法: コメント
+## Markdownの文法：コメント
 
 出力に影響されないコメントを入れる場合
 
@@ -544,7 +592,7 @@ $$
 
 ::: {.column width="47.5%"}
 **Input:**
-```r
+```html
 これは文章1です。
 
 <!--
@@ -572,7 +620,7 @@ $$
 
 ::::
 
-## Markdownの文法: その他
+## Markdownの文法：その他
 
 教科書の「[R Markdown入門](https://www.jaysong.net/RBook/rmarkdown.html)」と「[Quarto入門](https://www.jaysong.net/RBook/quarto.html)」を参照
 
@@ -583,7 +631,7 @@ $$
 
 # Rコードの挿入
 
-## Rコード: チャンク（Chunk）
+## Rコード：チャンク（Chunk）
 
 Rのコードを挿入する領域
 
@@ -632,7 +680,7 @@ print(3.14 * x^2)
 :::
 ::::
 
-## Rコード: チャンクのオプション
+## Rコード：チャンクのオプション
 
 チャンク内に各チャンクのオプションが指定可能
 
@@ -680,7 +728,7 @@ Rのコード
 :::
 ::::
 
-## Rコード: インラインコード
+## Rコード：インラインコード
 
 文章内にRコードの**結果**を埋め込む場合
 
