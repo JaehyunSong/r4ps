@@ -111,6 +111,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&amp;display=swap" rel="stylesheet"> 
 
@@ -1150,7 +1153,26 @@ X = \begin{bmatrix}
 </section>
 <section id="番外編pdf出力" class="level2">
 <h2 class="anchored" data-anchor-id="番外編pdf出力">番外編：PDF出力</h2>
-<p>　以下の内容はある程度<span class="math inline">\(\LaTeX\)</span>に慣れているユーザー向けの内容である。まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。本講義の履修者であればインストール済みのため、「Code 03」から始めよう。</p>
+<p>　QuartoはHTMLだけでなく、様々なフォーマットに対応しており、PDF出力も可能だ。Quartoで作成した<code>.qmd</code>ファイルがPDFフォーマットになるまでの過程は以下の通りであり、<span class="math inline">\(\LaTeX\)</span>の知識も要求される。複雑に見えるが、単にPDFファイルを出力したいだけなら、そこまで難しくはない。</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[.qmd] --&gt; B{Quarto}
+  B --&gt; C[.md]
+  C --&gt; D{Pandoc}
+  D --&gt; E[.tex]
+  E --&gt; F{LaTeX}
+  F --&gt; G[.pdf]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>　まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。本講義の履修者であればインストール済みのため、「Code 03」から始めよう。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1235,7 +1257,7 @@ Continue the installation anyway? (Y/N) </code></pre>
 <span data-code-cell="annotated-cell-32" data-code-lines="26" data-code-annotation="5">メッセージを表示させない</span>
 </dd>
 </dl>
-<p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない（同じ分析環境であれば、別の<code>.qmd</code>ファイルでも時間はあまりかからない）。文書の量にもよるが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。</p>
+<p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない（同じ分析環境であれば、別の<code>.qmd</code>ファイルでも時間はあまりかからない）。文書の量にもよるが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。また、フォーマットをカスタマイズしたり、日本語書式の参考文献を入れる場合、<span class="math inline">\(\LaTeX\)</span>の知識が必要となる。詳細はインターネット記事等を調べてみること。</p>
 </section>
 <section id="教科書" class="level2">
 <h2 class="anchored" data-anchor-id="教科書">教科書</h2>
