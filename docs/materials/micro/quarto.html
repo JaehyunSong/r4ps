@@ -1041,7 +1041,7 @@ X = \begin{bmatrix}
 <pre><code>[1] "Hello World!"</code></pre>
 </div>
 </div>
-<p>　<code>```{r}</code>と<code>```</code>で囲まれた範囲をR Markdown/Quartoでは<strong>チャンク（Chunk）</strong>と呼ぶ。このチャンク内ではRと全く同じことが出来る。パッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。</p>
+<p>　<code>```{r}</code>と<code>```</code>で囲まれた範囲をQuarto/R Markdownでは<strong>チャンク（Chunk）</strong>と呼ぶ。このチャンク内に書かれたRコードはRenderされた文書においてコードとその結果が出力される<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>。チャンク内ではパッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、Rで出来る全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。</p>
 <p><strong>Input:</strong> 　</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1"></a>以下のコードは{tidyverse}パッケージを読み込み、irisデータセットを可視化するコードである。</span>
 <span id="cb24-2"><a href="#cb24-2"></a></span>
@@ -1117,9 +1117,9 @@ X = \begin{bmatrix}
 </section>
 <section id="コードの非表示" class="level3">
 <h3 class="anchored" data-anchor-id="コードの非表示">コードの非表示</h3>
-<p>　既に説明した通り、R Markdown（Quarto）はR + Markdownである。Rはチャンク<strong>内</strong>、Markdownはチャンク<strong>外</strong>の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。</p>
+<p>　既に説明した通り、QuartoはRとMarkdownが一つになったものである。Rはチャンク<strong>内</strong>、Markdownはチャンク<strong>外</strong>の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。</p>
 <p>　チャンクは<code>```{r}</code>で始まるが、実は<code>{r}</code>の箇所にオプションを追加することができる。具体的にはチャンクの最上行に「<code>#|</code> + 半角スペース」でオプションを指定する。ここではよく使う2つのオプションを紹介する。</p>
-<p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
+<p>　まずはコードを表示せず、結果のみを表示させる方法である。Quartoでレポートや論文を執筆する場合、最終的に提出するものにコードは不要であろう<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>。Quartoではコードと結果が同時に表示されるが、片方（あるいは両方）を非表示にすることができる。オプションとして<code>echo: false</code>を指定すれば、コードは表示されず、結果のみ表示される。</p>
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1"></a><span class="in">```{r}</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a><span class="in">#| echo: false</span></span>
@@ -1159,7 +1159,7 @@ X = \begin{bmatrix}
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">install.packages</span>(<span class="st">"tinytex"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>　続いて、{tinytex}パッケージの<code>install_tinytex()</code>関数を走らせる。</p>
+<p>　続いて、{tinytex}パッケージの<code>install_tinytex()</code>関数を実行する。この作業はインターネット環境によって数分かかる可能性がある。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1168,10 +1168,10 @@ X = \begin{bmatrix}
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>　以下のようなメッセージが出力されたらコンソールに「Y」を入力し、Enter / Returnを押す。</p>
+<p>　ただし、以下のようなメッセージが出力されたら既にTinyTeXがインストールされていることを意味するため、コンソールに「N」を入力し、Enter / Returnを押す。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<pre><code>Found '/usr/bin/tlmgr', which indicates a LaTeX distribution may have existed in the system.
+<pre><code>Found '/home/jovyan/.TinyTeX/bin/x86_64-linux/tlmgr', which indicates a LaTeX distribution may have existed in the system.
 Continue the installation anyway? (Y/N) </code></pre>
 </div>
 </div>
@@ -1190,46 +1190,49 @@ Continue the installation anyway? (Y/N) </code></pre>
 <span id="annotated-cell-32-2"><a href="#annotated-cell-32-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"かっこいいタイトルを付けよう"</span></span>
 <span id="annotated-cell-32-3"><a href="#annotated-cell-32-3"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"こちらにもかっこいいサブタイトルを！"</span></span>
 <span id="annotated-cell-32-4"><a href="#annotated-cell-32-4"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"児島惟謙"</span></span>
-<span id="annotated-cell-32-5"><a href="#annotated-cell-32-5"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-04-03"</span></span>
+<span id="annotated-cell-32-5"><a href="#annotated-cell-32-5"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"2024-05-09"</span></span>
 <span id="annotated-cell-32-6"><a href="#annotated-cell-32-6"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> ja</span></span>
 <span id="annotated-cell-32-7"><a href="#annotated-cell-32-7"></a><span class="co"># PDF設定</span></span>
 <span id="annotated-cell-32-8"><a href="#annotated-cell-32-8"></a><span class="fu">format</span><span class="kw">:</span></span>
 <span id="annotated-cell-32-9"><a href="#annotated-cell-32-9"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
 <span id="annotated-cell-32-10"><a href="#annotated-cell-32-10"></a><span class="at">    </span><span class="fu">pdf-engine</span><span class="kw">:</span><span class="at"> lualatex</span></span>
 <span id="annotated-cell-32-11"><a href="#annotated-cell-32-11"></a><span class="at">    </span><span class="fu">documentclass</span><span class="kw">:</span><span class="at"> ltjsarticle</span></span>
-<span id="annotated-cell-32-12"><a href="#annotated-cell-32-12"></a><span class="at">    </span><span class="fu">classoption</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">lualatex</span><span class="kw">,</span><span class="at"> a4paper</span><span class="kw">,</span><span class="at"> 10.5pt</span><span class="kw">,</span><span class="at"> ja=standard</span><span class="kw">]</span></span>
-<span id="annotated-cell-32-13"><a href="#annotated-cell-32-13"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="annotated-cell-32-14"><a href="#annotated-cell-32-14"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
-<span id="annotated-cell-32-15"><a href="#annotated-cell-32-15"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="annotated-cell-32-16"><a href="#annotated-cell-32-16"></a><span class="co"># チャンクのオプション</span></span>
-<span id="annotated-cell-32-17"><a href="#annotated-cell-32-17"></a><span class="fu">knitr</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="annotated-cell-32-18"><a href="#annotated-cell-32-18"></a><span class="at">  </span><span class="fu">opts_chunk</span><span class="kw">:</span><span class="at"> </span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="1">1</button><span id="annotated-cell-32-19" class="code-annotation-target"><a href="#annotated-cell-32-19"></a><span class="at">    </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> </span><span class="st">"ragg_png"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2">2</button><span id="annotated-cell-32-20" class="code-annotation-target"><a href="#annotated-cell-32-20"></a><span class="at">    </span><span class="fu">fig.align</span><span class="kw">:</span><span class="at"> </span><span class="st">"center"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="3">3</button><span id="annotated-cell-32-21" class="code-annotation-target"><a href="#annotated-cell-32-21"></a><span class="at">    </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="4">4</button><span id="annotated-cell-32-22" class="code-annotation-target"><a href="#annotated-cell-32-22"></a><span class="at">    </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="5">5</button><span id="annotated-cell-32-23" class="code-annotation-target"><a href="#annotated-cell-32-23"></a><span class="at">    </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="annotated-cell-32-24"><a href="#annotated-cell-32-24"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-32-12"><a href="#annotated-cell-32-12"></a><span class="at">    </span><span class="fu">classoption</span><span class="kw">:</span></span>
+<span id="annotated-cell-32-13"><a href="#annotated-cell-32-13"></a><span class="at">      </span><span class="kw">-</span><span class="at"> lualatex</span></span>
+<span id="annotated-cell-32-14"><a href="#annotated-cell-32-14"></a><span class="at">      </span><span class="kw">-</span><span class="at"> a4paper</span></span>
+<span id="annotated-cell-32-15"><a href="#annotated-cell-32-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> 10pt</span></span>
+<span id="annotated-cell-32-16"><a href="#annotated-cell-32-16"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="annotated-cell-32-17"><a href="#annotated-cell-32-17"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="annotated-cell-32-18"><a href="#annotated-cell-32-18"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="annotated-cell-32-19"><a href="#annotated-cell-32-19"></a><span class="co"># チャンクのオプション</span></span>
+<span id="annotated-cell-32-20"><a href="#annotated-cell-32-20"></a><span class="fu">knitr</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="annotated-cell-32-21"><a href="#annotated-cell-32-21"></a><span class="at">  </span><span class="fu">opts_chunk</span><span class="kw">:</span><span class="at"> </span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="1">1</button><span id="annotated-cell-32-22" class="code-annotation-target"><a href="#annotated-cell-32-22"></a><span class="at">    </span><span class="fu">dev</span><span class="kw">:</span><span class="at"> </span><span class="st">"ragg_png"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="2">2</button><span id="annotated-cell-32-23" class="code-annotation-target"><a href="#annotated-cell-32-23"></a><span class="at">    </span><span class="fu">fig.align</span><span class="kw">:</span><span class="at"> </span><span class="st">"center"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="3">3</button><span id="annotated-cell-32-24" class="code-annotation-target"><a href="#annotated-cell-32-24"></a><span class="at">    </span><span class="fu">dpi</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="4">4</button><span id="annotated-cell-32-25" class="code-annotation-target"><a href="#annotated-cell-32-25"></a><span class="at">    </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="5">5</button><span id="annotated-cell-32-26" class="code-annotation-target"><a href="#annotated-cell-32-26"></a><span class="at">    </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="annotated-cell-32-27"><a href="#annotated-cell-32-27"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-32" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-32" data-code-lines="19" data-code-annotation="1">図の文字化け防止</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="22" data-code-annotation="1">図の文字化け防止</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-32" data-code-lines="20" data-code-annotation="2">画像は中央揃え</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="23" data-code-annotation="2">画像は中央揃え</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-32" data-code-lines="21" data-code-annotation="3">図の解像度（印刷を考えるなら300以上）</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="24" data-code-annotation="3">図の解像度（印刷を考えるなら300以上）</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-32" data-code-lines="22" data-code-annotation="4">警告メッセージを表示させない</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="25" data-code-annotation="4">警告メッセージを表示させない</span>
 </dd>
 <dt data-target-cell="annotated-cell-32" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-32" data-code-lines="23" data-code-annotation="5">メッセージを表示させない</span>
+<span data-code-cell="annotated-cell-32" data-code-lines="26" data-code-annotation="5">メッセージを表示させない</span>
 </dd>
 </dl>
 <p>　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない。文書の量にも依るが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。詳細はインターネット記事等を調べてみること。</p>
@@ -1260,7 +1263,8 @@ Continue the installation anyway? (Y/N) </code></pre>
 <li id="fn5"><p>たとえば、<code>https://www.jaysong.net/RBook/Figs/Cover.png</code>など<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>これは普通の脚注です。<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>ちなみに<code>`</code>は「バッククォート（back quote）」と読む。<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>むろん、コードも同時に提出する必要があれば、その指示に従おう。<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>チャンク内に何かを出力するコードがない場合（たとえば、<code>x &lt;- 1</code>など）、もちろん結果は出力されない。<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>むろん、コードも同時に提出する必要があれば、その指示に従おう。<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

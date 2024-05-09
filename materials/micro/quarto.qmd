@@ -547,7 +547,9 @@ print("Hello World!")
 print("Hello World!")
 ```
 
-　```` ```{r} ````と```` ``` ````で囲まれた範囲をR Markdown/Quartoでは**チャンク（Chunk）**と呼ぶ。このチャンク内ではRと全く同じことが出来る。パッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。
+　```` ```{r} ````と```` ``` ````で囲まれた範囲をQuarto/R Markdownでは**チャンク（Chunk）**と呼ぶ。このチャンク内に書かれたRコードはRenderされた文書においてコードとその結果が出力される[^chunk-print]。チャンク内ではパッケージやデータの読み込み、オブジェクトの生成、データハンドリング、可視化など、Rで出来る全てが出来る。可視化の方法については第12回講義以降の講義で解説するが、ここでは例として紹介する。
+
+[^chunk-print]: チャンク内に何かを出力するコードがない場合（たとえば、`x <- 1`など）、もちろん結果は出力されない。
 
 **Input:**
 　
@@ -625,7 +627,7 @@ X <- c(2, 3, 5, 7, 11)
 
 ### コードの非表示
 
-　既に説明した通り、R Markdown（Quarto）はR + Markdownである。Rはチャンク**内**、Markdownはチャンク**外**の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。
+　既に説明した通り、QuartoはRとMarkdownが一つになったものである。Rはチャンク**内**、Markdownはチャンク**外**の部分に相当し、それぞれのカスタマイズができる。分析のコードと結果はチャンクにオプションを付けることで修正できる。ここではチャンクのオプションについて解説する。
 
 　チャンクは```` ```{r} ````で始まるが、実は`{r}`の箇所にオプションを追加することができる。具体的にはチャンクの最上行に「`#|` + 半角スペース」でオプションを指定する。ここではよく使う2つのオプションを紹介する。
 
@@ -683,7 +685,7 @@ print("Rは楽しい!")
 install.packages("tinytex")
 ```
 
-　続いて、{tinytex}パッケージの`install_tinytex()`関数を走らせる。
+　続いて、{tinytex}パッケージの`install_tinytex()`関数を実行する。この作業はインターネット環境によって数分かかる可能性がある。
 
 ```{r}
 #| filename: "Code 02"
@@ -691,11 +693,11 @@ install.packages("tinytex")
 tinytex::install_tinytex()
 ```
 
-　以下のようなメッセージが出力されたらコンソールに「Y」を入力し、Enter / Returnを押す。
+　ただし、以下のようなメッセージが出力されたら既にTinyTeXがインストールされていることを意味するため、コンソールに「N」を入力し、Enter / Returnを押す。
 
 ```{r}
 #| echo: false
-cat("Found '/usr/bin/tlmgr', which indicates a LaTeX distribution may have existed in the system.
+cat("Found '/home/jovyan/.TinyTeX/bin/x86_64-linux/tlmgr', which indicates a LaTeX distribution may have existed in the system.
 Continue the installation anyway? (Y/N) ")
 ```
 
@@ -723,7 +725,10 @@ format:
   pdf:
     pdf-engine: lualatex
     documentclass: ltjsarticle
-    classoption: [lualatex, a4paper, 10.5pt, ja=standard]
+    classoption:
+      - lualatex
+      - a4paper
+      - 10pt
     toc: false
     toc-depth: 3
     number-sections: true
