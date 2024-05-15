@@ -48,33 +48,89 @@ df |>
 
 各行（ケース）は分析単位を表すこと
 
-* 仮説: 高齢**者**ほど政党Xに投票する
-* 分析単位は「人」
+:::{.panel-tabset}
+## 例1
+
+* 仮説：高齢**者**ほど政党Xに投票する
+* 分析単位は「人」$\Rightarrow$「一人 = 一行」
+   * 同じ人が2行以上登場することはない。
 
 ```{r}
 #| echo: false
 set.seed(1986)
-tibble(ID = 1:10, 
-       年齢 = round(runif(10, 18, 65)),
-       `政党Xへの投票有無` = sample(0:1, 10, replace = TRUE)) |>
-  gt()
+tibble(id      = 1:10, 
+       age     = round(runif(10, 18, 65)),
+       voted_x = sample(0:1, 10, replace = TRUE)) |>
+   gt() |> 
+   tab_options(table.font.size = 28) |> 
+   cols_label(id = "ID", age = "年齢", voted_x = "政党Xへの投票有無")
 ```
 
-## 分析単位
+## 例2
 
-各行（ケース）は分析単位を表すこと
-
-* 仮説: 高齢者が多い**都道府県**ほど政党Xの得票率が高い
-* 分析単位は「都道府県」
+* 仮説：高齢者が多い**都道府県**ほど政党Xの得票率が高い
+* 分析単位は「都道府県」$\Rightarrow$「一都道府県 = 一行」
+   * 同じ都道府県が2行以上登場することはない。
 
 ```{r}
 #| echo: false
 df |> 
-  filter(ID <= 10) |>
-  select(-(従業者数:漁業)) |>
-  select(ID, 都道府県, 政党Xの得票率 = 自民得票率, 高齢者比) |>
-  gt()
+   filter(ID <= 10) |>
+   select(-(従業者数:漁業)) |>
+   select(ID, 都道府県, 政党Xの得票率 = 自民得票率, 高齢者比) |>
+   gt() |> 
+   tab_options(table.font.size = 24)
 ```
+
+## 例3
+
+* 仮説：所得が高い**年**ほど、人間開発指数も高い。
+* 分析単位は「年」$\Rightarrow$「一年 = 一行」
+   * 同じ年が2行以上登場することはない。
+
+```{r}
+#| echo: false
+tibble(id      = 1:10,
+       year    = 2013:2022,
+       gdp     = c(39436.811, 39604.122, 40959.272, 40640.541, 41408.954, 
+                   42714.554, 43350.974, 42226.323, 45416.041, 49210.587),
+       hdi     = c(0.909, 0.910, 0.913, 0.914, 0.916,
+                   0.917, 0.918, 0.917, 0.920, 0.290)) |> 
+  gt() |> 
+  fmt_currency(columns = gdp) |> 
+  cols_label(id      = "ID",
+             year    = "年",
+             gdp     = "一人当たりPPP-GDP",
+             hdi     = "人間開発指数") |> 
+  tab_options(table.font.size = 24)
+```
+
+## 例4
+
+* 同じ対象に対し、複数回観察を行う「**パネルデータ**」というものもある。
+* 分析単位は「人・国・都道府県 $\times$ 時間」
+
+```{r}
+#| echo: false
+tibble(id      = 1:9,
+       country = rep(c("China", "Japan", "Korea"), each = 3),
+       year    = rep(2020:2022, 3),
+       gdp     = c(17099.014, 19387.465, 21385.604,
+                   42226.323, 45416.041, 49210.587,
+                   44725.86, 48853.029, 53759.583),
+       hdi     = c(0.781, 0.785, 0.788,
+                   0.917, 0.920, 0.920,
+                   0.922, 0.926, 0.929)) |> 
+  gt() |> 
+  fmt_currency(columns = gdp) |> 
+  cols_label(id      = "ID",
+             country = "国",
+             year    = "年",
+             gdp     = "一人当たりPPP-GDP",
+             hdi     = "人間開発指数") |> 
+  tab_options(table.font.size = 24)
+```
+:::
 
 # 尺度
 
@@ -228,7 +284,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
    * 自分で世論調査を実施する。
       * 非常に高い（金銭的）コストを伴う。
 
-## 集計データ: 自力で構築する
+## 集計データ：自力で構築する
 
 公開されているデータの計算・結合
 
@@ -243,7 +299,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
 * 信頼できる機関のデータを利用すること
    * 政府機関、企業、研究所など「データのミスについて責任の所在が明確な機関」
 
-## 個票データ: 公開データの利用
+## 個票データ：公開データの利用
 
 * [SSJDA](https://csrda.iss.u-tokyo.ac.jp/), [ICPSR](https://www.icpsr.umich.edu/web/pages/) などのデータアーカイブを利用
 * 一部の大規模調査は専用ホームページで入手
@@ -258,7 +314,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
    * とりわけ、日本のデータは条件が厳しい
 * 参考) 佐藤博樹・池田謙一・石田浩. 2000. 『[社会調査の公開データ―2次分析への招待](https://www.amazon.co.jp/dp/4130520172/)』東京大学出版会.
 
-## 個票データ: 自力で構築する
+## 個票データ：自力で構築する
 
 分析単位が「人」であり、公開されているデータがない場合
 
@@ -286,7 +342,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
    * [都道府県別高齢者比率](https://www.e-stat.go.jp/)
    * [都道府県別一次産業従事者比率](https://www.e-stat.go.jp/)
 
-## データ・アーカイブの利用: SSJDAの例
+## データ・アーカイブの利用：SSJDAの例
 
 **仮説:** 高校時代に**主権者教育**を受けた**若年層**ほど**2016年参院選で投票**する傾向がある。
 
@@ -306,7 +362,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
    * 学部生は教員経由でしか入手できない　$\rightarrow$　教員による代理申請
    * 大学院生は指導教員の事前承認の下で入手可能
 
-## 調査ホームページの利用: WVSの例
+## 調査ホームページの利用：WVSの例
 
 **仮説:** 日本において**高学歴**、かつ**平等より自由を重視**するの**人**ほど**民主主義を重視**する
 
@@ -317,7 +373,7 @@ $\bigcirc\bigcirc$ 尺度で測定された変数 $\rightarrow$ $\bigcirc\bigcir
 
 ### 手順
 
-1. WVSのHPへアクセス (https://www.worldvaluessurvey.org/)
+1. WVSのHPへアクセス（<https://www.worldvaluessurvey.org/>）
 2. Data and Documentation　$\rightarrow$　Data Download　$\rightarrow$　Wave 7 (2017-2020)
 3. Japan 2019を選択
 4. Questionnaire（質問票; 日本語）とCodebook（コードブック; 英語）を確認
