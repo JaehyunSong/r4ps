@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.4.554">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="2023-06-01">
+  <meta name="dcterms.date" content="2024-05-30">
   <title>R for Political Science - ミクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -418,7 +418,7 @@
     </div>
 </div>
 
-  <p class="date">2023-06-01</p>
+  <p class="date">2024-05-30</p>
 </section>
 <section>
 <section id="データ構造" class="title-slide slide level1 center">
@@ -432,7 +432,7 @@
 <ul>
 <li>ベクトルはRにおけるデータの最小単位
 <ul>
-<li><code>"Cat"</code>や<code>5</code>も長さ1のベクトルであり、原子ベクトル (atomic vector) とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー (scalar) とも呼ばれる。</li>
+<li><code>"Cat"</code>や<code>5</code>も長さ1のベクトルであり、原子ベクトル（atomic vector）とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー（scalar）とも呼ばれる。</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -462,19 +462,19 @@
 </section>
 <section id="データ構造の種類" class="slide level2">
 <h2>データ構造の種類</h2>
-<p>本講義で使うデータ構造は主にベクトル (vector) とデータ・フレーム (data.frame) とその拡張版のティブル (tibble) のみであるため、行列 (matrix) 、配列 (array) 、リスト (array) の説明は割愛する。</p>
+<p>本講義で使うデータ構造は主にベクトル（vector）とデータ・フレーム（data.frame）とその拡張版のティブル（tibble）のみであるため、行列（matrix）、配列（array）、リスト（array）の詳細な説明は割愛する。</p>
 <ul>
-<li><strong>ベクトル (vector)</strong></li>
-<li>行列 (matrix)
+<li><strong>ベクトル（vector）</strong></li>
+<li>行列（matrix）
 <ul>
-<li>配列 (array)</li>
-<li>行列は層 (layer) が1つのみの配列</li>
+<li>配列（array）</li>
+<li>行列は層（layer）が1つのみの配列</li>
 </ul></li>
-<li><strong>データ・フレーム (data.frame)</strong>
+<li><strong>データ・フレーム（data.frame）</strong>
 <ul>
-<li><strong>ティブル (tibble)</strong>: データ・フレームの拡張版</li>
+<li><strong>ティブル（tibble）</strong> <span class="math inline">\(\leftarrow\)</span> データ・フレームの拡張版であり、本講義で主に使用するデータ構造</li>
 </ul></li>
-<li>リスト (list)
+<li>リスト（list）
 <ul>
 <li>他にもRには数百、数千種類のデータ構造があるが、その中身は実質リスト構造である場合が多い。</li>
 </ul></li>
@@ -485,8 +485,8 @@
 <h1>ベクトル</h1>
 
 </section>
-<section id="ベクトル-vector" class="slide level2">
-<h2>ベクトル (vector)</h2>
+<section id="ベクトルvector" class="slide level2">
+<h2>ベクトル（vector）</h2>
 <p><strong>同じデータ型が一つ以上</strong>格納されているオブジェクト</p>
 <ul>
 <li>Rにおけるデータの最小単位
@@ -522,8 +522,8 @@
 </div>
 </div>
 </section>
-<section id="ベクトルの操作-復習" class="slide level2">
-<h2>ベクトルの操作 (復習)</h2>
+<section id="ベクトルの操作復習" class="slide level2">
+<h2>ベクトルの操作（復習）</h2>
 <p>データ型、長さなど</p>
 <ul>
 <li><code>class(オブジェクト名)</code>: データ型</li>
@@ -810,10 +810,17 @@
 <h2>データ・フレームの作成 (4)</h2>
 <p>表形式ファイルの読み込み</p>
 <ul>
-<li><code>read_csv()</code>を使用する前に{tidyverse}を読み込んでおく（今回は読み込み済み）。</li>
+<li><code>read_csv()</code>を使用する前に{tidyverse}を読み込んでおく（今回は読み込み済み）。
+<ul>
+<li>サンプルデータはLMSから入手可能</li>
+</ul></li>
+<li>プロジェクトフォルダーの<code>Data</code>フォルダー内の<code>BuildingData.csv</code>を読み込み、<code>my_df3</code>という名のオブジェクトとして格納
+<ul>
+<li><code>data</code>フォルダーなら<code>data/BuildingData.csv</code>、プロジェクトフォルダーに直接入れたのであれば<code>BuildingData.csv</code>のみ</li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>my_df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/BuildingData.csv"</span>) <span class="co"># 第6回のデータ</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>my_df3 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/BuildingData.csv"</span>)</span>
 <span id="cb29-2"><a></a></span>
 <span id="cb29-3"><a></a>my_df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -837,7 +844,11 @@
 <section id="データフレームの確認-1" class="slide level2">
 <h2>データ・フレームの確認 (1)</h2>
 <ul>
-<li><code>class()</code>: データ構造の確認</li>
+<li><code>class()</code>：データ構造の確認
+<ul>
+<li><code>"data.frame"</code>以外にもいくつか出るが、<code>"data.frame"</code>が含まれていればOK</li>
+<li><code>"data.frame"</code>に加え、<code>"tbl_df"</code>、<code>"tbl"</code>が含まれる場合、tibble（データフレームの上位互換）であることを意味する。</li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">class</span>(my_df3) <span class="co"># my_df2のデータ構造</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -846,7 +857,7 @@
 </div>
 </div>
 <ul>
-<li><code>is.data.frame()</code>: データ・フレームか否かを判定</li>
+<li><code>is.data.frame()</code>：データ・フレームか否かを判定</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">is.data.frame</span>(my_df3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -855,18 +866,13 @@
 </div>
 </div>
 <ul>
-<li><code>nrow()</code>: データ・フレームの行数</li>
+<li><code>nrow()</code> / <code>ncol()</code>：データ・フレームの行数 / 列数</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">nrow</span>(my_df1) <span class="co"># my_df1の行数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
-</div>
-<ul>
-<li><code>ncol()</code>: データ・フレームの列数</li>
-</ul>
-<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ncol</span>(my_df2) <span class="co"># my_df2の列数</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
@@ -876,12 +882,12 @@
 <section id="データフレームの確認-2" class="slide level2">
 <h2>データフレームの確認 (2)</h2>
 <ul>
-<li><code>head()</code>: <strong>最初</strong>の6行のみ出力</li>
-<li><code>tail()</code>: <strong>最後</strong>の6行を出力
+<li><code>head()</code>：<strong>最初</strong>の6行のみ出力</li>
+<li><code>tail()</code>：<strong>最後</strong>の6行を出力
 <ul>
 <li><code>n = 5</code>を追加すると、最初 (最後) の5行を出力（任意の数字）</li>
 </ul></li>
-<li><code>names()</code>: 変数名のみ出力</li>
+<li><code>names()</code>：変数名のみ出力</li>
 </ul>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1"><code>head()</code></a></li><li><a href="#tabset-1-2"><code>tail()</code></a></li><li><a href="#tabset-1-3"><code>names()</code></a></li></ul>

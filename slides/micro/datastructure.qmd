@@ -1,6 +1,6 @@
 ---
 subtitle: "第8回 データ構造"
-date: "2023/6/1"
+date: "2024/5/30"
 format: revealjs
 metadata-files: 
   - _slide.yml
@@ -12,7 +12,7 @@ metadata-files:
 
 * **データ構造 (data structure):** 一つ以上のベクトルの集合
    * ベクトルはRにおけるデータの最小単位
-      * `"Cat"`や`5`も長さ1のベクトルであり、原子ベクトル (atomic vector) とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー (scalar) とも呼ばれる。
+      * `"Cat"`や`5`も長さ1のベクトルであり、原子ベクトル（atomic vector）とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー（scalar）とも呼ばれる。
 
 :::{layout="[40,-2, 58]"}
 ![matrix型](Figs/datastructure/matrix1.png)
@@ -22,20 +22,20 @@ metadata-files:
 
 ## データ構造の種類
 
-本講義で使うデータ構造は主にベクトル (vector) とデータ・フレーム (data.frame) とその拡張版のティブル (tibble) のみであるため、行列 (matrix) 、配列 (array) 、リスト (array) の説明は割愛する。
+本講義で使うデータ構造は主にベクトル（vector）とデータ・フレーム（data.frame）とその拡張版のティブル（tibble）のみであるため、行列（matrix）、配列（array）、リスト（array）の詳細な説明は割愛する。
 
-* **ベクトル (vector)**
-* 行列 (matrix)
-   * 配列 (array)
-   * 行列は層 (layer) が1つのみの配列
-* **データ・フレーム (data.frame)**
-   * **ティブル (tibble)**: データ・フレームの拡張版
-* リスト (list)
+* **ベクトル（vector）**
+* 行列（matrix）
+   * 配列（array）
+   * 行列は層（layer）が1つのみの配列
+* **データ・フレーム（data.frame）**
+   * **ティブル（tibble）** $\leftarrow$ データ・フレームの拡張版であり、本講義で主に使用するデータ構造
+* リスト（list）
    * 他にもRには数百、数千種類のデータ構造があるが、その中身は実質リスト構造である場合が多い。
 
 # ベクトル
 
-## ベクトル (vector)
+## ベクトル（vector）
 
 **同じデータ型が一つ以上**格納されているオブジェクト
 
@@ -63,7 +63,7 @@ my_vec4 <- c(10, 20, TRUE, FALSE)
 my_vec4
 ```
 
-## ベクトルの操作 (復習)
+## ベクトルの操作（復習）
 
 データ型、長さなど
 
@@ -238,45 +238,45 @@ my_df2
 表形式ファイルの読み込み
 
 * `read_csv()`を使用する前に{tidyverse}を読み込んでおく（今回は読み込み済み）。
+   * サンプルデータはLMSから入手可能
+* プロジェクトフォルダーの`Data`フォルダー内の`BuildingData.csv`を読み込み、`my_df3`という名のオブジェクトとして格納
+   * `data`フォルダーなら`data/BuildingData.csv`、プロジェクトフォルダーに直接入れたのであれば`BuildingData.csv`のみ
 
 ```{r}
-my_df3 <- read_csv("Data/BuildingData.csv") # 第6回のデータ
+my_df3 <- read_csv("Data/BuildingData.csv")
 
 my_df3
 ```
 
 ## データ・フレームの確認 (1)
 
-* `class()`: データ構造の確認
+* `class()`：データ構造の確認
+   * `"data.frame"`以外にもいくつか出るが、`"data.frame"`が含まれていればOK
+   * `"data.frame"`に加え、`"tbl_df"`、`"tbl"`が含まれる場合、tibble（データフレームの上位互換）であることを意味する。
 
 ```{r}
 class(my_df3) # my_df2のデータ構造
 ```
 
-* `is.data.frame()`: データ・フレームか否かを判定
+* `is.data.frame()`：データ・フレームか否かを判定
 
 ```{r}
 is.data.frame(my_df3)
 ```
 
-* `nrow()`: データ・フレームの行数
+* `nrow()` / `ncol()`：データ・フレームの行数 / 列数
 
 ```{r}
 nrow(my_df1) # my_df1の行数
-```
-
-* `ncol()`: データ・フレームの列数
-
-```{r}
 ncol(my_df2) # my_df2の列数
 ```
 
 ## データフレームの確認 (2)
 
-* `head()`: **最初**の6行のみ出力
-* `tail()`: **最後**の6行を出力
+* `head()`：**最初**の6行のみ出力
+* `tail()`：**最後**の6行を出力
    * `n = 5`を追加すると、最初 (最後) の5行を出力（任意の数字）
-* `names()`: 変数名のみ出力
+* `names()`：変数名のみ出力
 
 ::: {.panel-tabset}
 
