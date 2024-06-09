@@ -1,6 +1,6 @@
 ---
 subtitle: "第10回 データ・ハンドリング（2）"
-date: "2023/6/13"
+date: "2024/6/13"
 format: revealjs
 metadata-files: 
   - _slide.yml
@@ -455,11 +455,10 @@ df |>
   mutate(新しい変数名 = case_when(条件1 ~ 新しい値,
                                 条件2 ~ 新しい値,
                                 ...
-                                TRUE ~ 新しい値))
+                                .default = 新しい値))
 ```
 
-* `TRUE ~ 新しい値`は「上記の条件全てが満たされ**ない**場合の値」を意味する
-   * `.default = "新しい値"`でもOK（{dplyr} 1.1.0から）
+* `.default = 新しい値`は「上記の条件全てが満たされ**ない**場合の値」を意味する。
 
 ## 変数のリコーディング: 3値以上の例
 
@@ -471,7 +470,7 @@ df |>
                                  Continent == "America" ~ "アメリカ",
                                  Continent == "Asia"    ~ "アジア",
                                  Continent == "Europe"  ~ "ヨーロッパ",
-                                 TRUE                   ~ "オセアニア")) |>
+                                 .default = "オセアニア")) |>
   group_by(大陸 = Continent_J) |>
   # 日本語は非推奨だが、一応使える（_と.を除く特殊記号不可）
   summarise(OECD加盟国比率 = mean(OECD),
@@ -498,7 +497,7 @@ df |>
   mutate(AP = case_when(Continent == "Asia"    ~ 1, 
                         Continent == "America" ~ 1, 
                         Continent == "Oceania" ~ 1,
-                        TRUE                   ~ 0))
+                        .default = 0))
 ```
 
 **方法3**: `case_when()` + `%in%`の利用
@@ -507,7 +506,7 @@ df |>
 #| eval: false
 df |>
   mutate(AP = case_when(Continent %in% c("Asia", "America", "Oceania") ~ 1, 
-                        TRUE                                           ~ 0))
+                        .default = 0))
 ```
 
 ## `NA`ではない欠損値もあることに注意
@@ -547,10 +546,10 @@ my_data
 my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
-                               TRUE       ~ 0),
+                               .default   = 0),
          HighEduc2 = case_when(HighEduc == 9 ~ NA,
                                HighEduc == 1 ~ "大卒以上",
-                               TRUE          ~ "大卒未満"))
+                               .default      = "大卒未満"))
 ```
 
 ## 特定の値を欠損値にコーディング場合
@@ -574,9 +573,9 @@ my_data |>
 ```{r}
 my_data |>
   mutate(Age      = case_when(Age == 999 ~ NA, 
-                              TRUE       ~ Age),
+                              .default   = Age),
          HighEduc = case_when(HighEduc == 9 ~ NA, 
-                              TRUE          ~ HighEduc))
+                              .default      = HighEduc))
 ```
 
 ## 参考）特定の値を欠損値にコーディング場合
@@ -603,8 +602,8 @@ my_data |>
 ```{r}
 #| eval: false
 my_data |>
-  mutate(Age      = if_else(Age      == 999 ~ NA, TRUE ~ Age),
-         HighEduc = if_else(HighEduc == 9   ~ NA, TRUE ~ HighEduc))
+  mutate(Age      = if_else(Age == 999, NA, Age),
+         HighEduc = if_else(HighEduc == 9, NA, HighEduc))
 ```
 
 #### 一つの`mutate()`内に1つの処理
@@ -612,6 +611,6 @@ my_data |>
 ```{r}
 #| eval: false
 my_data |>
-  mutate(Age = if_else(Age == 999 ~ NA, TRUE ~ Age)) |>
-  mutate(HighEduc = if_else(HighEduc == 9 ~ NA, TRUE ~ HighEduc))
+  mutate(Age = if_else(Age == 999, NA, Age)) |>
+  mutate(HighEduc = if_else(HighEduc == 9, NA, HighEduc))
 ```

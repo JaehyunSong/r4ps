@@ -442,10 +442,10 @@ df |>
   mutate(新しい変数名 = case_when(条件1 ~ 新しい値,
                                 条件2 ~ 新しい値,
                                 ...
-                                TRUE ~ 新しい値))
+                                .default = 新しい値))
 ```
 
-　`TRUE ~ 新しい値`は「上記の条件全てが満たされ**ない**場合の値」を意味する。ここでは`df`の`Continent`列を日本語にし、`Continent_J`として追加してみよう。
+　`.default = 新しい値`は「上記の条件全てが満たされ**ない**場合の値」を意味する（`.default ~ 新しい値`でなく、`.default = 新しい値`であることに注意）。ここでは`df`の`Continent`列を日本語にし、`Continent_J`として追加してみよう。
 
 ```{r}
 #| filename: "Code 40"
@@ -454,7 +454,7 @@ df |>
                                  Continent == "America" ~ "アメリカ",
                                  Continent == "Asia"    ~ "アジア",
                                  Continent == "Europe"  ~ "ヨーロッパ",
-                                 TRUE                   ~ "オセアニア")) |>
+                                 .default               = "オセアニア")) |>
   group_by(大陸 = Continent_J) |>
   # 日本語は非推奨だが、一応使える（_と.を除く特殊記号不可）
   summarise(OECD加盟国比率 = mean(OECD),
@@ -470,7 +470,7 @@ df |>
                         Continent == "America" ~ "Asia-Pacific",
                         Continent == "Asia"    ~ "Asia-Pacific",
                         Continent == "Europe"  ~ "Others",
-                        TRUE                   ~ "Asia-Pacific")) |>
+                        .default               = "Asia-Pacific")) |>
   group_by(Continent = AP) |>
   summarise(Population = mean(Population),
             Countries  = n())
@@ -544,10 +544,10 @@ mean(my_data$HighEduc)
 my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
-                               TRUE       ~ 0),
+                               .default   =  0),
          HighEduc2 = case_when(HighEduc == 9 ~ NA,
                                HighEduc == 1 ~ "大卒以上",
-                               TRUE          ~ "大卒未満"))
+                               .default      = "大卒未満"))
 ```
 
 　もう一つの例として特定の値を欠損値とし、それ以外の値は元も値にする場合を考えよう。つまり、`Age`と`HighEduc`列においてそれぞれ999、9を`NA`にし、そのまま上書きするものである。例えば`Age`は`Age`の値が999なら（`Age == 999`）、`NA`を返し、それ以外の場合は既存の`Age`の値を取る。この作業は以下のコードで実行できる。

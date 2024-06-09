@@ -9,11 +9,11 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.554">
+  <meta name="generator" content="quarto-1.5.43">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="2023-06-15">
-  <title>R for Political Science - ミクロ政治データ分析実習</title>
+  <meta name="dcterms.date" content="2024-06-13">
+  <title>R for Political Science – ミクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -44,7 +44,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -405,7 +405,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">ミクロ政治データ分析実習</h1>
-  <p class="subtitle">第10回 データ・ハンドリング (2)</p>
+  <p class="subtitle">第10回 データ・ハンドリング（2）</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -418,7 +418,7 @@
     </div>
 </div>
 
-  <p class="date">2023-06-15</p>
+  <p class="date">2024-06-13</p>
 </section>
 <section id="授業開始前に" class="slide level2">
 <h2>授業開始前に</h2>
@@ -997,13 +997,10 @@ the `.groups` argument.</code></pre>
 <span id="cb53-2"><a></a>  <span class="fu">mutate</span>(新しい変数名 <span class="ot">=</span> <span class="fu">case_when</span>(条件1 <span class="sc">~</span> 新しい値,</span>
 <span id="cb53-3"><a></a>                                条件2 <span class="sc">~</span> 新しい値,</span>
 <span id="cb53-4"><a></a>                                ...</span>
-<span id="cb53-5"><a></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> 新しい値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-5"><a></a>                                <span class="at">.default =</span> 新しい値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>TRUE ~ 新しい値</code>は「上記の条件全てが満たされ<strong>ない</strong>場合の値」を意味する
-<ul>
-<li><code>.default = "新しい値"</code>でもOK（{dplyr} 1.1.0から）</li>
-</ul></li>
+<li><code>.default = 新しい値</code>は「上記の条件全てが満たされ<strong>ない</strong>場合の値」を意味する。</li>
 </ul>
 </section>
 <section id="変数のリコーディング-3値以上の例-1" class="slide level2">
@@ -1015,7 +1012,7 @@ the `.groups` argument.</code></pre>
 <span id="cb54-3"><a></a>                                 Continent <span class="sc">==</span> <span class="st">"America"</span> <span class="sc">~</span> <span class="st">"アメリカ"</span>,</span>
 <span id="cb54-4"><a></a>                                 Continent <span class="sc">==</span> <span class="st">"Asia"</span>    <span class="sc">~</span> <span class="st">"アジア"</span>,</span>
 <span id="cb54-5"><a></a>                                 Continent <span class="sc">==</span> <span class="st">"Europe"</span>  <span class="sc">~</span> <span class="st">"ヨーロッパ"</span>,</span>
-<span id="cb54-6"><a></a>                                 <span class="cn">TRUE</span>                   <span class="sc">~</span> <span class="st">"オセアニア"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb54-6"><a></a>                                 <span class="at">.default =</span> <span class="st">"オセアニア"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb54-7"><a></a>  <span class="fu">group_by</span>(大陸 <span class="ot">=</span> Continent_J) <span class="sc">|&gt;</span></span>
 <span id="cb54-8"><a></a>  <span class="co"># 日本語は非推奨だが、一応使える（_と.を除く特殊記号不可）</span></span>
 <span id="cb54-9"><a></a>  <span class="fu">summarise</span>(OECD加盟国比率 <span class="ot">=</span> <span class="fu">mean</span>(OECD),</span>
@@ -1046,13 +1043,13 @@ the `.groups` argument.</code></pre>
 <span id="cb57-2"><a></a>  <span class="fu">mutate</span>(<span class="at">AP =</span> <span class="fu">case_when</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>    <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb57-3"><a></a>                        Continent <span class="sc">==</span> <span class="st">"America"</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
 <span id="cb57-4"><a></a>                        Continent <span class="sc">==</span> <span class="st">"Oceania"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb57-5"><a></a>                        <span class="cn">TRUE</span>                   <span class="sc">~</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-5"><a></a>                        <span class="at">.default =</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>方法3</strong>: <code>case_when()</code> + <code>%in%</code>の利用</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb58-2"><a></a>  <span class="fu">mutate</span>(<span class="at">AP =</span> <span class="fu">case_when</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"America"</span>, <span class="st">"Oceania"</span>) <span class="sc">~</span> <span class="dv">1</span>, </span>
-<span id="cb58-3"><a></a>                        <span class="cn">TRUE</span>                                           <span class="sc">~</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-3"><a></a>                        <span class="at">.default =</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="naではない欠損値もあることに注意" class="slide level2">
@@ -1103,10 +1100,10 @@ the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a>my_data <span class="sc">|&gt;</span></span>
 <span id="cb62-2"><a></a>  <span class="fu">mutate</span>(<span class="at">YoungAge  =</span> <span class="fu">case_when</span>(Age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
 <span id="cb62-3"><a></a>                               Age <span class="sc">&lt;=</span>  <span class="dv">39</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb62-4"><a></a>                               <span class="cn">TRUE</span>       <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb62-4"><a></a>                               <span class="at">.default   =</span> <span class="dv">0</span>),</span>
 <span id="cb62-5"><a></a>         <span class="at">HighEduc2 =</span> <span class="fu">case_when</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
 <span id="cb62-6"><a></a>                               HighEduc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"大卒以上"</span>,</span>
-<span id="cb62-7"><a></a>                               <span class="cn">TRUE</span>          <span class="sc">~</span> <span class="st">"大卒未満"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb62-7"><a></a>                               <span class="at">.default      =</span> <span class="st">"大卒未満"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 5
       ID   Age HighEduc YoungAge HighEduc2
@@ -1160,9 +1157,9 @@ the `.groups` argument.</code></pre>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>my_data <span class="sc">|&gt;</span></span>
 <span id="cb66-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">case_when</span>(Age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA</span>, </span>
-<span id="cb66-3"><a></a>                              <span class="cn">TRUE</span>       <span class="sc">~</span> Age),</span>
+<span id="cb66-3"><a></a>                              <span class="at">.default   =</span> Age),</span>
 <span id="cb66-4"><a></a>         <span class="at">HighEduc =</span> <span class="fu">case_when</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>, </span>
-<span id="cb66-5"><a></a>                              <span class="cn">TRUE</span>          <span class="sc">~</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb66-5"><a></a>                              <span class="at">.default      =</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
       ID   Age HighEduc
@@ -1216,14 +1213,14 @@ the `.groups` argument.</code></pre>
 <h4 id="一つのmutate内に2つの処理">一つの<code>mutate()</code>内に2つの処理</h4>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a>my_data <span class="sc">|&gt;</span></span>
-<span id="cb70-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age      <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA</span>, <span class="cn">TRUE</span> <span class="sc">~</span> Age),</span>
-<span id="cb70-3"><a></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>   <span class="sc">~</span> <span class="cn">NA</span>, <span class="cn">TRUE</span> <span class="sc">~</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb70-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age <span class="sc">==</span> <span class="dv">999</span>, <span class="cn">NA</span>, Age),</span>
+<span id="cb70-3"><a></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>, <span class="cn">NA</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="一つのmutate内に1つの処理">一つの<code>mutate()</code>内に1つの処理</h4>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a>my_data <span class="sc">|&gt;</span></span>
-<span id="cb71-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">if_else</span>(Age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA</span>, <span class="cn">TRUE</span> <span class="sc">~</span> Age)) <span class="sc">|&gt;</span></span>
-<span id="cb71-3"><a></a>  <span class="fu">mutate</span>(<span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>, <span class="cn">TRUE</span> <span class="sc">~</span> HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb71-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">if_else</span>(Age <span class="sc">==</span> <span class="dv">999</span>, <span class="cn">NA</span>, Age)) <span class="sc">|&gt;</span></span>
+<span id="cb71-3"><a></a>  <span class="fu">mutate</span>(<span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>, <span class="cn">NA</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="quarto-auto-generated-content">
@@ -1515,18 +1512,7 @@ the `.groups` argument.</code></pre>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1558,7 +1544,29 @@ the `.groups` argument.</code></pre>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
@@ -1566,7 +1574,7 @@ the `.groups` argument.</code></pre>
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {
