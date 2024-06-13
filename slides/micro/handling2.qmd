@@ -56,8 +56,8 @@ library(tidyverse)
 df <- read_csv("Data/countries.csv")
 df |> 
   group_by(Continent) |>
-  summarise(Politial_Right = mean(FH_PR, na.rm = TRUE),
-            Civil_Liberty  = mean(FH_CL, na.rm = TRUE))
+  summarise(PR = mean(FH_PR, na.rm = TRUE),
+            CL = mean(FH_CL, na.rm = TRUE))
 ```
 
 ## 記述統計量
@@ -66,7 +66,7 @@ df |>
 
 * 詳細は後期の「マクロ政治データ分析実習」で
 
-元の情報: 
+元の情報：
 
 ```{r}
 MathScore <- c(82, 45, 69, 94, 88, 73, NA, 51, 90, 63)
@@ -94,7 +94,7 @@ median(MathScore, na.rm = TRUE)
 ```{r}
 # 不偏分散
 var(MathScore, na.rm = TRUE)
-# 不偏標準偏差
+# 不偏分散の平方根
 sd(MathScore, na.rm = TRUE)
 # 四分位範囲
 IQR(MathScore, na.rm = TRUE)
@@ -114,13 +114,13 @@ IQR(MathScore, na.rm = TRUE)
 
 記述統計の関数の例
 
-* `mean()`: 平均値
-* `median()`: 中央値
-* `sd()`: 不偏分散の平方根（一般的に「標準偏差」と呼ばれるもの）
-* `var()`: 不偏分散
-* `IQR()`: 四分位範囲
-* `min()`、`max()`: 最小値と最大値
-* `n()`: ケース数（引数不要）
+* `mean()`：平均値
+* `median()`：中央値
+* `sd()`：不偏分散の平方根（一般的に「標準偏差」と呼ばれるもの）
+* `var()`：不偏分散
+* `IQR()`：四分位範囲
+* `min()`、`max()`：最小値と最大値
+* `n()`：ケース数（引数不要）
 * その他（教科書[第14.1.2章](https://www.jaysong.net/RBook/datahandling2.html#summarise%E3%81%AB%E4%BD%BF%E3%81%88%E3%82%8B%E4%BE%BF%E5%88%A9%E3%81%AA%E9%96%A2%E6%95%B0)）
 
 ## 記述統計量の計算（1）
@@ -374,7 +374,8 @@ df2 <- df |>
   mutate(Developed = G7 + G20 + OECD,
          Developed = if_else(Developed > 1, "先進国", "その他"), # 上書き
          Density   = Population / Area) |>
-  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |>
+  # filter()の代わりにdrop_na(HDI_2018, Polity_Score) もOK
+  filter(!is.na(HDI_2018), !is.na(Polity_Score)) |> 
   group_by(Developed) |>
   summarise(Density = mean(Density),
             HDI     = mean(HDI_2018),
@@ -391,9 +392,12 @@ df2
 * ただし、日本語の場合、50音順にはならない。
    * ひらがな、カタカナなら50音順になるが、漢字は $\times$
 * したがって、`summarise()`の前にグルーピング変数を**Factor型に変換**する必要がある。
-   * Factor型: **順序付き**の文字型
+   * Factor型：**順序付き**の文字型
 
 ## `Developed`をFactor型に
+
+* `Developed`列をfactor化し、要素の順番は`"先進国"`、`"その他"`の順にする。
+   * `levels`で指定した順番
 
 ```{r}
 #| code-line-numbers: "4"
@@ -409,9 +413,9 @@ df |>
             Polity  = mean(Polity_Score))
 ```
 
-## 変数のリコーディング: 2値の例
+## 変数のリコーディング：2値の例
 
-`mutate()`内に`if_else()`を使用（または、`ifelse()`）
+`mutate()`内に`if_else()`を使用
 
 * `df`の`OECD`が`1`なら`"OECD加盟国"`、それ以外なら`"OECD非加盟国"`に変換し、`OECD_J`という列として追加
 
@@ -431,7 +435,7 @@ df |>
             FH  = mean(FH_Total, na.rm = TRUE))
 ```
 
-## 変数のリコーディング: 2値の例
+## 変数のリコーディング：2値の例
 
 **例)** 変換後
 
@@ -445,22 +449,21 @@ df |>
             FH  = mean(FH_Total, na.rm = TRUE))
 ```
 
-## 変数のリコーディング: 3値以上の例
+## 変数のリコーディング：3値以上の例
 
 `mutate()`内に`case_when()`を使用
 
-```{r}
-#| eval: false
+```r
 データフレーム名 |>
   mutate(新しい変数名 = case_when(条件1 ~ 新しい値,
-                                条件2 ~ 新しい値,
-                                ...
-                                .default = 新しい値))
+                               条件2 ~ 新しい値,
+                               ...
+                               .default = 新しい値))
 ```
 
 * `.default = 新しい値`は「上記の条件全てが満たされ**ない**場合の値」を意味する。
 
-## 変数のリコーディング: 3値以上の例
+## 変数のリコーディング：3値以上の例
 
 **例)** `df`の`Continent`を日本語にし、`Continent_J`として追加
 
@@ -477,7 +480,7 @@ df |>
             国家数        = n())
 ```
 
-## 変数のリコーディング: 応用
+## 変数のリコーディング：応用
 
 **例)** `Continent`が`AP`列を追加し、`"Asia"`か`"Oceania"`、`"America"`なら1、以外は0
 
@@ -511,26 +514,27 @@ df |>
 
 ## `NA`ではない欠損値もあることに注意
 
-世論調査などの場合、欠損値が`NA`でなく、`9`や`99`、`""`などの場合がある。
+世論調査などの場合、欠損値が`NA`でなく、`9`や`99`、`""`などの場合があるため、自分で`NA`に変換する必要があるケースも多い。
 
-**例)** `my_data`の例
-
-* `YoungAge`変数を作成し、`Age`が39以下なら`1`、それ以外は`0`にする。ただし、999なら`NA`とする。
-* `HighEduc2`変数を作成し、`HighEduc`が1なら`"大卒以上"`、それ以外は`"大卒未満"`にする。ただし、9なら`NA`とする。
+- **例)** `my_data`の例
+   - `YoungAge`変数を作成し、`Age`が39以下なら`1`、それ以外は`0`にする。
+      - 欠損値は999
+   - `HighEduc2`変数を作成し、`HighEduc`が1なら`"大卒以上"`、それ以外は`"大卒未満"`にする。
+      - 欠損値は8と9
 
 :::: {.columns}
 
-::: {.column width=70%}
+::: {.column width=65%}
 ```{r}
 my_data <- tibble(ID       = 1:10,
                   Age      = c(32, 35, 57, 999, 74, 
                                66, 999, 49, 78, 67),
                   HighEduc = c(1, 0, 0, 1, 0,
-                               9, 1, 1, 9, 9))
+                               9, 1, 1, 8, 9))
 ```
 :::
 
-::: {.column width=30%}
+::: {.column width=35%}
 ```{r}
 my_data
 ```
@@ -547,7 +551,7 @@ my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
                                .default   = 0),
-         HighEduc2 = case_when(HighEduc == 9 ~ NA,
+         HighEduc2 = case_when(HighEduc >= 9 ~ NA,
                                HighEduc == 1 ~ "大卒以上",
                                .default      = "大卒未満"))
 ```
@@ -561,7 +565,7 @@ my_data |>
 ```{r}
 my_data |>
   mutate(Age      = if_else(Age      == 999, NA, Age),
-         HighEduc = if_else(HighEduc == 9,   NA, HighEduc))
+         HighEduc = if_else(HighEduc >= 9,   NA, HighEduc))
 ```
 
 ## 特定の値を欠損値にコーディング場合

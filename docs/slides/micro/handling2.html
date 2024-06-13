@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.43">
+  <meta name="generator" content="quarto-1.5.40">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2024-06-13">
@@ -465,13 +465,13 @@
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
-  Continent Politial_Right Civil_Liberty
-  &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-1 Africa              15.8          25.8
-2 America             29.4          42.6
-3 Asia                14.7          24.2
-4 Europe              31.9          47.6
-5 Oceania             31.8          47.2</code></pre>
+  Continent    PR    CL
+  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 Africa     15.8  25.8
+2 America    29.4  42.6
+3 Asia       14.7  24.2
+4 Europe     31.9  47.6
+5 Oceania    31.8  47.2</code></pre>
 </div>
 </div>
 </section>
@@ -481,7 +481,7 @@
 <ul>
 <li>詳細は後期の「マクロ政治データ分析実習」で</li>
 </ul>
-<p>元の情報:</p>
+<p>元の情報：</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>MathScore <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">82</span>, <span class="dv">45</span>, <span class="dv">69</span>, <span class="dv">94</span>, <span class="dv">88</span>, <span class="dv">73</span>, <span class="cn">NA</span>, <span class="dv">51</span>, <span class="dv">90</span>, <span class="dv">63</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -510,7 +510,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 302.4444</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># 不偏標準偏差</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># 不偏分散の平方根</span></span>
 <span id="cb10-2"><a></a><span class="fu">sd</span>(MathScore, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 17.39093</code></pre>
@@ -531,13 +531,13 @@
 <span id="cb14-2"><a></a>  <span class="fu">summarise</span>(記述統計の関数(変数名, ...))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>記述統計の関数の例</p>
 <ul>
-<li><code>mean()</code>: 平均値</li>
-<li><code>median()</code>: 中央値</li>
-<li><code>sd()</code>: 不偏分散の平方根（一般的に「標準偏差」と呼ばれるもの）</li>
-<li><code>var()</code>: 不偏分散</li>
-<li><code>IQR()</code>: 四分位範囲</li>
-<li><code>min()</code>、<code>max()</code>: 最小値と最大値</li>
-<li><code>n()</code>: ケース数（引数不要）</li>
+<li><code>mean()</code>：平均値</li>
+<li><code>median()</code>：中央値</li>
+<li><code>sd()</code>：不偏分散の平方根（一般的に「標準偏差」と呼ばれるもの）</li>
+<li><code>var()</code>：不偏分散</li>
+<li><code>IQR()</code>：四分位範囲</li>
+<li><code>min()</code>、<code>max()</code>：最小値と最大値</li>
+<li><code>n()</code>：ケース数（引数不要）</li>
 <li>その他（教科書<a href="https://www.jaysong.net/RBook/datahandling2.html#summarise%E3%81%AB%E4%BD%BF%E3%81%88%E3%82%8B%E4%BE%BF%E5%88%A9%E3%81%AA%E9%96%A2%E6%95%B0">第14.1.2章</a>）</li>
 </ul>
 </section>
@@ -891,13 +891,14 @@ the `.groups` argument.</code></pre>
 <span id="cb44-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Developed =</span> G7 <span class="sc">+</span> G20 <span class="sc">+</span> OECD,</span>
 <span id="cb44-3"><a></a>         <span class="at">Developed =</span> <span class="fu">if_else</span>(Developed <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="st">"先進国"</span>, <span class="st">"その他"</span>), <span class="co"># 上書き</span></span>
 <span id="cb44-4"><a></a>         <span class="at">Density   =</span> Population <span class="sc">/</span> Area) <span class="sc">|&gt;</span></span>
-<span id="cb44-5"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(HDI_2018), <span class="sc">!</span><span class="fu">is.na</span>(Polity_Score)) <span class="sc">|&gt;</span></span>
-<span id="cb44-6"><a></a>  <span class="fu">group_by</span>(Developed) <span class="sc">|&gt;</span></span>
-<span id="cb44-7"><a></a>  <span class="fu">summarise</span>(<span class="at">Density =</span> <span class="fu">mean</span>(Density),</span>
-<span id="cb44-8"><a></a>            <span class="at">HDI     =</span> <span class="fu">mean</span>(HDI_2018),</span>
-<span id="cb44-9"><a></a>            <span class="at">Polity  =</span> <span class="fu">mean</span>(Polity_Score))</span>
-<span id="cb44-10"><a></a></span>
-<span id="cb44-11"><a></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-5"><a></a>  <span class="co"># filter()の代わりにdrop_na(HDI_2018, Polity_Score) もOK</span></span>
+<span id="cb44-6"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(HDI_2018), <span class="sc">!</span><span class="fu">is.na</span>(Polity_Score)) <span class="sc">|&gt;</span> </span>
+<span id="cb44-7"><a></a>  <span class="fu">group_by</span>(Developed) <span class="sc">|&gt;</span></span>
+<span id="cb44-8"><a></a>  <span class="fu">summarise</span>(<span class="at">Density =</span> <span class="fu">mean</span>(Density),</span>
+<span id="cb44-9"><a></a>            <span class="at">HDI     =</span> <span class="fu">mean</span>(HDI_2018),</span>
+<span id="cb44-10"><a></a>            <span class="at">Polity  =</span> <span class="fu">mean</span>(Polity_Score))</span>
+<span id="cb44-11"><a></a></span>
+<span id="cb44-12"><a></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   Developed Density   HDI Polity
@@ -918,12 +919,18 @@ the `.groups` argument.</code></pre>
 </ul></li>
 <li>したがって、<code>summarise()</code>の前にグルーピング変数を<strong>Factor型に変換</strong>する必要がある。
 <ul>
-<li>Factor型: <strong>順序付き</strong>の文字型</li>
+<li>Factor型：<strong>順序付き</strong>の文字型</li>
 </ul></li>
 </ul>
 </section>
 <section id="developedをfactor型に" class="slide level2">
 <h2><code>Developed</code>をFactor型に</h2>
+<ul>
+<li><code>Developed</code>列をfactor化し、要素の順番は<code>"先進国"</code>、<code>"その他"</code>の順にする。
+<ul>
+<li><code>levels</code>で指定した順番</li>
+</ul></li>
+</ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb46" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb46-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Developed =</span> G7 <span class="sc">+</span> G20 <span class="sc">+</span> OECD,</span>
@@ -944,9 +951,9 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="変数のリコーディング-2値の例" class="slide level2">
-<h2>変数のリコーディング: 2値の例</h2>
-<p><code>mutate()</code>内に<code>if_else()</code>を使用（または、<code>ifelse()</code>）</p>
+<section id="変数のリコーディング2値の例" class="slide level2">
+<h2>変数のリコーディング：2値の例</h2>
+<p><code>mutate()</code>内に<code>if_else()</code>を使用</p>
 <ul>
 <li><code>df</code>の<code>OECD</code>が<code>1</code>なら<code>"OECD加盟国"</code>、それ以外なら<code>"OECD非加盟国"</code>に変換し、<code>OECD_J</code>という列として追加</li>
 </ul>
@@ -970,8 +977,8 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="変数のリコーディング-2値の例-1" class="slide level2">
-<h2>変数のリコーディング: 2値の例</h2>
+<section id="変数のリコーディング2値の例-1" class="slide level2">
+<h2>変数のリコーディング：2値の例</h2>
 <p><strong>例)</strong> 変換後</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb51" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>df <span class="sc">|&gt;</span></span>
@@ -989,22 +996,20 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="変数のリコーディング-3値以上の例" class="slide level2">
-<h2>変数のリコーディング: 3値以上の例</h2>
+<section id="変数のリコーディング3値以上の例" class="slide level2">
+<h2>変数のリコーディング：3値以上の例</h2>
 <p><code>mutate()</code>内に<code>case_when()</code>を使用</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>データフレーム名 <span class="sc">|&gt;</span></span>
+<div class="sourceCode" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>データフレーム名 <span class="sc">|&gt;</span></span>
 <span id="cb53-2"><a></a>  <span class="fu">mutate</span>(新しい変数名 <span class="ot">=</span> <span class="fu">case_when</span>(条件1 <span class="sc">~</span> 新しい値,</span>
-<span id="cb53-3"><a></a>                                条件2 <span class="sc">~</span> 新しい値,</span>
-<span id="cb53-4"><a></a>                                ...</span>
-<span id="cb53-5"><a></a>                                <span class="at">.default =</span> 新しい値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<span id="cb53-3"><a></a>                               条件2 <span class="sc">~</span> 新しい値,</span>
+<span id="cb53-4"><a></a>                               ...</span>
+<span id="cb53-5"><a></a>                               <span class="at">.default =</span> 新しい値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><code>.default = 新しい値</code>は「上記の条件全てが満たされ<strong>ない</strong>場合の値」を意味する。</li>
 </ul>
 </section>
-<section id="変数のリコーディング-3値以上の例-1" class="slide level2">
-<h2>変数のリコーディング: 3値以上の例</h2>
+<section id="変数のリコーディング3値以上の例-1" class="slide level2">
+<h2>変数のリコーディング：3値以上の例</h2>
 <p><strong>例)</strong> <code>df</code>の<code>Continent</code>を日本語にし、<code>Continent_J</code>として追加</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>df <span class="sc">|&gt;</span></span>
@@ -1029,8 +1034,8 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </section>
-<section id="変数のリコーディング-応用" class="slide level2">
-<h2>変数のリコーディング: 応用</h2>
+<section id="変数のリコーディング応用" class="slide level2">
+<h2>変数のリコーディング：応用</h2>
 <p><strong>例)</strong> <code>Continent</code>が<code>AP</code>列を追加し、<code>"Asia"</code>か<code>"Oceania"</code>、<code>"America"</code>なら1、以外は0</p>
 <p><strong>方法1</strong>: <code>if_else()</code>の利用</p>
 <div class="cell" data-layout-align="center">
@@ -1054,22 +1059,30 @@ the `.groups` argument.</code></pre>
 </section>
 <section id="naではない欠損値もあることに注意" class="slide level2">
 <h2><code>NA</code>ではない欠損値もあることに注意</h2>
-<p>世論調査などの場合、欠損値が<code>NA</code>でなく、<code>9</code>や<code>99</code>、<code>""</code>などの場合がある。</p>
-<p><strong>例)</strong> <code>my_data</code>の例</p>
+<p>世論調査などの場合、欠損値が<code>NA</code>でなく、<code>9</code>や<code>99</code>、<code>""</code>などの場合があるため、自分で<code>NA</code>に変換する必要があるケースも多い。</p>
 <ul>
-<li><code>YoungAge</code>変数を作成し、<code>Age</code>が39以下なら<code>1</code>、それ以外は<code>0</code>にする。ただし、999なら<code>NA</code>とする。</li>
-<li><code>HighEduc2</code>変数を作成し、<code>HighEduc</code>が1なら<code>"大卒以上"</code>、それ以外は<code>"大卒未満"</code>にする。ただし、9なら<code>NA</code>とする。</li>
+<li><strong>例)</strong> <code>my_data</code>の例
+<ul>
+<li><code>YoungAge</code>変数を作成し、<code>Age</code>が39以下なら<code>1</code>、それ以外は<code>0</code>にする。
+<ul>
+<li>欠損値は999</li>
+</ul></li>
+<li><code>HighEduc2</code>変数を作成し、<code>HighEduc</code>が1なら<code>"大卒以上"</code>、それ以外は<code>"大卒未満"</code>にする。
+<ul>
+<li>欠損値は8と9</li>
+</ul></li>
+</ul></li>
 </ul>
 <div class="columns">
-<div class="column" style="width:70%;">
+<div class="column" style="width:65%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>my_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">ID       =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
 <span id="cb59-2"><a></a>                  <span class="at">Age      =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">35</span>, <span class="dv">57</span>, <span class="dv">999</span>, <span class="dv">74</span>, </span>
 <span id="cb59-3"><a></a>                               <span class="dv">66</span>, <span class="dv">999</span>, <span class="dv">49</span>, <span class="dv">78</span>, <span class="dv">67</span>),</span>
 <span id="cb59-4"><a></a>                  <span class="at">HighEduc =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>,</span>
-<span id="cb59-5"><a></a>                               <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">9</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-5"><a></a>                               <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">9</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:30%;">
+</div><div class="column" style="width:35%;">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>my_data</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1084,7 +1097,7 @@ the `.groups` argument.</code></pre>
  6     6    66        9
  7     7   999        1
  8     8    49        1
- 9     9    78        9
+ 9     9    78        8
 10    10    67        9</code></pre>
 </div>
 </div>
@@ -1101,7 +1114,7 @@ the `.groups` argument.</code></pre>
 <span id="cb62-2"><a></a>  <span class="fu">mutate</span>(<span class="at">YoungAge  =</span> <span class="fu">case_when</span>(Age <span class="sc">==</span> <span class="dv">999</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
 <span id="cb62-3"><a></a>                               Age <span class="sc">&lt;=</span>  <span class="dv">39</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb62-4"><a></a>                               <span class="at">.default   =</span> <span class="dv">0</span>),</span>
-<span id="cb62-5"><a></a>         <span class="at">HighEduc2 =</span> <span class="fu">case_when</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb62-5"><a></a>         <span class="at">HighEduc2 =</span> <span class="fu">case_when</span>(HighEduc <span class="sc">&gt;=</span> <span class="dv">9</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
 <span id="cb62-6"><a></a>                               HighEduc <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"大卒以上"</span>,</span>
 <span id="cb62-7"><a></a>                               <span class="at">.default      =</span> <span class="st">"大卒未満"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1116,7 +1129,7 @@ the `.groups` argument.</code></pre>
  6     6    66        9        0 &lt;NA&gt;     
  7     7   999        1       NA 大卒以上 
  8     8    49        1        0 大卒以上 
- 9     9    78        9        0 &lt;NA&gt;     
+ 9     9    78        8        0 大卒未満 
 10    10    67        9        0 &lt;NA&gt;     </code></pre>
 </div>
 </div>
@@ -1125,12 +1138,15 @@ the `.groups` argument.</code></pre>
 <h2>特定の値を欠損値にコーディング場合</h2>
 <p>特定の値を欠損値とし、それ以外の値は元も値にする場合</p>
 <ul>
-<li>主に<code>if_else()</code>を使用し、条件に合致した場合は<code>NA</code>を、合致しない場合は元の変数のままにする。</li>
+<li>主に<code>if_else()</code>を使用し、条件に合致した場合は<code>NA</code>を、合致しない場合は元の変数のままにする。
+<ul>
+<li><code>if_else(Age == 999, NA, Age)</code>は（1）<code>Age</code>の値が999なら（<code>Age == 999</code>）（2）<code>NA</code>を上書きし、（3）そうでなければ元の<code>Age</code>の値にする。</li>
+</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a>my_data <span class="sc">|&gt;</span></span>
 <span id="cb64-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Age      =</span> <span class="fu">if_else</span>(Age      <span class="sc">==</span> <span class="dv">999</span>, <span class="cn">NA</span>, Age),</span>
-<span id="cb64-3"><a></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">==</span> <span class="dv">9</span>,   <span class="cn">NA</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb64-3"><a></a>         <span class="at">HighEduc =</span> <span class="fu">if_else</span>(HighEduc <span class="sc">&gt;=</span> <span class="dv">9</span>,   <span class="cn">NA</span>, HighEduc))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
       ID   Age HighEduc
@@ -1143,7 +1159,7 @@ the `.groups` argument.</code></pre>
  6     6    66       NA
  7     7    NA        1
  8     8    49        1
- 9     9    78       NA
+ 9     9    78        8
 10    10    67       NA</code></pre>
 </div>
 </div>
@@ -1172,7 +1188,7 @@ the `.groups` argument.</code></pre>
  6     6    66       NA
  7     7    NA        1
  8     8    49        1
- 9     9    78       NA
+ 9     9    78        8
 10    10    67       NA</code></pre>
 </div>
 </div>
@@ -1202,7 +1218,7 @@ the `.groups` argument.</code></pre>
  6     6    66       NA
  7     7    NA        1
  8     8    49        1
- 9     9    78       NA
+ 9     9    78        8
 10    10    67       NA</code></pre>
 </div>
 </div>
