@@ -551,7 +551,7 @@ my_data |>
   mutate(YoungAge  = case_when(Age == 999 ~ NA,
                                Age <=  39 ~ 1,
                                .default   = 0),
-         HighEduc2 = case_when(HighEduc >= 9 ~ NA,
+         HighEduc2 = case_when(HighEduc >= 8 ~ NA,
                                HighEduc == 1 ~ "大卒以上",
                                .default      = "大卒未満"))
 ```
@@ -565,7 +565,7 @@ my_data |>
 ```{r}
 my_data |>
   mutate(Age      = if_else(Age      == 999, NA, Age),
-         HighEduc = if_else(HighEduc >= 9,   NA, HighEduc))
+         HighEduc = if_else(HighEduc >= 8,   NA, HighEduc))
 ```
 
 ## 特定の値を欠損値にコーディング場合
@@ -578,7 +578,7 @@ my_data |>
 my_data |>
   mutate(Age      = case_when(Age == 999 ~ NA, 
                               .default   = Age),
-         HighEduc = case_when(HighEduc == 9 ~ NA, 
+         HighEduc = case_when(HighEduc >= 8 ~ NA, 
                               .default      = HighEduc))
 ```
 
@@ -594,7 +594,7 @@ my_data |>
 library(naniar) # 事前に install.package(naniar) でインストール
 my_data |>
   # Ageは999、HighEducは9が欠損値
-  replace_with_na(list(Age = 999, HighEduc = 9))
+  replace_with_na(list(Age = 999, HighEduc = c(8, 9)))
 ```
 
 ## 参考）`mutate()`における複数の処理
@@ -607,7 +607,7 @@ my_data |>
 #| eval: false
 my_data |>
   mutate(Age      = if_else(Age == 999, NA, Age),
-         HighEduc = if_else(HighEduc == 9, NA, HighEduc))
+         HighEduc = if_else(HighEduc >= 8, NA, HighEduc))
 ```
 
 #### 一つの`mutate()`内に1つの処理
@@ -616,5 +616,5 @@ my_data |>
 #| eval: false
 my_data |>
   mutate(Age = if_else(Age == 999, NA, Age)) |>
-  mutate(HighEduc = if_else(HighEduc == 9, NA, HighEduc))
+  mutate(HighEduc = if_else(HighEduc >= 8, NA, HighEduc))
 ```
