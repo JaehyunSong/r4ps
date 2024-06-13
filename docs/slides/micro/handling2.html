@@ -1037,12 +1037,12 @@ the `.groups` argument.</code></pre>
 <section id="変数のリコーディング応用" class="slide level2">
 <h2>変数のリコーディング：応用</h2>
 <p><strong>例)</strong> <code>Continent</code>が<code>AP</code>列を追加し、<code>"Asia"</code>か<code>"Oceania"</code>、<code>"America"</code>なら1、以外は0</p>
-<p><strong>方法1</strong>: <code>if_else()</code>の利用</p>
+<p><strong>方法1</strong>：<code>if_else()</code>の利用</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb56-2"><a></a>  <span class="fu">mutate</span>(<span class="at">AP =</span> <span class="fu">if_else</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"America"</span>, <span class="st">"Oceania"</span>), <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>方法2</strong>: <code>case_when()</code>の利用</p>
+<p><strong>方法2</strong>：<code>case_when()</code>の利用</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb57-2"><a></a>  <span class="fu">mutate</span>(<span class="at">AP =</span> <span class="fu">case_when</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>    <span class="sc">~</span> <span class="dv">1</span>, </span>
@@ -1050,7 +1050,7 @@ the `.groups` argument.</code></pre>
 <span id="cb57-4"><a></a>                        Continent <span class="sc">==</span> <span class="st">"Oceania"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb57-5"><a></a>                        <span class="at">.default =</span> <span class="dv">0</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>方法3</strong>: <code>case_when()</code> + <code>%in%</code>の利用</p>
+<p><strong>方法3</strong>：<code>case_when()</code> + <code>%in%</code>の利用</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb58-2"><a></a>  <span class="fu">mutate</span>(<span class="at">AP =</span> <span class="fu">case_when</span>(Continent <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"America"</span>, <span class="st">"Oceania"</span>) <span class="sc">~</span> <span class="dv">1</span>, </span>

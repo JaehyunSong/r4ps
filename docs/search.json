@@ -7259,6 +7259,6 @@
     "href": "slides/micro/handling2.html#変数のリコーディング応用",
     "title": "ミクロ政治データ分析実習",
     "section": "変数のリコーディング：応用",
-    "text": "変数のリコーディング：応用\n例) ContinentがAP列を追加し、\"Asia\"か\"Oceania\"、\"America\"なら1、以外は0\n方法1: if_else()の利用\n\ndf |&gt;\n  mutate(AP = if_else(Continent %in% c(\"Asia\", \"America\", \"Oceania\"), 1, 0))\n\n方法2: case_when()の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent == \"Asia\"    ~ 1, \n                        Continent == \"America\" ~ 1, \n                        Continent == \"Oceania\" ~ 1,\n                        .default = 0))\n\n方法3: case_when() + %in%の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent %in% c(\"Asia\", \"America\", \"Oceania\") ~ 1, \n                        .default = 0))"
+    "text": "変数のリコーディング：応用\n例) ContinentがAP列を追加し、\"Asia\"か\"Oceania\"、\"America\"なら1、以外は0\n方法1：if_else()の利用\n\ndf |&gt;\n  mutate(AP = if_else(Continent %in% c(\"Asia\", \"America\", \"Oceania\"), 1, 0))\n\n方法2：case_when()の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent == \"Asia\"    ~ 1, \n                        Continent == \"America\" ~ 1, \n                        Continent == \"Oceania\" ~ 1,\n                        .default = 0))\n\n方法3：case_when() + %in%の利用\n\ndf |&gt;\n  mutate(AP = case_when(Continent %in% c(\"Asia\", \"America\", \"Oceania\") ~ 1, \n                        .default = 0))"
   }
 ]
