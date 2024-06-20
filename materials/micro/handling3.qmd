@@ -25,7 +25,7 @@ library(tidyverse)
 
 ### 行の結合
 
-　複数のdata.frameを縦に結合する場合は、`bind_rows()`を利用する。たとえば、以下のような2つのdata.frameがあるとする。
+　複数のtibble（またはdata.frame）を縦に結合する場合は、`bind_rows()`を利用する。たとえば、以下のような2つのtibble（またはdata.frame）があるとする。
 
 ```{r}
 #| filename: "Code 02"
@@ -59,14 +59,14 @@ Data2
 
 ::::
 
-　2つのdata.frameは同じ変数名を共有しているため、縦に積み重ねることができる。このようにデータを縦に結合する時にはそれぞれのdata.frameの変数名が一致する必要がある。今回の例では以下の例はいずれのdata.frameも`ID`、`Name`、`Score`で構成されている。ただし、`ID`、`Name`、`Score`の順番は一致しなくても良いが、上のdata.frameの順番に調整される。`bind_rows()`の使い方は簡単である。`bind_rows()`の中に結合するdata.frameのオブジェクト名を入れるだけだ。
+　2つのtibble（またはdata.frame）は同じ変数名を共有しているため、縦に積み重ねることができる。このようにデータを縦に結合する時にはそれぞれのtibble（またはdata.frame）の変数名が一致する必要がある。今回の例では以下の例はいずれのtibble（またはdata.frame）も`ID`、`Name`、`Score`で構成されている。ただし、`ID`、`Name`、`Score`の順番は一致しなくても良いが、上のtibble（またはdata.frame）の順番に調整される。`bind_rows()`の使い方は簡単である。`bind_rows()`の中に結合するtibble（またはdata.frame）のオブジェクト名を入れるだけだ。
 
 ```{r}
 #| filename: "Code 04"
 bind_rows(Data1, Data2)
 ```
 
-　この`Data1`と`Data2`がそれぞれ1組と2組の学生データだとしよう。結合後はどの生徒がどの組に所属しているかが分からない。結合と同時に各data.frameの識別変数を追加するためには結合するデータを`list()`でまとめ、`.id`引数を追加する。ただし、`list()`の内部では以下のように`"識別変数の値" = 結合するデータ`と定義する必要がある。
+　この`Data1`と`Data2`がそれぞれ1組と2組の学生データだとしよう。結合後はどの生徒がどの組に所属しているかが分からない。結合と同時に各tibble（またはdata.frame）の識別変数を追加するためには結合するデータを`list()`でまとめ、`.id`引数を追加する。ただし、`list()`の内部では以下のように`"識別変数の値" = 結合するデータ`と定義する必要がある。
 
 ```{r}
 #| filename: "Code 05"
@@ -111,7 +111,7 @@ Data2
 
 ::::
 
-　この2つのデータを結合する時には`left_join()`、`right_join()`、`inner_join()`、`full_join()`などを使用するが、いずれも使い方は同じである。まず、結合する2つのdata.frameのオブジェクト名を入力し、`by = "キー変数名"`の引数を追加する。
+　この2つのデータを結合する時には`left_join()`、`right_join()`、`inner_join()`、`full_join()`などを使用するが、いずれも使い方は同じである。まず、結合する2つのtibble（またはdata.frame）のオブジェクト名を入力し、`by = "キー変数名"`の引数を追加する。
 
 ```{r}
 #| filename: "Code 08"
@@ -162,36 +162,63 @@ left_join(Data1, Data2, by = c("City" = "Toshi"))
 
 　まず、`left_join()`はデータ1を温存させる関数である。たとえば、上の例だと、データ1には東京、大阪、高知が、データ2には高知、大阪、京都のデータが含まれている。大阪と高知は問題なく結合できるが、余っているデータ1の東京、データ2の京都はどうなるだろうか。`left_join()`を使う場合、データ1の東京が温存される。ただし、データ2に東京のデータがないため、東京の`Tabemono`は欠損値（`NA`）で埋められる。
 
-:::{layout-ncol=2}
-![](Figs/handling3/Merge_Left.png){width=49% fig-align="center"}
-
-![](Figs/handling3/left-join.gif){width=49% fig-align="center"}
+::::{.columns}
+:::{.column width=59%}
+![](Figs/handling3/Merge_Left.png){fig-align="center"}
 :::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=39%}
+![](Figs/handling3/left-join.gif){fig-align="center"}
+:::
+::::
 
 　一方、`right_join()`はデータ2が温存される。つまり、京都の行が残り、京都の`Pop`と`Area`は欠損値となる。
 
-
-:::{layout-ncol=2}
-![](Figs/handling3/Merge_Right.png){width=49% fig-align="center"}
-
-![](Figs/handling3/right-join.gif){width=49% fig-align="center"}
+::::{.columns}
+:::{.column width=59%}
+![](Figs/handling3/Merge_Right.png){fig-align="center"}
 :::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=39%}
+![](Figs/handling3/right-join.gif){fig-align="center"}
+:::
+::::
 
 　`inner_join()`は両データに同時に存在する行のみが結合対象となるため、大阪と高知の行のみが結合される。
 
-:::{layout-ncol=2}
-![](Figs/handling3/Merge_Inner.png){width=49% fig-align="center"}
-
-![](Figs/handling3/inner-join.gif){width=49% fig-align="center"}
+::::{.columns}
+:::{.column width=59%}
+![](Figs/handling3/Merge_Inner.png){fig-align="center"}
 :::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=39%}
+![](Figs/handling3/inner-join.gif){fig-align="center"}
+:::
+::::
 
 　最後に、`full_join()`はデータ1とデータ2すべてを温存させ、欠損しているセルは欠損値（`NA`）で埋められる。
 
-:::{layout-ncol=2}
-![](Figs/handling3/Merge_Full.png){width=49% fig-align="center"}
-
-![](Figs/handling3/full-join.gif){width=49% fig-align="center"}
+::::{.columns}
+:::{.column width=59%}
+![](Figs/handling3/Merge_Full.png){fig-align="center"}
 :::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=39%}
+![](Figs/handling3/full-join.gif){fig-align="center"}
+:::
+::::
 
 それでは以下のデータで実際に比較してみよう。
 
@@ -485,7 +512,7 @@ City_Data |>
 
 ### {tidyr}と{dplyr}
 
-　これまでの例で見てきたように、{tidyr}の各関数を通して得られた結果はいずれもdata.frame（厳密にはtibble）構造である。また、{tidyr}の各関数の第一引数はdata.frameである。これは{tidyr}と{dplyr}を組み合わせることが可能であることを意味する。つまり、{tidyr}の関数から{dplyr}の関数、またがその逆の方向でパイプ演算子を使うこともできる。たとえば、今回の実習データをlong型へ整形し、100万人当たりの新規感染者数を`New_Case_per_1M`という列として格納し、国・地域（`Country`）ごとに`New_Case_per_1M`の平均とを計算する作業を、全てパイプで繋ぐこともできる。
+　これまでの例で見てきたように、{tidyr}の各関数を通して得られた結果はいずれもtibble構造（data.frameとほぼ同じ）である。また、{tidyr}の各関数の第一引数はtibble（またはdata.frame）である。これは{tidyr}と{dplyr}を組み合わせることが可能であることを意味する。つまり、{tidyr}の関数から{dplyr}の関数、またがその逆の方向でパイプ演算子を使うこともできる。たとえば、今回の実習データをlong型へ整形し、100万人当たりの新規感染者数を`New_Case_per_1M`という列として格納し、国・地域（`Country`）ごとに`New_Case_per_1M`の平均とを計算する作業を、全てパイプで繋ぐこともできる。
 
 ```{r}
 #| filename: "Code 25"
