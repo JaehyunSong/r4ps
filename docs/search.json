@@ -698,7 +698,7 @@
     "href": "slides/micro/handling3.html#整然データ構造とは",
     "title": "ミクロ政治データ分析実習",
     "section": "整然データ構造とは",
-    "text": "整然データ構造とは\nTidy data：Hadley Wickhamが提唱したデータ分析に適したデータ構造\n\n\n\n整然データ、簡潔データと呼ばれる。\n\n対概念は非整然データ、雑然データ（messy data）\n\nパソコンにとって読みやすいデータ \\(\\neq\\) 人間にとって読みやすいデータ\n{tidyr}パッケージは雑然データを整然データへ変形するパッケージ\n次回紹介する{ggplot2}は整然データを前提として開発されたパッケージ\n\n4つの原則\n\n1つの列は、1つの変数を表す\n1つの行は、1つの観測を表す\n1つのセルは、1つの値を表す\n1つの表は、1つの観測単位をもつ"
+    "text": "整然データ構造とは\nTidy data：Hadley Wickhamが提唱したデータ分析に適したデータ構造\n\n\n\n「整然データ」、「簡潔データ」と呼ばれる。\n\n対概念は「非整然データ」、「雑然データ」（messy data）\n\nパソコンにとって読みやすいデータ \\(\\neq\\) 人間にとって読みやすいデータ\n{tidyr}パッケージは雑然データを整然データへ整形するパッケージ\n次回紹介する{ggplot2}は整然データを前提として開発されたパッケージ\n\n4つの原則\n\n1つの列は、1つの変数を表す\n1つの行は、1つの観測を表す\n1つのセルは、1つの値を表す\n1つの表は、1つの観測単位をもつ"
   },
   {
     "objectID": "slides/micro/handling3.html#原則1-1列1変数",
@@ -747,7 +747,7 @@
     "href": "slides/micro/handling3.html#実習用データ",
     "title": "ミクロ政治データ分析実習",
     "section": "実習用データ",
-    "text": "実習用データ\ncovid_sample.csv：中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数\n\nサポートページからダウンロード\nデータ出典:Johns Hopkins University Center for Systems Science and Engineering\n\n\nCOVID_df &lt;- read_csv(\"Data/covid_sample.csv\")\nCOVID_df\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n1 China    1447470092          819          848         1114          990\n2 Japan     126476461        16788        15584        15338        13381\n3 Korea      51269185         9304         8428         7382         3828\n4 Mongolia    3278290            0            0            0            0\n5 Taiwan     23816775        72846        68293        79616        50567\n# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;"
+    "text": "実習用データ\ncovid_sample.csv：中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数\n\nLMSからダウンロード\nデータ出典：Johns Hopkins University Center for Systems Science and Engineering\n\n\nCOVID_df &lt;- read_csv(\"Data/covid_sample.csv\")\nCOVID_df\n\n# A tibble: 5 × 7\n  Country  Population `2022/06/09` `2022/06/10` `2022/06/11` `2022/06/12`\n  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n1 China    1447470092          819          848         1114          990\n2 Japan     126476461        16788        15584        15338        13381\n3 Korea      51269185         9304         8428         7382         3828\n4 Mongolia    3278290            0            0            0            0\n5 Taiwan     23816775        72846        68293        79616        50567\n# ℹ 1 more variable: `2022/06/13` &lt;dbl&gt;"
   },
   {
     "objectID": "slides/micro/handling3.html#このデータの問題点",
@@ -7270,7 +7270,7 @@
     "href": "slides/micro/handling3.html#比較2",
     "title": "ミクロ政治データ分析実習",
     "section": "比較（2）",
-    "text": "比較（2）\nby = \"識別用の変数名\"は複数用いることも可能（例: 都道府県名&年度で結合）\n\nby = c(\"識別用の変数名1\", \"識別用の変数名2\")\n\n\n\n\nleft_join(df1, df2, by = \"Pref\")\n\n# A tibble: 3 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 京都    4.2    NA\n\nright_join(df1, df2, by = \"Pref\")\n\n# A tibble: 3 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 高知   NA     111\n\n\n\n\n\n\ninner_join(df1, df2, by = \"Pref\")\n\n# A tibble: 2 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n\nfull_join(df1, df2, by = \"Pref\")\n\n# A tibble: 4 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 京都    4.2    NA\n4 高知   NA     111"
+    "text": "比較（2）\nby = \"識別用の変数名\"は複数用いることも可能（例：都道府県名&年度で結合）\n\nby = c(\"識別用の変数名1\", \"識別用の変数名2\")\n\n\n\n\nleft_join(df1, df2, by = \"Pref\")\n\n# A tibble: 3 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 京都    4.2    NA\n\nright_join(df1, df2, by = \"Pref\")\n\n# A tibble: 3 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 高知   NA     111\n\n\n\n\n\n\ninner_join(df1, df2, by = \"Pref\")\n\n# A tibble: 2 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n\nfull_join(df1, df2, by = \"Pref\")\n\n# A tibble: 4 × 3\n  Pref  Score     N\n  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 東京    3.5  3220\n2 大阪    4    1325\n3 京都    4.2    NA\n4 高知   NA     111"
   },
   {
     "objectID": "slides/micro/handling3.html#原則11列1変数",
@@ -7341,5 +7341,54 @@
     "title": "ミクロ政治データ分析実習",
     "section": "列の分割（番外編）：特定の記号がない場合（続）",
     "text": "列の分割（番外編）：特定の記号がない場合（続）\n正規表現（regular expression; 正則表現）の知識が必要\n\nテキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）\n\n\nCity_Data |&gt;\n   # 任意の2文字の後に「都道府県」のいずれかが来るか、\n   # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする\n   # Cityの値を「ブロック1-ブロック2」に置換する\n   mutate(City = str_replace(City, \"^(.{2}[都道府県]|.{3}県)(.+)\", \n                             \"\\\\1-\\\\2\")) |&gt;\n   # 「-」を基準に列を分割\n   separate(col  = \"City\", into = c(\"Pref\", \"City\"), sep  = \"-\")\n\n# A tibble: 4 × 3\n  Pref     City          Pop\n  &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;\n1 北海道   音威子府村    693\n2 大阪府   高槻市     347424\n3 広島県   府中市      36471\n4 鹿児島県 指宿市      38207"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#番外編列の分割特定の記号がない場合",
+    "href": "slides/micro/handling3.html#番外編列の分割特定の記号がない場合",
+    "title": "ミクロ政治データ分析実習",
+    "section": "【番外編】列の分割：特定の記号がない場合",
+    "text": "【番外編】列の分割：特定の記号がない場合\n例) City_DataのCity列が「都道府県名+市区町村」\n\n「最初の3文字」と「残り」で分割することは出来ない（神奈川、和歌山、鹿児島）\n任意の2文字の後に「都」、「道」、「府」、「県」が付くか、任意の3文字の後に「県」が付く箇所を見つけて分割\n\nかなり複雑\n\n\n\n\n# A tibble: 4 × 2\n  City                Pop\n  &lt;chr&gt;             &lt;dbl&gt;\n1 北海道音威子府村    693\n2 大阪府高槻市     347424\n3 広島県府中市      36471\n4 鹿児島県指宿市    38207"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#番外編列の分割特定の記号がない場合続",
+    "href": "slides/micro/handling3.html#番外編列の分割特定の記号がない場合続",
+    "title": "ミクロ政治データ分析実習",
+    "section": "【番外編】列の分割：特定の記号がない場合（続）",
+    "text": "【番外編】列の分割：特定の記号がない場合（続）\n正規表現（regular expression）の知識が必要\n\nテキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）\n\n\nCity_Data |&gt;\n   # 任意の2文字の後に「都道府県」のいずれかが来るか、\n   # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする\n   # Cityの値を「ブロック1-ブロック2」に置換する\n   mutate(City = str_replace(City, \"^(.{2}[都道府県]|.{3}県)(.+)\", \n                             \"\\\\1-\\\\2\")) |&gt;\n   # 「-」を基準に列を分割\n   separate(col  = \"City\", into = c(\"Pref\", \"City\"), sep  = \"-\")\n\n# A tibble: 4 × 3\n  Pref     City          Pop\n  &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;\n1 北海道   音威子府村    693\n2 大阪府   高槻市     347424\n3 広島県   府中市      36471\n4 鹿児島県 指宿市      38207"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#pivot_longerwide-to-long",
+    "href": "slides/micro/handling3.html#pivot_longerwide-to-long",
+    "title": "ミクロ政治データ分析実習",
+    "section": "pivot_longer()：Wide to Long",
+    "text": "pivot_longer()：Wide to Long\n\ncolsはdplyr::select()と同じ使い方\n\nc()で個別の変数名を指定することも、:やstarts_with()、!、-を使うこともOK\n注意：変数名が数字で始まったり、記号が含まれている場合、変数名を`か\"で囲む。\n\n列名が日付の場合、数字で始まったり、記号（/や-など）が含まれるケースが多い。\n\n\n\n\nデータ |&gt;\n  pivot_longer(cols      = \"変数が格納されている列\",\n               names_to  = \"元の列名が入る変数名\",\n               values_to = \"変数の値が入る変数名\")"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#separate列の分割-1",
+    "href": "slides/micro/handling3.html#separate列の分割-1",
+    "title": "ミクロ政治データ分析実習",
+    "section": "separate()：列の分割",
+    "text": "separate()：列の分割\n\nCOVID_Long |&gt;\n  separate(col  = \"Date\",\n           into = c(\"Year\", \"Month\", \"Day\"),\n           sep  = \"/\")\n\n# A tibble: 25 × 6\n   Country Population Year  Month Day   New_Cases\n   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;\n 1 China   1447470092 2022  06    09          819\n 2 China   1447470092 2022  06    10          848\n 3 China   1447470092 2022  06    11         1114\n 4 China   1447470092 2022  06    12          990\n 5 China   1447470092 2022  06    13          957\n 6 Japan    126476461 2022  06    09        16788\n 7 Japan    126476461 2022  06    10        15584\n 8 Japan    126476461 2022  06    11        15338\n 9 Japan    126476461 2022  06    12        13381\n10 Japan    126476461 2022  06    13         7942\n# ℹ 15 more rows"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#データの結合行",
+    "href": "slides/micro/handling3.html#データの結合行",
+    "title": "ミクロ政治データ分析実習",
+    "section": "データの結合：行",
+    "text": "データの結合：行\nbind_rows()を利用：変数名が一致する必要がある\n\n以下の例はいずれのtibble（または、data.frame）もID、Name、Scoreで構成されている。\n\nID、Name、Scoreの順番は一致しなくても良い（上のdata.frameの順番に調整される）。\n\n\n\n\n結合前\n\nData1\n\n  ID  Name Score\n1  1 Aさん    77\n2  2 Bさん    89\n3  3 Cさん    41\n\nData2\n\n  ID  Name Score\n1  4 Xさん    98\n2  5 Yさん    78\n\n\n\n\n\n結合後\n\nbind_rows(Data1, Data2)\n\n  ID  Name Score\n1  1 Aさん    77\n2  2 Bさん    89\n3  3 Cさん    41\n4  4 Xさん    98\n5  5 Yさん    78"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#データの結合行-1",
+    "href": "slides/micro/handling3.html#データの結合行-1",
+    "title": "ミクロ政治データ分析実習",
+    "section": "データの結合：行",
+    "text": "データの結合：行\n結合前のデータ識別変数の追加\n\n結合するデータをlist()でまとめ、.id引数を追加する\nlist()の内部では\"識別変数の値\" = 結合するデータと定義\n\n例) 結合後、Classという列を追加し、元々Data1だった行は\"1組\"、Data2だった行には\"2組\"を格納する。\n\nbind_rows(list(\"1組\" = Data1, \"2組\" = Data2),\n          .id = \"Class\")\n\n  Class ID  Name Score\n1   1組  1 Aさん    77\n2   1組  2 Bさん    89\n3   1組  3 Cさん    41\n4   2組  4 Xさん    98\n5   2組  5 Yさん    78"
+  },
+  {
+    "objectID": "slides/micro/handling3.html#データの結合列",
+    "href": "slides/micro/handling3.html#データの結合列",
+    "title": "ミクロ政治データ分析実習",
+    "section": "データの結合：列",
+    "text": "データの結合：列\n*_join()：結合に使う識別用の変数（キー変数）が必要（以下ではCity）\n\n\n結合前\n\nData1\n\n   City Pop Area\n1 Tokyo 927 2194\n2 Osaka 148  828\n3 Kochi  76 7104\n\n\n\n\n\n結合前\n\nData2\n\n   City     Food\n1 Kochi   Katsuo\n2 Osaka Takoyaki\n3 Tokyo    Ramen\n\n\n\n\n結合後\n\nleft_join(Data1, Data2, by = \"City\")\n\n   City Pop Area     Food\n1 Tokyo 927 2194    Ramen\n2 Osaka 148  828 Takoyaki\n3 Kochi  76 7104   Katsuo"
   }
 ]

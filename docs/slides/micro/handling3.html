@@ -445,15 +445,15 @@
 </ul>
 </section>
 <section>
-<section id="dplyr-データの結合" class="title-slide slide level1 center">
-<h1>{dplyr}: データの結合</h1>
+<section id="dplyrデータの結合" class="title-slide slide level1 center">
+<h1>{dplyr}：データの結合</h1>
 
 </section>
-<section id="データの結合-行" class="slide level2">
-<h2>データの結合: 行</h2>
-<p><code>bind_rows()</code>を利用: 変数名が一致する必要がある</p>
+<section id="データの結合行" class="slide level2">
+<h2>データの結合：行</h2>
+<p><code>bind_rows()</code>を利用：変数名が一致する必要がある</p>
 <ul>
-<li>以下の例はいずれのdata.frameも<code>ID</code>、<code>Name</code>、<code>Score</code>で構成されている。
+<li>以下の例はいずれのtibble（または、data.frame）も<code>ID</code>、<code>Name</code>、<code>Score</code>で構成されている。
 <ul>
 <li><code>ID</code>、<code>Name</code>、<code>Score</code>の順番は一致しなくても良い（上のdata.frameの順番に調整される）。</li>
 </ul></li>
@@ -493,10 +493,9 @@
 </div>
 </div>
 </div>
-<!--- --->
 </section>
-<section id="データの結合-行-1" class="slide level2">
-<h2>データの結合: 行</h2>
+<section id="データの結合行-1" class="slide level2">
+<h2>データの結合：行</h2>
 <p>結合前のデータ識別変数の追加</p>
 <ul>
 <li>結合するデータを<code>list()</code>でまとめ、<code>.id</code>引数を追加する</li>
@@ -515,11 +514,10 @@
 5   2組  5 Yさん    78</code></pre>
 </div>
 </div>
-<!--- --->
 </section>
-<section id="データの結合-列" class="slide level2">
-<h2>データの結合: 列</h2>
-<p><code>*_join()</code>: 結合に使う識別用の変数（<strong>キー変数</strong>）が必要（以下では<code>City</code>）</p>
+<section id="データの結合列" class="slide level2">
+<h2>データの結合：列</h2>
+<p><code>*_join()</code>：結合に使う識別用の変数（<strong>キー変数</strong>）が必要（以下では<code>City</code>）</p>
 <div class="columns">
 <div class="column" style="width:48%;">
 <p><strong>結合前</strong></p>
@@ -722,7 +720,7 @@
 </section>
 <section id="比較2" class="slide level2">
 <h2>比較（2）</h2>
-<p><code>by = "識別用の変数名"</code>は複数用いることも可能（例: 都道府県名&amp;年度で結合）</p>
+<p><code>by = "識別用の変数名"</code>は複数用いることも可能（例：都道府県名&amp;年度で結合）</p>
 <ul>
 <li><code>by = c("識別用の変数名1", "識別用の変数名2")</code></li>
 </ul>
@@ -785,12 +783,12 @@
 <div class="columns">
 <div class="column" style="width:66%;">
 <ul>
-<li><strong>整然データ</strong>、簡潔データと呼ばれる。
+<li>「<strong>整然データ</strong>」、「簡潔データ」と呼ばれる。
 <ul>
-<li>対概念は非整然データ、雑然データ（messy data）</li>
+<li>対概念は「非整然データ」、「雑然データ」（messy data）</li>
 </ul></li>
 <li>パソコンにとって読みやすいデータ <span class="math inline">\(\neq\)</span> 人間にとって読みやすいデータ</li>
-<li>{tidyr}パッケージは雑然データを整然データへ変形するパッケージ</li>
+<li>{tidyr}パッケージは雑然データを整然データへ整形するパッケージ</li>
 <li>次回紹介する{ggplot2}は整然データを前提として開発されたパッケージ</li>
 </ul>
 <h4 id="つの原則">4つの原則</h4>
@@ -912,8 +910,8 @@
 <h2>実習用データ</h2>
 <p><code>covid_sample.csv</code>：中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数</p>
 <ul>
-<li>サポートページからダウンロード</li>
-<li>データ出典:<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a></li>
+<li>LMSからダウンロード</li>
+<li>データ出典：<a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
@@ -1044,21 +1042,21 @@
 </div>
 </div>
 </section>
-<section id="pivot_longer-wide-to-long" class="slide level2">
-<h2><code>pivot_longer()</code>: Wide to Long</h2>
+<section id="pivot_longerwide-to-long" class="slide level2">
+<h2><code>pivot_longer()</code>：Wide to Long</h2>
 <ul>
 <li><code>cols</code>は<code>dplyr::select()</code>と同じ使い方
 <ul>
-<li><code>c()</code>で個別の変数名を指定することも、<code>:</code>や<code>starts_with()</code>を使うこともOK</li>
-<li><strong>注意：</strong>変数名が数字で始まったり、記号が含まれている場合、変数名を<code>`</code>か<code>"</code>で囲む
+<li><code>c()</code>で個別の変数名を指定することも、<code>:</code>や<code>starts_with()</code>、<code>!</code>、<code>-</code>を使うこともOK</li>
+<li><strong>注意：</strong>変数名が数字で始まったり、記号が含まれている場合、変数名を<code>`</code>か<code>"</code>で囲む。
 <ul>
-<li>列名が日付の場合、数字で始まったり、記号（<code>/</code>や<code>-</code>など）が含まれるケースが多い</li>
+<li>列名が日付の場合、数字で始まったり、記号（<code>/</code>や<code>-</code>など）が含まれるケースが多い。</li>
 </ul></li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>データ <span class="sc">|&gt;</span></span>
-<span id="cb32-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> 変数が格納されている列,</span>
+<span id="cb32-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"変数が格納されている列"</span>,</span>
 <span id="cb32-3"><a></a>               <span class="at">names_to  =</span> <span class="st">"元の列名が入る変数名"</span>,</span>
 <span id="cb32-4"><a></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1139,8 +1137,8 @@
 <span id="cb37-4"><a></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="separate-列の分割" class="slide level2">
-<h2><code>separate()</code>: 列の分割</h2>
+<section id="separate列の分割-1" class="slide level2">
+<h2><code>separate()</code>：列の分割</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb38" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>COVID_Long <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"Date"</span>,</span>
@@ -1164,8 +1162,8 @@
 </div>
 </div>
 </section>
-<section id="列の分割番外編特定の記号がない場合" class="slide level2">
-<h2>列の分割（番外編）：特定の記号がない場合</h2>
+<section id="番外編列の分割特定の記号がない場合" class="slide level2">
+<h2>【番外編】列の分割：特定の記号がない場合</h2>
 <p><strong>例)</strong> <code>City_Data</code>の<code>City</code>列が「都道府県名+市区町村」</p>
 <ul>
 <li>「最初の3文字」と「残り」で分割することは出来ない（神奈川、和歌山、鹿児島）</li>
@@ -1186,9 +1184,9 @@
 </div>
 </div>
 </section>
-<section id="列の分割番外編特定の記号がない場合続" class="slide level2">
-<h2>列の分割（番外編）：特定の記号がない場合（続）</h2>
-<p><strong>正規表現（regular expression; 正則表現）</strong>の知識が必要</p>
+<section id="番外編列の分割特定の記号がない場合続" class="slide level2">
+<h2>【番外編】列の分割：特定の記号がない場合（続）</h2>
+<p><strong>正規表現（regular expression）</strong>の知識が必要</p>
 <ul>
 <li>テキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）</li>
 </ul>

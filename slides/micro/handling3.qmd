@@ -33,13 +33,13 @@ df <- read_csv("Data/covid_sample.csv")
 * トラブルが生じた場合、速やかにTAを呼んでください。
 * 時間に余裕があれば、スライド内のコードも書いておきましょう
 
-# {dplyr}: データの結合
+# {dplyr}：データの結合
 
-## データの結合: 行
+## データの結合：行
 
-`bind_rows()`を利用: 変数名が一致する必要がある
+`bind_rows()`を利用：変数名が一致する必要がある
 
-* 以下の例はいずれのdata.frameも`ID`、`Name`、`Score`で構成されている。
+* 以下の例はいずれのtibble（または、data.frame）も`ID`、`Name`、`Score`で構成されている。
    * `ID`、`Name`、`Score`の順番は一致しなくても良い（上のdata.frameの順番に調整される）。
 
 :::: {.columns}
@@ -76,9 +76,7 @@ bind_rows(Data1, Data2)
 
 ::::
 
-<!--- --->
-
-## データの結合: 行
+## データの結合：行
 
 結合前のデータ識別変数の追加
 
@@ -92,11 +90,9 @@ bind_rows(list("1組" = Data1, "2組" = Data2),
           .id = "Class")
 ```
 
-<!--- --->
+## データの結合：列
 
-## データの結合: 列
-
-`*_join()`: 結合に使う識別用の変数（**キー変数**）が必要（以下では`City`）
+`*_join()`：結合に使う識別用の変数（**キー変数**）が必要（以下では`City`）
 
 :::: {.columns}
 
@@ -241,7 +237,7 @@ df2
 
 ## 比較（2）
 
-`by = "識別用の変数名"`は複数用いることも可能（例: 都道府県名&年度で結合）
+`by = "識別用の変数名"`は複数用いることも可能（例：都道府県名&年度で結合）
 
 * `by = c("識別用の変数名1", "識別用の変数名2")`
 
@@ -275,10 +271,10 @@ Tidy data：Hadley Wickhamが提唱した**データ分析に適したデータ�
 :::: {.columns}
 
 ::: {.column width=66%}
-* **整然データ**、簡潔データと呼ばれる。
-   * 対概念は非整然データ、雑然データ（messy data）
+* 「**整然データ**」、「簡潔データ」と呼ばれる。
+   * 対概念は「非整然データ」、「雑然データ」（messy data）
 * パソコンにとって読みやすいデータ $\neq$ 人間にとって読みやすいデータ
-* {tidyr}パッケージは雑然データを整然データへ変形するパッケージ
+* {tidyr}パッケージは雑然データを整然データへ整形するパッケージ
 * 次回紹介する{ggplot2}は整然データを前提として開発されたパッケージ
 
 #### 4つの原則
@@ -359,8 +355,8 @@ Tidy data：Hadley Wickhamが提唱した**データ分析に適したデータ�
 
 `covid_sample.csv`：中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数
 
-* サポートページからダウンロード
-* データ出典:[Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19)
+* LMSからダウンロード
+* データ出典：[Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19)
 
 ```{r}
 COVID_df <- read_csv("Data/covid_sample.csv")
@@ -394,17 +390,17 @@ COVID_df |>
                values_to = "New_Cases")
 ```
 
-## `pivot_longer()`: Wide to Long
+## `pivot_longer()`：Wide to Long
 
 * `cols`は`dplyr::select()`と同じ使い方
-  * `c()`で個別の変数名を指定することも、`:`や`starts_with()`を使うこともOK
-  * **注意：**変数名が数字で始まったり、記号が含まれている場合、変数名を`` ` ``か`"`で囲む
-    * 列名が日付の場合、数字で始まったり、記号（`/`や`-`など）が含まれるケースが多い
+  * `c()`で個別の変数名を指定することも、`:`や`starts_with()`、`!`、`-`を使うこともOK
+  * **注意：**変数名が数字で始まったり、記号が含まれている場合、変数名を`` ` ``か`"`で囲む。
+    * 列名が日付の場合、数字で始まったり、記号（`/`や`-`など）が含まれるケースが多い。
   
 ```{r}
 #| eval: false
 データ |>
-  pivot_longer(cols      = 変数が格納されている列,
+  pivot_longer(cols      = "変数が格納されている列",
                names_to  = "元の列名が入る変数名",
                values_to = "変数の値が入る変数名")
 ```
@@ -453,7 +449,7 @@ COVID_Long |>
            sep  = "分割する基準")
 ```
 
-## `separate()`: 列の分割
+## `separate()`：列の分割
 
 ```{r}
 #| code-line-numbers: "2-4"
@@ -463,7 +459,7 @@ COVID_Long |>
            sep  = "/")
 ```
 
-## 列の分割（番外編）：特定の記号がない場合
+## 【番外編】列の分割：特定の記号がない場合
 
 **例)** `City_Data`の`City`列が「都道府県名+市区町村」
 
@@ -482,9 +478,9 @@ City_Data <- tibble(City = c("北海道音威子府村",
 City_Data
 ```
 
-## 列の分割（番外編）：特定の記号がない場合（続）
+## 【番外編】列の分割：特定の記号がない場合（続）
 
-**正規表現（regular expression; 正則表現）**の知識が必要
+**正規表現（regular expression）**の知識が必要
 
 * テキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）
 
