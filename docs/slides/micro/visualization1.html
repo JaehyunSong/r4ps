@@ -9,11 +9,11 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.554">
+  <meta name="generator" content="quarto-1.5.40">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="2023-06-29">
-  <title>R for Political Science - ミクロ政治データ分析実習</title>
+  <meta name="dcterms.date" content="2024-06-27">
+  <title>R for Political Science – ミクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -44,7 +44,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -418,7 +418,7 @@
     </div>
 </div>
 
-  <p class="date">2023-06-29</p>
+  <p class="date">2024-06-27</p>
 </section>
 <section>
 <section id="グラフィックの文法とggplot2" class="title-slide slide level1 center">
@@ -834,29 +834,26 @@
 <section id="データ" class="slide level2">
 <h2>データ</h2>
 <p>使用するデータ構造はdata.frame、またはtibble</p>
-<div class="columns">
-<div class="column" style="width:30%;">
-<h3 id="データの指定1">データの指定（1）</h3>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">方法1</a></li><li><a href="#tabset-4-2">方法2</a></li><li><a href="#tabset-4-3">方法3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
 <ul>
 <li><code>data</code>引数にdata.frame（tibble）オブジェクト名を指定</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> データ名)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:1%;">
-
-</div><div class="column" style="width:30%;">
-<h3 id="データの指定2">データの指定（2）</h3>
+</div>
+<div id="tabset-4-2">
 <ul>
-<li><code>data</code>引数は第一引数であるため、省略されることも多い</li>
+<li><code>data</code>引数は第一引数であるため、<code>data =</code>は省略されることが多い。</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(データ名)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:1%;">
-
-</div><div class="column" style="width:38%;">
-<h3 id="データの指定3">データの指定（3）</h3>
+</div>
+<div id="tabset-4-3">
 <ul>
 <li><code>data</code>引数は第一引数であるため、パイプ演算子 (<code>|&gt;</code>)で渡すことも可能</li>
 <li>この方法を推奨</li>
@@ -870,8 +867,9 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>データ名 <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a></a>   {dplyr}<span class="sc">/</span>{tidyr}の関数 <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a></a>   {dplyr}<span class="sc">/</span>{tidyr}の関数() <span class="sc">|&gt;</span></span>
 <span id="cb16-3"><a></a>   <span class="fu">ggplot</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -885,11 +883,11 @@
 </div>
 <p>指定されたデータを使ってどのような図を作成するか</p>
 <ul>
-<li>散布図: <code>geom_point()</code></li>
-<li>棒グラフ: <code>geom_bar()</code></li>
-<li>折れ線グラフ: <code>geom_line()</code></li>
-<li>ヒストグラム: <code>geom_histogram()</code></li>
-<li>箱ひげ図: <code>geom_boxplot()</code></li>
+<li>散布図：<code>geom_point()</code></li>
+<li>棒グラフ：<code>geom_bar()</code></li>
+<li>折れ線グラフ：<code>geom_line()</code></li>
+<li>ヒストグラム：<code>geom_histogram()</code></li>
+<li>箱ひげ図：<code>geom_boxplot()</code></li>
 <li>その他</li>
 </ul>
 <p>{ggplot2}が提供する幾何オブジェクトも数十種類があり、ユーザーが開発・公開した幾何オブジェクトなどもある</p>
@@ -902,14 +900,14 @@
 <p>グラフ上の<strong>点、線、面などの情報をデータと変数に対応</strong>させる</p>
 <ul>
 <li>プロット上に出力されるデータの具体的な在り方を指定する</li>
-<li>散布図の例) 各点の横軸と縦軸における位置情報</li>
+<li>散布図の例）各点の横軸と縦軸における位置情報</li>
 <li><code>geom_*()</code>内の<code>aes()</code>関数で指定
 <ul>
 <li>グラフに複数の幾何オブジェクトが存在し、マッピング情報が同じなら<code>ggplot()</code>内で指定することも可能</li>
 </ul></li>
 </ul>
 <p><strong>例)</strong> <code>geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J))</code></p>
-<table>
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;">幾何オブジェクト</th>
@@ -954,9 +952,9 @@
 <li><code>aes()</code>の<strong>外</strong>で<code>color</code>を指定する場合、<strong>全ての点</strong>に適用される。</li>
 </ul>
 <div class="panel-tabset">
-<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1"><code>aes()</code>の中（コード）</a></li><li><a href="#tabset-4-2"><code>aes()</code>の中（結果）</a></li><li><a href="#tabset-4-3"><code>aes()</code>の外（コード）</a></li><li><a href="#tabset-4-4"><code>aes()</code>の外（結果）</a></li></ul>
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1"><code>aes()</code>の中（コード）</a></li><li><a href="#tabset-5-2"><code>aes()</code>の中（結果）</a></li><li><a href="#tabset-5-3"><code>aes()</code>の外（コード）</a></li><li><a href="#tabset-5-4"><code>aes()</code>の外（結果）</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1">
+<div id="tabset-5-1">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -964,7 +962,7 @@
 <span id="cb18-4"><a></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"一人当たり購買力平価基準GDP (米ドル)"</span>, <span class="at">y =</span> <span class="st">"人間開発指数 (2018)"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-4-2">
+<div id="tabset-5-2">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -975,7 +973,7 @@
 </div>
 </div>
 </div>
-<div id="tabset-4-3">
+<div id="tabset-5-3">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb19" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -983,7 +981,7 @@
 <span id="cb19-4"><a></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"一人当たり購買力平価基準GDP (米ドル)"</span>, <span class="at">y =</span> <span class="st">"人間開発指数 (2018)"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-4-4">
+<div id="tabset-5-4">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1000,13 +998,13 @@
 <section id="座標系" class="slide level2">
 <h2>座標系</h2>
 <ul>
-<li>直交座標系の拡大・縮小: <code>coord_cartesian()</code>
+<li>直交座標系の拡大・縮小：<code>coord_cartesian()</code>
 <ul>
 <li>最もよく使う座標系（デフォルト）</li>
 </ul></li>
-<li>横軸と縦軸の交換: <code>coord_flip()</code></li>
-<li>横軸と縦軸比の固定: <code>coord_fixed()</code></li>
-<li>極座標系（polar coordinates system）へ変換: <code>coord_polar()</code>
+<li>横軸と縦軸の交換：<code>coord_flip()</code></li>
+<li>横軸と縦軸比の固定：<code>coord_fixed()</code></li>
+<li>極座標系（polar coordinates system）へ変換：<code>coord_polar()</code>
 <ul>
 <li>円グラフを作成する際に使われるが、<strong>円グラフは邪悪なる存在</strong>のケースが多いため、省略</li>
 </ul></li>
@@ -1016,9 +1014,9 @@
 <h2>直交座標系拡大の例</h2>
 <p>横軸を30000〜90000、縦軸を0.7〜1にする</p>
 <div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">コード</a></li><li><a href="#tabset-5-2">結果</a></li></ul>
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">コード</a></li><li><a href="#tabset-6-2">結果</a></li></ul>
 <div class="tab-content">
-<div id="tabset-5-1">
+<div id="tabset-6-1">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb20" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>df <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -1029,7 +1027,7 @@
 <span id="cb20-7"><a></a>   <span class="fu">theme_bw</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-5-2">
+<div id="tabset-6-2">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1154,6 +1152,9 @@
 <section id="円グラフ大好き" class="slide level2">
 <h2>円グラフ大好き！</h2>
 <p>最も面積が広いのは?</p>
+<div>
+
+</div>
 <div class="quarto-layout-panel" data-layout="[32,-2,32,-2,32]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 32.0%;justify-content: flex-start;">
@@ -1191,6 +1192,9 @@
 </section>
 <section id="それでも円グラフが描きたいです" class="slide level2">
 <h2>それでも円グラフが描きたいです…</h2>
+<div>
+
+</div>
 <div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -1284,6 +1288,9 @@
 </ul></li>
 <li>自分が好きな色でなく、誰にも見やすい色を使う</li>
 </ul>
+<div>
+
+</div>
 <div class="quarto-layout-panel" data-layout="[49,-2,49]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 49.0%;justify-content: center;">
@@ -1623,18 +1630,7 @@
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1666,7 +1662,29 @@
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
           var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
@@ -1674,7 +1692,7 @@
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

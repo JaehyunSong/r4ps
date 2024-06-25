@@ -1,6 +1,6 @@
 ---
 subtitle: "第12回 可視化 (1)"
-date: "2023/6/29"
+date: "2024/6/27"
 format: revealjs
 metadata-files: 
   - _slide.yml
@@ -79,7 +79,7 @@ legend("bottomright", pch = 19,
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 3.5
+#| fig-height: 4
 plot(x = df$PPP_per_capita, y = df$HDI_2018, pch = 19, 
      col = ifelse(df$OECD == 1, "red", "blue"),
      xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
@@ -115,7 +115,7 @@ xyplot(HDI_2018 ~ PPP_per_capita, data = df,
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 3.5
+#| fig-height: 4
 library(lattice)
 xyplot(HDI_2018 ~ PPP_per_capita, data = df,
        group = OECD, pch = 19, grid = TRUE,
@@ -123,7 +123,7 @@ xyplot(HDI_2018 ~ PPP_per_capita, data = df,
        key = list(title     = "OECD加盟有無",
                   cex.title = 1,
                   space     = "right",
-                  points    = list(col = c("magenta", "cyan"),
+                  points    = list(col = c("#E69F00", "#0072B2"),
                                    pch = 19),
                   text      = list(c("加盟国", "非加盟国"))), 
        xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
@@ -152,7 +152,7 @@ df |>
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 3.5
+#| fig-height: 4
 #| warning: false
 df |>
    mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) |>
@@ -379,10 +379,8 @@ ggplot(data = データ) +
 
 使用するデータ構造はdata.frame、またはtibble
 
-:::: {.columns}
-
-::: {.column width=30%}
-### データの指定（1）
+:::{.panel-tabset}
+## 方法1
 
 * `data`引数にdata.frame（tibble）オブジェクト名を指定
 
@@ -390,27 +388,17 @@ ggplot(data = データ) +
 #| eval: false
 ggplot(data = データ名)
 ```
-:::
 
-::: {.column width=1%}
-:::
+## 方法2
 
-::: {.column width=30%}
-### データの指定（2）
-
-* `data`引数は第一引数であるため、省略されることも多い
+* `data`引数は第一引数であるため、`data = `は省略されることが多い。
 
 ```{r}
 #| eval: false
 ggplot(データ名)
 ```
-:::
 
-::: {.column width=1%}
-:::
-
-::: {.column width=38%}
-### データの指定（3）
+## 方法3
 
 * `data`引数は第一引数であるため、パイプ演算子 (`|>`)で渡すことも可能
 * この方法を推奨
@@ -426,12 +414,10 @@ ggplot(データ名)
 ```{r}
 #| eval: false
 データ名 |>
-   {dplyr}/{tidyr}の関数 |>
+   {dplyr}/{tidyr}の関数() |>
    ggplot()
 ```
 :::
-
-::::
 
 ## 幾何オブジェクト
 
@@ -444,11 +430,11 @@ ggplot(データ名)
 
 指定されたデータを使ってどのような図を作成するか
 
-* 散布図: `geom_point()`
-* 棒グラフ: `geom_bar()`
-* 折れ線グラフ: `geom_line()`
-* ヒストグラム: `geom_histogram()`
-* 箱ひげ図: `geom_boxplot()`
+* 散布図：`geom_point()`
+* 棒グラフ：`geom_bar()`
+* 折れ線グラフ：`geom_line()`
+* ヒストグラム：`geom_histogram()`
+* 箱ひげ図：`geom_boxplot()`
 * その他
 
 {ggplot2}が提供する幾何オブジェクトも数十種類があり、ユーザーが開発・公開した幾何オブジェクトなどもある
@@ -460,7 +446,7 @@ ggplot(データ名)
 グラフ上の**点、線、面などの情報をデータと変数に対応**させる
 
 * プロット上に出力されるデータの具体的な在り方を指定する
-* 散布図の例) 各点の横軸と縦軸における位置情報
+* 散布図の例）各点の横軸と縦軸における位置情報
 * `geom_*()`内の`aes()`関数で指定
    * グラフに複数の幾何オブジェクトが存在し、マッピング情報が同じなら`ggplot()`内で指定することも可能
 
@@ -536,11 +522,11 @@ df |>
 
 ## 座標系
 
-* 直交座標系の拡大・縮小: `coord_cartesian()`
+* 直交座標系の拡大・縮小：`coord_cartesian()`
    * 最もよく使う座標系（デフォルト）
-* 横軸と縦軸の交換: `coord_flip()`
-* 横軸と縦軸比の固定: `coord_fixed()`
-* 極座標系（polar coordinates system）へ変換: `coord_polar()`
+* 横軸と縦軸の交換：`coord_flip()`
+* 横軸と縦軸比の固定：`coord_fixed()`
+* 極座標系（polar coordinates system）へ変換：`coord_polar()`
    * 円グラフを作成する際に使われるが、**円グラフは邪悪なる存在**のケースが多いため、省略
 
 ## 直交座標系拡大の例

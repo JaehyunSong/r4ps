@@ -6728,21 +6728,21 @@
     "href": "slides/micro/visualization1.html#データ",
     "title": "ミクロ政治データ分析実習",
     "section": "データ",
-    "text": "データ\n使用するデータ構造はdata.frame、またはtibble\n\n\nデータの指定（1）\n\ndata引数にdata.frame（tibble）オブジェクト名を指定\n\n\nggplot(data = データ名)\n\n\n\n\nデータの指定（2）\n\ndata引数は第一引数であるため、省略されることも多い\n\n\nggplot(データ名)\n\n\n\n\nデータの指定（3）\n\ndata引数は第一引数であるため、パイプ演算子 (|&gt;)で渡すことも可能\nこの方法を推奨\n\n\nデータ名 |&gt;\n   ggplot()\n\n\nデータ名とggplot()の間に{dplyr}、{tidyr}などの各種関数も使用可能\n\n\nデータ名 |&gt;\n   {dplyr}/{tidyr}の関数 |&gt;\n   ggplot()"
+    "text": "データ\n使用するデータ構造はdata.frame、またはtibble\n\n方法1方法2方法3\n\n\n\ndata引数にdata.frame（tibble）オブジェクト名を指定\n\n\nggplot(data = データ名)\n\n\n\n\ndata引数は第一引数であるため、data =は省略されることが多い。\n\n\nggplot(データ名)\n\n\n\n\ndata引数は第一引数であるため、パイプ演算子 (|&gt;)で渡すことも可能\nこの方法を推奨\n\n\nデータ名 |&gt;\n   ggplot()\n\n\nデータ名とggplot()の間に{dplyr}、{tidyr}などの各種関数も使用可能\n\n\nデータ名 |&gt;\n   {dplyr}/{tidyr}の関数() |&gt;\n   ggplot()"
   },
   {
     "objectID": "slides/micro/visualization1.html#幾何オブジェクト",
     "href": "slides/micro/visualization1.html#幾何オブジェクト",
     "title": "ミクロ政治データ分析実習",
     "section": "幾何オブジェクト",
-    "text": "幾何オブジェクト\n\nデータ名 |&gt;\n   ggplot() +\n   幾何オブジェクト関数()\n\n指定されたデータを使ってどのような図を作成するか\n\n散布図: geom_point()\n棒グラフ: geom_bar()\n折れ線グラフ: geom_line()\nヒストグラム: geom_histogram()\n箱ひげ図: geom_boxplot()\nその他\n\n{ggplot2}が提供する幾何オブジェクトも数十種類があり、ユーザーが開発・公開した幾何オブジェクトなどもある\n\n非巡回有向グラフ作成のための{ggdag}、ネットワークの可視化のための{ggnetwork}など"
+    "text": "幾何オブジェクト\n\nデータ名 |&gt;\n   ggplot() +\n   幾何オブジェクト関数()\n\n指定されたデータを使ってどのような図を作成するか\n\n散布図：geom_point()\n棒グラフ：geom_bar()\n折れ線グラフ：geom_line()\nヒストグラム：geom_histogram()\n箱ひげ図：geom_boxplot()\nその他\n\n{ggplot2}が提供する幾何オブジェクトも数十種類があり、ユーザーが開発・公開した幾何オブジェクトなどもある\n\n非巡回有向グラフ作成のための{ggdag}、ネットワークの可視化のための{ggnetwork}など"
   },
   {
     "objectID": "slides/micro/visualization1.html#マッピング",
     "href": "slides/micro/visualization1.html#マッピング",
     "title": "ミクロ政治データ分析実習",
     "section": "マッピング",
-    "text": "マッピング\nグラフ上の点、線、面などの情報をデータと変数に対応させる\n\nプロット上に出力されるデータの具体的な在り方を指定する\n散布図の例) 各点の横軸と縦軸における位置情報\ngeom_*()内のaes()関数で指定\n\nグラフに複数の幾何オブジェクトが存在し、マッピング情報が同じならggplot()内で指定することも可能\n\n\n例) geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J))\n\n\n\n幾何オブジェクト\nマッピング情報\n引数\n対応する変数\n\n\n\n\ngeom_point()\n点の横軸上の位置\nx\nPPP_per_capita\n\n\ngeom_point()\n点の縦軸上の位置\ny\nHDI_2018\n\n\ngeom_point()\n点の色\ncolor\nOECD_J\n\n\n\n\n点、線、面が持てる情報は他にも色々\n\n大きさ（size）、線の種類（linetype）、透明度（alpha）、面の色（fill）、点の形（shape）、線の太さ（linewidth）、グループ（group）など"
+    "text": "マッピング\nグラフ上の点、線、面などの情報をデータと変数に対応させる\n\nプロット上に出力されるデータの具体的な在り方を指定する\n散布図の例）各点の横軸と縦軸における位置情報\ngeom_*()内のaes()関数で指定\n\nグラフに複数の幾何オブジェクトが存在し、マッピング情報が同じならggplot()内で指定することも可能\n\n\n例) geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J))\n\n\n\n幾何オブジェクト\nマッピング情報\n引数\n対応する変数\n\n\n\n\ngeom_point()\n点の横軸上の位置\nx\nPPP_per_capita\n\n\ngeom_point()\n点の縦軸上の位置\ny\nHDI_2018\n\n\ngeom_point()\n点の色\ncolor\nOECD_J\n\n\n\n\n点、線、面が持てる情報は他にも色々\n\n大きさ（size）、線の種類（linetype）、透明度（alpha）、面の色（fill）、点の形（shape）、線の太さ（linewidth）、グループ（group）など"
   },
   {
     "objectID": "slides/micro/visualization1.html#マッピング時の注意",
@@ -6756,7 +6756,7 @@
     "href": "slides/micro/visualization1.html#座標系",
     "title": "ミクロ政治データ分析実習",
     "section": "座標系",
-    "text": "座標系\n\n直交座標系の拡大・縮小: coord_cartesian()\n\n最もよく使う座標系（デフォルト）\n\n横軸と縦軸の交換: coord_flip()\n横軸と縦軸比の固定: coord_fixed()\n極座標系（polar coordinates system）へ変換: coord_polar()\n\n円グラフを作成する際に使われるが、円グラフは邪悪なる存在のケースが多いため、省略"
+    "text": "座標系\n\n直交座標系の拡大・縮小：coord_cartesian()\n\n最もよく使う座標系（デフォルト）\n\n横軸と縦軸の交換：coord_flip()\n横軸と縦軸比の固定：coord_fixed()\n極座標系（polar coordinates system）へ変換：coord_polar()\n\n円グラフを作成する際に使われるが、円グラフは邪悪なる存在のケースが多いため、省略"
   },
   {
     "objectID": "slides/micro/visualization1.html#直交座標系拡大の例",
@@ -6805,7 +6805,7 @@
     "href": "slides/micro/visualization1.html#円グラフ大好き",
     "title": "ミクロ政治データ分析実習",
     "section": "円グラフ大好き！",
-    "text": "円グラフ大好き！\n最も面積が広いのは?\n\n\n\n\n\n\n円グラフ\n\n\n\n\n \n\n\n\n\n\n3次元円グラフ\n\n\n\n\n \n\n\n\n\n\n棒グラフ"
+    "text": "円グラフ大好き！\n最も面積が広いのは?\n\n\n\n\n\n\n\n\n\n円グラフ\n\n\n\n\n \n\n\n\n\n\n3次元円グラフ\n\n\n\n\n \n\n\n\n\n\n棒グラフ"
   },
   {
     "objectID": "slides/micro/visualization1.html#それでも円グラフが描きたいです",
