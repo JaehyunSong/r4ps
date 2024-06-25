@@ -15,15 +15,15 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 :::{.callout-important}
 ### 注意!
 
-以下の内容は現在の予定であり、7月14日の内容で確定する。
+以下の内容は現在の予定であり、7月11日の内容で確定する。
 :::
 
 ## 概要
 
-* **日時:** 2023年7月20日（木）4限（14時40分〜16時10分）
+* **日時:** 2024年7月18日（木）4限（14時40分〜16時10分）
    * 宋から開始の合図があれば開始
 * **場所:** TC302教室（**指定席**; 座席表は授業日までにLMSで公開する）
-* **持参物:** 学生証のみ。
+* **持参物:** 学生証のみ
    * 学生証は宋/TAがいつでも確認できるように机の上に置くこと
 * **持ち込み:** 可（インターネット/書籍/ノートなど使用可能）
    * 携帯は**使用禁止**（不正行為とみなす）
@@ -41,7 +41,7 @@ knitr::opts_chunk$set(dev       = "ragg_png",
    * 期末テスト用ファイル（`Micro_Final.qmd`）
    * 期末テスト用データ（`Micro_Final_Data.csv`）
    * サンプルファイル（`Micro_Final_Sample.html`）
-* **Step2:** NIIオンライン分析システムを起動し、期末テスト用のプロジェクトを作成する。
+* **Step2:** JDCat分析ツールを起動し、期末テスト用のプロジェクトを作成する。
 * **Step3:** プロジェクト・フォルダー内に`Data`フォルダーを作成する。
 * **Step4:** プロジェクト・フォルダーに期末テスト用ファイル（`Micro_Final.qmd`）をアップロードする。
 * **Step5:** `Data`フォルダーに期末テスト用データ（`Micro_Final_Data.csv`）をアップロードする。
@@ -73,6 +73,7 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 * 時間内に完成できなかった場合
    * 4限中に途中経過の提出物（`.html`ファイル）をLMSに提出
       * **4限中に7問以上に回答する**こと（6問までの回答は未提出とみなす）
+      * 7問全問正解である必要はない。
    * 持ち帰り後、そのまま**引き続き**、残りの問題に取り組む。
    * **再**提出窓口に提出
       * 再提出の期限は授業日**当日**の23時59分
@@ -99,22 +100,22 @@ tibble(y = c(1, 1, 1, 1),
        z = c("不正解（期限内）", "正解（期限内）",
              "正解（持ち帰り）", "不正解（持ち帰り）")) %>%
    mutate(z = fct_inorder(z),
-          z = fct_rev(z)) %>%
+          z = fct_rev(z)) |> 
    ggplot() +
    geom_bar(aes(x = y, y = x, fill = z), stat = "identity") +
-   geom_segment(aes(y = 0, yend = 30, x = 1.25, xend = 1.25),
+   annotate("segment", y = 0, yend = 30, x = 1.25, xend = 1.25,
+            arrow = arrow(ends = "both", type = "closed")) +
+   annotate("segment", y = 0, yend = 18, x = 1.1, xend = 1.1,
+            arrow = arrow(ends = "both", type = "closed")) +
+   annotate("segment", y = 18, yend = 30, x = 1.1, xend = 1.1,
+            arrow = arrow(ends = "both", type = "closed")) +
+   annotate("segment", y = 3, yend = 18, x = 1, xend = 1,
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 0, yend = 18, x = 1.1, xend = 1.1),
+   annotate("segment", y = 18, yend = 27, x = 1, xend = 1,
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 18, yend = 30, x = 1.1, xend = 1.1),
+   annotate("segment", y = 18, yend = 22.5, x = 0.9, xend = 0.9,
                 arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 3, yend = 18, x = 1, xend = 1),
-                arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 18, yend = 27, x = 1, xend = 1),
-                arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 18, yend = 22.5, x = 0.9, xend = 0.9),
-                arrow = arrow(ends = "both", type = "closed")) +
-   geom_segment(aes(y = 3, yend = 27, x = 0.75, xend = 0.75),
+   annotate("segment", y = 3, yend = 22.5, x = 0.75, xend = 0.75,
                 arrow = arrow(ends = "both", type = "closed")) +
    geom_hline(yintercept = 22.5, linetype = 2) +
    annotate("label", x = 1.25, y = 15, label = "40点満点", size = 5) +
@@ -125,7 +126,7 @@ tibble(y = c(1, 1, 1, 1),
    annotate("label", x = 1, y = 22.5, label = "正解 (9点)", size = 5) +
    annotate("label", x = 0.9, y = 20.25, label = "補正後\n(4.5点)", size = 5,
             color = "red") +
-   annotate("label", x = 0.75, y = 15, label = "成績 (19.5点)", size = 5) +
+   annotate("label", x = 0.75, y = 12.75, label = "成績 (19.5点)", size = 5) +
    coord_flip() +
    labs(fill = "") +
    guides(fill = guide_legend(reverse = TRUE)) +
@@ -141,8 +142,8 @@ tibble(y = c(1, 1, 1, 1),
    * ただし、7問全問正解である必要はない。
 * 持ち帰りの場合、4限中に提出した回答を修正することはできるが、採点には反映されない。**持ち帰り分は、4限中に提出した回答以降の回答のみが採点対象**となる。
    * **必要に応じて既に提出した回答の修正は必要**となる。たとえば、問題8までの回答をしたとする。ここで問題7の回答が不正解の場合、問題8以降はコードが正しくても結果が異なる可能性がある。この場合、持ち帰って問題7を修正する必要があろう。ただし、採点（持ち帰り分）の対象は問題9からである。
-* 持ち帰りの場合、**再提出の期限は授業日当日の23時59分**
-* 宋/TAは問題そのものに関する質問（問題の誤り、NIIシステムの不具合など）以外、一切受け付けない
+* 持ち帰りの場合、**再提出の期限は試験日当日の23時59分**
+* 宋/TAは問題そのものに関する質問（問題の誤り、国立情報学研究所側のサーバーの不具合など）以外、一切受け付けない
    * **エラーメッセージへの対処もテストの一部**
-   * 全員が同じ環境のNIIオンライン分析システムを使用しているため、受験者**全員**に共通する不具合以外は対応しない。つまり、他の人にはエラーが発生せず、自分だけエラーが出たということはシステムの不具合でなく、自分のコードが間違っていることを意味する。
-* 提出物はKnitした`.html`ファイルである。`.html`ファイルを正しくない方法（マウス右クリックでダウンロードするなど）でダウンロードした場合、コードと結果が含まれていない白紙のページとなる。提出する前に必ずファイルを開いてみて確認すること。**間違ったファイルを提出しても再提出は認めない**。
+   * 全員が同じ環境のJDCat分析ツールを使用しているため、受験者**全員**に共通する不具合以外は対応しない。つまり、他の人にはエラーが発生せず、自分だけエラーが出たということはシステムの不具合でなく、自分のコードが間違っていることを意味する。
+* 提出物はRenderした`.html`ファイルである。`.html`ファイルを正しくない方法（マウス右クリックでダウンロードするなど）でダウンロードした場合、コードと結果が含まれていない白紙のページとなる。提出する前に必ずファイルを開いてみて確認すること。**間違ったファイルを提出しても再提出は認めない**。
