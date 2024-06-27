@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.556">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第8回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&amp;display=swap" rel="stylesheet"> 
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル・システム</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/quarto.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"> <i class="bi bi-terminal" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"> <i class="bi bi-book" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/regression1.html">第8回講義資料</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/research_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2・3回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/descriptive_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第5回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/nhts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第8回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/interaction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12回講義資料</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#単回帰分析" id="toc-単回帰分析" class="nav-link active" data-scroll-target="#単回帰分析">単回帰分析</a></li>
+  <li><a href="#重回帰分析" id="toc-重回帰分析" class="nav-link" data-scroll-target="#重回帰分析">重回帰分析</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第8回講義資料</h1>
+<p class="subtitle lead">線形回帰分析（1）</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="スライド" class="level2 unlisted">
+<h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/macro/regression1.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/macro/regression1.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+</section>
+<section id="単回帰分析" class="level2">
+<h2 class="anchored" data-anchor-id="単回帰分析">単回帰分析</h2>
+<p>　まず、今回の実習に必要なパッケージ（{tidyverse}、{summarytools}、{modelsummary}）を読み込み、実習用データを読み込む。単回帰分析の実習用データは<code>Beer.csv</code>であり、LMSからダウンロード可能だ。以下のコードは<code>Beer.csv</code>がプロジェクト内の<code>Data</code>フォルダー内にアップロードされている場合の例である。データの保存先が<code>Data</code>フォルダーではない場合、適宜フォルダー名を修正すること。読み込んだデータは<code>beer_df</code>という名のオブジェクトとして作業環境内に格納する。</p>
+<p>　データを読み込んだら、データの中身を出力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>beer_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Beer.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>beer_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 69 × 5
+    Year Month Temperature Icecream  Beer
+   &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+ 1  2016     1         6.1      464   452
+ 2  2016     2         7.2      397   584
+ 3  2016     3        10.1      493   750
+ 4  2016     4        15.4      617   835
+ 5  2016     5        20.2      890   794
+ 6  2016     6        22.4      883   961
+ 7  2016     7        25.4     1292  1025
+ 8  2016     8        27.1     1387  1021
+ 9  2016     9        24.4      843   748
+10  2016    10        18.7      621   730
+# ℹ 59 more rows</code></pre>
+</div>
+</div>
+<p>　{summarytools}の<code>descr()</code>関数を使って記述統計量を出力する。<code>beer_df</code>は数値型変数のみで構成されているため、ダミー変数に変換する変数はなく、そのまま<code>descr()</code>に渡して良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>beer_df <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+beer_df  
+N: 69  
+
+                       Mean   Std.Dev       Min       Max   N.Valid
+----------------- --------- --------- --------- --------- ---------
+             Year   2018.39      1.67   2016.00   2021.00     69.00
+            Month      6.30      3.41      1.00     12.00     69.00
+      Temperature     16.58      7.48      4.70     29.10     69.00
+         Icecream    790.65    335.15    382.00   1658.00     60.00
+             Beer    698.19    222.40    227.00   1313.00     69.00</code></pre>
+</div>
+</div>
+<p>　今回は気温（<code>Temperature</code>）とアサヒスーパードライの販売量（<code>Beer</code>）の関係を確認したい。この2つの変数は連続変数であるため、関係性を見る方法としてまず考えられるのが相関分析である。前回講義の内容を参照し、2つの変数の相関係数を統計的有意性検定を行ってみよう（<span class="math inline">\(\alpha = 0.05\)</span>を使用）。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">cor.test</span>(beer_df<span class="sc">$</span>Temperature, beer_df<span class="sc">$</span>Beer)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  beer_df$Temperature and beer_df$Beer
+t = 2.0899, df = 67, p-value = 0.04042
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.01137629 0.45729570
+sample estimates:
+      cor 
+0.2473909 </code></pre>
+</div>
+</div>
+<p>　相関係数は約0.247であり、（社会科学としては）そこそこ強い正の相関関係だと考えられる。つまり、気温が高い月はビールもよく売れていることを意味する。また、この相関関係は<span class="math inline">\(p\)</span>値が約0.040であることから統計的に有意な相関関係とも言えよう。しかし、もう一つ知りたいことがある。それは「気温が1度上がればビールはどれほどもっと売れるか」である。相関係数はこの問いに対する答えを提供しない。ここで回帰分析と出番である。回帰分析は変数間の関係が線形関数で説明できると<strong>仮定</strong>する（線形性の仮定）。<span class="math inline">\(x\)</span>の変動による<span class="math inline">\(y\)</span>の変動は<span class="math inline">\(y = \alpha + \beta \times x\)</span>のような一次関数として表現することができ、ここでの<span class="math inline">\(x\)</span>が気温、<span class="math inline">\(y\)</span>がアサヒスーパードライの販売量である。回帰分析はこの一次関数の切片（<span class="math inline">\(\alpha\)</span>）と傾き（<span class="math inline">\(\beta\)</span>）を推定する手法である。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+もう少し詳しく!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>　線形回帰分析の場合、切片と傾き以外にももう一つ推定対象があり、それは誤差項の分散（<span class="math inline">\(\sigma\)</span>）である。また、切片と傾きは<span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span>でなく、<span class="math inline">\(\beta_0\)</span>、<span class="math inline">\(\beta_1\)</span>と表記するケースもある。</p>
+</div>
+</div>
+<p>　一次関数の切片と傾きがわかれば以下のような直線（=<strong>回帰直線</strong>）を描くことができる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>beer_df <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temperature, <span class="at">y =</span> Beer)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"気温 (摂氏)"</span>, <span class="at">y =</span> <span class="st">"アサヒ・スーパードライ販売量 (万箱)"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　この回帰直線ってどのように決まるだろうか。それは<strong>残差の二乗和が最小化されるような直線</strong>である。残差とは任意の直線を引いた際、各点（観測値）と直線間の距離を意味する。<strong>観測値と直線間の距離は最短距離でなく、横軸に対して垂直方向の距離であることに注意</strong>すること（以下の図を参照）。ただし、この残差には符号が存在し、正と負が相殺される。したがって、全て正にするために残差を二乗する（絶対値を使うこともできるが、微分が大変なので使われない）。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1500"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　この直線の切片と傾きはR内臓の<code>lm()</code>関数で簡単に計算できる。第一引数は回帰式であり、<code>応答変数 ~ 説明変数</code>と書く。第二引数は<code>data</code>であり、回帰式に登場した変数が格納されているデータのオブジェクト名を指定する。今回の回帰式は<code>Beer ~ Temperature</code>であり、この2つの変数は<code>beer_df</code>にあるため、<code>data = beer_df</code>と指定する。推定結果は何らかの名前を付けて作業スペース内に格納する必要があるが、今回は<code>beer_fit</code>と名付ける。推定結果を出力する際は<code>summary()</code>関数を使用すること。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>beer_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Beer <span class="sc">~</span> Temperature, <span class="at">data =</span> beer_df)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">summary</span>(beer_fit)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Beer ~ Temperature, data = beer_df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-392.8 -169.1  -10.8  115.1  677.2 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  576.227     63.941   9.012 3.64e-13 ***
+Temperature    7.355      3.519   2.090   0.0404 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 217.1 on 67 degrees of freedom
+Multiple R-squared:  0.0612,    Adjusted R-squared:  0.04719 
+F-statistic: 4.368 on 1 and 67 DF,  p-value: 0.04042</code></pre>
+</div>
+</div>
+<p>　<code>(Intercept)</code>は切片を、その以下の行は各変数の傾きを意味する。点推定値は<code>Estimate</code>列である。切片は約576.227、気温の傾きは7.355であることから以下のような関係が分かる。</p>
+<center>
+<p>アサヒスーパードライ販売量の<strong>予測値</strong> = 576.227 + 7.355 <span class="math inline">\(\times\)</span> 気温</p>
+</center>
+<p>　これは「<code>Temperature</code>が1上がると、<code>Beer</code>の値が平均的に7.355上がる」ことを意味する。<code>Temperature</code>の1は1度、<code>Beer</code>の1は1万箱であるため、これをより自然な形で解釈すると、「気温が1<strong>度</strong>上がると、アサヒスーパードライの販売量は平均的に約7.355<strong>万箱</strong>上がる」となる。また、気温とビールの販売量間の関係が統計的に有意な関係かを確認するためには、傾きの統計的有意性検定が必要である。帰無仮説は「傾きは0である（=関係がない）」であり、今回得られた<span class="math inline">\(p\)</span>値は約0.040であることから、統計的に有意な関係があると考えられる。もし、<span class="math inline">\(p \geq 0.05\)</span>の場合は、「気温とビール販売量の間には統計的に有意な関係があるとは言えない」、または「気温とビール販売量の間には統計的に有意な関係が確認できない」こととなる。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+予測値 <span class="math inline">\(\neq\)</span> 観測値
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>推定の結果、回帰式は「アサヒスーパードライ販売量の<strong>予測値</strong> = 576.227 + 7.355 <span class="math inline">\(\times\)</span> 気温」のようになる。ここで注意すべき点は「予測値」だ。たとえば、2016年5月の場合、気温は20.2度である。これを代入すると「576.227 + 7.355 <span class="math inline">\(\times\)</span> 20.2 <span class="math inline">\(\simeq\)</span> 725」、つまり725万箱であり、これが<strong>予測値</strong>である。しかし、実際の販売量（<strong>観測値</strong>）は794万箱であり、約69万箱の差が存在する。この69万箱が2016年5月の<strong>残差</strong>であり、回帰分析はこの残差を最小化するような直線を推定する手法である。2つの変数間の相関係数が1、または-1でない限り、残差が0になることはない。</p>
+</div>
+</div>
+<p>　本モデルの説明力は決定係数から確認できる。Rの場合、デフォルトで2種類の決系係数が出力される。<code>Multiple R-squared</code>が通常の決定係数、<code>Adjusted R-squared</code>が自由度調整済み決定係数である。通常の決定係数は説明変数が増えると必ず大きくなるため、モデルのパフォーマンスの判断材料としては望ましくないとされる。一般的に、モデルはシンプルであるほど良い（オッカムの剃刀）と考えられるため、多少決定係数が小さくても説明変数の少ない方が良いモデルとされる。一方、自由度調整済み決定係数は説明変数が増えると決定係数にペナルティーを課するため、こちらの方がより適切である。いずれの決定係数も0以上1以下の値を取り、1に近いほど説明力の高いモデルであるとされる。</p>
+</section>
+<section id="重回帰分析" class="level2">
+<h2 class="anchored" data-anchor-id="重回帰分析">重回帰分析</h2>
+<p>　以上の例のように、説明変数が1つのみの回帰分析は「単回帰分析」と呼ばれる。しかし、実際のデータ分析の場面において、ある応答変数を1つの変数だけで説明することは滅多になく、複数の説明変数を回帰式に投入する。このように説明変数が2つ以上の回帰分析を「重回帰分析」と呼ぶ。以下では重回帰分析の実装、解釈、モデル間の比較について解説する。</p>
+<p>　まず、実習に必要なデータを読み込む。重回帰分析の実習用データは<code>PrefData.csv</code>であり、LMSからダウンロード可能だ。以下のコードは<code>PrefData.csv</code>がプロジェクト内の<code>Data</code>フォルダー内にアップロードされている場合の例である。データの保存先が<code>Data</code>フォルダーではない場合、適宜フォルダー名を修正すること。読み込んだデータは<code>pref_df</code>という名のオブジェクトとして作業環境内に格納する。</p>
+<p>　データを読み込んだら、データの中身を出力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>pref_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/PrefData.csv"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>pref_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 47 × 6
+      ID Pref      Jimin Zaisei Over65 Primary
+   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 Hokkaido   32.8  0.435   29.2    7.00
+ 2     2 Aomori     40.4  0.341   30.2   12.0 
+ 3     3 Iwate      34.9  0.352   30.5   10.6 
+ 4     4 Miyagi     36.7  0.614   25.9    4.36
+ 5     5 Akita      43.5  0.309   33.9    9.62
+ 6     6 Yamagata   42.5  0.351   30.9    9.19
+ 7     7 Fukushima  33.8  0.533   28.8    6.48
+ 8     8 Ibaraki    40.6  0.637   27.1    5.64
+ 9     9 Tochigi    38.8  0.640   26.3    5.52
+10    10 Gunma      42.1  0.625   28.1    4.96
+# ℹ 37 more rows</code></pre>
+</div>
+</div>
+<p>　分析の前にデータの記述統計量を出力する。今回は各行の番号（<code>ID</code>）と都道府県名（<code>Pref</code>）列の記述統計量は不要であるため、<code>descr()</code>関数に渡す前に2つの列を除外する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>pref_df <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(ID, Pref)) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+
+                 Mean   Std.Dev     Min     Max   N.Valid
+------------- ------- --------- ------- ------- ---------
+        Jimin   38.71      5.43   22.12   48.24     47.00
+       Zaisei    0.51      0.19    0.25    1.10     47.00
+       Over65   28.52      2.72   19.76   33.94     47.00
+      Primary    5.64      3.14    0.39   12.03     47.00</code></pre>
+</div>
+</div>
+<p>　ここでは「都道府県の財政力指数（<code>Zaisei</code>）が自民党得票率（<code>Jimin</code>）に与える影響」を調べるとし、まずは単回帰分析を実装する。</p>
+<center>
+<p>自民党の得票率の予測値 = <span class="math inline">\(\alpha\)</span> + <span class="math inline">\(\beta \times\)</span> 財政力指数</p>
+</center>
+<p>　推定結果は<code>jimin_fit1</code>という名のオブジェクトとして作業環境内に格納し、<code>summary()</code>関数で推定結果を確認しよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>jimin_fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Jimin <span class="sc">~</span> Zaisei, <span class="at">data =</span> pref_df)</span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">summary</span>(jimin_fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Jimin ~ Zaisei, data = pref_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-13.216  -2.900   0.652   3.526   9.110 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   45.291      2.049  22.106  &lt; 2e-16 ***
+Zaisei       -13.012      3.800  -3.424  0.00133 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.89 on 45 degrees of freedom
+Multiple R-squared:  0.2067,    Adjusted R-squared:  0.1891 
+F-statistic: 11.72 on 1 and 45 DF,  p-value: 0.001326</code></pre>
+</div>
+</div>
+<p>　推定結果から以下のような一次関数が得られた。</p>
+<center>
+<p>自民党の得票率の予測値 = 45.291 - 13.012 <span class="math inline">\(\times\)</span> 財政力指数</p>
+</center>
+<p>　これは「財政力指数が1上がると、自民党の得票率の予測値は約13.012%p下がる」ことを意味し、この関係は統計的に有意である（<span class="math inline">\(p\)</span> = 0.001）。</p>
+<p>　ここで注意すべき点が2つある。1点目は<strong>係数の符号</strong>である。今回得られた<code>Zaisei</code>の傾き係数は負（マイナス）である。したがって、解釈の際は「<span class="math inline">\(x\)</span>が上がると、<span class="math inline">\(y\)</span>は下がる」と解釈する必要がある。2点目は<strong>予測値の単位</strong>だ。<code>Jimin</code>変数の場合、単位は「%（パーセント）」であるが、解釈の際は「%p（パーセントポイント）」となる。たとえば、財政力指数が0の都道府県の場合、自民党得票率の予測値は45.291%である。一方、財政力指数が1の場合のそれは32.279%だ。財政力指数が1あがったところで自民党得票率は45.291%から32.279%へ下がる。つまり、「45.291% - 32.279%」分下がるということであるが、この場合「13.012<strong>%</strong>下がる」と解釈してはいけない。正しい解釈は「13.012<strong>%p</strong>下がる」だ。この2つには大きな違いがある。たとえば、得票率が20%から40%へ上昇した場合の解釈は「100<strong>%</strong>上がる」か「20<strong>%p</strong>上がる」どっちかである。「%」の差分は「%」でなく「%p」であることに注意すること。</p>
+<p>　話を戻そう。我々は「原因以外の重要な要因」を考慮する必要があることを既に知っている（リサーチデザインの講義資料を参照）。とりわけ、<span class="math inline">\(y\)</span>に影響を与えそうな要因の中には、<span class="math inline">\(x\)</span>にも影響を与えそうな要因もある。この第3の変数を<span class="math inline">\(z\)</span>と呼ぼう。</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regression1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>　この<span class="math inline">\(z\)</span>に該当する変数は無限に存在するが、手元のデータ（<code>pref_df</code>）内の変数が限られている。それでも出来る限り、手元も変数を最大限活用したい。たとえば、65歳以上人口の割合（<code>Over65</code>）はどうだろうか。基本的に高齢者が多い地域ほど財政力指数が低い傾向がある。また、政治学では高齢者ほど政治的に保守的イデオロギーを持つとも言われている（加齢効果）。したがって、65歳以上人口の割合（<code>Over65</code>）は<span class="math inline">\(z\)</span>に該当すると考えられる。このような<span class="math inline">\(z\)</span>は回帰分析の説明変数として加える必要がある。</p>
+<p>　それでは先程の単回帰モデルに65歳以上人口の割合（<code>Over65</code>）を加えた以下の回帰モデルを推定する。</p>
+<center>
+<p>自民党の得票率の予測値 = <span class="math inline">\(\alpha\)</span> + <span class="math inline">\(\beta_1 \times\)</span> 財政力指数 + <span class="math inline">\(\beta_2 \times\)</span> 65歳以上人口の割合</p>
+</center>
+<p>　推定対象は<span class="math inline">\(\alpha\)</span>と<span class="math inline">\(\beta_1\)</span>、<span class="math inline">\(\beta_2\)</span>である。実装の方法は単回帰分析と同じであり、説明変数を<code>+</code>でつなぐだけである。推定結果は<code>jimin_fit2</code>という名のオブジェクトとして作業環境内に格納し、<code>summary()</code>関数で推定結果を確認しよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>jimin_fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Jimin <span class="sc">~</span> Zaisei <span class="sc">+</span> Over65, <span class="at">data =</span> pref_df)</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">summary</span>(jimin_fit2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Jimin ~ Zaisei + Over65, data = pref_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.6140  -2.8382   0.8015   3.1558   9.6759 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  15.8910    11.3983   1.394   0.1703  
+Zaisei       -4.5472     4.8211  -0.943   0.3507  
+Over65        0.8810     0.3366   2.617   0.0121 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.6 on 44 degrees of freedom
+Multiple R-squared:  0.3135,    Adjusted R-squared:  0.2823 
+F-statistic: 10.05 on 2 and 44 DF,  p-value: 0.0002545</code></pre>
+</div>
+</div>
+<p>　推定結果から以下のような一次関数が得られた。</p>
+<center>
+<p>自民党の得票率の予測値 = 15.891 - 4.547 <span class="math inline">\(\times\)</span> 財政力指数 + 0.881 <span class="math inline">\(\times\)</span> 65歳以上人口の割合</p>
+</center>
+<p>　以上の結果を解釈すると「<strong>65歳以上人口の割合が同じである場合</strong>、財政力指数が1上がると、自民党の得票率の予測値は約4.547%p下がる」となる。</p>
+<p>　ここでも解釈の際、2つの注意点がある。1点目は<strong>変数の統制</strong>である。重回帰分析の結果を解釈する際は、解釈の対象とする変数以外の変数の値が同じあることを意識する必要がある。「65歳以上人口の割合の効果を除いた財政力指数の影響」とも言えよう。このような統制変数によって係数の大きさも変わりうる。実際、単回帰分析では-13.012だった点推定値が-4.547となった。これは単回帰分析から得られた-13.012%pという効果には、実際のところ、65際以上人口の割合の効果が混ざっていたことを意味する。2点目は<strong>統計的有意性</strong>である。今回の例だと<code>Zaisei</code>の係数の<span class="math inline">\(p\)</span>値は約0.351となり、0.05を上回る。単回帰分析とは違って、<code>Zaisei</code>と<code>Jimin</code>の間には統計的に有意な関係があるとは言えないこととなる。したがって、正しい解釈は「他の変数が同じである場合、財政力指数と自民党の得票率の間には統計的に有意な関係があるとは言えない」、あるいは「他の変数が同じである場合、財政力指数が1上がると、自民党の得票率の予測値は約4.547%p下がるものの統計的に有意な関係があるとは言えない」となる。</p>
+<p>　説明変数はもっと増やすこともできる（厳密には<span class="math inline">\(n-1\)</span>個まで投入できる）。たとえば、当該都道府県の第一次産業の割合（<code>Primary</code>）はどうだろうか。自民党の固い支持基盤としての農協（JA）、そして財政力指数の大きい部分を製造業（第二次産業）、サービス業（第三次産業）が占めることを考えると、これもまた「第3の変数」であろう。先程の<code>jimin_fit2</code>モデルに<code>Primary</code>を追加したモデルも推定してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>jimin_fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Jimin <span class="sc">~</span> Zaisei <span class="sc">+</span> Over65 <span class="sc">+</span> Primary, <span class="at">data =</span> pref_df)</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">summary</span>(jimin_fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Jimin ~ Zaisei + Over65 + Primary, data = pref_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.6296  -2.8400   0.8063   3.1514   9.6538 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept) 15.914364  11.576998   1.375   0.1764  
+Zaisei      -4.630626   6.131046  -0.755   0.4542  
+Over65       0.883231   0.355203   2.487   0.0169 *
+Primary     -0.008154   0.363066  -0.022   0.9822  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.654 on 43 degrees of freedom
+Multiple R-squared:  0.3135,    Adjusted R-squared:  0.2656 
+F-statistic: 6.547 on 3 and 43 DF,  p-value: 0.0009578</code></pre>
+</div>
+</div>
+<p>　推定結果から以下のような一次関数が得られた。</p>
+<center>
+<p>自民党の得票率の予測値 = 15.914 - 4.631 <span class="math inline">\(\times\)</span> 財政力指数 + 0.883 <span class="math inline">\(\times\)</span> 65歳以上人口の割合 - 0.008 <span class="math inline">\(\times\)</span> 第一産業従事者の割合</p>
+</center>
+<p>　これまで3つのモデルを推定してきたが、モデル間の比較する際には{modelsummary}パッケージが便利だ。{modelsummary}の<code>modelsummary()</code>関数の第一引数として推定結果のオブジェクトを<code>list()</code>でまとめて入れるだけである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># ない場合はinstall.packages("modelsummary")でインストール</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">library</span>(modelsummary) </span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(jimin_fit1, jimin_fit2, jimin_fit3))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">45.291</td>
+<td style="text-align: center;">15.891</td>
+<td style="text-align: center;">15.914</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(2.049)</td>
+<td style="text-align: center;">(11.398)</td>
+<td style="text-align: center;">(11.577)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Zaisei</td>
+<td style="text-align: center;">−13.012</td>
+<td style="text-align: center;">−4.547</td>
+<td style="text-align: center;">−4.631</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(3.800)</td>
+<td style="text-align: center;">(4.821)</td>
+<td style="text-align: center;">(6.131)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Over65</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.881</td>
+<td style="text-align: center;">0.883</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.337)</td>
+<td style="text-align: center;">(0.355)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Primary</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">−0.008</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.363)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;">47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.207</td>
+<td style="text-align: center;">0.314</td>
+<td style="text-align: center;">0.314</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.189</td>
+<td style="text-align: center;">0.282</td>
+<td style="text-align: center;">0.266</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">286.5</td>
+<td style="text-align: center;">281.7</td>
+<td style="text-align: center;">283.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">292.1</td>
+<td style="text-align: center;">289.1</td>
+<td style="text-align: center;">293.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">−140.269</td>
+<td style="text-align: center;">−136.869</td>
+<td style="text-align: center;">−136.869</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">11.724</td>
+<td style="text-align: center;">10.048</td>
+<td style="text-align: center;">6.547</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">4.79</td>
+<td style="text-align: center;">4.45</td>
+<td style="text-align: center;">4.45</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>　カッコで囲まれている数値は標準誤差（Standard Error; SE）である。一般的な学術論文では<span class="math inline">\(p\)</span>値よりも標準誤差の掲載が一般的である（標準誤差から<span class="math inline">\(p\)</span>値の計算は簡単だが、その逆は面倒だから）。もし、標準誤差の代わりに<span class="math inline">\(p\)</span>値を掲載する場合は以下のようにコードを修正する（<code>statistic</code>引数の追加）。また、<code>coef_rename</code>引数で変数名の任意の文字列に変更することも出来、<code>notes</code>引数で注を付けることもできる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(jimin_fit1, jimin_fit2, jimin_fit3),</span>
+<span id="cb21-2"><a href="#cb21-2"></a>             <span class="at">statistic   =</span> <span class="st">"({p.value})"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"切片"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>                             <span class="st">"Zaisei"</span>      <span class="ot">=</span> <span class="st">"財政力指数"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5"></a>                             <span class="st">"Over65"</span>      <span class="ot">=</span> <span class="st">"65歳以上人口の割合"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6"></a>                             <span class="st">"Primary"</span>     <span class="ot">=</span> <span class="st">"第一次産業従事者の割合"</span>),</span>
+<span id="cb21-7"><a href="#cb21-7"></a>             <span class="at">notes       =</span> <span class="st">"注: カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">切片</td>
+<td style="text-align: center;">45.291</td>
+<td style="text-align: center;">15.891</td>
+<td style="text-align: center;">15.914</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(&lt;0.001)</td>
+<td style="text-align: center;">(0.170)</td>
+<td style="text-align: center;">(0.176)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">財政力指数</td>
+<td style="text-align: center;">−13.012</td>
+<td style="text-align: center;">−4.547</td>
+<td style="text-align: center;">−4.631</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.001)</td>
+<td style="text-align: center;">(0.351)</td>
+<td style="text-align: center;">(0.454)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">65歳以上人口の割合</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.881</td>
+<td style="text-align: center;">0.883</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.012)</td>
+<td style="text-align: center;">(0.017)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">第一次産業従事者の割合</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">−0.008</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.982)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;">47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.207</td>
+<td style="text-align: center;">0.314</td>
+<td style="text-align: center;">0.314</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.189</td>
+<td style="text-align: center;">0.282</td>
+<td style="text-align: center;">0.266</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">286.5</td>
+<td style="text-align: center;">281.7</td>
+<td style="text-align: center;">283.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">292.1</td>
+<td style="text-align: center;">289.1</td>
+<td style="text-align: center;">293.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">−140.269</td>
+<td style="text-align: center;">−136.869</td>
+<td style="text-align: center;">−136.869</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">11.724</td>
+<td style="text-align: center;">10.048</td>
+<td style="text-align: center;">6.547</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">4.79</td>
+<td style="text-align: center;">4.45</td>
+<td style="text-align: center;">4.45</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> 注: カッコ内はp値</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tfoot>
+
+</table>
+
+
+</div>
+</div>
+<p>　自由度調整済み決定係数は「R2 Adj.」行から確認できる。最も高いモデルは財政力指数と65歳以上人口の割合のみに構成されて2番目のモデル（<code>jimin_fit2</code>）である。第一次産業従事者の割合まで追加した3番目のモデルは、やや低い決定係数が得られた。追加された「第一次産業従事者の割合」の係数が非常に小さく、統計的に有意な関係も見られない。つまり、どちらかの言えば「不要（<span class="math inline">\(\simeq\)</span>あっても良いが、入れて得することもない）」に近い変数であることを意味する。説明力が同じであれば、説明変数は少ないことに越したことはないので、モデル2がより望ましいと評価できよう。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2024, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

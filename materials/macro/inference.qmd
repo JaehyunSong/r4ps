@@ -1,0 +1,192 @@
+---
+title: "第5回講義資料"
+subtitle: "統計的推定"
+toc: true
+metadata-files: 
+  - _material.yml
+---
+
+## スライド {.unlisted}
+
+<a href="../../slides/macro/inference.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a>
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/macro/inference.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+```
+
+## セットアップ
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, gt, summarytools)
+df <- read_csv("Data/inference_data.csv")
+```
+
+　今回使用するパッケージは{tidyverse}のみだ。データは`inference_data.csv`であり、LMSから入手できる。読み込んだデータは`df`という名のオブジェクトとして作業環境内に格納しておこう。
+
+```{r}
+#| filename: "Code 01"
+library(tidyverse) # or pacman::p_load(tidyverse)
+df <- read_csv("Data/inference_data.csv")
+
+df
+```
+
+　`df`は2773行4列のデータであり、2021年9月に実施された世論調査の一部である。`ID`は回答者の識別番号、`Female`は女性ダミー変数（つまり、女性なら`1`、それ以外なら`0`）、`Age`は回答者の年齢、`Temp_Ishin`は日本維新の会に対する感情温度であり、0なら嫌い、100なら好きを意味する。
+
+## 母平均の推定
+
+　まず、母集団（日本人の有権者全体）における維新感情温度の平均値（=母平均）を推定してみよう。母平均の一致推定量&不偏推定量は標本平均（$\bar{x}$）である。したがって、`Temp_Ishin`変数の平均値を計算するだけで、日本人有権者における維新感情温度の平均値が推定できる。ちなみに`Temp_Ishin`には欠損値が含まれているため、平均値を計算する際、`na.rm = TRUE`を忘れないこと。また、今後の分析のために`Temp_Ishin`の標本分散（不偏分散; $s^2$）と有効ケース数（$n$）も計算しておこう。計算結果は`sum_stat`という名のオブジェクトとして格納しておく。
+
+```{r}
+#| filename: "Code 02"
+sum_stat <- df |>
+  summarise(Mean = mean(Temp_Ishin, na.rm = TRUE),
+            Var  = var(Temp_Ishin, na.rm = TRUE),
+            N    = sum(!is.na(Temp_Ishin)))
+
+sum_stat
+```
+
+　標本平均は`r sprintf("%.3f", sum_stat$Mean)`である。これは母集団（日本人の有権者）における維新感情温度の平均値の点推定値が`r sprintf("%.3f", sum_stat$Mean)`度であることを意味する。しかし、点推定値には常に不確実性が伴う。私たちがもう一回（2021年9月に戻って）同じやり方で2015名を対象とした世論調査を行えば、その時の点推定値（=標本平均）は異なるだろう。この点推定値（=標本平均）の不確実性を示す指標が標準誤差である。標準誤差は$\sqrt{\frac{s^2}{n}}$、あるいは$\frac{s}{\sqrt{n}}$で計算できる。`sum_stat`に標準誤差を`SE`という名の列として`N`列の前に追加し、`sum_stat`を上書きする。
+
+```{r}
+#| filename: "Code 03"
+sum_stat <- sum_stat |>
+  mutate(SE      = sqrt(Var / N),
+         .before = N)
+
+sum_stat
+```
+
+　標準誤差は約`r sprintf("%.3f", sum_stat$SE)`であるが、これだけだとどう解釈すれば良いかが分からないかも知れない（ある程度統計学に慣れたら標準誤差だけでも色々な考察ができるようになる）。標準誤差を使って、95%信頼区間を計算してみよう。95%信頼区間を計算するためには「（1）自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が$t$**以下**の値を取る確率が2.5%である$t$の値（$t_{1997, 0.025}$）」と「（2）自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が$t$**以上**の値を取る確率が2.5%である$t$の値（$t_{1997, 0.975}$）」を計算する必要がある。使用する確率分布は$t$分布であるため、`qt()`関数を使う。
+
+　まず、「（1）自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が$t$**以下**の値を取る確率が2.5%である$t$の値」から計算してみよう。`qt()`の第一引数として`0.025`を指定する。これは2.5%を意味する。続いて、`df`引数に$t$分布の自由度を指定する。自由度は`Temp_Ishin`の有効ケース数（$n$）から1を引いた値だ。
+
+```{r}
+#| filename: "Code 04"
+qt(0.025, df = sum_stat$N - 1)
+```
+
+　得られた値は約`r sprintf("%.3f", qt(0.025, df = sum_stat$N - 1))`である。これは自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が-1.961以下の値を取る確率が2.5%であることを意味する。
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 3
+ci95_df <- tibble(T       = seq(-5, 5, 0.01),
+                  density = dt(seq(-5, 5, 0.01), df = 1997))
+  
+ci95_df |>
+  ggplot() +
+  geom_vline(xintercept = -1.961, linetype = 2, color = "gray50") +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= -1.961),
+            aes(x = T, y = density), fill = "royalblue", alpha = 0.25) +
+  annotate("text", x = -2.5, y = 0.05, label = "2.5%", size = 5, vjust = -1) +
+  labs(y = "確率密度",
+       x = "T") +
+  scale_x_continuous(breaks = c(-4, -3, -1.961, -1, 0, 1, 2, 3, 4),
+                     labels = c(-4, -3, -1.961, -1, 0, 1, 2, 3, 4)) +
+  coord_cartesian(xlim = c(-4, 4)) +
+  theme_bw() +
+  theme(legend.position = c(0.95, 0.8),
+        legend.background = element_blank())
+```
+
+　つづいて、「（2）自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が$t$**以上**の値を取る確率が2.5%である$t$の値」から計算してみよう。これは逆にいうと「$T$統計量が$t$**以上**の値を取る確率が97.5%である$t$の値」とも解釈できる。したがって、`qt()`の第一引数として`0.975`を指定する。
+
+```{r}
+#| filename: "Code 05"
+qt(0.975, df = sum_stat$N - 1)
+```
+
+　得られた値は約`r sprintf("%.3f", qt(0.975, df = sum_stat$N - 1))`である。これは自由度`r print(sum_stat$N - 1)`の$t$分布において$T$統計量が1.961以上の値を取る確率が2.5%であることを意味する。
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 3
+ci95_df <- tibble(T       = seq(-5, 5, 0.01),
+                  density = dt(seq(-5, 5, 0.01), df = 1997))
+  
+ci95_df |>
+  ggplot() +
+  geom_vline(xintercept = 1.961, linetype = 2, color = "gray50") +
+  geom_line(aes(x = T, y = density), linewidth = 1) +
+  geom_area(data = filter(ci95_df, T <= 1.961),
+            aes(x = T, y = density), fill = "royalblue", alpha = 0.25) +
+  annotate("text", x = 0, y = 0.05, label = "97.5%", size = 5, vjust = -1) +
+  labs(y = "確率密度",
+       x = "T") +
+  scale_x_continuous(breaks = c(-4, -3, -2, -1, 0, 1, 1.961, 3, 4),
+                     labels = c(-4, -3, -2, -1, 0, 1, 1.961, 3, 4)) +
+  coord_cartesian(xlim = c(-4, 4)) +
+  theme_bw() +
+  theme(legend.position = c(0.95, 0.8),
+        legend.background = element_blank())
+```
+
+　95%信頼区間の下限は$\bar{x} + t_{1997, 0.025} \cdot \mbox{SE}$、上限は$\bar{x} + t_{1997, 0.975} \cdot \mbox{SE}$で計算できる（詳細はスライド参照）。それぞれ`CI_lower`、`CI_upper`という名の列として`N`列前に追加し、`sum_stat`を上書きする。
+
+```{r}
+#| filename: "Code 06"
+sum_stat <- sum_stat |>
+  mutate(CI_lower = Mean + qt(0.025, df = N - 1) * SE,
+         CI_upper = Mean + qt(0.975, df = N - 1) * SE,
+         .before  = N)
+
+sum_stat
+```
+
+　小数点を含めた詳しい値を確認してみよう。
+
+```{r}
+#| filename: "Code 07"
+sum_stat$Mean # 母平均の一致＆不偏推定量（標本平均）
+```
+
+```{r}
+#| filename: "Code 08"
+sum_stat$SE # 標準誤差（標本平均の不確実性）
+```
+
+```{r}
+#| filename: "Code 09"
+sum_stat$CI_lower # 95%信頼区間の下限
+```
+
+```{r}
+#| filename: "Code 10"
+sum_stat$CI_upper # 95%信頼区間の上限
+```
+
+　以上の計算により、標本平均は`r sprintf("%.3f", sum_stat$Mean)`、95%信頼区間は[`r sprintf("%.3f", sum_stat$CI_lower)`, `r sprintf("%.3f", sum_stat$CI_upper)`]であることが分かる。
+
+　以上の手順はパイプ演算子を複数つなげることで、`df`から始まる一つのコードとしてまとめることもできる。複数のパイプ演算子をつなげていくためには、自分の頭の中で処理過程が想像できるようになる必要がある。学習段階では以上のようにステップごとにオブジェクトとして格納し、確認しながら分析を進めることが良いだろう。
+
+```{r}
+#| filename: "Code 11"
+# オブジェクトとして格納せず、結果だけを出力
+df |>
+  summarise(Mean = mean(Temp_Ishin, na.rm = TRUE),
+            Var  = var(Temp_Ishin, na.rm = TRUE),
+            N    = sum(!is.na(Temp_Ishin))) |>
+  mutate(SE       = sqrt(Var / N),
+         t        = Mean / SE,
+         CI_lower = Mean + qt(0.025, df = N - 1) * SE,
+         CI_upper = Mean + qt(0.975, df = N - 1) * SE,
+         .before  = N)
+```
+
+## `t.test()`の使い方
+
+　母平均の推定について学習する場合、これまでのように一つ一つ計算しながら結果を確認する方法が望ましいが、実際には`t.test()`という便利な関数を使う。指定する引数は2つであり、第一引数は母平均を推定するベクトル名、第二引数は`conf.level`であり、算出する信頼区間を指定する。95%信頼区間の場合、`0.95`で良い。ちなみに`conf.level`の既定値は0.95であるため、95%信頼区間を計算する場合は省略可能である。
+
+```{r}
+#| filename: "Code 12"
+# 95%信頼区間を出すのであれば、 t.test(df$Temp_Ishin) だけでもOK
+t.test(df$Temp_Ishin, conf.level = 0.95)
+```
+
+　手計算（？）と同じ結果が得られることが分かる。

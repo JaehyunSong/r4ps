@@ -1,0 +1,611 @@
+---
+title: "第7回講義資料"
+subtitle: "データ型"
+toc: true
+metadata-files: 
+  - _material.yml
+---
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse)
+```
+
+## スライド {.unlisted}
+
+<a href="../../slides/micro/datatype.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a>
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/micro/datatype.html" width="100%" style="aspect-ratio: 16 / 9.5;"></iframe>
+```
+
+
+## データ型とは
+
+　ベクトル（vector）はデータ構造（data structure）であり、ベクトル内の一つ一つの要素は数値や、文字など様々なデータ型（data type）の値を取り得る。
+
+```{r}
+#| filename: "Code 01"
+obj1 <- c(1, 3, 5, 7, 9, 11)
+obj2 <- c("Kansai", "Kwansei Gakuin", "Doshisha", "Ritsumeikan")
+obj3 <- c(TRUE, FALSE, FALSE)
+obj4 <- "R"
+```
+
+* `obj1`: 長さ6の**数値型**ベクトル
+* `obj2`: 長さ4の**文字型**ベクトル
+* `obj3`: 長さ3の**論理型**ベクトル
+* `obj4`: 長さ1の**文字型**ベクトル
+   * 長さ1のベクトルは原子ベクトル（atomic vector）とも呼ばれる
+
+:::{.callout-tip}
+## ベクトルの長さが知りたい
+
+ベクトルの長さは`length(オブジェクト名)`で計算できる。たとえば、`Object2`の長さは4である。
+
+```{r}
+#| filename: "Code 02"
+length(obj2)
+```
+:::
+
+　他にもRには様々なデータ型が使える。以下のリストはRが提供するデータ型の一部であり、太字は本講義で紹介するデータ型である。ここでは説明を割愛するが日付型（Date型）もよく使われるデータ型であり、それそれの詳細は教科書[第8章](https://www.jaysong.net/RBook/datatype.html)を参照されたい。
+
+* **Logical**
+* **Numeric**
+* Complex
+* **Character**
+* **Factor**
+* Date
+* **NA**
+* NULL
+* NaN
+* Inf
+* その他
+
+## データ型の確認
+
+　ベクトル内の要素は全て同じデータ型を取るが、そのデータ型を確認するためには、`class(ベクトル・オブジェクト名)`関数を使用する。先ほど作成した4つのベクトルのデータ型を確認してみよう。
+
+```{r}
+#| filename: "Code 03"
+class(obj1) # 数値型 (numeric)
+```
+
+```{r}
+#| filename: "Code 04"
+class(obj2) # 文字型 (character)
+```
+
+```{r}
+#| filename: "Code 05"
+class(obj3) # 論理型 (logical)
+```
+
+```{r}
+#| filename: "Code 06"
+class(obj4) # 文字型 (character)
+```
+
+## Logical型
+
+　論理型（logical型）とは`TRUE`と`FALSE`のみで構成されるデータ型である。論理演算子の計算結果は必ず以下のように論理型の結果が返される。
+
+```{r}
+#| filename: "Code 07"
+(2 + 3) == (4 + 1)
+```
+
+　この結果を代入演算子（`<-`）を使って、オブジェクトに格納するとlogical型ベクトルが作業環境内に格納される。
+
+```{r}
+#| filename: "Code 08"
+logi_vec1 <- (2 + 3) == (2 * 3)
+logi_vec1
+```
+
+```{r}
+#| filename: "Code 09"
+class(logi_vec1)
+```
+
+ あるオブジェクトがlogical型か否かを判定するには`is.logical()`を使用する。
+
+```{r}
+#| filename: "Code 10"
+is.logical(FALSE)
+```
+
+### 作成
+
+　Logical型ベクトルを作成するためには、通常のベクトルと同様、`c()`関数で作成する。
+
+```{r}
+#| filename: "Code 11"
+logi_vec2 <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+logi_vec2
+```
+
+　ここでの`TRUE`は`T`、`FALSE`は`F`と略すことが出来るが、**推奨しない**。必ず`TRUE`と`FALSE`で表記すること。
+
+```{r}
+#| filename: "Code 12"
+logi_vec3 <- c(T, F, T, T, F)
+logi_vec3
+```
+
+### 注意点
+
+　Logical型の値である`TRUE`と`FALSE`を`"`で囲んではいけない。もし、一つでも`"`で囲んでしまうと、そのベクトルlogical型でなく、後ほど紹介するcharacter型へ変換される。
+
+```{r}
+#| filename: "Code 13"
+# 2つ目のFALSEを"で囲むと...
+logi_vec4 <- c(TRUE, "FALSE", TRUE, TRUE, FALSE)
+logi_vec4
+```
+
+```{r}
+#| filename: "Code 14"
+class(logi_vec4)
+```
+
+### 使い方
+
+　直接`TRUE`や`FALSE`が格納されたベクトルを使う場面はほとんどない。つまり、ほとんどのlogical型ベクトルは何らかの**論理演算子から返された**ものである。以下の例は、`my_vec1`から奇数の要素のみを抽出するために、`logi_vec5`というベクトルを作成する例である。
+
+```{r}
+#| filename: "Code 15"
+my_vec1  <- c(89, 28, 93, 64, 6)
+logi_vec5 <- my_vec1 %% 2 == 1 # my_vec1を2で割ったら余りが1か
+logi_vec5
+```
+
+```{r}
+#| filename: "Code 16"
+class(logi_vec5)
+```
+
+```{r}
+#| filename: "Code 17"
+my_vec1[logi_vec5] # my_vec1から奇数のみ抽出
+```
+
+```{r}
+#| filename: "Code 18"
+my_vec1[my_vec1 %% 2 == 0] # 直接式を入れてもOK
+```
+
+## Numeric型
+
+```{r}
+#| filename: "Code 19"
+num_vec1 <- c(2, 0, 0, 1, 3)
+num_vec1
+```
+
+```{r}
+#| filename: "Code 20"
+class(num_vec1) # num_vec1のデータ型
+```
+
+```{r}
+#| filename: "Code 21"
+is.numeric(num_vec1) # num_vec1がnumeric型か否かを判定
+```
+
+### Numeric型の演算
+
+　以下ではnumeric型ベクトル**同士**の演算について解説する。Numeric型ベクトル同士は常に可能であるが、ベクトルの長さによって動きがやや異なる（**ベクトル・リサイクル**）。ベクトル・リサイクルは第3回にて解説したが、ここで改めて解説する。
+
+**ケース1:** **同じ長さのベクトル**同士の演算
+
+　2つのベクトルの長さが同じ場合、**同じ位置の要素同士の演算**となる。したがって、返ってくる結果（ベクトル）の長さは元のベクトルの長さと同じとなる。たとえば、長さ5の2つのベクトル同士の演算を考えてみよう。
+
+```{r}
+#| filename: "Code 22"
+num_vec2 <- c(1, 2, 3, 4, 5)  # 長さ5のnumeric型ベクトル
+num_vec3 <- c(11, 7, 5, 3, 2) # 長さ5のnumeric型ベクトル
+
+num_vec2 + num_vec3 # c(1+11, 2+7, 3+5, 4+3, 5+2)
+```
+
+　この場合、`num_vec2`の1番目の要素（1）と`num_vec3`の1番目の要素（11）の足し算、`num_vec2`の2番目の要素（2）と`num_vec3`の2番目の要素（7）の足し算、...が行われる。
+
+**ケース2:** **長さ2以上 (A)**と**長さ1 (B)**同士の演算
+
+　この場合、**(A)のそれぞれ要素と(B)の要素**同士で演算を行う。長さ5のベクトルに対し、たとえば長さ1のベクトルが`c(10)`であれば、自動的に`c(10, 10, 10, 10, 10)`へ変換されたと考えても良いだろう。
+
+```{r}
+#| filename: "Code 23"
+num_vec4 <- 10 # 長さ1の場合、c()はなくてもOK
+
+num_vec3 / num_vec4 # c(11/10, 7/10, 5/10, 3/10, 2/10)
+```
+
+**ケース3:** **長さ2以上**と**長さ2以上**で長さが異なる場合
+
+　この場合、**より短いの要素**がリサイクルされる。長さ5のベクトルに対し、たとえば長さ3のベクトルが`c(1, 2, 3)`であれば、自動的に`c(1, 2, 3, 1, 2)`へ変換されたと考えても良いだろう。これをRでは「**ベクトル・リサイクル**」（vector recycle）と呼ぶ。ちなみに、この場合、警告が表示される場合もある。これは長い方のベクトルの長さが短い方の長さの倍数になっていない場合に出力される。しかし、計算そのものには問題がない。
+
+```{r} 
+#| filename: "Code 24"
+num_vec5 <- c(1, 2, 3)
+
+num_vec3 * num_vec5 # c(11*1, 7*2, 5*3, 3*1, 2*2)
+```
+
+### 注意点
+
+　Logical型と同じ理由でnumeric型の値を`"`で囲んではいけない。一つでも`"`で囲むとNumeric型でなく、Character型へ変換されてしまう。
+
+```{r}
+#| filename: "Code 25"
+# 4つ目のFALSEを"で囲むと...
+num_vec6 <- c(38, 29, 10, "94", 51)
+num_vec6
+```
+
+```{r}
+#| filename: "Code 26"
+class(num_vec6)
+```
+
+
+## Character型
+
+　Character型（文字型）は要素が`"`で囲まれたデータ型である。
+
+```{r}
+#| filename: "Code 27"
+char_vec1 <- c("Kansai", "Kwansei-gakuin", "Doshisha", "Ritsmeikan")
+char_vec1
+```
+
+```{r}
+#| filename: "Code 28"
+class(char_vec1)
+```
+
+```{r}
+#| filename: "Code 29"
+is.character(char_vec1) # char_vec1がcharacter型であればTRUE
+```
+
+### 文字列の長さ
+
+　文字列ベクトルの長さを求める場合は`length()`関数を使用する。
+
+```{r}
+#| filename: "Code 30"
+length(char_vec1)
+```
+
+　ただし、`length()`関数はベクトルの長さを求める関数であって、各要素の文字数を求める関数ではない。各要素の文字数を求める場合は`nchar()`関数を使用する。
+
+```{r}
+#| filename: "Code 31"
+nchar(char_vec1)
+```
+
+### 文字の結合
+
+　本講義では使うことはほとんどないものの、頻繁に使う関数として`paste()`関数（または`paste0()`関数）がある。これは2つの文字列を結合する関数であり、使い方は`paste(Character型ベクトル, Character型ベクトル)`である。
+
+**ケース1:** `char_vec1`の全要素の後に`"University"`を付ける。
+
+```{r}
+#| filename: "Code 32"
+char_vec2 <- paste(char_vec1, "University")
+char_vec2 # "University"の前に自動的にスペースが入る
+```
+
+　この場合、大学名（たとえば、`"Kansai"`）と`"University"`の間には自動的にスペースが入る。スペースを無くしたい場合は、`paste()`内に`sep = ""`を追加するか、`paste0()`関数を使用する。この`sep`引数は結合される2つの文字列の間に入る文字を意味し、デフォルトはスペース（`" "`）である。
+
+```{r}
+#| filename: "Code 33"
+paste(char_vec1, "University", sep = "")
+```
+
+```{r}
+#| filename: "Code 34"
+paste0(char_vec1, "University")
+```
+
+```{r}
+#| filename: "Code 35"
+paste(char_vec1, "University", sep = "-")
+```
+
+**ケース2:** `char_vec2`の全要素の前に`1`、`2`、...を付け、数字と大学名は`"."`で結合
+
+　結合する2つのベクトルの長さがいずれも2以上の場合、同じ位置の要素同士の結合となる。
+
+```{r}
+#| filename: "Code 36"
+char_vec3 <- paste(1:4, char_vec2, sep = ".")
+char_vec3
+```
+
+## Factor型
+
+　Factor型は見た目上はcharacter型と同じであるが要素に順番（順位）が付いている点で異なる。つまり、factor型は順序付きcharacter型とも言えよう。
+
+　以下の2つの表形式データの内容は全く同じものである。しかし、左の表の場合`大学名`列のデータ型はcharacter型（列名の下に`<chr>`と表示される）、右の表の場合はfactor型（列名の下に`<fct>`と表示される）である。Factor型変数は要素の順番（順位）が決まっていて、ここでは`"Kansai"` > `"Kwansei-gakuin"` > `"Doshisha"` > `"Ritsumeikan"`の順番で設定してある。
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+`大学名`がcharacter型の場合
+
+```{r}
+#| echo: false
+df <- tibble(大学名 = c("Kansai", "Kwansei-gakuin", "Doshisha", "Ritsumeikan"),
+             学生数 = c(27736, 23671, 25974, 32467))
+df
+```
+
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+
+`大学名`がfactor型の場合
+
+```{r}
+#| echo: false
+df |>
+  mutate(大学名 = factor(大学名, 
+                      levels = c("Kansai", "Kwansei-gakuin",
+                                 "Doshisha", "Ritsumeikan")))
+```
+
+:::
+
+::::
+
+　この見た目上は全く同じの2つのデータを使って、大学別学生数の棒グラフを作成した例が以下の図である。
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+```{r}
+#| echo: false
+#| fig-cap: "`大学名`がcharacter型の場合"
+df |>
+  ggplot() +
+  geom_bar(aes(x = 大学名, y = 学生数), stat = "identity") +
+  theme_bw(base_size = 16)
+```
+
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+
+```{r}
+#| echo: false
+#| fig-cap: "`大学名`がfactor型の場合"
+df |>
+  mutate(大学名 = factor(大学名, levels = c("Kansai", "Kwansei-gakuin",
+                                      "Doshisha", "Ritsumeikan"))) |>
+  ggplot() +
+  geom_bar(aes(x = 大学名, y = 学生数), stat = "identity") +
+  theme_bw(base_size = 16)
+```
+
+:::
+
+::::
+
+　このようにcharacter型だと、作図の際、大学がアルファベット順で並ぶものの、factor型であれば、予め決めておいた順番で並ぶ。Factor型は図表を作成する際に重宝されるデータ型である。
+
+### Factor型の作成
+
+　ここでは、既存のcharacter型ベクトルをfactor型に変換する方法について紹介する。以下の`char_vec4`は関関同立の名前をアルファベット順で格納した長さ4のcharacter型ベクトルである。
+
+```{r}
+#| filename: "Code 37"
+char_vec4 <- c("Doshisha", "Kansai", "Kwansei-gakuin", "Ritsumeikan")
+```
+
+```{r}
+#| filename: "Code 38"
+char_vec4
+```
+
+```{r}
+#| filename: "Code 39"
+class(char_vec4)
+```
+
+　Factor型ベクトルは`factor()`関数で作成する。第一引数は元となるcharacter型ベクトルであり、`levels`引数に要素の順位を付ける。
+
+```{r}
+#| filename: "Code 40"
+fct_vec1 <- factor(char_vec4,
+                   levels = c("Kansai", "Kwansei-gakuin", "Doshisha", "Ritsumeikan"))
+```
+
+```{r}
+#| filename: "Code 41"
+fct_vec1
+```
+
+```{r}
+#| filename: "Code 42"
+class(fct_vec1)
+```
+
+　このようにfactor型ベクトルを出力した場合、ベクトルの中身に加え、下段に要素の順位が表示され、図表を作成する際はこの順番で自動的にソートされる。
+
+### Factor型の詳細
+
+　このfactor型は非常に重要なデータ型であり、図表を作成する際には必ず考えなくてはならないものである。先ほどの例のように、文字列をfactor化しないと要素はアルファベット順になる。図表において順番が思い通りにならない原因は、factor化していない、またはfactor化が間違っているのがほとんどである。factor型については今後データハンドリング、可視化の講義で改めて解説する。
+
+## 欠損値
+
+　データ分析において頻繁に遭遇するのは`NA`であるが、これは欠損値（missing value）を意味する。欠損値は何らかの値があるはずであるものの、観察されていない値である。例えば、国連開発機構が毎年発表している「[人間開発指数](https://hdr.undp.org/en/data)（Human Development Index; HDI）」では世界各国のデータが含まれている。しかし、世界における全ての国のデータが入っているわけではなく、たとえば台湾や北朝鮮のデータは含まれていない。これらの国/地域に人間開発という概念がないわけではなく、なんらかの理由（今回は政治的な理由）で値が欠損しているだけである。
+
+　自分でデータセットを構築しようとする時に、特定のケースに欠損が生じるケースは多々あり、世論調査でも例外ではない。たとえば答えづらい質問に対して「わからない」や「答えたくない」を選んだ場合、その回答者における当該質問は欠損となる。このように多くのデータには欠損値が含まれているため、欠損値処理は非常に重要である。欠損値の処理には様々な方法があるが、本講義では欠損値が含まれたケースを除外した分析を行う予定である。
+
+　他にも計算上、何らかの問題を生じさせうるものはあるが、以下では簡単にその例を紹介する。ただし、`NaN`と`Inf`のベクトルを作ることは可能であるが、使う機会はほとんどなく、何かの計算の結果によって返ってくるケースが多いので、その意味さえ把握しておけば良い。
+
+* `NA`: 何らかの値があるはずだが、欠損している状態
+* `NULL`: そもそも存在しない
+* `NaN`: 計算不可（例: 0 $\div$ 0）
+* `Inf`: 無限大（例: 10 $\div$ 0）
+
+### `NA`と`NULL`の違い
+
+　値がないという点で`NA`と`NULL`は似ているように見えるが、実は全く異なる概念である。`NA`は要素としてカウントされるが、`NULL`はカウントされない。以下の例を見てみよう。
+
+```{r}
+#| filename: "Code 43"
+NA_vec   <- c(1, 2, 3, NA, 5, NA, 7)
+NULL_vec <- c(1, 2, 3, NULL, 5, NULL, 7)
+```
+
+```{r}
+#| filename: "Code 44"
+NA_vec
+```
+
+```{r}
+#| filename: "Code 45"
+NULL_vec
+```
+
+```{r}
+#| filename: "Code 46"
+length(NA_vec)
+```
+
+```{r}
+#| filename: "Code 47"
+length(NULL_vec)
+```
+
+　このように`NULL`はそもそも存在しないことを意味する。`NA`が入居者がいない空き部屋であれば、`NULL`はそもそも部屋が存在しないことを意味する。ここまでの話だと`NULL`の存在意義が疑われるだろうが、中級者以上になるといずれ使う機会があろう。
+
+### 欠損値を含むベクトルの計算
+
+　ベクトルに欠損値が含まれている場合、平均値（`mean()`）、標準偏差（`sd()`）などの計算ができず、以下のように結果として`NA`が返ってくる。
+
+```{r}
+#| filename: "Code 48"
+mean(NA_vec)
+```
+
+　ここで欠損値を以外の要素のみを使って計算する方法としては以下の2つの方法がある[^mi]。
+
+[^mi]: 欠損値を統計的処理を用いて補完することもでき、これを「多重代入法（multiple imputation）」と呼ぶ。
+
+**方法1:** データから欠損値を除外する。
+
+* `!`演算子は否定を意味する（第3回参照）
+* ちなみに、`NA_vec == NA`、`NA_vec != NA`は使用不可
+
+```{r}
+#| filename: "Code 49"
+is.na(NA_vec) # 各要素がNAか否かを判定
+```
+
+```{r}
+#| filename: "Code 50"
+!is.na(NA_vec) # 各要素がNAか否かの判定を反転
+```
+
+```{r}
+#| filename: "Code 51"
+NA_vec[!is.na(NA_vec)] # 欠損値でない要素のみ抽出
+```
+
+```{r}
+#| filename: "Code 52"
+mean(NA_vec[!is.na(NA_vec)])
+```
+
+**方法2:** 関数内に`na.rm = TRUE`を追加する。
+
+　`mean()`関数の場合、`na.rm`という引数が用意されており、これを`TRUE`にすると、欠損値を除外した平均値が求められる（既定値は`FALSE`）。通常、関数には様々な引数が用意されている。Rコンソール上で`?関数名`を入力するとヘルプが読める（`mean()`関数のヘルプは`?mean`で読める）。
+
+```{r}
+#| filename: "Code 53"
+mean(NA_vec, na.rm = TRUE)
+```
+
+## ベクトル操作（続）
+
+　今回はデータ型が主な内容であったが、ベクトル操作はこれからも必要となるため、以下では第3回に続き、ベクトルの操作方法について解説する。練習用のベクトルとして`my_vec2`を用意する。
+
+```{r}
+#| filename: "Code 54"
+my_vec2 <- c(4, 3, 2, 1)
+my_vec2
+```
+
+### 要素の追加
+
+　ベクトルに新しい要素を追加するためには`ベクトル名[追加したい位置] <- 追加する値`と入力する。たとえば、`my_vec2`の5番目の要素として0を追加する場合は以下のように入力する。
+
+```{r}
+#| filename: "Code 55"
+my_vec2[5] <- 0
+my_vec2
+```
+
+　複数の要素を入れることができる。`my_vec2`の6、7、8番目の要素として、-1、-2、-3を追加する場合、以下のように入力する。
+
+```{r}
+#| filename: "Code 56"
+# 6:8の代わりにc(6, 7, 8)もOK
+my_vec2[6:8] <- c(-1, -2, -3)
+my_vec2
+```
+
+　今、`my_vec2`の長さは8である。もし、この`my_vec2`の11番目の要素としてに10を入れたらどうなるだろうか。
+
+```{r}
+#| filename: "Code 57"
+my_vec2[11] <- 10
+my_vec2
+```
+
+　このように11番目に10が追加され、9、10番目の要素は欠損値（`NA`）になる。
+
+### 要素の置換
+
+　要素の置換は要素の追加と同じである。つまり、`ベクトル名[置換したい位置] <- 置換する値`と入力する。`my_vec2`の11番目の要素は10であったが、これを-6に置換する。
+
+```{r}
+#| filename: "Code 58"
+my_vec2[11] <- -6
+my_vec2
+```
+
+　要素の追加と同様、複数の要素を置換することもできる。ここでは`my_vec2`の9、10番目の要素（`NA`と`NA`）を-4、-5に置換してみよう。
+
+```{r}
+#| filename: "Code 59"
+my_vec2[9:10] <- c(-4, -5)
+my_vec2
+```
+
+　置換する位置を指定する`[]`内に論理演算子を使えば、条件に合致する要素のみ置換することができる。たとえば、`my_vec2`の要素の中で、0より小さい要素に-1を掛けて置換する場合、以下のように入力する。
+
+```{r}
+#| filename: "Code 60"
+my_vec2[my_vec2 < 0] <- my_vec2[my_vec2 < 0] * -1
+my_vec2
+```
+
+## 教科書
+
+* 『私たちのR: ベストプラクティスの探求』
+   * 「[データ型](https://www.jaysong.net/RBook/datatype.html)」

@@ -1,0 +1,681 @@
+---
+subtitle: "第10回 分析結果の報告"
+date: "2023/12/07"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 授業開始前に
+
+```{r}
+#| include: false
+options(width = 120)
+pacman::p_load(tidyverse, gt, summarytools, modelsummary,
+               marginaleffects, gghighlight)
+
+# df <- read_csv("slides/Macro/Data/M1.csv")
+df <- read_csv("Data/M1.csv")
+
+fit1 <- lm(Score_Mean ~ Order, data = df)
+fit2 <- lm(Score_Mean ~ Order + First, data = df)
+fit3 <- lm(Score_Mean ~ Order + First + Duration, data = df)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. JDCat分析ツールを起動しておいてください。
+2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(modelsummary)
+library(marginaleffects)
+
+df <- read_csv("Data/M1.csv")
+
+fit1 <- lm(Score_Mean ~ Order, data = df)
+fit2 <- lm(Score_Mean ~ Order + First, data = df)
+fit3 <- lm(Score_Mean ~ Order + First + Duration, data = df)
+```
+
+* トラブルが生じた場合、速やかにTAを読んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
+# 分析結果の報告
+
+## 分析結果をどう示すか
+
+分析手法ごとに方法は異なるが、本講義では**線形回帰分析**に焦点を当てる[^reporting]。
+
+* 回帰分析の結果（点推定値、標準誤差、信頼区間、$p$値など）
+   * **表**（回帰表; regression table）
+   * 図
+* 応答変数の予測値予測値
+   * **図**
+
+[^reporting]: ロジスティック回帰分析、交互作用付きの回帰分析については今後解説する。
+
+## データの概要
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(modelsummary)
+library(marginaleffects)
+
+df <- read_csv("Data/M1.csv")
+```
+
+|変数名|説明|備考|
+|:---|:------|:------|
+|`No`|第X回大会|第13回（2017年）から|
+|`Year`|大会年度||
+|`Name`|コンビ名||
+|`Duration`|結成からの経過年数||
+|`First`|初出場ダミー|1 = 初出場 / 0 = その他|
+|`Final`|ファイナルステージへの進出有無||
+|`Order`|出場順番|1から10|
+|`Score_Mean`|平均得点|7人の審査委員からの評価の平均値|
+
+## モデルの推定
+
+* M-1グランプリにおける出場順番と得点の関係
+   * 平均得点（`Score_Mean`）を応答変数とした線形回帰モデル
+   * `fit1`：出場順番（`Order`）のみ投入
+   * `fit2`：出場順番（`Order`）、初出場ダミー（`First`）を投入
+   * `fit3`：出場順番（`Order`）、初出場ダミー（`First`）、芸歴（`Duration`）を投入
+
+```{r}
+fit1 <- lm(Score_Mean ~ Order, data = df)
+fit2 <- lm(Score_Mean ~ Order + First, data = df)
+fit3 <- lm(Score_Mean ~ Order + First + Duration, data = df)
+```
+
+# 表を用いた推定結果の報告
+
+## {modelsummary}パッケージの利用
+
+使い方：`modelsummary(回帰オブジェクト名)`
+
+::::{.columns}
+:::{.column width=68%}
+* デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。
+* 分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.）なども表示される）。
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=30%}
+```{r}
+modelsummary(fit1)
+```
+:::
+::::
+
+## 統計量の変更
+
+:::{.panel-tabset}
+## 前提知識
+
+* `modelsummary()`の`estimate`と`statistic`引数で出力される統計量の変更が可能
+   * デフォルトだと`estimate`は点推定値（`"{estimate}"`）、`statistic`は標準誤差（`"({std.error})"`）になっている。
+      * つまり、デフォルトは`modelsummary(オブジェクト名, estiamte = "{estimate}", statistic = "({std.error})")`
+   * $p$値は`"{p.value}"`、95%信頼区間の下限は`"{conf.low}"`、上限は`"{conf.high}"`など
+   * 行を消したい場合は`NULL`を割り当てる。
+   * `note`引数で注を付けることもできる。
+
+## 例1
+
+標準誤差の代わりに$p$値を表示する（`<0.001`は$p$値が0.001より小さいことを意味する）。
+
+```{r}
+modelsummary(fit1, statistic = "({p.value})", note = "注：カッコ内はp値")
+```
+
+## 例2
+
+点推定値と標準誤差を一行にまとめる。
+
+```{r}
+modelsummary(fit1, 
+             estimate  = "{estimate} ({std.error})",
+             statistic = NULL,
+             note      = "注：カッコ内は標準誤差")
+```
+
+## 例3
+
+点推定値と95%信頼区間を一行にまとめる。
+
+```{r}
+modelsummary(fit1, 
+             estimate  = "{estimate} [{conf.low}, {conf.high}]",
+             statistic = NULL,
+             note      = "注：カッコ内は95%信頼区間")
+```
+
+:::
+
+## 適合度指標の変更
+
+* 分析手法によって出力される適合度指標が異なる（`get_gof()`関数で確認可）。
+
+```{r}
+get_gof(fit3)
+```
+
+::::{.columns}
+:::{.column width=65%}
+* `gof_map`引数で表示したい適合度指標を指定する。
+   * 線形回帰分析なら
+      1. サンプルサイズ（`"nobs"`）
+      2. 決定係数（`r.squared`）
+      3. 調整済み決定係数（`"adj.r.squared"`）程度で十分
+
+```{r}
+#| eval: false
+fit3 |> # パイプ演算子も使用可
+  modelsummary(
+    estimate  = "{estimate} ({p.value})",
+    statistic = NULL,
+    gof_map   = c("nobs", "r.squared", "adj.r.squared"),
+    note      = "注：カッコ内はp値"
+  )
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=33%}
+```{r}
+#| echo: false
+modelsummary(fit3, 
+             estimate  = "{estimate} ({p.value})",
+             statistic = NULL,
+             gof_map   = c("nobs", "r.squared", "adj.r.squared"),
+             note      = "注：カッコ内はp値")
+```
+:::
+::::
+
+## 複数モデルの表示
+
+回帰オブジェクトを`list()`でまとめる（`"モデル名" = オブジェクト名`でモデル名も指定可）。
+
+:::{.panel-tabset}
+## 例1
+
+```{r}
+modelsummary(list(fit1, fit2, fit3),
+             gof_map = c("nobs", "r.squared", "adj.r.squared"))
+```
+
+## 例2
+
+```{r}
+modelsummary(list("Model 1" = fit1, "Model 2" = fit2, "Model 3" = fit3),
+             gof_map = c("nobs", "r.squared", "adj.r.squared"))
+```
+
+:::
+
+## 変数名の変更
+
+`coef_rename`引数で調整（`"元の変数名" = "新しい変数名"`）
+
+```{r}
+modelsummary(list(fit1, fit2, fit3),
+             coef_rename = c("(Intercept)" = "切片",
+                             "Order"       = "出場順番",
+                             "First"       = "初出場ダミー",
+                             "Duration"    = "結成からの経過年数"),
+             gof_map     = c("nobs", "r.squared", "adj.r.squared"))
+```
+
+## 参考）回帰表の可視化
+
+{modelsummary}の`modelplot()`関数
+
+* `modelplot()`から作成された図は{ggplot2}ベースなので`+`でレイヤーの追加、調整が可能
+* 詳細は`?modelplot`か[公式ページ](https://modelsummary.com/vignettes/modelplot.html)で確認すること。他にも{[coefplot](https://cran.r-project.org/web/packages/coefplot/index.html)}も人気~~（存在感のない{[coefplotbl](https://github.com/JaehyunSong/coefplotbl)}というのもある）~~
+
+```{r}
+#| fig-width: 6
+#| fig-height: 2.5
+#| dpi: 200
+modelplot(list("Model 1" = fit1, "Model 2" = fit2, "Model 3" = fit3),
+          coef_omit = "(Intercept)", # <1>
+          coef_map  = c("Duration", "First", "Order")) + # <2>
+  geom_vline(xintercept = 0, linetype = 2) # <3>
+```
+
+1. 切片を表示しない
+2. 表示順番を「下」からDuraion、First、Orderの順に
+3. x = 0に破線を引く
+
+# 回帰分析結果の可視化
+
+## 可視化の手順
+
+{marginaleffects}と{ggplot2}パッケージを使用（{ggplot2}は{tidyverse}と同時に自動的に読み込まれる）
+
+1. `predictions()`関数で予測値を計算し、オブジェクトとして格納
+   * 表形式オブジェクトとして格納される。
+2. 予測値オブジェクトの加工（ラベル付け/factor化）
+   * 予測値は`estimate`列
+   * 95%信頼区間の下限と上限は`conf.low`と`conf.high`列
+3. {ggplot2}を用いた作図
+   * 予測値 + 95%信頼区間
+   * 横軸上の値が少ない場合、`geom_pointrange()`
+   * 横軸上の値が多い場合、`geom_line()` + `geom_ribbon()`
+
+:::{.aside}
+:::{.callout-note icon="false" appearance="minimal"}
+**参考）**今後紹介するロジスティック回帰分析の場合、`predictions()`関数を使うと予測「確率」が表示される。また、交差項を含むモデルの場合は予測値・予測確率以外にも`slopes()`関数で限界効果を計算し、可視化する必要がある。いずれも今後の講義で紹介する。
+:::
+:::
+
+## 予測値の計算（`fit3`の場合）
+
+* **例）**初出場ダミー（`First`）の値が0の場合と1の場合の、`Score_Mean`の予測値は?
+
+$$
+\widehat{\mbox{Score_Mean}} = 89.605 + 0.258 \cdot \mbox{Order} - 0.963 \cdot \mbox{First} + 0.076 \cdot \mbox{Duration}.
+$$
+
+* `Order`と`Duration`は平均値（それぞれ5.5、10.6）に固定し、`First`だけ0と1を入れる。
+
+#### 計算例
+
+* 初出場（`First = 1`）の場合
+   * 89.605 + 0.256 $\times$ 5.5 - 0.963 $\times$ 1 + 0.076 $\times$ 10.6 $\simeq$ 90.856
+* 初出場ではない（`First = 0`）場合
+   * 89.605 + 0.256 $\times$ 5.5 - 0.963 $\times$ 0 + 0.076 $\times$ 10.6 $\simeq$ 91.819
+
+* {marginaleffects}の`predictions()`関数を使えば簡単に計算可能
+
+```{r}
+#| eval: false
+新しいオブジェクト名 <- predictions(回帰オブジェクト名,
+                                 newdata = datagrid(変数 = 値))
+```
+
+## 予測値の計算（`fit3`利用）
+
+* **例）**初出場ダミー（`First`）の値が0の場合と1の場合の、`Score_Mean`の予測値を計算し、`fit3_pred1`という名のオブジェクトとして格納
+
+```{r}
+fit3_pred1 <- predictions(fit3,
+                          newdata = datagrid(First = c(0, 1)))
+
+fit3_pred1
+```
+
+* `Estimate`列が予測値、`2.5%`と`97.5%`列が95%信頼区間の下限と上限
+* `First`以外の変数は平均値に固定される。
+
+## 平均値以外に固定する方法
+
+* **例）**初出場ダミー（`First`）の値が0の場合と1の場合の、`Score_Mean`の予測値を計算し、`fit3_pred2`という名のオブジェクトとして格納
+   * ただし、出場順番は5番目（`Order = 5`）、結成からの年数は5年（`Duration = 5`）と固定する。
+
+```{r}
+fit3_pred2 <- predictions(fit3,
+                          newdata = datagrid(First    = c(0, 1),
+                                             Order    = 5,
+                                             Duration = 5))
+
+fit3_pred2
+```
+
+## 作図の際の注意事項
+
+* `fit3_pred2`で表示される列名は「本当の」列名ではない!!
+   * ユーザーが読みやすいように列名が変更されてから出力される。
+   * たとえば、予測値の本当の列名は`estimate`だが、表示名は`Estimate`になっている。
+* 「本当の」列名が見たい場合は`print(オブジェクト名, style = "data.frame")`
+
+```{r}
+print(fit3_pred2, style = "data.frame")
+```
+
+* 作図によく使うのは予測値（`estimate`）、信頼区間の下限（`conf.low`）と上限（`conf.high`）、動かしている変数名（ここでは`First`）
+
+## 作図の例
+
+Pointrangeプロットを使用する。
+
+::::{.columns}
+:::{.column width=65%}
+`geom_pointrange()`レイヤー
+
+* `x`：説明変数
+* `y`：予測値
+* `ymin`：信頼区間の下限
+* `ymax`：信頼区間の上限
+   
+```{r}
+fit3_pred2_plot1 <- fit3_pred2 |> 
+  ggplot() +
+  geom_pointrange(aes(x = First, y = estimate, 
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "初出場ダミー", 
+       y = "予測点数と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=33%}
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+fit3_pred2_plot1
+```
+:::
+::::
+
+## 無駄の目盛りの削除
+
+* 横軸（X軸）の無駄な目盛りを削除し、0と1のみ残す。
+
+::::{.columns}
+:::{.column width=65%}
+
+`scale_x_continuous()`で目盛り調整
+
+* `breaks`：目盛りの位置
+* `labels`：目盛りのラベル
+   
+```{r}
+#| eval: false
+fit3_pred2_plot1 +
+  scale_x_continuous(breaks = c(0, 1),
+                     labels = c("0", "1"))
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=33%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+fit3_pred2_plot1 +
+  scale_x_continuous(breaks = c(0, 1),
+                     labels = c("0", "1"))
+```
+:::
+::::
+
+## 出場順番と平均得点間の関係（計算）
+
+```{r}
+fit3_pred3 <- predictions(fit3, newdata = datagrid(Order = 1:10))
+fit3_pred3
+```
+
+## 出場順番と平均得点間の関係（可視化）
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3.5
+#| dpi: 175
+fit3_pred3 |> 
+  ggplot() +
+  geom_pointrange(aes(x = Order, y = estimate, ymin = conf.low, ymax = conf.high)) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  labs(x = "出場順番", y = "平均得点の予測値と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+
+## 芸歴と平均得点間の関係（計算）
+
+```{r}
+fit3_pred4 <- predictions(fit3, newdata = datagrid(Duration = 2:16))
+fit3_pred4
+```
+
+## 芸歴と平均得点間の関係（可視化）
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3.5
+#| dpi: 175
+fit3_pred4 |> 
+  ggplot() +
+  geom_pointrange(aes(x = Duration, y = estimate, ymin = conf.low, ymax = conf.high)) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+
+## 折れ線グラフとリボン（`geom_ribbon()`）の組み合わせ
+
+* 横軸が細かいほどpoint-rangeプロットは気持ち悪くなる（ムカデのような見た目になる）。
+* `geom_ribbon()`は`x`、`ymin`、`ymax`にマッピング
+   * `geom_pointrange()`と使い方は同じだが、予測値の情報を持たないため、`y`は不要
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| dpi: 150
+fit3_pred4 |> 
+  ggplot() +
+  geom_ribbon(aes(x = Duration, ymin = conf.low, ymax = conf.high)) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+
+## 折れ線グラフ + リボン
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+fit3_pred4 |> 
+  ggplot(aes(x = Duration)) + # <1>
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") + # <2>
+  geom_line(aes(y = estimate), linewidth = 1) + # <3>
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  theme_bw(base_size = 12)
+```
+
+1. `geom_ribbon()`と`geom_line()`は同じ横軸を共有するため、ここでマッピングした方が効率的
+2. デフォルトのリボンは暗い色なので、明るめの色に変える。
+3. `linewidth`で折れ線グラフの太さを調整（1だとデフォルトよりやや太め）
+
+# 結局、信頼区間とは何なのか
+
+## 出場順番と平均得点間の関係
+
+今回得られた回帰直線
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+tibble(case = c("Real", "Case 1", "Case 2", "Case 3"),
+       start = c(90.16668, 90, 89.1, 91.2),
+       end   = c(92.49046, 93, 93.6, 91.2)) |> 
+  mutate(case = fct_relevel(case, "Real")) |> 
+  filter(case == "Real") |> 
+  ggplot() +
+  geom_segment(aes(x = 1, xend = 10, y = start, yend = end),
+               linewidth = 1.5) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  labs(x = "出場順番", y = "平均得点の予測値") +
+  coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
+  theme_bw(base_size = 12)
+```
+
+## もう一度、過去に戻ってM-1をやったら...（1）
+
+こんな回帰直線が得られたとしてもおかしくはない（多分）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3"), each = 2),
+       x    = rep(c(1, 10), 4),
+       y    = c(90.16668, 92.49046,
+                  90, 93,
+                  89.1, 93.6,
+                  91.2, 92)) |> 
+  mutate(case = fct_relevel(case, "今回のデータ")) |> 
+  ggplot() +
+  geom_line(aes(x = x, y = y, color = case),
+               linewidth = 1.5) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  gghighlight(!is.na(case), label_key = case,
+              label_params = list(direction = "y", hjust = 0)) +
+  labs(x = "出場順番", y = "平均得点の予測値") +
+  coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
+  theme_bw(base_size = 12)
+```
+
+## もう一度、過去に戻ってM-1をやったら...（2）
+
+こんな回帰直線が得られる可能性は非常に低い（多分）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース6"), each = 2),
+       x    = rep(c(1, 10), 4),
+       y    = c(90.16668, 92.49046,
+                90, 95,
+                91, 90,
+                92.5, 88)) |> 
+  mutate(case = fct_relevel(case, "今回のデータ")) |> 
+  ggplot() +
+  geom_line(aes(x = x, y = y, color = case),
+            linewidth = 1.5) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  gghighlight(!is.na(case), label_key = case,
+              label_params = list(direction = "y", hjust = 0)) +
+  labs(x = "出場順番", y = "平均得点の予測値") +
+  coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
+  theme_bw(base_size = 12)
+```
+
+## 信頼区間の意味
+
+この範囲（信頼区間）外の直線が得られる可能性は非常に低い！
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 150
+tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3",
+                    "ケース4", "ケース5", "ケース6"), each = 2),
+       x    = rep(c(1, 10), 7),
+       y    = c(90.16668, 92.49046,
+                90, 93,
+                89.1, 93.6,
+                91.2, 92,
+                90, 95,
+                91, 90,
+                92.5, 88)) |> 
+  mutate(case = fct_relevel(case, "今回のデータ")) |> 
+  ggplot() +
+  geom_ribbon(data = fit3_pred3,
+              aes(x = Order, ymin = conf.low, ymax = conf.high),
+              fill = "gray80") +
+  geom_line(aes(x = x, y = y, color = case),
+            linewidth = 1.5) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  gghighlight(case %in% c("今回のデータ", paste0("ケース", 4:6)), label_key = case,
+              unhighlighted_params = list(color = "gray30"),
+              label_params = list(direction = "y", hjust = 0)) +
+  labs(x = "出場順番", y = "平均得点の予測値") +
+  coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
+  theme_bw(base_size = 12)
+```
+
+## 信頼区間の意味（2）
+
+傾き係数が正（負）に統計的有意であれば、この区間内に引ける直線は必ず右上がり（右下がり）となる。
+
+::::{.columns}
+:::{.column width=47%}
+* $\alpha$ = 0.05で統計的有意だった`Order`（$p$ = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。
+* 右は統計的に有意でない`Duration`変数の例（$p$ = 0.381）
+   * 水平線も、右上がり直線も、右下がり直線も引ける。
+   * $\Rightarrow$ `Duration`と`Score_Mean`の関係は現段階では判断できない。
+* $\alpha$ = 0.1を仮定するのであれば、90%（$= (1 - \alpha) \times 100$）信頼区間を使うこととなる。
+:::
+
+:::{.column width=3%}
+:::
+
+:::{.column width=50%}
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+#| dpi: 150
+fit3_pred4 |> 
+  ggplot(aes(x = Duration)) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
+  geom_segment(aes(x = 2, xend = 16, y = 91, yend = 91),
+               linewidth = 1.5, color = "#00798C") +
+  geom_segment(aes(x = 2, xend = 16, y = 90, yend = 92),
+               linewidth = 1.5, color = "#D1495B") +
+  geom_segment(aes(x = 2, xend = 16, y = 92, yend = 91),
+               linewidth = 1.5, color = "#66A182") +
+  geom_line(aes(y = estimate), linewidth = 1.5) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  coord_cartesian(ylim = c(88, 93)) +
+  theme_bw(base_size = 12)
+```
+:::
+::::
+
+## 有意水準と信頼区間
+
+（ありえないが、）$\alpha$ = 0.6を採用する場合、40%信頼区間（$(1 - \alpha) \times 100$%信頼区間）を使うことになる。
+
+* 以下は40%信頼区間を採用した例（`predictions()`内に`conf_level = 0.4`を追加する）
+   * ただし、よく使うのは90%（$\alpha$ = 0.1）、95%（$\alpha$ = 0.05）、99%（$\alpha$ = 0.01）信頼区間
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 4
+#| dpi: 150
+predictions(fit3, newdata = datagrid(Duration = 2:16),
+            conf_level = 0.4) |>
+  ggplot(aes(x = Duration)) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
+  geom_segment(aes(x = 2, xend = 16, y = 91.09444, yend = 91.44930),
+               linewidth = 1, color = "#00798C") +
+  geom_segment(aes(x = 2, xend = 16, y = 90.26250, yend = 92.02425),
+               linewidth = 1, color = "#D1495B") +
+  geom_line(aes(y = estimate), linewidth = 1.5) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  coord_cartesian(ylim = c(88, 93)) +
+  theme_bw(base_size = 12)
+```

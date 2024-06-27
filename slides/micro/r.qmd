@@ -1,0 +1,194 @@
+---
+subtitle: "第2回 RとIDEの導入"
+date: "2024/4/18"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+# RとRStudio
+
+## Rとは
+
+![](Figs/r/rlogo.png){width=25% fig-align="center"}
+
+* 統計、データ分析、作図のためのインタープリター**プログラミング言語**
+* 1976年開発されたS言語の後継者
+* **R**oss Ihakaと**R**obert Clifford Gentlemanが開発
+* 統計分析のためのソフトウェアは星の数ほど存在
+   * データサイエンスの世界がR & Pythonが基本（2024年現在）
+
+## 統計ソフトウェア/言語
+
+#### 有償
+
+* [SAS](https://www.jaysong.net/RBook/www.sas.com/)
+* [SPSS](https://www.ibm.com/products/spss-statistics)
+* [Stata](https://www.stata.com/)
+* [MATLAB](https://www.mathworks.com/products/matlab.html)
+
+#### 無償
+
+* [PSPP](https://www.gnu.org/software/pspp/): [SPSS](https://www.ibm.com/products/spss-statistics)にとてもよく似た無料ソフトウェア
+* [JASP](https://jasp-stats.org/)/[jamovi](https://www.jamovi.org/): 裏で動いているのはR
+* [gretl](http://gretl.sourceforge.net/): 時系列分析など、計量経済学で利用される手法に特化したソフト
+* [GNU Octave](https://www.gnu.org/software/octave/): [MATLAB](https://www.mathworks.com/products/matlab.html)とほぼ同じ文法をもつ無料言語
+* [HAD](https://norimune.net/had): [清水裕士](https://norimune.net/)先生が開発している[Excel](https://www.microsoft.com/microsoft-365/excel)ベースのデータ分析マクロ
+  * ただし、[Excel](https://www.microsoft.com/microsoft-365/excel)が有償ソフト
+
+## Rのライバルたち（どれも無料）
+
+* 現在のデータサイエンス業界において標準は[R](https://www.r-project.org/) + [Python](https://www.python.org/)
+* どれもGUI（Graphical User Interface）でなく、**CUI**（Character User Interface）
+
+:::: {.columns}
+
+::: {.column width="45%"}
+![](Figs/r/Python_logo.png){width=17% fig-align="center"}
+
+[**Python**](https://www.python.org/)
+
+* 汎用プログラミング言語
+* 機械分析に強い
+* 豊富なパッケージ
+* [R](https://www.r-project.org/)より速く、[Julia](https://julialang.org/)より遅い
+:::
+
+::: {.column width="10%"}
+
+:::
+
+::: {.column width="45%"}
+![](Figs/r/Julia_logo.png){width=25% fig-align="center"}
+
+[**Julia**](https://julialang.org/)
+
+* 統計プログラミング言語
+* 非常に高速
+* パッケージが[R](https://www.r-project.org/)や[Python](https://www.python.org/)に比べ、少ない
+:::
+
+::::
+
+## Why R?
+
+R界隈の神様、[Hadley Wickham](http://hadley.nz/)（羽鳥先生）によると... (Hadley 2019)
+
+1. 無料、オープンソース、多くのプラットフォームで利用可能
+2. オンライン、オフラインの両方で、多様なRコミュニティが存在
+3. 膨大なパッケージが用意されている。
+4. 分析結果を伝達する強力なツールを提供（R Markdown）
+5. 代表的な統合開発環境であるRStudioはデータサイエンス、対話型のデータ分析、そして統計的プログラミングが必要とするものに最適化されている。
+6. 多くの統計学や機械学習の研究者は自分の研究成果とRパッケージを同時に公開している。
+7. データ分析を特化した言語（欠損値、データフレーム、ベクトル化など）
+8. 関数型プログラミングのための最適な環境を提供
+9. RStudio社は営利企業であるものの、その収益の多くをオープンソースコミュニティーに投資している。
+10. メタプログラミングが非常に強力
+11. RはC、C++、Fortranのようなhigh-performance言語と容易に結合できるように設計されている。
+
+## GUIとCUI
+
+![](Figs/r/CUI_GUI.png){width=40% fig-align="center"}
+
+* **GUI**：マウスでポチポチするだけで操作できる環境
+  * 間違いがほぼ起きない
+  * 柔軟性が低い（開発元が提供する機能しか使えない）
+  * 分析の再現が難しい（出来ないわけではない）
+* **CUI**：全ての操作を文字列ベース（=キーボード）で行う
+  * 一文字でも間違えるとエラーが出たり
+  * 柔軟性が高い（カスタマイズ自由）
+  * 分析の再現性が非常に高い（コードさえ保存しておけばOK）
+
+## GUIとCUIの操作の違い
+
+`Data.csv`を読み込み、`X`という変数の平均値と分散を計算するまでの手順
+
+::::{.columns}
+:::{.column width=49%}
+**GUI (SPSS)の例**
+
+1. 「ファイル」→「開く」→「データ」をクリック
+2. ファイルを選択し、「開く」をクリック
+3. 「分析」→「記述統計」→「記述統計」をクリック
+4. 左側のパネルから`X`を右側の「変数」パネルへ移動
+5. 「オブション」をクリック
+6. 「散らばり」の「分散」にチェック
+7. 「続行」をクリック→「OK」をクリック
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=49%}
+**CUI (R)の例**
+
+```r
+MyData <- read.csv("Data.csv")
+mean(MyData$X)
+var(MyData$X)
+```
+:::
+::::
+
+## 統合開発環境（IDE）
+
+![](Figs/r/rstudio.png){width=35% fig-align="center"}
+
+* R Studioが代表的（ほぼ一択）
+  * 他にもR Tools for Visual Studio、VS Code、Atom、Sublime Text、Vim、Emacsなど
+* IDEの使用は必須ではないが、生産性に大きく向上させる。
+* データ分析、プログラミングの手助けをする優秀な秘書
+  * ファイルの管理、うろ覚えのコマンドの、コードの色分けなどを自動的に行う。
+  * コードの実行結果の画面をコードと同時に表示
+  * これまでの作業を記録
+
+## R Studio
+
+![](Figs/r/IDE_RStudio.png){width=85% fig-align="center"}
+
+# 実習&課題
+
+## RとRStudioの導入
+
+* 宋と一緒にR/RStudioの初期設定、起動、終了などを行う。
+   * 本講義のサポートページを参照
+
+:::{.callout-caution icon=false}
+## 導入 $\neq$ 起動
+
+　Rの「導入」はアプリのインストールの概念に近い。一方、「起動」はアプリの実行である。スマホのアプリを使う度にインストールする人はいないだろう。**R/RStudioの導入は1回のみで十分なので、複数回行わない**こと。何かの不具合が生じるわけではないが、サーバー立ち上げ用のURLにアクセスする度に、サーバーが増え、自分が使っていたサーバーが何だったのかが分からなくなる。今後の授業では「サーバー立ち上げ用のURL」でなく、「起動用のURL」からアクセスすること。起動用のURLはサポートページのホーム画面からアクセス可能。
+:::
+
+## 「プロジェクト」機能について
+
+* 本講義のサポートページを参照
+   * Rの使い方の「[ファイルシステム](https://www.jaysong.net/r4ps/intro/filesystem.html){target="_blank"}」、「[プロジェクト管理](https://www.jaysong.net/r4ps/intro/project.html){target="_blank"}」、「[ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}」すべてを読むこと
+   * 教科書の「[ファイルシステム](https://www.jaysong.net/RBook/filesystem.html){target="_blank"}」も合わせて読もう。
+* 毎回の講義、課題ごとに独立したプロジェクトを作ることを推奨
+* ファイル・システムに関する知識（パス、相対パス、絶対パス）がない場合、プロジェクト機能は必須
+   * ファイル・システムを知っている宋でも常にプロジェクト機能を使用している。
+
+## 課題
+
+課題の遂行有無は確認しない（履修者の良心に任せる）。
+
+:::{.panel-tabset}
+## 課題1
+
+* 以下の内容を**熟読**する。
+   * 『私たちのR』の「[ファイルシステム](https://www.jaysong.net/RBook/filesystem.html)」
+   * サポートページ
+      * [ファイル・システム](https://www.jaysong.net/r4ps/intro/filesystem.html){target="_blank"}
+      * [プロジェクト管理](https://www.jaysong.net/r4ps/intro/project.html){target="_blank"}
+      * [ファイル管理](https://www.jaysong.net/r4ps/intro/file.html){target="_blank"}
+* 本講義では簡単には説明するが、予め読んでおくこと。
+* この概念が分からないと課題、期末テストの「問題1」から詰む。
+
+## 課題2
+
+* **英字**のブラインドタッチの練習
+   * Googleで「タイピング練習」を検索
+   * 例) <https://manabi-gakushu.benesse.ne.jp/gakushu/typing/eigonyuryoku.html>
+      * 1分間、約150文字以上が打てるようにすること
+   * 毎日欠かさず30分程度練習すれば2週間でできるようになる。
+:::

@@ -1,0 +1,3648 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.556">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Political Science - 第9回講義資料</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../Figs/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
+</script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&amp;display=swap" rel="stylesheet"> 
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">R for Political Science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">シラバス</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_micro.html">
+ <span class="dropdown-text">[前期] ミクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/syllabus_macro.html">
+ <span class="dropdown-text">[後期] マクロ政治データ分析実習</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../syllabus/session.html">
+ <span class="dropdown-text">セッション情報</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-rの使い方" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Rの使い方</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-rの使い方">    
+        <li>
+    <a class="dropdown-item" href="../../intro/install.html">
+ <span class="dropdown-text">Rの導入</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/rstudio.html">
+ <span class="dropdown-text">RStudioの設定</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/filesystem.html">
+ <span class="dropdown-text">ファイル・システム</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/project.html">
+ <span class="dropdown-text">プロジェクト管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/file.html">
+ <span class="dropdown-text">ファイル管理</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/packages.html">
+ <span class="dropdown-text">パッケージ</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intro/faq.html">
+ <span class="dropdown-text">この授業の「あるある」</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">前期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/r.html">
+ <span class="dropdown-text">第2回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/basic.html">
+ <span class="dropdown-text">第3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/programming.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/quarto.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/dataset.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datatype.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/datastructure.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling1.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling2.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/handling3.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization1.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization2.html">
+ <span class="dropdown-text">第13回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/micro/visualization3.html">
+ <span class="dropdown-text">第14回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">後期講義資料</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/introduction.html">
+ <span class="dropdown-text">第1回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/research_design.html">
+ <span class="dropdown-text">第2・3回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/descriptive_statistics.html">
+ <span class="dropdown-text">第4回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/inference.html">
+ <span class="dropdown-text">第5回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/nhts.html">
+ <span class="dropdown-text">第6回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/association.html">
+ <span class="dropdown-text">第7回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression1.html">
+ <span class="dropdown-text">第8回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/regression2.html">
+ <span class="dropdown-text">第9回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+ <span class="dropdown-text">第10回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/interaction.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu--3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">課題</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu--3">    
+        <li>
+    <a class="dropdown-item" href="../../intro/homework.html">
+ <span class="dropdown-text">課題の取り組み方</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">ミクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW05.html">
+ <span class="dropdown-text">[前期] 第5回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW10.html">
+ <span class="dropdown-text">[前期] 第10回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_HW11.html">
+ <span class="dropdown-text">[前期] 第11回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Micro_Final.html">
+ <span class="dropdown-text">[前期] 期末レポート</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">マクロ</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"> <i class="bi bi-terminal" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/"> <i class="bi bi-book" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/regression2.html">第9回講義資料</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/research_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2・3回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/descriptive_statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第5回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/nhts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第8回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/regression2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第9回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/interaction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12回講義資料</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#セットアップ" id="toc-セットアップ" class="nav-link active" data-scroll-target="#セットアップ">セットアップ</a></li>
+  <li><a href="#記述統計" id="toc-記述統計" class="nav-link" data-scroll-target="#記述統計">記述統計</a></li>
+  <li><a href="#名目変数と使い方" id="toc-名目変数と使い方" class="nav-link" data-scroll-target="#名目変数と使い方">名目変数と使い方</a></li>
+  <li><a href="#線形変換" id="toc-線形変換" class="nav-link" data-scroll-target="#線形変換">線形変換</a>
+  <ul class="collapse">
+  <li><a href="#単位変換" id="toc-単位変換" class="nav-link" data-scroll-target="#単位変換">単位変換</a></li>
+  <li><a href="#スケールの逆転" id="toc-スケールの逆転" class="nav-link" data-scroll-target="#スケールの逆転">スケールの逆転</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第9回講義資料</h1>
+<p class="subtitle lead">線形回帰分析（2）</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="スライド" class="level2 unlisted">
+<h2 class="unlisted anchored" data-anchor-id="スライド">スライド</h2>
+<p><a href="../../slides/macro/regression2.html" class="btn btn-primary btn-sm" target="_blank" role="button"><i class="bi bi-window"></i> 新しいタブで開く</a></p>
+<iframe class="slide-deck" src="../../slides/macro/regression2.html" width="100%" style="aspect-ratio: 16 / 9.2;"></iframe>
+</section>
+<section id="セットアップ" class="level2">
+<h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
+<p>　本日使用する3つのパッケージとデータ（<code>JES6_W1.csv</code>; LMSからダウンロード）を読み込む。読み込んだデータは<code>jes_df</code>と名付けて作業スペース内に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 01</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>jes_df  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>jes_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 8
+   Temp_Rikken Ideology Interest Gender   Age Education   Job  Income
+         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1          30        9        1      2    69         4     5 4333994
+ 2          50        7        4      2    47         3     1  979181
+ 3           0       11        2      2    37         2     1 8498127
+ 4          50       11        2      1    51         4     2 7572654
+ 5          30        7        2      1    38         4     1 6436713
+ 6           0       11        1      1    71         2     5 3410276
+ 7          10        9        2      1    47         3     2 8652860
+ 8           0       11        1      1    71         2     5  927703
+ 9          50        9        1      1    75         4     1 4497693
+10          55        6        2      2    66         3     4 2419573
+# ℹ 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　つづいて、データの大きさと変数名を確認する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 02</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">dim</span>(jes_df) <span class="co"># jes_dfの大きさ（行数と列数）</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3000    8</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 03</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">names</span>(jes_df) <span class="co"># jes_df内の変数名</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Temp_Rikken" "Ideology"    "Interest"    "Gender"      "Age"        
+[6] "Education"   "Job"         "Income"     </code></pre>
+</div>
+</div>
+<p>　各変数の詳細は以下の通りである。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 29%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">変数名</th>
+<th style="text-align: left;">説明</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>Temp_Rikken</code></td>
+<td style="text-align: left;">立憲民主党に対する感情温度</td>
+<td style="text-align: left;">高いほど好感</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Ideology</code></td>
+<td style="text-align: left;">回答者のイデオロギー</td>
+<td style="text-align: left;">高いほど保守</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Interest</code></td>
+<td style="text-align: left;">回答者の政治関心</td>
+<td style="text-align: left;">高いほど無関心</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Gender</code></td>
+<td style="text-align: left;">回答者の性別</td>
+<td style="text-align: left;">1: 男性 / 2: 女性</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Age</code></td>
+<td style="text-align: left;">回答者の年齢</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Education</code></td>
+<td style="text-align: left;">回答者の最終学歴</td>
+<td style="text-align: left;">1: 中卒以下 / 2: 高校卒 / 3: 高専・短大卒 / 4: 大卒以上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Job</code></td>
+<td style="text-align: left;">回答者の職業</td>
+<td style="text-align: left;">1: 勤め / 2: 自営業 / 3: 学生 / 4: 専業主婦・主夫 / 5: 無職 / 6: その他</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Income</code></td>
+<td style="text-align: left;">回答者の世帯収入</td>
+<td style="text-align: left;">円</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="記述統計" class="level2">
+<h2 class="anchored" data-anchor-id="記述統計">記述統計</h2>
+<p>　分析の前に名目変数（<code>Gender</code>と<code>Job</code>）はダミー変数に変換する。<code>Gender</code>と<code>Job</code>はデータ上は数値型であるため、平均値や標準偏差などの記述統計量は計算できるものの、数字そのものの意味はない。たとえば、<code>Gender</code>の場合1は男性、2は女性であるが、別に1が女性、2が男性でも関係なく、1が女性、99が男性でも回答者の性別を識別するには問題ない。</p>
+<p>　このような名目変数は<code>dummy_cols()</code>関数（{fastDummies}パッケージを予め読み込んでおくこと）を使用してダミー変数に変換してから記述統計量を計算する必要がある。生成されるダミー変数の名前は「<code>元の変数名_値</code>」である。たとえば、<code>Gender</code>列は<code>1</code>と<code>2</code>で構成されているため、<code>Gender_1</code>、<code>Gender_2</code>列が追加される。また、新しく生成されたダミー変数はデータセットの右端に追加される。これらの変数の位置を調整するためには<code>relocate()</code>関数を使う。第1引数は位置を変更する列名（複数であれば、<code>c()</code>や<code>:</code>を使用）、第2引数は<code>.before</code>、または<code>.after</code>である。<code>.before = Gender</code>は<code>Gender</code>列より前（=左）、<code>.after = Gender</code>は<code>Gender</code>列より後ろ（=右）である。最後に<code>descr()</code>関数に渡す前に、記述統計量の計算が不要な<code>Gender</code>列と<code>Job</code>列を除外する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 04</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>jes_df <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>   <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"Job"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>   <span class="co"># Gender_1と_2列をGenderの前に</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>   <span class="fu">relocate</span>(<span class="fu">c</span>(Gender_1, Gender_2), <span class="at">.before =</span> Gender) <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a href="#cb7-5"></a>   <span class="co"># Job_1から_6列をJobの前に</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>   <span class="fu">relocate</span>(Job_1<span class="sc">:</span>Job_6, <span class="at">.before =</span> Job) <span class="sc">|&gt;</span>          </span>
+<span id="cb7-7"><a href="#cb7-7"></a>   <span class="co"># GenderとJob列を除外してからdscer()に渡す</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>   <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, Job)) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>   <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb7-10"><a href="#cb7-10"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descriptive Statistics  
+
+                          Mean      Std.Dev         Min           Max   N.Valid
+----------------- ------------ ------------ ----------- ------------- ---------
+      Temp_Rikken        34.25        25.95        0.00        100.00   3000.00
+         Ideology         6.34         2.10        1.00         11.00   3000.00
+         Interest         2.26         0.83        1.00          4.00   3000.00
+         Gender_1         0.50         0.50        0.00          1.00   3000.00
+         Gender_2         0.50         0.50        0.00          1.00   3000.00
+              Age        47.34        15.63       18.00         75.00   3000.00
+        Education         3.11         0.89        1.00          4.00   3000.00
+            Job_1         0.50         0.50        0.00          1.00   3000.00
+            Job_2         0.08         0.28        0.00          1.00   3000.00
+            Job_3         0.05         0.21        0.00          1.00   3000.00
+            Job_4         0.20         0.40        0.00          1.00   3000.00
+            Job_5         0.15         0.35        0.00          1.00   3000.00
+            Job_6         0.02         0.14        0.00          1.00   3000.00
+           Income   6190334.00   4233639.26   643629.00   25286751.00   3000.00</code></pre>
+</div>
+</div>
+<p>　自分で記述統計量を確認するためにはこれでも良いが、論文・レポートに掲載する際には、必ず読者に読みやすく加工する必要がある。とりわけ、読者から見れば<code>Job_1</code>とか<code>Job_2</code>は意味がわからないだろう。初見の読者さんも読みやすくするために表内の変数名を以下のように変えよう。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">変数</th>
+<th style="text-align: right;">平均値</th>
+<th style="text-align: right;">標準偏差</th>
+<th style="text-align: right;">最小値</th>
+<th style="text-align: right;">最大値</th>
+<th style="text-align: right;">有効ケース数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">立憲民主党に対する感情温度</td>
+<td style="text-align: right;">34.25</td>
+<td style="text-align: right;">25.95</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">イデオロギー</td>
+<td style="text-align: right;">6.34</td>
+<td style="text-align: right;">2.10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">政治関心</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">性別：男性</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">性別：女性</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">年齢</td>
+<td style="text-align: right;">47.34</td>
+<td style="text-align: right;">15.63</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">最終学歴</td>
+<td style="text-align: right;">3.11</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">職業：勤め</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">職業：自営業</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">職業：学生</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">職業：専業主婦（夫）</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">職業：無職・引退</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">職業：その他</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">世帯収入</td>
+<td style="text-align: right;">6190334.00</td>
+<td style="text-align: right;">4233639.26</td>
+<td style="text-align: right;">643629</td>
+<td style="text-align: right;">25286751</td>
+<td style="text-align: right;">3000</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="名目変数と使い方" class="level2">
+<h2 class="anchored" data-anchor-id="名目変数と使い方">名目変数と使い方</h2>
+<p>　それでは名目変数を含む重回帰分析を実装してみよう。重回帰モデルに名目変数を投入する方法する方法は実は簡単だ。それは<code>lm()</code>関数内のformulaに<strong>factor化した</strong>名目変数を追加するだけである。Factor型変数が説明変数として投入されると、自動的にダミー変数に変換されてから投入される（つまり、ダミー変数に変換して一つ一つ投入しても問題ないということ）。ただし、全てのダミー変数が投入されるわけではなく、<span class="math inline">\(k-1\)</span>個のダミー変数が投入されることには注意すること（<span class="math inline">\(k\)</span>は当該factor型変数の水準数）。たとえば、性別（<code>Gender</code>）の場合、2つ値で構成されている変数であるため、ダミー変数も2つになるが、1つのみ投入される。同様に、職業（<code>Job</code>）変数も、1から6までの6つの値で構成されているため、ダミー変数も6つになるが、5つのみ投入される。ここで除外されたカテゴリーは「ベース・カテゴリー (base category)」、「参照カテゴリー/レファレンス・カテゴリー (reference category)」、「ベースライン (baseline)」などと呼ばれる（どの水準がベース・カテゴリーになるかは後述する）。</p>
+<p>　それでは実装してみよう。<code>Gender</code>と<code>Job</code>変数はデータ上、まだ数値型変数であるため、これらをfactor化する。また、単純にfactor化するだけでなく、値にラベルも割り当てよう。<code>factor()</code>関数の第1引数はfactor化する変数名を入れる。第2引数以降は<code>levels</code>と<code>labels</code>を指定する（引数名を明記するため、順番は関係ない）。<code>levels</code>は元の値、<code>labels</code>にはそれぞれの値に割り当てるラベルである。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 05</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>jes_df <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>         <span class="at">Job    =</span> <span class="fu">factor</span>(Job, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Salary"</span>, <span class="st">"Self"</span>, <span class="st">"Student"</span>, </span>
+<span id="cb9-4"><a href="#cb9-4"></a>                                                       <span class="st">"House"</span>, <span class="st">"Retire"</span>, <span class="st">"Etc"</span>)))</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>jes_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 8
+   Temp_Rikken Ideology Interest Gender   Age Education Job     Income
+         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;
+ 1          30        9        1 Female    69         4 Retire 4333994
+ 2          50        7        4 Female    47         3 Salary  979181
+ 3           0       11        2 Female    37         2 Salary 8498127
+ 4          50       11        2 Male      51         4 Self   7572654
+ 5          30        7        2 Male      38         4 Salary 6436713
+ 6           0       11        1 Male      71         2 Retire 3410276
+ 7          10        9        2 Male      47         3 Self   8652860
+ 8           0       11        1 Male      71         2 Retire  927703
+ 9          50        9        1 Male      75         4 Salary 4497693
+10          55        6        2 Female    66         3 House  2419573
+# ℹ 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　Factor化が済んだら、回帰分析を行い、推定結果は<code>dummy_fit1</code>という名のオブジェクトとして格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 06</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>dummy_fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>                    Education <span class="sc">+</span> Job <span class="sc">+</span> Income, <span class="at">data =</span> jes_df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　<code>summary()</code>関数で推定結果を確認してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 07</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">summary</span>(dummy_fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Temp_Rikken ~ Ideology + Interest + Gender + Age + 
+    Education + Job + Income, data = jes_df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-50.58 -24.62   4.76  18.82  78.05 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   3.477e+01  3.558e+00   9.772  &lt; 2e-16 ***
+Ideology     -2.117e+00  2.202e-01  -9.616  &lt; 2e-16 ***
+Interest     -1.404e+00  6.100e-01  -2.302 0.021407 *  
+GenderFemale  3.395e+00  1.071e+00   3.170 0.001540 ** 
+Age           1.871e-01  3.723e-02   5.026 5.31e-07 ***
+Education     1.970e+00  5.402e-01   3.648 0.000269 ***
+JobSelf      -2.187e+00  1.737e+00  -1.259 0.208045    
+JobStudent    5.775e+00  2.369e+00   2.438 0.014836 *  
+JobHouse      2.172e+00  1.415e+00   1.535 0.124842    
+JobRetire    -1.160e+00  1.519e+00  -0.764 0.444993    
+JobEtc       -8.071e-01  3.393e+00  -0.238 0.812021    
+Income       -1.539e-07  1.145e-07  -1.343 0.179231    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.27 on 2988 degrees of freedom
+Multiple R-squared:  0.05472,   Adjusted R-squared:  0.05124 
+F-statistic: 15.72 on 11 and 2988 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>　連続変数の場合、これまでの解釈と同じである。たとえば、回答者のイデオロギー（<code>Ideology</code>）の係数を解釈してみよう。係数は約2.117であり、<span class="math inline">\(p &lt; 0.05\)</span>から統計的に有意である。これは<code>Ideology</code>の値が上がると立民に対する感情温度が低くなることを意味する。<code>Ideology</code>の値が上がるということは、より保守的なイデオロギーを持つことを意味し、言い換えれば、保守的な回答者ほど、立民に対する感情温度が低いことを意味する。具体的に係数を解釈するならば、「イデオロギーが1単位上がると（= 有権者が1単位保守的になると）、立民に対する感情温度は約2.113度下がる」ということになる。</p>
+<p>　問題はダミー変数の解釈である。ダミー変数の解釈は「ベース・カテゴリーに比べ、〜」といった解釈となる。性別（<code>Gender</code>）変数の場合、投入されなかったのは女性ダミー（<code>GenderFemale</code>）であるため、男性ダミー（<code>GenderMale</code>）がベース・カテゴリーとなる。この場合、係数の解釈は「男性に比べ〜」となる。<code>GenderFemale</code>の係数が約3.395ということは、「<strong>男性に比べ</strong>、女性は立民に対する感情温度が約3.395度高い」ことを意味する。</p>
+<p>　回答者の職業（<code>Job</code>）についても同じことが言える。投入されなかったのは勤めダミー（<code>JobSalary</code>）であるため、勤めダミー（<code>JobSalary</code>）がベース・カテゴリーとなる。自営業ダミー（<code>JobSelf</code>）の係数は約-2.187であるが、これは「<strong>勤めの人に比べ</strong>、自営業の人は立民に対する感情温度が約2.187度低い」。ただし、<span class="math inline">\(p = 0.208\)</span>ということで統計的に有意な関係はないため、具体的な係数を解釈する必要はなく、この場合は「<strong>勤めの人に比べ</strong>、自営業の人は立民に対する感情温度が異なるとは言えない」程度で十分である。一方、学生ダミー（<code>JobStudent</code>）の場合、係数は約5.775で、統計的に有意でもある。解釈は「<strong>勤めの人に比べ</strong>、学生は立民に対する感情温度が約5.8度高い」で良いだろう。</p>
+<p>　一つ注意すべき点としては、ダミー変数はベース・カテゴリーによって統計的有意性が変わり得ることだ。名目変数を統制変数として投入しただけであれば、そもそも解釈は不要であるが、研究において主要説明変数であれば、ベース・カテゴリーの設定は慎重に行う必要がある。、「どのカテゴリー間を比べたいか」に注目することで設定すべきベース・カテゴリーが決まるだろう。</p>
+<p>　今回は男性ダミーと勤めダミーが自動的にベース・カテゴリーになったが、このベース・カテゴリーは何によって決まるだろうか。その仕組は簡単である。<strong>Factor型変数の最初の水準（level）がベース・カテゴリーになる</strong>。あるfactor型変数の水準の順番を確認するためには<code>levels()</code>関数を使用する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 08</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Gender) <span class="co"># jes_dfのGender列の水準</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Male"   "Female"</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 09</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Job) <span class="co"># jes_dfのJob列の水準</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Salary"  "Self"    "Student" "House"   "Retire"  "Etc"    </code></pre>
+</div>
+</div>
+<p>　つまり、<code>Gender</code>と<code>Job</code>の水準の順番を変えるとベース・カテゴリーが変更できる。Factor型変数の特定の水準を最初の水準にする場合は、Factor化済みの変数に対し、<code>fct_relevel()</code>を使用する。第1引数は水準の順番を変更する変数名を、第2引数には最初の水準にしたい水準名を<code>"</code>で囲んで入力する。これを<code>Gender</code>と<code>Job</code>列に対して適用し、それぞれ最初の水準を<code>"Male"</code>と<code>"Etc"</code>にする。列の操作後、<code>jes_df</code>は上書きせず、<code>jes_df2</code>と新しい名のオブジェクトとして格納し、<code>jes_df2</code>の<code>Gender</code>列と<code>Job</code>列の水準を出力する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 10</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>jes_df2 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">"Female"</span>), <span class="co"># Femaleを第1水準に</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>         <span class="at">Job    =</span> <span class="fu">fct_relevel</span>(Job, <span class="st">"Etc"</span>))       <span class="co"># Etcを第1水準に</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Gender) <span class="co"># jes_df2のGender列の水準</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Female" "Male"  </code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 11</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Job) <span class="co"># jes_df2のJob列の水準</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Etc"     "Salary"  "Self"    "Student" "House"   "Retire" </code></pre>
+</div>
+</div>
+<p>　最初の水準が変更され、2番目以降の水準は既存の順番そのままになっていることが分かる<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。それでは<code>jes_df2</code>を用い、<code>dummy_fit1</code>と同じ推定をやってみよう。推定結果は<code>dummy_fit2</code>に格納し、<code>summary()</code>推定結果を確認してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 12</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>dummy_fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>                    Education <span class="sc">+</span> Job <span class="sc">+</span> Income, <span class="at">data =</span> jes_df2)</span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">summary</span>(dummy_fit2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Temp_Rikken ~ Ideology + Interest + Gender + Age + 
+    Education + Job + Income, data = jes_df2)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-50.58 -24.62   4.76  18.82  78.05 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.736e+01  4.936e+00   7.570 4.96e-14 ***
+Ideology    -2.117e+00  2.202e-01  -9.616  &lt; 2e-16 ***
+Interest    -1.404e+00  6.100e-01  -2.302 0.021407 *  
+GenderMale  -3.395e+00  1.071e+00  -3.170 0.001540 ** 
+Age          1.871e-01  3.723e-02   5.026 5.31e-07 ***
+Education    1.970e+00  5.402e-01   3.648 0.000269 ***
+JobSalary    8.071e-01  3.393e+00   0.238 0.812021    
+JobSelf     -1.380e+00  3.677e+00  -0.375 0.707369    
+JobStudent   6.582e+00  4.111e+00   1.601 0.109437    
+JobHouse     2.979e+00  3.483e+00   0.855 0.392472    
+JobRetire   -3.533e-01  3.547e+00  -0.100 0.920665    
+Income      -1.539e-07  1.145e-07  -1.343 0.179231    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.27 on 2988 degrees of freedom
+Multiple R-squared:  0.05472,   Adjusted R-squared:  0.05124 
+F-statistic: 15.72 on 11 and 2988 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>　2つ以上のモデルを比較する際は推定結果を横に並べるとより見やすくなる。<code>modelsummary()</code>関数で2つのモデルを比較する際に非常に便利だ（予め{modelsummary}パッケージを読み込んでおくこと）。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 13</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(dummy_fit1, dummy_fit2))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">34.774</td>
+<td style="text-align: center;">37.362</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(3.558)</td>
+<td style="text-align: center;">(4.936)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ideology</td>
+<td style="text-align: center;">−2.117</td>
+<td style="text-align: center;">−2.117</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.220)</td>
+<td style="text-align: center;">(0.220)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Interest</td>
+<td style="text-align: center;">−1.404</td>
+<td style="text-align: center;">−1.404</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.610)</td>
+<td style="text-align: center;">(0.610)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GenderFemale</td>
+<td style="text-align: center;">3.395</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(1.071)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Age</td>
+<td style="text-align: center;">0.187</td>
+<td style="text-align: center;">0.187</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.037)</td>
+<td style="text-align: center;">(0.037)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: center;">1.970</td>
+<td style="text-align: center;">1.970</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.540)</td>
+<td style="text-align: center;">(0.540)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobSelf</td>
+<td style="text-align: center;">−2.187</td>
+<td style="text-align: center;">−1.380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(1.737)</td>
+<td style="text-align: center;">(3.677)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobStudent</td>
+<td style="text-align: center;">5.775</td>
+<td style="text-align: center;">6.582</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(2.369)</td>
+<td style="text-align: center;">(4.111)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobHouse</td>
+<td style="text-align: center;">2.172</td>
+<td style="text-align: center;">2.979</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(1.415)</td>
+<td style="text-align: center;">(3.483)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobRetire</td>
+<td style="text-align: center;">−1.160</td>
+<td style="text-align: center;">−0.353</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(1.519)</td>
+<td style="text-align: center;">(3.547)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobEtc</td>
+<td style="text-align: center;">−0.807</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(3.393)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Income</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: center;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.000)</td>
+<td style="text-align: center;">(0.000)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GenderMale</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">−3.395</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(1.071)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JobSalary</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.807</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(3.393)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">3000</td>
+<td style="text-align: center;">3000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.055</td>
+<td style="text-align: center;">0.055</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.051</td>
+<td style="text-align: center;">0.051</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">27906.2</td>
+<td style="text-align: center;">27906.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">27984.2</td>
+<td style="text-align: center;">27984.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">−13940.081</td>
+<td style="text-align: center;">−13940.081</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">15.724</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">25.22</td>
+<td style="text-align: center;">25.22</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>　表が縦長なので、標準誤差と係数を同じ行にしてみよう。コードは覚える必要がなく、必要に応じてこのサポートページを参照するか、Google大先生に聞いてみれば良い。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 14</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(dummy_fit1, dummy_fit2),</span>
+<span id="cb25-2"><a href="#cb25-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="pwalhhwavs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pwalhhwavs table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pwalhhwavs thead, #pwalhhwavs tbody, #pwalhhwavs tfoot, #pwalhhwavs tr, #pwalhhwavs td, #pwalhhwavs th {
+  border-style: none;
+}
+
+#pwalhhwavs p {
+  margin: 0;
+  padding: 0;
+}
+
+#pwalhhwavs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pwalhhwavs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pwalhhwavs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pwalhhwavs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pwalhhwavs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pwalhhwavs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pwalhhwavs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pwalhhwavs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pwalhhwavs .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pwalhhwavs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pwalhhwavs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pwalhhwavs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pwalhhwavs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pwalhhwavs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pwalhhwavs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pwalhhwavs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pwalhhwavs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pwalhhwavs .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pwalhhwavs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pwalhhwavs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pwalhhwavs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pwalhhwavs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pwalhhwavs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pwalhhwavs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pwalhhwavs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pwalhhwavs .gt_left {
+  text-align: left;
+}
+
+#pwalhhwavs .gt_center {
+  text-align: center;
+}
+
+#pwalhhwavs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pwalhhwavs .gt_font_normal {
+  font-weight: normal;
+}
+
+#pwalhhwavs .gt_font_bold {
+  font-weight: bold;
+}
+
+#pwalhhwavs .gt_font_italic {
+  font-style: italic;
+}
+
+#pwalhhwavs .gt_super {
+  font-size: 65%;
+}
+
+#pwalhhwavs .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pwalhhwavs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pwalhhwavs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pwalhhwavs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pwalhhwavs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pwalhhwavs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pwalhhwavs .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id=" " class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="(1)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(1)</th>
+<th id="(2)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(2)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="">(Intercept)</td>
+<td class="gt_row gt_center" headers="(1)">34.774 (3.558)</td>
+<td class="gt_row gt_center" headers="(2)">37.362 (4.936)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Ideology</td>
+<td class="gt_row gt_center" headers="(1)">-2.117 (0.220)</td>
+<td class="gt_row gt_center" headers="(2)">-2.117 (0.220)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Interest</td>
+<td class="gt_row gt_center" headers="(1)">-1.404 (0.610)</td>
+<td class="gt_row gt_center" headers="(2)">-1.404 (0.610)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="" style="background-color: #ADD8E6">GenderFemale</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #ADD8E6">3.395 (1.071)</td>
+<td class="gt_row gt_center" headers="(2)"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Age</td>
+<td class="gt_row gt_center" headers="(1)">0.187 (0.037)</td>
+<td class="gt_row gt_center" headers="(2)">0.187 (0.037)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Education</td>
+<td class="gt_row gt_center" headers="(1)">1.970 (0.540)</td>
+<td class="gt_row gt_center" headers="(2)">1.970 (0.540)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="background-color: #FFB6C1">JobSelf</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #FFB6C1">-2.187 (1.737)</td>
+<td class="gt_row gt_center" headers="(2)" style="background-color: #FFB6C1">-1.380 (3.677)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="" style="background-color: #FFB6C1">JobStudent</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #FFB6C1">5.775 (2.369)</td>
+<td class="gt_row gt_center" headers="(2)" style="background-color: #FFB6C1">6.582 (4.111)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="background-color: #FFB6C1">JobHouse</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #FFB6C1">2.172 (1.415)</td>
+<td class="gt_row gt_center" headers="(2)" style="background-color: #FFB6C1">2.979 (3.483)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="" style="background-color: #FFB6C1">JobRetire</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #FFB6C1">-1.160 (1.519)</td>
+<td class="gt_row gt_center" headers="(2)" style="background-color: #FFB6C1">-0.353 (3.547)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="background-color: #FFB6C1">JobEtc</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #FFB6C1">-0.807 (3.393)</td>
+<td class="gt_row gt_center" headers="(2)"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Income</td>
+<td class="gt_row gt_center" headers="(1)">0.000 (0.000)</td>
+<td class="gt_row gt_center" headers="(2)">0.000 (0.000)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="background-color: #ADD8E6">GenderMale</td>
+<td class="gt_row gt_center" headers="(1)"></td>
+<td class="gt_row gt_center" headers="(2)" style="background-color: #ADD8E6">-3.395 (1.071)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #FFB6C1">JobSalary</td>
+<td class="gt_row gt_center" headers="(1)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000"></td>
+<td class="gt_row gt_center" headers="(2)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #FFB6C1">0.807 (3.393)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Num.Obs.</td>
+<td class="gt_row gt_center" headers="(1)">3000</td>
+<td class="gt_row gt_center" headers="(2)">3000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">R2</td>
+<td class="gt_row gt_center" headers="(1)">0.055</td>
+<td class="gt_row gt_center" headers="(2)">0.055</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">R2 Adj.</td>
+<td class="gt_row gt_center" headers="(1)">0.051</td>
+<td class="gt_row gt_center" headers="(2)">0.051</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">AIC</td>
+<td class="gt_row gt_center" headers="(1)">27906.2</td>
+<td class="gt_row gt_center" headers="(2)">27906.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">BIC</td>
+<td class="gt_row gt_center" headers="(1)">27984.2</td>
+<td class="gt_row gt_center" headers="(2)">27984.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Log.Lik.</td>
+<td class="gt_row gt_center" headers="(1)">-13940.081</td>
+<td class="gt_row gt_center" headers="(2)">-13940.081</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">F</td>
+<td class="gt_row gt_center" headers="(1)">15.724</td>
+<td class="gt_row gt_center" headers="(2)"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">RMSE</td>
+<td class="gt_row gt_center" headers="(1)">25.22</td>
+<td class="gt_row gt_center" headers="(2)">25.22</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>　比較の結果から分かるのは、<strong>ダミー変数の係数のみ変化</strong>したことである。つまり、ダミー変数以外の変数の係数は少しも変わっていない（切片も変わるものの、切片は通常、解釈しない）。性別（<code>Gender</code>）のように2つ値のみ取る（= 1つのダミー変数だけ投入される）変数の係数は大きさは同じで符号だけが逆転される。また、標準誤差も同じであるため、統計的有意性も変わらない。したがって、解釈の変化も直感的である。</p>
+<ul>
+<li><code>dummy_fit1</code>：<strong>男性</strong>に比べ、<strong>女性</strong>の立民に対する感情温度が約3.395度<strong>高い</strong>。</li>
+<li><code>dummy_fit2</code>：<strong>女性</strong>に比べ、<strong>男性</strong>の立民に対する感情温度が約3.395度<strong>低い</strong>。</li>
+</ul>
+<p>　一方、職業（<code>Job</code>）のように3つ以上の値のみ取る変数の係数は大きく変わる場合がある。たとえば、学生（<code>JobStudent</code>）の係数を解釈する場合は、以下のようになる。</p>
+<ul>
+<li><code>dummy_fit1</code>：<strong>勤めの人</strong>に比べ、学生の立民に対する感情温度が<strong>約5.775度高い</strong>。</li>
+<li><code>dummy_fit2</code>：<strong>その他の職業の人</strong>に比べ、学生の立民に対する感情温度が<strong>約6.582度高い</strong>ものの、統計的に有意な差はない。</li>
+</ul>
+<p>　ベース・カテゴリーが変わったということは比較対象が変わったことを意味し、係数も当然ながら変わる。それでも各係数間の差は同じである。たとえば、<code>dummy_fit1</code>の場合、学生ダミー（<code>JobStudent</code>）の係数は5.775、その他ダミー（<code>JobEtc</code>）の係数は−0.807である。こと差は5.775 - (-0.807) = 6.582である。つまり、どのモデルでも「学生」の方が「その他」より、立民に対する感情温度が約6.582度高いことは変わらない。ただし、「学生 - 勤め」の差は統計的有意であるものの、「学生 - その他」の差は統計的有意ではなかっただけだ。</p>
+</section>
+<section id="線形変換" class="level2">
+<h2 class="anchored" data-anchor-id="線形変換">線形変換</h2>
+<section id="単位変換" class="level3">
+<h3 class="anchored" data-anchor-id="単位変換">単位変換</h3>
+<p>　もう一度、<code>dummy_fit1</code>の推定結果に戻ってみよう。今回注目する係数は世帯収入（<code>Income</code>）の係数である。推定モデルの係数のみ見たい時には<code>coef()</code>関数が便利だ。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 15</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">coef</span>(dummy_fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept)      Ideology      Interest  GenderFemale           Age 
+ 3.477403e+01 -2.117306e+00 -1.404169e+00  3.395415e+00  1.871321e-01 
+    Education       JobSelf    JobStudent      JobHouse     JobRetire 
+ 1.970356e+00 -2.187355e+00  5.775400e+00  2.172187e+00 -1.160311e+00 
+       JobEtc        Income 
+-8.070534e-01 -1.538790e-07 </code></pre>
+</div>
+</div>
+<p>　<code>Income</code>の傾き係数は約-1.538790e-07である。<code>e-07</code>は「<span class="math inline">\(\times\)</span> 10<sup>-7</sup>」を意味し、ちなみに10<sup>-1</sup>は0.1、10<sup>-2</sup>は0.01である。つまり、-1.538790e-07は-1.538790e-07 = -1.538790 <span class="math inline">\(\times\)</span> 10<sup>-7</sup> = -0.000000153879である。この係数は「世帯収入が<strong>1円</strong>上がると、立憲民主党への感情温度が約0.000000153879度下がる」ことを意味する。<code>Income</code>の単位は<strong>1円</strong>であるため、係数そのまま解釈できる。しかし、これで良いだろうか。世帯収入（しかも年収）における1円の変動は無視できる微々たるものである。むしろ、1円の増加よりも100万円の増加の方が、より現実的な解釈であろう。この場合の解釈は「世帯収入が<strong>100万円</strong>上がると、立憲民主党への感情温度が-0.154度下がる」こととなる。<code>Income</code>の単位は<strong>1円</strong>であるため、係数に100万をかけるだけで良い（-0.000000153879 <span class="math inline">\(\times\)</span> 1000000 = -0.153879）。しかし、解釈のたびに係数に100万をかけて解釈する必要があるのは非常に面倒であるし、0が多い分、計算ミスも生じやすい。したがって、<code>Income</code>の単位を予め100万円に変えておいた方が安全だろう。つまり、3000000（300万）を3に、12000000（1200万）を12に変換することである。</p>
+<p>　<code>Income</code>を100万単位にするためには、<code>Income</code>を100万で割るだけで良い。ここでは<code>jes_df</code>の<code>Income</code>の値を100万で割り、<code>Income_m</code>という新しい変数として追加し、<code>jes_df3</code>という新しいデータフレームを作成。新しく追加される変数名は何でも良いが、ここでは<strong>m</strong>illionの頭文字を使用する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 16</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>jes_df3 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">mutate</span>(<span class="at">Income_m =</span> Income <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a></span>
+<span id="cb28-4"><a href="#cb28-4"></a>jes_df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 9
+   Temp_Rikken Ideology Interest Gender   Age Education Job     Income Income_m
+         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1          30        9        1 Female    69         4 Retire 4333994    4.33 
+ 2          50        7        4 Female    47         3 Salary  979181    0.979
+ 3           0       11        2 Female    37         2 Salary 8498127    8.50 
+ 4          50       11        2 Male      51         4 Self   7572654    7.57 
+ 5          30        7        2 Male      38         4 Salary 6436713    6.44 
+ 6           0       11        1 Male      71         2 Retire 3410276    3.41 
+ 7          10        9        2 Male      47         3 Self   8652860    8.65 
+ 8           0       11        1 Male      71         2 Retire  927703    0.928
+ 9          50        9        1 Male      75         4 Salary 4497693    4.50 
+10          55        6        2 Female    66         3 House  2419573    2.42 
+# ℹ 2,990 more rows</code></pre>
+</div>
+</div>
+<p>　それでは<code>dummy_fit1</code>と同じ推定をしてみよう。ただし、使用するデータは<code>jes_df</code>でなく、<code>jes_df3</code>を使用する。また、世帯年収も<code>Income</code>の代わりに<code>Income_m</code>を使う。推定結果は<code>fit3</code>という名のオブジェクトとして作業スペースに格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 17</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>              Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, <span class="at">data =</span> jes_df3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>　それでは<code>modelsummary()</code>を使って<code>dummy_fit1</code>と<code>fit3</code>の結果を比較してみよう。<strong>他の係数は一切変わらず</strong>、線形変換された変数の係数（と標準誤差）のみ変わったことが確認できる。<code>Income_m</code>の単位は100万円であるため、係数の解釈は「世帯収入が<strong>100万円</strong>上がる（= <code>Income_m</code>の値が1上がる）と、立憲民主党への感情温度が-0.154度下がる」になり、より解釈しやすくなる。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 18</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(dummy_fit1, fit3),</span>
+<span id="cb31-2"><a href="#cb31-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
+<span id="cb31-3"><a href="#cb31-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="upjzqzedbi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#upjzqzedbi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#upjzqzedbi thead, #upjzqzedbi tbody, #upjzqzedbi tfoot, #upjzqzedbi tr, #upjzqzedbi td, #upjzqzedbi th {
+  border-style: none;
+}
+
+#upjzqzedbi p {
+  margin: 0;
+  padding: 0;
+}
+
+#upjzqzedbi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#upjzqzedbi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#upjzqzedbi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#upjzqzedbi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#upjzqzedbi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#upjzqzedbi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#upjzqzedbi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#upjzqzedbi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#upjzqzedbi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#upjzqzedbi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#upjzqzedbi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#upjzqzedbi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#upjzqzedbi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#upjzqzedbi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#upjzqzedbi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#upjzqzedbi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#upjzqzedbi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#upjzqzedbi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#upjzqzedbi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#upjzqzedbi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#upjzqzedbi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#upjzqzedbi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#upjzqzedbi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#upjzqzedbi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#upjzqzedbi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#upjzqzedbi .gt_left {
+  text-align: left;
+}
+
+#upjzqzedbi .gt_center {
+  text-align: center;
+}
+
+#upjzqzedbi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#upjzqzedbi .gt_font_normal {
+  font-weight: normal;
+}
+
+#upjzqzedbi .gt_font_bold {
+  font-weight: bold;
+}
+
+#upjzqzedbi .gt_font_italic {
+  font-style: italic;
+}
+
+#upjzqzedbi .gt_super {
+  font-size: 65%;
+}
+
+#upjzqzedbi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#upjzqzedbi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#upjzqzedbi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#upjzqzedbi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#upjzqzedbi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#upjzqzedbi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#upjzqzedbi .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id=" " class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="(1)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(1)</th>
+<th id="(2)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(2)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="">(Intercept)</td>
+<td class="gt_row gt_center" headers="(1)">34.774 (3.558)</td>
+<td class="gt_row gt_center" headers="(2)">34.774 (3.558)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Ideology</td>
+<td class="gt_row gt_center" headers="(1)">-2.117 (0.220)</td>
+<td class="gt_row gt_center" headers="(2)">-2.117 (0.220)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Interest</td>
+<td class="gt_row gt_center" headers="(1)">-1.404 (0.610)</td>
+<td class="gt_row gt_center" headers="(2)">-1.404 (0.610)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">GenderFemale</td>
+<td class="gt_row gt_center" headers="(1)">3.395 (1.071)</td>
+<td class="gt_row gt_center" headers="(2)">3.395 (1.071)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Age</td>
+<td class="gt_row gt_center" headers="(1)">0.187 (0.037)</td>
+<td class="gt_row gt_center" headers="(2)">0.187 (0.037)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Education</td>
+<td class="gt_row gt_center" headers="(1)">1.970 (0.540)</td>
+<td class="gt_row gt_center" headers="(2)">1.970 (0.540)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobSelf</td>
+<td class="gt_row gt_center" headers="(1)">-2.187 (1.737)</td>
+<td class="gt_row gt_center" headers="(2)">-2.187 (1.737)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">JobStudent</td>
+<td class="gt_row gt_center" headers="(1)">5.775 (2.369)</td>
+<td class="gt_row gt_center" headers="(2)">5.775 (2.369)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobHouse</td>
+<td class="gt_row gt_center" headers="(1)">2.172 (1.415)</td>
+<td class="gt_row gt_center" headers="(2)">2.172 (1.415)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">JobRetire</td>
+<td class="gt_row gt_center" headers="(1)">-1.160 (1.519)</td>
+<td class="gt_row gt_center" headers="(2)">-1.160 (1.519)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobEtc</td>
+<td class="gt_row gt_center" headers="(1)">-0.807 (3.393)</td>
+<td class="gt_row gt_center" headers="(2)">-0.807 (3.393)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="" style="background-color: #ADD8E6">Income</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #ADD8E6">0.000 (0.000)</td>
+<td class="gt_row gt_center" headers="(2)"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #ADD8E6">Income_m</td>
+<td class="gt_row gt_center" headers="(1)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000"></td>
+<td class="gt_row gt_center" headers="(2)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #ADD8E6">-0.154 (0.115)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Num.Obs.</td>
+<td class="gt_row gt_center" headers="(1)">3000</td>
+<td class="gt_row gt_center" headers="(2)">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">R2</td>
+<td class="gt_row gt_center" headers="(1)">0.055</td>
+<td class="gt_row gt_center" headers="(2)">0.055</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">R2 Adj.</td>
+<td class="gt_row gt_center" headers="(1)">0.051</td>
+<td class="gt_row gt_center" headers="(2)">0.051</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">AIC</td>
+<td class="gt_row gt_center" headers="(1)">27906.2</td>
+<td class="gt_row gt_center" headers="(2)">27906.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">BIC</td>
+<td class="gt_row gt_center" headers="(1)">27984.2</td>
+<td class="gt_row gt_center" headers="(2)">27984.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Log.Lik.</td>
+<td class="gt_row gt_center" headers="(1)">-13940.081</td>
+<td class="gt_row gt_center" headers="(2)">-13940.081</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">F</td>
+<td class="gt_row gt_center" headers="(1)">15.724</td>
+<td class="gt_row gt_center" headers="(2)">15.724</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">RMSE</td>
+<td class="gt_row gt_center" headers="(1)">25.22</td>
+<td class="gt_row gt_center" headers="(2)">25.22</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="スケールの逆転" class="level3">
+<h3 class="anchored" data-anchor-id="スケールの逆転">スケールの逆転</h3>
+<p>　今回注目する係数は<code>dummy_fit1</code>の政治関心（<code>Intrest</code>）の係数である。政治関心の傾き係数は約-1.404であり、これは「<code>Interest</code>が1単位上がると、立憲民主党への感情温度が約1.404度下がる」と解釈できる。ただし、これだと「政治関心が高い人ほど、立憲民主党に反感を持つ」といったイメージを漂わせる。しかし、政治関心（<code>Interest</code>）の値は<code>1</code>が「関心あり」、<code>2</code>が「やや関心あり」、<code>3</code>が「やや関心なし」、<code>4</code>が「関心なし」という点に注意する必要がある。つまり、「<code>Interest</code>が1単位上がる」ということは、「政治関心が1単位下がる」ことを意味する。したがって、「<code>Interest</code>が1単位上がると、立憲民主党への感情温度が約1.404度下がる。」の意味は、「政治関心が1単位下がると、立憲民主党への感情温度が約1.404度下がる」か「政治関心が1単位上がると、立憲民主党への感情温度が約1.404度上がる」である。要は「<code>Intrest</code>と立民感情温度」は負の関係になるが、「政治関心と立民感情温度」は正の関係があることである。これは非常にややこしいし、解釈の際、ミスの原因にもなり得る。この問題を解決するためには、最初から<code>Interest</code>の値を逆転させることが有効だろう。つまり、<code>Intrest</code>の値が大きいほど政治関心が高まるようにすれば良い。</p>
+<p>　このようなスケールの逆転は単なる引き算や掛け算でできる。</p>
+<ul>
+<li><strong>ケース1：</strong> 1〜<span class="math inline">\(m\)</span>のスケールで測定された変数は<span class="math inline">\(m + 1\)</span>から引くと、逆転される。今回の例がこれに該当する。<code>Interest</code>は1〜4であるため、5から引けばよい。</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 19</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>) <span class="co"># x1 &lt;- 1:4 でもOK</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>x1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 20</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="dv">5</span> <span class="sc">-</span> x1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 3 2 1</code></pre>
+</div>
+</div>
+<p>　他にも変数の範囲（range）によって逆転の仕方が異なる。</p>
+<ul>
+<li><strong>ケース2：</strong> 0〜<span class="math inline">\(m\)</span>のスケールで測定された変数は<span class="math inline">\(m\)</span>から引くと、逆転される。</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 21</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># x23 &lt;- 0:6 でもOK</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>x2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 1 2 3 4 5 6</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 22</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="dv">6</span> <span class="sc">-</span> x2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6 5 4 3 2 1 0</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>ケース3：</strong> <span class="math inline">\(-m\)</span>〜<span class="math inline">\(m\)</span>のスケールで測定された変数は-1をかけると、逆転される。</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 23</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># x3 &lt;- -3:3 でもOK</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>x3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -3 -2 -1  0  1  2  3</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 24</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>x3 <span class="sc">*</span> (<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  3  2  1  0 -1 -2 -3</code></pre>
+</div>
+</div>
+<p>　それでは<code>Intrest</code>を逆転して、もう一度推定してみよう。<code>jes_df3</code>の<code>Interest</code>の値を5から引き、<code>Interest_r</code>という新しい変数として追加し、<code>jes_df3</code>を上書きする。変数名は何でも良いが、ここでは<strong>r</strong>everseの頭文字を使うとする。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 25</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>jes_df3 <span class="ot">&lt;-</span> jes_df3 <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">mutate</span>(<span class="at">Interest_r =</span> <span class="dv">5</span> <span class="sc">-</span> Interest)</span>
+<span id="cb44-3"><a href="#cb44-3"></a></span>
+<span id="cb44-4"><a href="#cb44-4"></a>jes_df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,000 × 10
+   Temp_Rikken Ideology Interest Gender   Age Education Job     Income Income_m
+         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1          30        9        1 Female    69         4 Retire 4333994    4.33 
+ 2          50        7        4 Female    47         3 Salary  979181    0.979
+ 3           0       11        2 Female    37         2 Salary 8498127    8.50 
+ 4          50       11        2 Male      51         4 Self   7572654    7.57 
+ 5          30        7        2 Male      38         4 Salary 6436713    6.44 
+ 6           0       11        1 Male      71         2 Retire 3410276    3.41 
+ 7          10        9        2 Male      47         3 Self   8652860    8.65 
+ 8           0       11        1 Male      71         2 Retire  927703    0.928
+ 9          50        9        1 Male      75         4 Salary 4497693    4.50 
+10          55        6        2 Female    66         3 House  2419573    2.42 
+# ℹ 2,990 more rows
+# ℹ 1 more variable: Interest_r &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>　続いて<code>fit3</code>と同じ推定を行う。ただし、<code>Intrest</code>の代わりに<code>Intrest_r</code>を使用し、推定結果は<code>fit4</code>に格納する。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 26</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest_r <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>              Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, <span class="at">data =</span> jes_df3)</span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="fu">summary</span>(fit4)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Temp_Rikken ~ Ideology + Interest_r + Gender + Age + 
+    Education + Job + Income_m, data = jes_df3)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-50.58 -24.62   4.76  18.82  78.05 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  27.75319    3.07847   9.015  &lt; 2e-16 ***
+Ideology     -2.11731    0.22019  -9.616  &lt; 2e-16 ***
+Interest_r    1.40417    0.60999   2.302 0.021407 *  
+GenderFemale  3.39541    1.07112   3.170 0.001540 ** 
+Age           0.18713    0.03723   5.026 5.31e-07 ***
+Education     1.97036    0.54017   3.648 0.000269 ***
+JobSelf      -2.18735    1.73706  -1.259 0.208045    
+JobStudent    5.77540    2.36914   2.438 0.014836 *  
+JobHouse      2.17219    1.41493   1.535 0.124842    
+JobRetire    -1.16031    1.51895  -0.764 0.444993    
+JobEtc       -0.80705    3.39325  -0.238 0.812021    
+Income_m     -0.15388    0.11454  -1.343 0.179231    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.27 on 2988 degrees of freedom
+Multiple R-squared:  0.05472,   Adjusted R-squared:  0.05124 
+F-statistic: 15.72 on 11 and 2988 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>　それでは、<code>fit3</code>と<code>fit4</code>の結果を比較してみよう。</p>
+<div class="cell" data-layout-align="center">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Code 27</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit3, fit4),</span>
+<span id="cb48-2"><a href="#cb48-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
+<span id="cb48-3"><a href="#cb48-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="bvhncthtgq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bvhncthtgq table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bvhncthtgq thead, #bvhncthtgq tbody, #bvhncthtgq tfoot, #bvhncthtgq tr, #bvhncthtgq td, #bvhncthtgq th {
+  border-style: none;
+}
+
+#bvhncthtgq p {
+  margin: 0;
+  padding: 0;
+}
+
+#bvhncthtgq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bvhncthtgq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bvhncthtgq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bvhncthtgq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bvhncthtgq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bvhncthtgq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bvhncthtgq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bvhncthtgq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bvhncthtgq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bvhncthtgq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bvhncthtgq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bvhncthtgq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bvhncthtgq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bvhncthtgq .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bvhncthtgq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvhncthtgq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bvhncthtgq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bvhncthtgq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bvhncthtgq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvhncthtgq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bvhncthtgq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvhncthtgq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bvhncthtgq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvhncthtgq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bvhncthtgq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvhncthtgq .gt_left {
+  text-align: left;
+}
+
+#bvhncthtgq .gt_center {
+  text-align: center;
+}
+
+#bvhncthtgq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bvhncthtgq .gt_font_normal {
+  font-weight: normal;
+}
+
+#bvhncthtgq .gt_font_bold {
+  font-weight: bold;
+}
+
+#bvhncthtgq .gt_font_italic {
+  font-style: italic;
+}
+
+#bvhncthtgq .gt_super {
+  font-size: 65%;
+}
+
+#bvhncthtgq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bvhncthtgq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bvhncthtgq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bvhncthtgq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bvhncthtgq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bvhncthtgq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bvhncthtgq .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id=" " class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="(1)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(1)</th>
+<th id="(2)" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">(2)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="">(Intercept)</td>
+<td class="gt_row gt_center" headers="(1)">34.774 (3.558)</td>
+<td class="gt_row gt_center" headers="(2)">27.753 (3.078)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Ideology</td>
+<td class="gt_row gt_center" headers="(1)">-2.117 (0.220)</td>
+<td class="gt_row gt_center" headers="(2)">-2.117 (0.220)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="background-color: #ADD8E6">Interest</td>
+<td class="gt_row gt_center" headers="(1)" style="background-color: #ADD8E6">-1.404 (0.610)</td>
+<td class="gt_row gt_center" headers="(2)"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">GenderFemale</td>
+<td class="gt_row gt_center" headers="(1)">3.395 (1.071)</td>
+<td class="gt_row gt_center" headers="(2)">3.395 (1.071)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Age</td>
+<td class="gt_row gt_center" headers="(1)">0.187 (0.037)</td>
+<td class="gt_row gt_center" headers="(2)">0.187 (0.037)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Education</td>
+<td class="gt_row gt_center" headers="(1)">1.970 (0.540)</td>
+<td class="gt_row gt_center" headers="(2)">1.970 (0.540)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobSelf</td>
+<td class="gt_row gt_center" headers="(1)">-2.187 (1.737)</td>
+<td class="gt_row gt_center" headers="(2)">-2.187 (1.737)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">JobStudent</td>
+<td class="gt_row gt_center" headers="(1)">5.775 (2.369)</td>
+<td class="gt_row gt_center" headers="(2)">5.775 (2.369)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobHouse</td>
+<td class="gt_row gt_center" headers="(1)">2.172 (1.415)</td>
+<td class="gt_row gt_center" headers="(2)">2.172 (1.415)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">JobRetire</td>
+<td class="gt_row gt_center" headers="(1)">-1.160 (1.519)</td>
+<td class="gt_row gt_center" headers="(2)">-1.160 (1.519)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">JobEtc</td>
+<td class="gt_row gt_center" headers="(1)">-0.807 (3.393)</td>
+<td class="gt_row gt_center" headers="(2)">-0.807 (3.393)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Income_m</td>
+<td class="gt_row gt_center" headers="(1)">-0.154 (0.115)</td>
+<td class="gt_row gt_center" headers="(2)">-0.154 (0.115)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #ADD8E6">Interest_r</td>
+<td class="gt_row gt_center" headers="(1)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000"></td>
+<td class="gt_row gt_center" headers="(2)" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000; background-color: #ADD8E6">1.404 (0.610)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">Num.Obs.</td>
+<td class="gt_row gt_center" headers="(1)">3000</td>
+<td class="gt_row gt_center" headers="(2)">3000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">R2</td>
+<td class="gt_row gt_center" headers="(1)">0.055</td>
+<td class="gt_row gt_center" headers="(2)">0.055</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">R2 Adj.</td>
+<td class="gt_row gt_center" headers="(1)">0.051</td>
+<td class="gt_row gt_center" headers="(2)">0.051</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">AIC</td>
+<td class="gt_row gt_center" headers="(1)">27906.2</td>
+<td class="gt_row gt_center" headers="(2)">27906.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">BIC</td>
+<td class="gt_row gt_center" headers="(1)">27984.2</td>
+<td class="gt_row gt_center" headers="(2)">27984.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">Log.Lik.</td>
+<td class="gt_row gt_center" headers="(1)">-13940.081</td>
+<td class="gt_row gt_center" headers="(2)">-13940.081</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="">F</td>
+<td class="gt_row gt_center" headers="(1)">15.724</td>
+<td class="gt_row gt_center" headers="(2)">15.724</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="">RMSE</td>
+<td class="gt_row gt_center" headers="(1)">25.22</td>
+<td class="gt_row gt_center" headers="(2)">25.22</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>　<strong>他の係数は一切変わらず</strong>、線形変換された変数の係数（と標準誤差）の<strong>符号</strong>のみ変わることが確認できる。<code>Intrest_r</code>は高いほど政治に関心があることを意味するので、「政治関心が1単位上がると、立憲民主党に対する感情温度は約1.404度上がる」と解釈できるようになる。社会調査（世論調査）の場合、このような5件法、7件法で測定された変数がほとんどである（このような尺度を「リッカート尺度」と呼ぶ）。また、これらは最初の選択肢が「そう思う」や「とても当てはまる」など、ポジティブなものになっているケースが多いため、このようなミスはよく生じる。データ分析とはパソコン/ソフトウェアスキルだけでなく、このようにデータを読み取る能力も重要だ。</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">注</h2>
+
+<ol>
+<li id="fn1"><p>たとえば、要素の順番が<code>"A"</code>、<code>"B"</code>、<code>"C"</code>である任意のベクトル<code>vector1</code>があるとし、<code>vector1 &lt;- fct_relevel(vector1, "B")</code>を実行すると、要素の順番は<code>"B"</code>、<code>"A"</code>、<code>"C"</code>の順となり、<code>vector1</code>は上書きされる。つまり、<code>fct_relevel()</code>の第2引数で指定した要素以外の順番は元通りである。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2024, <a href="https://www.jaysong.net" target="_blank">Jaehyun Song</a>. Powered by <a href="https://quarto.org/" target="_blank">Quarto</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.jaysong.net">
+      <i class="bi bi-house-fill" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JaehyunSong">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

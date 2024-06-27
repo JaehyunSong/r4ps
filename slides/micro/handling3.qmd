@@ -1,0 +1,599 @@
+---
+subtitle: "第11回 データ・ハンドリング（3）"
+date: "2024/6/20"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+## 授業開始前に
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse)
+```
+
+すぐに実習できるように準備しておきましょう。
+
+1. JDCat分析ツールを起動しておいてください。
+2. 本日授業用のプロジェクトを作成してください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプトファイル、またはQuartoファイルを開き、以下のコードを入力&実行してください。
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+# covid_sampleのアップロード先に応じて、パスを適宜修正すること
+df <- read_csv("Data/covid_sample.csv")
+```
+
+* トラブルが生じた場合、速やかにTAを呼んでください。
+* 時間に余裕があれば、スライド内のコードも書いておきましょう
+
+# {dplyr}：データの結合
+
+## データの結合：行
+
+`bind_rows()`を利用：変数名が一致する必要がある
+
+* 以下の例はいずれのtibble（または、data.frame）も`ID`、`Name`、`Score`で構成されている。
+   * `ID`、`Name`、`Score`の順番は一致しなくても良い（上のdata.frameの順番に調整される）。
+
+:::: {.columns}
+
+::: {.column width=48%}
+**結合前**
+
+```{r}
+#| include: false
+Data1 <- data.frame(ID    = 1:3, 
+                    Name  = c("Aさん", "Bさん", "Cさん"),
+                    Score = c(77, 89, 41))
+Data2 <- data.frame(ID    = 4:5, 
+                    Name  = c("Xさん", "Yさん"),
+                    Score = c(98, 78))
+```
+
+```{r}
+Data1
+Data2
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+**結合後**
+
+```{r}
+bind_rows(Data1, Data2)
+```
+:::
+
+::::
+
+## データの結合：行
+
+結合前のデータ識別変数の追加
+
+* 結合するデータを`list()`でまとめ、`.id`引数を追加する
+* `list()`の内部では`"識別変数の値" = 結合するデータ`と定義
+
+**例)** 結合後、`Class`という列を追加し、元々`Data1`だった行は`"1組"`、`Data2`だった行には`"2組"`を格納する。
+
+```{r}
+bind_rows(list("1組" = Data1, "2組" = Data2),
+          .id = "Class")
+```
+
+## データの結合：列
+
+`*_join()`：結合に使う識別用の変数（**キー変数**）が必要（以下では`City`）
+
+:::: {.columns}
+
+::: {.column width=48%}
+**結合前**
+
+```{r}
+#| echo: false
+Data1 <- data.frame(City  = c("Tokyo", "Osaka", "Kochi"),
+                    Pop   = c(927, 148, 76),
+                    Area  = c(2194, 828, 7104))
+```
+
+```{r}
+Data1
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+**結合前**
+
+```{r}
+#| echo: false
+Data2 <- data.frame(City  = c("Kochi", "Osaka", "Tokyo"),
+                    Food  = c("Katsuo", "Takoyaki", "Ramen"))
+```
+
+```{r}
+Data2
+```
+:::
+
+::::
+
+**結合後**
+
+```{r}
+left_join(Data1, Data2, by = "City")
+```
+
+## 列結合に使う関数
+
+識別子は両データに含まれているが、一致しないケースがある。
+
+* どのデータの識別子を優先するか
+
+<br/>
+
+1. `left_join()`
+   * 左側のデータの識別子を優先する
+   * 空欄は欠損値として埋められる
+2. `right_join()`
+   * 右側のデータの識別子を優先する
+   * 空欄は欠損値として埋められる
+3. `inner_join()`
+   * 両データの識別子に共通する行のみを残して結合
+4. `full_join()`
+   * 両データの識別子に存在する行すべて結合
+   * 空欄は欠損値として埋められる
+
+## `left_join()`の仕組み
+
+`left_join(データ1, データ2, by = "識別用変数名")`
+
+* データ1を温存する
+* 欠損しているセルは欠損値（`NA`）で埋められる
+
+:::{layout="[59,-2, 39]"}
+![](Figs/handling3/Merge_Left.png)
+
+![](Figs/handling3/left-join.gif)
+:::
+
+## `right_join()`の仕組み
+
+`right_join(データ1, データ2, by = "識別用変数名")`
+
+* データ2を温存する
+* 欠損しているセルは欠損値（`NA`）で埋められる
+
+:::{layout="[59,-2, 39]"}
+![](Figs/handling3/Merge_Right.png)
+
+![](Figs/handling3/right-join.gif)
+:::
+
+## `inner_join()`の仕組み
+
+`inner_join(データ1, データ2, by = "識別用変数名")`
+
+* データ1とデータ2で識別子が共通する行のみ結合
+
+:::{layout="[59,-2, 39]"}
+![](Figs/handling3/Merge_Inner.png)
+
+![](Figs/handling3/inner-join.gif)
+:::
+
+## `full_join()`の仕組み
+
+`full_join(データ1, データ2, by = "識別用変数名")`
+
+* データ1とデータ2をすべて温存
+* 欠損しているセルは欠損値（`NA`）で埋められる
+
+:::{layout="[59,-2, 39]"}
+![](Figs/handling3/Merge_Full.png)
+
+![](Figs/handling3/full-join.gif)
+:::
+
+## 比較 (1)
+
+```{r}
+df1 <- tibble(Pref  = c("東京", "大阪", "京都"),
+              Score = c(3.5, 4, 4.2))
+df2 <- tibble(Pref  = c("東京", "大阪", "高知"),
+              N     = c(3220, 1325, 111))
+```
+
+:::: {.columns}
+
+::: {.column width=48%}
+```{r}
+df1
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```{r}
+df2
+```
+:::
+
+::::
+
+## 比較（2）
+
+`by = "識別用の変数名"`は複数用いることも可能（例：都道府県名&年度で結合）
+
+* `by = c("識別用の変数名1", "識別用の変数名2")`
+
+:::: {.columns}
+
+::: {.column width=48%}
+```{r}
+left_join(df1, df2, by = "Pref")
+right_join(df1, df2, by = "Pref")
+```
+:::
+
+::: {.column width=4%}
+:::
+
+::: {.column width=48%}
+```{r}
+inner_join(df1, df2, by = "Pref")
+full_join(df1, df2, by = "Pref")
+```
+:::
+
+::::
+
+# {tidyr}と整然データ構造
+
+## 整然データ構造とは
+
+Tidy data：Hadley Wickhamが提唱した**データ分析に適したデータ構造**
+
+:::: {.columns}
+
+::: {.column width=66%}
+* 「**整然データ**」、「簡潔データ」と呼ばれる。
+   * 対概念は「非整然データ」、「雑然データ」（messy data）
+* パソコンにとって読みやすいデータ $\neq$ 人間にとって読みやすいデータ
+* {tidyr}パッケージは雑然データを整然データへ整形するパッケージ
+* 次回紹介する{ggplot2}は整然データを前提として開発されたパッケージ
+
+#### 4つの原則
+
+1. 1つの列は、1つの変数を表す
+2. 1つの行は、1つの観測を表す
+3. 1つのセルは、1つの値を表す
+4. 1つの表は、1つの観測単位をもつ
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=32%}
+![](Figs/handling3/TidyingUp.jpg)
+:::
+
+::::
+
+<!--- --->
+
+## 原則1：1列1変数
+
+* 1列には1つの変数のみ
+  * 3人の被験者に対し、薬を飲む前後の数学成績を測定した場合
+  * 薬を飲む前：Control / 薬を飲んだ後：Treatment
+
+![](Figs/handling3/TidyData1.png){fig-align="center"}
+
+## 原則2：1行1観察
+
+* 1観察 $\neq$ 1値
+  * 観察：観察単位ごとに測定された**値の集合**
+  * 観察単位：人、企業、国、時間など
+* 以下の例の場合、観察単位は「人 $\times$ 時間 」
+
+![](Figs/handling3/TidyData2.png){fig-align="center"}
+
+## 原則3：1セル1値
+
+* この原則に反するケースは多くない
+* **例外)** 1セルに`2020年8月24日`という値がある場合
+  * 分析の目的によっては年月日を全て異なるセルに割り当てる必要もある
+  * このままで問題とならないケースも
+
+![](Figs/handling3/TidyData3.png){fig-align="center"}
+
+## 原則4：1表1単位
+
+* 政府統計：日本を代表する雑然データ
+  * データの中身は良いが、構造が...
+  * 表に「国」、「都道府県」、「市区町村」、「行政区」の単位が混在
+
+![](Figs/handling3/TidyData4.png){width=65% fig-align="center"}
+
+## 原則4：1表1単位
+
+* 「1表1単位」原則を満たさない場合、`filter()`関数等で、異なる単位の行を除外
+   * 以降、解説する{tidyr}でなく、{dplyr}で対応可能
+
+![](Figs/handling3/TidyData5.png){fig-align="center"}
+
+## {tidyr}パッケージ
+
+![](Figs/handling3/tidyr.png){fig-align="center"}
+
+雑然データから整然データへ変形をサポートするパッケージ
+
+* `pivot_longer()`：Wide型データからLong型データへ
+   * 原則1・2に反するデータを整然データへ変換 (最も頻繁に使われる)
+* `pivot_wider()`：Long型データからWide型データへ
+   * 人間には雑然データの方が読みやすい場合がある（原則1の例）
+* `separate()`：セルの分割（「年月日」から「年」、「月」、「日」へ）
+   * 原則3に反するデータを整然データへ変換
+* 原則4に反するデータは分析単位が異なる行を`filter()`などで除外
+
+## 実習用データ
+
+`covid_sample.csv`：中国、日本、韓国、モンゴル、台湾の5日間COVID-19新規感染者数
+
+* LMSからダウンロード
+* データ出典：[Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19)
+
+```{r}
+COVID_df <- read_csv("Data/covid_sample.csv")
+COVID_df
+```
+
+## このデータの問題点
+
+* 観察単位は? 測定した変数は?
+  * 観察単位：地域 $\times$ 時間
+  * 変数：新規感染者数、人口
+  * 2つの観察時点 + 2つの変数 = 計4つの変数 $\rightarrow$ 整然データ
+* 新規感染者数が5列にわたって格納されている $\rightarrow$ 雑然データ
+
+```{r}
+#| echo: false
+knitr::kable(COVID_df)
+```
+
+## Wide型からLong型へ
+
+* 整然な`COVID_df`の構造は?
+  * 5列を1列にまとめるため、縦に長くなる
+  * WideからLongへ
+
+```{r}
+#| echo: false
+COVID_df |> 
+  pivot_longer(cols      = `2022/06/09`:`2022/06/13`,
+               names_to  = "Date",
+               values_to = "New_Cases")
+```
+
+## `pivot_longer()`：Wide to Long
+
+* `cols`は`dplyr::select()`と同じ使い方
+  * `c()`で個別の変数名を指定することも、`:`や`starts_with()`、`!`、`-`を使うこともOK
+  * **注意：**変数名が数字で始まったり、記号が含まれている場合、変数名を`` ` ``か`"`で囲む。
+    * 列名が日付の場合、数字で始まったり、記号（`/`や`-`など）が含まれるケースが多い。
+  
+```{r}
+#| eval: false
+データ |>
+  pivot_longer(cols      = "変数が格納されている列",
+               names_to  = "元の列名が入る変数名",
+               values_to = "変数の値が入る変数名")
+```
+
+## `pivot_longer()`：WideからLongへ
+
+* `cols = starts_with("2022")`もOK
+
+```{r}
+#| code-line-numbers: "2-4"
+COVID_Long <- COVID_df |> 
+  pivot_longer(cols      = "2022/06/09":"2022/06/13",
+               names_to  = "Date",
+               values_to = "New_Cases")
+COVID_Long
+```
+
+## `pivot_wider()`：LongからWideへ
+
+* Long型をWide型へ戻す関数
+  * 人間にとってはLong型よりWide型の方が読みやすいケースも多い
+  * 1列に2つの変数が入っている場合もある
+
+```{r}
+#| code-line-numbers: "2,3"
+COVID_Long |>
+  pivot_wider(names_from  = "Date",
+              values_from = "New_Cases")
+```
+
+## `pivot_longer()`と`pivot_wider()`
+
+![](Figs/handling3/wide_long.gif){fig-align="center"}
+
+## `separate()`：列の分割
+
+`COVID_Long`の`Date`列を`Year`、`Month`、`Day`に分けたい
+
+* **例)** `Date`列を`"/"`を基準に分割する
+
+```{r}
+#| eval: false
+データ |>
+  separate(col  = "分割する列名",
+           into = c("分割後の列名1", "分割後の列名2", ...),
+           sep  = "分割する基準")
+```
+
+## `separate()`：列の分割
+
+```{r}
+#| code-line-numbers: "2-4"
+COVID_Long |>
+  separate(col  = "Date",
+           into = c("Year", "Month", "Day"),
+           sep  = "/")
+```
+
+## 【番外編】列の分割：特定の記号がない場合
+
+**例)** `City_Data`の`City`列が「都道府県名+市区町村」
+
+* 「最初の3文字」と「残り」で分割することは出来ない（神奈川、和歌山、鹿児島）
+* 任意の2文字の後に「都」、「道」、「府」、「県」が付くか、任意の3文字の後に「県」が付く箇所を見つけて分割
+   * かなり複雑
+
+```{r}
+#| echo: false
+City_Data <- tibble(City = c("北海道音威子府村",
+                             "大阪府高槻市",
+                             "広島県府中市",
+                             "鹿児島県指宿市"),
+                    Pop  = c(693, 347424, 36471, 38207))
+
+City_Data
+```
+
+## 【番外編】列の分割：特定の記号がない場合（続）
+
+**正規表現（regular expression）**の知識が必要
+
+* テキスト分析に興味があるなら必須（前期・後期含めて、本講義では解説しない）
+
+```{r}
+City_Data |>
+   # 任意の2文字の後に「都道府県」のいずれかが来るか、
+   # 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする
+   # Cityの値を「ブロック1-ブロック2」に置換する
+   mutate(City = str_replace(City, "^(.{2}[都道府県]|.{3}県)(.+)", 
+                             "\\1-\\2")) |>
+   # 「-」を基準に列を分割
+   separate(col  = "City", into = c("Pref", "City"), sep  = "-")
+```
+
+## {tidyr}と{dplyr}の組み合わせ
+
+{tidyr}と{dplyr}を組み合わせることも可能
+
+* **例)** 100万人当たりの新規感染者数を計算し、国ごとに平均値を計算
+
+```{r}
+COVID_df |> 
+  pivot_longer(cols      = "2022/06/09":"2022/06/13",
+               names_to  = "Date",
+               values_to = "New_Cases") |>
+   mutate(New_Case_per_1M = New_Cases / Population * 1000000) |>
+   group_by(Country) |>
+   summarise(New_Case_per_1M = mean(New_Case_per_1M))
+```
+
+<!--
+
+# まとめ
+
+## データハンドリングに慣れるためには
+
+* とりあえず、たくさんのデータをいじってみる
+* たくさんのエラーメッセージに出会うこと
+* パイプ（`|>`）を使いすぎないように
+   * 中級以上になると、自分が書いたコードの結果が予想できるため、たくさんのパイプを使っても問題は大きくない
+   * 一方、初心者の場合、パイプを使いすぎず、2〜3回ごとに別途のオブジェクトとして保存したり、結果を確認していくこと
+   * パイプが多すぎるとどこがエラーの原因かの特定が困難に（慣れたらすぐに見つかるが）
+
+## 長過ぎるコードブロックの例
+
+慣れたらこれくらいは長い方でもないが...
+
+```{r}
+#| eval: false
+COVID_df |> 
+  pivot_longer(cols      = "2022/06/09":"2022/06/13",
+               names_to  = "Date",
+               values_to = "New_Cases") |>
+  mutate(New_Case_per_1M = New_Cases / Population * 1000000,
+         Country         = case_when(Country == "China"    ~ "中国",
+                                     Country == "Japan"    ~ "日本",
+                                     Country == "Korea"    ~ "韓国",
+                                     Country == "Mongolia" ~ "モンゴル",
+                                     TRUE                  ~ "台湾"),
+         Country         = factor(Country, levels = c("中国", "日本", "韓国", "モンゴル", "台湾")),
+         Date            = as.Date(Date),
+         Date            = format(Date, "%Y-%m-%d")) |>
+  ggplot(aes(x = Date, y = New_Case_per_1M, group = Country)) +
+  geom_line(aes(color = Country), linewidth = 1) +
+  geom_point(aes(fill = Country), 
+             shape = 21, color = "white", size = 3) +
+  labs(x = "日付", y = "100万人当たり新規感染者数 (人)", color = "") +
+  guides(fill = "none") +
+  theme_bw(base_size = 14) +
+  theme(legend.position = "bottom")
+```
+
+## 学習方法について（課題を含む）
+
+* 必要なコード、箇所だけを見ても分からない。
+   * 講義スライド・資料・教科書は**辞書ではない**。
+   * 第11章を理解するためには第1〜10章の内容が前提
+   * プログラミング言語は積み重ねと反復が重要
+   * 授業で「1 + 5」を教えるのは「+」の意味を教えるためであり、課題・テストには「1 + 5」でなく、「3 + 99」が出る。
+* 「コード」の見方・構造に慣れること。
+   * コードをブロックの組み合わせとして考える。
+   * そのためにも空白、改行、字下げは重要
+* スライドは説明がかなり省略されているため、講義資料と教科書も合わせて読むこと。
+
+## 来週以降の内容
+
+次回からは{ggplot2}を利用したデータの可視化方法を紹介
+
+```{r ggplot2-sample}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+COVID_df |> 
+  pivot_longer(cols      = "2022/06/09":"2022/06/13",
+               names_to  = "Date",
+               values_to = "New_Cases") |>
+  mutate(New_Case_per_1M = New_Cases / Population * 1000000,
+         Country         = case_when(Country == "China"    ~ "中国",
+                                     Country == "Japan"    ~ "日本",
+                                     Country == "Korea"    ~ "韓国",
+                                     Country == "Mongolia" ~ "モンゴル",
+                                     TRUE                  ~ "台湾"),
+         Country         = factor(Country, levels = c("中国", "日本", "韓国", "モンゴル", "台湾")),
+         Date            = as.Date(Date),
+         Date            = format(Date, "%Y-%m-%d")) |>
+  ggplot(aes(x = Date, y = New_Case_per_1M, group = Country)) +
+  geom_line(aes(color = Country), linewidth = 1) +
+  geom_point(aes(fill = Country), 
+             shape = 21, color = "white", size = 3) +
+  labs(x = "日付", y = "100万人当たり新規感染者数 (人)", color = "") +
+  guides(fill = "none") +
+  theme_bw(base_size = 14) +
+  theme(legend.position = "bottom")
+```
+
+-->

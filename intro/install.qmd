@@ -1,0 +1,115 @@
+---
+title: "Rの導入"
+toc: true
+number-sections: true
+knitr:
+  opts_chunk: 
+    echo: false
+    fig.align: "center"
+---
+
+:::{.callout-important}
+## 注意!!!
+
+　初期設定は国立情報学研究所（以下、NII）のサーバーに自分の作業用スペースを借りる作業である。つまり、初期設定を繰り返すことはNIIのサーバー（のスペース）をいくつも借りることとなり、サーバーを圧迫してしまう可能性がある（一つのアカウントで作成可能なサーバー数は最大10個まで）。したがって、<span style="color: red; weight: 800;">**以下の初期設定は授業全体を通じて1回のみ実行すること**</span>。
+
+　既存のサーバーが使えないなどの問題が生じない限り、このページへのアクセスは不要である。次回から右上の<i class="bi bi-terminal"></i>をクリックして、既存のサーバーを立ち上げること。
+:::
+
+## 初期設定
+
+　本講義の実習は**JDCat分析ツールの使用を推奨**する。自分のPCにインストールしたR + RStudio、RStuio.cloud、大学PCにインストールされているR + RStudioなどの使用を妨げないが[^univ-r]、本ページの資料と同じ結果が得られることは保証しない。また、実習・分析中に起きた不具合についても授業中には対応しない（オフィスアワーなどでは対応可能）。
+
+　以下ではJDCat分析ツールを用いたRおよびRStudioの導入方法について解説する。
+
+[^univ-r]: ただし、大学PCにインストールされているR + RStudioの場合、RMarkdown使用の際、正しくコンパイルされない可能性があるため、非推奨。
+
+**手順1:** 以下のアドレスにアクセスする。
+
+* <a href="https://binder.cs.rcos.nii.ac.jp/v2/gh/JaehyunSong/Binder_R/HEAD" target="_blank">https://binder.cs.rcos.nii.ac.jp/v2/gh/JaehyunSong/Binder_R/HEAD</a>
+
+:::{.callout-important}
+## 注意!!!
+
+　何回も強調するが、以上のURLは授業全体を通じて1回のみアクセスすること。このURLはアプリに例えると、「インストール」であり、1回だけで十分だ。使いたいアプリを起動する度にインストールする愚かな人はいないだろう。自分の貴重な時間を無駄にし、スマホの容量を圧迫するだけなら、まだましだが、JDCat分析システムは他人も使うシステムだ。つまり、以上のURLを2回以上クリックすることは明らかに**迷惑行為**である。次回から本サポートページ右上の<i class="bi bi-terminal"></i>をクリックして、既存のサーバーを立ち上げること。
+:::
+
+**手順2:** 所属機関に「関西大学」、または「Kansai University」を入力・選択し、「選択」をクリックする。このような画面が表示されない場合は手順2から5は飛ばしても良い。
+
+![](Figs/Install/iDP_select.png){width=100% fig-align="center"}
+
+**手順3:** 自分の関西大学のIDをパスワードを入力する。こちらのIDとパスワードは関西大学インフォメーション・システムおよびLMSのID/パスワードと同じである。
+
+![](Figs/Install/Kandai_Login.png){width=50% fig-align="center"}
+
+**手順4:** このまま「同意」をクリックする。
+
+* ボタンの上に3つの選択肢（ラジオボタン）が表示されるが、何を選んでも良い。
+
+![](Figs/Install/Gakunin_agreement.png){width=50% fig-align="center"}
+
+**手順5:** 以下のような画面が表示されたらしばらく待つ。
+
+![](Figs/Install/Binder_Setup.png){width=100% fig-align="center"}
+
+**手順6:** 以下のような画面が表示されたら初期設定は完了
+
+![](Figs/Install/JupyterLab_home.png){width=100% fig-align="center"}
+
+**手順7:** 初期設定が終わったら、すぐRおよびRStudioが利用可能だが、ここではFileメニューのLogoutをクリックし、タブ（or ウィンドウ）を閉じる。
+
+![](Figs/Install/JupyterLab_logout.png){width=100% fig-align="center"}
+
+## JDCat分析ツールの起動
+
+初期設定が終わったら、今後、以下の手順でJDCat分析ツールを起動する。
+
+**手順1:** 以下のアドレスにアクセスするか、本ページの右上にある右上の <a href="https://jupyter.cs.rcos.nii.ac.jp/" target="_blank"><i class="bi bi-terminal"></i></a> ボタンをクリックする（右クリックし、新しいタブ or ウィンドウで開くことを推奨する）。
+
+* <a href="https://jupyter.cs.rcos.nii.ac.jp/" target="_blank">https://jupyter.cs.rcos.nii.ac.jp/</a>
+
+**手順2:** 必要に応じて認証を行う（初期設定の手順2, 3, 4と同じ）。認証画面が補油じされない場合、手順3へ自動的に移行される。
+
+**手順3:** サーバーリストが表示される。URL列のアドレスをクリックする。
+
+* 参考) 初期設定を1回のみ行ったら1行のみ表示されるため混同することはないが、個人利用などを目的に初期設定を複数回行った場合は2行以上が表示されるだろう。本講義に使うサーバーのURLをクリックすること。
+
+![](Figs/Install/serverlist.png){width=100% fig-align="center"}
+
+**手順4:** 以下のような画面が表示されたらJDCat分析ツールの起動完了である。この画面を今後、「Jupyter Lab（ジュピターラボ）のホーム画面」と呼ぶ。
+
+![](Figs/Install/JupyterLab_home.png){width=100% fig-align="center"}
+
+:::{.callout-important}
+## 「手順3」でクリック可能なURLがない場合
+
+　以下のようにURLが空欄になっている場合がある。この場合、右側の「start」ボタンをクリックし、しばらく待つと次の手順へ移行できる。
+
+![](Figs/Install/no_url.png){width=100% fig-aling="center"}
+:::
+
+## RStudioの起動
+
+**手順1:** JupyterLabのホーム画面上の「RStudio」をクリックする。
+
+![](Figs/Install/JupyterLab_rstudio.png){width=100% fig-align="center"}
+
+**手順2:** 以下の画面が表示されたら、RStudioの起動完了である（RStudioの見栄は初期状態の場合、白ベースである）。
+
+![](Figs/Install/RStudio_home.png){width=100% fig-align="center"}
+
+## RStudioの終了
+
+:::{.callout-important}
+## RStudioは以下のやり方で終了しよう
+
+　もう一度強調するが、JDCat分析ツールはクラウドサービスである。RもRStudioも国立情報学研究所のサーバーで動いており、我々のPCはその処理結果を映しているだけだ。以下のやり方でRStudioを終了しない、つまりブラウザーと閉じることは正しい終了方法ではない。それは自分のPCに映っていないだけであり、国立情報学研究所のサーバー内でR/RStudioはずっと動いてしまう。必ず以下の手順に従い、セッションを終了してからブラウザーを閉じよう。
+:::
+
+**手順1:** RStudio画面右上のオレンジ色のボタンをクリックする。
+
+![](Figs/Install/RStudio_logout1.png){width=50% fig-align="center"}
+
+**手順2:** 以下のダイアログが表示されたらタブ、またはウィンドウを閉じる。
+
+![](Figs/Install/RStudio_logout2.png){width=50% fig-align="center"}

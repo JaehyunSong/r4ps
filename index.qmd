@@ -1,0 +1,91 @@
+---
+toc: false
+link-external-icon: false
+---
+
+```{r}
+#| include: false
+ff_ver <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applications/Firefox.app/Contents/Info.plist -o -', intern = TRUE) |>
+  stringr::str_extract("[0-9]+\\.[0-9]+.+") |>
+  stringr::str_replace("\b", "")
+
+rs_ver1 <- system('plutil -extract "CFBundleShortVersionString" binary1 /Applications/RStudio.app/Contents/Info.plist -o -', intern = TRUE) |>
+  stringr::str_replace("-daily", "") |>
+  stringr::str_extract("202[0-9]\\.[0-9]+\\.[0-9]+\\+[0-9]+")
+```
+
+<center><a href="https://jupyter.cs.rcos.nii.ac.jp/" class="btn btn-primary btn-lg" target="_blank" role="button"><i class="bi bi-terminal"></i>&nbsp;&nbsp;&nbsp;JDCat分析ツールの起動</a><br/><span style="font-size:0.75em">（はじめての方は「[Rの導入](intro/install.qmd)」を参照し、まず分析環境を作成してください。）</span></center>
+
+---
+
+本ウェブサイトは関西大学総合情報学部「**ミクロ政治データ分析実習**」および「**マクロ政治データ分析実習**」のサポートページです。本ページは**PC画面での閲覧を推奨**します。
+
+
+:::{.callout-important}
+## 画面上段のアイコンについて
+
+* [<i class="bi bi-terminal"></i>](https://jupyter.cs.rcos.nii.ac.jp/){target="_blank"}：JDCat分析ツールの起動
+   * 右クリックし、新しいタブ（or ウィンドウ）で開いてください。
+   * 初期設定が必要です。初期設定の方法はRの使い方 > [Rの導入](intro/install.html)を参照してください。
+* [<i class="bi bi-book"></i>](https://www.jaysong.net/RBook/){target="_blank"}：Rの教科書（『私たちのR』）
+* <i class="bi bi-search"></i>：本ウェブサイト内の検索
+:::
+
+## 本ページにおけるコードと結果の表示について
+
+* コードは以下のように背景に色が付けられている部分です。
+
+```{r}
+#| eval: false
+print("Hello!")
+```
+
+* コードの中で`#`で始まる内容はコメントであり、分析に影響を与えません。ただし、`"`や`'`で囲まれた`#`はコメントではありません。また、行の途中から`#`が入る場合、`#`以降は実行されません。
+
+```{r}
+#| eval: false
+# Hello!を出力するコード
+print("Hello!")
+
+# "や'内の#はコメントではない
+print("この#はコメントではありません")
+
+print("Hello World!") # Hello World!を出力
+```
+
+* コードの右端に表示される丸付き数字（<i class="bi bi-1-circle"></i>、<i class="bi bi-2-circle"></i>など）は各行の解説を意味する。数字部分にマウスのカーソルを乗せると解説が表示される。
+
+```{r}
+#| eval: false
+df |> 
+   select(ID, Col1:Col3, Col8) |>  # <1>
+   filter(ID <= 100) |>            # <2>
+   print(n = Inf)
+```
+
+1. `df`から`ID`列、`Col1`から`Col3`列、`Col8`列を抽出する。
+2. `ID`の値が100以下の行を抽出する。
+
+* 出力結果は灰色の枠線で囲まれた領域です。
+
+```{r}
+#| echo: false
+print("Hello!")
+```
+
+* オブジェクト名は`変数名`や`関数名()`のように文中の色付き背景で示された部分です。
+* パッケージ名は{}で囲みます。tidyverseパッケージの場合、{tidyverse}と表記します。
+   * ただし、パッケージ名を{}で囲むのは一般的な表記ではありません（もちろん、囲む人も大勢にいます）。
+
+:::{.callout-note}
+## ページ情報
+
+* 最終更新日: `r format(Sys.Date(), "%Y年%m月%d日")`
+* 開発環境
+   * `r sessionInfo()$running`
+   * Firefox `r ff_ver`
+   * `r version$version.string`
+   * RStudio `r rs_ver1`
+   * Quarto `r quarto::quarto_inspect()$quarto$version`
+   * R package {quarto} `r packageVersion("quarto")`
+:::

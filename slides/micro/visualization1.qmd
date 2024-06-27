@@ -1,0 +1,782 @@
+---
+subtitle: "第12回 可視化 (1)"
+date: "2024/6/27"
+format: revealjs
+metadata-files: 
+  - _slide.yml
+---
+
+# グラフィックの文法と{ggplot2}
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, treemapify)
+df <- read_csv("Data/countries.csv")
+```
+
+## グラフを作成する方法
+
+代表的な可視化のパッケージ
+
+* 他にもインタラクティブ・プロットに特化した{plotly}、3次元グラフのための{rgl}、インタラクティブ地図の{leaflet}など多数あり
+
+:::: {.columns}
+
+::: {.column width=32%}
+### Base R
+
+* 別途のパッケージを使わず、R内蔵関数で作図
+* 紙にペンでグラフを書くイメージ
+* 図が気に入らなかったら一からやり直し
+* 作成した図をオブジェクトとして保存することが出来ない
+* 最も自由度が高い
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=32%}
+### {lattice}
+
+* Deepayan Sarkarが開発
+* {ggplot2}が登場する前には主流
+* 関数1つで可視化ができる（ただし、関数が長くなる）
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=32%}
+### {ggplot2}
+
+* Hadley Wickhamが大学院生の時に開発
+* グラフィックの文法 (**g**rammer of **g**raphics)」の思想をR上で具現化
+* グラフの様々な要素をそれぞれ1つの層 (layer)と捉え、積み重ねていく
+:::
+
+::::
+
+## Base Rの例
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+library(tidyverse)
+df <- read_csv("Data/Micro09.csv") # 第9回の実習用データ
+
+plot(x = df$PPP_per_capita, y = df$HDI_2018, pch = 19, 
+     col = ifelse(df$OECD == 1, "red", "blue"),
+     xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
+legend("bottomright", pch = 19,
+       legend = c("OECD加盟国", "OECD非加盟国"), 
+       col    = c("red", "blue"))
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+plot(x = df$PPP_per_capita, y = df$HDI_2018, pch = 19, 
+     col = ifelse(df$OECD == 1, "red", "blue"),
+     xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
+legend("bottomright", pch = 19,
+       legend = c("OECD加盟国", "OECD非加盟国"), 
+       col    = c("red", "blue"))
+```
+
+:::
+
+## {lattice}の例
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+library(lattice)
+xyplot(HDI_2018 ~ PPP_per_capita, data = df,
+       group = OECD, pch = 19, grid = TRUE,
+       auto.key = TRUE,
+       key = list(title     = "OECD加盟有無",
+                  cex.title = 1,
+                  space     = "right",
+                  points    = list(col = c("magenta", "cyan"),
+                                   pch = 19),
+                  text      = list(c("加盟国", "非加盟国"))), 
+       xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+library(lattice)
+xyplot(HDI_2018 ~ PPP_per_capita, data = df,
+       group = OECD, pch = 19, grid = TRUE,
+       auto.key = TRUE,
+       key = list(title     = "OECD加盟有無",
+                  cex.title = 1,
+                  space     = "right",
+                  points    = list(col = c("#E69F00", "#0072B2"),
+                                   pch = 19),
+                  text      = list(c("加盟国", "非加盟国"))), 
+       xlab = "一人当たり購買力平価GDP (USD)", ylab = "人間開発指数")
+```
+:::
+
+## {ggplot2}の例
+
+::: {.panel-tabset}
+### コード
+
+```{r}
+#| eval: false
+df |>
+   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD), 
+              size = 2) +
+   labs(x = "一人あたり購買力平価GDP (USD)", y = "人間開発指数",
+        color = "OECD加盟有無") +
+   theme_bw(base_size = 16)
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| warning: false
+df |>
+   mutate(OECD = if_else(OECD == 1, "加盟国", "非加盟国")) |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD), size = 2) +
+   labs(x = "一人あたり購買力平価GDP (USD)", y = "人間開発指数",
+        color = "OECD加盟有無") +
+   theme_bw(base_size   = 16)
+```
+:::
+
+## グラフィックの文法
+
+Wilkinson, Leland. 2005. *The Grammar of Graphics.* Springer. 
+
+:::: {.columns}
+
+::: {.column width=75%}
+* グラフを**構造化**された方法で記述し、**レイヤー (layer; 層)を積み重ねる**ことによってグラフを構築するフレームワーク
+* グラフの構成要素の例
+   * 横軸と縦軸
+      * 目盛りの間隔、ラベルの大きさ
+   * 点、線、面
+      * 色、太さ、形、透明度など
+   * 凡例
+   * 図のタイトル
+* それぞれの構成要素を一つのレイヤーとして扱い、レイヤーを積み重ねていく
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=23%}
+![](Figs/visual1/The_Grammar_of_Graphics.jpg){fig-align="center"}
+:::
+
+::::
+
+## {ggplot2}とは
+
+Hadley Wickhamが大学院生の時に開発した可視化パッケージ
+
+```{r}
+#| echo: false
+#| out-width: "175px"
+knitr::include_graphics("Figs/visual1/ggplot2_logo.png")
+```
+
+* **g**rammer of **g**raphicsの思想をR上で具現化したパッケージ
+* 図の構成要素それぞれに対応する関数が存在し、一つのレイヤーとして機能
+   * `ggplot()`: キャンバスを用意
+   * `geom_point()`: 点 / `geom_line()`: 線 / `geom_bar()`: 棒
+   * `scale_x_continuous()`: 連続変数の横軸
+   * `scale_y_discrete()`: 離散変数の縦軸など
+* 関数を覚える必要は全くない
+   * {ggplot2}の仕組みだけを覚え、後はググりながらコーディング
+
+## {ggplot2}のイメージ (1)
+
+データの読み込み&ハンドリング
+
+```{r}
+#| mesage: false
+library(tidyverse)
+df <- read_csv("Data/countries.csv")
+
+df <- df |> # OECD変数をリコーディングし、OECD_Jへ
+   mutate(OECD_J = if_else(OECD == 1, "加盟国", "非加盟国")) |>
+   select(Country, PPP_per_capita, HDI_2018, FH_Status, OECD_J, Continent)
+
+df
+```
+
+## {ggplot2}のイメージ (2)
+
+キャンバスの用意
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "2"
+df |> # データdfをggplot()関数に渡し、作図の準備をする
+   ggplot()
+```
+
+## {ggplot2}のイメージ (3)
+
+キャンバス上に点を出力
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "5"
+df |>
+   ggplot() +
+   # 点を出力する。点の横軸上の位置はPPP_per_capita、縦軸上の位置はHDI_2018に対応
+   # OECD_Jの値に応じて色分けする。
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J))
+```
+
+## {ggplot2}のイメージ (4)
+
+ラベルの修正
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "4,5"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",  
+        color = "OECD")
+```
+
+## {ggplot2}のイメージ (5)
+
+テーマ変更
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "6"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",
+        color = "OECD") +
+   theme_bw(base_size = 12) # Black and Whiteテーマを使い、文字サイズは12
+```
+
+## {ggplot2}のイメージ (6)
+
+凡例の位置調整
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "7"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)",
+        color = "OECD") +
+   theme_bw(base_size = 12) +
+   theme(legend.position = "bottom") # 凡例を図の下段に
+```
+
+## {ggplot2}で図が出来上がるまで
+
+レイヤーを積み重ねるイメージ
+
+* 図の核心部は**幾何オブジェクト**（`geom_*()`）と**マッピング**（`aes()`）
+* 先に書いたコードが下に位置する。
+   * `コード1 + コード2`は`コード2`の内容が上に位置する。
+
+![](Figs/visual1/Layer.png){width=75% fig-align="center"}
+
+# グラフの構成要素
+
+## {ggplot2}の必須要素
+
+以下の要素があればグラフはとりあえず出来上がる
+
+1. **データ**（Data）
+2. **幾何オブジェクト**（Geometry Object）: `geom_*()`関数
+   * 散布図、棒グラフ、折れ線グラフ、...
+3. **マッピング**（Mapping）: `aes()`関数
+   * 散布図の場合、点の位置（横軸と縦軸）
+   * 棒グラフの場合、棒の位置（横軸）と高さ（縦軸）
+   * 折れ線グラフの場合、線の傾きが変化する点の位置（横軸と縦軸）
+4. **座標**系（Coordinate System）: `coord_*()`関数
+   * デカルト座標系（直交座標系）、極座標系など
+   * 座標系の上限の下限など
+   * 座標系は{ggplot2}が自動的に設定してくれるが、カスタマイズ可
+  
+凡例の位置、フォント、点の大きさ、軸ラベルの修正などは任意
+
+## {ggplot2}の必須要素
+
+座標系はデータ/幾何オブジェクトに応じて自動的に作成される（カスタマイズ可）
+
+![](Figs/visual1/Structure.png){width=70% fig-align="center"}
+
+## データとプロット内の要素の対応
+
+プロット内の要素：点、線、面
+
+* 以下の散布図の場合、各点は横軸上の位置（`x`）で投票率、縦軸上の位置（`y`）で現職の得票率を、色（`color`）で現職の所属政党を表している。
+
+![](Figs/visual1/data_plot.png){width=100% fig-align="center"}
+
+## 書き方
+
+* **注意:** レイヤーの積み重ねは`|>`でなく`+`を使用
+   * オブジェクトを**渡す**のではなく、レイヤーを**足す**という意味
+* 可視化は`ggplot()`からスタート
+* 幾何オブジェクトは`geom_`で始まる関数
+* 幾何オブジェクト内には`mapping = `でマッピングが必要。
+   * 第一引数であるため、`mapping = `は省略し、`aes()`からスタートでOK
+* `aes()`の中にはグラフ上に出力される点、線、面などがデータのどの変数に対応するかを記述
+
+```{r}
+#| eval: false
+ggplot(data = データ) +
+   幾何オブジェクト関数(mapping = aes(マッピング))
+```
+
+通常の書き方
+
+```{r}
+#| eval: false
+データ |> 
+   ggplot() +
+   幾何オブジェクト関数(aes(マッピング))
+```
+
+## データ
+
+使用するデータ構造はdata.frame、またはtibble
+
+:::{.panel-tabset}
+## 方法1
+
+* `data`引数にdata.frame（tibble）オブジェクト名を指定
+
+```{r}
+#| eval: false
+ggplot(data = データ名)
+```
+
+## 方法2
+
+* `data`引数は第一引数であるため、`data = `は省略されることが多い。
+
+```{r}
+#| eval: false
+ggplot(データ名)
+```
+
+## 方法3
+
+* `data`引数は第一引数であるため、パイプ演算子 (`|>`)で渡すことも可能
+* この方法を推奨
+
+```{r}
+#| eval: false
+データ名 |>
+   ggplot()
+```
+
+* `データ名`と`ggplot()`の間に{dplyr}、{tidyr}などの各種関数も使用可能
+
+```{r}
+#| eval: false
+データ名 |>
+   {dplyr}/{tidyr}の関数() |>
+   ggplot()
+```
+:::
+
+## 幾何オブジェクト
+
+```{r}
+#| eval: false
+データ名 |>
+   ggplot() +
+   幾何オブジェクト関数()
+```
+
+指定されたデータを使ってどのような図を作成するか
+
+* 散布図：`geom_point()`
+* 棒グラフ：`geom_bar()`
+* 折れ線グラフ：`geom_line()`
+* ヒストグラム：`geom_histogram()`
+* 箱ひげ図：`geom_boxplot()`
+* その他
+
+{ggplot2}が提供する幾何オブジェクトも数十種類があり、ユーザーが開発・公開した幾何オブジェクトなどもある
+
+* 非巡回有向グラフ作成のための{ggdag}、ネットワークの可視化のための{ggnetwork}など
+
+## マッピング
+
+グラフ上の**点、線、面などの情報をデータと変数に対応**させる
+
+* プロット上に出力されるデータの具体的な在り方を指定する
+* 散布図の例）各点の横軸と縦軸における位置情報
+* `geom_*()`内の`aes()`関数で指定
+   * グラフに複数の幾何オブジェクトが存在し、マッピング情報が同じなら`ggplot()`内で指定することも可能
+
+**例)** `geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J))`
+
+|幾何オブジェクト|マッピング情報|引数|対応する変数|
+|:---|:---|:---|:---|
+|`geom_point()`|点の横軸上の位置|`x`|`PPP_per_capita`|
+|`geom_point()`|点の縦軸上の位置|`y`|`HDI_2018`|
+|`geom_point()`|点の色|`color`|`OECD_J`|
+
+* 点、線、面が持てる情報は他にも色々
+   * 大きさ（`size`）、線の種類（`linetype`）、透明度（`alpha`）、面の色（`fill`）、点の形（`shape`）、線の太さ（`linewidth`）、グループ（`group`）など
+
+## マッピング時の注意
+
+`aes()`の中で指定するか、外で指定するかで挙動が変わる。
+
+* `aes()`の**中**で`color`を指定する場合、**それぞれの点**が指定された変数の値に応じて色分けされる、
+* `aes()`の**外**で`color`を指定する場合、**全ての点**に適用される。
+
+::: {.panel-tabset}
+
+### `aes()`の中（コード）
+
+```{r}
+#| eval: false
+#| code-line-numbers: "3"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
+```
+
+### `aes()`の中（結果）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J)) +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
+```
+
+### `aes()`の外（コード）
+
+```{r}
+#| eval: false
+#| code-line-numbers: "3"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018), color = "red") +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
+```
+
+### `aes()`の外（結果）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018), color = "red") +
+   labs(x = "一人当たり購買力平価基準GDP (米ドル)", y = "人間開発指数 (2018)")
+```
+
+:::
+
+## 座標系
+
+* 直交座標系の拡大・縮小：`coord_cartesian()`
+   * 最もよく使う座標系（デフォルト）
+* 横軸と縦軸の交換：`coord_flip()`
+* 横軸と縦軸比の固定：`coord_fixed()`
+* 極座標系（polar coordinates system）へ変換：`coord_polar()`
+   * 円グラフを作成する際に使われるが、**円グラフは邪悪なる存在**のケースが多いため、省略
+
+## 直交座標系拡大の例
+
+横軸を30000〜90000、縦軸を0.7〜1にする
+
+::: {.panel-tabset}
+
+### コード
+
+```{r}
+#| eval: false
+#| code-line-numbers: "6"
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J), 
+              size = 2) +
+   labs(x = "一人当たり購買力平価基準GDP", y = "人間開発指数", color = "OECD") +
+   coord_cartesian(xlim = c(30000, 90000), ylim = c(0.7, 1)) +
+   theme_bw()
+```
+
+### 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.5
+#| warning: false
+df |>
+   ggplot() +
+   geom_point(aes(x = PPP_per_capita, y = HDI_2018, color = OECD_J), 
+              size = 2) +
+   labs(x = "一人当たり購買力平価基準GDP", y = "人間開発指数", color = "OECD") +
+   coord_cartesian(xlim = c(30000, 90000), ylim = c(0.7, 1)) +
+   theme_bw()
+```
+
+:::
+
+## スケール (Scale)
+
+マッピング要素のカスタマイズ
+
+* 横/縦軸の目盛り変更、色分けの色を指定など
+* `scale_*_*()`関数を使用
+   * `scale_マッピング要素_対応する変数のタイプ()`
+* 詳細は次週以降
+
+## ファセット (Facet) {.scrollable}
+
+グラフを2つ以上の面で分割
+
+* 例) `FH_Stauts`の棒グラフを大陸ごとに出力
+
+```{r}
+# データの用意
+# 参考) 「\n」は図内の改行を意味する。
+df <- df |>
+   mutate(FH_Status = case_when(FH_Status == "F"  ~ "自由",
+                                FH_Status == "PF" ~ "部分的に\n自由",
+                                TRUE              ~ "不自由"),
+          FH_Status = factor(FH_Status,
+                             levels = c("自由", "部分的に\n自由", "不自由"))) |>
+   drop_na(FH_Status)
+
+df
+```
+
+## ファセット分割なし
+
+同じ大陸内の`FH_Stauts`の分布を確認するには不向き
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+df |>
+   ggplot() +
+   geom_bar(aes(x = FH_Status, fill = Continent),
+            position = position_dodge2(1/2)) +
+   labs(x = "フリーダムハウス評価", y = "国家数", fill = "大陸") +
+   theme_bw()
+```
+
+## ファセット分割あり
+
+```{r}
+#| fig-width: 8
+#| fig-height: 3
+#| warning: false
+#| code-line-numbers: "5"
+df |>
+   ggplot() +
+   geom_bar(aes(x = FH_Status)) +
+   labs(x = "フリーダムハウス評価", y = "国家数") +
+   facet_wrap(~ Continent, ncol = 5) +
+   theme_bw()
+```
+
+# 良いグラフとは
+
+## 意識すべきところ
+
+* データ・インク比
+* カラーユニバーサルデザイン
+* 円グラフは邪悪なる存在
+* 3次元グラフは更に邪悪なる存在
+* 3次元円グラフは概念レベルで駆逐すべき存在
+
+#### 参考図書 (日本語)
+
+1と4は{ggplot2}の教科書としても優れている
+
+1. Hadley Wickham・Garrett Grolemund(著), 黒川利明(訳). 2017. 『[Rではじめるデータサイエンス](https://www.amazon.co.jp/dp/487311814X)』オライリージャパン.
+2. 藤俊久仁・渡部良一. 2019. 『[データビジュアライゼーションの教科書](https://www.amazon.co.jp/dp/B07VK43YC7)』秀和システム.
+3. 永田ゆかり. 2020. 『[データ視覚化のデザイン](https://www.amazon.co.jp/dp/B08BHZ4HT3/)』SBクリエイティブ.
+4. **【おすすめ】** キーラン・ヒーリー(著), 瓜生真也・江口哲史・三村喬生(訳). 2021.『[データ分析のためのデータ可視化入門](https://www.amazon.co.jp/dp/4065164044/)』講談社.
+
+## 円グラフ大好き！
+
+最も面積が広いのは?
+
+::: {layout="[32,-2,32,-2,32]"}
+![円グラフ](Figs/visual1/Pie1.png){width=70% fig-align="center"}
+
+![3次元円グラフ](Figs/visual1/Pie2.png){width=70% fig-align="center"}
+
+![棒グラフ](Figs/visual1/Pie3.png){width=70% fig-align="center"}
+:::
+
+## それでも円グラフが描きたいです...
+
+```{r}
+#| message: false
+#| echo: false
+#| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 5
+df <- read_csv("Data/countries.csv")
+df |>
+   filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
+                         "Indonesia", "Laos", "Malaysia",
+                         "Myanmar", "Philippines",
+                         "Singapore", "Thailand", "Vietnam")) |>
+   ggplot(aes(area = Population, label = Country)) +
+   geom_treemap(aes(fill = Country), size = 2, color = "white") +
+   geom_treemap_text(color = "white", place = "center",
+                     grow = TRUE) +
+   theme(legend.position = "none")
+
+df |>
+   filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
+                         "Indonesia", "Laos", "Malaysia",
+                         "Myanmar", "Philippines",
+                         "Singapore", "Thailand", "Vietnam")) |>
+   arrange(Population) |>
+   mutate(Country = fct_inorder(Country)) |>
+   ggplot() +
+   geom_bar(aes(x = 1, y = Population, fill = Country),
+            stat = "identity", color = "white") +
+   guides(fill = guide_legend(reverse = TRUE)) +
+   labs(fill = "") +
+   coord_polar("y") +
+   theme_void()
+```
+
+## やめとけって
+
+棒グラフで十分
+
+```{r}
+#| message: false
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+df |>
+   filter(Country %in% c("Brunei", "Cambodia", "Timor-Leste",
+                         "Indonesia", "Laos", "Malaysia",
+                         "Myanmar", "Philippines",
+                         "Singapore", "Thailand", "Vietnam")) |>
+   arrange(desc(Population)) |>
+   mutate(Country = fct_inorder(Country)) |>
+   ggplot() +
+   geom_bar(aes(x = Country, y = Population),
+            stat = "identity", color = "white") +
+   theme_bw()
+```
+
+## データ・インク比 (Data-ink ratio)
+
+Edward R. Tufte. 2001. *The Visual Display of Quantitative Information (2nd Ed).* Graphics Press.
+
+$$
+\textrm{データ・インク比} = \frac{\textsf{データの情報を含むインクの量}}{\textsf{グラフの出力に使用されたインクの総量}}
+$$
+
+
+* 良いグラフとはデータ・インク比を最大化したグラフ
+* グラフにおいて情報損失なしに除去できる要素が占める割合を1から引いたもの
+* 色分けにも注意
+
+## 色分けに注意 (1)
+
+* インドの新規感染者数が多いことを伝えたい
+* どの線がインド?
+
+![](Figs/visual1/Dataink_ratio1.png){width=75% fig-align="center"}
+
+## 色分けに注意 (2)
+
+* 情報の損失はあるものの、主張が伝えやすい
+
+![](Figs/visual1/Dataink_ratio2.png){width=100% fig-align="center"}
+
+## やり過ぎにも注意
+
+* どの図も同じ情報量を持ち、データ・インク比は右の方が優れているが...
+
+![](Figs/visual1/Dataink_ratio3.png){width=60% fig-align="center"}
+
+## カラーユニバーサルデザイン
+
+色分けを行う際には注意が必要
+
+* P型およびD型色弱の場合、緑と赤の認識が困難
+   * 日本の場合、男性の5%、女性の0.2%
+   * フランス・北欧の場合、男性の約10%
+* 色覚シミュレーターで確認可能
+   * macOS用の[Sim Daltonism](https://michelf.ca/projects/sim-daltonism/)を使用した第二色盲 (deuteranopia)の例（Linux/Windowsなら[Color Oracle](https://colororacle.org/)など）
+* 自分が好きな色でなく、誰にも見やすい色を使う
+
+::: {layout="[49,-2,49]"}
+![](Figs/visual1/ColorUniversal1.png){fig-align="center"}
+
+![](Figs/visual1/ColorUniversal2.png){fig-align="center"}
+:::
+
+## 3次元グラフについて (1)
+
+![](Figs/visual1/3D_Plot1.png){fig-align="center"}
+
+## 3次元グラフについて (2)
+
+2001年より合格者が3倍増したようにも見えるが...
+
+![](Figs/visual1/3D_Plot2.jpg){width=40% fig-align="center"}
+
+## 3次元グラフについて (3)
+
+* 2次元グラフにすると...
+
+![](Figs/visual1/3D_Plot3.png){width=65% fig-align="center"}
