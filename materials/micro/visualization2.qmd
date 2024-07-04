@@ -50,7 +50,7 @@ df <- read_csv("Data/countries.csv")
 tibble(x = 1:2,
        y = c(20, 80)) |>
   ggplot() +
-  geom_bar(aes(x = x, y = y), stat = "identity") +
+  geom_col(aes(x = x, y = y)) +
   scale_x_continuous(breaks = 1:2, labels = c("ソンさん", "キムさん")) +
   labs(x = "人", y = "成績") +
   theme_bw(base_size = 14)
@@ -71,7 +71,7 @@ df |>
    group_by(Continent) |>
    summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
-   geom_bar(aes(x = Continent, y = HDI), stat = "identity") +
+   geom_col(aes(x = Continent, y = HDI)) +
    labs(y = "Human Development Index") +
    theme_bw(base_size   = 14)
 
@@ -79,7 +79,7 @@ df |>
    group_by(Continent) |>
    summarise(HDI = mean(HDI_2018, na.rm = TRUE)) |>
    ggplot() +
-   geom_bar(aes(y = Continent, x = HDI), stat = "identity") +
+   geom_col(aes(y = Continent, x = HDI)) +
    labs(x = "Human Development Index") +
    theme_bw(base_size   = 14)
 ```
@@ -97,7 +97,7 @@ df2 <- df |>
 df2
 ```
 
-　棒グラフに必要な2つの変数が揃った。ただし、データがこの2つの変数**のみ**で構成される必要はない。含まれていれば問題ない。それでは作図に移ろう。棒グラフを作成するときに使用する幾何オブジェクト`geom_bar()`である。また、`aes()`内に指定するマッピングは棒の横軸上の位置を意味する`x`と棒の高さを意味する`y`である。そして、棒の横軸上の位置は大陸 (`Continent`)、棒の高さは人間開発指数の平均値 (`HDI`)なので、マッピングは`x = Continent, y = HDI`となる。もし、@fig-bar-comparison-2 のような図を作成するなら、`x`と`y`を逆にすれば良い。最後に、`geom_bar()`内、かつ`aes()`の外に`stat = "identity"`と描く。`stat`引数は初心者には難しい引数なので、ここでは説明を割愛する。
+　棒グラフに必要な2つの変数が揃った。ただし、データがこの2つの変数**のみ**で構成される必要はない。含まれていれば問題ない。それでは作図に移ろう。棒グラフを作成するときに使用する幾何オブジェクト`geom_col()`である。また、`aes()`内に指定するマッピングは棒の横軸上の位置を意味する`x`と棒の高さを意味する`y`である。そして、棒の横軸上の位置は大陸（`Continent`）、棒の高さは人間開発指数の平均値（`HDI`）なので、マッピングは`x = Continent, y = HDI`となる。もし、@fig-bar-comparison-2 のような図を作成するなら、`x`と`y`を逆にすれば良い。
 
 　それでは図を作成し`bar_plot1`という名のオブジェクトとして格納しておこう。格納された図を出力する場合はオブジェクト名のみ入力すれば良い。
 
@@ -107,7 +107,7 @@ df2
 #| fig-height: 4
 bar_plot1 <- df2 |>
   ggplot() +
-  geom_bar(aes(x = Continent, y = HDI), stat = "identity")
+  geom_col(aes(x = Continent, y = HDI))
 
 bar_plot1
 ```
@@ -134,7 +134,7 @@ df2
 #| fig-height: 4
 df2 |>
    ggplot() +
-   geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
+   geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値")
 ```
 
@@ -145,7 +145,7 @@ df2 |>
 #| eval: false
 df2 |>
    ggplot() +
-   geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
+   geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値") +
    theme_gray(base_family = "HiraginoSans-W3")
 ```
@@ -161,7 +161,7 @@ df2 |>
                                levels = c("アフリカ", "アメリカ", "アジア", 
                                           "ヨーロッパ", "オセアニア"))) |> 
    ggplot() +
-   geom_bar(aes(x = Continent_J, y = HDI), stat = "identity") +
+   geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値") +
    theme_bw() # Black and Whiteテーマも使ってみよう
 ```
@@ -184,8 +184,7 @@ df2
 df2 |>
    mutate(Continent_J = fct_inorder(Continent_J)) |>
    ggplot() +
-   geom_bar(aes(x = Continent_J, y = HDI), 
-            stat = "identity") +
+   geom_col(aes(x = Continent_J, y = HDI)) +
    labs(x = "大陸", y = "人間開発指数の平均値")
 ```
 
@@ -217,7 +216,7 @@ df3
 #| fig-height: 4
 df3 |>
    ggplot() +
-   geom_bar(aes(x = Polity_Type, y = N), stat = "identity")
+   geom_col(aes(x = Polity_Type, y = N))
 ```
 
 　この棒グラフが持つ情報は2つである。まず、`x`で指定した政治体制のタイプ (`Polity_Type`)、そして`y`で指定した国家数 (`N`)だ。ここに更にもう一つの次元を使いすると使用。たとえば、もう一つの次元として大陸（`Continent`）を使いするとしよう。この場合、作図に使用するデータには大陸の変数（列）も必要だ。一方、先ほど作成した`df3`には大陸の情報がない。まずは、政治体制$\times$大陸ごとの国家数を計算し、`df4`として格納しておく。
@@ -245,10 +244,10 @@ df4
 #| fig-height: 4
 df4 |>
   ggplot() +
-  geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity")
+  geom_col(aes(x = Polity_Type, y = N, fill = Continent))
 ```
 
-　このような図を想像した人もいれば、少し違うと思う人もいるだろう。沖積されている形の棒グラフは世の中でそこそこ見るものであるが、実は分かりにくい図でもある。たとえば、民主主義（Democracy）の国の中で最も国家数が多い大陸はどこだろうか。この図ではどの大陸もだいたい同じ国家数にも見える。したがって、色分けした棒グラフは通所湯、棒の位置をずらす必要がある。ずらす方法は`geom_bar()`内に`position = "dodge"`を指定するだけだ。注意する点は`aes()`の中でなく、外に指定することだ。
+　このような図を想像した人もいれば、少し違うと思う人もいるだろう。沖積されている形の棒グラフは世の中でそこそこ見るものであるが、実は分かりにくい図でもある。たとえば、民主主義（Democracy）の国の中で最も国家数が多い大陸はどこだろうか。この図ではどの大陸もだいたい同じ国家数にも見える。したがって、色分けした棒グラフは通所湯、棒の位置をずらす必要がある。ずらす方法は`geom_col()`内に`position = "dodge"`を指定するだけだ。注意する点は`aes()`の中でなく、外に指定することだ。
 
 ```{r}
 #| filename: "Code 14"
@@ -256,7 +255,7 @@ df4 |>
 #| fig-height: 4
 df4 |>
   ggplot() +
-  geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity",
+  geom_col(aes(x = Polity_Type, y = N, fill = Continent),
            position = "dodge")
 ```
 
@@ -269,7 +268,7 @@ df4 |>
 #| fig-height: 4
 df4 |>
   ggplot() +
-  geom_bar(aes(x = Polity_Type, y = N, fill = Continent), stat = "identity",
+  geom_col(aes(x = Polity_Type, y = N, fill = Continent),
            position = "dodge") +
   theme(legend.position = "bottom")
 ```
@@ -282,7 +281,7 @@ df4 |>
 #| fig-height: 4
 df4 |>
   ggplot() +
-  geom_bar(aes(x = Continent, y = N, fill = Polity_Type), stat = "identity",
+  geom_col(aes(x = Continent, y = N, fill = Polity_Type),
            position = "dodge", color = "white") +
   theme_bw() +
   labs(x = "Continent", y = "Number of Countries", fill = "Polity Type") +
@@ -297,7 +296,7 @@ df4 |>
 #| fig-height: 4
 bar_plot2 <- df4 |>
   ggplot() +
-  geom_bar(aes(x = Polity_Type, y = N), stat = "identity") +
+  geom_col(aes(x = Polity_Type, y = N)) +
   facet_wrap(~ Continent, ncol = 5) # ncol/nrowで列/行数の指定が可能
 
 bar_plot2
@@ -326,7 +325,7 @@ bar_plot3
 #| fig-height: 4
 bar_plot4 <- df4 |>
   ggplot() +
-  geom_bar(aes(x = N, y = Polity_Type), stat = "identity") +
+  geom_col(aes(x = N, y = Polity_Type)) +
   labs(x = "Number of Countries", y = "Poltiy Type") +
   facet_wrap(~ Continent, ncol = 5) + # 5列のファセット分割
   theme_minimal(base_size = 12) +     # フォントサイズの調整も可能
@@ -381,7 +380,7 @@ ggsave(filename = "Figs/Figure1.png", # 保存先とファイル名
 df |>
    ggplot() +
    geom_histogram(aes(x = HDI_2018), binwidth = 0.05) +
-   labs(x = "人間開発指数 (2018年)", y = "国家数") +
+   labs(x = "人間開発指数（2018年）", y = "国家数") +
    theme_gray(base_size = 12)
 ```
 
