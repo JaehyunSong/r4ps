@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.49">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>第10回講義資料 – R for Political Science</title>
+<title>第11回講義資料 – R for Political Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -109,8 +109,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </script>
-<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&amp;display=swap" rel="stylesheet"> 
 
@@ -325,12 +323,16 @@ window.Quarto = {
  <span class="dropdown-text">第9回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/reporting.html">
+    <a class="dropdown-item" href="../../materials/macro/regression3.html">
  <span class="dropdown-text">第10回講義資料</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../materials/macro/logit.html">
+    <a class="dropdown-item" href="../../materials/macro/reporting.html">
  <span class="dropdown-text">第11回講義資料</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../materials/macro/logit.html">
+ <span class="dropdown-text">第12回講義資料</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../materials/macro/interaction.html">
@@ -380,12 +382,12 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/"> <i class="bi bi-terminal" role="img">
+    <a class="nav-link" href="https://jupyter.cs.rcos.nii.ac.jp/" target="_blank"> <i class="bi bi-terminal" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.jaysong.net/RBook/"> <i class="bi bi-book" role="img">
+    <a class="nav-link" href="https://www.jaysong.net/RBook/" target="_blank"> <i class="bi bi-book" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -405,7 +407,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/reporting.html">第10回講義資料</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../materials/macro/reporting.html">第11回講義資料</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -467,14 +469,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../materials/macro/regression3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">第10回講義資料</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">
+  <a href="../../materials/macro/reporting.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">第11回講義資料</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../materials/macro/logit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12回講義資料</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -514,7 +522,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">第10回講義資料</h1>
+<h1 class="title">第11回講義資料</h1>
 <p class="subtitle lead">分析結果の報告</p>
 </div>
 
@@ -688,66 +696,148 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.105)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_ezbrcyu2dmcr5s7tipim(i, j, css_id) {
+        var table = document.getElementById("tinytable_ezbrcyu2dmcr5s7tipim");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_ezbrcyu2dmcr5s7tipim');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_ezbrcyu2dmcr5s7tipim(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_ezbrcyu2dmcr5s7tipim");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(0, 0, 'tinytable_css_idqz7gke7tqda64evgexx5') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(0, 1, 'tinytable_css_id8epfio4b0y9cdjjs62m4') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(1, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(1, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(2, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(2, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(3, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(3, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(4, 0, 'tinytable_css_idviw5rhxst3jxfrmzyppp') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(4, 1, 'tinytable_css_idksnormdxbjpz5e84qhx6') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(5, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(5, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(6, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(6, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(7, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(7, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(8, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(8, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(9, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(9, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(10, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(10, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(11, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(11, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(12, 0, 'tinytable_css_idg70jvgzpcqedo6y4zfw2') })
+window.addEventListener('load', function () { styleCell_ezbrcyu2dmcr5s7tipim(12, 1, 'tinytable_css_id6fvbypti0611wyefuu3x') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_idqz7gke7tqda64evgexx5, .table th.tinytable_css_idqz7gke7tqda64evgexx5 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id8epfio4b0y9cdjjs62m4, .table th.tinytable_css_id8epfio4b0y9cdjjs62m4 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idg70jvgzpcqedo6y4zfw2, .table th.tinytable_css_idg70jvgzpcqedo6y4zfw2 {  text-align: left; }
+    .table td.tinytable_css_id6fvbypti0611wyefuu3x, .table th.tinytable_css_id6fvbypti0611wyefuu3x {  text-align: center; }
+    .table td.tinytable_css_idviw5rhxst3jxfrmzyppp, .table th.tinytable_css_idviw5rhxst3jxfrmzyppp {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idksnormdxbjpz5e84qhx6, .table th.tinytable_css_idksnormdxbjpz5e84qhx6 {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_ezbrcyu2dmcr5s7tipim" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649) </td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227   </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60      </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075   </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059   </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6   </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9   </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800</td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727   </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29    </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　一発でかなりきれいな表ができた。デフォルトでは切片と傾き係数の点推定値と標準誤差（カッコ内）が表示される。また、分析に使用されたサンプルサイズ（Num.Obs.）や適合度指標（決定係数（R2）、調整済み決定係数（R2 Adj.））なども表示される。これでも十分良いが、ここからはより自分好みの表にするためにいくつかカスタマイズしてみよう。</p>
@@ -761,72 +851,150 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(&lt;0.001)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.034)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内はp値</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_z98fjv3smi7wqo31xo7u(i, j, css_id) {
+        var table = document.getElementById("tinytable_z98fjv3smi7wqo31xo7u");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_z98fjv3smi7wqo31xo7u');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_z98fjv3smi7wqo31xo7u(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_z98fjv3smi7wqo31xo7u");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(0, 0, 'tinytable_css_id3ycotmrpn0rv3kmwlq5b') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(0, 1, 'tinytable_css_id5ct1he5sk9l7w45c7xhl') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(1, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(1, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(2, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(2, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(3, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(3, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(4, 0, 'tinytable_css_id11layt8xjolpk6jz2g9s') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(4, 1, 'tinytable_css_id889e03gra1xmn3xsapvq') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(5, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(5, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(6, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(6, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(7, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(7, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(8, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(8, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(9, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(9, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(10, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(10, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(11, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(11, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(12, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(12, 1, 'tinytable_css_id8ws3z3w05ak49zaigg6z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(13, 0, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+window.addEventListener('load', function () { styleCell_z98fjv3smi7wqo31xo7u(13, 1, 'tinytable_css_id3tcrdzs6yxr60f6djv9z') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_id3ycotmrpn0rv3kmwlq5b, .table th.tinytable_css_id3ycotmrpn0rv3kmwlq5b {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id5ct1he5sk9l7w45c7xhl, .table th.tinytable_css_id5ct1he5sk9l7w45c7xhl {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id3tcrdzs6yxr60f6djv9z, .table th.tinytable_css_id3tcrdzs6yxr60f6djv9z {  text-align: left; }
+    .table td.tinytable_css_id8ws3z3w05ak49zaigg6z, .table th.tinytable_css_id8ws3z3w05ak49zaigg6z {  text-align: center; }
+    .table td.tinytable_css_id11layt8xjolpk6jz2g9s, .table th.tinytable_css_id11layt8xjolpk6jz2g9s {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id889e03gra1xmn3xsapvq, .table th.tinytable_css_id889e03gra1xmn3xsapvq {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_z98fjv3smi7wqo31xo7u" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内はp値</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(&lt;0.001)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227   </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.034) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60      </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075   </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059   </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6   </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9   </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800</td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727   </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29    </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　切片（(Intercept)）の<span class="math inline">\(p\)</span>値が<code>&lt;0.001</code>と表示されているが、これは<span class="math inline">\(p\)</span>値が0.001より小さい、つまり非常に小さいことを意味する。これなら<span class="math inline">\(\alpha = 0.001\)</span>で検定を行っても統計的に有意であると判定できる水準である。また、<code>note</code>引数で表の下に注も付けることができる。2行目の統計量が何の統計量か分からない人もいるかも知れないので、このように付けておくことをおすすめする。</p>
@@ -842,64 +1010,138 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb9-4"><a href="#cb9-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078 (0.649)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;">Order</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.227 (0.105)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内は標準誤差</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_9q2f23jhcm7cxte8kit9(i, j, css_id) {
+        var table = document.getElementById("tinytable_9q2f23jhcm7cxte8kit9");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_9q2f23jhcm7cxte8kit9');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_9q2f23jhcm7cxte8kit9(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_9q2f23jhcm7cxte8kit9");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(0, 0, 'tinytable_css_idhg92ukp8f4kzqu2qpd5c') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(0, 1, 'tinytable_css_idlg94nvzuvthudtfqhf70') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(1, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(1, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(2, 0, 'tinytable_css_iddox442fuls5sbgh708cn') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(2, 1, 'tinytable_css_idfn3kvjqomv57ssse8o35') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(3, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(3, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(4, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(4, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(5, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(5, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(6, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(6, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(7, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(7, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(8, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(8, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(9, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(9, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(10, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(10, 1, 'tinytable_css_id7xc8gdccd8kql60mpyg2') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(11, 0, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+window.addEventListener('load', function () { styleCell_9q2f23jhcm7cxte8kit9(11, 1, 'tinytable_css_idhfhxh7vn8b66837ggb3s') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_idhg92ukp8f4kzqu2qpd5c, .table th.tinytable_css_idhg92ukp8f4kzqu2qpd5c {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idlg94nvzuvthudtfqhf70, .table th.tinytable_css_idlg94nvzuvthudtfqhf70 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idhfhxh7vn8b66837ggb3s, .table th.tinytable_css_idhfhxh7vn8b66837ggb3s {  text-align: left; }
+    .table td.tinytable_css_id7xc8gdccd8kql60mpyg2, .table th.tinytable_css_id7xc8gdccd8kql60mpyg2 {  text-align: center; }
+    .table td.tinytable_css_iddox442fuls5sbgh708cn, .table th.tinytable_css_iddox442fuls5sbgh708cn {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idfn3kvjqomv57ssse8o35, .table th.tinytable_css_idfn3kvjqomv57ssse8o35 {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_9q2f23jhcm7cxte8kit9" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内は標準誤差</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 (0.649)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227 (0.105) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60            </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075         </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059         </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6         </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9         </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800      </td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727         </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29          </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　また、以下のように標準誤差を90%信頼区間に変えることもできる。デフォルトでは95%信頼区間が表示されるので、90%を使いたい場合は<code>conf_level</code>を0.9に変える必要がある。</p>
@@ -915,72 +1157,150 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb10-5"><a href="#cb10-5"></a>             <span class="at">note       =</span> <span class="st">"注：カッコ内は90%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">[88.993, 91.163]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">[0.053, 0.402]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内は90%信頼区間</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_zbujin423sho0l4fa5zi(i, j, css_id) {
+        var table = document.getElementById("tinytable_zbujin423sho0l4fa5zi");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_zbujin423sho0l4fa5zi');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_zbujin423sho0l4fa5zi(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_zbujin423sho0l4fa5zi");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(0, 0, 'tinytable_css_id2scu62yizrmitm01ihrc') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(0, 1, 'tinytable_css_id3q59tloi8ykw596uheto') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(1, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(1, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(2, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(2, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(3, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(3, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(4, 0, 'tinytable_css_idwudn4db9bp26j23byqsk') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(4, 1, 'tinytable_css_idb29ux4kqb9t2x7zbevns') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(5, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(5, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(6, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(6, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(7, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(7, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(8, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(8, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(9, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(9, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(10, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(10, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(11, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(11, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(12, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(12, 1, 'tinytable_css_idmtorwd20gz2ysiwc6w66') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(13, 0, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+window.addEventListener('load', function () { styleCell_zbujin423sho0l4fa5zi(13, 1, 'tinytable_css_id4xd0gdclaif9gbtjjl59') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_id2scu62yizrmitm01ihrc, .table th.tinytable_css_id2scu62yizrmitm01ihrc {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id3q59tloi8ykw596uheto, .table th.tinytable_css_id3q59tloi8ykw596uheto {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id4xd0gdclaif9gbtjjl59, .table th.tinytable_css_id4xd0gdclaif9gbtjjl59 {  text-align: left; }
+    .table td.tinytable_css_idmtorwd20gz2ysiwc6w66, .table th.tinytable_css_idmtorwd20gz2ysiwc6w66 {  text-align: center; }
+    .table td.tinytable_css_idwudn4db9bp26j23byqsk, .table th.tinytable_css_idwudn4db9bp26j23byqsk {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idb29ux4kqb9t2x7zbevns, .table th.tinytable_css_idb29ux4kqb9t2x7zbevns {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_zbujin423sho0l4fa5zi" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内は90%信頼区間</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078          </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>[88.993, 91.163]</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227           </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>[0.053, 0.402]  </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60              </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075           </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059           </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6           </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9           </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800        </td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727           </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29            </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　モデルの当てはまりの良さ、評価指標として本講義では決定係数（<span class="math inline">\(R^2\)</span>）と調整済み決定係数（Adjusted <span class="math inline">\(R^2\)</span>）を紹介した。これらの統計量は適合度指標（goodness of fit; gof）と呼ばれるが、分析手法によって使用可能な適合度指標が異なる。{modelsummary}の<code>get_gof()</code>関数を使えば、使用可能な適合度指標が出力される。以下は<code>fit3</code>の適合度指標を出力するコードだ。</p>
@@ -1011,52 +1331,120 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb13-7"><a href="#cb13-7"></a>  )</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.605 (&lt;0.001)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.258 (0.016)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;">−0.963 (0.128)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;">Duration</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.076 (0.381)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody><tfoot>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内はp値</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_crlr9t0ir2p94xlpp82u(i, j, css_id) {
+        var table = document.getElementById("tinytable_crlr9t0ir2p94xlpp82u");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_crlr9t0ir2p94xlpp82u');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_crlr9t0ir2p94xlpp82u(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_crlr9t0ir2p94xlpp82u");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(0, 0, 'tinytable_css_idi7qmzn9r07gz9f64ifwm') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(0, 1, 'tinytable_css_idzvfpao2tqhyppbojohxj') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(1, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(1, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(2, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(2, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(3, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(3, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(4, 0, 'tinytable_css_idiy8rdw7ekkb05t6s4cj3') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(4, 1, 'tinytable_css_idk4zqpdsovima67ol19ky') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(5, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(5, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(6, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(6, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(7, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(7, 1, 'tinytable_css_id0di5vfxqtu7hf9jbwn3e') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(8, 0, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+window.addEventListener('load', function () { styleCell_crlr9t0ir2p94xlpp82u(8, 1, 'tinytable_css_id6p7fudrdcdwu837cf5wq') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_idi7qmzn9r07gz9f64ifwm, .table th.tinytable_css_idi7qmzn9r07gz9f64ifwm {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idzvfpao2tqhyppbojohxj, .table th.tinytable_css_idzvfpao2tqhyppbojohxj {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id6p7fudrdcdwu837cf5wq, .table th.tinytable_css_id6p7fudrdcdwu837cf5wq {  text-align: left; }
+    .table td.tinytable_css_id0di5vfxqtu7hf9jbwn3e, .table th.tinytable_css_id0di5vfxqtu7hf9jbwn3e {  text-align: center; }
+    .table td.tinytable_css_idiy8rdw7ekkb05t6s4cj3, .table th.tinytable_css_idiy8rdw7ekkb05t6s4cj3 {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idk4zqpdsovima67ol19ky, .table th.tinytable_css_idk4zqpdsovima67ol19ky {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_crlr9t0ir2p94xlpp82u" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内はp値</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>89.605 (&lt;0.001)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.258 (0.016)  </td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>-0.963 (0.128) </td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>0.076 (0.381)  </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60             </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.144          </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.098          </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </section>
@@ -1072,86 +1460,190 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb14-2"><a href="#cb14-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Duration</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_6kzjc3da1ed4bi95hvii(i, j, css_id) {
+        var table = document.getElementById("tinytable_6kzjc3da1ed4bi95hvii");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_6kzjc3da1ed4bi95hvii');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_6kzjc3da1ed4bi95hvii(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_6kzjc3da1ed4bi95hvii");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(0, 0, 'tinytable_css_id6djrcyne4m5mpiw8j5q6') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(0, 1, 'tinytable_css_idb2dsxnb0xh80tyyllgay') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(0, 2, 'tinytable_css_idb2dsxnb0xh80tyyllgay') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(0, 3, 'tinytable_css_idb2dsxnb0xh80tyyllgay') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(1, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(1, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(1, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(1, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(2, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(2, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(2, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(2, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(3, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(3, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(3, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(3, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(4, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(4, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(4, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(4, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(5, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(5, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(5, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(5, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(6, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(6, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(6, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(6, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(7, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(7, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(7, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(7, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(8, 0, 'tinytable_css_idj1r77xlfkn35p8e2cjzt') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(8, 1, 'tinytable_css_idvsvhlu564uj2al3on9t1') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(8, 2, 'tinytable_css_idvsvhlu564uj2al3on9t1') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(8, 3, 'tinytable_css_idvsvhlu564uj2al3on9t1') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(9, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(9, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(9, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(9, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(10, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(10, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(10, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(10, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(11, 0, 'tinytable_css_idsi04bbeqzg8tefzvay4x') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(11, 1, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(11, 2, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+window.addEventListener('load', function () { styleCell_6kzjc3da1ed4bi95hvii(11, 3, 'tinytable_css_idpuaoa5htew7hm2s5hvxv') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_id6djrcyne4m5mpiw8j5q6, .table th.tinytable_css_id6djrcyne4m5mpiw8j5q6 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idb2dsxnb0xh80tyyllgay, .table th.tinytable_css_idb2dsxnb0xh80tyyllgay {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idsi04bbeqzg8tefzvay4x, .table th.tinytable_css_idsi04bbeqzg8tefzvay4x {  text-align: left; }
+    .table td.tinytable_css_idpuaoa5htew7hm2s5hvxv, .table th.tinytable_css_idpuaoa5htew7hm2s5hvxv {  text-align: center; }
+    .table td.tinytable_css_idj1r77xlfkn35p8e2cjzt, .table th.tinytable_css_idj1r77xlfkn35p8e2cjzt {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idvsvhlu564uj2al3on9t1, .table th.tinytable_css_idvsvhlu564uj2al3on9t1 {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_6kzjc3da1ed4bi95hvii" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+                <th scope="col">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　自動的に（1）、（2）、…のようにモデル名が付くが<code>"モデル名" = オブジェクト名</code>のように書くと任意のモデル名も指定できる。</p>
@@ -1164,86 +1656,190 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb15-2"><a href="#cb15-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Model 1</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;Model 2</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;Model 3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Duration</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_ny37nbqal1cdqng7pkwb(i, j, css_id) {
+        var table = document.getElementById("tinytable_ny37nbqal1cdqng7pkwb");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_ny37nbqal1cdqng7pkwb');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_ny37nbqal1cdqng7pkwb(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_ny37nbqal1cdqng7pkwb");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(0, 0, 'tinytable_css_idkjqcsc4km1fsh9phgyf7') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(0, 1, 'tinytable_css_id05nnis538yo0knxtgedm') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(0, 2, 'tinytable_css_id05nnis538yo0knxtgedm') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(0, 3, 'tinytable_css_id05nnis538yo0knxtgedm') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(1, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(1, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(1, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(1, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(2, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(2, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(2, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(2, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(3, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(3, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(3, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(3, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(4, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(4, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(4, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(4, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(5, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(5, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(5, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(5, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(6, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(6, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(6, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(6, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(7, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(7, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(7, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(7, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(8, 0, 'tinytable_css_idutyjhraherrlkkoqjwvg') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(8, 1, 'tinytable_css_idbcegx84v9ee4kjfj4wyj') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(8, 2, 'tinytable_css_idbcegx84v9ee4kjfj4wyj') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(8, 3, 'tinytable_css_idbcegx84v9ee4kjfj4wyj') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(9, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(9, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(9, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(9, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(10, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(10, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(10, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(10, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(11, 0, 'tinytable_css_ida12l1l97nrcnd6kqcnty') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(11, 1, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(11, 2, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+window.addEventListener('load', function () { styleCell_ny37nbqal1cdqng7pkwb(11, 3, 'tinytable_css_idxjdc33kspiay84irkbkx') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_idkjqcsc4km1fsh9phgyf7, .table th.tinytable_css_idkjqcsc4km1fsh9phgyf7 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id05nnis538yo0knxtgedm, .table th.tinytable_css_id05nnis538yo0knxtgedm {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_ida12l1l97nrcnd6kqcnty, .table th.tinytable_css_ida12l1l97nrcnd6kqcnty {  text-align: left; }
+    .table td.tinytable_css_idxjdc33kspiay84irkbkx, .table th.tinytable_css_idxjdc33kspiay84irkbkx {  text-align: center; }
+    .table td.tinytable_css_idutyjhraherrlkkoqjwvg, .table th.tinytable_css_idutyjhraherrlkkoqjwvg {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idbcegx84v9ee4kjfj4wyj, .table th.tinytable_css_idbcegx84v9ee4kjfj4wyj {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_ny37nbqal1cdqng7pkwb" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Model 1</th>
+                <th scope="col">Model 2</th>
+                <th scope="col">Model 3</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>　やや話がずれるが、表示される変数名を変えることもできる。変数名のままになると読者は「この変数って何？」と思うかも知れない。いきなり表を見せつけられても解釈ができる表が良い表なので、なるべく元の変数名ではなく、ちゃんと言葉で書いておこう。変数名の修正は<code>coef_rename</code>引数で調整でき、書き方は<code>"元の変数名" = "新しい変数名"</code>である。複数の変数名を変更する場合、<code>c()</code>でまとめる。</p>
@@ -1260,86 +1856,190 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <span id="cb16-6"><a href="#cb16-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">切片</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">出場順番</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">初出場ダミー</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">結成からの経過年数</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_gehoxztrnm1mxl1gzl6h(i, j, css_id) {
+        var table = document.getElementById("tinytable_gehoxztrnm1mxl1gzl6h");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_gehoxztrnm1mxl1gzl6h');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_gehoxztrnm1mxl1gzl6h(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_gehoxztrnm1mxl1gzl6h");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(0, 0, 'tinytable_css_id22swj5fdq5gdb6r8a3ra') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(0, 1, 'tinytable_css_idvk010e8ns2zcjkq0eaxe') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(0, 2, 'tinytable_css_idvk010e8ns2zcjkq0eaxe') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(0, 3, 'tinytable_css_idvk010e8ns2zcjkq0eaxe') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(1, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(1, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(1, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(1, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(2, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(2, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(2, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(2, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(3, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(3, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(3, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(3, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(4, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(4, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(4, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(4, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(5, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(5, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(5, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(5, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(6, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(6, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(6, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(6, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(7, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(7, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(7, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(7, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(8, 0, 'tinytable_css_idrbumyur6ctkkhckvom64') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(8, 1, 'tinytable_css_idjsdlg6xg7f9vv5npmdz4') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(8, 2, 'tinytable_css_idjsdlg6xg7f9vv5npmdz4') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(8, 3, 'tinytable_css_idjsdlg6xg7f9vv5npmdz4') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(9, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(9, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(9, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(9, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(10, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(10, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(10, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(10, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(11, 0, 'tinytable_css_id5xvtd5mx13s1uo5y8v6q') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(11, 1, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(11, 2, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+window.addEventListener('load', function () { styleCell_gehoxztrnm1mxl1gzl6h(11, 3, 'tinytable_css_id780rqv4rluk8s5dr860a') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_id22swj5fdq5gdb6r8a3ra, .table th.tinytable_css_id22swj5fdq5gdb6r8a3ra {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idvk010e8ns2zcjkq0eaxe, .table th.tinytable_css_idvk010e8ns2zcjkq0eaxe {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id5xvtd5mx13s1uo5y8v6q, .table th.tinytable_css_id5xvtd5mx13s1uo5y8v6q {  text-align: left; }
+    .table td.tinytable_css_id780rqv4rluk8s5dr860a, .table th.tinytable_css_id780rqv4rluk8s5dr860a {  text-align: center; }
+    .table td.tinytable_css_idrbumyur6ctkkhckvom64, .table th.tinytable_css_idrbumyur6ctkkhckvom64 {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idjsdlg6xg7f9vv5npmdz4, .table th.tinytable_css_idjsdlg6xg7f9vv5npmdz4 {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_gehoxztrnm1mxl1gzl6h" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+                <th scope="col">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>切片              </td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>出場順番          </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>初出場ダミー      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>結成からの経過年数</td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.          </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2                </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.           </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </section>
@@ -1458,8 +2158,8 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
      0     91.8      0.436 211   &lt;0.001 Inf    91   92.7   5.5     10.6
      1     90.9      0.421 216   &lt;0.001 Inf    90   91.7   5.5     10.6
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, Duration, First 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Order, Duration, First, Score_Mean </code></pre>
 </div>
 </div>
 <p>　この結果に無駄な情報はないが、とりあえず注目するのは<code>First</code>の値、予測値、予測値の不確実性指標（主に信頼区間）である。ここでは<code>Estimate</code>列が予測値、<code>2.5%</code>と<code>97.5%</code>列が95%信頼区間の下限と上限だ。また、<code>Order</code>と<code>Duration</code>列を見るとそれぞれ5.5と10.6で固定されていることが分かる。</p>
@@ -1482,8 +2182,8 @@ Type:  response </code></pre>
      0     5        5     91.3      0.725 126   &lt;0.001 Inf  89.9   92.7
      1     5        5     90.3      0.572 158   &lt;0.001 Inf  89.2   91.4
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, First, Order, Duration, Score_Mean </code></pre>
 </div>
 </div>
 </section>
@@ -1498,12 +2198,12 @@ Type:  response </code></pre>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order
-1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541   91.32857     0     5
-2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246   91.32857     1     5
-  Duration
-1        5
-2        5</code></pre>
+<pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high First Order Duration
+1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541     0     5        5
+2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246     1     5        5
+  Score_Mean
+1   89.42857
+2   89.42857</code></pre>
 </div>
 </div>
 <p>　しかし、作図によく使うのは動かしている変数名（ここでは<code>First</code>）に加え、予測値（<code>estimate</code>）、信頼区間の下限（<code>conf.low</code>）と上限（<code>conf.high</code>）、<span class="math inline">\(p\)</span>値（<code>p.value</code>）であるため、慣れてしまえば自然に覚えられる。</p>
@@ -1552,7 +2252,7 @@ Type:  response </code></pre>
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1584,19 +2284,19 @@ Type:  response </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration
-     1     90.2      0.553 163   &lt;0.001 Inf  89.1   91.2 0.517     10.6
-     2     90.4      0.468 193   &lt;0.001 Inf  89.5   91.3 0.517     10.6
-     3     90.7      0.393 231   &lt;0.001 Inf  89.9   91.5 0.517     10.6
-     4     90.9      0.333 273   &lt;0.001 Inf  90.3   91.6 0.517     10.6
-     5     91.2      0.299 305   &lt;0.001 Inf  90.6   91.8 0.517     10.6
-     6     91.5      0.299 306   &lt;0.001 Inf  90.9   92.0 0.517     10.6
-     7     91.7      0.333 275   &lt;0.001 Inf  91.1   92.4 0.517     10.6
-     8     92.0      0.393 234   &lt;0.001 Inf  91.2   92.7 0.517     10.6
-     9     92.2      0.468 197   &lt;0.001 Inf  91.3   93.1 0.517     10.6
-    10     92.5      0.553 167   &lt;0.001 Inf  91.4   93.6 0.517     10.6
+     1     89.7      0.637 141   &lt;0.001 Inf  88.5   90.9     1     10.6
+     2     90.0      0.563 160   &lt;0.001 Inf  88.9   91.1     1     10.6
+     3     90.2      0.500 180   &lt;0.001 Inf  89.2   91.2     1     10.6
+     4     90.5      0.453 200   &lt;0.001 Inf  89.6   91.4     1     10.6
+     5     90.7      0.425 213   &lt;0.001 Inf  89.9   91.6     1     10.6
+     6     91.0      0.423 215   &lt;0.001 Inf  90.2   91.8     1     10.6
+     7     91.3      0.445 205   &lt;0.001 Inf  90.4   92.1     1     10.6
+     8     91.5      0.489 187   &lt;0.001 Inf  90.5   92.5     1     10.6
+     9     91.8      0.549 167   &lt;0.001 Inf  90.7   92.8     1     10.6
+    10     92.0      0.621 148   &lt;0.001 Inf  90.8   93.2     1     10.6
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, First, Duration, Order, Score_Mean </code></pre>
 </div>
 </div>
 <p>　続いて可視化してみよう。<code>geom_pointrange()</code>の<code>x</code>のマッピングが<code>First</code>から<code>Order</code>に変わっただけだ（当たり前だが、横軸（<code>x</code>）にマッピングされた変数が変わったので<code>labs()</code>でラベルも修正する必要がある）。</p>
@@ -1632,24 +2332,24 @@ Type:  response </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order First
-        2     90.7      0.793 114   &lt;0.001 Inf  89.1   92.2   5.5 0.517
-        3     90.8      0.714 127   &lt;0.001 Inf  89.4   92.2   5.5 0.517
-        4     90.8      0.637 143   &lt;0.001 Inf  89.6   92.1   5.5 0.517
-        5     90.9      0.563 162   &lt;0.001 Inf  89.8   92.0   5.5 0.517
-        6     91.0      0.492 185   &lt;0.001 Inf  90.0   91.9   5.5 0.517
-        7     91.1      0.426 214   &lt;0.001 Inf  90.2   91.9   5.5 0.517
-        8     91.1      0.369 247   &lt;0.001 Inf  90.4   91.9   5.5 0.517
-        9     91.2      0.325 281   &lt;0.001 Inf  90.6   91.8   5.5 0.517
-       10     91.3      0.299 306   &lt;0.001 Inf  90.7   91.9   5.5 0.517
-       11     91.4      0.296 308   &lt;0.001 Inf  90.8   91.9   5.5 0.517
-       12     91.4      0.318 288   &lt;0.001 Inf  90.8   92.1   5.5 0.517
-       13     91.5      0.359 255   &lt;0.001 Inf  90.8   92.2   5.5 0.517
-       14     91.6      0.414 221   &lt;0.001 Inf  90.8   92.4   5.5 0.517
-       15     91.7      0.478 192   &lt;0.001 Inf  90.7   92.6   5.5 0.517
-       16     91.7      0.548 167   &lt;0.001 Inf  90.7   92.8   5.5 0.517
+        2     90.2      0.762 118   &lt;0.001 Inf  88.7   91.7   5.5     1
+        3     90.3      0.691 131   &lt;0.001 Inf  88.9   91.6   5.5     1
+        4     90.4      0.624 145   &lt;0.001 Inf  89.1   91.6   5.5     1
+        5     90.4      0.563 161   &lt;0.001 Inf  89.3   91.5   5.5     1
+        6     90.5      0.508 178   &lt;0.001 Inf  89.5   91.5   5.5     1
+        7     90.6      0.462 196   &lt;0.001 Inf  89.7   91.5   5.5     1
+        8     90.7      0.430 211   &lt;0.001 Inf  89.8   91.5   5.5     1
+        9     90.7      0.412 220   &lt;0.001 Inf  89.9   91.6   5.5     1
+       10     90.8      0.412 220   &lt;0.001 Inf  90.0   91.6   5.5     1
+       11     90.9      0.430 211   &lt;0.001 Inf  90.1   91.7   5.5     1
+       12     91.0      0.463 197   &lt;0.001 Inf  90.1   91.9   5.5     1
+       13     91.0      0.508 179   &lt;0.001 Inf  90.0   92.0   5.5     1
+       14     91.1      0.563 162   &lt;0.001 Inf  90.0   92.2   5.5     1
+       15     91.2      0.625 146   &lt;0.001 Inf  90.0   92.4   5.5     1
+       16     91.3      0.692 132   &lt;0.001 Inf  89.9   92.6   5.5     1
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, First, Duration 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Order, First, Duration, Score_Mean </code></pre>
 </div>
 </div>
 <p>　続いて可視化してみよう。</p>
@@ -1810,7 +2510,7 @@ Type:  response </code></pre>
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">

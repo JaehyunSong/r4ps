@@ -1,6 +1,6 @@
 ---
 subtitle: "第8回 線形回帰分析（1）"
-date: "2023/11/16"
+date: "2024/11/14"
 format: revealjs
 metadata-files: 
   - _slide.yml
@@ -204,14 +204,11 @@ beer_df |>
   filter(Year == 2020) |>
   mutate(Obs = ifelse(Year == 2020 & Month == 7, "1", "0")) |>
   ggplot(aes(x = Temperature, y = Beer)) +
-  geom_segment(aes(x = 0, xend = 24.3, y = 702, yend = 702),
-               linetype = 2) +
-  geom_segment(aes(x = 24.3, xend = 24.3, y = 702, yend = 0),
-               linetype = 2) +
+  annotate("segment", x = 0, xend = 24.3, y = 702, yend = 702, linetype = 2) +
+  annotate("segment", x = 24.3, xend = 24.3, y = 702, yend = 0, linetype = 2) +
   geom_point(aes(color = Obs), size = 5) +
   geom_smooth(method = "lm", se = FALSE, linewidth = 1.5) +
-  geom_segment(aes(x = 0, xend = 24.3, y = 565.6986, yend = 565.6986),
-               linetype = 2) +
+  annotate("segment", x = 0, xend = 24.3, y = 565.6986, yend = 565.6986, linetype = 2) +
   annotate("text", x = 25, y = 702, 
            label = TeX("$(x_i, y_i)$ = 観測値"),
            size = 5, hjust = 0) +
@@ -221,18 +218,18 @@ beer_df |>
   annotate("text", x = 24.5, y = 634, 
            label = TeX("$e_i$ = 残差"),
            size = 5, hjust = 0) +
-  geom_segment(aes(x = 26, xend = 24.3, y = 525, yend = 565.6986),
-               arrow = arrow(length = unit(0.075, "inches"), type = "closed")) +
-  geom_segment(aes(x = 24.3, xend = 24.3, y = 702, yend = 565.6986),
-               arrow = arrow(length = unit(0.1, "inches"), 
-                             ends = "both", type = "closed"),
-               color = "red") +
-  geom_point(aes(x = 24.3, y = 565.6986), size = 2, shape = 1) +
+  annotate("point", x = 24.3, y = 565.6986, size = 5, shape = 21,
+           color = "white", fill = "black", alpha = 0.5) +
+  annotate("segment", x = 26, xend = 24.3, y = 525, yend = 565.6986,
+           arrow = arrow(length = unit(0.075, "inches"), type = "closed")) +
+  annotate("segment", x = 24.3, xend = 24.3, y = 702, yend = 565.6986,
+           arrow = arrow(length = unit(0.1, "inches"), 
+                         ends = "both", type = "closed"),
+           color = "red") +
   coord_cartesian(ylim = c(400, 780), xlim = c(7, 30)) +
   scale_y_continuous(breaks = c(565.6986, 702), 
                      labels = c(TeX("$\\hat{y}_i$"), TeX("$y_i$"))) +
-  scale_x_continuous(breaks = 24.3, 
-                     labels = TeX("$x_i$")) +
+  scale_x_continuous(breaks = 24.3, labels = expression(x[i])) +
   labs(x = "説明変数", y = "応答変数") +
   theme_bw(base_size = 16) +
   theme(panel.grid = element_blank(),

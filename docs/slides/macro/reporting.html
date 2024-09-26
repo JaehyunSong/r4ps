@@ -9,10 +9,10 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.49">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="2023-12-07">
+  <meta name="dcterms.date" content="2024-12-05">
   <title>R for Political Science – マクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -398,8 +398,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
-  <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -407,7 +405,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">マクロ政治データ分析実習</h1>
-  <p class="subtitle">第10回 分析結果の報告</p>
+  <p class="subtitle">第11回 分析結果の報告</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -420,7 +418,7 @@
     </div>
 </div>
 
-  <p class="date">2023-12-07</p>
+  <p class="date">2024-12-05</p>
 </section>
 <section id="授業開始前に" class="slide level2">
 <h2>授業開始前に</h2>
@@ -569,66 +567,148 @@
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.105)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_s1a1zh5n7e9tyncbvgbh(i, j, css_id) {
+        var table = document.getElementById("tinytable_s1a1zh5n7e9tyncbvgbh");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_s1a1zh5n7e9tyncbvgbh');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_s1a1zh5n7e9tyncbvgbh(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_s1a1zh5n7e9tyncbvgbh");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(0, 0, 'tinytable_css_idhb09fcc6o66hnz2ybr7i') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(0, 1, 'tinytable_css_idlawtgboh7ibgo87u9rf4') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(1, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(1, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(2, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(2, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(3, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(3, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(4, 0, 'tinytable_css_ido5hp82nero1i49dw3hkb') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(4, 1, 'tinytable_css_id319mofceby77sp9a53tc') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(5, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(5, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(6, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(6, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(7, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(7, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(8, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(8, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(9, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(9, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(10, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(10, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(11, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(11, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(12, 0, 'tinytable_css_idrn3buiid6pkg6t4b1obz') })
+window.addEventListener('load', function () { styleCell_s1a1zh5n7e9tyncbvgbh(12, 1, 'tinytable_css_idr4o8goldvur7d1nynnx1') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_idhb09fcc6o66hnz2ybr7i, .table th.tinytable_css_idhb09fcc6o66hnz2ybr7i {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idlawtgboh7ibgo87u9rf4, .table th.tinytable_css_idlawtgboh7ibgo87u9rf4 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idrn3buiid6pkg6t4b1obz, .table th.tinytable_css_idrn3buiid6pkg6t4b1obz {  text-align: left; }
+    .table td.tinytable_css_idr4o8goldvur7d1nynnx1, .table th.tinytable_css_idr4o8goldvur7d1nynnx1 {  text-align: center; }
+    .table td.tinytable_css_ido5hp82nero1i49dw3hkb, .table th.tinytable_css_ido5hp82nero1i49dw3hkb {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id319mofceby77sp9a53tc, .table th.tinytable_css_id319mofceby77sp9a53tc {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_s1a1zh5n7e9tyncbvgbh" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649) </td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227   </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60      </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075   </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059   </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6   </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9   </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800</td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727   </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29    </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div></div>
@@ -657,72 +737,150 @@
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(&lt;0.001)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.034)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内はp値</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_fdo5gmf7ci9igsc4rs8o(i, j, css_id) {
+        var table = document.getElementById("tinytable_fdo5gmf7ci9igsc4rs8o");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_fdo5gmf7ci9igsc4rs8o');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_fdo5gmf7ci9igsc4rs8o(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_fdo5gmf7ci9igsc4rs8o");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(0, 0, 'tinytable_css_idiue3ca26wbkdee2daa2e') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(0, 1, 'tinytable_css_id50vht7ui55dgdqh14fj9') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(1, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(1, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(2, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(2, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(3, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(3, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(4, 0, 'tinytable_css_idvdrfa4e9q3syy59m5qzu') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(4, 1, 'tinytable_css_idef3kjn703o7vem8th5fj') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(5, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(5, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(6, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(6, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(7, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(7, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(8, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(8, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(9, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(9, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(10, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(10, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(11, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(11, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(12, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(12, 1, 'tinytable_css_id1c2kuhqnss4v4cnlophw') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(13, 0, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+window.addEventListener('load', function () { styleCell_fdo5gmf7ci9igsc4rs8o(13, 1, 'tinytable_css_idlbk1tpfbxt1z1uo0wet0') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_idiue3ca26wbkdee2daa2e, .table th.tinytable_css_idiue3ca26wbkdee2daa2e {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id50vht7ui55dgdqh14fj9, .table th.tinytable_css_id50vht7ui55dgdqh14fj9 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idlbk1tpfbxt1z1uo0wet0, .table th.tinytable_css_idlbk1tpfbxt1z1uo0wet0 {  text-align: left; }
+    .table td.tinytable_css_id1c2kuhqnss4v4cnlophw, .table th.tinytable_css_id1c2kuhqnss4v4cnlophw {  text-align: center; }
+    .table td.tinytable_css_idvdrfa4e9q3syy59m5qzu, .table th.tinytable_css_idvdrfa4e9q3syy59m5qzu {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idef3kjn703o7vem8th5fj, .table th.tinytable_css_idef3kjn703o7vem8th5fj {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_fdo5gmf7ci9igsc4rs8o" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内はp値</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(&lt;0.001)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227   </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.034) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60      </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075   </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059   </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6   </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9   </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800</td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727   </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29    </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div>
@@ -734,64 +892,138 @@
 <span id="cb6-3"><a></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
 <span id="cb6-4"><a></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078 (0.649)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;">Order</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.227 (0.105)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内は標準誤差</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_910x66vzinces6hapgex(i, j, css_id) {
+        var table = document.getElementById("tinytable_910x66vzinces6hapgex");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_910x66vzinces6hapgex');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_910x66vzinces6hapgex(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_910x66vzinces6hapgex");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(0, 0, 'tinytable_css_ids1p8z9ekcxq3lnkj7i5i') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(0, 1, 'tinytable_css_iduc1hq1dxsrjgu8a44cri') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(1, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(1, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(2, 0, 'tinytable_css_idmbjyeqxhwve1gyai1a54') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(2, 1, 'tinytable_css_id24rti6a2i6vwp4bbpwou') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(3, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(3, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(4, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(4, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(5, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(5, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(6, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(6, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(7, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(7, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(8, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(8, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(9, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(9, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(10, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(10, 1, 'tinytable_css_iddfl9zgwsmw4cm9g25pok') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(11, 0, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+window.addEventListener('load', function () { styleCell_910x66vzinces6hapgex(11, 1, 'tinytable_css_idwvftkk9pzpwllrq0ewc7') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_ids1p8z9ekcxq3lnkj7i5i, .table th.tinytable_css_ids1p8z9ekcxq3lnkj7i5i {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_iduc1hq1dxsrjgu8a44cri, .table th.tinytable_css_iduc1hq1dxsrjgu8a44cri {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idwvftkk9pzpwllrq0ewc7, .table th.tinytable_css_idwvftkk9pzpwllrq0ewc7 {  text-align: left; }
+    .table td.tinytable_css_iddfl9zgwsmw4cm9g25pok, .table th.tinytable_css_iddfl9zgwsmw4cm9g25pok {  text-align: center; }
+    .table td.tinytable_css_idmbjyeqxhwve1gyai1a54, .table th.tinytable_css_idmbjyeqxhwve1gyai1a54 {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id24rti6a2i6vwp4bbpwou, .table th.tinytable_css_id24rti6a2i6vwp4bbpwou {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_910x66vzinces6hapgex" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内は標準誤差</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 (0.649)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227 (0.105) </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60            </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075         </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059         </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6         </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9         </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800      </td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727         </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29          </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div>
@@ -803,64 +1035,138 @@
 <span id="cb7-3"><a></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
 <span id="cb7-4"><a></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は95%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078 [88.779, 91.377]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;">Order</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.227 [0.018, 0.437]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: center;">275.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: center;">281.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">−134.800</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">F</td>
-<td style="text-align: center;">4.727</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RMSE</td>
-<td style="text-align: center;">2.29</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内は95%信頼区間</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_vh7ol69ybrgm4pbh6p4u(i, j, css_id) {
+        var table = document.getElementById("tinytable_vh7ol69ybrgm4pbh6p4u");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_vh7ol69ybrgm4pbh6p4u');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_vh7ol69ybrgm4pbh6p4u(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_vh7ol69ybrgm4pbh6p4u");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(0, 0, 'tinytable_css_idf17ayed7no8gnxccmyng') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(0, 1, 'tinytable_css_idm7cwf65jitjfl8hvfyt8') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(1, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(1, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(2, 0, 'tinytable_css_idcild8tru3m8hndsktbqo') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(2, 1, 'tinytable_css_id6cj5ndmszj2q76lfuwhn') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(3, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(3, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(4, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(4, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(5, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(5, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(6, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(6, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(7, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(7, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(8, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(8, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(9, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(9, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(10, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(10, 1, 'tinytable_css_id2hpstv7feoxpyeuqj632') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(11, 0, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+window.addEventListener('load', function () { styleCell_vh7ol69ybrgm4pbh6p4u(11, 1, 'tinytable_css_idkbx9mxv6qils129gkfye') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_idf17ayed7no8gnxccmyng, .table th.tinytable_css_idf17ayed7no8gnxccmyng {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idm7cwf65jitjfl8hvfyt8, .table th.tinytable_css_idm7cwf65jitjfl8hvfyt8 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idkbx9mxv6qils129gkfye, .table th.tinytable_css_idkbx9mxv6qils129gkfye {  text-align: left; }
+    .table td.tinytable_css_id2hpstv7feoxpyeuqj632, .table th.tinytable_css_id2hpstv7feoxpyeuqj632 {  text-align: center; }
+    .table td.tinytable_css_idcild8tru3m8hndsktbqo, .table th.tinytable_css_idcild8tru3m8hndsktbqo {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id6cj5ndmszj2q76lfuwhn, .table th.tinytable_css_id6cj5ndmszj2q76lfuwhn {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_vh7ol69ybrgm4pbh6p4u" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内は95%信頼区間</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 [88.779, 91.377]</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227 [0.018, 0.437]   </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60                     </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075                  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059                  </td>
+                </tr>
+                <tr>
+                  <td>AIC        </td>
+                  <td>275.6                  </td>
+                </tr>
+                <tr>
+                  <td>BIC        </td>
+                  <td>281.9                  </td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.   </td>
+                  <td>-134.800               </td>
+                </tr>
+                <tr>
+                  <td>F          </td>
+                  <td>4.727                  </td>
+                </tr>
+                <tr>
+                  <td>RMSE       </td>
+                  <td>2.29                   </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div>
@@ -906,52 +1212,120 @@
 </div><div class="column" style="width:33%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">89.605 (&lt;0.001)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.258 (0.016)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;">−0.963 (0.128)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;">Duration</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">0.076 (0.381)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody><tfoot>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> 注：カッコ内はp値</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
+      function styleCell_16u7yslhvkpmfyzuank5(i, j, css_id) {
+        var table = document.getElementById("tinytable_16u7yslhvkpmfyzuank5");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_16u7yslhvkpmfyzuank5');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_16u7yslhvkpmfyzuank5(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_16u7yslhvkpmfyzuank5");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(0, 0, 'tinytable_css_iddkpkismheouu2hrosfjq') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(0, 1, 'tinytable_css_idfgx8mat2xvxtah42fj7h') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(1, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(1, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(2, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(2, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(3, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(3, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(4, 0, 'tinytable_css_idc19ljqxbg8hch7wdgzd8') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(4, 1, 'tinytable_css_idxfcdhy3tye6wavh3emhe') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(5, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(5, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(6, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(6, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(7, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(7, 1, 'tinytable_css_idwun1pw661mp933ntuwqf') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(8, 0, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+window.addEventListener('load', function () { styleCell_16u7yslhvkpmfyzuank5(8, 1, 'tinytable_css_idocpzxjg0ufjxv0lf0u3p') })
+    </script>
 
-
+    <style>
+    .table td.tinytable_css_iddkpkismheouu2hrosfjq, .table th.tinytable_css_iddkpkismheouu2hrosfjq {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idfgx8mat2xvxtah42fj7h, .table th.tinytable_css_idfgx8mat2xvxtah42fj7h {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idocpzxjg0ufjxv0lf0u3p, .table th.tinytable_css_idocpzxjg0ufjxv0lf0u3p {  text-align: left; }
+    .table td.tinytable_css_idwun1pw661mp933ntuwqf, .table th.tinytable_css_idwun1pw661mp933ntuwqf {  text-align: center; }
+    .table td.tinytable_css_idc19ljqxbg8hch7wdgzd8, .table th.tinytable_css_idc19ljqxbg8hch7wdgzd8 {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idxfcdhy3tye6wavh3emhe, .table th.tinytable_css_idxfcdhy3tye6wavh3emhe {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_16u7yslhvkpmfyzuank5" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan="2">注：カッコ内はp値</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>89.605 (&lt;0.001)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.258 (0.016)  </td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>-0.963 (0.128) </td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>0.076 (0.381)  </td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60             </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.144          </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.098          </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div></div>
@@ -967,86 +1341,190 @@
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
 <span id="cb11-2"><a></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Duration</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_24dme4tj1d7x8mh2xgwe(i, j, css_id) {
+        var table = document.getElementById("tinytable_24dme4tj1d7x8mh2xgwe");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_24dme4tj1d7x8mh2xgwe');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_24dme4tj1d7x8mh2xgwe(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_24dme4tj1d7x8mh2xgwe");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(0, 0, 'tinytable_css_idt843a66x1tlc8zemo7b7') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(0, 1, 'tinytable_css_idvqvcrknufp4iwumbxm3b') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(0, 2, 'tinytable_css_idvqvcrknufp4iwumbxm3b') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(0, 3, 'tinytable_css_idvqvcrknufp4iwumbxm3b') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(1, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(1, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(1, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(1, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(2, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(2, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(2, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(2, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(3, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(3, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(3, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(3, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(4, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(4, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(4, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(4, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(5, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(5, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(5, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(5, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(6, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(6, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(6, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(6, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(7, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(7, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(7, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(7, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(8, 0, 'tinytable_css_idv7o2rtur2yddgegjld9u') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(8, 1, 'tinytable_css_idqu7beja6i12lv8g662f8') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(8, 2, 'tinytable_css_idqu7beja6i12lv8g662f8') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(8, 3, 'tinytable_css_idqu7beja6i12lv8g662f8') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(9, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(9, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(9, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(9, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(10, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(10, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(10, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(10, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(11, 0, 'tinytable_css_idjchg83bwai7obzkk69fn') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(11, 1, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(11, 2, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+window.addEventListener('load', function () { styleCell_24dme4tj1d7x8mh2xgwe(11, 3, 'tinytable_css_idu4piv31p8lsxwq423oj6') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_idt843a66x1tlc8zemo7b7, .table th.tinytable_css_idt843a66x1tlc8zemo7b7 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idvqvcrknufp4iwumbxm3b, .table th.tinytable_css_idvqvcrknufp4iwumbxm3b {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idjchg83bwai7obzkk69fn, .table th.tinytable_css_idjchg83bwai7obzkk69fn {  text-align: left; }
+    .table td.tinytable_css_idu4piv31p8lsxwq423oj6, .table th.tinytable_css_idu4piv31p8lsxwq423oj6 {  text-align: center; }
+    .table td.tinytable_css_idv7o2rtur2yddgegjld9u, .table th.tinytable_css_idv7o2rtur2yddgegjld9u {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_idqu7beja6i12lv8g662f8, .table th.tinytable_css_idqu7beja6i12lv8g662f8 {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_24dme4tj1d7x8mh2xgwe" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+                <th scope="col">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div>
@@ -1055,86 +1533,190 @@
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
 <span id="cb12-2"><a></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Model 1</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;Model 2</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;Model 3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Order</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">First</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Duration</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_y56y0ywkqah1nt0t90wq(i, j, css_id) {
+        var table = document.getElementById("tinytable_y56y0ywkqah1nt0t90wq");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_y56y0ywkqah1nt0t90wq');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_y56y0ywkqah1nt0t90wq(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_y56y0ywkqah1nt0t90wq");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(0, 0, 'tinytable_css_id57x3f8wax83fpy43du09') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(0, 1, 'tinytable_css_idf1blxip7p9j6gh46q9t4') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(0, 2, 'tinytable_css_idf1blxip7p9j6gh46q9t4') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(0, 3, 'tinytable_css_idf1blxip7p9j6gh46q9t4') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(1, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(1, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(1, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(1, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(2, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(2, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(2, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(2, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(3, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(3, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(3, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(3, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(4, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(4, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(4, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(4, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(5, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(5, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(5, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(5, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(6, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(6, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(6, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(6, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(7, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(7, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(7, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(7, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(8, 0, 'tinytable_css_id4e2b6iwedmd4gsmc58hz') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(8, 1, 'tinytable_css_id96rizb4hzs1l428c1m1r') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(8, 2, 'tinytable_css_id96rizb4hzs1l428c1m1r') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(8, 3, 'tinytable_css_id96rizb4hzs1l428c1m1r') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(9, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(9, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(9, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(9, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(10, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(10, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(10, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(10, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(11, 0, 'tinytable_css_idx5fwgt9wwl0s2o3bxjt1') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(11, 1, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(11, 2, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+window.addEventListener('load', function () { styleCell_y56y0ywkqah1nt0t90wq(11, 3, 'tinytable_css_ids80500b1fvdmpiwu1gfq') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_id57x3f8wax83fpy43du09, .table th.tinytable_css_id57x3f8wax83fpy43du09 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idf1blxip7p9j6gh46q9t4, .table th.tinytable_css_idf1blxip7p9j6gh46q9t4 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idx5fwgt9wwl0s2o3bxjt1, .table th.tinytable_css_idx5fwgt9wwl0s2o3bxjt1 {  text-align: left; }
+    .table td.tinytable_css_ids80500b1fvdmpiwu1gfq, .table th.tinytable_css_ids80500b1fvdmpiwu1gfq {  text-align: center; }
+    .table td.tinytable_css_id4e2b6iwedmd4gsmc58hz, .table th.tinytable_css_id4e2b6iwedmd4gsmc58hz {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id96rizb4hzs1l428c1m1r, .table th.tinytable_css_id96rizb4hzs1l428c1m1r {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_y56y0ywkqah1nt0t90wq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Model 1</th>
+                <th scope="col">Model 2</th>
+                <th scope="col">Model 3</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>(Intercept)</td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>Order      </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>First      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>Duration   </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>           </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.   </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2         </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.    </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </div>
@@ -1152,86 +1734,190 @@
 <span id="cb13-5"><a></a>                             <span class="st">"Duration"</span>    <span class="ot">=</span> <span class="st">"結成からの経過年数"</span>),</span>
 <span id="cb13-6"><a></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table caption-top" data-quarto-postprocess="true" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">切片</td>
-<td style="text-align: center;">90.078</td>
-<td style="text-align: center;">90.570</td>
-<td style="text-align: center;">89.605</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.649)</td>
-<td style="text-align: center;">(0.684)</td>
-<td style="text-align: center;">(1.291)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">出場順番</td>
-<td style="text-align: center;">0.227</td>
-<td style="text-align: center;">0.245</td>
-<td style="text-align: center;">0.258</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.105)</td>
-<td style="text-align: center;">(0.103)</td>
-<td style="text-align: center;">(0.104)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">初出場ダミー</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">−1.136</td>
-<td style="text-align: center;">−0.963</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.590)</td>
-<td style="text-align: center;">(0.623)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">結成からの経過年数</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">0.076</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.086)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.075</td>
-<td style="text-align: center;">0.132</td>
-<td style="text-align: center;">0.144</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.059</td>
-<td style="text-align: center;">0.101</td>
-<td style="text-align: center;">0.098</td>
-</tr>
-</tbody>
-</table>
+<!-- preamble start -->
 
+    <script>
+      function styleCell_tubcs07o04n4q9elnn7w(i, j, css_id) {
+        var table = document.getElementById("tinytable_tubcs07o04n4q9elnn7w");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_tubcs07o04n4q9elnn7w');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tubcs07o04n4q9elnn7w(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_tubcs07o04n4q9elnn7w");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(0, 0, 'tinytable_css_idtyhgi0wlpiw2mvguana8') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(0, 1, 'tinytable_css_id9wzww2hl0dfzqoqiz14m') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(0, 2, 'tinytable_css_id9wzww2hl0dfzqoqiz14m') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(0, 3, 'tinytable_css_id9wzww2hl0dfzqoqiz14m') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(1, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(1, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(1, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(1, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(2, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(2, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(2, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(2, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(3, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(3, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(3, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(3, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(4, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(4, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(4, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(4, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(5, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(5, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(5, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(5, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(6, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(6, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(6, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(6, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(7, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(7, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(7, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(7, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(8, 0, 'tinytable_css_idy9irfvoao8or9ymxe48d') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(8, 1, 'tinytable_css_id0imm2w54by6uauzb1i7k') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(8, 2, 'tinytable_css_id0imm2w54by6uauzb1i7k') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(8, 3, 'tinytable_css_id0imm2w54by6uauzb1i7k') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(9, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(9, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(9, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(9, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(10, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(10, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(10, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(10, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(11, 0, 'tinytable_css_idijj1iykjyrnv8dgkc2co') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(11, 1, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(11, 2, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+window.addEventListener('load', function () { styleCell_tubcs07o04n4q9elnn7w(11, 3, 'tinytable_css_id67b4xdggpwbil4dyeuwm') })
+    </script>
 
+    <style>
+    .table td.tinytable_css_idtyhgi0wlpiw2mvguana8, .table th.tinytable_css_idtyhgi0wlpiw2mvguana8 {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_id9wzww2hl0dfzqoqiz14m, .table th.tinytable_css_id9wzww2hl0dfzqoqiz14m {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
+    .table td.tinytable_css_idijj1iykjyrnv8dgkc2co, .table th.tinytable_css_idijj1iykjyrnv8dgkc2co {  text-align: left; }
+    .table td.tinytable_css_id67b4xdggpwbil4dyeuwm, .table th.tinytable_css_id67b4xdggpwbil4dyeuwm {  text-align: center; }
+    .table td.tinytable_css_idy9irfvoao8or9ymxe48d, .table th.tinytable_css_idy9irfvoao8or9ymxe48d {  border-bottom: solid 0.05em black;  text-align: left; }
+    .table td.tinytable_css_id0imm2w54by6uauzb1i7k, .table th.tinytable_css_id0imm2w54by6uauzb1i7k {  border-bottom: solid 0.05em black;  text-align: center; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_tubcs07o04n4q9elnn7w" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+                <th scope="col">(3)</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>切片              </td>
+                  <td>90.078 </td>
+                  <td>90.570 </td>
+                  <td>89.605 </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>(0.649)</td>
+                  <td>(0.684)</td>
+                  <td>(1.291)</td>
+                </tr>
+                <tr>
+                  <td>出場順番          </td>
+                  <td>0.227  </td>
+                  <td>0.245  </td>
+                  <td>0.258  </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>(0.105)</td>
+                  <td>(0.103)</td>
+                  <td>(0.104)</td>
+                </tr>
+                <tr>
+                  <td>初出場ダミー      </td>
+                  <td>       </td>
+                  <td>-1.136 </td>
+                  <td>-0.963 </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>       </td>
+                  <td>(0.590)</td>
+                  <td>(0.623)</td>
+                </tr>
+                <tr>
+                  <td>結成からの経過年数</td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>0.076  </td>
+                </tr>
+                <tr>
+                  <td>                  </td>
+                  <td>       </td>
+                  <td>       </td>
+                  <td>(0.086)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.          </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                  <td>60     </td>
+                </tr>
+                <tr>
+                  <td>R2                </td>
+                  <td>0.075  </td>
+                  <td>0.132  </td>
+                  <td>0.144  </td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.           </td>
+                  <td>0.059  </td>
+                  <td>0.101  </td>
+                  <td>0.098  </td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 </section>
@@ -1351,8 +2037,8 @@
      0     91.8      0.436 211   &lt;0.001 Inf    91   92.7   5.5     10.6
      1     90.9      0.421 216   &lt;0.001 Inf    90   91.7   5.5     10.6
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, Duration, First 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Order, Duration, First, Score_Mean </code></pre>
 </div>
 </div>
 <ul>
@@ -1381,8 +2067,8 @@ Type:  response </code></pre>
      0     5        5     91.3      0.725 126   &lt;0.001 Inf  89.9   92.7
      1     5        5     90.3      0.572 158   &lt;0.001 Inf  89.2   91.4
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Order, Duration 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, First, Order, Duration, Score_Mean </code></pre>
 </div>
 </div>
 </section>
@@ -1399,9 +2085,9 @@ Type:  response </code></pre>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high Score_Mean First Order Duration
-1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541   91.32857     0     5        5
-2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246   91.32857     1     5        5</code></pre>
+<pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high First Order Duration Score_Mean
+1     1 91.27377 0.7253367  125.8364       0     Inf 89.85214  92.69541     0     5        5   89.42857
+2     2 90.31063 0.5723738  157.7826       0     Inf 89.18880  91.43246     1     5        5   89.42857</code></pre>
 </div>
 </div>
 <ul>
@@ -1483,19 +2169,19 @@ Type:  response </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Order Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % First Duration
-     1     90.2      0.553 163   &lt;0.001 Inf  89.1   91.2 0.517     10.6
-     2     90.4      0.468 193   &lt;0.001 Inf  89.5   91.3 0.517     10.6
-     3     90.7      0.393 231   &lt;0.001 Inf  89.9   91.5 0.517     10.6
-     4     90.9      0.333 273   &lt;0.001 Inf  90.3   91.6 0.517     10.6
-     5     91.2      0.299 305   &lt;0.001 Inf  90.6   91.8 0.517     10.6
-     6     91.5      0.299 306   &lt;0.001 Inf  90.9   92.0 0.517     10.6
-     7     91.7      0.333 275   &lt;0.001 Inf  91.1   92.4 0.517     10.6
-     8     92.0      0.393 234   &lt;0.001 Inf  91.2   92.7 0.517     10.6
-     9     92.2      0.468 197   &lt;0.001 Inf  91.3   93.1 0.517     10.6
-    10     92.5      0.553 167   &lt;0.001 Inf  91.4   93.6 0.517     10.6
+     1     89.7      0.637 141   &lt;0.001 Inf  88.5   90.9     1     10.6
+     2     90.0      0.563 160   &lt;0.001 Inf  88.9   91.1     1     10.6
+     3     90.2      0.500 180   &lt;0.001 Inf  89.2   91.2     1     10.6
+     4     90.5      0.453 200   &lt;0.001 Inf  89.6   91.4     1     10.6
+     5     90.7      0.425 213   &lt;0.001 Inf  89.9   91.6     1     10.6
+     6     91.0      0.423 215   &lt;0.001 Inf  90.2   91.8     1     10.6
+     7     91.3      0.445 205   &lt;0.001 Inf  90.4   92.1     1     10.6
+     8     91.5      0.489 187   &lt;0.001 Inf  90.5   92.5     1     10.6
+     9     91.8      0.549 167   &lt;0.001 Inf  90.7   92.8     1     10.6
+    10     92.0      0.621 148   &lt;0.001 Inf  90.8   93.2     1     10.6
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, First, Duration, Order 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, First, Duration, Order, Score_Mean </code></pre>
 </div>
 </div>
 </section>
@@ -1525,24 +2211,24 @@ Type:  response </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Duration Estimate Std. Error   z Pr(&gt;|z|)   S 2.5 % 97.5 % Order First
-        2     90.7      0.793 114   &lt;0.001 Inf  89.1   92.2   5.5 0.517
-        3     90.8      0.714 127   &lt;0.001 Inf  89.4   92.2   5.5 0.517
-        4     90.8      0.637 143   &lt;0.001 Inf  89.6   92.1   5.5 0.517
-        5     90.9      0.563 162   &lt;0.001 Inf  89.8   92.0   5.5 0.517
-        6     91.0      0.492 185   &lt;0.001 Inf  90.0   91.9   5.5 0.517
-        7     91.1      0.426 214   &lt;0.001 Inf  90.2   91.9   5.5 0.517
-        8     91.1      0.369 247   &lt;0.001 Inf  90.4   91.9   5.5 0.517
-        9     91.2      0.325 281   &lt;0.001 Inf  90.6   91.8   5.5 0.517
-       10     91.3      0.299 306   &lt;0.001 Inf  90.7   91.9   5.5 0.517
-       11     91.4      0.296 308   &lt;0.001 Inf  90.8   91.9   5.5 0.517
-       12     91.4      0.318 288   &lt;0.001 Inf  90.8   92.1   5.5 0.517
-       13     91.5      0.359 255   &lt;0.001 Inf  90.8   92.2   5.5 0.517
-       14     91.6      0.414 221   &lt;0.001 Inf  90.8   92.4   5.5 0.517
-       15     91.7      0.478 192   &lt;0.001 Inf  90.7   92.6   5.5 0.517
-       16     91.7      0.548 167   &lt;0.001 Inf  90.7   92.8   5.5 0.517
+        2     90.2      0.762 118   &lt;0.001 Inf  88.7   91.7   5.5     1
+        3     90.3      0.691 131   &lt;0.001 Inf  88.9   91.6   5.5     1
+        4     90.4      0.624 145   &lt;0.001 Inf  89.1   91.6   5.5     1
+        5     90.4      0.563 161   &lt;0.001 Inf  89.3   91.5   5.5     1
+        6     90.5      0.508 178   &lt;0.001 Inf  89.5   91.5   5.5     1
+        7     90.6      0.462 196   &lt;0.001 Inf  89.7   91.5   5.5     1
+        8     90.7      0.430 211   &lt;0.001 Inf  89.8   91.5   5.5     1
+        9     90.7      0.412 220   &lt;0.001 Inf  89.9   91.6   5.5     1
+       10     90.8      0.412 220   &lt;0.001 Inf  90.0   91.6   5.5     1
+       11     90.9      0.430 211   &lt;0.001 Inf  90.1   91.7   5.5     1
+       12     91.0      0.463 197   &lt;0.001 Inf  90.1   91.9   5.5     1
+       13     91.0      0.508 179   &lt;0.001 Inf  90.0   92.0   5.5     1
+       14     91.1      0.563 162   &lt;0.001 Inf  90.0   92.2   5.5     1
+       15     91.2      0.625 146   &lt;0.001 Inf  90.0   92.4   5.5     1
+       16     91.3      0.692 132   &lt;0.001 Inf  89.9   92.6   5.5     1
 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Score_Mean, Order, First, Duration 
-Type:  response </code></pre>
+Type:  response 
+Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Order, First, Duration, Score_Mean </code></pre>
 </div>
 </div>
 </section>
