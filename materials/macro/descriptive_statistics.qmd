@@ -208,6 +208,7 @@ df |>
 | 野田 | 早稲田 |
 | 菅   | 法政   |
 | 岸田 | 早稲田 |
+| 石破 | 慶應   |
 
 : 「出身」変数をダミー化する前 {#tbl-dummy1}
 
@@ -225,6 +226,7 @@ df |>
 | 野田 | 1      | 0    | 0      | 0    | 0    | 0    | 0    |
 | 菅   | 0      | 0    | 0      | 0    | 0    | 0    | 1    |
 | 岸田 | 1      | 0    | 0      | 0    | 0    | 0    | 0    |
+| 石破 | 0      | 1    | 0      | 0    | 0    | 0    | 0    |
 
 : 「出身」変数をダミー化した後 {#tbl-dummy2}
 
@@ -375,7 +377,7 @@ df |>
         transpose = TRUE, order = "p")
 ```
 
-　それでは名目変数を含めた記述統計表を作成してみよう。`df`ダミー化を済ませてから`descr()`に渡せば良い。記述統計表は`desc_stat`という名のオブジェクトとして作業環境内に格納する。
+　それでは名目変数を含めた記述統計表を作成してみよう。`df`の`Gender`と`VotedParty`変数のダミー化を済ませてから`descr()`に渡せば良い。記述統計表は`desc_stat`という名のオブジェクトとして作業環境内に格納する。
 
 ```{r}
 #| filename: "Code 26"
@@ -388,6 +390,7 @@ desc_stat <- df |>
   dummy_cols(c("Gender", "VotedParty"), ignore_na = TRUE,
              # 以下の引数を追加すると元の変数が自動的に削除される
              remove_selected_columns = TRUE) |>
+  # Gender_MaleとGender_Femaleの変数名を変更し、ID列の後ろに移動させる。
   relocate(Male   = Gender_Male,
            Female = Gender_Female,
            .after = ID) |>

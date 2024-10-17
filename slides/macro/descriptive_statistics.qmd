@@ -42,6 +42,7 @@ df <- read_csv("Data/descstat_data.csv")
    * 「うちのクラスの数学成績は82点、45点、69点です！」で良い
 * **例2)** あるクラス（30人）の数学成績が82点、45点、69点、94点、...、63点なら
    * 「うちのクラスの数学成績は82点、45点、69点、94点、...、63点です！」は長い
+      - こんな人と友達になりたくない。
    * 「うちのクラスの数学成績は平均して75点で、標準偏差は8点です。」
 
 ## 実習の準備
@@ -172,8 +173,6 @@ df2 |>
   tab_options(table.font.size = 32)
 ```
 
-<!-- -->
-
 ## {summarytools}の利用（1）
 
 * {summarytools}の`descr()`関数
@@ -202,8 +201,6 @@ df2 |>
   descr()
 ```
 :::
-
-<!-- -->
 
 ## {summarytools}の利用（2）
 
@@ -486,14 +483,82 @@ df3 |>
 投票先ごとの民進党に対する感情温度
 
 ```{r}
-df3 |>
+temp_by_party <- df3 |>
   # VotedParty_Fの値が欠損している行を除外
   drop_na(VotedParty_F) |> 
   group_by(VotedParty_F) |>
   summarise(T_Minshin = mean(T_Minshin))
+
+temp_by_party
 ```
 :::
 ::::
+
+## グループごとの記述統計量（可視化）
+
+:::{.panel-tabset}
+## 棒グラフ（コード）
+
+```{r}
+#| eval: false
+temp_by_party |> 
+  ggplot() +
+  geom_col(aes(x = VotedParty_F, y = T_Minshin)) +
+  labs(x = "投票先", y = "民進党に対する感情温度の平均値（度）") +
+  theme_bw(base_size = 14)
+```
+
+## 棒グラフ（結果）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+temp_by_party |> 
+  ggplot() +
+  geom_col(aes(x = VotedParty_F, y = T_Minshin)) +
+  labs(x = "投票先", y = "民進党に対する感情温度の平均値（度）") +
+  theme_bw(base_size = 14)
+```
+
+## 箱ひげ図（コード）
+
+```{r}
+#| eval: false
+df3 |> 
+  drop_na(VotedParty_F) |> 
+  ggplot() +
+  geom_boxplot(aes(x = VotedParty_F, y = T_Minshin)) +
+  labs(x = "投票先", y = "民進党に対する感情温度（度）") +
+  theme_bw(base_size = 14)
+```
+
+## 箱ひげ図（結果）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+df3 |> 
+  drop_na(VotedParty_F) |> 
+  ggplot() +
+  geom_boxplot(aes(x = VotedParty_F, y = T_Minshin)) +
+  labs(x = "投票先", y = "民進党に対する感情温度（度）") +
+  theme_bw(base_size = 14)
+```
+:::
+
+## まとめ
+
+1. 分析に使われる変数を決める。
+1. 名目変数はダミー変数に変換する。
+   - `if_else()`か{fastDummies}パッケージを使用
+   - 例外）たとえば居住都道府県の変数はダミー変数に変換するとは47個のダミー変数ができてしまうので、このように項目数が非常に多い名目変数は省略するか、別途の棒グラフなどで分布を示す。
+   - 省略の場合、その旨を明記すること。
+1. 記述統計量を計算する。
+   - {summarytools}パッケージなどを使用しても良い。
+   - 報告する記述統計量：平均値、標準偏差、最小値、最大値、有効ケース数（欠損値がない場合、省略可）
+1. **読者にとって読みやすい**表に加工する。
 
 ## 教科書との対応
 

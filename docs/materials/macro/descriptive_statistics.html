@@ -348,6 +348,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
+ <span class="dropdown-text">[後期] 第4回課題</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -879,6 +883,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <td style="text-align: left;">岸田</td>
 <td style="text-align: left;">早稲田</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">石破</td>
+<td style="text-align: left;">慶應</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1023,6 +1031,16 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <td style="text-align: left;">岸田</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">石破</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
@@ -1394,7 +1412,7 @@ N: 3000
        T_Minshin   34.25     25.95    0.00   100.00   3000.00</code></pre>
 </div>
 </div>
-<p>　それでは名目変数を含めた記述統計表を作成してみよう。<code>df</code>ダミー化を済ませてから<code>descr()</code>に渡せば良い。記述統計表は<code>desc_stat</code>という名のオブジェクトとして作業環境内に格納する。</p>
+<p>　それでは名目変数を含めた記述統計表を作成してみよう。<code>df</code>の<code>Gender</code>と<code>VotedParty</code>変数のダミー化を済ませてから<code>descr()</code>に渡せば良い。記述統計表は<code>desc_stat</code>という名のオブジェクトとして作業環境内に格納する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1409,15 +1427,16 @@ N: 3000
 <span id="cb48-7"><a href="#cb48-7"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"VotedParty"</span>), <span class="at">ignore_na =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb48-8"><a href="#cb48-8"></a>             <span class="co"># 以下の引数を追加すると元の変数が自動的に削除される</span></span>
 <span id="cb48-9"><a href="#cb48-9"></a>             <span class="at">remove_selected_columns =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-10"><a href="#cb48-10"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
-<span id="cb48-11"><a href="#cb48-11"></a>           <span class="at">Female =</span> Gender_Female,</span>
-<span id="cb48-12"><a href="#cb48-12"></a>           <span class="at">.after =</span> ID) <span class="sc">|&gt;</span></span>
-<span id="cb48-13"><a href="#cb48-13"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted) <span class="sc">|&gt;</span></span>
-<span id="cb48-14"><a href="#cb48-14"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
-<span id="cb48-15"><a href="#cb48-15"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb48-16"><a href="#cb48-16"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span>
-<span id="cb48-17"><a href="#cb48-17"></a></span>
-<span id="cb48-18"><a href="#cb48-18"></a>desc_stat</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-10"><a href="#cb48-10"></a>  <span class="co"># Gender_MaleとGender_Femaleの変数名を変更し、ID列の後ろに移動させる。</span></span>
+<span id="cb48-11"><a href="#cb48-11"></a>  <span class="fu">relocate</span>(<span class="at">Male   =</span> Gender_Male,</span>
+<span id="cb48-12"><a href="#cb48-12"></a>           <span class="at">Female =</span> Gender_Female,</span>
+<span id="cb48-13"><a href="#cb48-13"></a>           <span class="at">.after =</span> ID) <span class="sc">|&gt;</span></span>
+<span id="cb48-14"><a href="#cb48-14"></a>  <span class="fu">relocate</span>(<span class="fu">starts_with</span>(<span class="st">"VotedParty"</span>), <span class="at">.after =</span> Voted) <span class="sc">|&gt;</span></span>
+<span id="cb48-15"><a href="#cb48-15"></a>  <span class="fu">select</span>(<span class="sc">-</span>ID) <span class="sc">|&gt;</span></span>
+<span id="cb48-16"><a href="#cb48-16"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb48-17"><a href="#cb48-17"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span>
+<span id="cb48-18"><a href="#cb48-18"></a></span>
+<span id="cb48-19"><a href="#cb48-19"></a>desc_stat</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
@@ -1453,23 +1472,23 @@ N: 3000
 <span id="cb50-5"><a href="#cb50-5"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="co"># 2列、3列の値は小数点3桁まで</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell-output-display">
-<div id="hycxwcpwmx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hycxwcpwmx table {
+<div id="yjqmnrptuf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yjqmnrptuf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hycxwcpwmx thead, #hycxwcpwmx tbody, #hycxwcpwmx tfoot, #hycxwcpwmx tr, #hycxwcpwmx td, #hycxwcpwmx th {
+#yjqmnrptuf thead, #yjqmnrptuf tbody, #yjqmnrptuf tfoot, #yjqmnrptuf tr, #yjqmnrptuf td, #yjqmnrptuf th {
   border-style: none;
 }
 
-#hycxwcpwmx p {
+#yjqmnrptuf p {
   margin: 0;
   padding: 0;
 }
 
-#hycxwcpwmx .gt_table {
+#yjqmnrptuf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1495,12 +1514,12 @@ N: 3000
   border-left-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_caption {
+#yjqmnrptuf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hycxwcpwmx .gt_title {
+#yjqmnrptuf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1512,7 +1531,7 @@ N: 3000
   border-bottom-width: 0;
 }
 
-#hycxwcpwmx .gt_subtitle {
+#yjqmnrptuf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1524,7 +1543,7 @@ N: 3000
   border-top-width: 0;
 }
 
-#hycxwcpwmx .gt_heading {
+#yjqmnrptuf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1536,13 +1555,13 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_bottom_border {
+#yjqmnrptuf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_col_headings {
+#yjqmnrptuf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1557,7 +1576,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_col_heading {
+#yjqmnrptuf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1577,7 +1596,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-#hycxwcpwmx .gt_column_spanner_outer {
+#yjqmnrptuf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1589,15 +1608,15 @@ N: 3000
   padding-right: 4px;
 }
 
-#hycxwcpwmx .gt_column_spanner_outer:first-child {
+#yjqmnrptuf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hycxwcpwmx .gt_column_spanner_outer:last-child {
+#yjqmnrptuf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hycxwcpwmx .gt_column_spanner {
+#yjqmnrptuf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1609,11 +1628,11 @@ N: 3000
   width: 100%;
 }
 
-#hycxwcpwmx .gt_spanner_row {
+#yjqmnrptuf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hycxwcpwmx .gt_group_heading {
+#yjqmnrptuf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1639,7 +1658,7 @@ N: 3000
   text-align: left;
 }
 
-#hycxwcpwmx .gt_empty_group_heading {
+#yjqmnrptuf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1654,15 +1673,15 @@ N: 3000
   vertical-align: middle;
 }
 
-#hycxwcpwmx .gt_from_md > :first-child {
+#yjqmnrptuf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hycxwcpwmx .gt_from_md > :last-child {
+#yjqmnrptuf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hycxwcpwmx .gt_row {
+#yjqmnrptuf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1681,7 +1700,7 @@ N: 3000
   overflow-x: hidden;
 }
 
-#hycxwcpwmx .gt_stub {
+#yjqmnrptuf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1694,7 +1713,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#hycxwcpwmx .gt_stub_row_group {
+#yjqmnrptuf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1708,15 +1727,15 @@ N: 3000
   vertical-align: top;
 }
 
-#hycxwcpwmx .gt_row_group_first td {
+#yjqmnrptuf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hycxwcpwmx .gt_row_group_first th {
+#yjqmnrptuf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hycxwcpwmx .gt_summary_row {
+#yjqmnrptuf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1726,16 +1745,16 @@ N: 3000
   padding-right: 5px;
 }
 
-#hycxwcpwmx .gt_first_summary_row {
+#yjqmnrptuf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_first_summary_row.thick {
+#yjqmnrptuf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hycxwcpwmx .gt_last_summary_row {
+#yjqmnrptuf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1745,7 +1764,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_grand_summary_row {
+#yjqmnrptuf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1755,7 +1774,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#hycxwcpwmx .gt_first_grand_summary_row {
+#yjqmnrptuf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1765,7 +1784,7 @@ N: 3000
   border-top-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_last_grand_summary_row_top {
+#yjqmnrptuf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1775,11 +1794,11 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_striped {
+#yjqmnrptuf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hycxwcpwmx .gt_table_body {
+#yjqmnrptuf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1788,7 +1807,7 @@ N: 3000
   border-bottom-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_footnotes {
+#yjqmnrptuf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1802,7 +1821,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_footnote {
+#yjqmnrptuf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1811,7 +1830,7 @@ N: 3000
   padding-right: 5px;
 }
 
-#hycxwcpwmx .gt_sourcenotes {
+#yjqmnrptuf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1825,7 +1844,7 @@ N: 3000
   border-right-color: #D3D3D3;
 }
 
-#hycxwcpwmx .gt_sourcenote {
+#yjqmnrptuf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1833,71 +1852,80 @@ N: 3000
   padding-right: 5px;
 }
 
-#hycxwcpwmx .gt_left {
+#yjqmnrptuf .gt_left {
   text-align: left;
 }
 
-#hycxwcpwmx .gt_center {
+#yjqmnrptuf .gt_center {
   text-align: center;
 }
 
-#hycxwcpwmx .gt_right {
+#yjqmnrptuf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hycxwcpwmx .gt_font_normal {
+#yjqmnrptuf .gt_font_normal {
   font-weight: normal;
 }
 
-#hycxwcpwmx .gt_font_bold {
+#yjqmnrptuf .gt_font_bold {
   font-weight: bold;
 }
 
-#hycxwcpwmx .gt_font_italic {
+#yjqmnrptuf .gt_font_italic {
   font-style: italic;
 }
 
-#hycxwcpwmx .gt_super {
+#yjqmnrptuf .gt_super {
   font-size: 65%;
 }
 
-#hycxwcpwmx .gt_footnote_marks {
+#yjqmnrptuf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hycxwcpwmx .gt_asterisk {
+#yjqmnrptuf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hycxwcpwmx .gt_indent_1 {
+#yjqmnrptuf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hycxwcpwmx .gt_indent_2 {
+#yjqmnrptuf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hycxwcpwmx .gt_indent_3 {
+#yjqmnrptuf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hycxwcpwmx .gt_indent_4 {
+#yjqmnrptuf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hycxwcpwmx .gt_indent_5 {
+#yjqmnrptuf .gt_indent_5 {
   text-indent: 25px;
+}
+
+#yjqmnrptuf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#yjqmnrptuf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 
 <table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
 <th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean</th>
 <th id="Std.Dev" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Std.Dev</th>
 <th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Min</th>
