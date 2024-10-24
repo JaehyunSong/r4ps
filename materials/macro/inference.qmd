@@ -190,3 +190,227 @@ t.test(df$Temp_Ishin, conf.level = 0.95)
 ```
 
 　手計算（？）と同じ結果が得られることが分かる。
+
+## 付録）95%信頼区間の意味
+
+　ここでは95%信頼区間の意味をシミュレーションで確認してみよう。100人のクラスを想定し、このクラスを母集団とする。そして我々が知りたいのは100人の平均成績だとする。まずは、架空のデータを作ってみよう。コードの意味は説明しないが、100人の学生IDと成績が格納された`class_df`という名のデータフレームが作られる。
+
+```{r}
+set.seed(1986)
+class_df <- tibble(ID = 1:100, Score = rnorm(100, 50, 10))
+class_df
+```
+
+　この100人の成績が我々が本当に知りたいパラメーター（真の値）であり、それが`r round(mean(class_df$Score), 5)`点だ。
+
+```{r}
+mean(class_df$Score) # 母集団におけるScoreの平均値
+```
+
+　ここから30人を無作為抽出（復元抽出）してみよう。{dplyr}の`slice_sample()`関数を使えば簡単だ。30人を抽出する場合は`n = 30`を指定し、復元抽出を行うために`replace = TRUE`も付ける（既定値は`replace = FALSE`）。抽出済みデータは`temp_class_df`と名付ける。
+
+```{r}
+temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+
+temp_class_df
+```
+
+　`class_df`から30人のデータが無作為抽出（復元抽出）された。続いて、`temp_class_df`を使って`Score`列の平均値と95%信頼区間を求めてみよう。
+
+```{r}
+t.test(temp_class_df$Score)
+```
+
+　平均値は約48.7426、95%信頼区間の下限と上限はそれぞれ約45.17389、52.31132であることが分かった。そして、この区間内には母集団における成績の平均値（50.96141）が含まれている。
+
+　同じような作業をもう一度やってみよう。
+
+```{r}
+temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+
+temp_class_df
+```
+
+　上書きされた`temp_class_df`は`class_df`から新しく無作為抽出されたものであることが分かる。もう一度、`temp_class_df`を使って`Score`列の平均値と95%信頼区間を求めてみよう。
+
+```{r}
+t.test(temp_class_df$Score)
+```
+
+　平均値は約49.44033、95%信頼区間の下限と上限はそれぞれ約45.39364、53.48703であり、この区間内に50.96141が含まれている。もう一度同じことをやってみよう。
+
+```{r}
+temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+
+t.test(temp_class_df$Score)
+```
+
+　以上の3回の結果をまとめたものが以下の表だ。
+
+```{r}
+#| echo: false
+tibble(trials = 1:3,
+       mean   = c(48.74260, 49.44033, 52.67177),
+       lower  = c(45.17389, 45.39364, 49.44786),
+       upper  = c(52.31132, 53.48703, 55.89568),
+       inout  = rep("含まれる", 3)) |> 
+  gt() |> 
+  cols_label(trials = "施行",
+             mean   = "平均値",
+             lower  = "下限",
+             upper  = "上限",
+             inout  = "95%信頼区間内に50.96141が") |> 
+  fmt_number(columns = 2:4, decimals = 3) |> 
+  tab_spanner(columns = 3:4, label = "95%信頼区間") |> 
+  cols_align(columns = inout, align = "center")
+```
+
+　以下は上記の表を可視化したものである。点が各施行における成績の平均値、水平線は95%信頼区間を意味する。黒い垂直線は100人の母集団における成績の平均値（50.96141点）である。いずれも母集団の平均値（パラメーター）が含まれていることが分かる。
+
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 3
+tibble(trials = 1:3,
+       mean   = c(48.74260, 49.44033, 52.67177),
+       lower  = c(45.17389, 45.39364, 49.44786),
+       upper  = c(52.31132, 53.48703, 55.89568),
+       inout  = rep("含まれる", 3)) |> 
+  ggplot() +
+  geom_vline(xintercept = 50.96141) +
+  geom_pointrange(aes(y = trials, x = mean, xmin = lower, xmax = upper,
+                      color = inout)) +
+  labs(x = "サンプルの平均値と95%信頼区間\n（母集団の平均値: 50.96141）", y = "施行",
+       color = "95%信頼区間内に50.96141が") +
+  scale_y_continuous(breaks = 1:3, labels = 1:3) +
+  theme_bw(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+　この作業を3回でなく、10回やってみよう。以下のコードは理解できなくても良い。大事なのは、これまでやったことを3回でなく、10回やるということだ。
+
+```{r}
+temp_mean  <- c()
+temp_lower <- c()
+temp_upper <- c()
+
+for (i in 1:10) {
+  temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+  
+  temp_mean[i]  <- t.test(temp_class_df$Score)$estimate
+  temp_lower[i] <- t.test(temp_class_df$Score)$conf.int[1]
+  temp_upper[i] <- t.test(temp_class_df$Score)$conf.int[2]
+}
+
+sim_df <- tibble(trial = 1:10,
+                 mean  = temp_mean,
+                 lower = temp_lower,
+                 upper = temp_upper)
+
+sim_df
+```
+
+　2回目の施行では95%信頼区間が母集団の平均値を含まないが、残りの9回分では含まれていることが分かる。可視化したら以下のような図になる。
+
+```{r}
+sim_df |> 
+  mutate(inout = if_else(lower <= 50.96141 & upper >= 50.96141, "いる", "いない")) |> 
+  ggplot() +
+  geom_vline(xintercept = 50.96141) +
+  geom_pointrange(aes(y = trial, x = mean, xmin = lower, xmax = upper, color = inout)) +
+  labs(x = "サンプルの平均値と95%信頼区間\n（母集団の平均値: 50.96141）", y = "施行",
+       color = "95%信頼区間に50.96141が含まれて") +
+  scale_y_continuous(breaks = 1:10, labels = 1:10) +
+  theme_bw(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+　100回ならどうだろう。
+
+```{r}
+temp_mean  <- c()
+temp_lower <- c()
+temp_upper <- c()
+
+for (i in 1:100) {
+  temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+  
+  temp_mean[i]  <- t.test(temp_class_df$Score)$estimate
+  temp_lower[i] <- t.test(temp_class_df$Score)$conf.int[1]
+  temp_upper[i] <- t.test(temp_class_df$Score)$conf.int[2]
+}
+
+sim_df <- tibble(trial = 1:100,
+                 mean  = temp_mean,
+                 lower = temp_lower,
+                 upper = temp_upper)
+
+sim_df
+```
+
+```{r}
+#| fig-height: 10
+#| fig-width: 5
+sim_df |> 
+  mutate(inout = if_else(lower <= 50.96141 & upper >= 50.96141, "いる", "いない")) |> 
+  ggplot() +
+  geom_vline(xintercept = 50.96141) +
+  geom_pointrange(aes(y = trial, x = mean, xmin = lower, xmax = upper, color = inout)) +
+  labs(x = "サンプルの平均値と95%信頼区間\n（母集団の平均値: 50.96141）", y = "施行",
+       color = "95%信頼区間に50.96141が含まれて") +
+  theme_bw(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+　95%信頼区間に母集団の平均値が含まれていない施行は2回だけである。これが100回でなく、10000回になったらどうだろうか。以下はその結果である。
+
+```{r}
+temp_mean  <- c()
+temp_lower <- c()
+temp_upper <- c()
+
+for (i in 1:10000) {
+  temp_class_df <- class_df |> 
+  slice_sample(n = 30, replace = TRUE)
+  
+  temp_mean[i]  <- t.test(temp_class_df$Score)$estimate
+  temp_lower[i] <- t.test(temp_class_df$Score)$conf.int[1]
+  temp_upper[i] <- t.test(temp_class_df$Score)$conf.int[2]
+}
+
+sim_df <- tibble(trial = 1:10000,
+                 mean  = temp_mean,
+                 lower = temp_lower,
+                 upper = temp_upper)
+
+sim_df
+```
+
+　1万本のPoint-rangeが並んでいるため、95%信頼区間が母集団の平均値を含む施行が何回あったのかは図からは分かりにくい。
+
+```{r}
+#| fig-height: 10
+#| fig-width: 5
+sim_df |> 
+  mutate(inout = if_else(lower <= 50.96141 & upper >= 50.96141, "いる", "いない")) |> 
+  ggplot() +
+  geom_vline(xintercept = 50.96141) +
+  geom_pointrange(aes(y = trial, x = mean, xmin = lower, xmax = upper, color = inout)) +
+  labs(x = "サンプルの平均値と95%信頼区間\n（母集団の平均値: 50.96141）", y = "施行",
+       color = "95%信頼区間に50.96141が含まれて") +
+  theme_bw(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+　具体的に何回なのかを数えるのは実質不可能だから、直接計算するしかない。
+
+```{r}
+sum(sim_df$lower <= 50.96141 & sim_df$upper >= 50.96141)
+```
+
+　95%信頼区間に母集団の平均値が含まれている施行は計9492回である。割合から見ると94.9%だ。これが1万回でなく、無限回ならこの割合は95%になる。これが「**95%の95%信頼区間にパラメーターが含まれている**」ということの意味だ。逆に90%信頼区間であれば「90%の90%信頼区間にパラメーターが含まれている」ことになろう。
