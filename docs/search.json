@@ -4742,7 +4742,7 @@
     "href": "slides/macro/nhts.html#問題設定",
     "title": "マクロ政治データ分析実習",
     "section": "問題設定",
-    "text": "問題設定\n\n　あるソシャゲにおいて★5のキャラクター（SSR）をガチャで引ける確率は5%であると知られている。そこでプレイヤー100人が行った4772回分のガチャ記録（\\(n\\) = 4772）を入手し、調べた結果、SSRは227回（= 4.757%）出現した。SSRが引けた場合1、引けなかった場合を0とした場合、標本不偏分散の平方根（\\(u\\)）は0.213であった。約0.243%ポイントの差（= 5 - 4.757）ではあるものの、怪しい。このガチャからSSRが引ける確率は本当に5%だろうか。\n\n\n\n\n\n\n\n表 1: 公式ホームページ上の情報\n\n\n\n\n\n\n\n\n\nレア度\n獲得確率\n\n\n\n\nN (★★)\n55%\n\n\nR (★★★)\n25%\n\n\nSR (★★★★)\n15%\n\n\nSSR (★★★★★)\n5%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n表 2: 実際の結果\n\n\n\n\n\n\n\n\n\nレア度\n出現回数 (枚)\n割合 (%)\n累積割合 (%)\n\n\n\n\nN\n2657\n55.7\n55.7\n\n\nR\n1188\n24.9\n80.6\n\n\nSR\n700\n14.7\n95.2\n\n\nSSR\n227\n4.8\n100.0\n\n\n計\n4772\n100.0\n\n\n\n\n\n\n\n\n\n\n\n\n\n参考: 変数が0または1の値のみを取る場合、これから紹介する「\\(t\\)検定」でなく、「母比率の検定」を使うのが適切であるが、ここではより汎用性の高い\\(t\\)検定の例で紹介する。母比率の検定（prop.test()）についてはサポートページの講義資料を参照すること。"
+    "text": "問題設定\n\n　あるソシャゲにおいて★5のキャラクター（SSR）をガチャで引ける確率は5%であると知られている。そこでプレイヤー100人が行った4772回分のガチャ記録（\\(n\\) = 4772）を入手し、調べた結果、SSRは227回（= 4.757%）出現した。SSRが引けた場合1、引けなかった場合を0とした場合、標本不偏分散の平方根（\\(u\\); 以降、「標準偏差」）は0.213であった。約0.243%ポイントの差（= 5 - 4.757）ではあるものの、怪しい。このガチャからSSRが引ける確率は本当に5%だろうか。\n\n\n\n\n\n\n\n表 1: 公式ホームページ上の情報\n\n\n\n\n\n\n\n\n\nレア度\n獲得確率\n\n\n\n\nN (★★)\n55%\n\n\nR (★★★)\n25%\n\n\nSR (★★★★)\n15%\n\n\nSSR (★★★★★)\n5%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n表 2: 実際の結果\n\n\n\n\n\n\n\n\n\nレア度\n出現回数 (枚)\n割合 (%)\n累積割合 (%)\n\n\n\n\nN\n2657\n55.7\n55.7\n\n\nR\n1188\n24.9\n80.6\n\n\nSR\n700\n14.7\n95.2\n\n\nSSR\n227\n4.8\n100.0\n\n\n計\n4772\n100.0\n\n\n\n\n\n\n\n\n\n\n\n\n\n参考: 変数が0または1の値のみを取る場合、これから紹介する「\\(t\\)検定」でなく、「母比率の検定」を使うのが適切であるが、ここではより汎用性の高い\\(t\\)検定の例で紹介する。母比率の検定（prop.test()）についてはサポートページの講義資料を参照すること。"
   },
   {
     "objectID": "slides/macro/nhts.html#データの読み込み",
@@ -4770,7 +4770,7 @@
     "href": "slides/macro/nhts.html#度数分布表統計量の確認",
     "title": "マクロ政治データ分析実習",
     "section": "度数分布表、統計量の確認",
-    "text": "度数分布表、統計量の確認\n\nガチャ結果の度数分布表\n\n\ntable(gacha_df$result)\n\n\n   N    R   SR  SSR \n2657 1188  700  227 \n\n\n\n\\(\\bar{x}\\): SSR出現の平均値\n\n\nmean(gacha_df$result_SSR)\n\n[1] 0.04756915\n\n\n\n\\(u\\): SSR出現の標本不偏分散の平方根\n\n\nsd(gacha_df$result_SSR)\n\n[1] 0.2128751"
+    "text": "度数分布表、統計量の確認\n\n\n\nガチャ結果の度数分布表\n\n\ntable(gacha_df$result)\n\n\n   N    R   SR  SSR \n2657 1188  700  227 \n\n\n\n\n\n\nガチャ結果の度数分布表（割合）\n\n\nprop.table(table(gacha_df$result))\n\n\n         N          R         SR        SSR \n0.55678961 0.24895222 0.14668902 0.04756915 \n\n\n\n\n\\(\\bar{x}\\): SSR出現の平均値\n\n\nmean(gacha_df$result_SSR)\n\n[1] 0.04756915\n\n\n\n\\(u\\): SSR出現の標準偏差\n\n\nsd(gacha_df$result_SSR)\n\n[1] 0.2128751"
   },
   {
     "objectID": "slides/macro/nhts.html#仮説の設定",
@@ -4805,7 +4805,7 @@
     "href": "slides/macro/nhts.html#検定統計量の計算",
     "title": "マクロ政治データ分析実習",
     "section": "検定統計量の計算",
-    "text": "検定統計量の計算\n平均値に関する統計的仮説検定の場合、検定統計量として標本平均（\\(\\bar{x}\\)）よりも\\(T\\)統計量を使用。\n\\[\nt = \\frac{\\bar{x} - \\mu}{\\text{SE}} = \\frac{\\bar{x} - \\mu_0}{\\text{SE}} = \\frac{\\bar{x} - \\mu_0}{\\frac{s}{\\sqrt{n}}}\n\\]\n\nx_bar &lt;- mean(gacha_df$result_SSR, na.rm = TRUE)          # 標本平均\nn     &lt;- sum(!is.na(gacha_df$result_SSR))                 # サンプルサイズ\nse    &lt;- sd(gacha_df$result_SSR, na.rm = TRUE) / sqrt(n)  # 標準誤差\n(x_bar - 0.05) / se                                       # T統計量\n\n[1] -0.7888289\n\n\n\n\\(T\\)統計量は\\(-\\infty \\sim \\infty\\)の値を取るが、今回得られた\\(t\\)の絶対値\\(|t|\\)よりも極端な値をとる確率は? \\(\\Rightarrow\\) \\(p\\)値\n\n対立仮説は「\\(\\mu_0\\)ではない（\\(\\mu_0 \\neq 0\\)）」であるため、\\(\\mu_0\\)から負の方向に離れる可能性も、正の方向に離れる可能性もある。したがって、\\(t\\)ではなく\\(|t|\\)より極端な値を取る確率を求める。"
+    "text": "検定統計量の計算\n平均値に関する統計的仮説検定の場合、検定統計量として標本平均（\\(\\bar{x}\\)）よりも\\(T\\)統計量を使用。\n\\[\nt = \\frac{\\bar{x} - \\mu}{\\text{SE}} = \\frac{\\bar{x} - \\mu_0}{\\text{SE}} = \\frac{\\bar{x} - \\mu_0}{\\frac{s}{\\sqrt{n}}}\n\\]\n\nx_bar &lt;- mean(gacha_df$result_SSR, na.rm = TRUE)          # 標本平均\nn     &lt;- sum(!is.na(gacha_df$result_SSR))                 # サンプルサイズ\nse    &lt;- sd(gacha_df$result_SSR, na.rm = TRUE) / sqrt(n)  # 標準誤差\n(x_bar - 0.05) / se                                       # T統計量\n\n[1] -0.7888289\n\n\n\n\\(T\\)統計量は\\(-\\infty \\sim \\infty\\)の値を取るが、今回得られた\\(t\\)の絶対値（\\(|t|\\)）よりも極端な値をとる確率は? \\(\\Rightarrow\\) \\(p\\)値\n\n対立仮説は「\\(\\mu_0\\)ではない（\\(\\mu_0 \\neq 0\\)）」であるため、\\(\\mu_0\\)から負の方向に離れる可能性も、正の方向に離れる可能性もある。したがって、\\(t\\)ではなく\\(|t|\\)より極端な値を取る確率を求める。\n\n\n\n\n参考）もし、仮説の段階で方向性がある（\\(\\mu_0 &lt; 0\\)、または\\(\\mu_0 &gt; 0\\)）なら、絶対値を使わず、\\(t\\)、または\\(-t\\)より極端な値を取る確率を求める。このような検定方法は「片側検定（one-tailed test）」と呼ばれ、絶対値を使用する「両側検定（two-tailed test）」と区別される。ただし、特に（強い）こだわりがない限り、両側検定を使うケースが一般的だ。"
   },
   {
     "objectID": "slides/macro/nhts.html#検定統計量とp値面積の合計",
@@ -4910,7 +4910,7 @@
     "href": "slides/macro/nhts.html#参考母比率の検定",
     "title": "マクロ政治データ分析実習",
     "section": "参考）母比率の検定",
-    "text": "参考）母比率の検定\nprop.test()関数を使用: 詳細は講義資料を参照すること。\n\n# x: SSRが得られた回数\n# n: ガチャの回数\n# p: 帰無仮説におけるSSRの出現確率 (0 ~ 1)\nprop.test(x = 227, n = 4772, p = 0.05, correct = FALSE)\n\n\n    1-sample proportions test without continuity correction\n\ndata:  227 out of 4772, null probability 0.05\nX-squared = 0.59364, df = 1, p-value = 0.441\nalternative hypothesis: true p is not equal to 0.05\n95 percent confidence interval:\n 0.04188537 0.05398077\nsample estimates:\n         p \n0.04756915 \n\n\n\n\n\n\nhttps://www.jaysong.net/r4ps/"
+    "text": "参考）母比率の検定\nprop.test()関数を使用: 詳細は講義資料を参照すること。\n\n# x: SSRが得られた回数\n# n: ガチャの回数\n# p: 帰無仮説におけるSSRの出現確率 (0 ~ 1)\nprop.test(x = 227, n = 4772, p = 0.05, correct = FALSE)\n\n\n    1-sample proportions test without continuity correction\n\ndata:  227 out of 4772, null probability 0.05\nX-squared = 0.59364, df = 1, p-value = 0.441\nalternative hypothesis: true p is not equal to 0.05\n95 percent confidence interval:\n 0.04188537 0.05398077\nsample estimates:\n         p \n0.04756915"
   },
   {
     "objectID": "slides/macro/interaction.html#授業開始前に",
