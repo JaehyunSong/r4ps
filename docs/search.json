@@ -5260,7 +5260,7 @@
     "href": "slides/macro/regression1.html#授業開始前に",
     "title": "マクロ政治データ分析実習",
     "section": "授業開始前に",
-    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データ（2つ）をダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\n\nbeer_df &lt;- read_csv(\"Data/Beer.csv\")\npref_df &lt;- read_csv(\"Data/PrefData.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
+    "text": "授業開始前に\nすぐに実習できるように準備しておきましょう。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。\nLMSから実習用データ（2つ）をダウンロードしておいてください。\nダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。\n\nプロジェクト・フォルダー内にDataフォルダーを作成し、そこにアップロードしましょう。\n\n実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&実行してください。\n\n\nlibrary(tidyverse)\nlibrary(modelsummary)\n\nbeer_df &lt;- read_csv(\"Data/Beer.csv\")\npref_df &lt;- read_csv(\"Data/PrefData.csv\")\n\n\nトラブルが生じた場合、速やかにTAを読んでください。\n時間に余裕があれば、スライド内のコードも書いておきましょう。"
   },
   {
     "objectID": "slides/macro/regression1.html#サンプルデータの読み込み",
@@ -5274,21 +5274,21 @@
     "href": "slides/macro/regression1.html#気温とビール売上の関係",
     "title": "マクロ政治データ分析実習",
     "section": "気温とビール売上の関係",
-    "text": "気温とビール売上の関係\nTemperatureとBeerの相関係数（\\(\\alpha\\) = 0.05）\n\ncor.test(beer_df$Temperature, beer_df$Beer)\n\n\n    Pearson's product-moment correlation\n\ndata:  beer_df$Temperature and beer_df$Beer\nt = 2.0899, df = 67, p-value = 0.04042\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n 0.01137629 0.45729570\nsample estimates:\n      cor \n0.2473909 \n\n\n\n相関係数は約0.25であり、\\(p\\)値は0.04であるため、統計的に有意な正の相関関係があると判断できる。"
+    "text": "気温とビール売上の関係\nTemperatureとBeerの相関係数（検定の際、\\(\\alpha\\) = 0.05を採用）\n\ncor.test(beer_df$Temperature, beer_df$Beer)\n\n\n    Pearson's product-moment correlation\n\ndata:  beer_df$Temperature and beer_df$Beer\nt = 2.0899, df = 67, p-value = 0.04042\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n 0.01137629 0.45729570\nsample estimates:\n      cor \n0.2473909 \n\n\n\n解釈　相関係数は約0.247、\\(p\\)値は約0.040であるため、\\(p &lt; \\alpha\\)が成立する。したがって、東京都の平均気温とアサヒ・スーパードライの販売量の間には統計的に有意な正の相関関係があると判断できる。"
   },
   {
     "objectID": "slides/macro/regression1.html#気温とビール売上の関係-1",
     "href": "slides/macro/regression1.html#気温とビール売上の関係-1",
     "title": "マクロ政治データ分析実習",
     "section": "気温とビール売上の関係",
-    "text": "気温とビール売上の関係\n\n\nTemperatureとBeerの散布図\n\n原因と考えられる変数を横軸（x）にマッピング\n結果と考えられる変数を横軸（y）にマッピング\n\n\nbeer_df |&gt;\n  ggplot(aes(x = Temperature, y = Beer)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(x = \"気温 (摂氏)\", \n       y = \"アサヒ・スーパードライ販売量 (万箱)\")"
+    "text": "気温とビール売上の関係\n\n\nTemperatureとBeerの散布図\n\n原因と考えられる変数を横軸（x）にマッピング\n結果と考えられる変数を横軸（y）にマッピング\n因果関係が特定出来ない場合、時間的に先行する変数を横軸（x）にマッピング\n\n\nbeer_df |&gt;\n  ggplot(aes(x = Temperature, y = Beer)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(x = \"気温 (摂氏)\", \n       y = \"アサヒ・スーパードライ販売量 (万箱)\")"
   },
   {
     "objectID": "slides/macro/regression1.html#回帰直線",
     "href": "slides/macro/regression1.html#回帰直線",
     "title": "マクロ政治データ分析実習",
     "section": "回帰直線",
-    "text": "回帰直線\n回帰直線（regression line）: 二変数の散布図を描く場合、その関係も最も正確に表す直線\n\n前ページの青い直線（一次関数）\n\n切片が576.227、傾きが7.355の直線\nビールの販売量 = 576.227 + 7.355\\(\\times\\)気温\n\n\n\n回帰直線の特徴\n\n二次元平面上に描ける直線は無数にあるが、回帰直線は「直線と点のズレが最も小さい」直線\n説明変数（原因）が変わると応答変数（結果）はどう変化するかを示す。\n回帰直線は必ず（説明変数の平均値, 応答変数の平均値）を通過する"
+    "text": "回帰直線\n回帰直線（regression line）: 二変数の散布図を描く場合、その関係も最も正確に表す直線\n\n前ページの青い直線（一次関数）\n\n切片が576.227、傾きが7.355の直線\nビールの販売量の予測値 = 576.227 + 7.355\\(\\times\\)気温\n\n「ビールの販売量 = 576.227 + 7.355\\(\\times\\)気温 + 誤差」でも良い。\n\n\n\n\n回帰直線の特徴\n\n二次元平面上に描ける直線は無数にあるが、回帰直線は「直線と点のズレが最も小さい」直線\n説明変数（原因）が変わると応答変数（結果）はどう変化するかを示す。\n回帰直線は必ず（説明変数の平均値、応答変数の平均値）を通過する"
   },
   {
     "objectID": "slides/macro/regression1.html#一次関数",
@@ -5330,21 +5330,21 @@
     "href": "slides/macro/regression1.html#推定方法",
     "title": "マクロ政治データ分析実習",
     "section": "推定方法",
-    "text": "推定方法\n残差（\\(e_i\\)）の二乗和が最小となる\\(\\alpha\\)と\\(\\beta\\)を推定する方法\n\n行列で解く: \\((X^{\\top}X)^{-1}X^{\\top}y\\)\n微分方程式で解く\n(説明変数が一つのみの場合) 公式で解く\n\n\\(\\beta = \\frac{\\sum (x_i - \\bar{x}) (y_i - \\bar{y})}{\\sum (x_i - \\bar{x})} = \\frac{\\text{Cov}_{x, y}}{u_x}\\) ; \\(\\alpha = \\bar{y} - \\beta \\bar{x}\\)\n回帰直線は必ず\\((\\bar{x}, \\bar{y})\\)を通過する特徴を利用\n\nいずれも面倒なので、パソコンに任せる（lm()関数の利用）"
+    "text": "推定方法\n残差（\\(e_i\\)）の二乗和が最小となる\\(\\alpha\\)と\\(\\beta\\)を推定する方法\n\n行列で解く: \\((X^{\\top}X)^{-1}X^{\\top}y\\)\n微分方程式で解く\n（説明変数が一つのみの場合）公式で解く\n\n\\(\\beta = \\frac{\\sum (x_i - \\bar{x}) (y_i - \\bar{y})}{\\sum (x_i - \\bar{x})} = \\frac{\\text{Cov}_{x, y}}{u_x}\\) ; \\(\\alpha = \\bar{y} - \\beta \\bar{x}\\)\n回帰直線は必ず\\((\\bar{x}, \\bar{y})\\)を通過する特徴を利用\n\nいずれも面倒なので、パソコンに任せる（lm()関数の利用）"
   },
   {
     "objectID": "slides/macro/regression1.html#lm関数の利用",
     "href": "slides/macro/regression1.html#lm関数の利用",
     "title": "マクロ政治データ分析実習",
     "section": "lm()関数の利用",
-    "text": "lm()関数の利用\n\n\n\n第一引数はformula\n\n応答変数 ~ 説明変数\n応答変数と説明変数はチルダ (~)で区切る\n\n第二引数はdata = データオブジェクト名\n推定した結果を別途のオブジェクトとして格納\n\n以下の例ではbeer_fit\n\n推定結果を確認するにはsummary()関数を使用\n\n\n\n# 応答変数 (結果): ビールの販売量\n# 説明変数 (原因): 気温\nbeer_fit &lt;- lm(Beer ~ Temperature, data = beer_df)\nsummary(beer_fit)\n\n\nCall:\nlm(formula = Beer ~ Temperature, data = beer_df)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-392.8 -169.1  -10.8  115.1  677.2 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  576.227     63.941   9.012 3.64e-13 ***\nTemperature    7.355      3.519   2.090   0.0404 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 217.1 on 67 degrees of freedom\nMultiple R-squared:  0.0612,    Adjusted R-squared:  0.04719 \nF-statistic: 4.368 on 1 and 67 DF,  p-value: 0.04042"
+    "text": "lm()関数の利用\n\n\n\n第一引数はformula\n\n応答変数 ~ 説明変数\n応答変数と説明変数はチルダ（~）で区切る\n\n第二引数はdata = データオブジェクト名\n推定した結果を別途のオブジェクトとして格納\n\n以下の例ではbeer_fit\n\n推定結果を確認するにはsummary()関数を使用\n\n\n\n# 応答変数 (結果): ビールの販売量\n# 説明変数 (原因): 気温\nbeer_fit &lt;- lm(Beer ~ Temperature, data = beer_df)\nsummary(beer_fit)\n\n\nCall:\nlm(formula = Beer ~ Temperature, data = beer_df)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-392.8 -169.1  -10.8  115.1  677.2 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  576.227     63.941   9.012 3.64e-13 ***\nTemperature    7.355      3.519   2.090   0.0404 *  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 217.1 on 67 degrees of freedom\nMultiple R-squared:  0.0612,    Adjusted R-squared:  0.04719 \nF-statistic: 4.368 on 1 and 67 DF,  p-value: 0.04042"
   },
   {
     "objectID": "slides/macro/regression1.html#結果の解釈",
     "href": "slides/macro/regression1.html#結果の解釈",
     "title": "マクロ政治データ分析実習",
     "section": "結果の解釈",
-    "text": "結果の解釈\n\n(Intercept): 切片 = \\(\\alpha\\)\n\n点推定値は576.227\n\nTemperature: 傾き = \\(\\beta\\)\n\n点推定値は7.335\n\n\n\nビール販売量の予測値 = 576.227 + 7.355 \\(\\times\\) 気温\n\n\n意味：気温が1度上がると、ビールの販売量は7.355万箱上がる。\n\n単位に注意：Beerは「万箱」単位であるため、「Beerの値が1上がる」ことは「ビール販売量の予測値が1万箱上がる」ことを意味する。"
+    "text": "結果の解釈\n\n(Intercept)：切片 = \\(\\alpha\\)\n\n点推定値は576.227\n\nTemperature：傾き = \\(\\beta\\)\n\n点推定値は7.355\n\n\n\nビール販売量の予測値 = 576.227 + 7.355 \\(\\times\\) 気温\n\n\n解釈　気温が1度上がると、ビールの販売量は7.355万箱上がる。\n\n単位に注意：Beerは「万箱」単位であるため、「Beerの値が1上がる」ことは「ビール販売量の予測値が1万箱上がる」ことを意味する。"
   },
   {
     "objectID": "slides/macro/regression1.html#実習データの読み込み",
@@ -5358,7 +5358,7 @@
     "href": "slides/macro/regression1.html#重回帰分析",
     "title": "マクロ政治データ分析実習",
     "section": "重回帰分析",
-    "text": "重回帰分析\n重回帰分析（multiple regression）：説明変数が2つ以上の回帰分析\n\n単回帰分析（single regression）：説明変数が1のみ回帰分析\n単回帰分析同様、lm()関数を使用するが、説明変数を+でつなぐ\n応答変数が\\(y\\)、説明変数が\\(x\\)と\\(z\\)の場合の回帰式\n\n\\[\n\\hat{y} = \\alpha + \\beta_1 x + \\beta_2 z\n\\]\n\n単回帰分析同様、残差（\\(e\\)）の自乗和が最小となる\\(\\alpha\\)、\\(\\beta_1\\)、\\(\\beta_2\\)を推定\n\n\n\n\n参考）単回帰分析と重回帰分析の違い\n\n\n　単回帰分析において残差は「観測値と回帰直線間の距離」であるが、重回帰分析の場合、「観測値と回帰平面間の距離」が残差となる。説明変数が2つの場合は、回帰平面、3つ以上の場合は回帰超平面となる。"
+    "text": "重回帰分析\n重回帰分析（multiple regression）：説明変数が2つ以上の回帰分析\n\n単回帰分析（single regression）：説明変数が1のみ回帰分析\n単回帰分析同様、lm()関数を使用するが、説明変数を+で追加する。\n応答変数が\\(y\\)、説明変数が\\(x\\)と\\(z\\)の場合の回帰式\n\n\\[\n\\hat{y} = \\alpha + \\beta_1 x + \\beta_2 z\n\\]\n\n単回帰分析同様、残差（\\(e\\)）の自乗和が最小となる\\(\\alpha\\)、\\(\\beta_1\\)、\\(\\beta_2\\)を推定\n\n\n\n\n参考）単回帰分析と重回帰分析の違い\n\n\n　単回帰分析において残差は「観測値と回帰直線間の距離」であるが、重回帰分析の場合、「観測値と回帰平面間の距離」が残差となる。説明変数が2つの場合は、回帰平面、3つ以上の場合は回帰超平面となる。"
   },
   {
     "objectID": "slides/macro/regression1.html#問題設定",
@@ -5379,7 +5379,7 @@
     "href": "slides/macro/regression1.html#結果の解釈-1",
     "title": "マクロ政治データ分析実習",
     "section": "結果の解釈",
-    "text": "結果の解釈\n自民党の得票率の予測値 = 15.891 - 4.547 \\(\\times\\) 財政力指数 + 0.881 \\(\\times\\) 65歳以上人口の割合\n\n\n\nsummary(jimin_fit1)\n\n\n\n\n\n\n\n\n\nterm\nestimate\nstd.error\np.value\n\n\n\n\n(Intercept)\n15.891\n11.398\n0.170\n\n\nZaisei\n−4.547\n4.821\n0.351\n\n\nOver65\n0.881\n0.337\n0.012\n\n\n\n\n\n\n\n\n\n\n\n切片（Intercept）の係数：15.891\n\n財政力指数が0、かつ65歳以上人口の割合が0%の都道府県の場合、自民党得票率の予測値は15.891%である。\nただし、財政力指数が0、65歳以上人口の割合が0%の都道府県はあり得ため、この15.891%に大きな意味はない。\n\n財政力指数（Zaisei）の係数：-4.547\n\n財政力指数が1上がると、その都道府県の自民党得票率の予測値は4.547%p下がる。\n参考) 財政力指数の最小値は0.252、最大値は1.101\n\n65歳以上人口の割合（Over65）の係数：0.881\n\n65歳以上人口の割合が1%p上がると、その都道府県の自民党得票率の予測値は0.881%p上がる。\n「1%」でなく「1%ポイント」であることに注意"
+    "text": "結果の解釈\n自民党の得票率の予測値 = 15.891 - 4.547 \\(\\times\\) 財政力指数 + 0.881 \\(\\times\\) 65歳以上人口の割合\n\n\n\nsummary(jimin_fit1)\n\n\n\n\n\n\n\n\n\nterm\nestimate\nstd.error\np.value\n\n\n\n\n(Intercept)\n15.891\n11.398\n0.170\n\n\nZaisei\n−4.547\n4.821\n0.351\n\n\nOver65\n0.881\n0.337\n0.012\n\n\n\n\n\n\n\n\n\n\n\n切片（Intercept）の係数：15.891\n\n財政力指数が0、かつ65歳以上人口の割合が0%の都道府県の場合、自民党得票率の予測値は15.891%である。\nただし、財政力指数が0、65歳以上人口の割合が0%の都道府県はあり得ないため、この15.891%に大きな意味はない。\n\n財政力指数（Zaisei）の係数：-4.547\n\n財政力指数が1上がると、その都道府県の自民党得票率の予測値は4.547%p下がる。\n参考) 財政力指数の最小値は0.252、最大値は1.101\n\n65歳以上人口の割合（Over65）の係数：0.881\n\n65歳以上人口の割合が1%p上がると、その都道府県の自民党得票率の予測値は0.881%p上がる。\n「1%」でなく「1%ポイント」であることに注意"
   },
   {
     "objectID": "slides/macro/regression1.html#係数間の比較はダメ",
@@ -5400,14 +5400,14 @@
     "href": "slides/macro/regression1.html#重回帰分析neq複数の単回帰分析",
     "title": "マクロ政治データ分析実習",
     "section": "重回帰分析\\(\\neq\\)複数の単回帰分析",
-    "text": "重回帰分析\\(\\neq\\)複数の単回帰分析\n\n\n\n\nモデル1\nモデル2\nモデル3\n\n\n\n\n切片（Intercept）\n15.819\n45.291\n7.518\n\n\n財政力指数（Zaisei）\n-4.547\n-13.012\n\n\n\n65歳以上人口の割合（Over65）\n0.881\n\n1.094\n\n\n\nモデル1: 自民党の得票率の予測値 = 15.891 - 4.547 \\(\\times\\) 財政力指数 + 0.881 \\(\\times\\) 65歳以上人口の割合\nモデル2: 自民党の得票率の予測値 = 45.291 - 13.012 \\(\\times\\) 財政力指数\nモデル3: 自民党の得票率の予測値 = 7.518 + 1.094 \\(\\times\\) 65歳以上人口の割合\n\n単回帰分析における係数と重回帰分析の係数は一致しない。\n重回帰分析の係数は「他の説明変数を一定に保ったとき、ある説明変数の増加が応答変数の値をどの程度変化させるか」を示す\n\n他の説明変数をコントロール (統制)したときに説明変数が応答変数に与える影響\nリサーチデザインの講義における「原因以外の重要な要因」（第2・3回）\n\n具体的な意味は教科書pp.215-218を参照"
+    "text": "重回帰分析\\(\\neq\\)複数の単回帰分析\n\n\n\n\nモデル1\nモデル2\nモデル3\n\n\n\n\n切片（Intercept）\n15.819\n45.291\n7.518\n\n\n財政力指数（Zaisei）\n-4.547\n-13.012\n\n\n\n65歳以上人口の割合（Over65）\n0.881\n\n1.094\n\n\n\nモデル1: 自民党の得票率の予測値 = 15.891 - 4.547 \\(\\times\\) 財政力指数 + 0.881 \\(\\times\\) 65歳以上人口の割合\nモデル2: 自民党の得票率の予測値 = 45.291 - 13.012 \\(\\times\\) 財政力指数\nモデル3: 自民党の得票率の予測値 = 7.518 + 1.094 \\(\\times\\) 65歳以上人口の割合\n\n単回帰分析における係数と重回帰分析の係数は一致しない。\n重回帰分析の係数は「他の説明変数を一定に保ったとき、ある説明変数の増加が応答変数の値をどの程度変化させるか」を示す\n\n他の説明変数をコントロール（統制）したときに説明変数が応答変数に与える影響\nリサーチデザインの講義における「原因以外の重要な要因」（第2・3回）\n\n具体的な意味は教科書pp.215-218を参照"
   },
   {
     "objectID": "slides/macro/regression1.html#変数の統制",
     "href": "slides/macro/regression1.html#変数の統制",
     "title": "マクロ政治データ分析実習",
     "section": "変数の統制",
-    "text": "変数の統制\n\n\n\n\n\n\n\n\n\n\n\\(Y\\)：自民党の得票率\n\\(X\\)：財政力指数\n\\(Z\\)：65歳以上人口の割合\n財政力指数が高い地域において自民得票率が低い場合、それは財政力指数の影響でなく、高齢者割合の影響かも知れない。\n高齢者割合が同じ場合、財政力指数が自民得票率に与える影響は?\n\n=「高齢者割合を統制する」"
+    "text": "変数の統制\n\n\n\n\n\n\n\n\n\n\n\\(Y\\)：自民党の得票率\n\\(X\\)：財政力指数\n\\(Z\\)：65歳以上人口の割合\n財政力指数が高い地域において自民得票率が低い場合、それは財政力指数の影響でなく、高齢者割合の影響かも知れない。\n高齢者割合が同じ場合、財政力指数が自民得票率に与える影響は?\n\n=「高齢者割合を統制する」\n\n統制変数の役割は\\(X \\rightarrow Y\\)係数のバイアスを除去するだけなので、統制変数の係数は解釈しない。"
   },
   {
     "objectID": "slides/macro/regression1.html#決定係数-1",
@@ -5435,14 +5435,14 @@
     "href": "slides/macro/regression1.html#参考自由度調整済み決定係数",
     "title": "マクロ政治データ分析実習",
     "section": "参考）自由度調整済み決定係数",
-    "text": "参考）自由度調整済み決定係数\n説明変数が増えると決定係数は必ず大きくなるため、説明変数の数で決定係数にペナルティーを与える。\n\n回帰分析のモデルを評価する際、決定係数よりも以下の自由度調整済み決定係数を用いる。\n\n\\[\n\\text{Adjusted } R^2 = 1 - \\frac{(1 - R^2)(n - 1)}{(n - k - 1)}\n\\]\n\n\\(R^2\\)は決定係数、\\(n\\)は標本サイズ、\\(k\\)は説明変数の数\n\n\n1 - (((1 - R_2) * (47 - 1)) / (47 - 2 - 1))\n\n[1] 0.2823302"
+    "text": "参考）自由度調整済み決定係数\n説明変数が増えると決定係数は必ず大きくなるため、説明変数の数で決定係数にペナルティーを与える。\n\n同程度の説明力のモデルであれば、簡潔なモデル（説明変数が少ないモデル）が望ましい。\n回帰分析のモデルを評価する際、決定係数よりも以下の自由度調整済み決定係数を用いる。\n\n\\[\n\\text{Adjusted } R^2 = 1 - \\frac{(1 - R^2)(n - 1)}{(n - k - 1)}\n\\]\n\n\\(R^2\\)は決定係数、\\(n\\)は標本サイズ、\\(k\\)は説明変数の数\n\n\n1 - (((1 - R_2) * (47 - 1)) / (47 - 2 - 1))\n\n[1] 0.2823302"
   },
   {
     "objectID": "slides/macro/regression1.html#決定係数の確認方法",
     "href": "slides/macro/regression1.html#決定係数の確認方法",
     "title": "マクロ政治データ分析実習",
     "section": "決定係数の確認方法",
-    "text": "決定係数の確認方法\n\n\n\nsummary(jimin_fit1)\n\n\nCall:\nlm(formula = Jimin ~ Zaisei + Over65, data = pref_df)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-13.6140  -2.8382   0.8015   3.1558   9.6759 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)  \n(Intercept)  15.8910    11.3983   1.394   0.1703  \nZaisei       -4.5472     4.8211  -0.943   0.3507  \nOver65        0.8810     0.3366   2.617   0.0121 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.6 on 44 degrees of freedom\nMultiple R-squared:  0.3135,    Adjusted R-squared:  0.2823 \nF-statistic: 10.05 on 2 and 44 DF,  p-value: 0.0002545\n\n\n\nsummary()関数から出力される推定結果の下段\n\n決定係数: 0.3135\n\nMultiple R-squared\n\n自由度調整済み決定係数: 0.2823\n\nAdjusted R-squared\n\n説明変数が多くなると「Multiple R-squared（決定係数）」は必ず大きくなる\n\n応答変数と無関係な説明変数を入れても必ず大きくなるため、あまり参考にならない\n「Adjusted R-squared」を利用する\n\n財政力指数と高齢者の割合を説明変数とした場合、自民得票率の約28%が説明できる。"
+    "text": "決定係数の確認方法\n\n\n\nsummary(jimin_fit1)\n\n\nCall:\nlm(formula = Jimin ~ Zaisei + Over65, data = pref_df)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-13.6140  -2.8382   0.8015   3.1558   9.6759 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)  \n(Intercept)  15.8910    11.3983   1.394   0.1703  \nZaisei       -4.5472     4.8211  -0.943   0.3507  \nOver65        0.8810     0.3366   2.617   0.0121 *\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.6 on 44 degrees of freedom\nMultiple R-squared:  0.3135,    Adjusted R-squared:  0.2823 \nF-statistic: 10.05 on 2 and 44 DF,  p-value: 0.0002545\n\n\n\nsummary()関数から出力される推定結果の下段\n\n決定係数（\\(R^2\\)）：0.3135\n\nMultiple R-squared\n財政力指数と高齢者の割合を説明変数とした場合、自民得票率の約31%が説明できる。\nしかし、説明変数が多くなると決定係数は必ず大きくなるため、複数モデル間の比較では無意味\n\n自由度調整済み決定係数（Adj. \\(R^2\\)）：0.2823\n\nAdjusted R-squared\n「財政力指数と高齢者の割合を説明変数とした場合、自民得票率の約28%が説明できる」とは解釈できない。\n\n\\(\\Rightarrow\\) 応答変数が同じである複数のモデルを比較する際に利用"
   },
   {
     "objectID": "slides/macro/regression1.html#望ましい決定係数は存在しない",
