@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -78,6 +112,35 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&amp;display=swap" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&amp;display=swap" rel="stylesheet"> 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -480,6 +543,1215 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </section>
 <section id="セットアップ" class="level2">
 <h2 class="anchored" data-anchor-id="セットアップ">セットアップ</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>gt_df <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> COVID<span class="sc">:</span>M1,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>               <span class="at">names_to  =</span> <span class="st">"Keyword"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>               <span class="at">values_to =</span> <span class="st">"Pop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="fu">mutate</span>(<span class="at">Keyword =</span> <span class="fu">if_else</span>(Keyword <span class="sc">==</span> <span class="st">"M1"</span>, <span class="st">"「M-1グランプリ」"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>                           <span class="st">"「新型コロナウイルス感染症」"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Pop, <span class="at">color =</span> Keyword),</span>
+<span id="cb1-9"><a href="#cb1-9"></a>            <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"日"</span>, <span class="at">y =</span> <span class="st">"人気度 (Google Trend)"</span>, <span class="at">color =</span> <span class="st">"キーワード"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-googletrend" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-googletrend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="summary_files/figure-html/fig-googletrend-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-googletrend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+図&nbsp;1: Google TrendsにおけるM-1グランプリの話題性
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>order_score <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">group_by</span>(Order10) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">summarise</span>(<span class="at">Final =</span> <span class="fu">mean</span>(Final) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>            <span class="at">N     =</span> <span class="fu">n</span>()) </span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>order_score2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">drop_na</span>(Order3) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">select</span>(No, Year, Order3, Score3) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="fu">group_by</span>(Year) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">mutate</span>(<span class="at">Champ =</span> <span class="fu">if_else</span>(Score3 <span class="sc">==</span> <span class="fu">max</span>(Score3), <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">group_by</span>(Order3) <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">summarise</span>(<span class="at">Champ =</span> <span class="fu">sum</span>(Champ)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">mutate</span>(<span class="at">Prop  =</span> Champ <span class="sc">/</span> <span class="fu">sum</span>(Champ) <span class="sc">*</span> <span class="dv">100</span>) </span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>order_score <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> Final), <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> Final, </span>
+<span id="cb3-5"><a href="#cb3-5"></a>                 <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f%%"</span>, Final)),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>             <span class="at">family =</span> <span class="st">"HiraginoSans-W3"</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="st">"番目"</span>)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>, <span class="at">y =</span> <span class="st">"ファイナル・ステージへ進出した</span><span class="sc">\n</span><span class="st">コンビの割合 (%)"</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-order-final" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-order-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="summary_files/figure-html/fig-order-final-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-order-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+図&nbsp;2: 出場順番とファイナル・ステージへ進出したコンビの割合
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">select</span>(ファイナルステージへの進出有無 <span class="ot">=</span> Final, </span>
+<span id="cb4-3"><a href="#cb4-3"></a>         出場順番 <span class="ot">=</span> Order10, </span>
+<span id="cb4-4"><a href="#cb4-4"></a>         コンビ結成からの経過年数 <span class="ot">=</span> Since, </span>
+<span id="cb4-5"><a href="#cb4-5"></a>         決勝舞台の回数 <span class="ot">=</span> No_Finals, </span>
+<span id="cb4-6"><a href="#cb4-6"></a>         敗者復活ダミー <span class="ot">=</span> Zombie) <span class="sc">|&gt;</span> </span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb4-8"><a href="#cb4-8"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">gt</span>(<span class="at">rownames_to_stub =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-10"><a href="#cb4-10"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> Mean<span class="sc">:</span>Std.Dev, <span class="at">decimals =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="fu">cols_label</span>(<span class="st">"Mean"</span> <span class="ot">=</span> <span class="st">"平均値"</span>, <span class="st">"Std.Dev"</span> <span class="ot">=</span> <span class="st">"標準偏差"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>             <span class="st">"Min"</span> <span class="ot">=</span> <span class="st">"最小値"</span>, <span class="st">"Max"</span> <span class="ot">=</span> <span class="st">"最大値"</span>, <span class="st">"N.Valid"</span> <span class="ot">=</span> <span class="st">"有効ケース数"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-desc" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-desc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+表&nbsp;1: 記述統計量
+</figcaption>
+<div aria-describedby="tbl-desc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="qhmqblyqgr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qhmqblyqgr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#qhmqblyqgr thead, #qhmqblyqgr tbody, #qhmqblyqgr tfoot, #qhmqblyqgr tr, #qhmqblyqgr td, #qhmqblyqgr th {
+  border-style: none;
+}
+
+#qhmqblyqgr p {
+  margin: 0;
+  padding: 0;
+}
+
+#qhmqblyqgr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qhmqblyqgr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qhmqblyqgr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qhmqblyqgr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qhmqblyqgr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qhmqblyqgr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qhmqblyqgr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qhmqblyqgr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qhmqblyqgr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#qhmqblyqgr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#qhmqblyqgr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qhmqblyqgr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qhmqblyqgr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qhmqblyqgr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qhmqblyqgr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qhmqblyqgr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#qhmqblyqgr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#qhmqblyqgr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#qhmqblyqgr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qhmqblyqgr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#qhmqblyqgr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qhmqblyqgr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qhmqblyqgr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qhmqblyqgr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qhmqblyqgr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qhmqblyqgr .gt_left {
+  text-align: left;
+}
+
+#qhmqblyqgr .gt_center {
+  text-align: center;
+}
+
+#qhmqblyqgr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qhmqblyqgr .gt_font_normal {
+  font-weight: normal;
+}
+
+#qhmqblyqgr .gt_font_bold {
+  font-weight: bold;
+}
+
+#qhmqblyqgr .gt_font_italic {
+  font-style: italic;
+}
+
+#qhmqblyqgr .gt_super {
+  font-size: 65%;
+}
+
+#qhmqblyqgr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#qhmqblyqgr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#qhmqblyqgr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#qhmqblyqgr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#qhmqblyqgr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#qhmqblyqgr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#qhmqblyqgr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#qhmqblyqgr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#qhmqblyqgr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">平均値</th>
+<th id="Std.Dev" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">標準偏差</th>
+<th id="Min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最小値</th>
+<th id="Max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">最大値</th>
+<th id="N.Valid" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">有効ケース数</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">ファイナルステージへの進出有無</td>
+<td class="gt_row gt_right" headers="stub_1_1 Mean">0.313</td>
+<td class="gt_row gt_right" headers="stub_1_1 Std.Dev">0.465</td>
+<td class="gt_row gt_right" headers="stub_1_1 Min">0</td>
+<td class="gt_row gt_right" headers="stub_1_1 Max">1</td>
+<td class="gt_row gt_right" headers="stub_1_1 N.Valid">179</td>
+</tr>
+<tr class="even">
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">出場順番</td>
+<td class="gt_row gt_right" headers="stub_1_2 Mean">5.223</td>
+<td class="gt_row gt_right" headers="stub_1_2 Std.Dev">2.735</td>
+<td class="gt_row gt_right" headers="stub_1_2 Min">1</td>
+<td class="gt_row gt_right" headers="stub_1_2 Max">10</td>
+<td class="gt_row gt_right" headers="stub_1_2 N.Valid">179</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">コンビ結成からの経過年数</td>
+<td class="gt_row gt_right" headers="stub_1_3 Mean">7.983</td>
+<td class="gt_row gt_right" headers="stub_1_3 Std.Dev">3.399</td>
+<td class="gt_row gt_right" headers="stub_1_3 Min">1</td>
+<td class="gt_row gt_right" headers="stub_1_3 Max">15</td>
+<td class="gt_row gt_right" headers="stub_1_3 N.Valid">179</td>
+</tr>
+<tr class="even">
+<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">決勝舞台の回数</td>
+<td class="gt_row gt_right" headers="stub_1_4 Mean">0.888</td>
+<td class="gt_row gt_right" headers="stub_1_4 Std.Dev">1.323</td>
+<td class="gt_row gt_right" headers="stub_1_4 Min">0</td>
+<td class="gt_row gt_right" headers="stub_1_4 Max">8</td>
+<td class="gt_row gt_right" headers="stub_1_4 N.Valid">179</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">敗者復活ダミー</td>
+<td class="gt_row gt_right" headers="stub_1_5 Mean">0.101</td>
+<td class="gt_row gt_right" headers="stub_1_5 Std.Dev">0.302</td>
+<td class="gt_row gt_right" headers="stub_1_5 Min">0</td>
+<td class="gt_row gt_right" headers="stub_1_5 Max">1</td>
+<td class="gt_row gt_right" headers="stub_1_5 N.Valid">179</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Pr(ファイナル進出)} = &amp; \text{logistic}(y^*) = \frac{1}{1 + e^{-y^*}} \\
+y^* = &amp; \alpha + \beta_1 \text{出場順番} + \beta_2 \text{結成からの経過年数} + \beta_3 \text{決勝進出回数} + \\
+&amp; \beta_4 \text{敗者復活ダミー} + \beta_5 \text{出場順番} \cdot \text{結成からの経過年数}.
+\end{aligned}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Final <span class="sc">~</span> Order10 <span class="sc">*</span> Since <span class="sc">+</span> Since <span class="sc">+</span> No_Finals <span class="sc">+</span> Zombie, </span>
+<span id="cb5-2"><a href="#cb5-2"></a>           <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>fit_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order10 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                                                 <span class="at">Since   =</span> <span class="fu">mean</span>(df<span class="sc">$</span>Since)))</span>
+<span id="cb5-6"><a href="#cb5-6"></a>fit_ame1  <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit, <span class="at">variables =</span> <span class="st">"Order10"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Since =</span> <span class="fu">mean</span>(df<span class="sc">$</span>Since)))</span>
+<span id="cb5-7"><a href="#cb5-7"></a>fit_ame2  <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit, <span class="at">variables =</span> <span class="st">"Order10"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Since =</span> <span class="dv">8</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"係数（p値）"</span> <span class="ot">=</span> fit), </span>
+<span id="cb6-2"><a href="#cb6-2"></a>             <span class="at">estimate =</span> <span class="st">"{estimate} ({p.value})"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"aic"</span>),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span>   <span class="ot">=</span> <span class="st">"切片"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                             <span class="st">"Order10"</span>       <span class="ot">=</span> <span class="st">"出場順番"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>                             <span class="st">"Since"</span>         <span class="ot">=</span> <span class="st">"結成からの経過年数"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>                             <span class="st">"No_Finals"</span>     <span class="ot">=</span> <span class="st">"決勝進出回数"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>                             <span class="st">"Zombie"</span>        <span class="ot">=</span> <span class="st">"敗者復活ダミー"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>                             <span class="st">"Order10:Since"</span> <span class="ot">=</span> <span class="st">"出場順番 X 結成からの経過年数"</span>),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>             <span class="at">output =</span> <span class="st">"gt"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-logit" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-logit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+表&nbsp;2: ロジスティック回帰分析の結果
+</figcaption>
+<div aria-describedby="tbl-logit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="begfemotkw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#begfemotkw table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#begfemotkw thead, #begfemotkw tbody, #begfemotkw tfoot, #begfemotkw tr, #begfemotkw td, #begfemotkw th {
+  border-style: none;
+}
+
+#begfemotkw p {
+  margin: 0;
+  padding: 0;
+}
+
+#begfemotkw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#begfemotkw .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#begfemotkw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#begfemotkw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#begfemotkw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#begfemotkw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#begfemotkw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#begfemotkw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#begfemotkw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#begfemotkw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#begfemotkw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#begfemotkw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#begfemotkw .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#begfemotkw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#begfemotkw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#begfemotkw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#begfemotkw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#begfemotkw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#begfemotkw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#begfemotkw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#begfemotkw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#begfemotkw .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#begfemotkw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#begfemotkw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#begfemotkw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#begfemotkw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#begfemotkw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#begfemotkw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#begfemotkw .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#begfemotkw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#begfemotkw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#begfemotkw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#begfemotkw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#begfemotkw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#begfemotkw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#begfemotkw .gt_left {
+  text-align: left;
+}
+
+#begfemotkw .gt_center {
+  text-align: center;
+}
+
+#begfemotkw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#begfemotkw .gt_font_normal {
+  font-weight: normal;
+}
+
+#begfemotkw .gt_font_bold {
+  font-weight: bold;
+}
+
+#begfemotkw .gt_font_italic {
+  font-style: italic;
+}
+
+#begfemotkw .gt_super {
+  font-size: 65%;
+}
+
+#begfemotkw .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#begfemotkw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#begfemotkw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#begfemotkw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#begfemotkw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#begfemotkw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#begfemotkw .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#begfemotkw .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#begfemotkw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="a-" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="a係数（p値）" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">係数（p値）</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers=" ">切片</td>
+<td class="gt_row gt_center" headers="係数（p値）">-2.330 (0.032)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=" ">出場順番</td>
+<td class="gt_row gt_center" headers="係数（p値）">0.143 (0.432)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers=" ">結成からの経過年数</td>
+<td class="gt_row gt_center" headers="係数（p値）">0.027 (0.826)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=" ">決勝進出回数</td>
+<td class="gt_row gt_center" headers="係数（p値）">0.299 (0.024)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers=" ">敗者復活ダミー</td>
+<td class="gt_row gt_center" headers="係数（p値）">0.187 (0.728)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=" " style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000">出場順番 X 結成からの経過年数</td>
+<td class="gt_row gt_center" headers="係数（p値）" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #000000">0.005 (0.797)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers=" ">Num.Obs.</td>
+<td class="gt_row gt_center" headers="係数（p値）">179</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers=" ">AIC</td>
+<td class="gt_row gt_center" headers="係数（p値）">217.3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">predictions</span>(fit, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order10 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                                    <span class="at">Since   =</span> <span class="fu">mean</span>(df<span class="sc">$</span>Since))) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> estimate, </span>
+<span id="cb7-6"><a href="#cb7-6"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>                     <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="st">"番目"</span>)) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>       <span class="at">y =</span> <span class="st">"ファイナル・ステージに進出する確率"</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pred-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pred-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="summary_files/figure-html/fig-pred-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+図&nbsp;3: 出場順番とファイナル・ステージに進出する確率の関係
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">slopes</span>(fit, <span class="at">var =</span> <span class="st">"Order10"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Since =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Since, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Since, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数 (年)"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8"></a>       <span class="at">y =</span> <span class="st">"出場順番がファイナル・ステージ進出に</span><span class="sc">\n</span><span class="st">与える影響"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ame-plot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ame-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="summary_files/figure-html/fig-ame-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ame-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+図&nbsp;4: コンビ結成からの経過年数と出場順番の限界効果
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">predictions</span>(fit, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order10 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb9-2"><a href="#cb9-2"></a>                                    <span class="at">Since   =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">15</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">mutate</span>(<span class="at">Since =</span> <span class="fu">case_when</span>(Since <span class="sc">==</span> <span class="dv">1</span>  <span class="sc">~</span> <span class="st">"コンビ結成から1年経過"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>                           Since <span class="sc">==</span> <span class="dv">8</span>  <span class="sc">~</span> <span class="st">"コンビ結成から8年経過"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>                           Since <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"コンビ結成から15年経過"</span>),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>         <span class="at">Since =</span> <span class="fu">fct_inorder</span>(Since)) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order10, <span class="at">y =</span> estimate, </span>
+<span id="cb9-10"><a href="#cb9-10"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>       <span class="at">y =</span> <span class="st">"ファイナル・ステージに進出する確率"</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Since, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pred-plot2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pred-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="summary_files/figure-html/fig-pred-plot2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1050">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+図&nbsp;5: コンビ結成からの経過年数ごとの予測確率
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
