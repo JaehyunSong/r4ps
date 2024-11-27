@@ -423,15 +423,15 @@ fit3_pred4 |>
 
 ## 信頼区間の話
 
-　これまで信頼区間（confidential intervals; CI）を「とりあえず」出してきたが、この信頼区間って何だろう。もう一度、出場順番（`Order`）と平均得点（`Score_Mean`）間の関係を見てみよう。以下の図は今回得られた回帰直線である。
+　これまで信頼区間（confidential intervals; CI）を「とりあえず」出してきたが、この信頼区間って何だろう。もう一度、出場順番（`Order`）と平均得点（`Score_Mean`）間の関係を見てみよう。以下の図は`fit3_pred3`の推定結果から得られた回帰直線である。
 
 ```{r}
 #| echo: false
 #| fig-width: 7
 #| fig-height: 4
 tibble(case = c("Real", "Case 1", "Case 2", "Case 3"),
-       start = c(90.16668, 90, 89.1, 91.2),
-       end   = c(92.49046, 93, 93.6, 91.2)) |> 
+       start = c(89.70116, 90, 89.1, 91.2),
+       end   = c(92.02494, 93, 93.6, 91.2)) |> 
   mutate(case = fct_relevel(case, "Real")) |> 
   filter(case == "Real") |> 
   ggplot() +
@@ -451,10 +451,10 @@ tibble(case = c("Real", "Case 1", "Case 2", "Case 3"),
 #| fig-height: 4
 tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3"), each = 2),
        x    = rep(c(1, 10), 4),
-       y    = c(90.16668, 92.49046,
-                  90, 93,
-                  89.1, 93.6,
-                  91.2, 92)) |> 
+       y    = c(89.70116, 92.02494,
+                90, 92,
+                88.6, 93.1,
+                90.5, 91.0)) |> 
   mutate(case = fct_relevel(case, "今回のデータ")) |> 
   ggplot() +
   geom_line(aes(x = x, y = y, color = case),
@@ -473,7 +473,7 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
 #| fig-height: 4
 tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース6"), each = 2),
        x    = rep(c(1, 10), 4),
-       y    = c(90.16668, 92.49046,
+       y    = c(89.70116, 92.02494,
                 90, 95,
                 91, 90,
                 92.5, 88)) |> 
@@ -489,6 +489,9 @@ tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース
 
 　もう一度過去に戻ってM-1グランプリが行われ、同じ手順でデータ収集&分析をしたら、今私たちが持っているデータから得られた回帰直線と似た直線は得られてもおかしくないし、大きく異なるものは非現実的である。この「ありえる」直線が収まる範囲が信頼区間だ。つまり、「この範囲（信頼区間）外の直線が得られる可能性は非常に低い！」ことを意味する。
 
+:::{.panel-tabset}
+## ケース1〜3
+
 ```{r}
 #| echo: false
 #| fig-width: 7
@@ -496,10 +499,42 @@ tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース
 tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3",
                     "ケース4", "ケース5", "ケース6"), each = 2),
        x    = rep(c(1, 10), 7),
-       y    = c(90.16668, 92.49046,
-                90, 93,
-                89.1, 93.6,
-                91.2, 92,
+       y    = c(89.70116, 92.02494,
+                90, 92,
+                88.6, 93.1,
+                90.5, 91.0,
+                90, 95,
+                91, 90,
+                92.5, 88)) |> 
+  mutate(case = fct_relevel(case, "今回のデータ")) |> 
+  ggplot() +
+  geom_ribbon(data = fit3_pred3,
+              aes(x = Order, ymin = conf.low, ymax = conf.high),
+              fill = "gray80") +
+  geom_line(aes(x = x, y = y, color = case),
+            linewidth = 1.5) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  gghighlight(case %in% c("今回のデータ", paste0("ケース", 1:3)), label_key = case,
+              unhighlighted_params = list(color = "gray30", alpha = 0.35),
+              label_params = list(direction = "y", hjust = 0)) +
+  labs(x = "出場順番", y = "平均得点の予測値") +
+  coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
+  theme_bw(base_size = 12)
+```
+
+## ケース4〜6
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3",
+                    "ケース4", "ケース5", "ケース6"), each = 2),
+       x    = rep(c(1, 10), 7),
+       y    = c(89.70116, 92.02494,
+                90, 92,
+                88.6, 93.1,
+                90.5, 91.0,
                 90, 95,
                 91, 90,
                 92.5, 88)) |> 
@@ -512,12 +547,13 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
             linewidth = 1.5) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   gghighlight(case %in% c("今回のデータ", paste0("ケース", 4:6)), label_key = case,
-              unhighlighted_params = list(color = "gray30"),
+              unhighlighted_params = list(color = "gray30", alpha = 0.35),
               label_params = list(direction = "y", hjust = 0)) +
   labs(x = "出場順番", y = "平均得点の予測値") +
   coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
   theme_bw(base_size = 12)
 ```
+:::
 
 　一つ面白い点は、傾き係数が正に統計的有意であれば、この区間内に引ける直線は必ず右上がりになることだ[^ci]。今まで見てきた図は、出場順番（`Order`）と平均得点（`Score_Mean`）間の関係であり、出場順番（`Order`）の傾き係数は$\alpha$ = 0.05で統計的有意だった。この場合、95%信頼区間内に右上がりの直線しか引けない。
 
@@ -532,12 +568,12 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
 fit3_pred4 |> 
   ggplot(aes(x = Duration)) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
-  geom_segment(aes(x = 2, xend = 16, y = 91, yend = 91),
-               linewidth = 1.5, color = "#00798C") +
-  geom_segment(aes(x = 2, xend = 16, y = 90, yend = 92),
-               linewidth = 1.5, color = "#D1495B") +
-  geom_segment(aes(x = 2, xend = 16, y = 92, yend = 91),
-               linewidth = 1.5, color = "#66A182") +
+  annotate("segment", x = 2, xend = 16, y = 90.5, yend = 90.5,
+           linewidth = 1.5, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 89, yend = 92,
+           linewidth = 1.5, color = "#D1495B") +
+  annotate("segment", x = 2, xend = 16, y = 91.5, yend = 90,
+           linewidth = 1.5, color = "#66A182") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
   labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
@@ -590,7 +626,7 @@ fit3_pred5 |>
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
-  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と70%信頼区間") +
   coord_cartesian(ylim = c(88, 93)) +
   theme_bw(base_size = 12)
 ```
@@ -607,12 +643,14 @@ predictions(fit3, newdata = datagrid(Duration = 2:16),
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
-  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と40%信頼区間") +
   coord_cartesian(ylim = c(88, 93)) +
   theme_bw(base_size = 12)
 ```
 
-　信頼区間がかなり狭くなっていることが分かる。この区間であれば右上がりの直線しか引けなくなる。以下の図の青い線は区間内で引ける最も緩やかな傾きの直線であるが、それでも右上がりになっている。
+　信頼区間がかなり狭くなっていることが分かる。この区間であれば右上がりの直線しか引けなくなる。以下の図の青い線は区間内で引ける最も緩やかな傾きの直線であるが、それでも右上がりになっている[^blue-line]。
+
+[^blue-line]: 青い線の左端の座標は$(x = 2, y = 90.61244)$、右端の座標は$(x = 16, y = 90.90845)$であり、ほんの僅かではあるが、右上がりの線である。
 
 ```{r}
 #| echo: false
@@ -622,13 +660,13 @@ predictions(fit3, newdata = datagrid(Duration = 2:16),
             conf_level = 0.4) |>
   ggplot(aes(x = Duration)) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
-  geom_segment(aes(x = 2, xend = 16, y = 91.09444, yend = 91.44930),
-               linewidth = 1, color = "#00798C") +
-  geom_segment(aes(x = 2, xend = 16, y = 90.26250, yend = 92.02425),
-               linewidth = 1, color = "#D1495B") +
+  annotate("segment", x = 2, xend = 16, y = 90.61244, yend = 90.90845,
+           linewidth = 1, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 89.9, yend = 91.5,
+           linewidth = 1, color = "#D1495B") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
-  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と40%信頼区間") +
   coord_cartesian(ylim = c(88, 93)) +
   theme_bw(base_size = 12)
 ```

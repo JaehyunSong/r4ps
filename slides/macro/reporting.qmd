@@ -509,10 +509,9 @@ fit3_pred4 |>
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-#| dpi: 150
 tibble(case = c("Real", "Case 1", "Case 2", "Case 3"),
-       start = c(90.16668, 90, 89.1, 91.2),
-       end   = c(92.49046, 93, 93.6, 91.2)) |> 
+       start = c(89.70116, 90, 89.1, 91.2),
+       end   = c(92.02494, 93, 93.6, 91.2)) |> 
   mutate(case = fct_relevel(case, "Real")) |> 
   filter(case == "Real") |> 
   ggplot() +
@@ -532,21 +531,18 @@ tibble(case = c("Real", "Case 1", "Case 2", "Case 3"),
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-#| dpi: 150
 tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3"), each = 2),
        x    = rep(c(1, 10), 4),
-       y    = c(90.16668, 92.49046,
-                  90, 93,
-                  89.1, 93.6,
-                  91.2, 92)) |> 
+       y    = c(89.70116, 92.02494,
+                90, 92,
+                88.6, 93.1,
+                90.5, 91.0)) |> 
   mutate(case = fct_relevel(case, "今回のデータ")) |> 
   ggplot() +
   geom_line(aes(x = x, y = y, color = case),
                linewidth = 1.5) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
-  gghighlight(!is.na(case), label_key = case,
-              label_params = list(direction = "y", hjust = 0)) +
-  labs(x = "出場順番", y = "平均得点の予測値") +
+  labs(x = "出場順番", y = "平均得点の予測値", color = "") +
   coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
   theme_bw(base_size = 12)
 ```
@@ -559,10 +555,9 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-#| dpi: 150
 tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース6"), each = 2),
        x    = rep(c(1, 10), 4),
-       y    = c(90.16668, 92.49046,
+       y    = c(89.70116, 92.02494,
                 90, 95,
                 91, 90,
                 92.5, 88)) |> 
@@ -571,9 +566,7 @@ tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース
   geom_line(aes(x = x, y = y, color = case),
             linewidth = 1.5) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
-  gghighlight(!is.na(case), label_key = case,
-              label_params = list(direction = "y", hjust = 0)) +
-  labs(x = "出場順番", y = "平均得点の予測値") +
+  labs(x = "出場順番", y = "平均得点の予測値", color = "") +
   coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
   theme_bw(base_size = 12)
 ```
@@ -586,14 +579,13 @@ tibble(case = rep(c("今回のデータ", "ケース4", "ケース5", "ケース
 #| echo: false
 #| fig-width: 8
 #| fig-height: 4
-#| dpi: 150
 tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース3",
                     "ケース4", "ケース5", "ケース6"), each = 2),
        x    = rep(c(1, 10), 7),
-       y    = c(90.16668, 92.49046,
-                90, 93,
-                89.1, 93.6,
-                91.2, 92,
+       y    = c(89.70116, 92.02494,
+                90, 92,
+                88.6, 93.1,
+                90.5, 91.0,
                 90, 95,
                 91, 90,
                 92.5, 88)) |> 
@@ -606,7 +598,7 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
             linewidth = 1.5) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
   gghighlight(case %in% c("今回のデータ", paste0("ケース", 4:6)), label_key = case,
-              unhighlighted_params = list(color = "gray30"),
+              unhighlighted_params = list(color = "gray30", alpha = 0.35),
               label_params = list(direction = "y", hjust = 0)) +
   labs(x = "出場順番", y = "平均得点の予測値") +
   coord_cartesian(ylim = c(85, 95), xlim = c(1, 10.5)) +
@@ -622,7 +614,7 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
 * $\alpha$ = 0.05で統計的有意だった`Order`（$p$ = 0.016）は、95%信頼区間内に右上がりの直線しか引けない。
 * 右は統計的に有意でない`Duration`変数の例（$p$ = 0.381）
    * 水平線も、右上がり直線も、右下がり直線も引ける。
-   * $\Rightarrow$ `Duration`と`Score_Mean`の関係は現段階では判断できない。
+   * $\Rightarrow$ `Duration`と`Score_Mean`の関係（正か負）は現段階では判断できない。
 * $\alpha$ = 0.1を仮定するのであれば、90%（$= (1 - \alpha) \times 100$）信頼区間を使うこととなる。
 :::
 
@@ -634,16 +626,15 @@ tibble(case = rep(c("今回のデータ", "ケース1", "ケース2", "ケース
 #| echo: false
 #| fig-width: 6
 #| fig-height: 4
-#| dpi: 150
 fit3_pred4 |> 
   ggplot(aes(x = Duration)) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
-  geom_segment(aes(x = 2, xend = 16, y = 91, yend = 91),
-               linewidth = 1.5, color = "#00798C") +
-  geom_segment(aes(x = 2, xend = 16, y = 90, yend = 92),
-               linewidth = 1.5, color = "#D1495B") +
-  geom_segment(aes(x = 2, xend = 16, y = 92, yend = 91),
-               linewidth = 1.5, color = "#66A182") +
+  annotate("segment", x = 2, xend = 16, y = 90.5, yend = 90.5,
+           linewidth = 1.5, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 89, yend = 92,
+           linewidth = 1.5, color = "#D1495B") +
+  annotate("segment", x = 2, xend = 16, y = 91.5, yend = 90,
+           linewidth = 1.5, color = "#66A182") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
   labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
@@ -655,27 +646,105 @@ fit3_pred4 |>
 
 ## 有意水準と信頼区間
 
-（ありえないが、）$\alpha$ = 0.6を採用する場合、40%信頼区間（$(1 - \alpha) \times 100$%信頼区間）を使うことになる。
+$\alpha$ = 0.6を採用する場合、40%信頼区間（$(1 - \alpha) \times 100$%信頼区間）を使うと...
 
-* 以下は40%信頼区間を採用した例（`predictions()`内に`conf_level = 0.4`を追加する）
-   * ただし、よく使うのは90%（$\alpha$ = 0.1）、95%（$\alpha$ = 0.05）、99%（$\alpha$ = 0.01）信頼区間
+- 以下は40%信頼区間を採用した例（`predictions()`内に`conf_level = 0.4`を追加する）
+   - ただし、よく使うのは90%（$\alpha$ = 0.1）、95%（$\alpha$ = 0.05）、99%（$\alpha$ = 0.01）信頼区間
 
 ```{r}
 #| echo: false
-#| fig-width: 6
-#| fig-height: 4
-#| dpi: 150
+#| fig-width: 8
+#| fig-height: 3.5
 predictions(fit3, newdata = datagrid(Duration = 2:16),
             conf_level = 0.4) |>
   ggplot(aes(x = Duration)) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
-  geom_segment(aes(x = 2, xend = 16, y = 91.09444, yend = 91.44930),
-               linewidth = 1, color = "#00798C") +
-  geom_segment(aes(x = 2, xend = 16, y = 90.26250, yend = 92.02425),
-               linewidth = 1, color = "#D1495B") +
+  annotate("segment", x = 2, xend = 16, y = 90.61244, yend = 90.90845,
+           linewidth = 1, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 89.9, yend = 91.5,
+           linewidth = 1, color = "#D1495B") +
   geom_line(aes(y = estimate), linewidth = 1.5) +
   scale_x_continuous(breaks = 2:16, labels = 2:16) +
-  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と95%信頼区間") +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と40%信頼区間") +
   coord_cartesian(ylim = c(88, 93)) +
   theme_bw(base_size = 12)
 ```
+
+
+## 95%信頼区間と40%信頼区間の比較
+
+:::{.panel-tabset}
+## 95%信頼区間
+
+::::{.columns}
+:::{.column width=50%}
+- 青線
+   - 左端の座標：$(x = 2, y = 91.706)$
+   - 右端の座標：$(x = 16, y = 89.916)$
+   - $\Rightarrow$ 右下がり
+- 赤線
+   - 左端の座標：$(x = 2, y = 88.720)$
+   - 右端の座標：$(x = 16, y = 92.627)$
+   - $\Rightarrow$ 右上がり
+- $\Rightarrow$ 右上がり、右下がりの直線が入り得るため、$\alpha = 0.05$の場合、「コンビ結成からの経過年数」と「平均得点」間の統計的に有意な関係は見られない。
+:::
+
+:::{.column width=50%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+predictions(fit3, newdata = datagrid(Duration = 2:16),
+            conf_level = 0.95) |>
+  ggplot(aes(x = Duration)) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
+  annotate("segment", x = 2, xend = 16, y = 91.70606, yend = 89.91527,
+           linewidth = 1, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 88.71984, yend = 92.62724,
+           linewidth = 1, color = "#D1495B") +
+  geom_line(aes(y = estimate), linewidth = 1.5) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と40%信頼区間") +
+  coord_cartesian(ylim = c(88, 93)) +
+  theme_bw(base_size = 12)
+```
+:::
+::::
+
+## 40%信頼区間
+
+::::{.columns}
+:::{.column width=50%}
+- 青線
+   - 左端の座標：$(x = 2, y = 90.612)$
+   - 右端の座標：$(x = 16, y = 90.808)$
+   - $\Rightarrow$ 右上がり
+- 赤線
+   - 左端の座標：$(x = 2, y = 89.813)$
+   - 右端の座標：$(x = 16, y = 91.634)$
+   - $\Rightarrow$ 右上がり
+- $\Rightarrow$ 右上がりの直線しか入らないため、$\alpha = 0.6$の場合、「コンビ結成からの経過年数」と「平均得点」間の統計的に有意な正の関係が見られる。
+:::
+
+:::{.column width=50%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+predictions(fit3, newdata = datagrid(Duration = 2:16),
+            conf_level = 0.4) |>
+  ggplot(aes(x = Duration)) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray70") +
+  annotate("segment", x = 2, xend = 16, y = 90.61244, yend = 90.90845,
+           linewidth = 1, color = "#00798C") +
+  annotate("segment", x = 2, xend = 16, y = 89.81346, yend = 91.63406,
+           linewidth = 1, color = "#D1495B") +
+  geom_line(aes(y = estimate), linewidth = 1.5) +
+  scale_x_continuous(breaks = 2:16, labels = 2:16) +
+  labs(x = "コンビ結成からの経過年数", y = "平均得点の予測値と40%信頼区間") +
+  coord_cartesian(ylim = c(88, 93)) +
+  theme_bw(base_size = 12)
+```
+:::
+::::
+:::
