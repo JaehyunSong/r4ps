@@ -5,3 +5,713 @@ format: revealjs
 metadata-files: 
   - _slide.yml
 ---
+
+{{< include _common.qmd >}}
+
+## 授業開始前に
+
+すぐに実習できるように準備しておきましょう。
+
+1. JDCat分析ツールを起動しておいてください。
+2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
+3. LMSから実習用データをダウンロードしておいてください。
+4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
+   - プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&実行してください（コピペ可）。
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(fastDummies)
+library(summarytools)
+library(modelsummary)
+library(marginaleffects)
+
+df <- read_csv("Data/youtube.csv")
+```
+
+- トラブルが生じた場合、速やかにTAを呼んでください。
+- 時間に余裕があれば、スライド内のコードも書いておきましょう。
+
+# リサーチデザイン
+
+## 問題設定
+
+> YouTube視聴は人々の寛容性にどのような影響を与えるだろうか。YouTubeは誰でもコンテンツが作成・公開できるため、様々な考え方に接触できるツールとして活用できるため、寛容性に正の影響を与えると考えられる。しかし、YouTubeのおすすめ動画は視聴者の閲覧履歴に基づいて提案され、類似したテーマと内容のものが提案んされるケースが多い。したがって、YouTube操作に慣れていない人はおすすめされた動画のみを視聴し、寛容性に負の影響を与えると考えられる。また、このようなインターネットサービスには若年層が高齢者よりも操作に慣れている可能性が高いと考えられる。
+
+- 仮説：YouTube視聴時間は寛容性の程度に影響を与えるが、その影響は年齢によって異なる。
+   - 仮説（a）：若年層ほどYouTube視聴時間は寛容性の程度には正の関係がある。
+   - 仮説（b）：高齢者ほどYouTube視聴時間は寛容性の程度には負の関係がある。
+- 有意水準（$\alpha$）は5%を採用（$\alpha = 0.05$）
+
+## 必要な変数は?
+
+- 応答変数（結果）：寛容性の度合い
+- 主要説明変数（原因）：YouTube視聴時間
+- 統制変数（原因と結果両方に影響を与えると考えられる変数）
+   - 性別、年齢、学歴、...
+   - 無数に存在するため、中でもその影響力が強いと思うものを選定し、（自分でデータを収集するのであれば）測定・収集する。
+   - 公開済みデータを利用する分析（2次分析）であれば、応答変数と主要説明変数が含まれたデータを見つけたら、そのデータの中から統制変数として適切なものを選ぶ。
+- 今回は（奇跡的にも）適切なデータが見つかったので、それを使う。
+
+::::{.aside}
+- 調査名：日常生活の行動および意識に関する世論調査
+- 調査期間：2024年11月12日〜14日
+- 対象：楽天インサイトにパネルとして登録した18歳以上の日本人
+- サンプルサイズ：3725名
+::::
+
+# データ
+
+## データ読み込み
+
+```{r}
+library(tidyverse)
+library(fastDummies)
+library(summarytools)
+library(modelsummary)
+library(marginaleffects)
+
+#df <- read_csv("slides/macro/Data/youtube.csv")
+df <- read_csv("Data/youtube.csv")
+
+df
+```
+
+## データ説明
+
+|変数名|説明|備考|
+|:---|:---|:---|
+|`fem`|性別|0 = 男性; 1 = 女性|
+|`age`|年齢||
+|`educ`|学歴|1 = 中卒　〜　6 = 大学院|
+|`inc`|世帯収入|1 = なし　〜　19 = 2300万円以上|
+|`child`|子どもの有無|1 = なし; 2 = あり（同居）; 3 = あり（別居）|
+|`youtube`|YouTube視聴時間（1日平均）|1 = 見ない　〜　7 = 5時間以上|
+|`diver1`|寛容性尺度1[^div1]|高いほど寛容的（1〜5）|
+|`diver2`|寛容性尺度2[^div2]|高いほど寛容的（1〜5）|
+|`diver3`|寛容性尺度3[^div3]|高いほど寛容的（1〜5）|
+|`diver4`|寛容性尺度4[^div4]|高いほど寛容的（1〜5）|
+|`diver5`|寛容性尺度5[^div5]|高いほど寛容的（1〜5）|
+
+[^div1]: 自分と違う考えや価値観を持つ人と話し合いをすることは楽しい
+[^div2]: 自分と背景が異なる人と接することは、人生において必要である
+[^div3]: 違う文化から来ている人について学ぶことは、人生において重要である
+[^div4]: 自分とは違う考えや価値観を持つ人と今後接したいと思う
+[^div5]: 自分の考え方や好み、やり方が違うからと言って、その人を遠ざけることはしない
+
+## データハンドリング：寛容性スコアの作成
+
+- `diver1`〜`diver5`変数を一つの変数にまとめたい。
+   - `diver1`から`diver5`までの平均値、因子分析、主成分分析、...
+   - ここでは平均値を採用し、計算結果を`diversity`列として追加（既存の`diver1`から`diver5`までの列は削除）
+
+```{r}
+df <- df |> 
+  mutate(diversity = diver1 + diver2 + diver3 + diver4 + diver5,
+         diversity = diversity / 5) |> 
+  select(-(diver1:diver5))
+
+df
+```
+
+## データハンドリング：欠損値処理
+
+- 分析に使用する変数一つでも抜けている行は分析から除外
+   - 例）10行目は世帯収入（`inc`）が欠損（`NA`）しているため、除外
+
+:::{.panel-tabset}
+## 欠損の確認
+
+- `summary(表オブジェクト名)`で確認可能
+   - 学歴（`educ`）が欠損したケースは56名、世帯収入（`inc`）のそれは411名
+
+```{r}
+summary(df)
+```
+
+## 欠損した行の除外
+
+- `filter()`か`drop_na()`を使用
+
+```{r}
+df <- df |> 
+  filter(!is.na(educ) & !is.na(inc)) # drop_na(educ, inc) でもOK
+
+df
+```
+
+:::
+
+## データハンドリング：名目変数のfactor化
+
+- 子どもの有無（`child`）は名目変数だが、現在は数値型であるため、factor型変数に変換
+
+```{r}
+df <- df |> 
+  mutate(child = factor(child, levels = c(1, 2, 3),
+                        labels = c("子どもなし", "同居中の子どもあり", "別居中の子どもあり")))
+
+df
+```
+
+## 記述統計（1）
+
+- 名目変数（ここでは`child`）はダミー化してから計算
+
+```{r}
+df |> 
+  dummy_cols(select_columns = "child") |> 
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p")
+```
+
+## 記述統計（2）
+
+- レポート、論文に掲載する際はしっかり加工すること
+   - 変数名をそのまま使わず、誰でも分かるように
+   - 応答変数、主要説明変数、その他の説明変数（統制変数）の順で
+
+```{r}
+#| echo: false
+df |> 
+  dummy_cols(select_columns = "child") |> 
+  relocate(diversity, youtube, .before = fem) |> 
+  rename("寛容性スコア" = diversity,
+         "YouTube視聴時間" = youtube,
+         "女性ダミー" = fem,
+         "年齢" = age,
+         "学歴" = educ,
+         "世帯収入" = inc,
+         "子どもなし" = child_子どもなし,
+         "同居中の子どもあり" = child_同居中の子どもあり,
+         "別居中の子どもあり" = child_別居中の子どもあり) |> 
+  descr(stats = c("mean", "sd", "min", "max", "n.valid"),
+        transpose = TRUE, order = "p") |> 
+  gt(rownames_to_stub = TRUE) |> 
+  cols_label("Mean" = "平均値", "Std.Dev" = "標準偏差",
+             "Min" = "最小値", "Max" = "最大値",
+             "N.Valid" = "有効ケース数") |> 
+  fmt_number(decimals = 3, columns = 2:3) |> 
+  tab_options(table.font.size = 24)
+```
+
+# 推定
+
+## YouTube線形時間と寛容性間の関係
+
+- 線形（右上がり、右下がり）?U字?逆U字?その他の関係?
+   - 説明変数の値ごとに応答変数の平均値を計算するか散布図から確認
+
+```{r}
+df |> 
+  group_by(youtube) |> 
+  summarise(diversity = mean(diversity))
+```
+
+- `youtube` = 4か5を頂点とする「逆U字型」であるため、`youtube`の2乗項も投入
+   - 参考）1 = 使わない、2 = 30分未満、3 = 30分〜1時間未満、4 = 1〜2時間未満、5 = 2〜3.5時間未満、6 = 3.5〜5時間未満、7 = 5時間以上
+
+## （非）線形関係
+
+- 説明変数の2乗項を追加することで非線形の関係も推定可能
+
+::::{.columns}
+:::{.column width=50%}
+- 式1：$y = \beta_0 + \beta_1 x$（赤）
+- 式2：$y = \beta_0 - \beta_1 x$（青）
+
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 4
+tibble(x = seq(-5, 5, 0.1),
+       y1 = x,
+       y2 = -x) |> 
+  ggplot() +
+  geom_line(aes(x = x, y = y1, color = "式1"), 
+            linewidth = 1) +
+  geom_line(aes(x = x, y = y2, color = "式2"), 
+            linewidth = 1) +
+  theme_bw(base_size = 28) +
+  labs(y = "y") +
+  guides(color = "none") +
+  theme(axis.text  = element_blank(),
+        axis.ticks = element_blank())
+```
+:::
+
+:::{.column width=50%}
+- 式1：$y = \beta_0 + \beta_1 x + \beta_2 x^2$（赤）
+- 式2：$y = \beta_0 + \beta_1 x - \beta_2 x^2$（青）
+
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 4
+tibble(x = seq(-5, 5, 0.1),
+       y1 = x + x^2,
+       y2 = x - x^2 + 25) |> 
+  ggplot() +
+  geom_line(aes(x = x, y = y1, color = "式1"), 
+            linewidth = 1) +
+  geom_line(aes(x = x, y = y2, color = "式2"), 
+            linewidth = 1) +
+  theme_bw(base_size = 28) +
+  labs(y = "y") +
+  guides(color = "none") +
+  theme(axis.text  = element_blank(),
+        axis.ticks = element_blank())
+```
+:::
+
+::::
+
+## 推定モデル（1）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+tibble() |>
+  ggplot() +
+  annotate("label", x = 1, y = 7, label = "YouTube視聴時間",
+           hjust = 1) +
+  annotate("label", x = 1, y = 6, label = "YouTube視聴時間の2乗",
+           hjust = 1) +
+  annotate("label", x = 1, y = 5, label = "女性ダミー",
+           hjust = 1) +
+  annotate("label", x = 1, y = 4, label = "年齢",
+           hjust = 1) +
+  annotate("label", x = 1, y = 3, label = "学歴",
+           hjust = 1) +
+  annotate("label", x = 1, y = 2, label = "世帯収入",
+           hjust = 1) +
+  annotate("label", x = 1, y = 1, label = "子どもの有無",
+           hjust = 1) +
+  annotate("label", x = 2, y = 6, label = "寛容性スコア",
+           hjust = 0) +
+  annotate("segment", x = 1, xend = 2, y = 7, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 6, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 5, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 4, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 3, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 2, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 1, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1.23, xend = 1.23, y = 8, yend = 6.8,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1.27, xend = 1.27, y = 8, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("label", x = 1.25, y = 8, label = "年齢") +
+  coord_cartesian(xlim = c(0.5, 2.2)) +
+  theme_void()
+```
+
+## 推定モデル（2）
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+tibble() |>
+  ggplot() +
+  annotate("label", x = 1, y = 11, label = "YouTube視聴時間",
+           hjust = 1) +
+  annotate("label", x = 1, y = 10, label = "YouTube視聴時間の2乗",
+           hjust = 1) +
+  annotate("label", x = 1, y = 9, label = "YouTube視聴時間 X 年齢",
+           hjust = 1) +
+  annotate("label", x = 1, y = 8, label = "YouTube視聴時間の2乗 X 年齢",
+           hjust = 1) +
+  annotate("label", x = 1, y = 7, label = "女性ダミー",
+           hjust = 1) +
+  annotate("label", x = 1, y = 6, label = "年齢",
+           hjust = 1) +
+  annotate("label", x = 1, y = 5, label = "学歴",
+           hjust = 1) +
+  annotate("label", x = 1, y = 4, label = "世帯収入",
+           hjust = 1) +
+  annotate("label", x = 1, y = 3, label = "子ども：なし",
+           hjust = 1) +
+  annotate("label", x = 1, y = 2, label = "子ども：同居中",
+           hjust = 1) +
+  annotate("label", x = 1, y = 1, label = "子ども：別居中",
+           hjust = 1) +
+  annotate("label", x = 2, y = 6, label = "寛容性スコア",
+           hjust = 0) +
+  annotate("segment", x = 1, xend = 2, y = 11, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 10, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 9, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 8, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 7, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 6, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 5, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 4, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 3, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 2, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  annotate("segment", x = 1, xend = 2, y = 1, yend = 6,
+           arrow = arrow(type = "closed", length = unit(2, "mm"))) +
+  coord_cartesian(xlim = c(0.5, 2.2)) +
+  theme_void()
+```
+
+## 推定
+
+- `poly(X, 2)`で`X`だけでなく、`X`の2乗項もモデルに投入される。
+
+```{r}
+fit <- lm(diversity ~ poly(youtube, 2) * age + fem + age + educ + inc + child, data = df)
+
+summary(fit)
+```
+
+## 回帰表
+
+- `summary(回帰オブジェクト)`の結果を参照し、自分で回帰表を作っても良い。
+
+::::{.columns}
+
+:::{.column width=58%}
+```{r}
+#| eval: false
+modelsummary(
+  fit,
+  estimate    = "{estimate} ({std.error}){stars}",
+  coef_rename = c(
+    "(Intercept)"       = "切片",
+    "poly(youtube, 2)1" = "YouTube視聴時間",
+    "poly(youtube, 2)2" = "YouTube視聴時間の2乗",
+    "age"               = "年齢",
+    "fem"               = "女性",
+    "educ"              = "学歴",
+    "inc"               = "世帯収入",
+    "child同居中の子どもあり" = "同居中の子どもあり",
+    "child別居中の子どもあり" = "別居中の子どもあり"
+  ),
+  statistic   = NULL,
+  gof_map     = c("nobs", "r.squared"),
+  notes       = "注：カッコ内は標準誤差"
+)
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=40%}
+```{r}
+#| echo: false
+modelsummary(
+  fit,
+  estimate    = "{estimate} ({std.error}){stars}",
+  coef_rename = c(
+    "(Intercept)"       = "切片",
+    "poly(youtube, 2)1" = "YouTube視聴時間",
+    "poly(youtube, 2)2" = "YouTube視聴時間の2乗",
+    "age"               = "年齢",
+    "fem"               = "女性",
+    "educ"              = "学歴",
+    "inc"               = "世帯収入",
+    "child同居中の子どもあり" = "同居中の子どもあり",
+    "child別居中の子どもあり" = "別居中の子どもあり"
+  ),
+  statistic   = NULL,
+  gof_map     = c("nobs", "r.squared"),
+  notes       = "注：カッコ内は標準誤差"
+)
+```
+:::
+
+::::
+
+# 結果の報告
+
+## 交互作用を考慮しない予測値
+
+- YouTube視聴時間を除く全ての変数は平均値に固定（名目変数はベースカテゴリーに固定）
+
+```{r}
+pred1 <- fit |> 
+  predictions(newdata = datagrid(youtube = 1:7))
+
+pred1
+```
+
+## 交互作用を考慮しない予測値（可視化）
+
+::::{.columns}
+
+:::{.column width=54%}
+```{r}
+#| eval: false
+pred1 |> 
+  ggplot() +
+  geom_pointrange(
+    aes(x = youtube, y = estimate, 
+        ymin = conf.low, ymax = conf.high)
+  ) +
+  scale_x_continuous(
+    breaks = 1:7,
+    labels = c("使わない", "〜30分", 
+               "30分〜1時間", "1〜2時間",
+               "2〜3.5時間", "3.5〜5時間", 
+               "5時間〜")
+  ) +
+  labs(x = "YouTube視聴時間", 
+       y = "寛容性スコアの予測値と95%信頼区間") +
+  theme_bw(base_size = 14)
+```
+:::
+
+:::{.column width=2%}
+:::
+
+:::{.column width=44%}
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+#| echo: false
+pred1 |> 
+  ggplot() +
+  geom_pointrange(aes(x = youtube, y = estimate, 
+                      ymin = conf.low, ymax = conf.high)) +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", 
+                                "30分〜1時間", "1〜2時間",
+                                "2〜3.5時間", "3.5〜5時間", 
+                                "5時間〜")) +
+  labs(x = "YouTube視聴時間", 
+       y = "寛容性スコアの予測値と95%信頼区間") +
+  theme_bw(base_size = 14)
+```
+:::
+
+::::
+
+## 交互作用を考慮した予測値
+
+- すべての年齢に対して予測値を出すと可視化が難しいため、20、45、70歳の場合の予測値を計算
+
+```{r}
+pred2 <- fit |> 
+  predictions(newdata = datagrid(youtube = 1:7, age = c(20, 45, 70)))
+
+pred2
+```
+
+## 交互作用を考慮した予測値（可視化）
+
+:::{.panel-tabset}
+## コード1
+```{r}
+#| eval: false
+#| fig-width: 8
+#| fig-height: 4
+pred2 |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot() +
+  geom_pointrange(aes(x = youtube, y = estimate, ymin = conf.low, ymax = conf.high)) +
+  labs(x = "YouTube視聴時間", y = "寛容性スコアの予測値と\n95%信頼区間") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間",
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  facet_wrap(~age) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## 結果1
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+pred2 |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot() +
+  geom_pointrange(aes(x = youtube, y = estimate, ymin = conf.low, ymax = conf.high)) +
+  labs(x = "YouTube視聴時間", y = "寛容性スコアの予測値と\n95%信頼区間") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間", "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  facet_wrap(~age) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## コード2
+```{r}
+#| eval: false
+#| fig-width: 8
+#| fig-height: 4
+pred2 |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot(aes(x = youtube)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = age),
+              alpha = 0.35) +
+  geom_line(aes(y = estimate, color = age),
+            linewidth = 1) +
+  labs(x = "YouTube視聴時間", y = "寛容性スコアの予測値と\n95%信頼区間", fill = "年齢", color = "年齢") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間",
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## 結果2
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+pred2 |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot(aes(x = youtube)) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high, fill = age),
+              alpha = 0.35) +
+  geom_line(aes(y = estimate, color = age),
+            linewidth = 1) +
+  labs(x = "YouTube視聴時間", y = "寛容性スコアの予測値と\n95%信頼区間", fill = "年齢", color = "年齢") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間",
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+:::
+
+## 2乗項付きの交互作用について
+
+- **例1）**$\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2$
+   - $x$が1上がれば$y$はどれほど上がるか（=$x$の傾き係数は?）。
+      - 回帰式に$x$は2回登場し、$\beta_1 x + \beta_2 x^2 = (\beta_1 + \beta_2 x)x$
+      - $x$が1上がれば、$y$は$(\beta_1 + \beta_2 x)$分上がる。
+      - $x$が$y$に与える影響は$x$の値に依存する。
+      - $\Rightarrow$ 2乗項そのものが交差項と同じ
+
+- **例2）**$\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 z + \gamma_1 x z + \gamma_2 x^2 z$
+   - $x$が1上がれば$y$はどれほど上がるか（=$x$の傾き係数は?）。
+      - 回帰式に$x$は4回登場し、$\beta_1 x + \beta_2 x^2 + \gamma_1 x z + \gamma_2 x^2 z = (\beta_1 + \beta_2 x + \gamma_1 z + \gamma_2 xz)x$
+      - $x$が1上がれば、$y$は$(\beta_1 + \beta_2 x + \gamma_1 z + \gamma_2 xz)$分上がる。
+      - $x$が$y$に与える影響は$x$と$z$の値に依存する。
+      - $\Rightarrow$ 2乗項付きの交互作用は三重交差項
+
+## 限界効果
+
+- `youtube`が`diversity`に与える影響は`youtube`と`age`によって変わる。
+
+```{r}
+ame <- fit |> 
+  slopes(variables = "youtube", newdata = datagrid(youtube = 1:7, age = c(20, 45, 70)))
+
+ame
+```
+
+## 限界効果の可視化
+
+:::{.panel-tabset}
+## コード
+
+```{r}
+#| eval: false
+#| fig-width: 8
+#| fig-height: 4
+ame |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_pointrange(aes(x = youtube, y = estimate,
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "YouTube視聴時間", y = "寛容性スコアの予測値と\n95%信頼区間") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間", 
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  facet_wrap(~age) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## 結果
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+ame |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_pointrange(aes(x = youtube, y = estimate,
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "YouTube視聴時間", y = "限界効果と95%信頼区間") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間", 
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  facet_wrap(~age) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+:::
+
+## どう解釈するか（45歳の例）
+
+::::{.columns}
+::::{.column width=40%}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 4
+ame |> 
+  mutate(age = factor(age,
+                      levels = c(20, 45, 70),
+                      labels = c("20歳", "45歳", "70歳"))) |> 
+  filter(age == "45歳") |> 
+  ggplot() +
+  geom_hline(yintercept = 0) +
+  geom_pointrange(aes(x = youtube, y = estimate,
+                      ymin = conf.low, ymax = conf.high)) +
+  labs(x = "YouTube視聴時間", y = "限界効果と95%信頼区間") +
+  scale_x_continuous(breaks = 1:7,
+                     labels = c("使わない", "〜30分", "30分〜1時間", "1〜2時間", 
+                                "2〜3.5時間", "3.5〜5時間", "5時間〜")) +
+  facet_wrap(~age) +
+  theme_bw(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+::::
+
+::::{.column width=60%}
+- YouTubeを全く見ない（`youtube` = 1）45歳の人における`youtube`の値が1単位上がる（=YouTubeを1日30分見るようになる）と、寛容性スコアが約0.13上がり、これは統計的に有意である。
+- YouTubeを30分未満見る（`youtube` = 2）45歳の人における`youtube`の値が1単位上がる（=YouTubeを1日30分〜1時間見るようになる）と、寛容性スコアが約0.85上がり、これは統計的に有意である。
+- YouTubeを1〜2時間見る（`youtube` = 4）45歳の人における`youtube`の値が1単位上がっても（=YouTubeを1日2〜3.5時間見るようになっても）、寛容性スコアが変わるとは言えない。
+- YouTubeを2〜3.5時間見る（`youtube` = 5）45歳の人における`youtube`の値が1単位上がる（=YouTubeを1日3.5〜5時間見るようになる）と、寛容性スコアが約0.04下がり、これは統計的に有意である。
+::::
+::::
+

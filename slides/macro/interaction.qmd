@@ -6,12 +6,12 @@ metadata-files:
   - _slide.yml
 ---
 
+{{< include _common.qmd >}}
+
 ## 授業開始前に
 
 ```{r}
 #| include: false
-pacman::p_load(tidyverse, gt, gtExtras, summarytools, modelsummary,
-               marginaleffects)
 # jes_df <- read_csv("slides/macro/Data/JES6_W1_2.csv")
 jes_df <- read_csv("Data/JES6_W1_2.csv")
 ```
@@ -22,8 +22,8 @@ jes_df <- read_csv("Data/JES6_W1_2.csv")
 2. 本日授業用のプロジェクトを作成するか、既存のプロジェクトを開いてください。
 3. LMSから実習用データをダウンロードしておいてください。
 4. ダウンロードしてデータをプロジェクト・フォルダーにアップロードしてください。
-   * プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
-5. 実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&実行してください（コピペ可）。
+   - プロジェクト・フォルダー内に`Data`フォルダーを作成し、そこにアップロードしましょう。
+5. 実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&実行してください（コピペ可）。
 
 ```{r}
 #| eval: false
@@ -34,7 +34,7 @@ library(marginaleffects)
 jes_df <- read_csv("Data/JES6_W1_2.csv")
 ```
 
-* トラブルが生じた場合、速やかにTAを読んでください。
+* トラブルが生じた場合、速やかにTAを呼んでください。
 * 時間に余裕があれば、スライド内のコードも書いておきましょう。
 
 # 交互作用とは
@@ -76,7 +76,7 @@ $$
 $$
 
 * 変数$X$が$Y$に与える効果は $\beta_1 + \beta_3 Z$
-   * $\Rightarrow$ 変数$X$が$Y$に与える影響は$Z$の影響を受ける。
+   * $\Rightarrow$ 変数$X$が$Y$に与える影響は$Z$の値に依存する。
 :::
 ::::
 
@@ -297,7 +297,7 @@ $$
 
 `lm()`内の回帰式（formula）に2つの変数を`*`でつなぐだけ
 
-* `A * B`は説明変数として`A`、`B`、`A`$\times$`B`が同時に投入することを意味する。
+* `A * B`は説明変数として`A`、`B`、`A`$\times$`B`を同時に投入することを意味する。
 
 ```{r}
 fit1 <- lm(TempKyosan ~ Satisfaction * Female + Interest + Ideology + Age, data = jes_df)
@@ -493,7 +493,7 @@ fit2_pred |>
 ```
 :::
 
-# 交差項の解釈と限界効果
+# 交互作用の解釈と限界効果
 
 ## 交互作用をどう報告するか
 
@@ -510,11 +510,12 @@ fit2_pred |>
 
 ```{r}
 #| eval: false
-slopes(回帰オブジェクト名, variables = "説明変数名", 
-       newdata = datagrid(調整変数名 = 調整変数の値))
+slopes(回帰オブジェクト名, 
+       variables = "説明変数名", 
+       newdata   = datagrid(調整変数名 = 調整変数の値))
 ```
 
-* `variables`には説明変数名を指定する（変数名は`"`で囲むこと）
+* `variables`には説明変数名を指定する（変数名は必ず`"`で囲むこと）
 * `fit1`の場合：調整変数（`Female`）の値が0と1の場合の限界効果
    * `datagrid(Female = c(0, 1))`、または`datagrid(Female = 0:1)`
 * `fit2`の場合：調整変数（`Age`）の値が18、19、20、...、75の場合の限界効果
@@ -527,8 +528,7 @@ slopes(回帰オブジェクト名, variables = "説明変数名",
 性別と関係なく、政治満足度は共産感情温度に負の影響を与える。
 
 ```{r}
-fit1_ame <- slopes(fit1, variables = "Satisfaction", 
-                   newdata = datagrid(Female = c(0, 1)))
+fit1_ame <- slopes(fit1, variables = "Satisfaction", newdata = datagrid(Female = c(0, 1)))
 
 fit1_ame
 ```
@@ -541,9 +541,7 @@ fit1_ame
 ## 調整変数が連続変数の場合（`fit2`）
 
 ```{r}
-fit2_ame <- slopes(fit2, variables = "Satisfaction", 
-                   newdata = datagrid(Age = 18:75))
-
+fit2_ame <- slopes(fit2, variables = "Satisfaction", newdata = datagrid(Age = 18:75))
 fit2_ame
 ```
 
@@ -646,8 +644,8 @@ print(fit2_ame, topn = Inf)
 #| eval: false
 fit2_ame |>
   ggplot(aes(x = Age)) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_hline(yintercept = 0) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_line(aes(y = estimate), linewidth = 1) +
   labs(x = "年齢", y = "政治満足度が共産感情温度に\n与える影響と95%信頼区間") +
   scale_x_continuous(breaks = c(18, 20, 30, 40, 50, 60, 70, 75),
@@ -664,12 +662,12 @@ fit2_ame |>
 #| dpi: 200
 fit2_ame |>
   ggplot(aes(x = Age)) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_hline(yintercept = 0) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "gray80") +
   geom_line(aes(y = estimate), linewidth = 1) +
   labs(x = "年齢", y = "政治満足度が共産感情温度に\n与える影響と95%信頼区間") +
-  scale_x_continuous(breaks = c(18, 20, 30, 40, 50, 60, 70, 75),
-                     labels = c(18, 20, 30, 40, 50, 60, 70, 75)) +
+  scale_x_continuous(breaks = seq(20, 70, 10),
+                     labels = seq(20, 70, 10)) +
   theme_bw(base_size = 12)
 ```
 

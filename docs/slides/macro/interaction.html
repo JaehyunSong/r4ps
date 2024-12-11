@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.33">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <meta name="dcterms.date" content="2024-12-12">
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-1f154209e777c32843d0f59ab8e1af0e.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-ecf37f158cf170a0b746d38080e5172c.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -232,7 +232,7 @@
 <ul>
 <li>プロジェクト・フォルダー内に<code>Data</code>フォルダーを作成し、そこにアップロードしましょう。</li>
 </ul></li>
-<li>実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
+<li>実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
@@ -242,7 +242,7 @@
 <span id="cb1-5"><a></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1_2.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>トラブルが生じた場合、速やかにTAを読んでください。</li>
+<li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
 <li>時間に余裕があれば、スライド内のコードも書いておきましょう。</li>
 </ul>
 </section>
@@ -298,7 +298,7 @@
 <ul>
 <li>変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える効果は <span class="math inline">\(\beta_1 + \beta_3 Z\)</span>
 <ul>
-<li><span class="math inline">\(\Rightarrow\)</span> 変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>の影響を受ける。</li>
+<li><span class="math inline">\(\Rightarrow\)</span> 変数<span class="math inline">\(X\)</span>が<span class="math inline">\(Y\)</span>に与える影響は<span class="math inline">\(Z\)</span>の値に依存する。</li>
 </ul></li>
 </ul>
 </div></div>
@@ -329,7 +329,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -389,7 +389,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -586,7 +586,7 @@ N: 3000
 <h2>交差項を入れた回帰分析の推定方法</h2>
 <p><code>lm()</code>内の回帰式（formula）に2つの変数を<code>*</code>でつなぐだけ</p>
 <ul>
-<li><code>A * B</code>は説明変数として<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>が同時に投入することを意味する。</li>
+<li><code>A * B</code>は説明変数として<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>を同時に投入することを意味する。</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Female <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Age, <span class="at">data =</span> jes_df)</span>
@@ -1677,7 +1677,7 @@ N: 3000
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1704,7 +1704,7 @@ N: 3000
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1752,7 +1752,7 @@ N: 3000
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1779,8 +1779,8 @@ N: 3000
 </div>
 </section></section>
 <section>
-<section id="交差項の解釈と限界効果" class="title-slide slide level1 center">
-<h1>交差項の解釈と限界効果</h1>
+<section id="交互作用の解釈と限界効果" class="title-slide slide level1 center">
+<h1>交互作用の解釈と限界効果</h1>
 
 </section>
 <section id="交互作用をどう報告するか" class="slide level2">
@@ -1801,11 +1801,12 @@ N: 3000
 <h2>{marginaleffect}パッケージを用いた限界効果の計算</h2>
 <p>{marginaleffect}パッケージの<code>slopes()</code>関数</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">slopes</span>(回帰オブジェクト名, <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
-<span id="cb11-2"><a></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">slopes</span>(回帰オブジェクト名, </span>
+<span id="cb11-2"><a></a>       <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
+<span id="cb11-3"><a></a>       <span class="at">newdata   =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>variables</code>には説明変数名を指定する（変数名は<code>"</code>で囲むこと）</li>
+<li><code>variables</code>には説明変数名を指定する（変数名は必ず<code>"</code>で囲むこと）</li>
 <li><code>fit1</code>の場合：調整変数（<code>Female</code>）の値が0と1の場合の限界効果
 <ul>
 <li><code>datagrid(Female = c(0, 1))</code>、または<code>datagrid(Female = 0:1)</code></li>
@@ -1822,10 +1823,9 @@ N: 3000
 <h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
 <p>性別と関係なく、政治満足度は共産感情温度に負の影響を与える。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb12-2"><a></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
-<span id="cb12-3"><a></a></span>
-<span id="cb12-4"><a></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb12-2"><a></a></span>
+<span id="cb12-3"><a></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Female Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
@@ -1851,10 +1851,8 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <section id="調整変数が連続変数の場合fit2-1" class="slide level2">
 <h2>調整変数が連続変数の場合（<code>fit2</code>）</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, </span>
-<span id="cb14-2"><a></a>                   <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
-<span id="cb14-3"><a></a></span>
-<span id="cb14-4"><a></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<span id="cb14-2"><a></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %
@@ -2021,7 +2019,7 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" width="700"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" width="700"></p>
 </figure>
 </div>
 </div>
@@ -2116,8 +2114,8 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>fit2_ame <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
-<span id="cb23-3"><a></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
 <span id="cb23-5"><a></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb23-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度が共産感情温度に</span><span class="sc">\n</span><span class="st">与える影響と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb23-7"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">75</span>),</span>
@@ -2130,7 +2128,7 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="interaction_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -2483,8 +2481,6 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
       });
       clipboard.on('success', onCopySuccess);
       if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        // For code content inside modals, clipBoardJS needs to be initialized with a container option
-        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
         const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
           text: getTextToCopy,
           container: window.document.getElementById('quarto-embedded-source-code-modal')
