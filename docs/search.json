@@ -3770,21 +3770,33 @@
     "href": "HW/Macro_Final.html",
     "title": "「マクロ政治データ分析実習」期末レポート",
     "section": "",
-    "text": "R Quartoバージョン"
+    "text": "R Quartoバージョン",
+    "crumbs": [
+      "マクロ",
+      "[後期] 期末レポート"
+    ]
   },
   {
     "objectID": "HW/Macro_Final.html#サンプル",
     "href": "HW/Macro_Final.html#サンプル",
     "title": "「マクロ政治データ分析実習」期末レポート",
     "section": "",
-    "text": "R Quartoバージョン"
+    "text": "R Quartoバージョン",
+    "crumbs": [
+      "マクロ",
+      "[後期] 期末レポート"
+    ]
   },
   {
     "objectID": "HW/Macro_Final.html#期末レポート概要",
     "href": "HW/Macro_Final.html#期末レポート概要",
     "title": "「マクロ政治データ分析実習」期末レポート",
     "section": "期末レポート概要",
-    "text": "期末レポート概要\n\n提出期限: 2024年1月31日 (水) 23時59分（期限遵守）\n提出方法: LMSの提出窓口に.pdfファイル、またはMicrosoft Word（.docx）ファイルを提出\n\nQuarto等で作成した.htmlファイルも可\n\n1ページ目（or 表紙）にはタイトル、所属、学籍番号、氏名を記入すること\n\n1つでも抜けている場合、未提出とみなす。\n\n平均値の差の検定、独立性の検定、相関分析、線形回帰分析（推奨）、ロジスティック回帰分析（推奨）の中から1つ以上を手法を使用すること\n問題背景、問い、理論・仮説、使用するデータの概要と記述統計、分析結果の提示と解釈が入っていれば分量の制限（下限、上限）はない。\n\n上記の内容すべてを入れること\n問題背景、理論や先行研究のレビューは簡略に書いても良い（本課題のメインはデータ分析）\n\n期末レポートでは、問いに対する暫定的な答え（=仮説）が存在し、その仮説が支持されるか否かをデータ分析も用いて判定できたかどうかを重視する。\n\n箇条書きでなく、文章で書くこと\n表や推定結果などは、Rから直接コピペ or スクショを貼り付けないこと。自分で表を作成すること。Rから直接コピペ or スクショを貼り付けは減点とする。"
+    "text": "期末レポート概要\n\n提出期限: 2025年1月31日 (金) 23時59分（期限遵守）\n提出方法: LMSの提出窓口に.pdfファイル、またはMicrosoft Word（.docx）ファイルを提出\n\nQuartoで作成した場合、.htmlファイルも可\n\nタイトル（必要に応じてサブタイトルも）、所属（総合情報学部）、学籍番号、氏名を必ず記入すること\n\n1つでも抜けている場合、未提出とみなす。\n\n平均値の差の検定、独立性の検定、相関分析、線形回帰分析（推奨）、ロジスティック回帰分析（推奨）の中から1つ以上を手法を使用すること\n問い、仮説、使用するデータの概要と記述統計、分析結果の提示と解釈が入っていれば分量の制限（下限、上限）はない。\n\n上記の内容すべてを入れること（抜けている場合大幅に減点する）\n問題背景、理論や先行研究のレビュー、考察などは書いても良い（中身によっては加点要素とする）\n\n期末レポートでは、問いに対する暫定的な答え（=仮説）が存在し、その仮説が支持されるか否かをデータ分析も用いて判定できたかどうかを重視する。\n\n箇条書きでなく、文章で書くこと\n表や推定結果などは、Rから直接コピペ or スクショを貼り付けないこと。自分で表を作成すること。Rから直接コピペ or スクショを貼り付けは減点とする。\n\nデータに困っている場合、以下のデータセットを推奨\n\n東京大学谷口研究室・朝日新聞社共同調査（http://www.masaki.j.u-tokyo.ac.jp/utas/utasindex.html）",
+    "crumbs": [
+      "マクロ",
+      "[後期] 期末レポート"
+    ]
   },
   {
     "objectID": "HW/Macro_HW04.html",
@@ -5923,7 +5935,21 @@
     "href": "slides/macro/summary.html#データハンドリング欠損値処理",
     "title": "マクロ政治データ分析実習",
     "section": "データハンドリング：欠損値処理",
-    "text": "データハンドリング：欠損値処理\n\nデータのよって欠損値がNAでなく、数字になっているケースもあるため、この場合は欠損値に置換する。\n\n学歴（educ）の欠損値は9、世帯収入（inc）の欠損値は99\n\n\n\ndf &lt;- df |&gt; \n  mutate(educ = if_else(educ == 9,  NA, educ),\n         inc  = if_else(inc  == 99, NA, inc)) \n\ndf\n\n# A tibble: 3,122 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    27     5    NA     1       4       3  \n# ℹ 3,112 more rows"
+    "text": "データハンドリング：欠損値処理\n\nデータのよって欠損値がNAでなく、数字になっているケースもあるため、この場合は欠損値に置換する。\n\n学歴（educ）の欠損値は9、世帯収入（inc）の欠損値は99\n\n\n\ndf &lt;- df |&gt; \n  mutate(educ = if_else(educ == 9,  NA, educ), # educの値が9ならNAに、それ以外はそのままに\n         inc  = if_else(inc  == 99, NA, inc))  # incの値が99ならNAに、それ以外はそのままに\n\ndf\n\n# A tibble: 3,122 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    27     5    NA     1       4       3  \n# ℹ 3,112 more rows"
+  },
+  {
+    "objectID": "slides/macro/summary.html#データハンドリング欠損の確認",
+    "href": "slides/macro/summary.html#データハンドリング欠損の確認",
+    "title": "マクロ政治データ分析実習",
+    "section": "データハンドリング：欠損の確認",
+    "text": "データハンドリング：欠損の確認\n\ncolSums(is.na(表オブジェクト名))で確認可能\n\nsummary(表オブジェクト名)でもOK（欠損値以外の情報も出力される）\n\n学歴（educ）が欠損したケースは56名、世帯収入（inc）のそれは411名\n\n\nis.na(df) |&gt; \n  colSums()\n\n      fem       age      educ       inc     child   youtube diversity \n        0         0        56       411         0         0         0 \n\n\n\n分析に使用する変数一つでも抜けている行は分析から除外する。\n\n例）10行目は世帯収入（inc）が欠損（NA）しているため、除外する必要がある。\n参考）欠損値を補完する手法（多重代入法; multiple imputation）もある。"
+  },
+  {
+    "objectID": "slides/macro/summary.html#データハンドリング欠損した行の除外",
+    "href": "slides/macro/summary.html#データハンドリング欠損した行の除外",
+    "title": "マクロ政治データ分析実習",
+    "section": "データハンドリング：欠損した行の除外",
+    "text": "データハンドリング：欠損した行の除外\n\nfilter()かdrop_na()を使用\n\nfilter()を使用する場合、変数名 != NAでなく、!is.na(変数名)を使用する。\n前期講義の「データハンドリング（1）」を参照\n\n\n\ndf &lt;- df |&gt; \n  filter(!is.na(educ) & !is.na(inc)) # drop_na(educ, inc) でもOK\n\ndf\n\n# A tibble: 2,683 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    74     5    10     3       2       3.6\n# ℹ 2,673 more rows"
   },
   {
     "objectID": "slides/macro/summary.html#データハンドリング名目変数のfactor化",
@@ -5933,18 +5959,18 @@
     "text": "データハンドリング：名目変数のfactor化\n\n子どもの有無（child）は名目変数だが、現在は数値型であるため、factor型変数に変換\n\n\ndf &lt;- df |&gt; \n  mutate(child = factor(child, levels = c(1, 2, 3),\n                        labels = c(\"子どもなし\", \"同居中の子どもあり\", \"別居中の子どもあり\")))\n\ndf\n\n# A tibble: 2,683 × 7\n     fem   age  educ   inc child              youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;                &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7 子どもなし               6       2.8\n 2     0    26     5    11 子どもなし               3       2.8\n 3     0    28     5    10 子どもなし               4       5  \n 4     1    59     5     6 子どもなし               3       3.6\n 5     1    28     5     9 子どもなし               6       3.6\n 6     0    50     5    10 子どもなし               4       4  \n 7     0    44     4     2 子どもなし               2       3.6\n 8     1    45     5    12 子どもなし               5       3  \n 9     1    54     5     3 同居中の子どもあり       1       3.8\n10     0    74     5    10 別居中の子どもあり       2       3.6\n# ℹ 2,673 more rows"
   },
   {
-    "objectID": "slides/macro/summary.html#記述統計1",
-    "href": "slides/macro/summary.html#記述統計1",
+    "objectID": "slides/macro/summary.html#記述統計の計算",
+    "href": "slides/macro/summary.html#記述統計の計算",
     "title": "マクロ政治データ分析実習",
-    "section": "記述統計（1）",
-    "text": "記述統計（1）\n\n名目変数（ここではchild）はダミー化してから計算\n\n\ndf |&gt; \n  dummy_cols(select_columns = \"child\") |&gt; \n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \n\n                                  Mean   Std.Dev     Min     Max   N.Valid\n------------------------------ ------- --------- ------- ------- ---------\n                           fem    0.51      0.50    0.00    1.00   2683.00\n                           age   50.95     16.13   18.00   79.00   2683.00\n                          educ    3.85      1.44    1.00    6.00   2683.00\n                           inc    6.60      3.69    1.00   19.00   2683.00\n                       youtube    2.94      1.52    1.00    7.00   2683.00\n                     diversity    3.47      0.66    1.00    5.00   2683.00\n              child_子どもなし    0.44      0.50    0.00    1.00   2683.00\n      child_同居中の子どもあり    0.33      0.47    0.00    1.00   2683.00\n      child_別居中の子どもあり    0.23      0.42    0.00    1.00   2683.00"
+    "section": "記述統計の計算",
+    "text": "記述統計の計算\n\n名目変数（ここではchild）はダミー化してから計算\n\n\ndf |&gt; \n  dummy_cols(select_columns = \"child\") |&gt; \n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \n\n                                  Mean   Std.Dev     Min     Max   N.Valid\n------------------------------ ------- --------- ------- ------- ---------\n                           fem    0.51      0.50    0.00    1.00   2683.00\n                           age   50.95     16.13   18.00   79.00   2683.00\n                          educ    3.85      1.44    1.00    6.00   2683.00\n                           inc    6.60      3.69    1.00   19.00   2683.00\n                       youtube    2.94      1.52    1.00    7.00   2683.00\n                     diversity    3.47      0.66    1.00    5.00   2683.00\n              child_子どもなし    0.44      0.50    0.00    1.00   2683.00\n      child_同居中の子どもあり    0.33      0.47    0.00    1.00   2683.00\n      child_別居中の子どもあり    0.23      0.42    0.00    1.00   2683.00"
   },
   {
-    "objectID": "slides/macro/summary.html#記述統計2",
-    "href": "slides/macro/summary.html#記述統計2",
+    "objectID": "slides/macro/summary.html#記述統計の掲載",
+    "href": "slides/macro/summary.html#記述統計の掲載",
     "title": "マクロ政治データ分析実習",
-    "section": "記述統計（2）",
-    "text": "記述統計（2）\n\nレポート、論文に掲載する際はしっかり加工すること\n\n変数名をそのまま使わず、誰でも分かるように\n応答変数、主要説明変数、その他の説明変数（統制変数）の順で\n\n\n\n\n\n\n\n\n\n\n\n平均値\n標準偏差\n最小値\n最大値\n有効ケース数\n\n\n\n\n寛容性スコア\n3.475\n0.664\n1\n5\n2683\n\n\nYouTube視聴時間\n2.944\n1.522\n1\n7\n2683\n\n\n女性ダミー\n0.507\n0.500\n0\n1\n2683\n\n\n年齢\n50.954\n16.128\n18\n79\n2683\n\n\n学歴\n3.849\n1.439\n1\n6\n2683\n\n\n世帯収入\n6.602\n3.691\n1\n19\n2683\n\n\n子どもなし\n0.435\n0.496\n0\n1\n2683\n\n\n同居中の子どもあり\n0.330\n0.470\n0\n1\n2683\n\n\n別居中の子どもあり\n0.235\n0.424\n0\n1\n2683"
+    "section": "記述統計の掲載",
+    "text": "記述統計の掲載\n\nレポート、論文に掲載する際はしっかり加工すること\n\n変数名をそのまま使わず、誰でも分かるように\n応答変数、主要説明変数、その他の説明変数（統制変数）の順で\n\n\n\n\n\n\n\n\n\n\n\n平均値\n標準偏差\n最小値\n最大値\n有効ケース数\n\n\n\n\n寛容性スコア\n3.475\n0.664\n1\n5\n2683\n\n\nYouTube視聴時間\n2.944\n1.522\n1\n7\n2683\n\n\n女性ダミー\n0.507\n0.500\n0\n1\n2683\n\n\n年齢\n50.954\n16.128\n18\n79\n2683\n\n\n学歴\n3.849\n1.439\n1\n6\n2683\n\n\n世帯収入\n6.602\n3.691\n1\n19\n2683\n\n\n子どもなし\n0.435\n0.496\n0\n1\n2683\n\n\n同居中の子どもあり\n0.330\n0.470\n0\n1\n2683\n\n\n別居中の子どもあり\n0.235\n0.424\n0\n1\n2683"
   },
   {
     "objectID": "slides/macro/summary.html#youtube線形時間と寛容性間の関係",
@@ -7418,54 +7444,5 @@
     "crumbs": [
       "[後期] マクロ政治データ分析実習"
     ]
-  },
-  {
-    "objectID": "slides/macro/summary.html#データハンドリング欠損値処理-1",
-    "href": "slides/macro/summary.html#データハンドリング欠損値処理-1",
-    "title": "マクロ政治データ分析実習",
-    "section": "データハンドリング：欠損値処理",
-    "text": "データハンドリング：欠損値処理\n\n分析に使用する変数一つでも抜けている行は分析から除外\n\n例）10行目は世帯収入（inc）が欠損（NA）しているため、除外\n\n\n\n欠損の確認欠損した行の除外\n\n\n\nsummary(表オブジェクト名)で確認可能\n\n学歴（educ）が欠損したケースは56名、世帯収入（inc）のそれは411名\n\n\n\nsummary(df)\n\n      fem              age            educ            inc             child          youtube        diversity    \n Min.   :0.0000   Min.   :18.0   Min.   :1.000   Min.   : 1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  \n 1st Qu.:0.0000   1st Qu.:38.0   1st Qu.:2.000   1st Qu.: 3.000   1st Qu.:1.000   1st Qu.:2.000   1st Qu.:3.000  \n Median :1.0000   Median :52.0   Median :5.000   Median : 7.000   Median :2.000   Median :3.000   Median :3.600  \n Mean   :0.5135   Mean   :51.1   Mean   :3.841   Mean   : 6.594   Mean   :1.786   Mean   :2.915   Mean   :3.461  \n 3rd Qu.:1.0000   3rd Qu.:65.0   3rd Qu.:5.000   3rd Qu.: 9.000   3rd Qu.:2.000   3rd Qu.:4.000   3rd Qu.:4.000  \n Max.   :1.0000   Max.   :79.0   Max.   :6.000   Max.   :19.000   Max.   :3.000   Max.   :7.000   Max.   :5.000  \n                                 NA's   :56      NA's   :411                                                     \n\n\n\n\n\nfilter()かdrop_na()を使用\n\n\ndf &lt;- df |&gt; \n  filter(!is.na(educ) & !is.na(inc)) # drop_na(educ, inc) でもOK\n\ndf\n\n# A tibble: 2,683 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    74     5    10     3       2       3.6\n# ℹ 2,673 more rows"
-  },
-  {
-    "objectID": "slides/macro/summary.html#データハンドリング欠損値処理1",
-    "href": "slides/macro/summary.html#データハンドリング欠損値処理1",
-    "title": "マクロ政治データ分析実習",
-    "section": "データハンドリング：欠損値処理（1）",
-    "text": "データハンドリング：欠損値処理（1）\n\nデータのよって欠損値がNAでなく、数字になっているケースもあるため、この場合は欠損値に置換する。\n\n学歴（educ）の欠損値は9、世帯収入（inc）の欠損値は99\n\n\n\ndf &lt;- df |&gt; \n  mutate(educ = if_else(educ == 9,  NA, educ),\n         inc  = if_else(inc  == 99, NA, inc)) \n\ndf\n\n# A tibble: 3,122 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    27     5    NA     1       4       3  \n# ℹ 3,112 more rows"
-  },
-  {
-    "objectID": "slides/macro/summary.html#データハンドリング欠損値処理2",
-    "href": "slides/macro/summary.html#データハンドリング欠損値処理2",
-    "title": "マクロ政治データ分析実習",
-    "section": "データハンドリング：欠損値処理（2）",
-    "text": "データハンドリング：欠損値処理（2）\n\n分析に使用する変数一つでも抜けている行は分析から除外\n\n例）10行目は世帯収入（inc）が欠損（NA）しているため、除外\n\n\n\n欠損の確認欠損した行の除外\n\n\n\ncolSums(is.na(表オブジェクト名))で確認可能\n\n学歴（educ）が欠損したケースは56名、世帯収入（inc）のそれは411名\n\n\n\nis.na(df) |&gt; \n  colSums()\n\n      fem       age      educ       inc     child   youtube diversity \n        0         0        56       411         0         0         0 \n\n\n\n\n\nfilter()かdrop_na()を使用\n\n\ndf &lt;- df |&gt; \n  filter(!is.na(educ) & !is.na(inc)) # drop_na(educ, inc) でもOK\n\ndf\n\n# A tibble: 2,683 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    74     5    10     3       2       3.6\n# ℹ 2,673 more rows"
-  },
-  {
-    "objectID": "slides/macro/summary.html#データハンドリング欠損の確認",
-    "href": "slides/macro/summary.html#データハンドリング欠損の確認",
-    "title": "マクロ政治データ分析実習",
-    "section": "データハンドリング：欠損の確認",
-    "text": "データハンドリング：欠損の確認\n\ncolSums(is.na(表オブジェクト名))で確認可能\n\n学歴（educ）が欠損したケースは56名、世帯収入（inc）のそれは411名\nsummary(表オブジェクト名)でもOK（欠損値以外の情報も出力される）\n\n\n\nis.na(df) |&gt; \n  colSums()\n\n      fem       age      educ       inc     child   youtube diversity \n        0         0        56       411         0         0         0"
-  },
-  {
-    "objectID": "slides/macro/summary.html#データハンドリング欠損した行の除外",
-    "href": "slides/macro/summary.html#データハンドリング欠損した行の除外",
-    "title": "マクロ政治データ分析実習",
-    "section": "データハンドリング：欠損した行の除外",
-    "text": "データハンドリング：欠損した行の除外\n\n分析に使用する変数一つでも抜けている行は分析から除外\n\n例）10行目は世帯収入（inc）が欠損（NA）しているため、除外\nfilter()かdrop_na()を使用\n\n\n\ndf &lt;- df |&gt; \n  filter(!is.na(educ) & !is.na(inc)) # drop_na(educ, inc) でもOK\n\ndf\n\n# A tibble: 2,683 × 7\n     fem   age  educ   inc child youtube diversity\n   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;\n 1     0    25     5     7     1       6       2.8\n 2     0    26     5    11     1       3       2.8\n 3     0    28     5    10     1       4       5  \n 4     1    59     5     6     1       3       3.6\n 5     1    28     5     9     1       6       3.6\n 6     0    50     5    10     1       4       4  \n 7     0    44     4     2     1       2       3.6\n 8     1    45     5    12     1       5       3  \n 9     1    54     5     3     2       1       3.8\n10     0    74     5    10     3       2       3.6\n# ℹ 2,673 more rows"
-  },
-  {
-    "objectID": "slides/macro/summary.html#記述統計の計算",
-    "href": "slides/macro/summary.html#記述統計の計算",
-    "title": "マクロ政治データ分析実習",
-    "section": "記述統計の計算",
-    "text": "記述統計の計算\n\n名目変数（ここではchild）はダミー化してから計算\n\n\ndf |&gt; \n  dummy_cols(select_columns = \"child\") |&gt; \n  descr(stats = c(\"mean\", \"sd\", \"min\", \"max\", \"n.valid\"),\n        transpose = TRUE, order = \"p\")\n\nDescriptive Statistics  \n\n                                  Mean   Std.Dev     Min     Max   N.Valid\n------------------------------ ------- --------- ------- ------- ---------\n                           fem    0.51      0.50    0.00    1.00   2683.00\n                           age   50.95     16.13   18.00   79.00   2683.00\n                          educ    3.85      1.44    1.00    6.00   2683.00\n                           inc    6.60      3.69    1.00   19.00   2683.00\n                       youtube    2.94      1.52    1.00    7.00   2683.00\n                     diversity    3.47      0.66    1.00    5.00   2683.00\n              child_子どもなし    0.44      0.50    0.00    1.00   2683.00\n      child_同居中の子どもあり    0.33      0.47    0.00    1.00   2683.00\n      child_別居中の子どもあり    0.23      0.42    0.00    1.00   2683.00"
-  },
-  {
-    "objectID": "slides/macro/summary.html#記述統計の掲載",
-    "href": "slides/macro/summary.html#記述統計の掲載",
-    "title": "マクロ政治データ分析実習",
-    "section": "記述統計の掲載",
-    "text": "記述統計の掲載\n\nレポート、論文に掲載する際はしっかり加工すること\n\n変数名をそのまま使わず、誰でも分かるように\n応答変数、主要説明変数、その他の説明変数（統制変数）の順で\n\n\n\n\n\n\n\n\n\n\n\n平均値\n標準偏差\n最小値\n最大値\n有効ケース数\n\n\n\n\n寛容性スコア\n3.475\n0.664\n1\n5\n2683\n\n\nYouTube視聴時間\n2.944\n1.522\n1\n7\n2683\n\n\n女性ダミー\n0.507\n0.500\n0\n1\n2683\n\n\n年齢\n50.954\n16.128\n18\n79\n2683\n\n\n学歴\n3.849\n1.439\n1\n6\n2683\n\n\n世帯収入\n6.602\n3.691\n1\n19\n2683\n\n\n子どもなし\n0.435\n0.496\n0\n1\n2683\n\n\n同居中の子どもあり\n0.330\n0.470\n0\n1\n2683\n\n\n別居中の子どもあり\n0.235\n0.424\n0\n1\n2683"
   }
 ]

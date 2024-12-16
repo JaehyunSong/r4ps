@@ -427,8 +427,8 @@
 </div>
 </div>
 </section>
-<section id="データハンドリング欠損値処理1" class="slide level2">
-<h2>データハンドリング：欠損値処理（1）</h2>
+<section id="データハンドリング欠損値処理" class="slide level2">
+<h2>データハンドリング：欠損値処理</h2>
 <ul>
 <li>データのよって欠損値が<code>NA</code>でなく、数字になっているケースもあるため、この場合は欠損値に置換する。
 <ul>
@@ -437,8 +437,8 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a></a>  <span class="fu">mutate</span>(<span class="at">educ =</span> <span class="fu">if_else</span>(educ <span class="sc">==</span> <span class="dv">9</span>,  <span class="cn">NA</span>, educ),</span>
-<span id="cb6-3"><a></a>         <span class="at">inc  =</span> <span class="fu">if_else</span>(inc  <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, inc)) </span>
+<span id="cb6-2"><a></a>  <span class="fu">mutate</span>(<span class="at">educ =</span> <span class="fu">if_else</span>(educ <span class="sc">==</span> <span class="dv">9</span>,  <span class="cn">NA</span>, educ), <span class="co"># educの値が9ならNAに、それ以外はそのままに</span></span>
+<span id="cb6-3"><a></a>         <span class="at">inc  =</span> <span class="fu">if_else</span>(inc  <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, inc))  <span class="co"># incの値が99ならNAに、それ以外はそのままに</span></span>
 <span id="cb6-4"><a></a></span>
 <span id="cb6-5"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -464,9 +464,9 @@
 <ul>
 <li><code>colSums(is.na(表オブジェクト名))</code>で確認可能
 <ul>
-<li>学歴（<code>educ</code>）が欠損したケースは56名、世帯収入（<code>inc</code>）のそれは411名</li>
 <li><code>summary(表オブジェクト名)</code>でもOK（欠損値以外の情報も出力される）</li>
 </ul></li>
+<li>学歴（<code>educ</code>）が欠損したケースは56名、世帯収入（<code>inc</code>）のそれは411名</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">is.na</span>(df) <span class="sc">|&gt;</span> </span>
@@ -476,14 +476,21 @@
         0         0        56       411         0         0         0 </code></pre>
 </div>
 </div>
+<ul>
+<li>分析に使用する変数一つでも抜けている行は分析から除外する。
+<ul>
+<li>例）10行目は世帯収入（<code>inc</code>）が欠損（<code>NA</code>）しているため、除外する必要がある。</li>
+<li>参考）欠損値を補完する手法（多重代入法; multiple imputation）もある。</li>
+</ul></li>
+</ul>
 </section>
 <section id="データハンドリング欠損した行の除外" class="slide level2">
 <h2>データハンドリング：欠損した行の除外</h2>
 <ul>
-<li>分析に使用する変数一つでも抜けている行は分析から除外
+<li><code>filter()</code>か<code>drop_na()</code>を使用
 <ul>
-<li>例）10行目は世帯収入（<code>inc</code>）が欠損（<code>NA</code>）しているため、除外</li>
-<li><code>filter()</code>か<code>drop_na()</code>を使用</li>
+<li><code>filter()</code>を使用する場合、<code>変数名 != NA</code>でなく、<code>!is.na(変数名)</code>を使用する。</li>
+<li>前期講義の「データハンドリング（1）」を参照</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -576,23 +583,23 @@
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="vhduznowai" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vhduznowai table {
+<div id="fkktoowrxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fkktoowrxx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vhduznowai thead, #vhduznowai tbody, #vhduznowai tfoot, #vhduznowai tr, #vhduznowai td, #vhduznowai th {
+#fkktoowrxx thead, #fkktoowrxx tbody, #fkktoowrxx tfoot, #fkktoowrxx tr, #fkktoowrxx td, #fkktoowrxx th {
   border-style: none;
 }
 
-#vhduznowai p {
+#fkktoowrxx p {
   margin: 0;
   padding: 0;
 }
 
-#vhduznowai .gt_table {
+#fkktoowrxx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -618,12 +625,12 @@
   border-left-color: #D3D3D3;
 }
 
-#vhduznowai .gt_caption {
+#fkktoowrxx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vhduznowai .gt_title {
+#fkktoowrxx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -635,7 +642,7 @@
   border-bottom-width: 0;
 }
 
-#vhduznowai .gt_subtitle {
+#fkktoowrxx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -647,7 +654,7 @@
   border-top-width: 0;
 }
 
-#vhduznowai .gt_heading {
+#fkktoowrxx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -659,13 +666,13 @@
   border-right-color: #D3D3D3;
 }
 
-#vhduznowai .gt_bottom_border {
+#fkktoowrxx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vhduznowai .gt_col_headings {
+#fkktoowrxx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -680,7 +687,7 @@
   border-right-color: #D3D3D3;
 }
 
-#vhduznowai .gt_col_heading {
+#fkktoowrxx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -700,7 +707,7 @@
   overflow-x: hidden;
 }
 
-#vhduznowai .gt_column_spanner_outer {
+#fkktoowrxx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -712,15 +719,15 @@
   padding-right: 4px;
 }
 
-#vhduznowai .gt_column_spanner_outer:first-child {
+#fkktoowrxx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vhduznowai .gt_column_spanner_outer:last-child {
+#fkktoowrxx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vhduznowai .gt_column_spanner {
+#fkktoowrxx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -732,11 +739,11 @@
   width: 100%;
 }
 
-#vhduznowai .gt_spanner_row {
+#fkktoowrxx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vhduznowai .gt_group_heading {
+#fkktoowrxx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -762,7 +769,7 @@
   text-align: left;
 }
 
-#vhduznowai .gt_empty_group_heading {
+#fkktoowrxx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -777,15 +784,15 @@
   vertical-align: middle;
 }
 
-#vhduznowai .gt_from_md > :first-child {
+#fkktoowrxx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vhduznowai .gt_from_md > :last-child {
+#fkktoowrxx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vhduznowai .gt_row {
+#fkktoowrxx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -804,7 +811,7 @@
   overflow-x: hidden;
 }
 
-#vhduznowai .gt_stub {
+#fkktoowrxx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -817,7 +824,7 @@
   padding-right: 5px;
 }
 
-#vhduznowai .gt_stub_row_group {
+#fkktoowrxx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -831,15 +838,15 @@
   vertical-align: top;
 }
 
-#vhduznowai .gt_row_group_first td {
+#fkktoowrxx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vhduznowai .gt_row_group_first th {
+#fkktoowrxx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vhduznowai .gt_summary_row {
+#fkktoowrxx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -849,16 +856,16 @@
   padding-right: 5px;
 }
 
-#vhduznowai .gt_first_summary_row {
+#fkktoowrxx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vhduznowai .gt_first_summary_row.thick {
+#fkktoowrxx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vhduznowai .gt_last_summary_row {
+#fkktoowrxx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -868,7 +875,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#vhduznowai .gt_grand_summary_row {
+#fkktoowrxx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -878,7 +885,7 @@
   padding-right: 5px;
 }
 
-#vhduznowai .gt_first_grand_summary_row {
+#fkktoowrxx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -888,7 +895,7 @@
   border-top-color: #D3D3D3;
 }
 
-#vhduznowai .gt_last_grand_summary_row_top {
+#fkktoowrxx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -898,11 +905,11 @@
   border-bottom-color: #D3D3D3;
 }
 
-#vhduznowai .gt_striped {
+#fkktoowrxx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vhduznowai .gt_table_body {
+#fkktoowrxx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -911,7 +918,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#vhduznowai .gt_footnotes {
+#fkktoowrxx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -925,7 +932,7 @@
   border-right-color: #D3D3D3;
 }
 
-#vhduznowai .gt_footnote {
+#fkktoowrxx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -934,7 +941,7 @@
   padding-right: 5px;
 }
 
-#vhduznowai .gt_sourcenotes {
+#fkktoowrxx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -948,7 +955,7 @@
   border-right-color: #D3D3D3;
 }
 
-#vhduznowai .gt_sourcenote {
+#fkktoowrxx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -956,72 +963,72 @@
   padding-right: 5px;
 }
 
-#vhduznowai .gt_left {
+#fkktoowrxx .gt_left {
   text-align: left;
 }
 
-#vhduznowai .gt_center {
+#fkktoowrxx .gt_center {
   text-align: center;
 }
 
-#vhduznowai .gt_right {
+#fkktoowrxx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vhduznowai .gt_font_normal {
+#fkktoowrxx .gt_font_normal {
   font-weight: normal;
 }
 
-#vhduznowai .gt_font_bold {
+#fkktoowrxx .gt_font_bold {
   font-weight: bold;
 }
 
-#vhduznowai .gt_font_italic {
+#fkktoowrxx .gt_font_italic {
   font-style: italic;
 }
 
-#vhduznowai .gt_super {
+#fkktoowrxx .gt_super {
   font-size: 65%;
 }
 
-#vhduznowai .gt_footnote_marks {
+#fkktoowrxx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vhduznowai .gt_asterisk {
+#fkktoowrxx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vhduznowai .gt_indent_1 {
+#fkktoowrxx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vhduznowai .gt_indent_2 {
+#fkktoowrxx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vhduznowai .gt_indent_3 {
+#fkktoowrxx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vhduznowai .gt_indent_4 {
+#fkktoowrxx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vhduznowai .gt_indent_5 {
+#fkktoowrxx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vhduznowai .katex-display {
+#fkktoowrxx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vhduznowai div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fkktoowrxx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1169,7 +1176,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
 </figure>
 </div>
 </div>
@@ -1183,7 +1190,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
 </figure>
 </div>
 </div>
@@ -1196,7 +1203,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1208,7 +1215,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1291,8 +1298,8 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
 
     <script>
 
-      function styleCell_ekwmmzfjwtkcrfxblvjs(i, j, css_id) {
-          var table = document.getElementById("tinytable_ekwmmzfjwtkcrfxblvjs");
+      function styleCell_izs5qf0safgjobzs5d9v(i, j, css_id) {
+          var table = document.getElementById("tinytable_izs5qf0safgjobzs5d9v");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -1302,7 +1309,7 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_ekwmmzfjwtkcrfxblvjs');
+        var table = document.getElementById('tinytable_izs5qf0safgjobzs5d9v');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -1310,8 +1317,8 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_ekwmmzfjwtkcrfxblvjs(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_ekwmmzfjwtkcrfxblvjs");
+      function spanCell_izs5qf0safgjobzs5d9v(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_izs5qf0safgjobzs5d9v");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -1341,20 +1348,20 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_nm8lrxrk5dmzfczr47x8',}, 
-          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 12, j: 1 },  ], css_id: 'tinytable_css_h4ugp4than0czxf9k87f',}, 
-          { positions: [ { i: 13, j: 1 },  ], css_id: 'tinytable_css_bge9wl2hdmjpgy7fj1hs',}, 
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 12, j: 0 },  ], css_id: 'tinytable_css_8k2lpcc2zbe9a6xftrex',}, 
-          { positions: [ { i: 11, j: 1 },  ], css_id: 'tinytable_css_8imj0i7k9ursdn0gptp3',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_6rvs5ouhxkhcbegeo0il',}, 
-          { positions: [ { i: 11, j: 0 },  ], css_id: 'tinytable_css_61533pxvhfnarwn5opyg',}, 
-          { positions: [ { i: 13, j: 0 },  ], css_id: 'tinytable_css_537kzqpfgmzhofg64qkl',}, 
+          { positions: [ { i: 11, j: 1 },  ], css_id: 'tinytable_css_wulk0xgzt1n6eq2y0y7a',}, 
+          { positions: [ { i: 11, j: 0 },  ], css_id: 'tinytable_css_w61gloqfopssg45ioled',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_so100jgkq7uoyl92bvay',}, 
+          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_g1gfzkkjdkjonfu1u0pm',}, 
+          { positions: [ { i: 13, j: 1 },  ], css_id: 'tinytable_css_esri4ztp37yekmsewfj8',}, 
+          { positions: [ { i: 13, j: 0 },  ], css_id: 'tinytable_css_eemjpuncw5a8qw8vjlzp',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 12, j: 0 },  ], css_id: 'tinytable_css_7wgslwy1i86keedg47uz',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 12, j: 1 },  ], css_id: 'tinytable_css_3k3kr0krdrh50w523vgv',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_ekwmmzfjwtkcrfxblvjs(cell.i, cell.j, group.css_id);
+                  styleCell_izs5qf0safgjobzs5d9v(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -1362,17 +1369,17 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_nm8lrxrk5dmzfczr47x8, .table th.tinytable_css_nm8lrxrk5dmzfczr47x8 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_h4ugp4than0czxf9k87f, .table th.tinytable_css_h4ugp4than0czxf9k87f { text-align: center; }
-      .table td.tinytable_css_bge9wl2hdmjpgy7fj1hs, .table th.tinytable_css_bge9wl2hdmjpgy7fj1hs { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_8k2lpcc2zbe9a6xftrex, .table th.tinytable_css_8k2lpcc2zbe9a6xftrex { text-align: left; }
-      .table td.tinytable_css_8imj0i7k9ursdn0gptp3, .table th.tinytable_css_8imj0i7k9ursdn0gptp3 { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_6rvs5ouhxkhcbegeo0il, .table th.tinytable_css_6rvs5ouhxkhcbegeo0il { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_61533pxvhfnarwn5opyg, .table th.tinytable_css_61533pxvhfnarwn5opyg { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_537kzqpfgmzhofg64qkl, .table th.tinytable_css_537kzqpfgmzhofg64qkl { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_wulk0xgzt1n6eq2y0y7a, .table th.tinytable_css_wulk0xgzt1n6eq2y0y7a { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_w61gloqfopssg45ioled, .table th.tinytable_css_w61gloqfopssg45ioled { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_so100jgkq7uoyl92bvay, .table th.tinytable_css_so100jgkq7uoyl92bvay { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_g1gfzkkjdkjonfu1u0pm, .table th.tinytable_css_g1gfzkkjdkjonfu1u0pm { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_esri4ztp37yekmsewfj8, .table th.tinytable_css_esri4ztp37yekmsewfj8 { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_eemjpuncw5a8qw8vjlzp, .table th.tinytable_css_eemjpuncw5a8qw8vjlzp { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_7wgslwy1i86keedg47uz, .table th.tinytable_css_7wgslwy1i86keedg47uz { text-align: left; }
+      .table td.tinytable_css_3k3kr0krdrh50w523vgv, .table th.tinytable_css_3k3kr0krdrh50w523vgv { text-align: center; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_ekwmmzfjwtkcrfxblvjs" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_izs5qf0safgjobzs5d9v" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         
               <tr>
@@ -1501,7 +1508,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
@@ -1575,7 +1582,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1605,7 +1612,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1708,7 +1715,7 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -1725,7 +1732,7 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="summary_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="summary_files/figure-html/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -1960,44 +1967,6 @@ Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
