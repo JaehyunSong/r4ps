@@ -7,11 +7,10 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.39">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
-  <meta name="dcterms.date" content="2024-11-14">
   <title>R for Political Science – マクロ政治データ分析実習</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-130ad34dd4d581126d0895ea4ff6daeb.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-28e1c44b566025bd302a83a0820c106a.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -206,7 +205,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">マクロ政治データ分析実習</h1>
-  <p class="subtitle">第8回 線形回帰分析（1）</p>
+  <p class="subtitle">7/ 線形回帰分析（1）</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -219,7 +218,6 @@
     </div>
 </div>
 
-  <p class="date">2024-11-14</p>
 </section>
 <section id="授業開始前に" class="slide level2">
 <h2>授業開始前に</h2>
@@ -429,12 +427,12 @@ sample estimates:
 <p><br></p>
 <h4 id="観測値予測値残差">観測値、予測値、残差</h4>
 <ul>
-<li><strong>観測値</strong>: 実際に観察されている値
+<li><strong>観測値</strong>：実際に観察されている値
 <ul>
 <li>2016年5月（<code>beer_df</code>の5行目）の「気温は20.2度であり、ビールの販売量は794万箱」である。</li>
 <li><span class="math inline">\(x_5\)</span> = 20.2 / <span class="math inline">\(y_5\)</span> = 794</li>
 </ul></li>
-<li><strong>予測値</strong>: 推定された一次関数に観測値における説明変数を代入した場合に得られる値
+<li><strong>予測値</strong>：推定された一次関数に観測値における説明変数を代入した場合に得られる値
 <ul>
 <li>「ビールの販売量の予測値 = 576.227 + 7.355<span class="math inline">\(\times\)</span>気温」であるため、気温20.2度を外挿すると、約725万箱となる
 <ul>
@@ -2957,9 +2955,16 @@ F-statistic: 10.05 on 2 and 44 DF,  p-value: 0.0002545</code></pre>
 <!-- preamble start -->
 
     <script>
+
       function styleCell_w1k2q9ti0uh0m3s2sdq7(i, j, css_id) {
-        var table = document.getElementById("tinytable_w1k2q9ti0uh0m3s2sdq7");
-        table.rows[i].cells[j].classList.add(css_id);
+          var table = document.getElementById("tinytable_w1k2q9ti0uh0m3s2sdq7");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
       }
       function insertSpanRow(i, colspan, content) {
         var table = document.getElementById('tinytable_w1k2q9ti0uh0m3s2sdq7');
@@ -2997,75 +3002,39 @@ F-statistic: 10.05 on 2 and 44 DF,  p-value: 0.0002545</code></pre>
         targetCell.rowSpan = rowspan;
         targetCell.colSpan = colspan;
       }
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(0, 0, 'tinytable_css_ide1btoyldv3vpor6f503a') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(0, 1, 'tinytable_css_id6ylih4cghoeiw9s1nn0q') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(0, 2, 'tinytable_css_id6ylih4cghoeiw9s1nn0q') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(0, 3, 'tinytable_css_id6ylih4cghoeiw9s1nn0q') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(1, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(1, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(1, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(1, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(2, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(2, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(2, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(2, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(3, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(3, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(3, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(3, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(4, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(4, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(4, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(4, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(5, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(5, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(5, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(5, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(6, 0, 'tinytable_css_id7wt6hsrk33qktethj0oh') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(6, 1, 'tinytable_css_id2j842xgtkkz30aqqqq43') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(6, 2, 'tinytable_css_id2j842xgtkkz30aqqqq43') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(6, 3, 'tinytable_css_id2j842xgtkkz30aqqqq43') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(7, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(7, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(7, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(7, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(8, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(8, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(8, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(8, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(9, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(9, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(9, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(9, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(10, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(10, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(10, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(10, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(11, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(11, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(11, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(11, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(12, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(12, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(12, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(12, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(13, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(13, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(13, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(13, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(14, 0, 'tinytable_css_idd1sncik2vry618belv5j') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(14, 1, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(14, 2, 'tinytable_css_idwyp4y97pypjhveojimtr') })
-window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(14, 3, 'tinytable_css_idwyp4y97pypjhveojimtr') })
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 }, { i: 0, j: 3 },  ], css_id: 'tinytable_css_xfpko99o1igo6jn67q03',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 10, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 },  ], css_id: 'tinytable_css_tn0a7p4gpx5tb5weuh85',}, 
+          { positions: [ { i: 6, j: 0 },  ], css_id: 'tinytable_css_o44ppnyclmi3eax000jc',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 3, j: 1 }, { i: 5, j: 1 }, { i: 4, j: 2 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 12, j: 2 }, { i: 2, j: 1 }, { i: 1, j: 2 }, { i: 4, j: 1 }, { i: 3, j: 2 }, { i: 2, j: 3 }, { i: 5, j: 2 }, { i: 4, j: 3 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 9, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 10, j: 3 }, { i: 13, j: 2 }, { i: 12, j: 3 }, { i: 2, j: 2 }, { i: 1, j: 3 }, { i: 3, j: 3 }, { i: 8, j: 3 }, { i: 5, j: 3 }, { i: 7, j: 3 }, { i: 9, j: 3 }, { i: 11, j: 3 }, { i: 13, j: 3 },  ], css_id: 'tinytable_css_mm0x5g9zwmotyvxkeozb',}, 
+          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 }, { i: 14, j: 3 },  ], css_id: 'tinytable_css_e1btoyldv3vpor6f503a',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_9h9w28z6ahbbinijwahx',}, 
+          { positions: [ { i: 6, j: 1 }, { i: 6, j: 3 }, { i: 6, j: 2 },  ], css_id: 'tinytable_css_229eu0ludydt840fb9x6',}, 
+          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_0mljycmk8e1fpkmwojmx',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_w1k2q9ti0uh0m3s2sdq7(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
     </script>
 
     <style>
-    .table td.tinytable_css_ide1btoyldv3vpor6f503a, .table th.tinytable_css_ide1btoyldv3vpor6f503a {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
-    .table td.tinytable_css_id6ylih4cghoeiw9s1nn0q, .table th.tinytable_css_id6ylih4cghoeiw9s1nn0q {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
-    .table td.tinytable_css_idd1sncik2vry618belv5j, .table th.tinytable_css_idd1sncik2vry618belv5j {  text-align: left; }
-    .table td.tinytable_css_idwyp4y97pypjhveojimtr, .table th.tinytable_css_idwyp4y97pypjhveojimtr {  text-align: center; }
-    .table td.tinytable_css_id7wt6hsrk33qktethj0oh, .table th.tinytable_css_id7wt6hsrk33qktethj0oh {  border-bottom: solid 0.05em black;  text-align: left; }
-    .table td.tinytable_css_id2j842xgtkkz30aqqqq43, .table th.tinytable_css_id2j842xgtkkz30aqqqq43 {  border-bottom: solid 0.05em black;  text-align: center; }
+      /* tinytable css entries after */
+      .table td.tinytable_css_xfpko99o1igo6jn67q03, .table th.tinytable_css_xfpko99o1igo6jn67q03 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_tn0a7p4gpx5tb5weuh85, .table th.tinytable_css_tn0a7p4gpx5tb5weuh85 { text-align: left; }
+      .table td.tinytable_css_o44ppnyclmi3eax000jc, .table th.tinytable_css_o44ppnyclmi3eax000jc { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_mm0x5g9zwmotyvxkeozb, .table th.tinytable_css_mm0x5g9zwmotyvxkeozb { text-align: center; }
+      .table td.tinytable_css_e1btoyldv3vpor6f503a, .table th.tinytable_css_e1btoyldv3vpor6f503a { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_9h9w28z6ahbbinijwahx, .table th.tinytable_css_9h9w28z6ahbbinijwahx { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_229eu0ludydt840fb9x6, .table th.tinytable_css_229eu0ludydt840fb9x6 { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_0mljycmk8e1fpkmwojmx, .table th.tinytable_css_0mljycmk8e1fpkmwojmx { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
     </style>
     <div class="container">
       <table class="table table-borderless" id="tinytable_w1k2q9ti0uh0m3s2sdq7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
@@ -3082,87 +3051,87 @@ window.addEventListener('load', function () { styleCell_w1k2q9ti0uh0m3s2sdq7(14,
         <tbody>
                 <tr>
                   <td>(Intercept)</td>
-                  <td>15.891  </td>
-                  <td>45.291  </td>
-                  <td>7.518   </td>
+                  <td>15.891</td>
+                  <td>45.291</td>
+                  <td>7.518</td>
                 </tr>
                 <tr>
-                  <td>           </td>
+                  <td></td>
                   <td>(11.398)</td>
-                  <td>(2.049) </td>
-                  <td>(7.141) </td>
+                  <td>(2.049)</td>
+                  <td>(7.141)</td>
                 </tr>
                 <tr>
-                  <td>Zaisei     </td>
-                  <td>-4.547  </td>
-                  <td>-13.012 </td>
-                  <td>        </td>
+                  <td>Zaisei</td>
+                  <td>-4.547</td>
+                  <td>-13.012</td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(4.821) </td>
-                  <td>(3.800) </td>
-                  <td>        </td>
+                  <td></td>
+                  <td>(4.821)</td>
+                  <td>(3.800)</td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>Over65     </td>
-                  <td>0.881   </td>
-                  <td>        </td>
-                  <td>1.094   </td>
+                  <td>Over65</td>
+                  <td>0.881</td>
+                  <td></td>
+                  <td>1.094</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(0.337) </td>
-                  <td>        </td>
-                  <td>(0.249) </td>
+                  <td></td>
+                  <td>(0.337)</td>
+                  <td></td>
+                  <td>(0.249)</td>
                 </tr>
                 <tr>
-                  <td>Num.Obs.   </td>
-                  <td>47      </td>
-                  <td>47      </td>
-                  <td>47      </td>
+                  <td>Num.Obs.</td>
+                  <td>47</td>
+                  <td>47</td>
+                  <td>47</td>
                 </tr>
                 <tr>
-                  <td>R2         </td>
-                  <td>0.314   </td>
-                  <td>0.207   </td>
-                  <td>0.300   </td>
+                  <td>R2</td>
+                  <td>0.314</td>
+                  <td>0.207</td>
+                  <td>0.300</td>
                 </tr>
                 <tr>
-                  <td>R2 Adj.    </td>
-                  <td>0.282   </td>
-                  <td>0.189   </td>
-                  <td>0.284   </td>
+                  <td>R2 Adj.</td>
+                  <td>0.282</td>
+                  <td>0.189</td>
+                  <td>0.284</td>
                 </tr>
                 <tr>
-                  <td>AIC        </td>
-                  <td>281.7   </td>
-                  <td>286.5   </td>
-                  <td>280.7   </td>
+                  <td>AIC</td>
+                  <td>281.7</td>
+                  <td>286.5</td>
+                  <td>280.7</td>
                 </tr>
                 <tr>
-                  <td>BIC        </td>
-                  <td>289.1   </td>
-                  <td>292.1   </td>
-                  <td>286.2   </td>
+                  <td>BIC</td>
+                  <td>289.1</td>
+                  <td>292.1</td>
+                  <td>286.2</td>
                 </tr>
                 <tr>
-                  <td>Log.Lik.   </td>
+                  <td>Log.Lik.</td>
                   <td>-136.869</td>
                   <td>-140.269</td>
                   <td>-137.340</td>
                 </tr>
                 <tr>
-                  <td>F          </td>
-                  <td>10.048  </td>
-                  <td>11.724  </td>
-                  <td>19.254  </td>
+                  <td>F</td>
+                  <td>10.048</td>
+                  <td>11.724</td>
+                  <td>19.254</td>
                 </tr>
                 <tr>
-                  <td>RMSE       </td>
-                  <td>4.45    </td>
-                  <td>4.79    </td>
-                  <td>4.50    </td>
+                  <td>RMSE</td>
+                  <td>4.45</td>
+                  <td>4.79</td>
+                  <td>4.50</td>
                 </tr>
         </tbody>
       </table>
