@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-1fa1d8026083a9bddc52b4aafc7f818e.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-9206d9c030161701b67a41faf3cec2af.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.29">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – ミクロ政治データ分析実習</title>
@@ -30,8 +30,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -42,7 +43,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -95,7 +96,7 @@
     code span.vs { color: #008000; } /* VerbatimString */
     code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-775dfe5c3e62539c85c73ea83d60ae14.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-3df89c796c8b974f0a2a57e91a8eb4b9.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -343,15 +344,15 @@
 
 </div><div class="column" style="width:24%;">
 <p><strong>Markdown</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a></a>| ID | Name  |</span>
-<span id="cb5-2"><a></a>|----|-------|</span>
-<span id="cb5-3"><a></a>| 1  | Song  |</span>
-<span id="cb5-4"><a></a>| 2  | Yanai |</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a></a><span class="pp">|</span> ID <span class="pp">|</span> Name  <span class="pp">|</span></span>
+<span id="cb5-2"><a></a><span class="pp">|----|-------|</span></span>
+<span id="cb5-3"><a></a><span class="pp">|</span> 1  <span class="pp">|</span> Song  <span class="pp">|</span></span>
+<span id="cb5-4"><a></a><span class="pp">|</span> 2  <span class="pp">|</span> Yanai <span class="pp">|</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>綺麗に揃えなくてもOK</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a></a>|ID|Name|</span>
-<span id="cb6-2"><a></a>|---|---|</span>
-<span id="cb6-3"><a></a>|1|Song|</span>
-<span id="cb6-4"><a></a>|2|Yanai|</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a></a><span class="pp">|</span>ID<span class="pp">|</span>Name<span class="pp">|</span></span>
+<span id="cb6-2"><a></a><span class="pp">|---|---|</span></span>
+<span id="cb6-3"><a></a><span class="pp">|</span>1<span class="pp">|</span>Song<span class="pp">|</span></span>
+<span id="cb6-4"><a></a><span class="pp">|</span>2<span class="pp">|</span>Yanai<span class="pp">|</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:1%;">
 
 </div><div class="column" style="width:24%;">
@@ -713,16 +714,16 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <div class="columns">
 <div class="column" style="width:47.5%;">
 <p><strong>Input</strong></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a></a>|ID |Name   |Birth (Year)|Pref   |</span>
-<span id="cb21-2"><a></a>|:-:|-------|-----------:|-------|</span>
-<span id="cb21-3"><a></a>|1  |Ogura  |1852        |Tokyo  |</span>
-<span id="cb21-4"><a></a>|2  |Tsurumi|1858        |Tochigi|</span>
-<span id="cb21-5"><a></a>|3  |Yoshida|1858        |Fukuoka|</span>
-<span id="cb21-6"><a></a>|4  |Hotta  |1859        |Chiba  |</span>
-<span id="cb21-7"><a></a>|5  |Inoue  |1847        |Nagano |</span>
-<span id="cb21-8"><a></a>|6  |Tezuka |1862        |Tokyo  |</span>
-<span id="cb21-9"><a></a>|7  |Shikata|1857        |Saitama|</span>
-<span id="cb21-10"><a></a>|8  |Nomura |1855        |Gunma  |</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a></a><span class="pp">|</span>ID <span class="pp">|</span>Name   <span class="pp">|</span>Birth (Year)<span class="pp">|</span>Pref   <span class="pp">|</span></span>
+<span id="cb21-2"><a></a><span class="pp">|</span>:-:<span class="pp">|-------|-----------:|-------|</span></span>
+<span id="cb21-3"><a></a><span class="pp">|</span>1  <span class="pp">|</span>Ogura  <span class="pp">|</span>1852        <span class="pp">|</span>Tokyo  <span class="pp">|</span></span>
+<span id="cb21-4"><a></a><span class="pp">|</span>2  <span class="pp">|</span>Tsurumi<span class="pp">|</span>1858        <span class="pp">|</span>Tochigi<span class="pp">|</span></span>
+<span id="cb21-5"><a></a><span class="pp">|</span>3  <span class="pp">|</span>Yoshida<span class="pp">|</span>1858        <span class="pp">|</span>Fukuoka<span class="pp">|</span></span>
+<span id="cb21-6"><a></a><span class="pp">|</span>4  <span class="pp">|</span>Hotta  <span class="pp">|</span>1859        <span class="pp">|</span>Chiba  <span class="pp">|</span></span>
+<span id="cb21-7"><a></a><span class="pp">|</span>5  <span class="pp">|</span>Inoue  <span class="pp">|</span>1847        <span class="pp">|</span>Nagano <span class="pp">|</span></span>
+<span id="cb21-8"><a></a><span class="pp">|</span>6  <span class="pp">|</span>Tezuka <span class="pp">|</span>1862        <span class="pp">|</span>Tokyo  <span class="pp">|</span></span>
+<span id="cb21-9"><a></a><span class="pp">|</span>7  <span class="pp">|</span>Shikata<span class="pp">|</span>1857        <span class="pp">|</span>Saitama<span class="pp">|</span></span>
+<span id="cb21-10"><a></a><span class="pp">|</span>8  <span class="pp">|</span>Nomura <span class="pp">|</span>1855        <span class="pp">|</span>Gunma  <span class="pp">|</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:47.5%;">
@@ -855,8 +856,8 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <span id="cb23-3"><a></a>ここに書いたものは文章として扱われる。</span>
 <span id="cb23-4"><a></a></span>
 <span id="cb23-5"><a></a><span class="in">```{r}</span></span>
-<span id="cb23-6"><a></a><span class="in">x &lt;- 5 # 円の半径</span></span>
-<span id="cb23-7"><a></a><span class="in">print(3.14 * x^2)</span></span>
+<span id="cb23-6"><a></a>x <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 円の半径</span></span>
+<span id="cb23-7"><a></a><span class="fu">print</span>(<span class="fl">3.14</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb23-8"><a></a><span class="in">```</span></span>
 <span id="cb23-9"><a></a></span>
 <span id="cb23-10"><a></a>ここに書いたのも文章</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -883,13 +884,13 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <div class="column" style="width:38%;">
 <p>チャンクオプションの付け方</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb26-2"><a></a><span class="in">#| label: my_chunk_1</span></span>
-<span id="cb26-3"><a></a><span class="in">#| warning: false</span></span>
-<span id="cb26-4"><a></a><span class="in">#| echo: false</span></span>
-<span id="cb26-5"><a></a><span class="in">#| fig-width: 8</span></span>
-<span id="cb26-6"><a></a><span class="in">#| fig-align: center</span></span>
+<span id="cb26-2"><a></a><span class="co">#| label: my_chunk_1</span></span>
+<span id="cb26-3"><a></a><span class="co">#| warning: false</span></span>
+<span id="cb26-4"><a></a><span class="co">#| echo: false</span></span>
+<span id="cb26-5"><a></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb26-6"><a></a><span class="co">#| fig-align: center</span></span>
 <span id="cb26-7"><a></a></span>
-<span id="cb26-8"><a></a><span class="in">Rのコード</span></span>
+<span id="cb26-8"><a></a>Rのコード</span>
 <span id="cb26-9"><a></a><span class="in">```</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>他にも数十のオプションの指定が可能
@@ -948,7 +949,7 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
 <div class="column" style="width:49%;">
 <p><strong>Input:</strong></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode numberSource markdown md number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb27-2"><a></a><span class="in">X &lt;- c(2, 3, 5, 7, 11)</span></span>
+<span id="cb27-2"><a></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>)</span>
 <span id="cb27-3"><a></a><span class="in">```</span></span>
 <span id="cb27-4"><a></a></span>
 <span id="cb27-5"><a></a>変数<span class="in">`X`</span>の平均値は<span class="in">`r mean(X)`</span>です。</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1345,195 +1346,177 @@ y_i \sim \text{Normal}(\mathbf{X} \boldsymbol{\beta}, \sigma).
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-              // target, if specified
-              link.setAttribute("target", "_blank");
-              if (link.getAttribute("rel") === null) {
-                link.setAttribute("rel", "noopener");
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-          }
+            }
+            return codeEl.innerText;
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
         });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/www\.jaysong\.net\/r4ps\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
+                }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>
