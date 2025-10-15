@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – マクロ政治データ分析実習</title>
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-812327e31f62f2cc4f05359e191f4037.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-781a7d17fae8c5f07fafdeb994283b31.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -234,13 +234,13 @@
 <li>実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(fastDummies)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(summarytools)</span>
 <span id="cb1-4"><a></a><span class="fu">library</span>(modelsummary)</span>
 <span id="cb1-5"><a></a><span class="fu">library</span>(marginaleffects)</span>
 <span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/youtube.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/youtube.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
@@ -296,7 +296,7 @@
 <section id="データ読み込み" class="slide level2">
 <h2>データ読み込み</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a></a><span class="fu">library</span>(fastDummies)</span>
 <span id="cb2-3"><a></a><span class="fu">library</span>(summarytools)</span>
 <span id="cb2-4"><a></a><span class="fu">library</span>(modelsummary)</span>
@@ -304,7 +304,7 @@
 <span id="cb2-6"><a></a></span>
 <span id="cb2-7"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/youtube.csv"</span>)</span>
 <span id="cb2-8"><a></a></span>
-<span id="cb2-9"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,122 × 11
      fem   age  educ   inc child youtube diver1 diver2 diver3 diver4 diver5
@@ -402,12 +402,12 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a></a>  <span class="fu">mutate</span>(<span class="at">diversity =</span> diver1 <span class="sc">+</span> diver2 <span class="sc">+</span> diver3 <span class="sc">+</span> diver4 <span class="sc">+</span> diver5,</span>
 <span id="cb4-3"><a></a>         <span class="at">diversity =</span> diversity <span class="sc">/</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb4-4"><a></a>  <span class="fu">select</span>(<span class="sc">-</span>(diver1<span class="sc">:</span>diver5))</span>
 <span id="cb4-5"><a></a></span>
-<span id="cb4-6"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-6"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,122 × 7
      fem   age  educ   inc child youtube diversity
@@ -435,11 +435,11 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a></a>  <span class="fu">mutate</span>(<span class="at">educ =</span> <span class="fu">if_else</span>(educ <span class="sc">==</span> <span class="dv">9</span>,  <span class="cn">NA</span>, educ), <span class="co"># educの値が9ならNAに、それ以外はそのままに</span></span>
 <span id="cb6-3"><a></a>         <span class="at">inc  =</span> <span class="fu">if_else</span>(inc  <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, inc))  <span class="co"># incの値が99ならNAに、それ以外はそのままに</span></span>
 <span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,122 × 7
      fem   age  educ   inc child youtube diversity
@@ -468,8 +468,8 @@
 <li>学歴（<code>educ</code>）が欠損したケースは56名、世帯収入（<code>inc</code>）のそれは411名</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">is.na</span>(df) <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a></a>  <span class="fu">colSums</span>()</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">is.na</span>(df) <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a></a>  <span class="fu">colSums</span>()</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      fem       age      educ       inc     child   youtube diversity 
         0         0        56       411         0         0         0 </code></pre>
@@ -493,10 +493,10 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
 <span id="cb10-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(educ) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(inc)) <span class="co"># drop_na(educ, inc) でもOK</span></span>
 <span id="cb10-3"><a></a></span>
-<span id="cb10-4"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,683 × 7
      fem   age  educ   inc child youtube diversity
@@ -521,11 +521,11 @@
 <li>子どもの有無（<code>child</code>）は名目変数だが、現在は数値型であるため、factor型変数に変換</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a></a>  <span class="fu">mutate</span>(<span class="at">child =</span> <span class="fu">factor</span>(child, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
 <span id="cb12-3"><a></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"子どもなし"</span>, <span class="st">"同居中の子どもあり"</span>, <span class="st">"別居中の子どもあり"</span>)))</span>
 <span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a>df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,683 × 7
      fem   age  educ   inc child              youtube diversity
@@ -550,10 +550,10 @@
 <li>名目変数（ここでは<code>child</code>）はダミー化してから計算</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>df <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"child"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb14-4"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 df  
@@ -1034,7 +1034,7 @@ N: 2683
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
@@ -1047,7 +1047,7 @@ N: 2683
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">寛容性スコア</td>
+<th id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">寛容性スコア</th>
 <td class="gt_row gt_right" headers="stub_1_1 Mean">3.475</td>
 <td class="gt_row gt_right" headers="stub_1_1 Std.Dev">0.664</td>
 <td class="gt_row gt_right" headers="stub_1_1 Min">1</td>
@@ -1055,7 +1055,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_1 N.Valid">2683</td>
 </tr>
 <tr class="even">
-<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">YouTube視聴時間</td>
+<th id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">YouTube視聴時間</th>
 <td class="gt_row gt_right" headers="stub_1_2 Mean">2.944</td>
 <td class="gt_row gt_right" headers="stub_1_2 Std.Dev">1.522</td>
 <td class="gt_row gt_right" headers="stub_1_2 Min">1</td>
@@ -1063,7 +1063,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_2 N.Valid">2683</td>
 </tr>
 <tr class="odd">
-<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">女性ダミー</td>
+<th id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">女性ダミー</th>
 <td class="gt_row gt_right" headers="stub_1_3 Mean">0.507</td>
 <td class="gt_row gt_right" headers="stub_1_3 Std.Dev">0.500</td>
 <td class="gt_row gt_right" headers="stub_1_3 Min">0</td>
@@ -1071,7 +1071,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_3 N.Valid">2683</td>
 </tr>
 <tr class="even">
-<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">年齢</td>
+<th id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">年齢</th>
 <td class="gt_row gt_right" headers="stub_1_4 Mean">50.954</td>
 <td class="gt_row gt_right" headers="stub_1_4 Std.Dev">16.128</td>
 <td class="gt_row gt_right" headers="stub_1_4 Min">18</td>
@@ -1079,7 +1079,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_4 N.Valid">2683</td>
 </tr>
 <tr class="odd">
-<td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">学歴</td>
+<th id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">学歴</th>
 <td class="gt_row gt_right" headers="stub_1_5 Mean">3.849</td>
 <td class="gt_row gt_right" headers="stub_1_5 Std.Dev">1.439</td>
 <td class="gt_row gt_right" headers="stub_1_5 Min">1</td>
@@ -1087,7 +1087,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_5 N.Valid">2683</td>
 </tr>
 <tr class="even">
-<td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">世帯収入</td>
+<th id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">世帯収入</th>
 <td class="gt_row gt_right" headers="stub_1_6 Mean">6.602</td>
 <td class="gt_row gt_right" headers="stub_1_6 Std.Dev">3.691</td>
 <td class="gt_row gt_right" headers="stub_1_6 Min">1</td>
@@ -1095,7 +1095,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_6 N.Valid">2683</td>
 </tr>
 <tr class="odd">
-<td id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">子どもなし</td>
+<th id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">子どもなし</th>
 <td class="gt_row gt_right" headers="stub_1_7 Mean">0.435</td>
 <td class="gt_row gt_right" headers="stub_1_7 Std.Dev">0.496</td>
 <td class="gt_row gt_right" headers="stub_1_7 Min">0</td>
@@ -1103,7 +1103,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_7 N.Valid">2683</td>
 </tr>
 <tr class="even">
-<td id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">同居中の子どもあり</td>
+<th id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">同居中の子どもあり</th>
 <td class="gt_row gt_right" headers="stub_1_8 Mean">0.330</td>
 <td class="gt_row gt_right" headers="stub_1_8 Std.Dev">0.470</td>
 <td class="gt_row gt_right" headers="stub_1_8 Min">0</td>
@@ -1111,7 +1111,7 @@ N: 2683
 <td class="gt_row gt_right" headers="stub_1_8 N.Valid">2683</td>
 </tr>
 <tr class="odd">
-<td id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">別居中の子どもあり</td>
+<th id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">別居中の子どもあり</th>
 <td class="gt_row gt_right" headers="stub_1_9 Mean">0.235</td>
 <td class="gt_row gt_right" headers="stub_1_9 Std.Dev">0.424</td>
 <td class="gt_row gt_right" headers="stub_1_9 Min">0</td>
@@ -1139,9 +1139,9 @@ N: 2683
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>df <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a></a>  <span class="fu">group_by</span>(youtube) <span class="sc">|&gt;</span> </span>
-<span id="cb16-3"><a></a>  <span class="fu">summarise</span>(<span class="at">diversity =</span> <span class="fu">mean</span>(diversity))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a></a>  <span class="fu">summarise</span>(<span class="at">diversity =</span> <span class="fu">mean</span>(diversity))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   youtube diversity
@@ -1228,9 +1228,9 @@ N: 2683
 <li><code>poly(X, 2)</code>で<code>X</code>だけでなく、<code>X</code>の2乗項もモデルに投入される。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(diversity <span class="sc">~</span> <span class="fu">poly</span>(youtube, <span class="dv">2</span>) <span class="sc">*</span> age <span class="sc">+</span> fem <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> inc <span class="sc">+</span> child, <span class="at">data =</span> df)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(diversity <span class="sc">~</span> <span class="fu">poly</span>(youtube, <span class="dv">2</span>) <span class="sc">*</span> age <span class="sc">+</span> fem <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> inc <span class="sc">+</span> child, <span class="at">data =</span> df)</span>
 <span id="cb18-2"><a></a></span>
-<span id="cb18-3"><a></a><span class="fu">summary</span>(fit)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a></a><span class="fu">summary</span>(fit)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1271,7 +1271,7 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="columns">
 <div class="column" style="width:58%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">modelsummary</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">modelsummary</span>(</span>
 <span id="cb20-2"><a></a>  fit,</span>
 <span id="cb20-3"><a></a>  <span class="at">estimate    =</span> <span class="st">"{estimate} ({std.error}){stars}"</span>,</span>
 <span id="cb20-4"><a></a>  <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
@@ -1288,7 +1288,7 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb20-15"><a></a>  <span class="at">statistic   =</span> <span class="cn">NULL</span>,</span>
 <span id="cb20-16"><a></a>  <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>),</span>
 <span id="cb20-17"><a></a>  <span class="at">notes       =</span> <span class="st">"注：カッコ内は標準誤差"</span></span>
-<span id="cb20-18"><a></a>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-18"><a></a>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:2%;">
 
@@ -1461,10 +1461,10 @@ F-statistic: 15.47 on 10 and 2672 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>YouTube視聴時間を除く全ての変数（調整変数を含む）は平均値に固定（名目変数はベースカテゴリーに固定）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>pred1 <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>pred1 <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
 <span id="cb21-2"><a></a>  <span class="fu">predictions</span>(<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">youtube =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>))</span>
 <span id="cb21-3"><a></a></span>
-<span id="cb21-4"><a></a>pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a></a>pred1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  youtube Estimate Std. Error     z Pr(&gt;|z|)   S 2.5 % 97.5 %
@@ -1485,7 +1485,7 @@ Type:  response </code></pre>
 <div class="columns">
 <div class="column" style="width:54%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>pred1 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>pred1 <span class="sc">|&gt;</span> </span>
 <span id="cb23-2"><a></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb23-3"><a></a>  <span class="fu">geom_pointrange</span>(</span>
 <span id="cb23-4"><a></a>    <span class="fu">aes</span>(<span class="at">x =</span> youtube, <span class="at">y =</span> estimate, </span>
@@ -1499,7 +1499,7 @@ Type:  response </code></pre>
 <span id="cb23-12"><a></a>  ) <span class="sc">+</span></span>
 <span id="cb23-13"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"YouTube視聴時間"</span>, </span>
 <span id="cb23-14"><a></a>       <span class="at">y =</span> <span class="st">"寛容性スコアの予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb23-15"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-15"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:2%;">
 
@@ -1521,10 +1521,10 @@ Type:  response </code></pre>
 <li>すべての年齢に対して予測値を出すと可視化が難しいため、20、45、70歳の場合の予測値を計算</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>pred2 <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>pred2 <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
 <span id="cb24-2"><a></a>  <span class="fu">predictions</span>(<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">youtube =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">45</span>, <span class="dv">70</span>)))</span>
 <span id="cb24-3"><a></a></span>
-<span id="cb24-4"><a></a>pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-4"><a></a>pred2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  youtube age Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -1561,7 +1561,7 @@ Type:  response </code></pre>
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>pred2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>pred2 <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">factor</span>(age,</span>
 <span id="cb26-3"><a></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">45</span>, <span class="dv">70</span>),</span>
 <span id="cb26-4"><a></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"20歳"</span>, <span class="st">"45歳"</span>, <span class="st">"70歳"</span>))) <span class="sc">|&gt;</span> </span>
@@ -1573,7 +1573,7 @@ Type:  response </code></pre>
 <span id="cb26-10"><a></a>                                <span class="st">"2〜3.5時間"</span>, <span class="st">"3.5〜5時間"</span>, <span class="st">"5時間〜"</span>)) <span class="sc">+</span></span>
 <span id="cb26-11"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age) <span class="sc">+</span></span>
 <span id="cb26-12"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb26-13"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-13"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-2">
@@ -1589,7 +1589,7 @@ Type:  response </code></pre>
 </div>
 <div id="tabset-1-3">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>pred2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>pred2 <span class="sc">|&gt;</span> </span>
 <span id="cb27-2"><a></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">factor</span>(age,</span>
 <span id="cb27-3"><a></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">45</span>, <span class="dv">70</span>),</span>
 <span id="cb27-4"><a></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"20歳"</span>, <span class="st">"45歳"</span>, <span class="st">"70歳"</span>))) <span class="sc">|&gt;</span> </span>
@@ -1603,7 +1603,7 @@ Type:  response </code></pre>
 <span id="cb27-12"><a></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"使わない"</span>, <span class="st">"〜30分"</span>, <span class="st">"30分〜1時間"</span>, <span class="st">"1〜2時間"</span>,</span>
 <span id="cb27-13"><a></a>                                <span class="st">"2〜3.5時間"</span>, <span class="st">"3.5〜5時間"</span>, <span class="st">"5時間〜"</span>)) <span class="sc">+</span></span>
 <span id="cb27-14"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb27-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-4">
@@ -1651,10 +1651,10 @@ Type:  response </code></pre>
 <li><code>youtube</code>が<code>diversity</code>に与える影響は<code>youtube</code>と<code>age</code>によって変わる。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>ame <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>ame <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span> </span>
 <span id="cb28-2"><a></a>  <span class="fu">slopes</span>(<span class="at">variables =</span> <span class="st">"youtube"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">youtube =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">45</span>, <span class="dv">70</span>)))</span>
 <span id="cb28-3"><a></a></span>
-<span id="cb28-4"><a></a>ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-4"><a></a>ame</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  youtube age  Estimate Std. Error       z Pr(&gt;|z|)    S    2.5 %   97.5 %
@@ -1693,7 +1693,7 @@ Comparison: dY/dX</code></pre>
 <div class="tab-content">
 <div id="tabset-2-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>ame <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>ame <span class="sc">|&gt;</span> </span>
 <span id="cb30-2"><a></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">factor</span>(age,</span>
 <span id="cb30-3"><a></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">45</span>, <span class="dv">70</span>),</span>
 <span id="cb30-4"><a></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"20歳"</span>, <span class="st">"45歳"</span>, <span class="st">"70歳"</span>))) <span class="sc">|&gt;</span> </span>
@@ -1707,7 +1707,7 @@ Comparison: dY/dX</code></pre>
 <span id="cb30-12"><a></a>                                <span class="st">"2〜3.5時間"</span>, <span class="st">"3.5〜5時間"</span>, <span class="st">"5時間〜"</span>)) <span class="sc">+</span></span>
 <span id="cb30-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>age) <span class="sc">+</span></span>
 <span id="cb30-14"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb30-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-15"><a></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-2-2">
@@ -1941,7 +1941,7 @@ Comparison: dY/dX</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -2053,13 +2053,14 @@ Comparison: dY/dX</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

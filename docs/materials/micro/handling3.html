@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../Figs/favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-f7d2b2980468318b04e0c52838f8e54f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-4a8cb1f038451bc38072230142d42b88.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-12bcd91ec681f8805fea2ef15e4b1634.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a5c782b1ae593523716bf6579dc7f05c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -128,7 +129,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -154,7 +155,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">R for Political Science</span>
@@ -379,6 +381,10 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
+ <span class="dropdown-text">[後期] 第4回課題</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -419,6 +425,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -566,7 +576,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 01</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <section id="行の結合" class="level3">
@@ -577,12 +587,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID    =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, </span>
 <span id="cb2-2"><a href="#cb2-2"></a>                    <span class="at">Name  =</span> <span class="fu">c</span>(<span class="st">"Aさん"</span>, <span class="st">"Bさん"</span>, <span class="st">"Cさん"</span>),</span>
 <span id="cb2-3"><a href="#cb2-3"></a>                    <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">77</span>, <span class="dv">89</span>, <span class="dv">41</span>))</span>
 <span id="cb2-4"><a href="#cb2-4"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ID    =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>, </span>
 <span id="cb2-5"><a href="#cb2-5"></a>                    <span class="at">Name  =</span> <span class="fu">c</span>(<span class="st">"Xさん"</span>, <span class="st">"Yさん"</span>),</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                    <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">98</span>, <span class="dv">78</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6"></a>                    <span class="at">Score =</span> <span class="fu">c</span>(<span class="dv">98</span>, <span class="dv">78</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="columns">
@@ -592,7 +602,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 03-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Data1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
@@ -609,7 +619,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 03-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>Data2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
@@ -625,7 +635,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 04</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">bind_rows</span>(Data1, Data2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">bind_rows</span>(Data1, Data2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID  Name Score
@@ -642,8 +652,8 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 05</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(<span class="st">"1組"</span> <span class="ot">=</span> Data1, <span class="st">"2組"</span> <span class="ot">=</span> Data2),</span>
-<span id="cb9-2"><a href="#cb9-2"></a>          <span class="at">.id =</span> <span class="st">"Class"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">bind_rows</span>(<span class="fu">list</span>(<span class="st">"1組"</span> <span class="ot">=</span> Data1, <span class="st">"2組"</span> <span class="ot">=</span> Data2),</span>
+<span id="cb9-2"><a href="#cb9-2"></a>          <span class="at">.id =</span> <span class="st">"Class"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Class ID  Name Score
@@ -664,12 +674,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 06</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
 <span id="cb11-2"><a href="#cb11-2"></a>                    <span class="at">Pop   =</span> <span class="fu">c</span>(<span class="dv">927</span>, <span class="dv">148</span>, <span class="dv">76</span>),</span>
 <span id="cb11-3"><a href="#cb11-3"></a>                    <span class="at">Area  =</span> <span class="fu">c</span>(<span class="dv">2194</span>, <span class="dv">828</span>, <span class="dv">7104</span>))</span>
 <span id="cb11-4"><a href="#cb11-4"></a></span>
 <span id="cb11-5"><a href="#cb11-5"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Kochi"</span>, <span class="st">"Osaka"</span>, <span class="st">"Tokyo"</span>),</span>
-<span id="cb11-6"><a href="#cb11-6"></a>                    <span class="at">Food  =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-6"><a href="#cb11-6"></a>                    <span class="at">Food  =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="columns">
@@ -679,7 +689,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 07-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Data1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area
@@ -696,7 +706,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 07-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>Data2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City     Food
@@ -713,7 +723,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="st">"City"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="st">"City"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area     Food
@@ -728,12 +738,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 09</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>Data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">City  =</span> <span class="fu">c</span>(<span class="st">"Tokyo"</span>, <span class="st">"Osaka"</span>, <span class="st">"Kochi"</span>),</span>
 <span id="cb18-2"><a href="#cb18-2"></a>                    <span class="at">Pop   =</span> <span class="fu">c</span>(<span class="dv">927</span>, <span class="dv">148</span>, <span class="dv">76</span>),</span>
 <span id="cb18-3"><a href="#cb18-3"></a>                    <span class="at">Area  =</span> <span class="fu">c</span>(<span class="dv">2194</span>, <span class="dv">828</span>, <span class="dv">7104</span>))</span>
 <span id="cb18-4"><a href="#cb18-4"></a></span>
 <span id="cb18-5"><a href="#cb18-5"></a>Data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Toshi    =</span> <span class="fu">c</span>(<span class="st">"Kochi"</span>, <span class="st">"Osaka"</span>, <span class="st">"Tokyo"</span>),</span>
-<span id="cb18-6"><a href="#cb18-6"></a>                    <span class="at">Tabemono =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-6"><a href="#cb18-6"></a>                    <span class="at">Tabemono =</span> <span class="fu">c</span>(<span class="st">"Katsuo"</span>, <span class="st">"Takoyaki"</span>, <span class="st">"Ramen"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="columns">
@@ -743,7 +753,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 10-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Data1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Data1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area
@@ -760,7 +770,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 10-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>Data2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>Data2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Toshi Tabemono
@@ -777,7 +787,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 11</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"City"</span> <span class="ot">=</span> <span class="st">"Toshi"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">left_join</span>(Data1, Data2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"City"</span> <span class="ot">=</span> <span class="st">"Toshi"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   City Pop Area Tabemono
@@ -865,10 +875,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"京都"</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"京都"</span>),</span>
 <span id="cb25-2"><a href="#cb25-2"></a>              <span class="at">Score =</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="dv">4</span>, <span class="fl">4.2</span>))</span>
 <span id="cb25-3"><a href="#cb25-3"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Pref  =</span> <span class="fu">c</span>(<span class="st">"東京"</span>, <span class="st">"大阪"</span>, <span class="st">"高知"</span>),</span>
-<span id="cb25-4"><a href="#cb25-4"></a>              <span class="at">N     =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">1325</span>, <span class="dv">111</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-4"><a href="#cb25-4"></a>              <span class="at">N     =</span> <span class="fu">c</span>(<span class="dv">3220</span>, <span class="dv">1325</span>, <span class="dv">111</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="columns">
@@ -878,7 +888,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 13-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
@@ -897,7 +907,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 13-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
@@ -918,7 +928,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 14-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
@@ -937,7 +947,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 14-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">right_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">right_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
@@ -957,7 +967,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 14-c</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">inner_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">inner_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
@@ -975,7 +985,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 14-d</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">full_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"Pref"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
@@ -997,7 +1007,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 15-a</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, </span>
 <span id="cb38-2"><a href="#cb38-2"></a>                          <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>,</span>
 <span id="cb38-3"><a href="#cb38-3"></a>                          <span class="st">"C"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>),</span>
 <span id="cb38-4"><a href="#cb38-4"></a>              <span class="at">Year    =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, </span>
@@ -1007,7 +1017,7 @@ window.Quarto = {
 <span id="cb38-8"><a href="#cb38-8"></a>                          <span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">120</span>,</span>
 <span id="cb38-9"><a href="#cb38-9"></a>                          <span class="dv">200</span>, <span class="dv">180</span>, <span class="dv">90</span>))</span>
 <span id="cb38-10"><a href="#cb38-10"></a></span>
-<span id="cb38-11"><a href="#cb38-11"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-11"><a href="#cb38-11"></a>df3</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 3
@@ -1032,7 +1042,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 15-b</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Country =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, </span>
 <span id="cb40-2"><a href="#cb40-2"></a>                          <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>,</span>
 <span id="cb40-3"><a href="#cb40-3"></a>                          <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),</span>
 <span id="cb40-4"><a href="#cb40-4"></a>              <span class="at">Year    =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, </span>
@@ -1042,7 +1052,7 @@ window.Quarto = {
 <span id="cb40-8"><a href="#cb40-8"></a>                          <span class="dv">1100</span>, <span class="dv">7000</span>, <span class="dv">6000</span>,</span>
 <span id="cb40-9"><a href="#cb40-9"></a>                          <span class="dv">1100</span>, <span class="dv">8000</span>, <span class="dv">7800</span>))</span>
 <span id="cb40-10"><a href="#cb40-10"></a></span>
-<span id="cb40-11"><a href="#cb40-11"></a>df4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-11"><a href="#cb40-11"></a>df4</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 3
@@ -1067,7 +1077,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">left_join</span>(df3, df4, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Year"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">left_join</span>(df3, df4, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Year"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 4
@@ -1185,8 +1195,8 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
-<span id="cb44-2"><a href="#cb44-2"></a>COVID_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>COVID_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/covid_sample.csv"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>COVID_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
@@ -1208,10 +1218,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>データ <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> 変数が格納されている列,</span>
 <span id="cb46-3"><a href="#cb46-3"></a>               <span class="at">names_to  =</span> <span class="st">"元の列名が入る変数名"</span>,</span>
-<span id="cb46-4"><a href="#cb46-4"></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-4"><a href="#cb46-4"></a>               <span class="at">values_to =</span> <span class="st">"変数の値が入る変数名"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>　我々がやりたい作業は<code>2022/06/09</code>列から<code>2022/06/13</code>列までの5列を1つの列としてまとめることである。まとめる列は<code>cols</code>引数で指定する。そして、これまで変数名だったもの（たとえば、<code>2022/06/11</code>など）が入る新しい列名と、値が入る新しい列名を、それぞれ<code>names_to</code>と<code>values_to</code>で指定する。ここでは時点は<code>Date</code>、新規感染者数は<code>New_Cases</code>という列として格納するとしよう。注意すべき点としては、これらの新しい変数名は<code>"</code>で囲むことである。</p>
@@ -1221,12 +1231,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>COVID_Long <span class="ot">&lt;-</span> COVID_df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>COVID_Long <span class="ot">&lt;-</span> COVID_df <span class="sc">|&gt;</span> </span>
 <span id="cb47-2"><a href="#cb47-2"></a>  <span class="co"># cols = starts_with("2022") でも良い</span></span>
 <span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
 <span id="cb47-4"><a href="#cb47-4"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
 <span id="cb47-5"><a href="#cb47-5"></a>               <span class="at">values_to =</span> <span class="st">"New_Cases"</span>)</span>
-<span id="cb47-6"><a href="#cb47-6"></a>COVID_Long</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-6"><a href="#cb47-6"></a>COVID_Long</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 4
@@ -1252,9 +1262,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
 <span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> <span class="st">"Date"</span>,</span>
-<span id="cb49-3"><a href="#cb49-3"></a>              <span class="at">values_from =</span> <span class="st">"New_Cases"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-3"><a href="#cb49-3"></a>              <span class="at">values_from =</span> <span class="st">"New_Cases"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
@@ -1281,10 +1291,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>データ <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>データ <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"分割する列名"</span>,</span>
 <span id="cb51-3"><a href="#cb51-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"分割後の列名1"</span>, <span class="st">"分割後の列名2"</span>, ...),</span>
-<span id="cb51-4"><a href="#cb51-4"></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-4"><a href="#cb51-4"></a>           <span class="at">sep  =</span> <span class="st">"分割する基準"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>　<code>"2022/10/08"</code>の場合、<code>"/"</code>で分ければ、<code>"2022"</code>、<code>"10"</code>、<code>"08"</code>に分割されるだろう。これあらをそれぞれ、<code>Year</code>、<code>Month</code>、<code>Day</code>といった3つの列に分割してみよう。</p>
@@ -1293,10 +1303,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>COVID_Long <span class="sc">|&gt;</span></span>
 <span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"Date"</span>,</span>
 <span id="cb52-3"><a href="#cb52-3"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Month"</span>, <span class="st">"Day"</span>),</span>
-<span id="cb52-4"><a href="#cb52-4"></a>           <span class="at">sep  =</span> <span class="st">"/"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-4"><a href="#cb52-4"></a>           <span class="at">sep  =</span> <span class="st">"/"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 6
@@ -1321,13 +1331,13 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>City_Data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">City =</span> <span class="fu">c</span>(<span class="st">"北海道音威子府村"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>City_Data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">City =</span> <span class="fu">c</span>(<span class="st">"北海道音威子府村"</span>,</span>
 <span id="cb54-2"><a href="#cb54-2"></a>                             <span class="st">"大阪府高槻市"</span>,</span>
 <span id="cb54-3"><a href="#cb54-3"></a>                             <span class="st">"広島県府中市"</span>,</span>
 <span id="cb54-4"><a href="#cb54-4"></a>                             <span class="st">"鹿児島県指宿市"</span>),</span>
 <span id="cb54-5"><a href="#cb54-5"></a>                    <span class="at">Pop  =</span> <span class="fu">c</span>(<span class="dv">693</span>, <span class="dv">347424</span>, <span class="dv">36471</span>, <span class="dv">38207</span>))</span>
 <span id="cb54-6"><a href="#cb54-6"></a></span>
-<span id="cb54-7"><a href="#cb54-7"></a>City_Data</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-7"><a href="#cb54-7"></a>City_Data</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
@@ -1344,14 +1354,14 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 24</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>City_Data <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>City_Data <span class="sc">|&gt;</span></span>
 <span id="cb56-2"><a href="#cb56-2"></a>   <span class="co"># 任意の2文字の後に「都道府県」のいずれかが来るか、</span></span>
 <span id="cb56-3"><a href="#cb56-3"></a>   <span class="co"># 任意の3文字の後に「県」が来たら、そこまでをブロック1、残りをブロック2とする</span></span>
 <span id="cb56-4"><a href="#cb56-4"></a>   <span class="co"># Cityの値を「ブロック1-ブロック2」に置換する</span></span>
 <span id="cb56-5"><a href="#cb56-5"></a>   <span class="fu">mutate</span>(<span class="at">City =</span> <span class="fu">str_replace</span>(City, <span class="st">"^(.{2}[都道府県]|.{3}県)(.+)"</span>, </span>
 <span id="cb56-6"><a href="#cb56-6"></a>                             <span class="st">"</span><span class="sc">\\</span><span class="st">1-</span><span class="sc">\\</span><span class="st">2"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb56-7"><a href="#cb56-7"></a>   <span class="co"># 「-」を基準に列を分割</span></span>
-<span id="cb56-8"><a href="#cb56-8"></a>   <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"City"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Pref"</span>, <span class="st">"City"</span>), <span class="at">sep  =</span> <span class="st">"-"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-8"><a href="#cb56-8"></a>   <span class="fu">separate</span>(<span class="at">col  =</span> <span class="st">"City"</span>, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Pref"</span>, <span class="st">"City"</span>), <span class="at">sep  =</span> <span class="st">"-"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
@@ -1372,7 +1382,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>COVID_df <span class="sc">|&gt;</span> </span>
 <span id="cb58-2"><a href="#cb58-2"></a>  <span class="co"># Wide to Long</span></span>
 <span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> <span class="st">"2022/06/09"</span><span class="sc">:</span><span class="st">"2022/06/13"</span>,</span>
 <span id="cb58-4"><a href="#cb58-4"></a>               <span class="at">names_to  =</span> <span class="st">"Date"</span>,</span>
@@ -1382,7 +1392,7 @@ window.Quarto = {
 <span id="cb58-8"><a href="#cb58-8"></a>  <span class="co"># Countryでグルーピング</span></span>
 <span id="cb58-9"><a href="#cb58-9"></a>  <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span></span>
 <span id="cb58-10"><a href="#cb58-10"></a>  <span class="co"># New_Case_per_1Mの平均値を計算</span></span>
-<span id="cb58-11"><a href="#cb58-11"></a>  <span class="fu">summarise</span>(<span class="at">New_Case_per_1M =</span> <span class="fu">mean</span>(New_Case_per_1M))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-11"><a href="#cb58-11"></a>  <span class="fu">summarise</span>(<span class="at">New_Case_per_1M =</span> <span class="fu">mean</span>(New_Case_per_1M))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
@@ -1464,13 +1474,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

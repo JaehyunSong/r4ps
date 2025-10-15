@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../Figs/favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-f7d2b2980468318b04e0c52838f8e54f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-4a8cb1f038451bc38072230142d42b88.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-12bcd91ec681f8805fea2ef15e4b1634.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a5c782b1ae593523716bf6579dc7f05c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -128,7 +129,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -154,7 +155,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">R for Political Science</span>
@@ -379,6 +381,10 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
+ <span class="dropdown-text">[後期] 第4回課題</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -419,6 +425,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -578,8 +588,8 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 01</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/countries.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -639,11 +649,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df2 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>   <span class="fu">group_by</span>(Continent) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>   <span class="fu">summarise</span>(<span class="at">HDI =</span> <span class="fu">mean</span>(HDI_2018, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5"></a>df2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
@@ -663,11 +673,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 03</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>bar_plot1 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>bar_plot1 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent, <span class="at">y =</span> HDI))</span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>bar_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5"></a>bar_plot1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -683,14 +693,14 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 04</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df2 <span class="ot">&lt;-</span> df2 <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">case_when</span>(Continent <span class="sc">==</span> <span class="st">"Asia"</span>    <span class="sc">~</span> <span class="st">"アジア"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3"></a>                                  Continent <span class="sc">==</span> <span class="st">"Africa"</span>  <span class="sc">~</span> <span class="st">"アフリカ"</span>,</span>
 <span id="cb5-4"><a href="#cb5-4"></a>                                  Continent <span class="sc">==</span> <span class="st">"America"</span> <span class="sc">~</span> <span class="st">"アメリカ"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5"></a>                                  Continent <span class="sc">==</span> <span class="st">"Europe"</span>  <span class="sc">~</span> <span class="st">"ヨーロッパ"</span>,</span>
 <span id="cb5-6"><a href="#cb5-6"></a>                                  <span class="cn">TRUE</span>                   <span class="sc">~</span> <span class="st">"オセアニア"</span>))</span>
 <span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8"></a>df2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -709,10 +719,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 05</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df2 <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -728,11 +738,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 06</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df2 <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI)) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>   <span class="fu">theme_gray</span>(<span class="at">base_family =</span> <span class="st">"HiraginoSans-W3"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>   <span class="fu">theme_gray</span>(<span class="at">base_family =</span> <span class="st">"HiraginoSans-W3"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>　先ほどのグラフを見ると、大陸がアジア、アフリカ、アメリカ、オセアニア、ヨーロッパ順となっている。これをアルファベット順に並べ替える、つまり、アフリカ、アメリカ、アジア、ヨーロッパ、オセアニアの順番にするにはどうすれば良いだろうか。答えは<code>Continet_J</code>列をfactor化し、アフリカ、アメリカ、アジア、ヨーロッパ、オセアニア順にすることだ。<code>df2</code>を<code>ggplot()</code>関数に渡す前に<code>mutate()</code>を入れ、そこで<code>Continent_J</code>列をfactor化すれば良い。</p>
@@ -741,14 +751,14 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 07</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>df2 <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">factor</span>(Continent_J, </span>
 <span id="cb9-3"><a href="#cb9-3"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"アフリカ"</span>, <span class="st">"アメリカ"</span>, <span class="st">"アジア"</span>, </span>
 <span id="cb9-4"><a href="#cb9-4"></a>                                          <span class="st">"ヨーロッパ"</span>, <span class="st">"オセアニア"</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb9-5"><a href="#cb9-5"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb9-6"><a href="#cb9-6"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI)) <span class="sc">+</span></span>
 <span id="cb9-7"><a href="#cb9-7"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>   <span class="fu">theme_bw</span>() <span class="co"># Black and Whiteテーマも使ってみよう</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-8"><a href="#cb9-8"></a>   <span class="fu">theme_bw</span>() <span class="co"># Black and Whiteテーマも使ってみよう</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -764,7 +774,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>df2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>df2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -784,11 +794,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 09</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>df2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>df2 <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>   <span class="fu">mutate</span>(<span class="at">Continent_J =</span> <span class="fu">fct_inorder</span>(Continent_J)) <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent_J, <span class="at">y =</span> HDI)) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"大陸"</span>, <span class="at">y =</span> <span class="st">"人間開発指数の平均値"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -808,7 +818,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 10</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df3 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>   <span class="fu">drop_na</span>(Polity_Type) <span class="sc">|&gt;</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>   <span class="fu">mutate</span>(<span class="at">Polity_Type =</span> <span class="fu">factor</span>(Polity_Type,</span>
 <span id="cb13-4"><a href="#cb13-4"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Autocracy"</span>, <span class="st">"Closed Anocracy"</span>,</span>
@@ -817,7 +827,7 @@ window.Quarto = {
 <span id="cb13-7"><a href="#cb13-7"></a>   <span class="fu">group_by</span>(Polity_Type) <span class="sc">|&gt;</span></span>
 <span id="cb13-8"><a href="#cb13-8"></a>   <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>())</span>
 <span id="cb13-9"><a href="#cb13-9"></a></span>
-<span id="cb13-10"><a href="#cb13-10"></a>df3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-10"><a href="#cb13-10"></a>df3</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
@@ -836,9 +846,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 11</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df3 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>df3 <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3"></a>   <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -854,7 +864,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df4 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df4 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>   <span class="fu">drop_na</span>(Polity_Type) <span class="sc">|&gt;</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>   <span class="fu">mutate</span>(<span class="at">Polity_Type =</span> <span class="fu">factor</span>(Polity_Type,</span>
 <span id="cb16-4"><a href="#cb16-4"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Autocracy"</span>, <span class="st">"Closed Anocracy"</span>,</span>
@@ -864,7 +874,7 @@ window.Quarto = {
 <span id="cb16-8"><a href="#cb16-8"></a>   <span class="fu">summarise</span>(<span class="at">N       =</span> <span class="fu">n</span>(),</span>
 <span id="cb16-9"><a href="#cb16-9"></a>             <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
 <span id="cb16-10"><a href="#cb16-10"></a></span>
-<span id="cb16-11"><a href="#cb16-11"></a>df4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-11"><a href="#cb16-11"></a>df4</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 3
@@ -898,9 +908,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>df4 <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -916,10 +926,10 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>df4 <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent),</span>
-<span id="cb19-4"><a href="#cb19-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a href="#cb19-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -935,11 +945,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>df4 <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N, <span class="at">fill =</span> Continent),</span>
 <span id="cb20-4"><a href="#cb20-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -955,13 +965,13 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>df4 <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Continent, <span class="at">y =</span> N, <span class="at">fill =</span> Polity_Type),</span>
 <span id="cb21-4"><a href="#cb21-4"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb21-5"><a href="#cb21-5"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb21-6"><a href="#cb21-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Continent"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>, <span class="at">fill =</span> <span class="st">"Polity Type"</span>) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-7"><a href="#cb21-7"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -977,12 +987,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>bar_plot2 <span class="ot">&lt;-</span> df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>bar_plot2 <span class="ot">&lt;-</span> df4 <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> Polity_Type, <span class="at">y =</span> N)) <span class="sc">+</span></span>
 <span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Continent, <span class="at">ncol =</span> <span class="dv">5</span>) <span class="co"># ncol/nrowで列/行数の指定が可能</span></span>
 <span id="cb22-5"><a href="#cb22-5"></a></span>
-<span id="cb22-6"><a href="#cb22-6"></a>bar_plot2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-6"><a href="#cb22-6"></a>bar_plot2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -998,13 +1008,13 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>bar_plot3 <span class="ot">&lt;-</span> bar_plot2 <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>bar_plot3 <span class="ot">&lt;-</span> bar_plot2 <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Countries"</span>, <span class="at">y =</span> <span class="st">"Poltiy Type"</span>) <span class="sc">+</span> <span class="co"># ラベル修正</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a>   <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co"># テーマを変えてみよう</span></span>
 <span id="cb23-4"><a href="#cb23-4"></a>   <span class="fu">theme</span>(<span class="at">axis.text.x        =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">35</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>), <span class="co"># 35度回転</span></span>
 <span id="cb23-5"><a href="#cb23-5"></a>         <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="co"># 横軸のグリッドを削除するおまじない</span></span>
 <span id="cb23-6"><a href="#cb23-6"></a></span>
-<span id="cb23-7"><a href="#cb23-7"></a>bar_plot3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-7"><a href="#cb23-7"></a>bar_plot3</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1020,7 +1030,7 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>bar_plot4 <span class="ot">&lt;-</span> df4 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>bar_plot4 <span class="ot">&lt;-</span> df4 <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> N, <span class="at">y =</span> Polity_Type)) <span class="sc">+</span></span>
 <span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of Countries"</span>, <span class="at">y =</span> <span class="st">"Poltiy Type"</span>) <span class="sc">+</span></span>
@@ -1028,7 +1038,7 @@ window.Quarto = {
 <span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span>     <span class="co"># フォントサイズの調整も可能</span></span>
 <span id="cb24-7"><a href="#cb24-7"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>()) <span class="co"># 縦軸のグリッドを削除するおまじない</span></span>
 <span id="cb24-8"><a href="#cb24-8"></a>   </span>
-<span id="cb24-9"><a href="#cb24-9"></a>bar_plot4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-9"><a href="#cb24-9"></a>bar_plot4</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1087,12 +1097,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"Figs/Figure1.png"</span>, <span class="co"># 保存先とファイル名</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"Figs/Figure1.png"</span>, <span class="co"># 保存先とファイル名</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a>       <span class="at">plot     =</span> bar_plot3,          <span class="co"># 保存する図のオブジェクト名</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a>       <span class="at">width    =</span> <span class="dv">6</span>,                  <span class="co"># 図の幅 (インチ)</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a>       <span class="at">height   =</span> <span class="dv">3</span>,                  <span class="co"># 図の高さ (インチ)</span></span>
 <span id="cb25-5"><a href="#cb25-5"></a>       <span class="at">dpi      =</span> <span class="dv">400</span>,                <span class="co"># 解像度</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>       <span class="at">device   =</span> ragg<span class="sc">::</span>agg_png)      <span class="co"># 文字化け防止</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-6"><a href="#cb25-6"></a>       <span class="at">device   =</span> ragg<span class="sc">::</span>agg_png)      <span class="co"># 文字化け防止</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1121,9 +1131,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018)) <span class="co"># HDI_2018のヒストグラム</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018)) <span class="co"># HDI_2018のヒストグラム</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1188,9 +1198,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">bins =</span> <span class="dv">10</span>) <span class="co"># 棒を10本にする</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">bins =</span> <span class="dv">10</span>) <span class="co"># 棒を10本にする</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1206,9 +1216,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="co"># 棒の幅を0.05にする</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="co"># 棒の幅を0.05にする</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1224,12 +1234,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 24</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>hist_plot1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>hist_plot1 <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018), <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>)</span>
 <span id="cb29-5"><a href="#cb29-5"></a></span>
-<span id="cb29-6"><a href="#cb29-6"></a>hist_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-6"><a href="#cb29-6"></a>hist_plot1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1246,11 +1256,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>hist_plot2 <span class="ot">&lt;-</span> hist_plot1 <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>hist_plot2 <span class="ot">&lt;-</span> hist_plot1 <span class="sc">+</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>   <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.4</span>, <span class="fl">1.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>),</span>
 <span id="cb30-3"><a href="#cb30-3"></a>                      <span class="at">labels =</span> <span class="fu">seq</span>(<span class="fl">0.4</span>, <span class="fl">1.0</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span>
 <span id="cb30-4"><a href="#cb30-4"></a></span>
-<span id="cb30-5"><a href="#cb30-5"></a>hist_plot2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-5"><a href="#cb30-5"></a>hist_plot2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1270,8 +1280,8 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 26</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>hist_plot2 <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Continent, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>hist_plot2 <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>   <span class="fu">facet_wrap</span>(<span class="sc">~</span>Continent, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1287,13 +1297,13 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 27</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"OECD Members"</span>, <span class="st">"Others"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb32-3"><a href="#cb32-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb32-4"><a href="#cb32-4"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> OECD), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
 <span id="cb32-5"><a href="#cb32-5"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb32-6"><a href="#cb32-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
-<span id="cb32-7"><a href="#cb32-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-7"><a href="#cb32-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1309,13 +1319,13 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 28</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a>   <span class="fu">mutate</span>(<span class="at">OECD =</span> <span class="fu">if_else</span>(OECD <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"OECD Members"</span>, <span class="st">"Others"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb33-3"><a href="#cb33-3"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb33-4"><a href="#cb33-4"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> OECD), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
 <span id="cb33-5"><a href="#cb33-5"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb33-6"><a href="#cb33-6"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
-<span id="cb33-7"><a href="#cb33-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-7"><a href="#cb33-7"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1331,12 +1341,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 29</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb34-3"><a href="#cb34-3"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), <span class="at">position =</span> <span class="st">"identity"</span>,</span>
 <span id="cb34-4"><a href="#cb34-4"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb34-5"><a href="#cb34-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
-<span id="cb34-6"><a href="#cb34-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-6"><a href="#cb34-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1353,12 +1363,12 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 30</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb35-3"><a href="#cb35-3"></a>   <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), </span>
 <span id="cb35-4"><a href="#cb35-4"></a>                  <span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb35-5"><a href="#cb35-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Number of Countries"</span>,</span>
-<span id="cb35-6"><a href="#cb35-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-6"><a href="#cb35-6"></a>        <span class="at">fill =</span> <span class="st">""</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1374,11 +1384,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 31</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="sc">|&gt;</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a>   <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb36-3"><a href="#cb36-3"></a>   <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> HDI_2018, <span class="at">fill =</span> Continent), </span>
 <span id="cb36-4"><a href="#cb36-4"></a>                <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">""</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-5"><a href="#cb36-5"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Human Development Index (2018)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">""</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1463,13 +1473,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

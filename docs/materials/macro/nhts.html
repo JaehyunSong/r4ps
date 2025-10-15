@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../Figs/favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-f7d2b2980468318b04e0c52838f8e54f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-4a8cb1f038451bc38072230142d42b88.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-12bcd91ec681f8805fea2ef15e4b1634.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a5c782b1ae593523716bf6579dc7f05c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -128,7 +129,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -154,7 +155,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">R for Political Science</span>
@@ -379,6 +381,10 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
+ <span class="dropdown-text">[後期] 第4回課題</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -419,6 +425,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -561,7 +571,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-プロジェクト機能は常に使用すること
+<span class="screen-reader-only">Note</span>プロジェクト機能は常に使用すること
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -573,14 +583,14 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 01</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># pacman::p_load(tidyverse, summarytools) でもOK</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># pacman::p_load(tidyverse, summarytools) でもOK</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(summarytools)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Gacha.csvがDataフォルダー内にあれば以下のコードでOK</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="co"># dataフォルダーならDataをdataに置換</span></span>
 <span id="cb1-7"><a href="#cb1-7"></a>gacha_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Gacha.csv"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a>gacha_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,227 × 4
@@ -1058,7 +1068,7 @@ window.Quarto = {
 }
 </style>
 
-<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Var" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">変数</th>
@@ -1097,9 +1107,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gacha_df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>gacha_df <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb3-3"><a href="#cb3-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
@@ -1118,13 +1128,13 @@ N: 4227
 <div class="code-with-filename-file">
 <pre><strong>Code 03</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">mutate</span>(<span class="at">result_N   =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"N"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb5-3"><a href="#cb5-3"></a>         <span class="at">result_R   =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"R"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb5-4"><a href="#cb5-4"></a>         <span class="at">result_SR  =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"SR"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb5-5"><a href="#cb5-5"></a>         <span class="at">result_SSR =</span> <span class="fu">if_else</span>(result <span class="sc">==</span> <span class="st">"SSR"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
 <span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-7"><a href="#cb5-7"></a>gacha_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,227 × 8
@@ -1149,13 +1159,13 @@ N: 4227
 <div class="code-with-filename-file">
 <pre><strong>Code 04</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># 上記のコードは以下のように書くこともできる。</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># 上記のコードは以下のように書くこともできる。</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co"># ignore_na = TRUE を指定しない場合、欠損値か否かを示すダミー変数も生成される。</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="fu">library</span>(fastDummies)</span>
 <span id="cb7-4"><a href="#cb7-4"></a>gacha_df <span class="ot">&lt;-</span> gacha_df <span class="sc">|&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">dummy_cols</span>(<span class="at">select_columns =</span> <span class="st">"result"</span>, <span class="at">ignore_na =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>gacha_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7"></a>gacha_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,227 × 8
@@ -1180,10 +1190,10 @@ N: 4227
 <div class="code-with-filename-file">
 <pre><strong>Code 05</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>gacha_df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>gacha_df <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>player) <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb9-4"><a href="#cb9-4"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
@@ -1203,7 +1213,7 @@ N: 4227
 <div class="code-with-filename-file">
 <pre><strong>Code 06</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">table</span>(gacha_df<span class="sc">$</span>result)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">table</span>(gacha_df<span class="sc">$</span>result)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1222,7 +1232,7 @@ N: 4227
 <div class="code-with-filename-file">
 <pre><strong>Code 07</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02791578</code></pre>
@@ -1265,9 +1275,9 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># 標本平均</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># 標本平均</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>x_bar</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3"></a>x_bar</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02791578</code></pre>
@@ -1278,9 +1288,9 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 09</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># サンプルサイズ</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># サンプルサイズ</span></span>
 <span id="cb17-2"><a href="#cb17-2"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(gacha_df<span class="sc">$</span>result_SSR))</span>
-<span id="cb17-3"><a href="#cb17-3"></a>n</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3"></a>n</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4227</code></pre>
@@ -1291,9 +1301,9 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 10</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># 標準誤差</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># 標準誤差</span></span>
 <span id="cb19-2"><a href="#cb19-2"></a>se <span class="ot">&lt;-</span> <span class="fu">sd</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb19-3"><a href="#cb19-3"></a>se</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a href="#cb19-3"></a>se</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.002534032</code></pre>
@@ -1304,9 +1314,9 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 11</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># T統計量</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># T統計量</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> <span class="fl">0.03</span>) <span class="sc">/</span> se</span>
-<span id="cb21-3"><a href="#cb21-3"></a>t_stat</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a href="#cb21-3"></a>t_stat</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.8224918</code></pre>
@@ -1354,10 +1364,10 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># pt()の第一引数は「tの絶対値にマイナスをかけた値」にする</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># pt()の第一引数は「tの絶対値にマイナスをかけた値」にする</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="co"># dfは自由度（n - 1）</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="co"># 最終的には2をかける</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> <span class="fu">abs</span>(<span class="sc">-</span><span class="fl">0.8224918</span>), <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> <span class="fu">abs</span>(<span class="sc">-</span><span class="fl">0.8224918</span>), <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4108382</code></pre>
@@ -1461,8 +1471,8 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># 下側臨界値: 第一引数には「有意水準 / 2」</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の下側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># 下側臨界値: 第一引数には「有意水準 / 2」</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の下側臨界値</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.960461</code></pre>
@@ -1473,8 +1483,8 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># 上側臨界値: 第一引数には「1 - (有意水準 / 2)」</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の上側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># 上側臨界値: 第一引数には「1 - (有意水準 / 2)」</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="co"># 有意水準が5% (0.05)の場合の上側臨界値</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.960461</code></pre>
@@ -1515,7 +1525,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-（注意）有意水準は分析前に決める！
+<span class="screen-reader-only">Note</span>（注意）有意水準は分析前に決める！
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1539,7 +1549,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>x_bar <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> se <span class="co"># 95%信頼区間の下限</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>x_bar <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> se <span class="co"># 95%信頼区間の下限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02294791</code></pre>
@@ -1550,7 +1560,7 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>x_bar <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> se <span class="co"># 95%信頼区間の上限</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>x_bar <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">4771</span>) <span class="sc">*</span> se <span class="co"># 95%信頼区間の上限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.03288365</code></pre>
@@ -1593,8 +1603,8 @@ t = \frac{\bar{x} - \mu}{\text{SE}} = \frac{\bar{x} - \mu_0}{\text{SE}} = \frac{
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># 帰無仮説においてSSRの確率は3%であるため、mu = 0.03</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.03</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># 帰無仮説においてSSRの確率は3%であるため、mu = 0.03</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.03</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1621,10 +1631,10 @@ sample estimates:
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># x: SSRが得られた回数</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># x: SSRが得られた回数</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="co"># n: ガチャの回数</span></span>
 <span id="cb35-3"><a href="#cb35-3"></a><span class="co"># p: 帰無仮説におけるSSRの出現確率 (0 ~ 1)</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">118</span>, <span class="at">n =</span> <span class="dv">4227</span>, <span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">118</span>, <span class="at">n =</span> <span class="dv">4227</span>, <span class="at">p =</span> <span class="fl">0.05</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1646,7 +1656,7 @@ sample estimates:
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.05</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">t.test</span>(gacha_df<span class="sc">$</span>result_SSR, <span class="at">mu =</span> <span class="fl">0.05</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1686,10 +1696,10 @@ Z = \frac{\hat{p} - p_0}{\text{SE}}
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># p_hat: 0.02791578</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># p_hat: 0.02791578</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a><span class="co"># p_0: 0.03</span></span>
 <span id="cb39-3"><a href="#cb39-3"></a><span class="co"># n: 4227</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a>(<span class="fl">0.02791578</span> <span class="sc">-</span> <span class="fl">0.03</span>) <span class="sc">/</span> <span class="fu">sqrt</span>((<span class="fl">0.03</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.03</span>)) <span class="sc">/</span> <span class="dv">4227</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-4"><a href="#cb39-4"></a>(<span class="fl">0.02791578</span> <span class="sc">-</span> <span class="fl">0.03</span>) <span class="sc">/</span> <span class="fu">sqrt</span>((<span class="fl">0.03</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.03</span>)) <span class="sc">/</span> <span class="dv">4227</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.7943524</code></pre>
@@ -1701,9 +1711,9 @@ Z = \frac{\hat{p} - p_0}{\text{SE}}
 <div class="code-with-filename-file">
 <pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># meanとsdの既定値はそれぞれ0, 1であるため、</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="co"># meanとsdの既定値はそれぞれ0, 1であるため、</span></span>
 <span id="cb41-2"><a href="#cb41-2"></a><span class="co"># 今回はpnorm(-0.7943524) * 2のみでもOK（）</span></span>
-<span id="cb41-3"><a href="#cb41-3"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.7943524</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.7943524</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4269903</code></pre>
@@ -1716,9 +1726,9 @@ Z = \frac{\hat{p} - p_0}{\text{SE}}
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># meanとsdの既定値はそれぞれ0, 1であるため、</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># meanとsdの既定値はそれぞれ0, 1であるため、</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a><span class="co"># 今回はqnorm(0.025); qnorm(0.975)のみでOK</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a><span class="fu">qnorm</span>(<span class="fl">0.025</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># 下側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="fu">qnorm</span>(<span class="fl">0.025</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># 下側臨界値</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.959964</code></pre>
@@ -1729,7 +1739,7 @@ Z = \frac{\hat{p} - p_0}{\text{SE}}
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># 上側臨界値</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># 上側臨界値</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.959964</code></pre>
@@ -1801,13 +1811,14 @@ Z = \frac{\hat{p} - p_0}{\text{SE}}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

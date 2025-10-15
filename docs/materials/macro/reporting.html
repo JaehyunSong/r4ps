@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../Figs/favicon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-f7d2b2980468318b04e0c52838f8e54f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-4a8cb1f038451bc38072230142d42b88.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-12bcd91ec681f8805fea2ef15e4b1634.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a5c782b1ae593523716bf6579dc7f05c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -128,7 +129,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -154,7 +155,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../Figs/logo.png" alt="" class="navbar-logo">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../Figs/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">R for Political Science</span>
@@ -379,6 +381,10 @@ window.Quarto = {
   </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW04.html">
+ <span class="dropdown-text">[後期] 第4回課題</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -419,6 +425,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -557,11 +567,11 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 01</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(modelsummary)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(marginaleffects)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/M1.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/M1.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p>　このデータは<a href="https://www.jaysong.net">ある暇な研究者</a>が集めたM-1グランプリのデータの<strong>一部</strong>だ。フルバージョンのデータは<a href="https://github.com/JaehyunSong/M-1_Grand_Pix">ここ</a>から入手できる。データは60行8列であり、各変数の詳細は以下の通りだ。</p>
@@ -622,9 +632,9 @@ window.Quarto = {
 <div class="code-with-filename-file">
 <pre><strong>Code 02</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>df <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2"></a>  summarytools<span class="sc">::</span><span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb2-3"><a href="#cb2-3"></a>                      <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3"></a>                      <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
@@ -648,9 +658,9 @@ N: 60
 <div class="code-with-filename-file">
 <pre><strong>Code 03</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order, <span class="at">data =</span> df)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order, <span class="at">data =</span> df)</span>
 <span id="cb4-2"><a href="#cb4-2"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First, <span class="at">data =</span> df)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First <span class="sc">+</span> Duration, <span class="at">data =</span> df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score_Mean <span class="sc">~</span> Order <span class="sc">+</span> First <span class="sc">+</span> Duration, <span class="at">data =</span> df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -664,7 +674,7 @@ N: 60
 <div class="code-with-filename-file">
 <pre><strong>Code 04</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">summary</span>(fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">summary</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -695,7 +705,7 @@ F-statistic: 3.134 on 3 and 56 DF,  p-value: 0.03256</code></pre>
 <div class="code-with-filename-file">
 <pre><strong>Code 05</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">modelsummary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -850,7 +860,7 @@ window.addEventListener('load', function () { styleCell_prel2caoxay6nnjd7g4u(12,
 <div class="code-with-filename-file">
 <pre><strong>Code 06</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">modelsummary</span>(fit1, <span class="at">statistic =</span> <span class="st">"({p.value})"</span>, <span class="at">note =</span> <span class="st">"注：カッコ内はp値"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1006,10 +1016,10 @@ window.addEventListener('load', function () { styleCell_gsacbxg4982bahxykjke(13,
 <div class="code-with-filename-file">
 <pre><strong>Code 07</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">modelsummary</span>(fit1, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">modelsummary</span>(fit1, </span>
 <span id="cb9-2"><a href="#cb9-2"></a>             <span class="at">estimate  =</span> <span class="st">"{estimate} ({std.error})"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3"></a>             <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4"></a>             <span class="at">note      =</span> <span class="st">"注：カッコ内は標準誤差"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1152,11 +1162,11 @@ window.addEventListener('load', function () { styleCell_jyjr0m7c7hnep01m9jmd(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 08</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">modelsummary</span>(fit1, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">modelsummary</span>(fit1, </span>
 <span id="cb10-2"><a href="#cb10-2"></a>             <span class="at">conf_level =</span> <span class="fl">0.9</span>,</span>
 <span id="cb10-3"><a href="#cb10-3"></a>             <span class="at">estimate   =</span> <span class="st">"{estimate}"</span>,</span>
 <span id="cb10-4"><a href="#cb10-4"></a>             <span class="at">statistic  =</span> <span class="st">"[{conf.low}, {conf.high}]"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5"></a>             <span class="at">note       =</span> <span class="st">"注：カッコ内は90%信頼区間"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-5"><a href="#cb10-5"></a>             <span class="at">note       =</span> <span class="st">"注：カッコ内は90%信頼区間"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1311,7 +1321,7 @@ window.addEventListener('load', function () { styleCell_1yjz743x0g8hxts4yyuw(13,
 <div class="code-with-filename-file">
 <pre><strong>Code 09</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">get_gof</span>(fit3)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">get_gof</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       aic      bic r.squared adj.r.squared     rmse nobs        F    logLik
@@ -1324,13 +1334,13 @@ window.addEventListener('load', function () { styleCell_1yjz743x0g8hxts4yyuw(13,
 <div class="code-with-filename-file">
 <pre><strong>Code 10</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>fit3 <span class="sc">|&gt;</span> <span class="co"># パイプ演算子も使用可</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>fit3 <span class="sc">|&gt;</span> <span class="co"># パイプ演算子も使用可</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">modelsummary</span>(</span>
 <span id="cb13-3"><a href="#cb13-3"></a>    <span class="at">estimate  =</span> <span class="st">"{estimate} ({p.value})"</span>,</span>
 <span id="cb13-4"><a href="#cb13-4"></a>    <span class="at">statistic =</span> <span class="cn">NULL</span>,</span>
 <span id="cb13-5"><a href="#cb13-5"></a>    <span class="at">gof_map   =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
 <span id="cb13-6"><a href="#cb13-6"></a>    <span class="at">note      =</span> <span class="st">"注：カッコ内はp値"</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a>  )</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7"></a>  )</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1458,8 +1468,8 @@ window.addEventListener('load', function () { styleCell_x95fypvg2fpv7y0jke2z(8, 
 <div class="code-with-filename-file">
 <pre><strong>Code 11</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
-<span id="cb14-2"><a href="#cb14-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
+<span id="cb14-2"><a href="#cb14-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1654,8 +1664,8 @@ window.addEventListener('load', function () { styleCell_vx3gg58jcv0q6zafnmtr(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 12</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
-<span id="cb15-2"><a href="#cb15-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
+<span id="cb15-2"><a href="#cb15-2"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -1850,12 +1860,12 @@ window.addEventListener('load', function () { styleCell_srfvsvgnimor88fizgd5(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 13</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">modelsummary</span>(<span class="fu">list</span>(fit1, fit2, fit3),</span>
 <span id="cb16-2"><a href="#cb16-2"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"切片"</span>,</span>
 <span id="cb16-3"><a href="#cb16-3"></a>                             <span class="st">"Order"</span>       <span class="ot">=</span> <span class="st">"出場順番"</span>,</span>
 <span id="cb16-4"><a href="#cb16-4"></a>                             <span class="st">"First"</span>       <span class="ot">=</span> <span class="st">"初出場ダミー"</span>,</span>
 <span id="cb16-5"><a href="#cb16-5"></a>                             <span class="st">"Duration"</span>    <span class="ot">=</span> <span class="st">"結成からの経過年数"</span>),</span>
-<span id="cb16-6"><a href="#cb16-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-6"><a href="#cb16-6"></a>             <span class="at">gof_map     =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <!-- preamble start -->
@@ -2053,10 +2063,10 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 14</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="annotated-cell-14"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1"></a><span class="fu">modelplot</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-14"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1"></a><span class="fu">modelplot</span>(<span class="fu">list</span>(<span class="st">"Model 1"</span> <span class="ot">=</span> fit1, <span class="st">"Model 2"</span> <span class="ot">=</span> fit2, <span class="st">"Model 3"</span> <span class="ot">=</span> fit3),</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="1">1</button><span id="annotated-cell-14-2" class="code-annotation-target"><a href="#annotated-cell-14-2"></a>          <span class="at">coef_omit =</span> <span class="st">"(Intercept)"</span>,</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="2">2</button><span id="annotated-cell-14-3" class="code-annotation-target"><a href="#annotated-cell-14-3"></a>          <span class="at">coef_map  =</span> <span class="fu">c</span>(<span class="st">"Duration"</span>, <span class="st">"First"</span>, <span class="st">"Order"</span>)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3">3</button><span id="annotated-cell-14-4" class="code-annotation-target"><a href="#annotated-cell-14-4"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3">3</button><span id="annotated-cell-14-4" class="code-annotation-target"><a href="#annotated-cell-14-4"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
@@ -2106,7 +2116,7 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-平均値を代入する = 固定する
+<span class="screen-reader-only">Note</span>平均値を代入する = 固定する
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2119,7 +2129,7 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 15</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90.8556</code></pre>
@@ -2131,7 +2141,7 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 16</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fl">89.605</span> <span class="sc">+</span> <span class="fl">0.256</span> <span class="sc">*</span> <span class="fl">5.5</span> <span class="sc">-</span> <span class="fl">0.963</span> <span class="sc">*</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.076</span> <span class="sc">*</span> <span class="fl">10.6</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 91.8186</code></pre>
@@ -2140,8 +2150,8 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <p>　他の条件が平均である場合、初出場コンビの予測平均得点は90.8556点、2回以上出場したコンビの予測平均得点は91.8186点である。</p>
 <p>　今回は<code>First</code>の値が2種類（0と1）しかなかったため、これだけでも良いかも知れないが、<code>Order</code>や<code>Duration</code>は10以上の値で構成されているため、このような作業は非常に面倒だ。ここで、{marginaleffects}の<code>predictions()</code>関数を使えば簡単に計算ができるようになる。使い方は以下の通りだ。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
-<span id="cb21-2"><a href="#cb21-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>新しいオブジェクト名 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(回帰オブジェクト名,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>                                 <span class="at">newdata =</span> <span class="fu">datagrid</span>(変数 <span class="ot">=</span> 値))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>　全く同じ計算を<code>predictions()</code>関数で行い、結果を<code>fit3_pred1</code>という名の新しいオブジェクトを作業環境内に格納する。</p>
 <div class="cell" data-layout-align="center">
@@ -2149,10 +2159,10 @@ window.addEventListener('load', function () { styleCell_7wc5c6dftkilrn7r0snd(11,
 <div class="code-with-filename-file">
 <pre><strong>Code 17</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit3_pred1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
 <span id="cb22-2"><a href="#cb22-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
 <span id="cb22-3"><a href="#cb22-3"></a></span>
-<span id="cb22-4"><a href="#cb22-4"></a>fit3_pred1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4"></a>fit3_pred1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2171,12 +2181,12 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 18</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>fit3_pred2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3,</span>
 <span id="cb24-2"><a href="#cb24-2"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">First    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
 <span id="cb24-3"><a href="#cb24-3"></a>                                             <span class="at">Order    =</span> <span class="dv">5</span>,</span>
 <span id="cb24-4"><a href="#cb24-4"></a>                                             <span class="at">Duration =</span> <span class="dv">5</span>))</span>
 <span id="cb24-5"><a href="#cb24-5"></a></span>
-<span id="cb24-6"><a href="#cb24-6"></a>fit3_pred2</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-6"><a href="#cb24-6"></a>fit3_pred2</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2197,7 +2207,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 19</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit3_pred2, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rowid estimate std.error statistic p.value s.value conf.low conf.high First Order Duration
@@ -2222,14 +2232,14 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 20</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit3_pred2_plot1 <span class="ot">&lt;-</span> fit3_pred2 <span class="sc">|&gt;</span> </span>
 <span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> First, <span class="at">y =</span> estimate, </span>
 <span id="cb28-4"><a href="#cb28-4"></a>                      <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"初出場ダミー"</span>, <span class="at">y =</span> <span class="st">"予測点数と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb28-6"><a href="#cb28-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
 <span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a>fit3_pred2_plot1</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-8"><a href="#cb28-8"></a>fit3_pred2_plot1</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2245,13 +2255,13 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 21</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>)) <span class="co"># 例1</span></span>
 <span id="cb29-3"><a href="#cb29-3"></a>fit3_pred2_plot1 <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"その他"</span>, <span class="st">"初出場"</span>)) <span class="co"># 例2</span></span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"その他"</span>, <span class="st">"初出場"</span>)) <span class="co"># 例2</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -2277,8 +2287,8 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 22</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fit3_pred3 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
-<span id="cb30-2"><a href="#cb30-2"></a>fit3_pred3</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fit3_pred3 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb30-2"><a href="#cb30-2"></a>fit3_pred3</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2304,12 +2314,12 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 23</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fit3_pred3 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fit3_pred3 <span class="sc">|&gt;</span> </span>
 <span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Order, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
 <span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"出場順番"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2325,8 +2335,8 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 24</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>fit3_pred4 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
-<span id="cb33-2"><a href="#cb33-2"></a>fit3_pred4</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>fit3_pred4 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>))</span>
+<span id="cb33-2"><a href="#cb33-2"></a>fit3_pred4</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2357,12 +2367,12 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 25</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
 <span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">y =</span> estimate, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="cb35-5"><a href="#cb35-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2378,12 +2388,12 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 26</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
 <span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration, <span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high)) <span class="sc">+</span></span>
 <span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="cb36-5"><a href="#cb36-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2399,13 +2409,13 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 27</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1"></a>fit3_pred4 <span class="sc">|&gt;</span> </span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="1">1</button><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="2">2</button><span id="annotated-cell-28-3" class="code-annotation-target"><a href="#annotated-cell-28-3"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3">3</button><span id="annotated-cell-28-4" class="code-annotation-target"><a href="#annotated-cell-28-4"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> estimate), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="annotated-cell-28-5"><a href="#annotated-cell-28-5"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="annotated-cell-28-6"><a href="#annotated-cell-28-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-28-7"><a href="#annotated-cell-28-7"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
@@ -2467,7 +2477,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 </div>
 <p>　もう一度過去に戻ってM-1グランプリが行われ、同じ手順でデータ収集&amp;分析をしたら、今私たちが持っているデータから得られた回帰直線と似た直線は得られてもおかしくないし、大きく異なるものは非現実的である。この「ありえる」直線が収まる範囲が信頼区間だ。つまり、「この範囲（信頼区間）外の直線が得られる可能性は非常に低い！」ことを意味する。</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">ケース1〜3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">ケース4〜6</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">ケース1〜3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">ケース4〜6</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell" data-layout-align="center">
@@ -2511,7 +2521,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 28</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>fit3_pred5 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>fit3_pred5 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
 <span id="cb37-2"><a href="#cb37-2"></a>                          <span class="at">conf_level =</span> <span class="fl">0.7</span>)</span>
 <span id="cb37-3"><a href="#cb37-3"></a></span>
 <span id="cb37-4"><a href="#cb37-4"></a>fit3_pred5 <span class="sc">|&gt;</span></span>
@@ -2521,10 +2531,10 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="cb37-9"><a href="#cb37-9"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb37-10"><a href="#cb37-10"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
-<span id="cb37-11"><a href="#cb37-11"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-11"><a href="#cb37-11"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -2550,7 +2560,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <div class="code-with-filename-file">
 <pre><strong>Code 29</strong></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">predictions</span>(fit3, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Duration =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>),</span>
 <span id="cb38-2"><a href="#cb38-2"></a>            <span class="at">conf_level =</span> <span class="fl">0.4</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Duration)) <span class="sc">+</span> </span>
 <span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray70"</span>) <span class="sc">+</span></span>
@@ -2558,7 +2568,7 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 <span id="cb38-6"><a href="#cb38-6"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">labels =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="cb38-7"><a href="#cb38-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"コンビ結成からの経過年数"</span>, <span class="at">y =</span> <span class="st">"平均得点の予測値と40%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb38-8"><a href="#cb38-8"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">93</span>)) <span class="sc">+</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-9"><a href="#cb38-9"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2648,13 +2658,14 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

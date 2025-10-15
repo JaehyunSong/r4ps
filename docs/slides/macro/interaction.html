@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – マクロ政治データ分析実習</title>
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-812327e31f62f2cc4f05359e191f4037.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-781a7d17fae8c5f07fafdeb994283b31.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -234,11 +234,11 @@
 <li>実習用コードを入力するスクリプト、またはQuartoファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a></a><span class="fu">library</span>(summarytools)</span>
 <span id="cb1-3"><a></a><span class="fu">library</span>(marginaleffects)</span>
 <span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1_2.csv"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1_2.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
@@ -429,10 +429,10 @@
 <section id="実習用データ" class="slide level2">
 <h2>実習用データ</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1_2.csv"</span>)</span>
 <span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a>jes_df</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a></a>jes_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 6
    TempKyosan Female   Age Satisfaction Interest Ideology
@@ -502,9 +502,9 @@
 <li>名目変数もダミー変数になると連続変数と同じ扱いでOK</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>jes_df <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>jes_df <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb4-3"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 jes_df  
@@ -588,14 +588,14 @@ N: 3000
 <li><code>A * B</code>は説明変数として<code>A</code>、<code>B</code>、<code>A</code><span class="math inline">\(\times\)</span><code>B</code>を同時に投入することを意味する。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Female <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Age, <span class="at">data =</span> jes_df)</span>
-<span id="cb6-2"><a></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Age <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Female <span class="sc">+</span> Age, <span class="at">data =</span> jes_df)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Female <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Age, <span class="at">data =</span> jes_df)</span>
+<span id="cb6-2"><a></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TempKyosan <span class="sc">~</span> Satisfaction <span class="sc">*</span> Age <span class="sc">+</span> Interest <span class="sc">+</span> Ideology <span class="sc">+</span> Female <span class="sc">+</span> Age, <span class="at">data =</span> jes_df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">summary</span>(fit1)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">summary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1049,7 +1049,7 @@ N: 3000
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
@@ -1119,7 +1119,7 @@ N: 3000
 
 </div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">summary</span>(fit2)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">summary</span>(fit2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1573,7 +1573,7 @@ N: 3000
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
@@ -1684,7 +1684,7 @@ N: 3000
 </div>
 <div id="tabset-1-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fit1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>fit1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
 <span id="cb9-2"><a></a>                                                  <span class="at">Female       =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))</span>
 <span id="cb9-3"><a></a>fit1_pred <span class="sc">|&gt;</span> </span>
 <span id="cb9-4"><a></a>  <span class="fu">mutate</span>(<span class="at">Female =</span> <span class="fu">if_else</span>(Female <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"女性"</span>, <span class="st">"男性"</span>)) <span class="sc">|&gt;</span></span>
@@ -1695,7 +1695,7 @@ N: 3000
 <span id="cb9-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"政治満足度"</span>, <span class="at">y =</span> <span class="st">"共産感情温度の予測値と95%信頼区間 (度)"</span>,</span>
 <span id="cb9-10"><a></a>       <span class="at">fill =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
 <span id="cb9-11"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb9-12"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-12"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-3">
@@ -1759,7 +1759,7 @@ N: 3000
 </div>
 <div id="tabset-2-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>fit2_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit2, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>fit2_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit2, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Satisfaction =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
 <span id="cb10-2"><a></a>                                                  <span class="at">Age          =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>)))</span>
 <span id="cb10-3"><a></a>fit2_pred <span class="sc">|&gt;</span> </span>
 <span id="cb10-4"><a></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">factor</span>(Age, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>),</span>
@@ -1771,7 +1771,7 @@ N: 3000
 <span id="cb10-10"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"政治満足度"</span>, <span class="at">y =</span> <span class="st">"共産感情温度の予測値と95%信頼区間 (度)"</span>,</span>
 <span id="cb10-11"><a></a>       <span class="at">fill =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span></span>
 <span id="cb10-12"><a></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb10-13"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-13"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1800,9 +1800,9 @@ N: 3000
 <h2>{marginaleffect}パッケージを用いた限界効果の計算</h2>
 <p>{marginaleffect}パッケージの<code>slopes()</code>関数</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">slopes</span>(回帰オブジェクト名, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">slopes</span>(回帰オブジェクト名, </span>
 <span id="cb11-2"><a></a>       <span class="at">variables =</span> <span class="st">"説明変数名"</span>, </span>
-<span id="cb11-3"><a></a>       <span class="at">newdata   =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a></a>       <span class="at">newdata   =</span> <span class="fu">datagrid</span>(調整変数名 <span class="ot">=</span> 調整変数の値))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>variables</code>には説明変数名を指定する（変数名は必ず<code>"</code>で囲むこと）</li>
@@ -1822,9 +1822,9 @@ N: 3000
 <h2>調整変数がダミー変数の場合 (<code>fit1</code>)</h2>
 <p>性別と関係なく、政治満足度は共産感情温度に負の影響を与える。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>fit1_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit1, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Female =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)))</span>
 <span id="cb12-2"><a></a></span>
-<span id="cb12-3"><a></a>fit1_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a></a>fit1_ame</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Female Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
@@ -1850,8 +1850,8 @@ Comparison: dY/dX</code></pre>
 <section id="調整変数が連続変数の場合fit2-1" class="slide level2">
 <h2>調整変数が連続変数の場合（<code>fit2</code>）</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
-<span id="cb14-2"><a></a>fit2_ame</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit2_ame <span class="ot">&lt;-</span> <span class="fu">slopes</span>(fit2, <span class="at">variables =</span> <span class="st">"Satisfaction"</span>, <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Age =</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">75</span>))</span>
+<span id="cb14-2"><a></a>fit2_ame</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Age Estimate Std. Error        z Pr(&gt;|z|)   S  2.5 % 97.5 %
@@ -1882,7 +1882,7 @@ Comparison: dY/dX</code></pre>
 <h2>省略された行の表示</h2>
 <p><code>print()</code>内に<code>topn = Inf</code>を追加する。</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 % 97.5 %
@@ -1986,7 +1986,7 @@ Comparison: dY/dX</code></pre>
 <div class="tab-content">
 <div id="tabset-3-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">print</span>(fit1_ame)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">print</span>(fit1_ame)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Female Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
@@ -2001,7 +2001,7 @@ Comparison: dY/dX</code></pre>
 </div>
 <div id="tabset-3-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>fit1_ame <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>fit1_ame <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb20-3"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb20-4"><a></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> estimate, </span>
@@ -2010,7 +2010,7 @@ Comparison: dY/dX</code></pre>
 <span id="cb20-7"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,</span>
 <span id="cb20-8"><a></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)) <span class="sc">+</span></span>
 <span id="cb20-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"政治満足度の平均限界効果と95%信頼区間"</span>) <span class="sc">+</span></span>
-<span id="cb20-10"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-10"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-3-3">
@@ -2040,7 +2040,7 @@ Comparison: dY/dX</code></pre>
 <div class="tab-content">
 <div id="tabset-4-1">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">print</span>(fit2_ame, <span class="at">topn =</span> <span class="cn">Inf</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Age Estimate Std. Error        z Pr(&gt;|z|)     S  2.5 % 97.5 %
@@ -2111,7 +2111,7 @@ Comparison: dY/dX</code></pre>
 </div>
 <div id="tabset-4-2">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>fit2_ame <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>fit2_ame <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age)) <span class="sc">+</span></span>
 <span id="cb23-3"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb23-4"><a></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"gray80"</span>) <span class="sc">+</span></span>
@@ -2119,7 +2119,7 @@ Comparison: dY/dX</code></pre>
 <span id="cb23-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"年齢"</span>, <span class="at">y =</span> <span class="st">"政治満足度が共産感情温度に</span><span class="sc">\n</span><span class="st">与える影響と95%信頼区間"</span>) <span class="sc">+</span></span>
 <span id="cb23-7"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">75</span>),</span>
 <span id="cb23-8"><a></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">75</span>)) <span class="sc">+</span></span>
-<span id="cb23-9"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-9"><a></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-4-3">
@@ -2337,7 +2337,7 @@ Comparison: dY/dX</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -2449,13 +2449,14 @@ Comparison: dY/dX</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
