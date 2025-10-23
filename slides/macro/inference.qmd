@@ -51,7 +51,7 @@ ishin_df
 
 ```{r}
 #| echo: false
-tibble(問い = c("岸田内閣の支持率は?", 
+tibble(問い = c("高市内閣の支持率は?", 
               "女性に人気のある大臣は誰か", 
               "若者に人気のある政党は何か", 
               "高槻市長の支持率は?"),
@@ -65,14 +65,14 @@ tibble(問い = c("岸田内閣の支持率は?",
 
 ## 母集団における推論の例
 
-* 岸田内閣の支持率は?
+* 高市内閣の支持率は?
    * 有権者全員（約1億600万人）に内閣支持の有無を尋ね、支持する人の数を有権者数で割る。
 * 女性に人気のある大臣は誰か
    * 女性有権者全員（約5300万人）に好きな大臣を尋ね、最も多い選択肢を計算する。
 * 若者に人気のある政党は何か
    * 18〜35歳の有権者（約2300万人）に支持政党を尋ね、最も多い選択肢を計算する。
 * 高槻市長の支持率は?
-   * 18歳以上の高槻市民（約29万人）に濱田剛史市長の支持有無を尋ね、支持する人の数を有権者数で割る。
+   * 18歳以上の高槻市民（約29万人）に濱田市長の支持有無を尋ね、支持する人の数を有権者数で割る。
 
 <br/>
 
@@ -125,15 +125,9 @@ tibble(問い = c("岸田内閣の支持率は?",
 
 標本から母集団を推論するためには、母集団から適切な方法で標本を抽出する必要がある。
 
-* 例) 標本のほとんどが山口県長門市の居住者である場合、そこから得られた自民党の支持率は母集団を代表せず、**偏り**（bias）が生じる。
+* 例) 標本を鳥取市から抽出した場合、そこから得られた自民党の支持率は母集団を代表せず、**偏り**（bias）が生じる。
 * 偏りをなくす抽出方法: **単純無作為抽出法**
    * 母集団に属するすべてのケースにおいて標本として抽出される確率が等しい。
-
-<!--
-2017衆院選
-山口県長門市の安倍晋三得票率は約81%
-自民比例得票率は約63% (全国では33%)
--->
 
 ## 偏りをなくしても誤差は存在する
 
@@ -183,17 +177,19 @@ mean(sample6) # 標本平均 6
 * しかし、バイアス $\neq$ エラー
 * 母集団からの抽出 $\rightarrow$ 標本平均の計算を繰り返す場合
    * 偏りの**ある**標本の場合、母平均と大きく離れた値が得られる
-      * 長門市から抽出を行い、標本平均の平均の計算を繰り返しても母平均（日本人全体の特徴）から大きく離れた値が得られる。
+      * 鳥取市から抽出を行い、標本平均の平均の計算を繰り返しても母平均（日本人全体の特徴）から大きく離れた値が得られる。
+      - 標本平均の平均値 $\neq$ 母平均
    * 偏りの**ない**標本の場合、母平均と大きく離れた値が得られるケースがほとんどない。
       * ズレが小さい範囲内（=いわゆる「誤差の範囲内」）に収まる
+      - 標本平均の平均値 $=$ 母平均
 
 ## 全数調査の場合
 
 標本から母集団を推論することが「統計的推定」の目的
 
 * 母集団のデータがあれば、推定は不要?
-* 研究の対象が都道府県、または選挙区の場合、これらのデータを入手することは可能
-   * 約300選挙区のデータ = 母集団?
+* 研究の対象が都道府県、または市区町村、選挙区の場合、これらのデータを入手することは可能
+   * 1,718市区町村 = 母集団?
 * 一般的に研究対象のケースがすべて揃ったデータでも、それを母集団として扱うことはない
    * 今回得られた300選挙区のデータは無数の可能性の一つとして考える。
 
@@ -215,23 +211,14 @@ mean(sample6) # 標本平均 6
 * **例1）**母集団が3人（A, B, C）で、 $n$ = 2の標本を無作為抽出する方法
    * 計9通り（$3^2$ = 9）$\Rightarrow$ {A, A}、{B, B}、{C, C}、{A, B}、{B ,A}、{A, C}、{C, A}、{B, C}、{C, B}
    * 注意
-      1. 同じ人がもう一度抽出されることがあり得る：**復元抽出**
-      2. {A, C}と{C, A}は異なる組み合わせ：**順序あり**
+      1. **復元抽出**：同じ人がもう一度抽出されることがあり得る
+      2. **順序あり**：{A, C}と{C, A}は異なる組み合わせ
       * 「非復元抽出 + 順序なし」なら計3通り（{A, B}、{A, C}、{B, C}）
-
-```{r}
-3^2 # 3人から2人を選ぶ方法
-```
-
 * **例2）**母集団が10人で、 $n$ = 4の標本を無作為抽出する方法
    * $10^4 = 10000$
-
-```{r}
-10^4 # 10人から4人を選ぶ方法
-```
-
 * **例3）**1億2千万人から $n$ = 3000の標本を無作為抽出する方法
    * 有限ではあるが、実質、無限と考えられる
+   * $120000000^{3000}$ = ...?
 
 ```{r}
 120000000^3000 # 1億2千万のケースから3000個を選ぶ場合、あり得る組み合わせは...
@@ -336,7 +323,11 @@ combn_df |>
 ::::{.columns}
 :::{.column width=49%}
 ```{r}
-height_df <- read_csv("Data/heights.csv")
+set.seed(19861008)
+height_df <- tibble(
+  ID = 1:1000,
+  Height = rnorm(1000, 170, 6)
+)
 height_df
 ```
 :::
@@ -376,9 +367,9 @@ ggplot(height_df) +
   theme_bw()
 ```
 
-## $n = 10$ の無作為抽出を繰り返す
+## $n = 9$ の無作為抽出を繰り返す
 
-$n = 10$の標本を無作為抽出し、標本平均を計算することを500回繰り返す。
+$n = 9$の標本を無作為抽出し、標本平均を計算することを500回繰り返す。
 
 * 計算された500個の標本平均を保存し、ヒストグラム化する。
 
@@ -390,11 +381,11 @@ $n = 10$の標本を無作為抽出し、標本平均を計算することを500
 ```r
 sample_mean <- c() # 空ベクトルの作成
 
-sample001 <- sample(height_df$Height, 10)
-sample002 <- sample(height_df$Height, 10)
-sample003 <- sample(height_df$Height, 10)
+sample001 <- sample(height_df$Height, 9)
+sample002 <- sample(height_df$Height, 9)
+sample003 <- sample(height_df$Height, 9)
 ...
-sample500 <- sample(height_df$Height, 10)
+sample500 <- sample(height_df$Height, 9)
 
 sample_mean[1]   <- mean(sample001)
 sample_mean[2]   <- mean(sample002)
@@ -415,7 +406,7 @@ sample_mean <- c() # 標本平均を格納する空ベクトルの作成
 
 # for文で標本抽出&標本平均の計算を繰り返す
 for (i in 1:500) {
-  temp_sample <- sample(height_df$Height, 10, replace = TRUE)
+  temp_sample <- sample(height_df$Height, 9, replace = TRUE)
   sample_mean[i] <- mean(temp_sample)
 }
 
@@ -463,16 +454,16 @@ enframe(sample_mean) |> # ベクトルをデータフレームに変換
 ## 標本平均の分布から分かること
 
 * 標本平均の分布は左右対称のベル（bell; 鐘）形（= 正規分布）$\leftarrow$ **中心極限定理**
-* 標本平均の平均値は母平均と同じ $\rightarrow$ 標本平均は母平均の不偏推定量
+* 標本平均の平均値は母平均と（ほぼ）同じ $\rightarrow$ 標本平均は母平均の不偏推定量
 * 標本平均のばらつきは母集団のばらつきよりも小さい（母集団より狭い範囲に分布する）
-   * 標本平均のばらつき（= $\bar{x}$の標準偏差）は
+   * 標本平均のばらつき（= $\bar{x}$の標準偏差 = $x$の**標準誤差**[Standard Error]）は...
 
 $$
 \mbox{SE}(x) = \mbox{SD}(\bar{x}) = \sqrt{\frac{\sigma^2}{n}}
 $$
 
-* 母分散（$\sigma^2$）が約6.2、標本サイズ（$n$）が10であるため、標準誤差は$\frac{6.2}{\sqrt{10}} \simeq 1.96$（標本平均の標準偏差は約`r sprintf("%.1f", sd(sample_mean))`）
-* 標本サイズが大きくなるほど、標本平均と母平均のズレは小さくなり（**大数の弱法則**）、標本平均の分散/標準偏差は小さくなる。
+* 母分散（$\sigma^2$）が約6.105、標本サイズ（$n$）が9であるため、標準誤差は$\frac{6.105}{\sqrt{9}} \simeq 2.035$（標本平均の標準偏差は約`r sprintf("%.3f", sd(sample_mean))`）
+* 標本サイズが大きくなるほど、標本平均と母平均のズレは小さくなり（**大数の弱法則**）、標本平均の標準偏差は小さくなる。
    * **一致性**（consistency）：標本のサイズを大きくするほど、一つの標本から得られる統計量が母数の近くの値をとる確率が大きくなる。
    * 一致性は不偏性とともに、推定量の望ましい性質の一つ
    * 詳細は <https://www.jaysong.net/notes/simulation/consistency.html>
@@ -483,10 +474,10 @@ $$
 
 ::::{.columns}
 :::{.column width=49%}
-* $n = 10$の場合の標準誤差
+* $n = 4$の場合の標準誤差
 
 ```{r}
-6.215432 / sqrt(10)
+6.104799 / sqrt(4)
 ```
 :::
 
@@ -494,10 +485,10 @@ $$
 :::
 
 :::{.column width=49%}
-* $n = 50$の場合の標準誤差
+* $n = 25$の場合の標準誤差
 
 ```{r}
-6.215432 / sqrt(50)
+6.104799 / sqrt(25)
 ```
 :::
 ::::
@@ -516,21 +507,22 @@ sample_mean2 <- rep(NA, 500) # 標本平均を格納する空ベクトルの作�
 
 # for文で標本抽出&標本平均の計算を繰り返す
 for (i in 1:500) {
-  temp_sample <- sample(height_df$Height, 10)
+  temp_sample <- sample(height_df$Height, 4)
   sample_mean1[i] <- mean(temp_sample)
-  temp_sample <- sample(height_df$Height, 50)
+  temp_sample <- sample(height_df$Height, 25)
   sample_mean2[i] <- mean(temp_sample)
 }
 
-bind_rows(list("n = 10" = enframe(sample_mean1),
-               "n = 50" = enframe(sample_mean2)), 
+bind_rows(list("n = 4"   = enframe(sample_mean1),
+               "n = 25" = enframe(sample_mean2)), 
           .id = "n") |> 
+  mutate(n = fct_inorder(n)) |> 
   ggplot(aes(x = value)) +
   geom_histogram(binwidth = 1, color = "black", fill = "gray80") +
-  geom_vline(xintercept = 170.09, color = "red") +
+  geom_vline(xintercept = 169.86, color = "red") +
   labs(x = "身長 (cm)", y = "度数") +
-  scale_x_continuous(breaks = c(140, 160, 170.09, 180, 200),
-                     labels = c(140, 160, 170.09, 180, 200)) +
+  scale_x_continuous(breaks = c(140, 160, 169.86, 180, 200),
+                     labels = c(140, 160, 169.86, 180, 200)) +
   coord_cartesian(xlim = c(140, 200)) +
   facet_wrap(~n) +
   theme_bw()
@@ -558,7 +550,7 @@ ishin_df
 ```{r}
 # Temp_Ishinが欠損した行を除去
 ishin_df <- ishin_df |> 
-  filter(!is.na(Temp_Ishin))
+  drop_na(Temp_Ishin)
 # 標本サイズ (= n)
 length(ishin_df$Temp_Ishin)
 # Temp_Ishinの平均値
@@ -708,13 +700,13 @@ ci95_df |>
 
 ## 母平均$\mu$の95%信頼区間の求め方
 
-1. $-1.961143 \leq T \leq 1.961143$
+1. $-1.96 \leq T \leq 1.96$
    * `qt(0.025, df = 1997)`と`qt(0.975, df = 1997)`で計算
-2. $-1.961143 \leq \frac{\bar{x} - \mu}{\mbox{SE}(x)} \leq 1.961143$
-3. $-1.961143 \cdot \mbox{SE}(x) \leq \bar{x} - \mu \leq 1.961143 \cdot \mbox{SE}(x)$
-4. $-1.961143 \cdot \mbox{SE}(x) - \bar{x} \leq -\mu \leq 1.961143 \cdot \mbox{SE}(x) - \bar{x}$
-5. $-1.961143 \cdot \mbox{SE}(x) + \bar{x} \leq \mu \leq 1.961143 \cdot \mbox{SE}(x) + \bar{x}$
-6. $\bar{x} - 1.961143 \cdot \mbox{SE}(x) \leq \mu \leq \bar{x} + 1.961143 \cdot \mbox{SE}(x)$
+2. $-1.96 \leq \frac{\bar{x} - \mu}{\mbox{SE}(x)} \leq 1.96$
+3. $-1.96 \cdot \mbox{SE}(x) \leq \bar{x} - \mu \leq 1.96 \cdot \mbox{SE}(x)$
+4. $-1.96 \cdot \mbox{SE}(x) - \bar{x} \leq -\mu \leq 1.96 \cdot \mbox{SE}(x) - \bar{x}$
+5. $-1.96 \cdot \mbox{SE}(x) + \bar{x} \leq \mu \leq 1.96 \cdot \mbox{SE}(x) + \bar{x}$
+6. $\bar{x} - 1.96 \cdot \mbox{SE}(x) \leq \mu \leq \bar{x} + 1.96 \cdot \mbox{SE}(x)$
 
 <br/>
 
@@ -772,11 +764,11 @@ length(ishin_df$Temp_Ishin)
 ::::{.columns}
 :::{.column width=49%}
 
-50%信頼区間
+79%信頼区間
 
 ```{r}
 #| code-line-numbers: false
-t.test(ishin_df$Temp_Ishin, conf.level = 0.5)
+t.test(ishin_df$Temp_Ishin, conf.level = 0.79)
 ```
 :::
 
@@ -784,7 +776,7 @@ t.test(ishin_df$Temp_Ishin, conf.level = 0.5)
 :::
 
 :::{.column width=49%}
-95%信頼区間
+95%信頼区間（デフォルト）
 
 ```{r}
 #| code-line-numbers: false
