@@ -169,7 +169,7 @@ prop.table(table(gacha_df$result))
 mean(gacha_df$result_SSR)
 ```
 
-* $u$: SSR出現の標準偏差
+* $u$: SSR出現の標準偏差（不偏分散の平方根）
 
 ```{r}
 sd(gacha_df$result_SSR)
@@ -177,20 +177,20 @@ sd(gacha_df$result_SSR)
 
 ## 仮説の設定
 
-仮説: SSRキャラクターの本当の出現確率（=母平均$\mu$）は3%（=0.03）ではない。$\Rightarrow \mu \neq 0.03$
+仮説：SSRキャラクターの本当の出現確率（=母平均$\mu$）は3%（=0.03）ではない。$\Rightarrow \mu \neq 0.03$
 
 * 母平均の一致&不偏推定量である標本平均（= $\bar{x}$）は`r round(mean(gacha_df$result_SSR), 3)`
 * しかし、本当の出現確率が0.03でも、ガチャ4772回の結果、SSRの出現割合が0.028である可能性は十分あるのでは?
 
 ### 帰無仮説と対立仮説
 
-* 一般的な統計的仮説検定の場合、仮説を直接検証することはしない
+* 一般的な統計的仮説検定の場合、仮説を直接検証することはしない（できない）
 * **帰無仮説**（null hypothesis）：否定されることによって別の仮説が支持されるような仮説
    * SSRキャラクターの本当の出現確率は3%である（$H_0: \mu = 0.03$）。
 * **対立仮説**（alternative hypothesis）：帰無仮説が否定されることによって妥当性が高められるような仮説
    * SSRキャラクターの本当の出現確率は3%ではない（$H_a: \mu \neq 0.03$）。
 * $\Rightarrow$帰無仮説を検定し、帰無仮説を否定することで対立仮説の妥当性が高いことを示す。
-* 注意1: 帰無仮説と対立仮説は互いに排反な仮説のペア
+* 注意: 帰無仮説と対立仮説は互いに排反な仮説のペア
 
 ## 有意水準の設定
 
@@ -237,15 +237,15 @@ ci95_df |>
   geom_area(data = filter(ci95_df, T >= 1.96),
             aes(x = T, y = density), alpha = 0.25) +
   annotate("text", x = -3, y = 0.1, size = 4,
-           label = expression(frac(alpha, 2))) +
+           label = "α / 2") +
   annotate("text", x =  3, y = 0.1, size = 4,
-           label = expression(frac(alpha, 2))) +
-  geom_segment(aes(x = -3, y = 0.065, xend = -2.1, yend = 0.0176),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = 3, y = 0.065, xend = 2.1, yend = 0.0176),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
+           label = "α / 2") +
+  annotate("segment", x = -3, y = 0.065, xend = -2.1, yend = 0.0176,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = 3, y = 0.065, xend = 2.1, yend = 0.0176,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
   labs(y = "確率密度",
        x = as.expression(bquote(bar(x) == mu[0] ~ "になる点"))) +
   scale_x_continuous(breaks = c(0),
@@ -293,13 +293,13 @@ ci95_df |>
   geom_area(data = filter(ci95_df, T >= 0.79),
             aes(x = T, y = density), alpha = 0.25) +
   annotate("text", x = -3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
+           label = "p / 2") +
   annotate("text", x =  3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.4, yend = 0.1),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.4, yend = 0.1),
+           label = "p / 2") +
+  annotate("segment", x = -2.85, y = 0.1, xend = -1.4, yend = 0.1,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = 2.85, y = 0.1, xend = 1.4, yend = 0.1,
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
@@ -325,15 +325,15 @@ ci95_df |>
   geom_area(data = filter(ci95_df, T >= 1.96),
             aes(x = T, y = density), alpha = 0.25) +
   annotate("text", x = -3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
+           label = "p / 2") +
   annotate("text", x =  3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -2.1, yend = 0.017),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 2.1, yend = 0.017),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
+           label = "p /2") +
+  annotate("segment", x = -2.85, y = 0.1, xend = -2.1, yend = 0.017,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = 2.85, y = 0.1, xend = 2.1, yend = 0.017,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-1.96, 0, 1.96),
                      labels = c("-|t|", "0", "|t|")) +
@@ -357,15 +357,15 @@ ci95_df |>
   geom_area(data = filter(ci95_df, T >= 0.2),
             aes(x = T, y = density), alpha = 0.25) +
   annotate("text", x = -3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
+           label = "p / 2") +
   annotate("text", x =  3, y = 0.1, size = 4,
-           label = expression(frac(p, 2))) +
-  geom_segment(aes(x = -2.85, y = 0.1, xend = -1.2, yend = 0.1),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = 2.85, y = 0.1, xend = 1.2, yend = 0.1),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
+           label = "p / 2") +
+  annotate("segment", x = -2.85, y = 0.1, xend = -1.2, yend = 0.1,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = 2.85, y = 0.1, xend = 1.2, yend = 0.1,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
   scale_x_continuous(breaks = c(-0.2, 0, 0.2),
                      labels = c("-|t|", "0", "|t|")) +
@@ -431,13 +431,13 @@ ci95_df |>
   annotate("text", x = -3, y = 0.32, size = 4, label = "棄却域") +
   annotate("text", x = 3, y = 0.32, size = 4, label = "棄却域") +
   annotate("text", x = 0, y = 0.22, size = 4, label = "受容域") +
-  geom_segment(aes(x = -1.96, y = 0.3, xend = -4, yend = 0.3),
+  annotate("segment", x = -1.96, y = 0.3, xend = -4, yend = 0.3,
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = 1.96, y = 0.3, xend = 4, yend = 0.3),
+  annotate("segment", x = 1.96, y = 0.3, xend = 4, yend = 0.3,
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              type = "closed")) +
-  geom_segment(aes(x = -1.96, y = 0.2, xend = 1.96, yend = 0.2),
+  annotate("segment", x = -1.96, y = 0.2, xend = 1.96, yend = 0.2,
                arrow = arrow(length = unit(0.1, units = "inch"), 
                              ends = "both", type = "closed")) +
   labs(y = "確率密度", x = "T統計量") +
@@ -483,20 +483,20 @@ ci95_df |>
             aes(x = T, y = density), alpha = 0.25) +
   geom_area(data = filter(ci95_df, T >= 1.96),
             aes(x = T, y = density), alpha = 0.25) +
-  geom_segment(aes(x = -1.96, y = 0.3, xend = -4, yend = 0.3),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = 1.96, y = 0.3, xend = 4, yend = 0.3),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             type = "closed")) +
-  geom_segment(aes(x = -1.96, y = 0.2, xend = 1.96, yend = 0.2),
-               arrow = arrow(length = unit(0.1, units = "inch"), 
-                             ends = "both", type = "closed")) +
+  annotate("segment", x = -1.96, y = 0.3, xend = -4, yend = 0.3,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = 1.96, y = 0.3, xend = 4, yend = 0.3,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         type = "closed")) +
+  annotate("segment", x = -1.96, y = 0.2, xend = 1.96, yend = 0.2,
+           arrow = arrow(length = unit(0.1, units = "inch"), 
+                         ends = "both", type = "closed")) +
   annotate("text", x = -3, y = 0.32, size = 4, label = "棄却域") +
   annotate("text", x = 3, y = 0.32, size = 4, label = "棄却域") +
   annotate("text", x = 0, y = 0.22, size = 4, label = "受容域") +
   labs(y = "確率密度", x = "T統計量") +
-  scale_x_continuous(breaks = c(-1.96, -0.789, 0, 1.96),
+  scale_x_continuous(breaks = c(-1.96, -0.8224918, 0, 1.96),
                      labels = c("下側臨界値\n-1.96", "検定統計量\n-0.822", 
                                 "0", "上側臨界値\n1.96")) +
   theme_bw(base_size = 14) +
