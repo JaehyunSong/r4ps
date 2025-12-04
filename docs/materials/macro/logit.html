@@ -393,6 +393,14 @@ window.Quarto = {
     <a class="dropdown-item" href="../../HW/Macro_HW10.html">
  <span class="dropdown-text">[後期] 第10回課題</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_HW12.html">
+ <span class="dropdown-text">[後期] 第12回課題</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../HW/Macro_Final.html">
+ <span class="dropdown-text">[後期] 期末レポート</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -855,11 +863,10 @@ Number of Fisher Scoring iterations: 4</code></pre>
  Knowledge Female Age Educ Ideology Estimate Pr(&gt;|z|)   S 2.5 % 97.5 %
          3      1  20    4        5    0.411  0.00285 8.5 0.355  0.469
 
-Type:  invlink(link) 
-Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Knowledge, Female, Age, Educ, Ideology, Voted </code></pre>
+Type: invlink(link)</code></pre>
 </div>
 </div>
-<p>　<code>datagrid()</code>内で変数を特定の値で指定しない場合、その変数は自動的に<strong>平均値</strong>が代入される。たとえば、<code>Knowledge</code>が1〜5の場合の投票参加確率の予測値を計算してみよう。その他の変数はすべて平均値に固定する。計算結果は<code>fit1_pred</code>に格納する。</p>
+<p>　<code>datagrid()</code>内で変数を特定の値で指定しない場合、その変数は自動的に<strong>中央値</strong>が代入される。たとえば、<code>Knowledge</code>が1〜5の場合の投票参加確率の予測値を計算してみよう。その他の変数はすべて中央値に固定する。計算結果は<code>fit1_pred</code>に格納する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -871,15 +878,14 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Knowledge, Fema
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology
-         1    0.362   &lt;0.001  15.1 0.303  0.425      0 50.9 3.21      5.4
-         2    0.507    0.789   0.3 0.458  0.556      0 50.9 3.21      5.4
-         3    0.650   &lt;0.001  53.3 0.616  0.683      0 50.9 3.21      5.4
-         4    0.771   &lt;0.001 229.6 0.746  0.794      0 50.9 3.21      5.4
-         5    0.859   &lt;0.001 315.9 0.837  0.878      0 50.9 3.21      5.4
+ Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 %
+         1    0.351   &lt;0.001  17.5 0.293  0.413
+         2    0.494    0.815   0.3 0.445  0.544
+         3    0.639   &lt;0.001  44.0 0.604  0.672
+         4    0.762   &lt;0.001 201.3 0.736  0.786
+         5    0.853   &lt;0.001 288.2 0.829  0.873
 
-Type:  invlink(link) 
-Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Female, Age, Educ, Ideology, Knowledge, Voted </code></pre>
+Type: invlink(link)</code></pre>
 </div>
 </div>
 <p>　<code>Knowledge</code>の値に応じた投票参加の予測確率（0以上、1以下）が<code>Estimate</code>列に出力され、95%信頼区間の下限と上限は<code>2.5%</code>、<code>97.5%</code>列に表示される。ただし、<strong>こちらで表示された列名は本当の列名ではない</strong>。つまり、この<code>fit1_pred</code>を用いて作図をする際、<code>Estimate</code>や<code>2.5%</code>という名前でマッピングすることはできない。今出力された列名はあくまでも読みやすさを重視したものであり、実際の列名は異なる。他にも実際にはあるものの出力されていない列も存在する。すべての列を、本当の列名と共に出力するなら、<code>print()</code>関数を使用し、<code>style = "data.frame"</code>を追加しよう。</p>
@@ -891,22 +897,22 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Female, Age, Ed
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">print</span>(fit1_pred, <span class="at">style =</span> <span class="st">"data.frame"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  rowid  estimate      p.value     s.value  conf.low conf.high Female      Age     Educ Ideology
-1     1 0.3621400 2.853027e-05  15.0971469 0.3033890 0.4253217      0 50.91155 3.207436 5.400391
-2     2 0.5067030 7.894333e-01   0.3411107 0.4576064 0.5556706      0 50.91155 3.207436 5.400391
-3     3 0.6501538 9.074881e-17  53.2908989 0.6162502 0.6826047      0 50.91155 3.207436 5.400391
-4     4 0.7707616 7.609581e-70 229.6071497 0.7461315 0.7936630      0 50.91155 3.207436 5.400391
-5     5 0.8588194 8.193723e-96 315.8705780 0.8368719 0.8782436      0 50.91155 3.207436 5.400391
-  Knowledge Voted
-1         1     0
-2         2     0
-3         3     0
-4         4     0
-5         5     0</code></pre>
+<pre><code>  rowid  estimate      p.value     s.value  conf.low conf.high Age Educ Female Ideology Voted
+1     1 0.3505729 5.493170e-06  17.4739296 0.2926834 0.4132232  51    3      0        5     1
+2     2 0.4940952 8.153361e-01   0.2945332 0.4447655 0.5435403  51    3      0        5     1
+3     3 0.6385974 5.850260e-14  43.9584926 0.6036597 0.6721280  51    3      0        5     1
+4     4 0.7617292 2.462516e-61 201.3374805 0.7358158 0.7858405  51    3      0        5     1
+5     5 0.8525930 1.781250e-87 288.1748544 0.8294280 0.8730933  51    3      0        5     1
+  Knowledge  df
+1         1 Inf
+2         2 Inf
+3         3 Inf
+4         4 Inf
+5         5 Inf</code></pre>
 </div>
 </div>
 <p>　<code>Estimate</code>の本当の列名は<code>estimate</code>、<code>2.5%</code>と<code>97.5%</code>の本当の列名は<code>conf.low</code>、<code>conf.high</code>であることが分かる。今回はここまで知らなくても良いかも知れないが、第13回（推定結果の可視化）では、この点を理解しないと絶対に作図できないため注意しておこう。</p>
-<p>　話を戻そう。これまでの結果を見れば、<code>Knowledge</code>が<code>Voted</code>に与える影響は一定ではないことがわかる。たとえば、<code>Knowledge</code>の値が1の場合、投票に参加する確率は32.94%である。ここで<code>Knowledge</code>の値が2の場合、投票に参加する確率は47.05%であり、14.11%<strong>p</strong>増加したことが分かる（14.11「%」でなく、14.11「%p」であることに注意しよう。%pは「パーセントポイント」と読む）。それでは<code>Knowledge</code>の値が3の場合はどうだろうか。この場合の投票参加の確率は61.65%であり、先より14.60%<strong>p</strong>増加した。また、<code>Knowledge</code>の値が4の場合の予測確率は74.42%（12.77%<strong>p</strong>増加）、5の場合のそれはは84.03%で、9.61%<strong>p</strong>増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。</p>
+<p>　話を戻そう。これまでの結果を見れば、<code>Knowledge</code>が<code>Voted</code>に与える影響は一定ではないことがわかる。たとえば、<code>Knowledge</code>の値が1の場合、投票に参加する確率は35.06%である。ここで<code>Knowledge</code>の値が2の場合、投票に参加する確率は49.41%であり、14.35%<strong>p</strong>増加したことが分かる（14.35「%」でなく、14.35「%p」であることに注意しよう。%pは「パーセントポイント」と読む）。それでは<code>Knowledge</code>の値が3の場合はどうだろうか。この場合の投票参加の確率は63.86%であり、先より14.45%<strong>p</strong>増加した。また、<code>Knowledge</code>の値が4の場合の予測確率は76.17%（12.31%<strong>p</strong>増加）、5の場合のそれは85.26%で、9.09%<strong>p</strong>増加したことが分かる。このようにロジスティック関数（から得られた曲線）の形が非線形であることを考えると、ある意味、当たり前のことであろう。</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1012,231 +1018,157 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Female, Age, Ed
 <div class="cell-output-display">
 <!-- preamble start -->
 
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
     <script>
-      function styleCell_25lmtemgasdt9lwzdec8(i, j, css_id) {
-        var table = document.getElementById("tinytable_25lmtemgasdt9lwzdec8");
-        table.rows[i].cells[j].classList.add(css_id);
-      }
-      function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_25lmtemgasdt9lwzdec8');
-        var newRow = table.insertRow(i);
-        var newCell = newRow.insertCell(0);
-        newCell.setAttribute("colspan", colspan);
-        // newCell.innerText = content;
-        // this may be unsafe, but innerText does not interpret <br>
-        newCell.innerHTML = content;
-      }
-      function spanCell_25lmtemgasdt9lwzdec8(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_25lmtemgasdt9lwzdec8");
-        const targetRow = table.rows[i];
-        const targetCell = targetRow.cells[j];
-        for (let r = 0; r < rowspan; r++) {
-          // Only start deleting cells to the right for the first row (r == 0)
-          if (r === 0) {
-            // Delete cells to the right of the target cell in the first row
-            for (let c = colspan - 1; c > 0; c--) {
-              if (table.rows[i + r].cells[j + c]) {
-                table.rows[i + r].deleteCell(j + c);
-              }
-            }
-          }
-          // For rows below the first, delete starting from the target column
-          if (r > 0) {
-            for (let c = colspan - 1; c >= 0; c--) {
-              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
-                table.rows[i + r].deleteCell(j);
-              }
-            }
-          }
-        }
-        // Set rowspan and colspan of the target cell
-        targetCell.rowSpan = rowspan;
-        targetCell.colSpan = colspan;
-      }
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(0, 0, 'tinytable_css_idzdlta9c4g6b45y062l0d') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(0, 1, 'tinytable_css_idw8j8y1qr8gsevduh95o0') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(0, 2, 'tinytable_css_idw8j8y1qr8gsevduh95o0') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(1, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(1, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(1, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(2, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(2, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(2, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(3, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(3, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(3, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(4, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(4, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(4, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(5, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(5, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(5, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(6, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(6, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(6, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(7, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(7, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(7, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(8, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(8, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(8, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(9, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(9, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(9, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(10, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(10, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(10, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(11, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(11, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(11, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(12, 0, 'tinytable_css_idoerdxl8ji9k437sam4v4') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(12, 1, 'tinytable_css_idbusjobwv9omeymug3ch4') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(12, 2, 'tinytable_css_idbusjobwv9omeymug3ch4') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(13, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(13, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(13, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(14, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(14, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(14, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(15, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(15, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(15, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(16, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(16, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(16, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(17, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(17, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(17, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(18, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(18, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(18, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(19, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(19, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(19, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(20, 0, 'tinytable_css_idpmx2y6ugslcandx0fl56') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(20, 1, 'tinytable_css_idhne1okfwzihx8716ylqp') })
-window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(20, 2, 'tinytable_css_idhne1okfwzihx8716ylqp') })
+      // Create table-specific functions using external factory
+      const tableFns_4tla1murvmbcmvr3pl27 = TinyTable.createTableFunctions("tinytable_4tla1murvmbcmvr3pl27");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '20', j: 2 }, { i: '20', j: 3 } ], css_id: 'tinytable_css_j7wxuxgx0baagmbwzvkf',}, 
+          { positions: [ { i: '12', j: 2 }, { i: '12', j: 3 } ], css_id: 'tinytable_css_3vy9xlw6p0a0xouo3q0z',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '13', j: 3 }, { i: '14', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 }, { i: '17', j: 3 }, { i: '18', j: 3 }, { i: '19', j: 3 } ], css_id: 'tinytable_css_4p57ls66nex91f5pzjul',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_v3a73gwbgu2bdgspvumt',}, 
+          { positions: [ { i: '20', j: 1 } ], css_id: 'tinytable_css_28uxickmzpxopu2g3dtd',}, 
+          { positions: [ { i: '12', j: 1 } ], css_id: 'tinytable_css_62pezkf31c20n37a0rq3',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 } ], css_id: 'tinytable_css_0koxkncx4hlrnrvncd9w',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_dts3qop2fm6xt3ntvojo',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_4tla1murvmbcmvr3pl27.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
     </script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
-    .table td.tinytable_css_idzdlta9c4g6b45y062l0d, .table th.tinytable_css_idzdlta9c4g6b45y062l0d {  text-align: left;  border-bottom: solid 0.1em #d3d8dc; }
-    .table td.tinytable_css_idw8j8y1qr8gsevduh95o0, .table th.tinytable_css_idw8j8y1qr8gsevduh95o0 {  text-align: center;  border-bottom: solid 0.1em #d3d8dc; }
-    .table td.tinytable_css_idpmx2y6ugslcandx0fl56, .table th.tinytable_css_idpmx2y6ugslcandx0fl56 {  text-align: left; }
-    .table td.tinytable_css_idhne1okfwzihx8716ylqp, .table th.tinytable_css_idhne1okfwzihx8716ylqp {  text-align: center; }
-    .table td.tinytable_css_idoerdxl8ji9k437sam4v4, .table th.tinytable_css_idoerdxl8ji9k437sam4v4 {  border-bottom: solid 0.05em black;  text-align: left; }
-    .table td.tinytable_css_idbusjobwv9omeymug3ch4, .table th.tinytable_css_idbusjobwv9omeymug3ch4 {  border-bottom: solid 0.05em black;  text-align: center; }
+    /* tinytable css entries after */
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_j7wxuxgx0baagmbwzvkf, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_j7wxuxgx0baagmbwzvkf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_3vy9xlw6p0a0xouo3q0z, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_3vy9xlw6p0a0xouo3q0z {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_4p57ls66nex91f5pzjul, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_4p57ls66nex91f5pzjul { text-align: center }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_v3a73gwbgu2bdgspvumt, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_v3a73gwbgu2bdgspvumt {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_28uxickmzpxopu2g3dtd, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_28uxickmzpxopu2g3dtd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_62pezkf31c20n37a0rq3, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_62pezkf31c20n37a0rq3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_0koxkncx4hlrnrvncd9w, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_0koxkncx4hlrnrvncd9w { text-align: left }
+    #tinytable_4tla1murvmbcmvr3pl27 td.tinytable_css_dts3qop2fm6xt3ntvojo, #tinytable_4tla1murvmbcmvr3pl27 th.tinytable_css_dts3qop2fm6xt3ntvojo {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_25lmtemgasdt9lwzdec8" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
-        <thead>
+      <table class="tinytable" id="tinytable_4tla1murvmbcmvr3pl27" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
+        <thead>
               <tr>
-                <th scope="col"> </th>
-                <th scope="col">線形回帰</th>
-                <th scope="col">ロジスティック回帰</th>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">線形回帰</th>
+                <th scope="col" data-row="0" data-col="3">ロジスティック回帰</th>
               </tr>
         </thead>
         
         <tbody>
                 <tr>
-                  <td>(Intercept)</td>
-                  <td>-0.109   </td>
-                  <td>-3.306   </td>
+                  <td data-row="1" data-col="1">(Intercept)</td>
+                  <td data-row="1" data-col="2">-0.109</td>
+                  <td data-row="1" data-col="3">-3.306</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(0.050)  </td>
-                  <td>(&lt;0.001) </td>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.050)</td>
+                  <td data-row="2" data-col="3">(&lt;0.001)</td>
                 </tr>
                 <tr>
-                  <td>Knowledge  </td>
-                  <td>0.119    </td>
-                  <td>0.593    </td>
+                  <td data-row="3" data-col="1">Knowledge</td>
+                  <td data-row="3" data-col="2">0.119</td>
+                  <td data-row="3" data-col="3">0.593</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(&lt;0.001) </td>
-                  <td>(&lt;0.001) </td>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(&lt;0.001)</td>
+                  <td data-row="4" data-col="3">(&lt;0.001)</td>
                 </tr>
                 <tr>
-                  <td>Female     </td>
-                  <td>-0.055   </td>
-                  <td>-0.316   </td>
+                  <td data-row="5" data-col="1">Female</td>
+                  <td data-row="5" data-col="2">-0.055</td>
+                  <td data-row="5" data-col="3">-0.316</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(0.001)  </td>
-                  <td>(0.001)  </td>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.001)</td>
+                  <td data-row="6" data-col="3">(0.001)</td>
                 </tr>
                 <tr>
-                  <td>Age        </td>
-                  <td>0.005    </td>
-                  <td>0.027    </td>
+                  <td data-row="7" data-col="1">Age</td>
+                  <td data-row="7" data-col="2">0.005</td>
+                  <td data-row="7" data-col="3">0.027</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(&lt;0.001) </td>
-                  <td>(&lt;0.001) </td>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(&lt;0.001)</td>
+                  <td data-row="8" data-col="3">(&lt;0.001)</td>
                 </tr>
                 <tr>
-                  <td>Educ       </td>
-                  <td>0.036    </td>
-                  <td>0.208    </td>
+                  <td data-row="9" data-col="1">Educ</td>
+                  <td data-row="9" data-col="2">0.036</td>
+                  <td data-row="9" data-col="3">0.208</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(&lt;0.001) </td>
-                  <td>(&lt;0.001) </td>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(&lt;0.001)</td>
+                  <td data-row="10" data-col="3">(&lt;0.001)</td>
                 </tr>
                 <tr>
-                  <td>Ideology   </td>
-                  <td>0.004    </td>
-                  <td>0.024    </td>
+                  <td data-row="11" data-col="1">Ideology</td>
+                  <td data-row="11" data-col="2">0.004</td>
+                  <td data-row="11" data-col="3">0.024</td>
                 </tr>
                 <tr>
-                  <td>           </td>
-                  <td>(0.292)  </td>
-                  <td>(0.289)  </td>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.292)</td>
+                  <td data-row="12" data-col="3">(0.289)</td>
                 </tr>
                 <tr>
-                  <td>Num.Obs.   </td>
-                  <td>2555     </td>
-                  <td>2555     </td>
+                  <td data-row="13" data-col="1">Num.Obs.</td>
+                  <td data-row="13" data-col="2">2555</td>
+                  <td data-row="13" data-col="3">2555</td>
                 </tr>
                 <tr>
-                  <td>R2         </td>
-                  <td>0.145    </td>
-                  <td>         </td>
+                  <td data-row="14" data-col="1">R2</td>
+                  <td data-row="14" data-col="2">0.145</td>
+                  <td data-row="14" data-col="3"></td>
                 </tr>
                 <tr>
-                  <td>R2 Adj.    </td>
-                  <td>0.143    </td>
-                  <td>         </td>
+                  <td data-row="15" data-col="1">R2 Adj.</td>
+                  <td data-row="15" data-col="2">0.143</td>
+                  <td data-row="15" data-col="3"></td>
                 </tr>
                 <tr>
-                  <td>AIC        </td>
-                  <td>2828.4   </td>
-                  <td>2712.6   </td>
+                  <td data-row="16" data-col="1">AIC</td>
+                  <td data-row="16" data-col="2">2828.4</td>
+                  <td data-row="16" data-col="3">2712.6</td>
                 </tr>
                 <tr>
-                  <td>BIC        </td>
-                  <td>2869.3   </td>
-                  <td>2747.7   </td>
+                  <td data-row="17" data-col="1">BIC</td>
+                  <td data-row="17" data-col="2">2869.3</td>
+                  <td data-row="17" data-col="3">2747.7</td>
                 </tr>
                 <tr>
-                  <td>Log.Lik.   </td>
-                  <td>-1407.214</td>
-                  <td>-1350.319</td>
+                  <td data-row="18" data-col="1">Log.Lik.</td>
+                  <td data-row="18" data-col="2">-1407.214</td>
+                  <td data-row="18" data-col="3">-1350.319</td>
                 </tr>
                 <tr>
-                  <td>F          </td>
-                  <td>86.552   </td>
-                  <td>63.524   </td>
+                  <td data-row="19" data-col="1">F</td>
+                  <td data-row="19" data-col="2">86.552</td>
+                  <td data-row="19" data-col="3">63.524</td>
                 </tr>
                 <tr>
-                  <td>RMSE       </td>
-                  <td>0.42     </td>
-                  <td>0.42     </td>
+                  <td data-row="20" data-col="1">RMSE</td>
+                  <td data-row="20" data-col="2">0.42</td>
+                  <td data-row="20" data-col="3">0.42</td>
                 </tr>
         </tbody>
       </table>
@@ -1244,7 +1176,7 @@ window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(20,
 <!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
-<p>　そもそも異なるモデルを使用しているため、係数が大きく異なるのは仕方ない。重要なのは予測値/予測確率だろう。今回は主観的な政治知識（<code>Knowledge</code>）を1から5まで1単位で動かし、その他の共変量は平均値に固定した上で、投票参加の予測確率を計算してみよう。それぞれ計算結果は<code>lm_pred</code>と<code>lgoit_pred</code>という名のオブジェクトとして作業環境内に格納する。</p>
+<p>　そもそも異なるモデルを使用しているため、係数が大きく異なるのは仕方ない。重要なのは予測値/予測確率だろう。今回は主観的な政治知識（<code>Knowledge</code>）を1から5まで1単位で動かし、その他の共変量は中央値に固定した上で、投票参加の予測確率を計算してみよう。それぞれ計算結果は<code>lm_pred</code>と<code>lgoit_pred</code>という名のオブジェクトとして作業環境内に格納する。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -1256,15 +1188,14 @@ window.addEventListener('load', function () { styleCell_25lmtemgasdt9lwzdec8(20,
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Knowledge Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology
-         1    0.385     0.0258 14.9   &lt;0.001 164.5 0.334  0.436      0 50.9 3.21      5.4
-         2    0.504     0.0192 26.2   &lt;0.001 501.6 0.466  0.541      0 50.9 3.21      5.4
-         3    0.622     0.0138 45.2   &lt;0.001   Inf 0.595  0.649      0 50.9 3.21      5.4
-         4    0.741     0.0114 64.9   &lt;0.001   Inf 0.719  0.763      0 50.9 3.21      5.4
-         5    0.860     0.0138 62.3   &lt;0.001   Inf 0.833  0.887      0 50.9 3.21      5.4
+ Knowledge Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+         1    0.376     0.0259 14.5   &lt;0.001 156.8 0.326  0.427
+         2    0.495     0.0193 25.6   &lt;0.001 477.4 0.457  0.533
+         3    0.614     0.0141 43.5   &lt;0.001   Inf 0.586  0.641
+         4    0.732     0.0119 61.4   &lt;0.001   Inf 0.709  0.756
+         5    0.851     0.0143 59.3   &lt;0.001   Inf 0.823  0.879
 
-Type:  response 
-Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, Female, Age, Educ, Ideology, Knowledge, Voted </code></pre>
+Type: response</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
@@ -1278,15 +1209,14 @@ Columns: rowid, estimate, std.error, statistic, p.value, s.value, conf.low, conf
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 % Female  Age Educ Ideology
-         1    0.362   &lt;0.001  15.1 0.303  0.425      0 50.9 3.21      5.4
-         2    0.507    0.789   0.3 0.458  0.556      0 50.9 3.21      5.4
-         3    0.650   &lt;0.001  53.3 0.616  0.683      0 50.9 3.21      5.4
-         4    0.771   &lt;0.001 229.6 0.746  0.794      0 50.9 3.21      5.4
-         5    0.859   &lt;0.001 315.9 0.837  0.878      0 50.9 3.21      5.4
+ Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 %
+         1    0.351   &lt;0.001  17.5 0.293  0.413
+         2    0.494    0.815   0.3 0.445  0.544
+         3    0.639   &lt;0.001  44.0 0.604  0.672
+         4    0.762   &lt;0.001 201.3 0.736  0.786
+         5    0.853   &lt;0.001 288.2 0.829  0.873
 
-Type:  invlink(link) 
-Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Female, Age, Educ, Ideology, Knowledge, Voted </code></pre>
+Type: invlink(link)</code></pre>
 </div>
 </div>
 <p>　この2つの表を<code>bind_rows()</code>関数を使って一つにまとめる。<code>bind_rows()</code>を使い方は<a href="../../materials/micro/handling3.html">前期の第11回講義</a>を参照すること。結合後の表は<code>compare_pred</code>と名付ける。</p>
@@ -1303,27 +1233,27 @@ Columns: rowid, estimate, p.value, s.value, conf.low, conf.high, Female, Age, Ed
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                Model rowid  estimate  std.error statistic       p.value     s.value  conf.low
-1            線形回帰     1 0.3849388 0.02582091  14.90803  2.922605e-50 164.5491499 0.3343308
-2            線形回帰     2 0.5036359 0.01919585  26.23671 1.013609e-151 501.5916407 0.4660128
-3            線形回帰     3 0.6223330 0.01377280  45.18565  0.000000e+00         Inf 0.5953388
-4            線形回帰     4 0.7410302 0.01141699  64.90592  0.000000e+00         Inf 0.7186533
-5            線形回帰     5 0.8597273 0.01380048  62.29692  0.000000e+00         Inf 0.8326788
-6  ロジスティック回帰     1 0.3621400         NA        NA  2.853027e-05  15.0971469 0.3033890
-7  ロジスティック回帰     2 0.5067030         NA        NA  7.894333e-01   0.3411107 0.4576064
-8  ロジスティック回帰     3 0.6501538         NA        NA  9.074881e-17  53.2908989 0.6162502
-9  ロジスティック回帰     4 0.7707616         NA        NA  7.609581e-70 229.6071497 0.7461315
-10 ロジスティック回帰     5 0.8588194         NA        NA  8.193723e-96 315.8705780 0.8368719
-   conf.high Female      Age     Educ Ideology Knowledge Voted
-1  0.4355469      0 50.91155 3.207436 5.400391         1     0
-2  0.5412591      0 50.91155 3.207436 5.400391         2     0
-3  0.6493272      0 50.91155 3.207436 5.400391         3     0
-4  0.7634071      0 50.91155 3.207436 5.400391         4     0
-5  0.8867757      0 50.91155 3.207436 5.400391         5     0
-6  0.4253217      0 50.91155 3.207436 5.400391         1     0
-7  0.5556706      0 50.91155 3.207436 5.400391         2     0
-8  0.6826047      0 50.91155 3.207436 5.400391         3     0
-9  0.7936630      0 50.91155 3.207436 5.400391         4     0
-10 0.8782436      0 50.91155 3.207436 5.400391         5     0</code></pre>
+1            線形回帰     1 0.3762967 0.02586721  14.54725  6.079965e-48 156.8484856 0.3255979
+2            線形回帰     2 0.4949939 0.01934232  25.59123 1.910105e-144 477.4239934 0.4570836
+3            線形回帰     3 0.6136910 0.01409207  43.54867  0.000000e+00         Inf 0.5860710
+4            線形回帰     4 0.7323881 0.01193715  61.35368  0.000000e+00         Inf 0.7089917
+5            線形回帰     5 0.8510852 0.01434757  59.31912  0.000000e+00         Inf 0.8229645
+6  ロジスティック回帰     1 0.3505729         NA        NA  5.493170e-06  17.4739296 0.2926834
+7  ロジスティック回帰     2 0.4940952         NA        NA  8.153361e-01   0.2945332 0.4447655
+8  ロジスティック回帰     3 0.6385974         NA        NA  5.850260e-14  43.9584926 0.6036597
+9  ロジスティック回帰     4 0.7617292         NA        NA  2.462516e-61 201.3374805 0.7358158
+10 ロジスティック回帰     5 0.8525930         NA        NA  1.781250e-87 288.1748544 0.8294280
+   conf.high Age Educ Female Ideology Voted Knowledge  df
+1  0.4269955  51    3      0        5     1         1 Inf
+2  0.5329041  51    3      0        5     1         2 Inf
+3  0.6413109  51    3      0        5     1         3 Inf
+4  0.7557845  51    3      0        5     1         4 Inf
+5  0.8792059  51    3      0        5     1         5 Inf
+6  0.4132232  51    3      0        5     1         1 Inf
+7  0.5435403  51    3      0        5     1         2 Inf
+8  0.6721280  51    3      0        5     1         3 Inf
+9  0.7858405  51    3      0        5     1         4 Inf
+10 0.8730933  51    3      0        5     1         5 Inf</code></pre>
 </div>
 </div>
 <p>　これまでと同様、予測値のpoint-rangeプロットを作成し、<code>Model</code>列を基準にファセットを分割する。ファセット分割については前期の<a href="../../materials/micro/visualization2.html">第13回</a>、<a href="../../materials/micro/visualization3.html">第14回</a>資料を参照すること。</p>

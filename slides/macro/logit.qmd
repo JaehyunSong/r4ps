@@ -377,8 +377,8 @@ predictions(回帰分析オブジェクト名,
                                ...))
 ```
 
-* `newdata`で指定されなかった説明変数は平均値に固定される。
-   * 論文、レポートでは「XXは1、ZZは5、...に固定し、その他の説明変数は平均値に固定した予測値を算出した」と書く。
+* `newdata`で指定されなかった説明変数は中央値に固定される。
+   * 論文、レポートでは「XXは1、ZZは5、...に固定し、その他の説明変数は中央値に固定した予測値を算出した」と書く。
    * 詳細は第10回の講義資料を参照
    
 ## {marginaleffects}を使った予測値の計算（例）
@@ -410,11 +410,11 @@ fit1_pred
 ```
 
 * `Knowledge`が`Voted`に与える影響は一定ではない。
-   * `Knowledge`の値が1の場合: 投票に参加する確率は32.94%
-   * `Knowledge`の値が2の場合: 投票に参加する確率は47.05% (14.11%p増加)
-   * `Knowledge`の値が3の場合: 投票に参加する確率は61.65% (14.60%p増加)
-   * `Knowledge`の値が4の場合: 投票に参加する確率は74.42% (12.77%p増加)
-   * `Knowledge`の値が5の場合: 投票に参加する確率は84.03% (9.61%p増加)
+   * `Knowledge`の値が1の場合: 投票に参加する確率は`r sprintf("%.2f", fit1_pred$estimate[1] * 100)`%
+   * `Knowledge`の値が2の場合: 投票に参加する確率は`r sprintf("%.2f", fit1_pred$estimate[2] * 100)`% (`r sprintf("%.2f", (fit1_pred$estimate[2] - fit1_pred$estimate[1]) * 100)`%p増加)
+   * `Knowledge`の値が3の場合: 投票に参加する確率は`r sprintf("%.2f", fit1_pred$estimate[3] * 100)`% (`r sprintf("%.2f", (fit1_pred$estimate[3] - fit1_pred$estimate[2]) * 100)`%p増加)
+   * `Knowledge`の値が4の場合: 投票に参加する確率は`r sprintf("%.2f", fit1_pred$estimate[4] * 100)`% (`r sprintf("%.2f", (fit1_pred$estimate[4] - fit1_pred$estimate[3]) * 100)`%p増加)
+   * `Knowledge`の値が5の場合: 投票に参加する確率は`r sprintf("%.2f", fit1_pred$estimate[5] * 100)`% (`r sprintf("%.2f", (fit1_pred$estimate[5] - fit1_pred$estimate[4]) * 100)`%p増加)
 
 ## 予測値の可視化
 
@@ -453,10 +453,14 @@ fit1_pred |>
                arrow = arrow(type = "closed"), linewidth = 1, color = "red") +
   geom_segment(aes(x = 4.05, xend = 4.95, y = 0.744, yend = 0.840),
                arrow = arrow(type = "closed"), linewidth = 1, color = "red") +
-  annotate("label", x= 1.5, y = 0.4,  label = "0.142増加") +
-  annotate("label", x= 2.5, y = 0.55, label = "0.146増加") +
-  annotate("label", x= 3.5, y = 0.67, label = "0.127増加") +
-  annotate("label", x= 4.5, y = 0.79, label = "0.096増加") +
+  annotate("label", x= 1.5, y = 0.4,  
+           label = str_c(sprintf("%.3f", fit1_pred$estimate[2] - fit1_pred$estimate[1]), "増加")) +
+  annotate("label", x= 2.5, y = 0.55,  
+           label = str_c(sprintf("%.3f", fit1_pred$estimate[3] - fit1_pred$estimate[2]), "増加")) +
+  annotate("label", x= 3.5, y = 0.67,  
+           label = str_c(sprintf("%.3f", fit1_pred$estimate[4] - fit1_pred$estimate[3]), "増加")) +
+  annotate("label", x= 4.5, y = 0.79,  
+           label = str_c(sprintf("%.3f", fit1_pred$estimate[5] - fit1_pred$estimate[4]), "増加")) +
   labs(x = "主観的な政治知識", 
        y = "投票に参加する確率の予測値") +
   theme_bw(base_size = 14)
@@ -509,10 +513,10 @@ fit1_pred2 |>
 
 * 例) 政治知識の係数は約0.593
    * 4分の1は約0.148
-   * 政治知識が1から2へ変化した場合: 予測値は0.135上がる。
-   * 政治知識が2から3へ変化した場合: 予測値は0.139上がる。
-   * 政治知識が3から4へ変化した場合: 予測値は0.124上がる。
-   * 政治知識が4から5へ変化した場合: 予測値は0.096上がる。
+   * 政治知識が1から2へ変化した場合: 予測値は`r sprintf("%.2f", fit1_pred$estimate[2] - fit1_pred$estimate[1])`上がる。
+   * 政治知識が2から3へ変化した場合: 予測値は`r sprintf("%.2f", fit1_pred$estimate[3] - fit1_pred$estimate[2])`上がる。
+   * 政治知識が3から4へ変化した場合: 予測値は`r sprintf("%.2f", fit1_pred$estimate[4] - fit1_pred$estimate[3])`上がる。
+   * 政治知識が4から5へ変化した場合: 予測値は`r sprintf("%.2f", fit1_pred$estimate[5] - fit1_pred$estimate[4])`上がる。
 
 <br/>
 
