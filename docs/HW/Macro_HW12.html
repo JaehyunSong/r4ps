@@ -507,11 +507,27 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>数値が微妙に合わない…?
+<span class="screen-reader-only">Important</span>よくある質問
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>予測値、限界効果の推定値がサンプルファイルからややずれることはありますが、問題ありません。これは{marginaleffects}パッケージの仕様変更が原因であり、もしサンプルファイルと同じ数値が欲しいならコンソールに<code>install.packages("marginaleffects")</code>を入力し、{marginaleffects}パッケージを最新版にアップデートしてください。</p>
+<ul>
+<li>数値が微妙に合わない…?
+<ul>
+<li>予測値、限界効果の推定値がサンプルファイルからややずれることはありますが、問題ありません。これは{marginaleffects}パッケージの仕様変更が原因であり、もしサンプルファイルと同じ数値が欲しいならコンソールに<code>install.packages("marginaleffects")</code>を入力し、{marginaleffects}パッケージを最新版にアップデートしてください。</li>
+</ul></li>
+<li><code>Error: C stack usage 7979444 is too close to the limit</code>のようなエラーメッセージが表示されrenderが中止される。
+<ul>
+<li>とりあえず、以下の手順でやってみよう。
+<ol type="1">
+<li>RStudioを起動してプロジェクトを<strong>開かず</strong>に作業する。つまり、Project: noneの状態で作業する。</li>
+<li><code>.qmd</code>と<code>.csv</code>をそのままアップロードする。</li>
+<li><code>read_csv("Data/Macro_HW12.csv")</code>の箇所を<code>read_csv("Macro_HW12.csv")</code>に変える。</li>
+<li>renderしてみる。</li>
+</ol></li>
+<li>以上で解決できない場合、新しい分析環境（サーバー）を立ち上げ、上記と同じような手順で試してみよう。</li>
+</ul></li>
+</ul>
 </div>
 </div>
 <center>
