@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d640c705e8c17715bca3574aa719063f.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-975e726794ce811e14261b5ab5acfd7c.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – ミクロ政治データ分析実習</title>
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -96,7 +99,7 @@
     code span.vs { color: #008000; } /* VerbatimString */
     code span.wa { color: #696969; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-e11b28205df21c76531e90ccf4456cd7.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6869a2e38357418679c12deb5b181d6a.css">
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-9TLN2VMPQD"></script>
 
   <script type="text/javascript">
@@ -206,7 +209,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">ミクロ政治データ分析実習</h1>
-  <p class="subtitle">10/ データ・ハンドリング（2）</p>
+  <p class="subtitle">9/ データ・ハンドリング（2）</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -430,8 +433,12 @@
 <span id="cb25-2"><a></a>  <span class="fu">group_by</span>(Continent, G20) <span class="sc">|&gt;</span></span>
 <span id="cb25-3"><a></a>  <span class="fu">summarise</span>(<span class="at">Mean_HDI =</span> <span class="fu">mean</span>(HDI_2018, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'Continent'. You can override using the
-`.groups` argument.</code></pre>
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by Continent and G20.
+ℹ Output is grouped by Continent.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(Continent, G20))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 3
