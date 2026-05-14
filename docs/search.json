@@ -2940,91 +2940,91 @@
   {
     "objectID": "materials/micro/datastructure.html",
     "href": "materials/micro/datastructure.html",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "",
     "text": "新しいタブで開く",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#スライド",
     "href": "materials/micro/datastructure.html#スライド",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "",
     "text": "新しいタブで開く",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#データ構造とは",
     "href": "materials/micro/datastructure.html#データ構造とは",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "データ構造とは",
     "text": "データ構造とは\n　Rにおけるデータの最小単位はベクトルである1。そして、これらのベクトルが集合として行列や表などが出来上がる。ベクトルの集合の在り方をRではデータ構造 (data structure)と呼ぶ。\n　たとえば、同じ長さのnumeric型（数値型）、またはcomplex型（複素数型）の縦ベクトルが横に並んでいる構造（図 1）をRではmatrix構造（行列構造）と呼ぶ。Matrix構造の場合「同じ長さ、かつnumeric/complex型の縦ベクトル」の集合と言えよう。データ型の制約のない「同じ長さの縦ベクトル」の集合はRでdata.frame構造（データフレーム構造）と呼ばれる。また、data.frame構造は各列には名前が付くといった特徴がある。\n\n\n\n\n\n\n\n\n\n図 1: 行列構造の例\n\n\n\n\n\n\n\n\n\n\n\n図 2: データフレーム構造の例\n\n\n\n\n\n\n　本講義で使うデータ構造は主にベクトル (vector) とデータ・フレーム (data.frame) とその拡張版のティブル (tibble) のみであるため、行列 (matrix) 、配列 (array) 、リスト (array) の説明は割愛する。",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#ベクトル",
     "href": "materials/micro/datastructure.html#ベクトル",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "ベクトル",
     "text": "ベクトル\n　ベクトル構造は同じデータ型が一つ以上格納されているオブジェクトであり、これまで何回も登場したデータ構造である。ベクトルはRにおけるデータの最小単位である。Rには数百、数千種類のデータ構造が存在するが、これら全てのデータ構造の最小単位はベクトルである。\n\n\n\nCode 01\n\nmy_vec1 &lt;- \"R is fun!\" # 長さ1のcharacter型ベクトル\nmy_vec1\n\n\n[1] \"R is fun!\"\n\n\n\n\n\nCode 02\n\nmy_vec2 &lt;- c(1, 3, 5, 6, 7) # 長さ5のnumeric型ベクトル\nmy_vec2\n\n\n[1] 1 3 5 6 7\n\n\n　ベクトルを作成する際、注意しないといけないことは一つのベクトル内の全ての要素は同じデータ型である点である。もし、複数のデータ型が混在している場合、優先順位の高いデータ型へ強制的に変換される。頻繁に使われるデータ型の場合、優先順位はcharacter型 &gt; numeric型 &gt; logical型であり、character型の優先順位が最も高い。\n　たとえば、character型とnumeric型の要素が混在したベクトルを考えてみよう。my_vec3は長さ6のベクトルであるが、2つのデータ型が混在しているため、character型が優先される。\n\n\n\nCode 03\n\nmy_vec3 &lt;- c(\"A\", \"B\", \"C\", 1, 2, 3)\nmy_vec3\n\n\n[1] \"A\" \"B\" \"C\" \"1\" \"2\" \"3\"\n\n\n\n\n\nCode 04\n\nclass(my_vec3)\n\n\n[1] \"character\"\n\n\n　Numeric型とlogical型が混在している場合、logical型の要素はnumeric型へ変換される。変換される際、TRUEは1、FALSEは0に変換される。\n\n\n\nCode 05\n\nmy_vec4 &lt;- c(10, 20, TRUE, FALSE)\nmy_vec4\n\n\n[1] 10 20  1  0\n\n\n\n\n\nCode 06\n\nclass(my_vec4)\n\n\n[1] \"numeric\"\n\n\n　Character型とlogical型が混在している場合、logical型の要素はcharacter型へ変換される。変換される際、TRUEは\"TRUE\"、FALSEは\"FALSE\"に変換される。\n\n\n\nCode 07\n\nmy_vec5 &lt;- c(\"Miyakura\", \"Seki\", TRUE, FALSE)\nmy_vec5\n\n\n[1] \"Miyakura\" \"Seki\"     \"TRUE\"     \"FALSE\"   \n\n\n\n\n\nCode 08\n\nclass(my_vec5)\n\n\n[1] \"character\"\n\n\n　その他、ベクトルの操作（演算、要素の抽出など）についてはこれまでの講義資料を参照すること。",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#行列",
     "href": "materials/micro/datastructure.html#行列",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "行列",
     "text": "行列\n　行列構造とはnumeric型、またはcomplex型の縦ベクトルを横に並べたデータ構造である。以下のmy_mat1は3行4列（3 \\(\\times\\) 4）の行列である。\n\n\n\nCode 09\n\nmy_mat1 &lt;- matrix(1:12, nrow = 3)\nmy_mat1\n\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n\n　このmy_mat1は長さ3のnumeric型縦ベクトルが4つ並んでいる。4つの縦ベクトルとはc(1, 2, 3)、c(4, 5, 6)、c(7, 8, 9)、c(10, 11, 12)である。他にも長さ4のnumeric型横ベクトルが3つ（c(1, 4, 7, 10)、c(2, 5, 8, 11)、c(3, 6, 9, 12)）積まれているとも読めるが、データ分析では一般的に縦ベクトルの集合として行列を捉える。\n\n行列の作成\n　行列を作成する際はmatrix()関数を使用する。第1引数としてnumericまたはcomplex型ベクトル、nrow引数で行列の行数を指定する。たとえば、以下のような行列を作成し、my_mat2という名のオブジェクトとして作業環境内に格納するとしよう。\n\\[\n\\begin{bmatrix}\n5 & 2 & 9 & 6 \\\\\n5 & 4 & -8 & 2 \\\\\n-3 & 3 & 0 & 7\n\\end{bmatrix}\n\\]\n\n\n\nCode 10\n\nmy_mat2 &lt;- matrix(c(5, 5, -3, 2, 4, 3, 9, -8, 0, 6, 2, 7), nrow = 3)\nmy_mat2\n\n\n     [,1] [,2] [,3] [,4]\n[1,]    5    2    9    6\n[2,]    5    4   -8    2\n[3,]   -3    3    0    7\n\n\n　第1引数はベクトルはベクトル構造のオブジェクトであるため、予めベクトルを作成し、ベクトル名を入れることも可能である。\n\n\n\nCode 11\n\nmy_vec6 &lt;- c(5, 5, -3, 2, 4, 3, 9, -8, 0, 6, 2, 7)\nmy_mat3 &lt;- matrix(my_vec6, nrow = 3)\nmy_mat3\n\n\n     [,1] [,2] [,3] [,4]\n[1,]    5    2    9    6\n[2,]    5    4   -8    2\n[3,]   -3    3    0    7\n\n\n　ここで注意すべき点は要素が入る順番である。我々は通常「左から右へ」、「上から下へ」文字列を読むが、行列はその逆、つまり「上から下へ」、「左から右へ」の順番となる（図 3）。行列が「縦ベクトルの集合」ということを意識すれば、予め混乱は避けられるだろう。\n\n\n\n\n\n\n図 3: 行列の要素の順番\n\n\n\n\n\n行列の操作\n　行列構造のデータは本講義では使用しないため、説明は割愛し、ここでは行列の確認と要素の抽出するコードのみ紹介する。\n\n\n\nCode 12\n\nclass(my_mat1) # my_mat1のデータ構造\n\n\n[1] \"matrix\" \"array\" \n\n\n\n\n\nCode 13\n\ndim(my_mat1)   # 行列の行数と列数\n\n\n[1] 3 4\n\n\n\n\n\nCode 14\n\nnrow(my_mat1)  # 行列の行数\n\n\n[1] 3\n\n\n\n\n\nCode 15\n\nncol(my_mat1)  # 行列の列数\n\n\n[1] 4\n\n\n\n\n\nCode 16\n\nmy_mat1[1, ]   # my_matの1「行」目を抽出\n\n\n[1]  1  4  7 10\n\n\n\n\n\nCode 17\n\nmy_mat1[, 3]   # my_matの3「列」目を抽出\n\n\n[1] 7 8 9\n\n\n\n\n\nCode 18\n\nmy_mat1[2, 4]  # my_matの2「行」、4「列」目を抽出\n\n\n[1] 11\n\n\n\n\n行列の演算\n　行列構造のデータは本講義では使用しないため、説明は割愛するが、これらは線形代数を勉強する人には便利な演算子である。\n\n\n\n演算子/関数\n説明\n\n\n\n\n+\n行列の足し算\n\n\n-\n行列の引き算\n\n\n%*%\n行列の掛け算\n\n\n/\n行列の割り算\n\n\n*\n行列のアダマール積 (Hadamard product)\n\n\nt(オブジェクト名)\n行列の転置\n\n\nqr(オブジェクト名)$rank\n行列の階数\n\n\nsolve(オブジェクト名)\n逆行列\n\n\neigen(オブジェクト名)\n行列の固有値\n\n\n\n　solve()とeigen()は正方行列 (\\(n \\times n\\)の行列)でないと使えないことに注意しよう。\n\n\n配列\n　行列と似たようなデータ構造として、配列（array）構造がある。これは同じ大きさ行列を重ねたものであり（図 4）、行列は層 (layer) が1つのみの配列である。つまり、行列構造は配列構造の一種であり、実際、class()で行列構造のデータ構造を確認すると\"matrix\"だけでなく、\"array\"も同時に出力される。2次元である行列を重ねたものであるため、配列構造は3次元のデータ構造であり、要素抽出の際、[x, y, z]で指定する必要がある（3番目のzが配列の層 (layer)を意味する）。\n\n\n\n\n\n\n図 4: 配列構造のイメージ",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#データフレーム",
     "href": "materials/micro/datastructure.html#データフレーム",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "データ・フレーム",
     "text": "データ・フレーム\n　データ・フレーム構造（data.frame）は行列構造と同様、縦ベクトルを横に並べたものである。しかし、以下の2点が異なる。\n\nデータ・フレーム構造の場合、すべてのベクトルが同じデータ型である必要がない。\n\n図 5 の場合、character型（1列目）とnumeric型（2、3、4列目）ベクトルが混在している。\n\nデータ・フレーム構造の場合、各列に名前が付いている。\n\n図 5 の場合、Name、Foundation、Students、Facultiesが列名である。\n\n\n\n\n\n\n\n\n図 5: 行列の要素の順番\n\n\n\n　データ・フレーム構造は我々が頻繁に接する表形式データ、そのものである。前期・後期の講義全体を通じて最も頻繁に扱うこととなるデータ構造であるため、非常に重要なデータ構造である。詳しい操作方法は次回以降（データ・ハンドリング）の講義で解説するが、ここでは作成方法、確認方法、簡単な抽出方法について解説する。\n\nデータ・フレームの作成\n　データ・フレームを作成する方法は大きく分けて2通りある。小さい表であれば（1）自分で作成することも可能だが、ある程度の規模のあるデータならダウンロードしたデータや表計算ソフト（Excel、Numbers、LibreOffice Calcなど）で作成した表を（2）読み込むこともできる。\n　まずは、直接データ・フレームを作成する方法から紹介する。データ・フレームの作成にはdata.frame()、またはtibble()関数を使用する。data.frame()はR内蔵関数であるが、tibble()関数は使用する前に予め{tidyverse}パッケージを読み込んでおく必要がある。data.frame()とtibble()は厳密には異なるデータ構造であるが、tibble()で作成した表がより汎用性が高いため、ここではtibble()関数を使用したデータ・フレームの作成する方法を紹介する。\n　まず、{tidyverse}パッケージを読み込む。\n\n\n\nCode 19\n\nlibrary(tidyverse)\n\n\n　ここでは以下のような表を作成する。\n\n\n\n\n\n\n\n\nName\nFoundation\nStudents\n\n\n\n\nKansai\n1886\n27736\n\n\nKangaku\n1889\n23671\n\n\nDoshisha\n1875\n25974\n\n\nRitsumeikan\n1900\n32467\n\n\n\n\n\n\n\n　この表は3つの縦ベクトルの集合であり、それぞれの名前はName、Foundation、Studentsである。tibble()関数内に列名 = 縦ベクトルを入れるだけである。作成したデータ・フレームをmy_df1という名のオブジェクトとして格納し、その中身を確認してみよう。\n\n\n\nCode 20\n\nmy_df1 &lt;- tibble(Name       = c(\"Kansai\", \"Kangaku\", \"Doshisha\", \"Ritsumeikan\"),\n                 Foundation = c(1886, 1889, 1875, 1900),\n                 Students   = c(27736, 23671, 25974, 32467))\n\nmy_df1\n\n\n# A tibble: 4 × 3\n  Name        Foundation Students\n  &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;\n1 Kansai            1886    27736\n2 Kangaku           1889    23671\n3 Doshisha          1875    25974\n4 Ritsumeikan       1900    32467\n\n\n　データ・フレーム構造はベクトルの集合であるため、ベクトルから作成することも出来る。以下のような表を作成するとする。\n\n\n\n\n\n\n\n\nName\nPop\nArea\nFood\n\n\n\n\nTokyo\n1396\n2194\nMonja\n\n\nNagoya\n755\n5173\nTebasaki\n\n\nOsaka\n882\n1899\nTakoyaki\n\n\nFukuoka\n511\n4987\nRamen\n\n\n\n\n\n\n\n　今回はそれぞれの列に外とするベクトルを予め作成し、そのベクトルをtibble()関数の引数として使用する。作成したオブジェクトはmy_df2と名付けよう。\n\n\n\nCode 21\n\nName &lt;- c(\"Tokyo\", \"Nagoya\", \"Osaka\", \"Fukuoka\")\nFood &lt;- c(\"Monja\", \"Tebasaki\", \"Takoyaki\", \"Ramen\")\nPop  &lt;- c(1396, 755, 882, 511)\nArea &lt;- c(2194, 5173, 1899, 4987)\n\nmy_df2 &lt;- tibble(Name, Pop, Area, Food)\n\nmy_df2\n\n\n# A tibble: 4 × 4\n  Name      Pop  Area Food    \n  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   \n1 Tokyo    1396  2194 Monja   \n2 Nagoya    755  5173 Tebasaki\n3 Osaka     882  1899 Takoyaki\n4 Fukuoka   511  4987 Ramen   \n\n\n　以上のような数行 \\(\\times\\) 数列の表なら手打ちで作成することもできるが、数百〜数万人のデータなどを手打ちで作成することはほぼ不可能であろう。この場合、予め表計算ソフトを使って表を作成しておくか、既に公開されている表形式データを使うこととなる。別途のファイルとして保存されている表形式ファイル（.csvファイル）の読み込みにはread_csv()関数を使う2。read_csv()は{tidyverse}パッケージを読み込んでおかないと使えないため、予め読んでおこう。今回は既に読み込み済みであるため不要である。\n　第6回の講義で作成したデータ（BuildingData.csv）がプロジェクト・フォルダー内のDataフォルダー内に保存されている場合、以下のように読み込む。読み込んだデータを使うためには作業環境内にオブジェクトとして格納しておく必要があり、今回はmy_df3と名付ける。\n\n\n\nCode 22\n\nmy_df3 &lt;- read_csv(\"Data/BuildingData.csv\") # 第6回のデータ\n\n\n\n\nデータ・フレームの確認\n　作業環境に格納されたデータ・フレームを出力する場合はオブジェクト名を入力する。データが画面に収まらない場合は一部の列が省略される場合があり、出力される行数はデフォルト設定では10行である。以下でも最初の10行しか出力されているが、出力画面の1行目の情報（# A tibble: 47 × 5）から全47行のデータであることが分かる。\n\n\n\nCode 23\n\nmy_df3\n\n\n# A tibble: 47 × 5\n      ID Pref   Finance Over65 Turnout\n   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 北海道   0.462   32.3    58.8\n 2     2 青森県   0.358   33.7    52.9\n 3     3 岩手県   0.372   33.8    60.4\n 4     4 宮城県   0.626   28.4    55.9\n 5     5 秋田県   0.322   37.6    58.2\n 6     6 山形県   0.379   34.0    64.3\n 7     7 福島県   0.545   31.8    58.0\n 8     8 茨城県   0.656   30.3    52.5\n 9     9 栃木県   0.648   29.6    53.1\n10    10 群馬県   0.638   30.9    53.9\n# ℹ 37 more rows\n\n\n　全ての行を出力するためにはprint()関数を使用し、n = Infを指定する。ちなみにn = 20にすると、最初の20行が出力される。\n\n\n\nCode 24\n\nprint(my_df3, n = Inf)\n\n\n# A tibble: 47 × 5\n      ID Pref     Finance Over65 Turnout\n   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 北海道     0.462   32.3    58.8\n 2     2 青森県     0.358   33.7    52.9\n 3     3 岩手県     0.372   33.8    60.4\n 4     4 宮城県     0.626   28.4    55.9\n 5     5 秋田県     0.322   37.6    58.2\n 6     6 山形県     0.379   34.0    64.3\n 7     7 福島県     0.545   31.8    58.0\n 8     8 茨城県     0.656   30.3    52.5\n 9     9 栃木県     0.648   29.6    53.1\n10    10 群馬県     0.638   30.9    53.9\n11    11 埼玉県     0.770   27.3    54.0\n12    12 千葉県     0.778   28.0    53.6\n13    13 東京都     1.15    23.3    57.2\n14    14 神奈川県   0.889   25.9    56.3\n15    15 新潟県     0.475   33.0    63.2\n16    16 富山県     0.485   32.9    55.7\n17    17 石川県     0.518   30.2    57.1\n18    18 福井県     0.421   31.1    57.8\n19    19 山梨県     0.409   31.1    60.6\n20    20 長野県     0.528   32.3    59.8\n21    21 岐阜県     0.559   31.1    58.1\n22    22 静岡県     0.726   30.7    54.8\n23    23 愛知県     0.912   25.8    56.0\n24    24 三重県     0.609   30.6    56.2\n25    25 滋賀県     0.576   26.7    57.3\n26    26 京都府     0.595   29.5    56.3\n27    27 大阪府     0.792   27.7    56.2\n28    28 兵庫県     0.649   29.3    54.3\n29    29 奈良県     0.437   31.7    59.1\n30    30 和歌山県   0.338   33.4    58.2\n31    31 鳥取県     0.287   32.5    58.2\n32    32 島根県     0.266   34.7    61.6\n33    33 岡山県     0.535   30.7    50.9\n34    34 広島県     0.618   29.8    52.1\n35    35 山口県     0.457   34.8    49.7\n36    36 徳島県     0.327   34.3    53.9\n37    37 香川県     0.487   32.1    56.1\n38    38 愛媛県     0.448   33.4    55.0\n39    39 高知県     0.274   35.6    57.3\n40    40 福岡県     0.658   28.2    52.1\n41    41 佐賀県     0.356   30.9    58.5\n42    42 長崎県     0.348   33.2    56.9\n43    43 熊本県     0.427   31.7    56.4\n44    44 大分県     0.395   33.5    57.3\n45    45 宮崎県     0.358   32.9    53.7\n46    46 鹿児島県   0.353   32.7    57.7\n47    47 沖縄県     0.375   22.7    54.9\n\n\n　データの最初のx行を出力するにはprint()関数とn引数の組み合わせでも出来るが、他にもhead()関数がある。これは最初の6行のみ出力してくれる関数である。\n\n\n\nCode 25\n\nhead(my_df3)\n\n\n# A tibble: 6 × 5\n     ID Pref   Finance Over65 Turnout\n  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1     1 北海道   0.462   32.3    58.8\n2     2 青森県   0.358   33.7    52.9\n3     3 岩手県   0.372   33.8    60.4\n4     4 宮城県   0.626   28.4    55.9\n5     5 秋田県   0.322   37.6    58.2\n6     6 山形県   0.379   34.0    64.3\n\n\n　head()関数はprint()関数同様、n引数で出力行数を変えることが出来る。\n\n\n\nCode 26\n\nhead(my_df3, n = 10)\n\n\n# A tibble: 10 × 5\n      ID Pref   Finance Over65 Turnout\n   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n 1     1 北海道   0.462   32.3    58.8\n 2     2 青森県   0.358   33.7    52.9\n 3     3 岩手県   0.372   33.8    60.4\n 4     4 宮城県   0.626   28.4    55.9\n 5     5 秋田県   0.322   37.6    58.2\n 6     6 山形県   0.379   34.0    64.3\n 7     7 福島県   0.545   31.8    58.0\n 8     8 茨城県   0.656   30.3    52.5\n 9     9 栃木県   0.648   29.6    53.1\n10    10 群馬県   0.638   30.9    53.9\n\n\n　head()関数の友達としてtail()関数がある。これは最後の6行を出力をしてくれる関数である。\n\n\n\nCode 27\n\ntail(my_df3)\n\n\n# A tibble: 6 × 5\n     ID Pref     Finance Over65 Turnout\n  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1    42 長崎県     0.348   33.2    56.9\n2    43 熊本県     0.427   31.7    56.4\n3    44 大分県     0.395   33.5    57.3\n4    45 宮崎県     0.358   32.9    53.7\n5    46 鹿児島県   0.353   32.7    57.7\n6    47 沖縄県     0.375   22.7    54.9\n\n\n　むろん、head()関数同様、n引数で出力行数を変えることが出来る。\n\n\n\nCode 28\n\ntail(my_df3, n = 3)\n\n\n# A tibble: 3 × 5\n     ID Pref     Finance Over65 Turnout\n  &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1    45 宮崎県     0.358   32.9    53.7\n2    46 鹿児島県   0.353   32.7    57.7\n3    47 沖縄県     0.375   22.7    54.9\n\n\n　もう一つ便利な関数はデータの中身を一切出力せず、列名（変数名）のみを出力してくれるnames()関数である。結果としてcharacter型ベクトルが返される。\n\n\n\nCode 29\n\nnames(my_df3)\n\n\n[1] \"ID\"      \"Pref\"    \"Finance\" \"Over65\"  \"Turnout\"\n\n\n　my_df3のデータ構造はデータ・フレームであるが、これはclass()関数で確認できる。詳細は割愛するがオブジェクトは複数のクラスを持つことが許容されており、my_df3の場合は4つのクラスの中に\"data.frame\"が含まれているため、データ・フレーム構造であることが分かる。\n\n\n\nCode 30\n\nclass(my_df3) # my_df2のデータ構造\n\n\n[1] \"spec_tbl_df\" \"tbl_df\"      \"tbl\"         \"data.frame\" \n\n\n　実際、あるオブジェクトがデータ・フレームかどうかを判定するis.data.frame()関数を使うと、my_df3がデータ・フレームであることが分かる。\n\n\n\nCode 31\n\nis.data.frame(my_df3)\n\n\n[1] TRUE\n\n\n　他にもデータ・フレームの特徴を調べる関数としてデータ・フレームの大きさを計算する関数がある。データ・フレームの大きさとは行数と列数を意味し、それぞれnrow()とncol()関数で計算することができる。\n\n\n\nCode 32\n\nnrow(my_df1) # my_df1の行数\n\n\n[1] 4\n\n\n\n\n\nCode 33\n\nncol(my_df2) # my_df2の列数\n\n\n[1] 4\n\n\n　dim()関数を使えば行数と列数を同時に出力され、長さ2のnumeric型ベクトルが返される。\n\n\n\nCode 34\n\ndim(my_df3) # my_df3の大きさ\n\n\n[1] 47  5\n\n\n\n\n行の抽出\n　ベクトルは1次元であるに対し、データ・フレームは行と列といった2次元構造であるため、行・列を抽出するためには行、列をそれぞれ指定する必要がある。ベクトルと同様、オブジェクト名の後ろに[]を付けることは変わらないが、データ・フレームは2次元構造であるため、[行, 列]で指定する必要がある。\n　たとえば、my_df3の27行目を抽出するためにはmy_df3[27, ]と入力する。列の指定がされていない場合は全ての列が抽出される。\n\n\n\nCode 35\n\nmy_df3[27, ]\n\n\n# A tibble: 1 × 5\n     ID Pref   Finance Over65 Turnout\n  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1    27 大阪府   0.792   27.7    56.2\n\n\n　抽出された行のデータ構造はデータ・フレームである。\n\n\n\nCode 36\n\nclass(my_df3[27, ])\n\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n　行の位置を長さ2以上のベクトルにすることで、複数行の抽出もできる。c()関数や:演算子が使用可能である。以下の例はmy_df3から13、27、40行目を抽出するコードである。\n\n\n\nCode 37\n\nmy_df3[c(13, 27, 40), ]\n\n\n# A tibble: 3 × 5\n     ID Pref   Finance Over65 Turnout\n  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1    13 東京都   1.15    23.3    57.2\n2    27 大阪府   0.792   27.7    56.2\n3    40 福岡県   0.658   28.2    52.1\n\n\n　抽出された行のデータ構造はデータ・フレームである。\n\n\n\nCode 38\n\nclass(my_df3[c(13, 27, 40), ])\n\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n\n\n列の抽出\n　列の抽出も行の抽出方法と同じである。たとえば、my_df3の2列目を抽出したい場合は以下のように入力する。\n\n\n\nCode 39\n\nmy_df3[, 2] # my_df3[, \"Pref\"] でもOK\n\n\n# A tibble: 47 × 1\n   Pref  \n   &lt;chr&gt; \n 1 北海道\n 2 青森県\n 3 岩手県\n 4 宮城県\n 5 秋田県\n 6 山形県\n 7 福島県\n 8 茨城県\n 9 栃木県\n10 群馬県\n# ℹ 37 more rows\n\n\n　抽出された列のデータ構造はデータ・フレームである。\n\n\n\nCode 40\n\nclass(my_df3[, 2])\n\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n　c()や:演算子を使うことで複数列の抽出も可能であり、抽出後のデータ構造もデータ・フレームである。\n\n\n\nCode 41\n\n# my_df3[, c(\"Pref\", \"Over65\", \"Turnout\")] でもOK\nmy_df3[, c(2, 4, 5)]\n\n\n# A tibble: 47 × 3\n   Pref   Over65 Turnout\n   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n 1 北海道   32.3    58.8\n 2 青森県   33.7    52.9\n 3 岩手県   33.8    60.4\n 4 宮城県   28.4    55.9\n 5 秋田県   37.6    58.2\n 6 山形県   34.0    64.3\n 7 福島県   31.8    58.0\n 8 茨城県   30.3    52.5\n 9 栃木県   29.6    53.1\n10 群馬県   30.9    53.9\n# ℹ 37 more rows\n\nclass(my_df3[, c(2, 4, 5)])\n\n[1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n　列抽出の場合、[]以外にも$を使うこともできる。[]は抽出する行・列の位置を指定するが、$を使う場合は列名を指定する。たとえば、my_df3のPref列を抽出する場合は以下のように入力する。この場合は複数列の抽出はできないことに注意すること。\n\n\n\nCode 42\n\nmy_df3$Pref\n\n\n [1] \"北海道\"   \"青森県\"   \"岩手県\"   \"宮城県\"   \"秋田県\"   \"山形県\"  \n [7] \"福島県\"   \"茨城県\"   \"栃木県\"   \"群馬県\"   \"埼玉県\"   \"千葉県\"  \n[13] \"東京都\"   \"神奈川県\" \"新潟県\"   \"富山県\"   \"石川県\"   \"福井県\"  \n[19] \"山梨県\"   \"長野県\"   \"岐阜県\"   \"静岡県\"   \"愛知県\"   \"三重県\"  \n[25] \"滋賀県\"   \"京都府\"   \"大阪府\"   \"兵庫県\"   \"奈良県\"   \"和歌山県\"\n[31] \"鳥取県\"   \"島根県\"   \"岡山県\"   \"広島県\"   \"山口県\"   \"徳島県\"  \n[37] \"香川県\"   \"愛媛県\"   \"高知県\"   \"福岡県\"   \"佐賀県\"   \"長崎県\"  \n[43] \"熊本県\"   \"大分県\"   \"宮崎県\"   \"鹿児島県\" \"沖縄県\"  \n\n\n　もう一つ注意すべき点としては$で抽出された列はデータ・フレームでなく、ベクトルである点だ。実際、my_df3$Prefのデータ構造を調べてみると、character型と出力される。データ構造がベクトルの場合はデータ型が出力される。\n\n\n\nCode 43\n\nclass(my_df3$Pref)\n\n\n[1] \"character\"\n\n\n　is.vector()関数でmy_df3$Prefがベクトルかどうかを調べることもできる。\n\n\n\nCode 44\n\nis.vector(my_df3$Pref)\n\n\n[1] TRUE\n\n\n　このように、抽出方法によって返り値のデータ構造が異なる。要約すると、（1）[]を用いた抽出は返り値がデータ・フレームであり、（2）$を用いた抽出は返り値がベクトルである点だ。\n\n\n\n\n\n\n\n\n\nコード\n意味\n返り値\n備考\n\n\n\n\nデータ・フレーム名[i, ]\ni番目の行を抽出\nデータ・フレーム\niは任意のベクトル\n\n\nデータ・フレーム名[, i]\ni番目の列を抽出\nデータ・フレーム\niは任意のベクトル\n\n\nデータ・フレーム名$列名\n当該列を抽出\nベクトル",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#リスト",
     "href": "materials/micro/datastructure.html#リスト",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "リスト",
     "text": "リスト\n　最後に紹介するリスト構造はあらゆるデータ構造が格納できるデータ構造である。つまり、様々なデータ構造のオブジェクトが一つのオブジェクトとしてまとまったものであえる3。実は、Rに存在する多くのオブジェクトはリストである。したがって、Rでデータを自由自在に操るためにはリストの知識が必須である。ただし、本講義（後期を含む）ではリストは使わないため、詳細な説明は省略する。\n　リスト構造オブジェクトを作成する場合はlist()関数を使用し、中には格納するオブジェクト名を入力する。それぞれのオブジェクトに名前を付ける場合は名前 = オブジェクト名と入力する。ここではこれまで作成してきたmy_vec1、my_vec4、my_mat1、my_df1をまとめたmy_listを作成し、それぞれVector1、Vector2、Matrix、DFと名付ける。\n\n\n\nCode 45\n\nmy_list &lt;- list(Vector1 = my_vec1,\n                Vector2 = my_vec4,\n                Matrix  = my_mat1,\n                DF      = my_df1)\n\nmy_list\n\n\n$Vector1\n[1] \"R is fun!\"\n\n$Vector2\n[1] 10 20  1  0\n\n$Matrix\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12\n\n$DF\n# A tibble: 4 × 3\n  Name        Foundation Students\n  &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;\n1 Kansai            1886    27736\n2 Kangaku           1889    23671\n3 Doshisha          1875    25974\n4 Ritsumeikan       1900    32467\n\n\n　class()関数でmy_listのデータ構造を確認してみるとリスト構造であることが分かる。\n\n\n\nCode 46\n\nclass(my_list)\n\n\n[1] \"list\"\n\n\n　また、length()関数を使えば、当該オブジェクト内にいくつのオブジェクトが入っているかが分かる。\n\n\n\nCode 47\n\nlength(my_list)\n\n\n[1] 4\n\n\n　リスト構造のオブジェクトから任意の要素（オブジェクト）を抽出する場合は[]でなく、[[]]を使用する。リスト名[[i]]の場合、リストのi番目要素が抽出される。\n\n\n\nCode 48\n\nmy_list[[2]] # my_listから2番目のオブジェクトを抽出\n\n\n[1] 10 20  1  0\n\n\n　もし、各オブジェクトに名前が付いている場合は[[]]内に位置でなく、要素名で抽出することもできる。my_list内のDFと名付けられた要素を抽出するためには以下のように入力する。要素名は\"で囲む必要がある。\n\n\n\nCode 49\n\nmy_list[[\"DF\"]]\n\n\n# A tibble: 4 × 3\n  Name        Foundation Students\n  &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;\n1 Kansai            1886    27736\n2 Kangaku           1889    23671\n3 Doshisha          1875    25974\n4 Ritsumeikan       1900    32467\n\n\n　また、データフレームの列抽出のように、$を使うこともできる。ただし、当該要素に名前が付いてある必要があり、要素名は\"で囲む必要がない。以下のコードはmy_listからMatrixと名付けられた要素を抽出するコードである。\n\n\n\nCode 50\n\nmy_list$Matrix\n\n\n     [,1] [,2] [,3] [,4]\n[1,]    1    4    7   10\n[2,]    2    5    8   11\n[3,]    3    6    9   12",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#教科書",
     "href": "materials/micro/datastructure.html#教科書",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "教科書",
     "text": "教科書\n\n『私たちのR: ベストプラクティスの探求』第9章: データ構造",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datastructure.html#footnotes",
     "href": "materials/micro/datastructure.html#footnotes",
-    "title": "第6回講義資料",
+    "title": "第7回講義資料",
     "section": "注",
     "text": "注\n\n\n\"Cat\"や5も長さ1のベクトルであり、原子ベクトル (atomic vector) とも呼ばれ、中でもnumeric型の長さ1のベクトルはスカラー (scalar) とも呼ばれる。↩︎\nExcleで作成されたファイル（.xlsx、または.xls）の場合、{readxl}パッケージのread_excle()関数を使用する。Stataファイル（.dta）は{haven}パッケージのread_dta()を使う。↩︎\nリストの中にリストを入れることも出来る。↩︎",
     "crumbs": [
-      "第6回講義資料"
+      "第7回講義資料"
     ]
   },
   {
@@ -4420,121 +4420,121 @@
   {
     "objectID": "materials/micro/datatype.html",
     "href": "materials/micro/datatype.html",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "",
     "text": "新しいタブで開く",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#スライド",
     "href": "materials/micro/datatype.html#スライド",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "",
     "text": "新しいタブで開く",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#データ型とは",
     "href": "materials/micro/datatype.html#データ型とは",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "データ型とは",
     "text": "データ型とは\n　ベクトル（vector）はデータ構造（data structure）であり、ベクトル内の一つ一つの要素は数値や、文字など様々なデータ型（data type）の値を取り得る。\n\n\n\nCode 01\n\nobj1 &lt;- c(1, 3, 5, 7, 9, 11)\nobj2 &lt;- c(\"Kansai\", \"Kwansei Gakuin\", \"Doshisha\", \"Ritsumeikan\")\nobj3 &lt;- c(TRUE, FALSE, FALSE)\nobj4 &lt;- \"R\"\n\n\n\nobj1: 長さ6の数値型ベクトル\nobj2: 長さ4の文字型ベクトル\nobj3: 長さ3の論理型ベクトル\nobj4: 長さ1の文字型ベクトル\n\n長さ1のベクトルは原子ベクトル（atomic vector）とも呼ばれる\n\n\n\n\n\n\n\n\nTipベクトルの長さが知りたい\n\n\n\nベクトルの長さはlength(オブジェクト名)で計算できる。たとえば、Object2の長さは4である。\n\n\n\nCode 02\n\nlength(obj2)\n\n\n[1] 4\n\n\n\n\n　他にもRには様々なデータ型が使える。以下のリストはRが提供するデータ型の一部であり、太字は本講義で紹介するデータ型である。ここでは説明を割愛するが日付型（Date型）もよく使われるデータ型であり、それそれの詳細は教科書第8章を参照されたい。\n\nLogical\nNumeric\nComplex\nCharacter\nFactor\nDate\nNA\nNULL\nNaN\nInf\nその他",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#データ型の確認",
     "href": "materials/micro/datatype.html#データ型の確認",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "データ型の確認",
     "text": "データ型の確認\n　ベクトル内の要素は全て同じデータ型を取るが、そのデータ型を確認するためには、class(ベクトル・オブジェクト名)関数を使用する。先ほど作成した4つのベクトルのデータ型を確認してみよう。\n\n\n\nCode 03\n\nclass(obj1) # 数値型 (numeric)\n\n\n[1] \"numeric\"\n\n\n\n\n\nCode 04\n\nclass(obj2) # 文字型 (character)\n\n\n[1] \"character\"\n\n\n\n\n\nCode 05\n\nclass(obj3) # 論理型 (logical)\n\n\n[1] \"logical\"\n\n\n\n\n\nCode 06\n\nclass(obj4) # 文字型 (character)\n\n\n[1] \"character\"",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#logical型",
     "href": "materials/micro/datatype.html#logical型",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "Logical型",
     "text": "Logical型\n　論理型（logical型）とはTRUEとFALSEのみで構成されるデータ型である。論理演算子の計算結果は必ず以下のように論理型の結果が返される。\n\n\n\nCode 07\n\n(2 + 3) == (4 + 1)\n\n\n[1] TRUE\n\n\n　この結果を代入演算子（&lt;-）を使って、オブジェクトに格納するとlogical型ベクトルが作業環境内に格納される。\n\n\n\nCode 08\n\nlogi_vec1 &lt;- (2 + 3) == (2 * 3)\nlogi_vec1\n\n\n[1] FALSE\n\n\n\n\n\nCode 09\n\nclass(logi_vec1)\n\n\n[1] \"logical\"\n\n\nあるオブジェクトがlogical型か否かを判定するにはis.logical()を使用する。\n\n\n\nCode 10\n\nis.logical(FALSE)\n\n\n[1] TRUE\n\n\n\n作成\n　Logical型ベクトルを作成するためには、通常のベクトルと同様、c()関数で作成する。\n\n\n\nCode 11\n\nlogi_vec2 &lt;- c(TRUE, FALSE, TRUE, TRUE, FALSE)\nlogi_vec2\n\n\n[1]  TRUE FALSE  TRUE  TRUE FALSE\n\n\n　ここでのTRUEはT、FALSEはFと略すことが出来るが、推奨しない。必ずTRUEとFALSEで表記すること。\n\n\n\nCode 12\n\nlogi_vec3 &lt;- c(T, F, T, T, F)\nlogi_vec3\n\n\n[1]  TRUE FALSE  TRUE  TRUE FALSE\n\n\n\n\n注意点\n　Logical型の値であるTRUEとFALSEを\"で囲んではいけない。もし、一つでも\"で囲んでしまうと、そのベクトルlogical型でなく、後ほど紹介するcharacter型へ変換される。\n\n\n\nCode 13\n\n# 2つ目のFALSEを\"で囲むと...\nlogi_vec4 &lt;- c(TRUE, \"FALSE\", TRUE, TRUE, FALSE)\nlogi_vec4\n\n\n[1] \"TRUE\"  \"FALSE\" \"TRUE\"  \"TRUE\"  \"FALSE\"\n\n\n\n\n\nCode 14\n\nclass(logi_vec4)\n\n\n[1] \"character\"\n\n\n\n\n使い方\n　直接TRUEやFALSEが格納されたベクトルを使う場面はほとんどない。つまり、ほとんどのlogical型ベクトルは何らかの論理演算子から返されたものである。以下の例は、my_vec1から奇数の要素のみを抽出するために、logi_vec5というベクトルを作成する例である。\n\n\n\nCode 15\n\nmy_vec1  &lt;- c(89, 28, 93, 64, 6)\nlogi_vec5 &lt;- my_vec1 %% 2 == 1 # my_vec1を2で割ったら余りが1か\nlogi_vec5\n\n\n[1]  TRUE FALSE  TRUE FALSE FALSE\n\n\n\n\n\nCode 16\n\nclass(logi_vec5)\n\n\n[1] \"logical\"\n\n\n\n\n\nCode 17\n\nmy_vec1[logi_vec5] # my_vec1から奇数のみ抽出\n\n\n[1] 89 93\n\n\n\n\n\nCode 18\n\nmy_vec1[my_vec1 %% 2 == 0] # 直接式を入れてもOK\n\n\n[1] 28 64  6",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#numeric型",
     "href": "materials/micro/datatype.html#numeric型",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "Numeric型",
     "text": "Numeric型\n\n\n\nCode 19\n\nnum_vec1 &lt;- c(2, 0, 0, 1, 3)\nnum_vec1\n\n\n[1] 2 0 0 1 3\n\n\n\n\n\nCode 20\n\nclass(num_vec1) # num_vec1のデータ型\n\n\n[1] \"numeric\"\n\n\n\n\n\nCode 21\n\nis.numeric(num_vec1) # num_vec1がnumeric型か否かを判定\n\n\n[1] TRUE\n\n\n\nNumeric型の演算\n　以下ではnumeric型ベクトル同士の演算について解説する。Numeric型ベクトル同士は常に可能であるが、ベクトルの長さによって動きがやや異なる（ベクトル・リサイクル）。ベクトル・リサイクルは第3回にて解説したが、ここで改めて解説する。\nケース1: 同じ長さのベクトル同士の演算\n　2つのベクトルの長さが同じ場合、同じ位置の要素同士の演算となる。したがって、返ってくる結果（ベクトル）の長さは元のベクトルの長さと同じとなる。たとえば、長さ5の2つのベクトル同士の演算を考えてみよう。\n\n\n\nCode 22\n\nnum_vec2 &lt;- c(1, 2, 3, 4, 5)  # 長さ5のnumeric型ベクトル\nnum_vec3 &lt;- c(11, 7, 5, 3, 2) # 長さ5のnumeric型ベクトル\n\nnum_vec2 + num_vec3 # c(1+11, 2+7, 3+5, 4+3, 5+2)\n\n\n[1] 12  9  8  7  7\n\n\n　この場合、num_vec2の1番目の要素（1）とnum_vec3の1番目の要素（11）の足し算、num_vec2の2番目の要素（2）とnum_vec3の2番目の要素（7）の足し算、…が行われる。\nケース2: 長さ2以上 (A)と長さ1 (B)同士の演算\n　この場合、(A)のそれぞれ要素と(B)の要素同士で演算を行う。長さ5のベクトルに対し、たとえば長さ1のベクトルがc(10)であれば、自動的にc(10, 10, 10, 10, 10)へ変換されたと考えても良いだろう。\n\n\n\nCode 23\n\nnum_vec4 &lt;- 10 # 長さ1の場合、c()はなくてもOK\n\nnum_vec3 / num_vec4 # c(11/10, 7/10, 5/10, 3/10, 2/10)\n\n\n[1] 1.1 0.7 0.5 0.3 0.2\n\n\nケース3: 長さ2以上と長さ2以上で長さが異なる場合\n　この場合、より短いの要素がリサイクルされる。長さ5のベクトルに対し、たとえば長さ3のベクトルがc(1, 2, 3)であれば、自動的にc(1, 2, 3, 1, 2)へ変換されたと考えても良いだろう。これをRでは「ベクトル・リサイクル」（vector recycle）と呼ぶ。ちなみに、この場合、警告が表示される場合もある。これは長い方のベクトルの長さが短い方の長さの倍数になっていない場合に出力される。しかし、計算そのものには問題がない。\n\n\n\nCode 24\n\nnum_vec5 &lt;- c(1, 2, 3)\n\nnum_vec3 * num_vec5 # c(11*1, 7*2, 5*3, 3*1, 2*2)\n\n\n[1] 11 14 15  3  4\n\n\n\n\n注意点\n　Logical型と同じ理由でnumeric型の値を\"で囲んではいけない。一つでも\"で囲むとNumeric型でなく、Character型へ変換されてしまう。\n\n\n\nCode 25\n\n# 4つ目のFALSEを\"で囲むと...\nnum_vec6 &lt;- c(38, 29, 10, \"94\", 51)\nnum_vec6\n\n\n[1] \"38\" \"29\" \"10\" \"94\" \"51\"\n\n\n\n\n\nCode 26\n\nclass(num_vec6)\n\n\n[1] \"character\"",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#character型",
     "href": "materials/micro/datatype.html#character型",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "Character型",
     "text": "Character型\n　Character型（文字型）は要素が\"で囲まれたデータ型である。\n\n\n\nCode 27\n\nchar_vec1 &lt;- c(\"Kansai\", \"Kwansei-gakuin\", \"Doshisha\", \"Ritsmeikan\")\nchar_vec1\n\n\n[1] \"Kansai\"         \"Kwansei-gakuin\" \"Doshisha\"       \"Ritsmeikan\"    \n\n\n\n\n\nCode 28\n\nclass(char_vec1)\n\n\n[1] \"character\"\n\n\n\n\n\nCode 29\n\nis.character(char_vec1) # char_vec1がcharacter型であればTRUE\n\n\n[1] TRUE\n\n\n\n文字列の長さ\n　文字列ベクトルの長さを求める場合はlength()関数を使用する。\n\n\n\nCode 30\n\nlength(char_vec1)\n\n\n[1] 4\n\n\n　ただし、length()関数はベクトルの長さを求める関数であって、各要素の文字数を求める関数ではない。各要素の文字数を求める場合はnchar()関数を使用する。\n\n\n\nCode 31\n\nnchar(char_vec1)\n\n\n[1]  6 14  8 10\n\n\n\n\n文字の結合\n　本講義では使うことはほとんどないものの、頻繁に使う関数としてpaste()関数（またはpaste0()関数）がある。これは2つの文字列を結合する関数であり、使い方はpaste(Character型ベクトル, Character型ベクトル)である。\nケース1: char_vec1の全要素の後に\"University\"を付ける。\n\n\n\nCode 32\n\nchar_vec2 &lt;- paste(char_vec1, \"University\")\nchar_vec2 # \"University\"の前に自動的にスペースが入る\n\n\n[1] \"Kansai University\"         \"Kwansei-gakuin University\"\n[3] \"Doshisha University\"       \"Ritsmeikan University\"    \n\n\n　この場合、大学名（たとえば、\"Kansai\"）と\"University\"の間には自動的にスペースが入る。スペースを無くしたい場合は、paste()内にsep = \"\"を追加するか、paste0()関数を使用する。このsep引数は結合される2つの文字列の間に入る文字を意味し、デフォルトはスペース（\" \"）である。\n\n\n\nCode 33\n\npaste(char_vec1, \"University\", sep = \"\")\n\n\n[1] \"KansaiUniversity\"         \"Kwansei-gakuinUniversity\"\n[3] \"DoshishaUniversity\"       \"RitsmeikanUniversity\"    \n\n\n\n\n\nCode 34\n\npaste0(char_vec1, \"University\")\n\n\n[1] \"KansaiUniversity\"         \"Kwansei-gakuinUniversity\"\n[3] \"DoshishaUniversity\"       \"RitsmeikanUniversity\"    \n\n\n\n\n\nCode 35\n\npaste(char_vec1, \"University\", sep = \"-\")\n\n\n[1] \"Kansai-University\"         \"Kwansei-gakuin-University\"\n[3] \"Doshisha-University\"       \"Ritsmeikan-University\"    \n\n\nケース2: char_vec2の全要素の前に1、2、…を付け、数字と大学名は\".\"で結合\n　結合する2つのベクトルの長さがいずれも2以上の場合、同じ位置の要素同士の結合となる。\n\n\n\nCode 36\n\nchar_vec3 &lt;- paste(1:4, char_vec2, sep = \".\")\nchar_vec3\n\n\n[1] \"1.Kansai University\"         \"2.Kwansei-gakuin University\"\n[3] \"3.Doshisha University\"       \"4.Ritsmeikan University\"",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#factor型",
     "href": "materials/micro/datatype.html#factor型",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "Factor型",
     "text": "Factor型\n　Factor型は見た目上はcharacter型と同じであるが要素に順番（順位）が付いている点で異なる。つまり、factor型は順序付きcharacter型とも言えよう。\n　以下の2つの表形式データの内容は全く同じものである。しかし、左の表の場合大学名列のデータ型はcharacter型（列名の下に&lt;chr&gt;と表示される）、右の表の場合はfactor型（列名の下に&lt;fct&gt;と表示される）である。Factor型変数は要素の順番（順位）が決まっていて、ここでは\"Kansai\" &gt; \"Kwansei-gakuin\" &gt; \"Doshisha\" &gt; \"Ritsumeikan\"の順番で設定してある。\n\n\n大学名がcharacter型の場合\n\n\n# A tibble: 4 × 2\n  大学名         学生数\n  &lt;chr&gt;           &lt;dbl&gt;\n1 Kansai          27736\n2 Kwansei-gakuin  23671\n3 Doshisha        25974\n4 Ritsumeikan     32467\n\n\n\n\n\n大学名がfactor型の場合\n\n\n# A tibble: 4 × 2\n  大学名         学生数\n  &lt;fct&gt;           &lt;dbl&gt;\n1 Kansai          27736\n2 Kwansei-gakuin  23671\n3 Doshisha        25974\n4 Ritsumeikan     32467\n\n\n\n\n　この見た目上は全く同じの2つのデータを使って、大学別学生数の棒グラフを作成した例が以下の図である。\n\n\n\n\n\n\n\n大学名がcharacter型の場合\n\n\n\n\n\n\n\n\n\n\n\n\n大学名がfactor型の場合\n\n\n\n\n\n\n　このようにcharacter型だと、作図の際、大学がアルファベット順で並ぶものの、factor型であれば、予め決めておいた順番で並ぶ。Factor型は図表を作成する際に重宝されるデータ型である。\n\nFactor型の作成\n　ここでは、既存のcharacter型ベクトルをfactor型に変換する方法について紹介する。以下のchar_vec4は関関同立の名前をアルファベット順で格納した長さ4のcharacter型ベクトルである。\n\n\n\nCode 37\n\nchar_vec4 &lt;- c(\"Doshisha\", \"Kansai\", \"Kwansei-gakuin\", \"Ritsumeikan\")\n\n\n\n\n\nCode 38\n\nchar_vec4\n\n\n[1] \"Doshisha\"       \"Kansai\"         \"Kwansei-gakuin\" \"Ritsumeikan\"   \n\n\n\n\n\nCode 39\n\nclass(char_vec4)\n\n\n[1] \"character\"\n\n\n　Factor型ベクトルはfactor()関数で作成する。第一引数は元となるcharacter型ベクトルであり、levels引数に要素の順位を付ける。\n\n\n\nCode 40\n\nfct_vec1 &lt;- factor(char_vec4,\n                   levels = c(\"Kansai\", \"Kwansei-gakuin\", \"Doshisha\", \"Ritsumeikan\"))\n\n\n\n\n\nCode 41\n\nfct_vec1\n\n\n[1] Doshisha       Kansai         Kwansei-gakuin Ritsumeikan   \nLevels: Kansai Kwansei-gakuin Doshisha Ritsumeikan\n\n\n\n\n\nCode 42\n\nclass(fct_vec1)\n\n\n[1] \"factor\"\n\n\n　このようにfactor型ベクトルを出力した場合、ベクトルの中身に加え、下段に要素の順位が表示され、図表を作成する際はこの順番で自動的にソートされる。\n\n\nFactor型の詳細\n　このfactor型は非常に重要なデータ型であり、図表を作成する際には必ず考えなくてはならないものである。先ほどの例のように、文字列をfactor化しないと要素はアルファベット順になる。図表において順番が思い通りにならない原因は、factor化していない、またはfactor化が間違っているのがほとんどである。factor型については今後データハンドリング、可視化の講義で改めて解説する。",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#欠損値",
     "href": "materials/micro/datatype.html#欠損値",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "欠損値",
     "text": "欠損値\n　データ分析において頻繁に遭遇するのはNAであるが、これは欠損値（missing value）を意味する。欠損値は何らかの値があるはずであるものの、観察されていない値である。例えば、国連開発機構が毎年発表している「人間開発指数（Human Development Index; HDI）」では世界各国のデータが含まれている。しかし、世界における全ての国のデータが入っているわけではなく、たとえば台湾や北朝鮮のデータは含まれていない。これらの国/地域に人間開発という概念がないわけではなく、なんらかの理由（今回は政治的な理由）で値が欠損しているだけである。\n　自分でデータセットを構築しようとする時に、特定のケースに欠損が生じるケースは多々あり、世論調査でも例外ではない。たとえば答えづらい質問に対して「わからない」や「答えたくない」を選んだ場合、その回答者における当該質問は欠損となる。このように多くのデータには欠損値が含まれているため、欠損値処理は非常に重要である。欠損値の処理には様々な方法があるが、本講義では欠損値が含まれたケースを除外した分析を行う予定である。\n　他にも計算上、何らかの問題を生じさせうるものはあるが、以下では簡単にその例を紹介する。ただし、NaNとInfのベクトルを作ることは可能であるが、使う機会はほとんどなく、何かの計算の結果によって返ってくるケースが多いので、その意味さえ把握しておけば良い。\n\nNA: 何らかの値があるはずだが、欠損している状態\nNULL: そもそも存在しない\nNaN: 計算不可（例: 0 \\(\\div\\) 0）\nInf: 無限大（例: 10 \\(\\div\\) 0）\n\n\nNAとNULLの違い\n　値がないという点でNAとNULLは似ているように見えるが、実は全く異なる概念である。NAは要素としてカウントされるが、NULLはカウントされない。以下の例を見てみよう。\n\n\n\nCode 43\n\nNA_vec   &lt;- c(1, 2, 3, NA, 5, NA, 7)\nNULL_vec &lt;- c(1, 2, 3, NULL, 5, NULL, 7)\n\n\n\n\n\nCode 44\n\nNA_vec\n\n\n[1]  1  2  3 NA  5 NA  7\n\n\n\n\n\nCode 45\n\nNULL_vec\n\n\n[1] 1 2 3 5 7\n\n\n\n\n\nCode 46\n\nlength(NA_vec)\n\n\n[1] 7\n\n\n\n\n\nCode 47\n\nlength(NULL_vec)\n\n\n[1] 5\n\n\n　このようにNULLはそもそも存在しないことを意味する。NAが入居者がいない空き部屋であれば、NULLはそもそも部屋が存在しないことを意味する。ここまでの話だとNULLの存在意義が疑われるだろうが、中級者以上になるといずれ使う機会があろう。\n\n\n欠損値を含むベクトルの計算\n　ベクトルに欠損値が含まれている場合、平均値（mean()）、標準偏差（sd()）などの計算ができず、以下のように結果としてNAが返ってくる。\n\n\n\nCode 48\n\nmean(NA_vec)\n\n\n[1] NA\n\n\n　ここで欠損値を以外の要素のみを使って計算する方法としては以下の2つの方法がある1。\n方法1: データから欠損値を除外する。\n\n!演算子は否定を意味する（第3回参照）\nちなみに、NA_vec == NA、NA_vec != NAは使用不可\n\n\n\n\nCode 49\n\nis.na(NA_vec) # 各要素がNAか否かを判定\n\n\n[1] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE\n\n\n\n\n\nCode 50\n\n!is.na(NA_vec) # 各要素がNAか否かの判定を反転\n\n\n[1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE\n\n\n\n\n\nCode 51\n\nNA_vec[!is.na(NA_vec)] # 欠損値でない要素のみ抽出\n\n\n[1] 1 2 3 5 7\n\n\n\n\n\nCode 52\n\nmean(NA_vec[!is.na(NA_vec)])\n\n\n[1] 3.6\n\n\n方法2: 関数内にna.rm = TRUEを追加する。\n　mean()関数の場合、na.rmという引数が用意されており、これをTRUEにすると、欠損値を除外した平均値が求められる（既定値はFALSE）。通常、関数には様々な引数が用意されている。Rコンソール上で?関数名を入力するとヘルプが読める（mean()関数のヘルプは?meanで読める）。\n\n\n\nCode 53\n\nmean(NA_vec, na.rm = TRUE)\n\n\n[1] 3.6",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#ベクトル操作続",
     "href": "materials/micro/datatype.html#ベクトル操作続",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "ベクトル操作（続）",
     "text": "ベクトル操作（続）\n　今回はデータ型が主な内容であったが、ベクトル操作はこれからも必要となるため、以下では第3回に続き、ベクトルの操作方法について解説する。練習用のベクトルとしてmy_vec2を用意する。\n\n\n\nCode 54\n\nmy_vec2 &lt;- c(4, 3, 2, 1)\nmy_vec2\n\n\n[1] 4 3 2 1\n\n\n\n要素の追加\n　ベクトルに新しい要素を追加するためにはベクトル名[追加したい位置] &lt;- 追加する値と入力する。たとえば、my_vec2の5番目の要素として0を追加する場合は以下のように入力する。\n\n\n\nCode 55\n\nmy_vec2[5] &lt;- 0\nmy_vec2\n\n\n[1] 4 3 2 1 0\n\n\n　複数の要素を入れることができる。my_vec2の6、7、8番目の要素として、-1、-2、-3を追加する場合、以下のように入力する。\n\n\n\nCode 56\n\n# 6:8の代わりにc(6, 7, 8)もOK\nmy_vec2[6:8] &lt;- c(-1, -2, -3)\nmy_vec2\n\n\n[1]  4  3  2  1  0 -1 -2 -3\n\n\n　今、my_vec2の長さは8である。もし、このmy_vec2の11番目の要素としてに10を入れたらどうなるだろうか。\n\n\n\nCode 57\n\nmy_vec2[11] &lt;- 10\nmy_vec2\n\n\n [1]  4  3  2  1  0 -1 -2 -3 NA NA 10\n\n\n　このように11番目に10が追加され、9、10番目の要素は欠損値（NA）になる。\n\n\n要素の置換\n　要素の置換は要素の追加と同じである。つまり、ベクトル名[置換したい位置] &lt;- 置換する値と入力する。my_vec2の11番目の要素は10であったが、これを-6に置換する。\n\n\n\nCode 58\n\nmy_vec2[11] &lt;- -6\nmy_vec2\n\n\n [1]  4  3  2  1  0 -1 -2 -3 NA NA -6\n\n\n　要素の追加と同様、複数の要素を置換することもできる。ここではmy_vec2の9、10番目の要素（NAとNA）を-4、-5に置換してみよう。\n\n\n\nCode 59\n\nmy_vec2[9:10] &lt;- c(-4, -5)\nmy_vec2\n\n\n [1]  4  3  2  1  0 -1 -2 -3 -4 -5 -6\n\n\n　置換する位置を指定する[]内に論理演算子を使えば、条件に合致する要素のみ置換することができる。たとえば、my_vec2の要素の中で、0より小さい要素に-1を掛けて置換する場合、以下のように入力する。\n\n\n\nCode 60\n\nmy_vec2[my_vec2 &lt; 0] &lt;- my_vec2[my_vec2 &lt; 0] * -1\nmy_vec2\n\n\n [1] 4 3 2 1 0 1 2 3 4 5 6",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#教科書",
     "href": "materials/micro/datatype.html#教科書",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "教科書",
     "text": "教科書\n\n『私たちのR: ベストプラクティスの探求』\n\n「データ型」",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
     "objectID": "materials/micro/datatype.html#footnotes",
     "href": "materials/micro/datatype.html#footnotes",
-    "title": "第7回講義資料",
+    "title": "第6回講義資料",
     "section": "注",
     "text": "注\n\n\n欠損値を統計的処理を用いて補完することもでき、これを「多重代入法（multiple imputation）」と呼ぶ。↩︎",
     "crumbs": [
-      "第7回講義資料"
+      "第6回講義資料"
     ]
   },
   {
@@ -4692,7 +4692,7 @@
     "href": "materials/micro/quarto.html#qmdファイルの作成",
     "title": "第4回講義資料",
     "section": "qmdファイルの作成",
-    "text": "qmdファイルの作成\n手順1: RStudioを起動し、プロジェクトを作成する。\n手順2: File &gt; New &gt; Quarto Document…を選択する。\n\n\n\n\n\n手順3: OKをクリックする。\n\nこの段階で文書のタイトル（Title:）と作成者名（Author:）を指定することも出来るが、手順4で修正するので、ここではOKをクリックしても良い。ただし、「Use visual markdown editor」にチェックが付いている場合、予め外しておくこと1。\n\n\n\n\n\n\n手順4: タイトル情報などを以下のように修正する。\n\n\n変更前\n\n---\ntitle: \"Untitled\"\nformat: html\n---\n\n\n\n\n変更後\n\n---\n1title: \"はじめてのQuarto\"\n2author: \"関大花子\"\n3date: \"2023/5/11\"\n4lang: ja\n5format: html\n---\n\n\n1\n\nタイトル\n\n2\n\n作成者名\n\n3\n\n作成日\n\n4\n\n文書の言語\n\n5\n\n出力フォーマット\n\n\n\n\n\n\n\n\n\n\n\n\nTip自動的に日付を付けたい\n\n\n\ndate:の内容をdate: todayに修正するとRenderした日付が自動的につけられる。\n\n\n手順5: ファイルを保存する。ファイル名は適宜付けること。\n\nファイルの保存はFile &gt; Saveか、ショートカットキー（macOSだとCmd + S（Command-SCommand-S）、WindowsだとControl + S（Control-SControl-S））で出来る。\n\n手順6: Sourceペイン上段のRenderをクリックする。\n\nショートカットが便利。macOSはCmd + Shift + K（Command-Shift-KCommand-Shift-K）、WindowsはControl + Shift + K（Control-Shift-KControl-Shift-K））で出来る。\n\n\n\n\n\n\n手順7: 新しいウィンドウ、またはViewerペインに出力物が表示される。\n\n\n\n\n\n\nNote出力物が新しいウィンドウに表示されて面倒くさい\n\n\n\n　宋が推奨するRStudioの設定だと出力物がRStudioと同じ画面（Viewerペイン）に表示される。具体的にはTools &gt; Global Options… &gt; R Markdownへ移動し、Show output preview in:をWindowからViewer Paneに変更すれば良い。",
+    "text": "qmdファイルの作成\n手順1: RStudioを起動し、プロジェクトを作成する。\n手順2: File &gt; New &gt; Quarto Document…を選択する。\n\n\n\n\n\n手順3: OKをクリックする。\n\nこの段階で文書のタイトル（Title:）と作成者名（Author:）を指定することも出来るが、手順4で修正するので、ここではOKをクリックしても良い。ただし、「Use visual markdown editor」にチェックが付いている場合、予め外しておくこと1。\n\n\n\n\n\n\n手順4: タイトル情報などを以下のように修正する。\n\n\n変更前\n\n---\ntitle: \"Untitled\"\nformat: html\n---\n\n\n\n\n変更後\n\n---\n1title: \"はじめてのQuarto\"\n2author: \"関大花子\"\n3date: \"2023/5/11\"\n4lang: ja\n5format: html\n---\n\n\n1\n\nタイトル\n\n2\n\n作成者名\n\n3\n\n作成日\n\n4\n\n文書の言語\n\n5\n\n出力フォーマット\n\n\n\n\n\n\n\n\n\n\n\n\nTip自動的に日付を付けたい\n\n\n\ndate:の内容をdate: todayに修正するとRenderした日付が自動的につけられる。\n\n\n手順5: ファイルを保存する。ファイル名は適宜付けること。\n\nファイルの保存はFile &gt; Saveか、ショートカットキー（macOSだとCmd + S（Command-SCommand-S）、WindowsだとControl + S（Control-SControl-S））で出来る。\n\n手順6: Sourceペイン上段のRenderをクリックする。\n\nショートカットが便利。macOSはCmd + Shift + K（Command-Shift-KCommand-Shift-K）、WindowsはControl + Shift + K（Control-Shift-KControl-Shift-K））で出来る。\n\n\n\n\n\n\n手順7: 新しいウィンドウ、またはViewerペインに出力物が表示される。\n\n\n\n\n\n\nNote出力物が新しいウィンドウに表示されて面倒くさい\n\n\n\n　宋が推奨するRStudioの設定だと出力物がRStudioと同じ画面（Viewerペイン）に表示される。具体的にはTools &gt; Global Options… &gt; R Markdownへ移動し、Show output preview in:をWindowからViewer Paneに変更すれば良い。\n\n\n\n\n\n\n\n\nImportantViewerペインに「Not found」と表示される…\n\n\n\n　2026年4月29日現在、レンダーした出力物が正しく表示されないケースが確認されている。発生条件が特定できないため、これはシステム側の問題と考えられ、近日中の修正は困難と考えられる。Fileペインにある.htmlファイルをクリックし、「View in Web Browser」をクリックすると、新しいタブにrenderしたフィアルが表示される。RStudio側でrenderし、htmlファイルが開いているタブをリフレッシュ（WindowsはCtrl + R / macOSはCmd + R）すると更新内容が反映される。詳細は講義中説明する。",
     "crumbs": [
       "第4回講義資料"
     ]
@@ -4722,7 +4722,7 @@
     "href": "materials/micro/quarto.html#番外編pdf出力",
     "title": "第4回講義資料",
     "section": "番外編：PDF出力",
-    "text": "番外編：PDF出力\n　QuartoはHTMLだけでなく、様々なフォーマットに対応しており、PDF出力も可能だ。Quartoで作成した.qmdファイルがPDFフォーマットになるまでの過程は以下の通りであり、\\(\\LaTeX\\)の知識も要求される。複雑に見えるが、単にPDFファイルを出力したいだけなら、そこまで難しくはない。\n\n\n\n\n\nflowchart LR\n  A[.qmd] --&gt; B{Quarto}\n  B --&gt; C[.md]\n  C --&gt; D{Pandoc}\n  D --&gt; E[.tex]\n  E --&gt; F{LaTeX}\n  F --&gt; G[.pdf]\n\n\n\n\n\n\n　まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。本講義の履修者であればインストール済みのため、「Code 03」から始めよう。\n\n\n\nCode 01\n\ninstall.packages(\"tinytex\")\n\n\n　続いて、{tinytex}パッケージのinstall_tinytex()関数を実行する。この作業はインターネット環境によって数分かかる可能性がある。\n\n\n\nCode 02\n\ntinytex::install_tinytex()\n\n\n　ただし、以下のようなメッセージが出力されたら既にTinyTeXがインストールされていることを意味するため、コンソールに「N」を入力し、Enter / Returnを押す。\n\n\nFound '/home/jovyan/.TinyTeX/bin/x86_64-linux/tlmgr', which indicates a LaTeX distribution may have existed in the system.\nContinue the installation anyway? (Y/N) \n\n\n　続いて、日本語フォントをインストールする。LaTeXデフォルトの和文フォントであるHaranoajiをインストールする。ここでも数分かかる可能性がある。\n\n\n\nCode 03\n\ntinytex::tlmgr_install(\"haranoaji\")\n\n\n　以上の作業は新しい分析環境を立ち上げない限り、1回だけで良い。通常のパッケージ同様、別のプロジェクトであっても以上の作業は不要だ。\n　最後に.qmdファイルのYAMLヘッダーを以下のように修正する。\n---\ntitle: \"かっこいいタイトルを付けよう\"\nsubtitle: \"こちらにもかっこいいサブタイトルを！\"\nauthor: \"児島惟謙\"\ndate: \"2026-04-04\"\nlang: ja\n# PDF設定\nformat:\n  pdf:\n    pdf-engine: lualatex\n    documentclass: ltjsarticle\n    classoption:\n      - lualatex\n      - a4paper\n      - 10pt\n    toc: false\n    toc-depth: 3\n    number-sections: true\n# チャンクのオプション\nknitr: \n  opts_chunk: \n1    dev: \"ragg_png\"\n2    fig.align: \"center\"\n3    dpi: 300\n4    warning: false\n5    message: false\n---\n\n1\n\n図の文字化け防止\n\n2\n\n画像は中央揃え\n\n3\n\n図の解像度（印刷を考えるなら300以上）\n\n4\n\n警告メッセージを表示させない\n\n5\n\nメッセージを表示させない\n\n\n　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない（同じ分析環境であれば、別の.qmdファイルでも時間はあまりかからない）。文書の量にもよるが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。また、フォーマットをカスタマイズしたり、日本語書式の参考文献を入れる場合、\\(\\LaTeX\\)の知識が必要となる。詳細はインターネット記事等を調べてみること。",
+    "text": "番外編：PDF出力\n　QuartoはHTMLだけでなく、様々なフォーマットに対応しており、PDF出力も可能だ。Quartoで作成した.qmdファイルがPDFフォーマットになるまでの過程は以下の通りであり、\\(\\LaTeX\\)の知識も要求される。複雑に見えるが、単にPDFファイルを出力したいだけなら、そこまで難しくはない。\n\n\n\n\n\nflowchart LR\n  A[.qmd] --&gt; B{Quarto}\n  B --&gt; C[.md]\n  C --&gt; D{Pandoc}\n  D --&gt; E[.tex]\n  E --&gt; F{LaTeX}\n  F --&gt; G[.pdf]\n\n\n\n\n\n\n　まず、{tinytex}パッケージをインストールする。この作業はすぐ終わる。本講義の履修者であればインストール済みのため、「Code 03」から始めよう。\n\n\n\nCode 01\n\ninstall.packages(\"tinytex\")\n\n\n　続いて、{tinytex}パッケージのinstall_tinytex()関数を実行する。この作業はインターネット環境によって数分かかる可能性がある。\n\n\n\nCode 02\n\ntinytex::install_tinytex()\n\n\n　ただし、以下のようなメッセージが出力されたら既にTinyTeXがインストールされていることを意味するため、コンソールに「N」を入力し、Enter / Returnを押す。\n\n\nFound '/home/jovyan/.TinyTeX/bin/x86_64-linux/tlmgr', which indicates a LaTeX distribution may have existed in the system.\nContinue the installation anyway? (Y/N) \n\n\n　続いて、日本語フォントをインストールする。LaTeXデフォルトの和文フォントであるHaranoajiをインストールする。ここでも数分かかる可能性がある。\n\n\n\nCode 03\n\ntinytex::tlmgr_install(\"haranoaji\")\n\n\n　以上の作業は新しい分析環境を立ち上げない限り、1回だけで良い。通常のパッケージ同様、別のプロジェクトであっても以上の作業は不要だ。\n　最後に.qmdファイルのYAMLヘッダーを以下のように修正する。\n---\ntitle: \"かっこいいタイトルを付けよう\"\nsubtitle: \"こちらにもかっこいいサブタイトルを！\"\nauthor: \"児島惟謙\"\ndate: \"2026-05-14\"\nlang: ja\n# PDF設定\nformat:\n  pdf:\n    pdf-engine: lualatex\n    documentclass: ltjsarticle\n    classoption:\n      - lualatex\n      - a4paper\n      - 10pt\n    toc: false\n    toc-depth: 3\n    number-sections: true\n# チャンクのオプション\nknitr: \n  opts_chunk: \n1    dev: \"ragg_png\"\n2    fig.align: \"center\"\n3    dpi: 300\n4    warning: false\n5    message: false\n---\n\n1\n\n図の文字化け防止\n\n2\n\n画像は中央揃え\n\n3\n\n図の解像度（印刷を考えるなら300以上）\n\n4\n\n警告メッセージを表示させない\n\n5\n\nメッセージを表示させない\n\n\n　あとはこれまでと同様、Renderするだけだ。最初のRenderは必要なパッケージのインストールのため、数分くらいかかるが、次回からはそこまで時間はかからない（同じ分析環境であれば、別の.qmdファイルでも時間はあまりかからない）。文書の量にもよるが、数ページ程度の文書なら1分以内にコンパイルが完了するはずだ。コンパイル時間が気になる人はPDFエンジンをlualatexからxelatexに変えることである程度改善できる（lualatexは柔軟かつ強力だが、動作がかなり重い）。ただし、エンジンを変更するとYAMLヘッダーを更に修正する必要がある。また、フォーマットをカスタマイズしたり、日本語書式の参考文献を入れる場合、\\(\\LaTeX\\)の知識が必要となる。詳細はインターネット記事等を調べてみること。",
     "crumbs": [
       "第4回講義資料"
     ]
@@ -6605,6 +6605,13 @@
     "text": "課題\n課題の遂行有無は確認しない（履修者の良心に任せる）。\n\n課題1課題2\n\n\n\n以下の内容を熟読する。\n\n『私たちのR』の「ファイルシステム」\nサポートページ\n\nファイル・システム\nプロジェクト管理\nファイル管理\n\n\n本講義では簡単には説明するが、予め読んでおくこと。\nこの概念が分からないと毎回の課題、期末テストの「問1」から詰む。\n\n\n\n\n英字のブラインドタッチの練習\n\nGoogleで「タイピング練習」を検索\n例) https://manabi-gakushu.benesse.ne.jp/gakushu/typing/eigonyuryoku.html\n\n1分間、約150文字以上が打てるようにすること\n\n毎日欠かさず30分程度練習すれば2週間でできるようになる。"
   },
   {
+    "objectID": "slides/micro/quarto.html#授業開始前に",
+    "href": "slides/micro/quarto.html#授業開始前に",
+    "title": "ミクロ政治データ分析実習",
+    "section": "授業開始前に",
+    "text": "授業開始前に\nスムーズに実習できるように予め準備しておいてください。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを開いてください。\n（時間に余裕があれば）Consoleペインにpacman::p_up()を入力し、パッケージを最新版に更新してください。\n（時間に余裕があれば）講義資料に目を通してください。\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。"
+  },
+  {
     "objectID": "slides/micro/quarto.html#r-markdown-quartoとは",
     "href": "slides/micro/quarto.html#r-markdown-quartoとは",
     "title": "ミクロ政治データ分析実習",
@@ -6757,34 +6764,6 @@
     "title": "ミクロ政治データ分析実習",
     "section": "Rコード：インラインコード",
     "text": "Rコード：インラインコード\n文章内にRコードの結果を埋め込む場合\n\n`rと`の間にコードを挿入（「`」は「バッククォート」と読む）\n単に`で囲まれたものはコードのように表示してくれるものの、そのコードは実行されない。文中に短いコードのみを入れたり、変数名、関数名を示す際に使う機能である。\n\n\n\nInput:\n```{r}\nX &lt;- c(2, 3, 5, 7, 11)\n```\n\n変数`X`の平均値は`r mean(X)`です。\n\n\n\nOutput:\n\nX &lt;- c(2, 3, 5, 7, 11)\n\n変数Xの平均値は5.6です。"
-  },
-  {
-    "objectID": "slides/micro/quarto.html#再現可能性と再生可能性",
-    "href": "slides/micro/quarto.html#再現可能性と再生可能性",
-    "title": "ミクロ政治データ分析実習",
-    "section": "再現可能性と再生可能性",
-    "text": "再現可能性と再生可能性\n国里 (2020)による定義\n\n学会、分野によっては正反対の概念になる場合もある (Barba 2018)\n\n\n再生可能性 (Reproducibility)\n\n同じデータ + 同じ方法 = 同じ結果\nQuarto/R Markdownの主な目的は再生可能性\n\n\n再現可能性 (Replicability)\n\n新しいデータ + 同じ方法 = 同じ結果\n新しいデータ + 違う方法 = 同じ結果\n\n\n\n参考文献\n\n国里愛彦. 2020.「再現可能な心理学研究入門」『専修大学人間科学論集:心理学篇』10. 21-33.\nLorena A. Barba. 2018. “Terminologies for Reproducible Research.” ArXiv. 1802.03311"
-  },
-  {
-    "objectID": "slides/micro/quarto.html#quartoと再生可能性",
-    "href": "slides/micro/quarto.html#quartoと再生可能性",
-    "title": "ミクロ政治データ分析実習",
-    "section": "Quartoと再生可能性",
-    "text": "Quartoと再生可能性\n\n具体的にどのような手順で分析が行われたかが分かる\n\nコードを記録&公開\n\nコードに対する説明が付いている\n\n自分が書いたコードであっても、昔書いたコードは読みにくい\n過去、自分が行った分析の再生する出来ない場合も\n\nコードと結果が同時に照会できる\n\nわざわざRを立ち上げなくても、その場で分析の手順が分かる"
-  },
-  {
-    "objectID": "slides/micro/quarto.html#再生可能な研究を目指して",
-    "href": "slides/micro/quarto.html#再生可能な研究を目指して",
-    "title": "ミクロ政治データ分析実習",
-    "section": "再生可能な研究を目指して",
-    "text": "再生可能な研究を目指して\n\n可能な限り、詳細な説明を付ける\n\n文章領域では「以下のコードがどのような目的で書かれたコードであるか」などを明示する。\nチャンク内にもこまめにコメント（#）を付ける\n\n理想としては一行ごとにコメントを付ける\n\n\n\n悪い例 (悪くはないが、良くもない)\nx &lt;- rep(NA, 5)\n良い例\nx &lt;- rep(NA, 5) # 欠損値で埋められた長さ5のベクトル"
-  },
-  {
-    "objectID": "slides/micro/quarto.html#再生可能な研究を目指して-1",
-    "href": "slides/micro/quarto.html#再生可能な研究を目指して-1",
-    "title": "ミクロ政治データ分析実習",
-    "section": "再生可能な研究を目指して",
-    "text": "再生可能な研究を目指して\n\nコードを分かりやすく書く\n\n長いオブジェクト名を避ける\n分かりやすいオブジェクト名\n適宜スペースと字下げを入れるなど\n読みやすいコードの書き方（前回講義を参照）\n\nデータについても詳細に書く\n\nどのように収集されたデータであるのか\nどのような変数があるのか"
   },
   {
     "objectID": "slides/micro/quarto.html#課題",
@@ -7362,19 +7341,5 @@
     "crumbs": [
       "[後期] マクロ政治データ分析実習"
     ]
-  },
-  {
-    "objectID": "slides/micro/quarto.html#授業開始前に",
-    "href": "slides/micro/quarto.html#授業開始前に",
-    "title": "ミクロ政治データ分析実習",
-    "section": "授業開始前に",
-    "text": "授業開始前に\nスムーズに実習できるように予め準備しておいてください。\n\nJDCat分析ツールを起動しておいてください。\n本日授業用のプロジェクトを開いてください。\n（時間に余裕があれば）Consoleペインにpacman::p_up()を入力し、パッケージを最新版に更新してください。\n（時間に余裕があれば）講義資料に目を通してください。\n\n\nトラブルが生じた場合、速やかにTAを呼んでください。"
-  },
-  {
-    "objectID": "slides/micro/quarto.html#課題-1",
-    "href": "slides/micro/quarto.html#課題-1",
-    "title": "ミクロ政治データ分析実習",
-    "section": "課題",
-    "text": "課題\n今回以降の課題はQuartoを利用する（詳細はLSMのオンデマンド講義資料を参照すること）。\n\n今回課題用のプロジェクトを作成する。\nLMSの「第5回課題」から「問題ファイル（.qmd形式）」ダウンロードし、プロジェクトのフォルダーにアップロードする。\nアップロードした.qmdファイルを開く。\nRenderし、結果を確認する。\n本講義のサポートページの「課題 &gt; 第5回課題」へアクセスする。\nサンプルのような体裁になるように問題ファイルを修正する。\n\n学籍番号・氏名は自分の学籍番号・氏名に直すこと。\n\n完成後、生成された.htmlファイルを自分のPCにダウンロードし、ダウンロードした.htmlファイルを関大LMSに提出する。\n\nファイルのダウンロード方法はサポートページの「Rの使い方 &gt; ファイル管理」を参照すること\n\n摘出期限および提出窓口はLMSを確認すること\n\n\n\n\n注意！！\n\n\n\n間違ったファイルを提出しないこと（期限内の差し替えは何度でも可; 期限外の差し替えは不可）\n\nダメな例）.qmdファイルの提出 \\(\\leftarrow \\times\\)\n邪悪な例）.qmdファイルの拡張子を.htmlに変えて提出 \\(\\leftarrow \\times\\)（Androidスマホにリンゴのシールだけ貼って、「これiPhoneです」と言うのと同じレベルの話）\n\nサポートページの「課題の取り組み方」を必ず確認すること。毎年、間違って提出方法で未提出扱いとなった学生がいる。自分が提出したファイルが問題ないかを確認したい場合、LMSの「マイレポート」から提出物をダウンロードし、自分のPCで開いてみることを推奨。期限内なら何度でも差し替え可能。\n期限内に提出できなかった場合、宋に連絡不要（延長は絶対にない）"
   }
 ]
