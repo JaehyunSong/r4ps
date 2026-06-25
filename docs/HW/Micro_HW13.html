@@ -442,15 +442,17 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Render時、R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Background Jobs」に以下のようなエラーメッセージが表示され、レンダーできないケースが報告されています。</p>
+<p>Render時、R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Background Jobs」に以下のようなエラーメッセージが表示され、レンダーできないケースが報告されている。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>/srv/conda/envs/notebook/bin/quarto: line 196: /srv/conda/envs/notebook/bin/tools/x86_64/deno: No such file or directory</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
-<p>この場合、以下の手順でほぼ解決できます（新しいサーバーを立ち上げるという選択肢もありますが、最後の手段とします）。</p>
+<p>この場合、以下の手順でほぼ解決できる（新しいサーバーを立ち上げるという選択肢もあるが、最後の手段とする）。</p>
 <ol type="1">
-<li>R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Terminal」タブを開く</li>
-<li><code>mkdir -p /srv/conda/envs/notebook/bin/tools/x86_64</code> を入力＆実行</li>
-<li><code>ln -s /srv/conda/envs/notebook/bin/deno /srv/conda/envs/notebook/bin/tools/x86_64/deno</code> を入力&amp;実行</li>
+<li>R Studioの右上ペイン（Consoleタブ）に以下のコードを入力＆実行する。 <br> <code>source("https://www.jaysong.net/r4ps/deno.r")</code></li>
 <li>R Studioのセッションを終了（右上のオレンジボタン）し、もう一度RStudioを起動</li>
 </ol>
+<!--
+1. `mkdir -p /srv/conda/envs/notebook/bin/tools/x86_64` を入力＆実行
+1. `ln -s /srv/conda/envs/notebook/bin/deno /srv/conda/envs/notebook/bin/tools/x86_64/deno` を入力&実行
+-->
 </div>
 </div>
 <p><strong>Step1:</strong> LMSから課題用ファイル一式をダウンロードする。</p>
