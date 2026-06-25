@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -305,6 +340,10 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
     <a class="dropdown-item" href="../HW/Micro_HW10.html">
  <span class="dropdown-text">[前期] 第10回課題</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../HW/Micro_HW12.html">
+ <span class="dropdown-text">[前期] 第12回課題</span></a>
+  </li>  
         <li><hr class="dropdown-divider"></li>
         <li class="dropdown-header">マクロ</li>
     </ul>
@@ -574,6 +613,27 @@ gtag('config', 'G-9TLN2VMPQD', { 'anonymize_ip': true});
 <p><img src="Figs/HW/Step5_4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Render時のエラーメッセージについて
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Render時、R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Background Jobs」に以下のようなエラーメッセージが表示され、レンダーできないケースが報告されています。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>/srv/conda/envs/notebook/bin/quarto: line 196: /srv/conda/envs/notebook/bin/tools/x86_64/deno: No such file or directory</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<p>この場合、以下の手順でほぼ解決できます（新しいサーバーを立ち上げるという選択肢もありますが、最後の手段とします）。</p>
+<ol type="1">
+<li>R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Terminal」タブを開く</li>
+<li><code>mkdir -p /srv/conda/envs/notebook/bin/tools/x86_64</code> を入力＆実行</li>
+<li><code>ln -s /srv/conda/envs/notebook/bin/deno /srv/conda/envs/notebook/bin/tools/x86_64/deno</code> を入力&amp;実行</li>
+<li>R Studioのセッションを終了（右上のオレンジボタン）し、もう一度RStudioを起動</li>
+</ol>
 </div>
 </div>
 

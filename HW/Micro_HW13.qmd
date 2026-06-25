@@ -18,6 +18,23 @@ title: "「ミクロ政治データ分析実習」第14回課題"
 　たまに`.qmd`ファイルを提出したり、あるいは`.qmd`ファイルの拡張子を`.html`に変更して提出する場合があるが、この場合、**未提出**とみなす。実際、毎年これに該当するケースがある。提出する前に、提出するファイルを自分のPCで開き、サンプルファイルと同じ形式になっているかを確認すること。自分がLMSに提出したファイルはLMSの「マイレポート」からダウンロードすることができるため、もう一度確認してみるのも良し。
 :::
 
+:::{.callout-important}
+## Render時のエラーメッセージについて
+
+Render時、R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Background Jobs」に以下のようなエラーメッセージが表示され、レンダーできないケースが報告されています。
+
+```md
+/srv/conda/envs/notebook/bin/quarto: line 196: /srv/conda/envs/notebook/bin/tools/x86_64/deno: No such file or directory
+```
+
+この場合、以下の手順でほぼ解決できます（新しいサーバーを立ち上げるという選択肢もありますが、最後の手段とします）。
+
+1. R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Terminal」タブを開く
+2. `mkdir -p /srv/conda/envs/notebook/bin/tools/x86_64` を入力＆実行
+3. `ln -s /srv/conda/envs/notebook/bin/deno /srv/conda/envs/notebook/bin/tools/x86_64/deno` を入力&実行
+4. R Studioのセッションを終了（右上のオレンジボタン）し、もう一度RStudioを起動
+:::
+
 **Step1:** LMSから課題用ファイル一式をダウンロードする。
 
 - 課題用ファイル（`Micro_HW14.qmd`）、課題用データ（`Micro_HW14.csv`）
