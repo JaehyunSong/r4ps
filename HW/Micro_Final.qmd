@@ -22,9 +22,10 @@ knitr::opts_chunk$set(dev       = "ragg_png",
 
 ## 概要
 
-- **日時：**2025年7月17日（木）4限（14時40分〜16時10分）
+- **日時：**2026年7月9日（木）4限（14時40分〜16時10分）
    - 宋から開始の合図があれば開始
-- **場所：**TC302教室（**座席は指定制**; 座席表は授業日までにLMSで公開する）
+- **場所：**TC302教室
+   - 座席は**指定制**; 座席表は教室のホワイトボードに掲載する（授業開始までにLMSにも公開する）
 - **持参物：**学生証のみ
    - 学生証は宋/TAがいつでも確認できるように机の上に置くこと
 - **持ち込み:** 可（インターネット/書籍/ノートなど使用可能）
@@ -32,13 +33,19 @@ knitr::opts_chunk$set(dev       = "ragg_png",
    - 持ち込みPC**不可**（PCは大学のPCを使用）
       - **大学PCのWindowsを使用**すること（Linux不可）
    - 普段使っているキーボード、マウスなどの入力装置があれば持ち込み可
-   - ノート持ち込み可
-- 宋/TAは問題そのものに関する質問（問題の誤りなど）以外、一切受け付けない
-   - エラーメッセージへの対処もテストの一部
+   - 本、ノート持ち込み可
+- 参照条件
+   - 自分で作成したノート（紙のみ）
+   - LMS上の資料（宋が作成した模範解答を含む）
+   - 本講義のサポートページの全資料
+   - 本講義の教科書（『[私たちのR](https://www.jaysong.net/RBook/){target="_blank"}』）
 - 不正行為厳禁
    - 他人とのコミュニケーション禁止
    - SNS（Slack/Discord/Line/X/Instagram/...）使用禁止
+   - 検索エンジン使用禁止
    - 生成型AI使用禁止
+- 宋/TAは問題そのものに関する質問（問題の誤りなど）以外、一切受け付けない
+   - エラーメッセージへの対処もテストの一部
 
 ## 実施手順
 
@@ -124,15 +131,15 @@ tibble(y = c(1, 1, 1, 1),
    annotate("segment", y = 3, yend = 22.5, x = 0.75, xend = 0.75,
                 arrow = arrow(ends = "both", type = "closed")) +
    geom_hline(yintercept = 22.5, linetype = 2) +
-   annotate("label", x = 1.25, y = 15, label = "30点満点", size = 5) +
-   annotate("label", x = 1.1, y = 9, label = "期限内提出 (18点)", size = 5) +
-   annotate("label", x = 1.1, y = 24, label = "期限外提出 (12点)", size = 5) +
+   annotate("label", x = 1.25, y = 15, label = "30点満点", size = 5, fill = "white") +
+   annotate("label", x = 1.1, y = 9, label = "期限内提出 (18点)", size = 5, fill = "white") +
+   annotate("label", x = 1.1, y = 24, label = "期限外提出 (12点)", size = 5, fill = "white") +
    annotate("label", x = 1, y = 10.5, label = "正解 (15点)", size = 5,
-            color = "red") +
-   annotate("label", x = 1, y = 22.5, label = "正解 (9点)", size = 5) +
+            color = "red", fill = "white") +
+   annotate("label", x = 1, y = 22.5, label = "正解 (9点)", size = 5, fill = "white") +
    annotate("label", x = 0.9, y = 20.25, label = "補正後\n(4.5点)", size = 5,
-            color = "red") +
-   annotate("label", x = 0.75, y = 12.75, label = "成績 (19.5点)", size = 5) +
+            color = "red", fill = "white") +
+   annotate("label", x = 0.75, y = 12.75, label = "成績 (19.5点)", size = 5, fill = "white") +
    coord_flip() +
    labs(fill = "") +
    guides(fill = guide_legend(reverse = TRUE)) +
@@ -153,3 +160,23 @@ tibble(y = c(1, 1, 1, 1),
    * **エラーメッセージへの対処もテストの一部**
    * 全員が同じ環境のJDCat分析ツールを使用しているため、受験者**全員**に共通する不具合以外は対応しない。つまり、他の人にはエラーが発生せず、自分だけエラーが出たということはシステムの不具合でなく、自分の操作、またはコードが間違っていることを意味する。
 * 提出物はレンダーした`.html`ファイルである。`.html`ファイルを正しくない方法（マウス右クリックでダウンロードするなど）でダウンロードした場合、コードと結果が含まれていない白紙のページとなる。提出する前に必ずファイルを開いてみて確認すること。**間違ったファイルを提出しても再提出は認めない**。
+
+:::{.callout-important}
+## Render時のエラーメッセージについて
+
+Render時、R Studioの右上ペイン（通常、Consoleタブが表示されている箇所）の「Background Jobs」に以下のようなエラーメッセージが表示され、レンダーできないケースが報告されている。
+
+```md
+/srv/conda/envs/notebook/bin/quarto: line 196: /srv/conda/envs/notebook/bin/tools/x86_64/deno: No such file or directory
+```
+
+この場合、以下の手順でほぼ解決できる（新しいサーバーを立ち上げるという選択肢もあるが、最後の手段とする）。
+
+1. R Studioの右上ペイン（Consoleタブ）に以下のコードを入力＆実行する。 <br/> `source("https://www.jaysong.net/r4ps/deno.r")`
+1. R Studioのセッションを終了（右上のオレンジボタン）し、もう一度RStudioを起動
+
+<!--
+1. `mkdir -p /srv/conda/envs/notebook/bin/tools/x86_64` を入力＆実行
+1. `ln -s /srv/conda/envs/notebook/bin/deno /srv/conda/envs/notebook/bin/tools/x86_64/deno` を入力&実行
+-->
+:::
