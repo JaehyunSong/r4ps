@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – マクロ政治データ分析実習</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -214,7 +217,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby> 
+<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby>
 </div>
         <p class="quarto-title-affiliation">
             関西大学総合情報学部
@@ -237,12 +240,12 @@
 <li>実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&amp;実行してください。</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(fastDummies)</span>
-<span id="cb1-3"><a></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb1-4"><a></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>jes_df  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="fu">library</span>(fastDummies)</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-4"><a aria-label="4"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-5"><a aria-label="5"></a></span>
+<span id="cb1-6"><a aria-label="6"></a>jes_df  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>トラブルが生じた場合、速やかにTAを読んでください。</li>
@@ -811,7 +814,7 @@
 <li><code>statistic</code>: 検定統計量（<span class="math inline">\(T\)</span>統計量）</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fl">0.8810</span> <span class="sc">/</span> <span class="fl">0.3366</span> <span class="co"># 係数を標準誤差で割る</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a><span class="fl">0.8810</span> <span class="sc">/</span> <span class="fl">0.3366</span> <span class="co"># 係数を標準誤差で割る</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.61735</code></pre>
 </div>
@@ -839,9 +842,9 @@
 <section id="実習用データ" class="slide level2">
 <h2>実習用データ</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1.csv"</span>)</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a>jes_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-label="1"></a>jes_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/JES6_W1.csv"</span>)</span>
+<span id="cb4-2"><a aria-label="2"></a></span>
+<span id="cb4-3"><a aria-label="3"></a>jes_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,000 × 8
    Temp_Rikken Ideology Interest Gender   Age Education   Job  Income
@@ -1376,13 +1379,13 @@
 <li>名目変数（<code>Gender</code>と<code>Job</code>）はダミー変数に変換</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>jes_df <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"Job"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a></a>  <span class="fu">relocate</span>(Gender_1<span class="sc">:</span>Gender_2, <span class="at">.before =</span> Gender) <span class="sc">|&gt;</span> <span class="co"># Gender_1と_2列をGenderの前に</span></span>
-<span id="cb6-4"><a></a>  <span class="fu">relocate</span>(Job_1<span class="sc">:</span>Job_6, <span class="at">.before =</span> Job) <span class="sc">|&gt;</span>          <span class="co"># Job_1から_6列をJobの前に</span></span>
-<span id="cb6-5"><a></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, Job)) <span class="sc">|&gt;</span>                       <span class="co"># GenderとJob列を除外してからdscer()に渡す</span></span>
-<span id="cb6-6"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb6-7"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a>jes_df <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a aria-label="2"></a>  <span class="fu">dummy_cols</span>(<span class="fu">c</span>(<span class="st">"Gender"</span>, <span class="st">"Job"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a aria-label="3"></a>  <span class="fu">relocate</span>(Gender_1<span class="sc">:</span>Gender_2, <span class="at">.before =</span> Gender) <span class="sc">|&gt;</span> <span class="co"># Gender_1と_2列をGenderの前に</span></span>
+<span id="cb6-4"><a aria-label="4"></a>  <span class="fu">relocate</span>(Job_1<span class="sc">:</span>Job_6, <span class="at">.before =</span> Job) <span class="sc">|&gt;</span>          <span class="co"># Job_1から_6列をJobの前に</span></span>
+<span id="cb6-5"><a aria-label="5"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Gender, Job)) <span class="sc">|&gt;</span>                       <span class="co"># GenderとJob列を除外してからdscer()に渡す</span></span>
+<span id="cb6-6"><a aria-label="6"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb6-7"><a aria-label="7"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 jes_df  
@@ -1556,13 +1559,13 @@ N: 3000
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>jes_df <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
-<span id="cb8-3"><a></a>         <span class="at">Job    =</span> <span class="fu">factor</span>(Job, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Salary"</span>, <span class="st">"Self"</span>, <span class="st">"Student"</span>, <span class="st">"House"</span>,</span>
-<span id="cb8-4"><a></a>                                                       <span class="st">"Retire"</span>, <span class="st">"Etc"</span>)))</span>
-<span id="cb8-5"><a></a></span>
-<span id="cb8-6"><a></a>dummy_fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income, </span>
-<span id="cb8-7"><a></a>                 <span class="at">data =</span> jes_df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>jes_df <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb8-3"><a aria-label="3"></a>         <span class="at">Job    =</span> <span class="fu">factor</span>(Job, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Salary"</span>, <span class="st">"Self"</span>, <span class="st">"Student"</span>, <span class="st">"House"</span>,</span>
+<span id="cb8-4"><a aria-label="4"></a>                                                       <span class="st">"Retire"</span>, <span class="st">"Etc"</span>)))</span>
+<span id="cb8-5"><a aria-label="5"></a></span>
+<span id="cb8-6"><a aria-label="6"></a>dummy_fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income, </span>
+<span id="cb8-7"><a aria-label="7"></a>                 <span class="at">data =</span> jes_df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="推定結果" class="slide level2">
@@ -1570,7 +1573,7 @@ N: 3000
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2173,11 +2176,11 @@ N: 3000
 <li>Factor型変数の最初の水準（level）がベース・カテゴリーとなる。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Gender) <span class="co"># jes_dfのGender列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Gender) <span class="co"># jes_dfのGender列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Male"   "Female"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Job) <span class="co"># jes_dfのJob列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a><span class="fu">levels</span>(jes_df<span class="sc">$</span>Job) <span class="co"># jes_dfのJob列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Salary"  "Self"    "Student" "House"   "Retire"  "Etc"    </code></pre>
 </div>
@@ -2192,15 +2195,15 @@ N: 3000
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>jes_df2 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">"Female"</span>), <span class="co"># Femaleを第1水準に</span></span>
-<span id="cb14-3"><a></a>         <span class="at">Job    =</span> <span class="fu">fct_relevel</span>(Job, <span class="st">"Etc"</span>))       <span class="co"># Etcを第1水準に</span></span>
-<span id="cb14-4"><a></a></span>
-<span id="cb14-5"><a></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Gender) <span class="co"># jes_dfのGender列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a>jes_df2 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">fct_relevel</span>(Gender, <span class="st">"Female"</span>), <span class="co"># Femaleを第1水準に</span></span>
+<span id="cb14-3"><a aria-label="3"></a>         <span class="at">Job    =</span> <span class="fu">fct_relevel</span>(Job, <span class="st">"Etc"</span>))       <span class="co"># Etcを第1水準に</span></span>
+<span id="cb14-4"><a aria-label="4"></a></span>
+<span id="cb14-5"><a aria-label="5"></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Gender) <span class="co"># jes_dfのGender列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Female" "Male"  </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Job) <span class="co"># jes_dfのJob列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a><span class="fu">levels</span>(jes_df2<span class="sc">$</span>Job) <span class="co"># jes_dfのJob列の水準</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Etc"     "Salary"  "Self"    "Student" "House"   "Retire" </code></pre>
 </div>
@@ -2210,13 +2213,13 @@ N: 3000
 <h2>ベース・カテゴリーと推定結果</h2>
 <p>ダミー変数の係数のみ変化することに注目（切片も変わるものの、切片はそもそも解釈しない）</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>dummy_fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income, </span>
-<span id="cb18-2"><a></a>                 <span class="at">data =</span> jes_df2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a>dummy_fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income, </span>
+<span id="cb18-2"><a aria-label="2"></a>                 <span class="at">data =</span> jes_df2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-label="1"></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2775,7 +2778,7 @@ N: 3000
 
 </div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">summary</span>(dummy_fit2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a><span class="fu">summary</span>(dummy_fit2)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -3391,15 +3394,15 @@ N: 3000
 <li><code>Income</code>を100万単位にするためには、<code>Income</code>を100万で割るだけで良い</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、</span></span>
-<span id="cb21-2"><a></a><span class="co"># jes_df3という新しいデータフレームを作成。</span></span>
-<span id="cb21-3"><a></a><span class="co"># 変数名は何でも良いが、ここではmillionの頭文字（m）を使用</span></span>
-<span id="cb21-4"><a></a>jes_df3 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
-<span id="cb21-5"><a></a>  <span class="fu">mutate</span>(<span class="at">Income_m =</span> Income <span class="sc">/</span> <span class="dv">1000000</span>)</span>
-<span id="cb21-6"><a></a></span>
-<span id="cb21-7"><a></a><span class="co"># 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入</span></span>
-<span id="cb21-8"><a></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, </span>
-<span id="cb21-9"><a></a>           <span class="at">data =</span> jes_df3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-label="1"></a><span class="co"># jes_dfのIncomeの値を100万で割り、Income_mという新しい変数として追加し、</span></span>
+<span id="cb21-2"><a aria-label="2"></a><span class="co"># jes_df3という新しいデータフレームを作成。</span></span>
+<span id="cb21-3"><a aria-label="3"></a><span class="co"># 変数名は何でも良いが、ここではmillionの頭文字（m）を使用</span></span>
+<span id="cb21-4"><a aria-label="4"></a>jes_df3 <span class="ot">&lt;-</span> jes_df <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a aria-label="5"></a>  <span class="fu">mutate</span>(<span class="at">Income_m =</span> Income <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb21-6"><a aria-label="6"></a></span>
+<span id="cb21-7"><a aria-label="7"></a><span class="co"># 使用するデータは jes_df3 、Incomeの代わりにIncome_mを投入</span></span>
+<span id="cb21-8"><a aria-label="8"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, </span>
+<span id="cb21-9"><a aria-label="9"></a>           <span class="at">data =</span> jes_df3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="結果の比較" class="slide level2">
@@ -3408,8 +3411,8 @@ N: 3000
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="co"># 世帯収入が1円単位の場合</span></span>
-<span id="cb22-2"><a></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-label="1"></a><span class="co"># 世帯収入が1円単位の場合</span></span>
+<span id="cb22-2"><a aria-label="2"></a><span class="fu">summary</span>(dummy_fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -3968,8 +3971,8 @@ N: 3000
 
 </div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># 世帯収入が100万円単位の場合</span></span>
-<span id="cb23-2"><a></a><span class="fu">summary</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-label="1"></a><span class="co"># 世帯収入が100万円単位の場合</span></span>
+<span id="cb23-2"><a aria-label="2"></a><span class="fu">summary</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -4565,14 +4568,14 @@ N: 3000
 <li><span class="math inline">\(-m\)</span>〜<span class="math inline">\(m\)</span>のスケールで測定された変数は-1をかけると、逆転される。</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。</span></span>
-<span id="cb24-2"><a></a><span class="co"># 変数名は何でも良いが、ここではreverseの頭文字を使用</span></span>
-<span id="cb24-3"><a></a>jes_df3 <span class="ot">&lt;-</span> jes_df3 <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a></a>  <span class="fu">mutate</span>(<span class="at">Interest_r =</span> <span class="dv">5</span> <span class="sc">-</span> Interest)</span>
-<span id="cb24-5"><a></a></span>
-<span id="cb24-6"><a></a><span class="co"># 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入</span></span>
-<span id="cb24-7"><a></a>fit4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest_r <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, </span>
-<span id="cb24-8"><a></a>           <span class="at">data =</span> jes_df3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a><span class="co"># jes_df3のInterestの値を5から引き、Interest_rという新しい変数として追加し、jes_df3を上書きする。</span></span>
+<span id="cb24-2"><a aria-label="2"></a><span class="co"># 変数名は何でも良いが、ここではreverseの頭文字を使用</span></span>
+<span id="cb24-3"><a aria-label="3"></a>jes_df3 <span class="ot">&lt;-</span> jes_df3 <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a aria-label="4"></a>  <span class="fu">mutate</span>(<span class="at">Interest_r =</span> <span class="dv">5</span> <span class="sc">-</span> Interest)</span>
+<span id="cb24-5"><a aria-label="5"></a></span>
+<span id="cb24-6"><a aria-label="6"></a><span class="co"># 使用するデータは jes_df3 、Interestの代わりにInterest_rを投入</span></span>
+<span id="cb24-7"><a aria-label="7"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temp_Rikken <span class="sc">~</span> Ideology <span class="sc">+</span> Interest_r <span class="sc">+</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Education <span class="sc">+</span> Job <span class="sc">+</span> Income_m, </span>
+<span id="cb24-8"><a aria-label="8"></a>           <span class="at">data =</span> jes_df3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="結果の比較-1" class="slide level2">
@@ -4581,8 +4584,8 @@ N: 3000
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># スケール逆転前</span></span>
-<span id="cb25-2"><a></a><span class="fu">summary</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-label="1"></a><span class="co"># スケール逆転前</span></span>
+<span id="cb25-2"><a aria-label="2"></a><span class="fu">summary</span>(fit3)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -5141,8 +5144,8 @@ N: 3000
 
 </div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># スケール逆転後</span></span>
-<span id="cb26-2"><a></a><span class="fu">summary</span>(fit4)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a><span class="co"># スケール逆転後</span></span>
+<span id="cb26-2"><a aria-label="2"></a><span class="fu">summary</span>(fit4)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">

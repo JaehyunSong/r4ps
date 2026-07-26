@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – マクロ政治データ分析実習</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -214,7 +217,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby> 
+<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby>
 </div>
         <p class="quarto-title-affiliation">
             関西大学総合情報学部
@@ -237,12 +240,12 @@
 <li>実習用コードを入力するスクリプト、またはQuarto（or R Markdown）ファイルを開き、以下のコードを入力&amp;実行してください（コピペ可）。</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb1-3"><a></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb1-4"><a></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Hino_Song.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-4"><a aria-label="4"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb1-5"><a aria-label="5"></a></span>
+<span id="cb1-6"><a aria-label="6"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Hino_Song.csv"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>トラブルが生じた場合、速やかにTAを読んでください。</li>
@@ -259,11 +262,11 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb2-3"><a></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Hino_Song.csv"</span>)</span>
-<span id="cb2-4"><a></a></span>
-<span id="cb2-5"><a></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a aria-label="2"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb2-3"><a aria-label="3"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Hino_Song.csv"</span>)</span>
+<span id="cb2-4"><a aria-label="4"></a></span>
+<span id="cb2-5"><a aria-label="5"></a>df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,555 × 6
    Voted Female   Age  Educ Knowledge Ideology
@@ -806,9 +809,9 @@
 <section id="記述統計" class="slide level2">
 <h2>記述統計</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>df <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
-<span id="cb4-3"><a></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-label="1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a aria-label="2"></a>  <span class="fu">descr</span>(<span class="at">stats =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"min"</span>, <span class="st">"max"</span>, <span class="st">"n.valid"</span>),</span>
+<span id="cb4-3"><a aria-label="3"></a>        <span class="at">transpose =</span> <span class="cn">TRUE</span>, <span class="at">order =</span> <span class="st">"p"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Descriptive Statistics  
 df  
@@ -829,7 +832,7 @@ N: 2555
 <h2>線形確率モデル</h2>
 <p>バイナリー変数を応答変数とする線形回帰モデル：<strong>線形確率モデル</strong> (<strong>l</strong>inear <strong>p</strong>robability <strong>m</strong>odel；LPM)</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Voted <span class="sc">~</span> Knowledge <span class="sc">+</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Educ <span class="sc">+</span> Ideology, <span class="at">data =</span> df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Voted <span class="sc">~</span> Knowledge <span class="sc">+</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Educ <span class="sc">+</span> Ideology, <span class="at">data =</span> df)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -1359,13 +1362,13 @@ N: 2555
 <h2>線形確率モデルの限界</h2>
 <p>主観的政治知識が5、男性、86歳、教育水準が4、イデオロギーが10の回答者がいる場合、投票に参加する確率の予測値は?</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># -0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10</span></span>
-<span id="cb7-2"><a></a>lm_fit <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a></a>  <span class="fu">predictions</span>(<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">5</span>,</span>
-<span id="cb7-4"><a></a>                                 <span class="at">Female    =</span> <span class="dv">0</span>,</span>
-<span id="cb7-5"><a></a>                                 <span class="at">Age       =</span> <span class="dv">86</span>,</span>
-<span id="cb7-6"><a></a>                                 <span class="at">Educ      =</span> <span class="dv">4</span>,</span>
-<span id="cb7-7"><a></a>                                 <span class="at">Ideology  =</span> <span class="dv">10</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a><span class="co"># -0.1093644 + 0.1186971 * 5 - 0.0549171 * 0 + 0.0046902 * 86 + 0.0357970 * 4 + 0.0040744 * 10</span></span>
+<span id="cb7-2"><a aria-label="2"></a>lm_fit <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a aria-label="3"></a>  <span class="fu">predictions</span>(<span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">5</span>,</span>
+<span id="cb7-4"><a aria-label="4"></a>                                 <span class="at">Female    =</span> <span class="dv">0</span>,</span>
+<span id="cb7-5"><a aria-label="5"></a>                                 <span class="at">Age       =</span> <span class="dv">86</span>,</span>
+<span id="cb7-6"><a aria-label="6"></a>                                 <span class="at">Educ      =</span> <span class="dv">4</span>,</span>
+<span id="cb7-7"><a aria-label="7"></a>                                 <span class="at">Ideology  =</span> <span class="dv">10</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Knowledge Female Age Educ Ideology Estimate Std. Error  z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -1455,12 +1458,12 @@ Type: response</code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">glm</span>(応答変数 <span class="sc">~</span> 説明変数, <span class="at">data =</span> データ名, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a><span class="fu">glm</span>(応答変数 <span class="sc">~</span> 説明変数, <span class="at">data =</span> データ名, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>実装例</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Knowledge <span class="sc">+</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Educ <span class="sc">+</span> Ideology, </span>
-<span id="cb10-2"><a></a>            <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Voted <span class="sc">~</span> Knowledge <span class="sc">+</span> Female <span class="sc">+</span> Age <span class="sc">+</span> Educ <span class="sc">+</span> Ideology, </span>
+<span id="cb10-2"><a aria-label="2"></a>            <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="st">"logit"</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><span class="math display">\[
 \mbox{Pr}(\mbox{Voted} = 1) = \frac{1}{1 + e^{-(\alpha + \beta_1 \mbox{Knowledge} + \beta_2 \mbox{Female} + \beta_3 \mbox{Age} + \beta_4 \mbox{Educ} + \beta_5 \mbox{Ideology})}}
@@ -1469,7 +1472,7 @@ Type: response</code></pre>
 <section id="ロジスティック回帰分析の実装" class="slide level2">
 <h2>ロジスティック回帰分析の実装</h2>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">summary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-label="1"></a><span class="fu">summary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -1990,8 +1993,8 @@ Type: response</code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="co"># 予め{DescTools}をインストールしておくこと (コンソール上でinstall.packages("DescTools"))</span></span>
-<span id="cb12-2"><a></a>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(fit1) <span class="co"># McFaddenの疑似決定係数</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a><span class="co"># 予め{DescTools}をインストールしておくこと (コンソール上でinstall.packages("DescTools"))</span></span>
+<span id="cb12-2"><a aria-label="2"></a>DescTools<span class="sc">::</span><span class="fu">PseudoR2</span>(fit1) <span class="co"># McFaddenの疑似決定係数</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> McFadden 
 0.1228484 </code></pre>
@@ -2003,7 +2006,7 @@ Type: response</code></pre>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">summary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a><span class="fu">summary</span>(fit1)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2548,24 +2551,24 @@ Type: response</code></pre>
 <li>主観的政治知識が3（<code>Knowledge</code> = 3）、女性（<code>Female</code> = 1）、20歳（<code>Age</code> = 20）、学歴が大卒（<code>Educ</code> = 4）、イデオロギーが中道（<code>Ideology</code> = 5）の場合の投票参加の予測確率</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit1_coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit1) <span class="co"># coef()関数で係数のみを抽出する</span></span>
-<span id="cb15-2"><a></a>fit1_coef</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-label="1"></a>fit1_coef <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit1) <span class="co"># coef()関数で係数のみを抽出する</span></span>
+<span id="cb15-2"><a aria-label="2"></a>fit1_coef</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)   Knowledge      Female         Age        Educ    Ideology 
 -3.30579506  0.59290164 -0.31596873  0.02650943  0.20827008  0.02391612 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># 線形予測子の計算（1）</span></span>
-<span id="cb17-2"><a></a>fit1_coef[<span class="dv">1</span>] <span class="sc">+</span> fit1_coef[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> fit1_coef[<span class="dv">3</span>] <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> fit1_coef[<span class="dv">4</span>] <span class="sc">*</span> <span class="dv">20</span> <span class="sc">+</span> fit1_coef[<span class="dv">5</span>] <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> fit1_coef[<span class="dv">6</span>] <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-label="1"></a><span class="co"># 線形予測子の計算（1）</span></span>
+<span id="cb17-2"><a aria-label="2"></a>fit1_coef[<span class="dv">1</span>] <span class="sc">+</span> fit1_coef[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> fit1_coef[<span class="dv">3</span>] <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> fit1_coef[<span class="dv">4</span>] <span class="sc">*</span> <span class="dv">20</span> <span class="sc">+</span> fit1_coef[<span class="dv">5</span>] <span class="sc">*</span> <span class="dv">4</span> <span class="sc">+</span> fit1_coef[<span class="dv">6</span>] <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
  -0.3602094 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># 線形予測子の計算（2）</span></span>
-<span id="cb19-2"><a></a><span class="fu">sum</span>(<span class="fu">coef</span>(fit1) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-label="1"></a><span class="co"># 線形予測子の計算（2）</span></span>
+<span id="cb19-2"><a aria-label="2"></a><span class="fu">sum</span>(<span class="fu">coef</span>(fit1) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.3602094</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(<span class="sc">-</span><span class="fl">0.3602094</span>))) <span class="co"># 予測確率の計算</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-label="1"></a><span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>(<span class="sc">-</span><span class="fl">0.3602094</span>))) <span class="co"># 予測確率の計算</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4109089</code></pre>
 </div>
@@ -2590,10 +2593,10 @@ Type: response</code></pre>
 <h2>予測値を計算する方法（2）</h2>
 <p>{marginaleffects}パッケージの<code>predictions()</code>関数の利用</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">predictions</span>(回帰分析オブジェクト名, </span>
-<span id="cb23-2"><a></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(説明変数名1 <span class="ot">=</span> 値,</span>
-<span id="cb23-3"><a></a>                               説明変数名2 <span class="ot">=</span> 値,</span>
-<span id="cb23-4"><a></a>                               ...))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-label="1"></a><span class="fu">predictions</span>(回帰分析オブジェクト名, </span>
+<span id="cb23-2"><a aria-label="2"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(説明変数名1 <span class="ot">=</span> 値,</span>
+<span id="cb23-3"><a aria-label="3"></a>                               説明変数名2 <span class="ot">=</span> 値,</span>
+<span id="cb23-4"><a aria-label="4"></a>                               ...))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><code>newdata</code>で指定されなかった説明変数は中央値に固定される。
@@ -2607,14 +2610,14 @@ Type: response</code></pre>
 <h2>{marginaleffects}を使った予測値の計算（例）</h2>
 <p>先ほどの手計算（?）の結果を{marginaleffects}の<code>predictions()</code>関数で再現</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、</span></span>
-<span id="cb24-2"><a></a><span class="co"># イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率</span></span>
-<span id="cb24-3"><a></a><span class="fu">predictions</span>(fit1, </span>
-<span id="cb24-4"><a></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">3</span>, </span>
-<span id="cb24-5"><a></a>                               <span class="at">Female    =</span> <span class="dv">1</span>,</span>
-<span id="cb24-6"><a></a>                               <span class="at">Age       =</span> <span class="dv">20</span>, </span>
-<span id="cb24-7"><a></a>                               <span class="at">Educ      =</span> <span class="dv">4</span>, </span>
-<span id="cb24-8"><a></a>                               <span class="at">Ideology  =</span> <span class="dv">5</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a><span class="co"># 主観的政治知識が3 (Knowledge = 3)、女性 (Female = 1)、20歳 (Age = 20)、学歴が大卒 (Educ = 4)、</span></span>
+<span id="cb24-2"><a aria-label="2"></a><span class="co"># イデオロギーが中道 (Ideology = 5)の場合の投票参加の予測確率</span></span>
+<span id="cb24-3"><a aria-label="3"></a><span class="fu">predictions</span>(fit1, </span>
+<span id="cb24-4"><a aria-label="4"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">3</span>, </span>
+<span id="cb24-5"><a aria-label="5"></a>                               <span class="at">Female    =</span> <span class="dv">1</span>,</span>
+<span id="cb24-6"><a aria-label="6"></a>                               <span class="at">Age       =</span> <span class="dv">20</span>, </span>
+<span id="cb24-7"><a aria-label="7"></a>                               <span class="at">Educ      =</span> <span class="dv">4</span>, </span>
+<span id="cb24-8"><a aria-label="8"></a>                               <span class="at">Ideology  =</span> <span class="dv">5</span>))</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Knowledge Female Age Educ Ideology Estimate Pr(&gt;|z|)   S 2.5 % 97.5 %
@@ -2634,9 +2637,9 @@ Type: invlink(link)</code></pre>
 <h2>{marginaleffects}を使った予測値の計算</h2>
 <p><code>Knowledge</code>が1〜5の場合の投票参加確率の予測値</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>fit1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, </span>
-<span id="cb26-2"><a></a>                         <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
-<span id="cb26-3"><a></a>fit1_pred</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a>fit1_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(fit1, </span>
+<span id="cb26-2"><a aria-label="2"></a>                         <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">Knowledge =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
+<span id="cb26-3"><a aria-label="3"></a>fit1_pred</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Knowledge Estimate Pr(&gt;|z|)     S 2.5 % 97.5 %

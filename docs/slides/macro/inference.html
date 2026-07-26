@@ -7,8 +7,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="宋(そん)&nbsp;&nbsp;財泫(じぇひょん)">
   <title>R for Political Science – マクロ政治データ分析実習</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -214,7 +217,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby> 
+<ruby>宋<rp>(</rp><rt>そん</rt><rp>)</rp></ruby>&nbsp;&nbsp;<ruby>財泫<rp>(</rp><rt>じぇひょん</rt><rp>)</rp></ruby>
 </div>
         <p class="quarto-title-affiliation">
             関西大学総合情報学部
@@ -240,10 +243,10 @@
 </ul></li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>ishin_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/inference_data.csv"</span>)</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a><span class="co"># inference_data.csvのアップロード先に応じて、パスを適宜修正すること</span></span>
-<span id="cb1-4"><a></a>ishin_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a>ishin_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/inference_data.csv"</span>)</span>
+<span id="cb1-2"><a aria-label="2"></a></span>
+<span id="cb1-3"><a aria-label="3"></a><span class="co"># inference_data.csvのアップロード先に応じて、パスを適宜修正すること</span></span>
+<span id="cb1-4"><a aria-label="4"></a>ishin_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>トラブルが生じた場合、速やかにTAを呼んでください。</li>
@@ -887,21 +890,21 @@
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># 1が300個, 0が700個のベクトルを作成し、</span></span>
-<span id="cb2-2"><a></a><span class="co"># 母集団と定義する</span></span>
-<span id="cb2-3"><a></a>pop_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">300</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">700</span>))</span>
-<span id="cb2-4"><a></a><span class="fu">mean</span>(pop_vec) <span class="co"># 母平均</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a><span class="co"># 1が300個, 0が700個のベクトルを作成し、</span></span>
+<span id="cb2-2"><a aria-label="2"></a><span class="co"># 母集団と定義する</span></span>
+<span id="cb2-3"><a aria-label="3"></a>pop_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">300</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">700</span>))</span>
+<span id="cb2-4"><a aria-label="4"></a><span class="fu">mean</span>(pop_vec) <span class="co"># 母平均</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># pop_vecから100個のケースを無作為抽出</span></span>
-<span id="cb4-2"><a></a>sample1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb4-3"><a></a><span class="fu">mean</span>(sample1) <span class="co"># 標本平均 1</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-label="1"></a><span class="co"># pop_vecから100個のケースを無作為抽出</span></span>
+<span id="cb4-2"><a aria-label="2"></a>sample1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb4-3"><a aria-label="3"></a><span class="fu">mean</span>(sample1) <span class="co"># 標本平均 1</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.36</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>sample2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb6-2"><a></a><span class="fu">mean</span>(sample2) <span class="co"># 標本平均 2</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-label="1"></a>sample2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb6-2"><a aria-label="2"></a><span class="fu">mean</span>(sample2) <span class="co"># 標本平均 2</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.28</code></pre>
 </div>
@@ -910,23 +913,23 @@
 
 </div><div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>sample3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb8-2"><a></a><span class="fu">mean</span>(sample3) <span class="co"># 標本平均 3</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>sample3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb8-2"><a aria-label="2"></a><span class="fu">mean</span>(sample3) <span class="co"># 標本平均 3</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.28</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>sample4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb10-2"><a></a><span class="fu">mean</span>(sample4) <span class="co"># 標本平均 4</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-label="1"></a>sample4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb10-2"><a aria-label="2"></a><span class="fu">mean</span>(sample4) <span class="co"># 標本平均 4</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.27</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>sample5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb12-2"><a></a><span class="fu">mean</span>(sample5) <span class="co"># 標本平均 5</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a>sample5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb12-2"><a aria-label="2"></a><span class="fu">mean</span>(sample5) <span class="co"># 標本平均 5</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.32</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>sample6 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
-<span id="cb14-2"><a></a><span class="fu">mean</span>(sample6) <span class="co"># 標本平均 6</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a>sample6 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">100</span>)</span>
+<span id="cb14-2"><a aria-label="2"></a><span class="fu">mean</span>(sample6) <span class="co"># 標本平均 6</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3</code></pre>
 </div>
@@ -1013,7 +1016,7 @@
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="dv">120000000</span><span class="sc">^</span><span class="dv">3000</span> <span class="co"># 1億2千万のケースから3000個を選ぶ場合、あり得る組み合わせは...</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a><span class="dv">120000000</span><span class="sc">^</span><span class="dv">3000</span> <span class="co"># 1億2千万のケースから3000個を選ぶ場合、あり得る組み合わせは...</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Inf</code></pre>
 </div>
@@ -1039,11 +1042,11 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>height_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb18-2"><a></a>  <span class="at">ID     =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>),</span>
-<span id="cb18-3"><a></a>  <span class="at">Height =</span> <span class="fu">c</span>(<span class="dv">151</span>, <span class="dv">169</span>, <span class="dv">183</span>, <span class="dv">160</span>, <span class="dv">171</span>)</span>
-<span id="cb18-4"><a></a>)</span>
-<span id="cb18-5"><a></a>height_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a>height_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-2"><a aria-label="2"></a>  <span class="at">ID     =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>),</span>
+<span id="cb18-3"><a aria-label="3"></a>  <span class="at">Height =</span> <span class="fu">c</span>(<span class="dv">151</span>, <span class="dv">169</span>, <span class="dv">183</span>, <span class="dv">160</span>, <span class="dv">171</span>)</span>
+<span id="cb18-4"><a aria-label="4"></a>)</span>
+<span id="cb18-5"><a aria-label="5"></a>height_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  ID Height
 1  A    151
@@ -1052,11 +1055,11 @@
 4  D    160
 5  E    171</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">mean</span>(height_df<span class="sc">$</span>Height) <span class="co"># 母平均</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a><span class="fu">mean</span>(height_df<span class="sc">$</span>Height) <span class="co"># 母平均</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 166.8</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">var</span>(height_df<span class="sc">$</span>Height) <span class="sc">*</span> <span class="dv">4</span><span class="sc">/</span><span class="dv">5</span> <span class="co"># 母分散</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-label="1"></a><span class="fu">var</span>(height_df<span class="sc">$</span>Height) <span class="sc">*</span> <span class="dv">4</span><span class="sc">/</span><span class="dv">5</span> <span class="co"># 母分散</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 116.16</code></pre>
 </div>
@@ -1736,12 +1739,12 @@
 <div class="columns">
 <div class="column" style="width:49%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">set.seed</span>(<span class="dv">19861008</span>)</span>
-<span id="cb24-2"><a></a>height_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb24-3"><a></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,</span>
-<span id="cb24-4"><a></a>  <span class="at">Height =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">170</span>, <span class="dv">6</span>)</span>
-<span id="cb24-5"><a></a>)</span>
-<span id="cb24-6"><a></a>height_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">19861008</span>)</span>
+<span id="cb24-2"><a aria-label="2"></a>height_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb24-3"><a aria-label="3"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,</span>
+<span id="cb24-4"><a aria-label="4"></a>  <span class="at">Height =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">170</span>, <span class="dv">6</span>)</span>
+<span id="cb24-5"><a aria-label="5"></a>)</span>
+<span id="cb24-6"><a aria-label="6"></a>height_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000 × 2
       ID Height
@@ -1767,13 +1770,13 @@
 <li>母平均と母標準偏差</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># 母平均</span></span>
-<span id="cb26-2"><a></a><span class="fu">mean</span>(height_df<span class="sc">$</span>Height)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-label="1"></a><span class="co"># 母平均</span></span>
+<span id="cb26-2"><a aria-label="2"></a><span class="fu">mean</span>(height_df<span class="sc">$</span>Height)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 169.86</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># 母標準偏差</span></span>
-<span id="cb28-2"><a></a><span class="fu">sd</span>(height_df<span class="sc">$</span>Height) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">999</span><span class="sc">/</span><span class="dv">1000</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-label="1"></a><span class="co"># 母標準偏差</span></span>
+<span id="cb28-2"><a aria-label="2"></a><span class="fu">sd</span>(height_df<span class="sc">$</span>Height) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">999</span><span class="sc">/</span><span class="dv">1000</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.104799</code></pre>
 </div>
@@ -1782,8 +1785,8 @@
 </section>
 <section id="母集団の分布" class="slide level2">
 <h2>母集団の分布</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">ggplot</span>(height_df) <span class="sc">+</span></span>
-<span id="cb30-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Height), <span class="at">binwidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-label="1"></a><span class="fu">ggplot</span>(height_df) <span class="sc">+</span></span>
+<span id="cb30-2"><a aria-label="2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> Height), <span class="at">binwidth =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1807,35 +1810,35 @@
 <ul>
 <li>1001行のコードが必要</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># 空ベクトルの作成</span></span>
-<span id="cb31-2"><a></a></span>
-<span id="cb31-3"><a></a>sample001 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
-<span id="cb31-4"><a></a>sample002 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
-<span id="cb31-5"><a></a>sample003 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
-<span id="cb31-6"><a></a>...</span>
-<span id="cb31-7"><a></a>sample500 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
-<span id="cb31-8"><a></a></span>
-<span id="cb31-9"><a></a>sample_mean[<span class="dv">1</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample001)</span>
-<span id="cb31-10"><a></a>sample_mean[<span class="dv">2</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample002)</span>
-<span id="cb31-11"><a></a>sample_mean[<span class="dv">3</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample003)</span>
-<span id="cb31-12"><a></a>...</span>
-<span id="cb31-13"><a></a>sample_mean[<span class="dv">500</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample500)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-label="1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># 空ベクトルの作成</span></span>
+<span id="cb31-2"><a aria-label="2"></a></span>
+<span id="cb31-3"><a aria-label="3"></a>sample001 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
+<span id="cb31-4"><a aria-label="4"></a>sample002 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
+<span id="cb31-5"><a aria-label="5"></a>sample003 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
+<span id="cb31-6"><a aria-label="6"></a>...</span>
+<span id="cb31-7"><a aria-label="7"></a>sample500 <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>)</span>
+<span id="cb31-8"><a aria-label="8"></a></span>
+<span id="cb31-9"><a aria-label="9"></a>sample_mean[<span class="dv">1</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample001)</span>
+<span id="cb31-10"><a aria-label="10"></a>sample_mean[<span class="dv">2</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample002)</span>
+<span id="cb31-11"><a aria-label="11"></a>sample_mean[<span class="dv">3</span>]   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample003)</span>
+<span id="cb31-12"><a aria-label="12"></a>...</span>
+<span id="cb31-13"><a aria-label="13"></a>sample_mean[<span class="dv">500</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample500)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># 標本平均を格納する空ベクトルの作成</span></span>
-<span id="cb32-2"><a></a></span>
-<span id="cb32-3"><a></a><span class="co"># for文で標本抽出&amp;標本平均の計算を繰り返す</span></span>
-<span id="cb32-4"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>) {</span>
-<span id="cb32-5"><a></a>  temp_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb32-6"><a></a>  sample_mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(temp_sample)</span>
-<span id="cb32-7"><a></a>}</span>
-<span id="cb32-8"><a></a></span>
-<span id="cb32-9"><a></a><span class="fu">length</span>(sample_mean) <span class="co"># sample_meanベクトルの長さ</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-label="1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># 標本平均を格納する空ベクトルの作成</span></span>
+<span id="cb32-2"><a aria-label="2"></a></span>
+<span id="cb32-3"><a aria-label="3"></a><span class="co"># for文で標本抽出&amp;標本平均の計算を繰り返す</span></span>
+<span id="cb32-4"><a aria-label="4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>) {</span>
+<span id="cb32-5"><a aria-label="5"></a>  temp_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(height_df<span class="sc">$</span>Height, <span class="dv">9</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-6"><a aria-label="6"></a>  sample_mean[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(temp_sample)</span>
+<span id="cb32-7"><a aria-label="7"></a>}</span>
+<span id="cb32-8"><a aria-label="8"></a></span>
+<span id="cb32-9"><a aria-label="9"></a><span class="fu">length</span>(sample_mean) <span class="co"># sample_meanベクトルの長さ</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 500</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">head</span>(sample_mean) <span class="co"># sample_meanの最初の6つの要素</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-label="1"></a><span class="fu">head</span>(sample_mean) <span class="co"># sample_meanの最初の6つの要素</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 166.8686 168.3726 168.3809 170.4204 169.6380 170.9055</code></pre>
 </div>
@@ -1849,13 +1852,13 @@
 <div class="columns">
 <div class="column" style="width:37%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="co"># 標本平均の平均値</span></span>
-<span id="cb36-2"><a></a><span class="fu">mean</span>(sample_mean)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-label="1"></a><span class="co"># 標本平均の平均値</span></span>
+<span id="cb36-2"><a aria-label="2"></a><span class="fu">mean</span>(sample_mean)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 169.9575</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="co"># 標本平均の標準偏差</span></span>
-<span id="cb38-2"><a></a><span class="fu">sd</span>(sample_mean)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-label="1"></a><span class="co"># 標本平均の標準偏差</span></span>
+<span id="cb38-2"><a aria-label="2"></a><span class="fu">sd</span>(sample_mean)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.986786</code></pre>
 </div>
@@ -1863,9 +1866,9 @@
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:61%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">enframe</span>(sample_mean) <span class="sc">|&gt;</span> <span class="co"># ベクトルをデータフレームに変換</span></span>
-<span id="cb40-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb40-3"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-label="1"></a><span class="fu">enframe</span>(sample_mean) <span class="sc">|&gt;</span> <span class="co"># ベクトルをデータフレームに変換</span></span>
+<span id="cb40-2"><a aria-label="2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb40-3"><a aria-label="3"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1909,7 +1912,7 @@
 <li><span class="math inline">\(n = 4\)</span>の場合の標準誤差</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fl">6.104799</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-label="1"></a><span class="fl">6.104799</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.0524</code></pre>
 </div>
@@ -1921,7 +1924,7 @@
 <li><span class="math inline">\(n = 25\)</span>の場合の標準誤差</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fl">6.104799</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">25</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-label="1"></a><span class="fl">6.104799</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">25</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.22096</code></pre>
 </div>
@@ -1948,9 +1951,9 @@
 <div class="columns">
 <div class="column" style="width:56%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>ishin_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/inference_data.csv"</span>)</span>
-<span id="cb45-2"><a></a><span class="co"># Temp_Ishinが欠損したケースもあるため、後ほど除去</span></span>
-<span id="cb45-3"><a></a>ishin_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-label="1"></a>ishin_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/inference_data.csv"</span>)</span>
+<span id="cb45-2"><a aria-label="2"></a><span class="co"># Temp_Ishinが欠損したケースもあるため、後ほど除去</span></span>
+<span id="cb45-3"><a aria-label="3"></a>ishin_df</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,746 × 4
       ID Female   Age Temp_Ishin
@@ -1972,21 +1975,21 @@
 
 </div><div class="column" style="width:43%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="co"># Temp_Ishinが欠損した行を除去</span></span>
-<span id="cb47-2"><a></a>ishin_df <span class="ot">&lt;-</span> ishin_df <span class="sc">|&gt;</span> </span>
-<span id="cb47-3"><a></a>  <span class="fu">drop_na</span>(Temp_Ishin)</span>
-<span id="cb47-4"><a></a><span class="co"># 標本サイズ (= n)</span></span>
-<span id="cb47-5"><a></a><span class="fu">length</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-label="1"></a><span class="co"># Temp_Ishinが欠損した行を除去</span></span>
+<span id="cb47-2"><a aria-label="2"></a>ishin_df <span class="ot">&lt;-</span> ishin_df <span class="sc">|&gt;</span> </span>
+<span id="cb47-3"><a aria-label="3"></a>  <span class="fu">drop_na</span>(Temp_Ishin)</span>
+<span id="cb47-4"><a aria-label="4"></a><span class="co"># 標本サイズ (= n)</span></span>
+<span id="cb47-5"><a aria-label="5"></a><span class="fu">length</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1998</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="co"># Temp_Ishinの平均値</span></span>
-<span id="cb49-2"><a></a><span class="fu">mean</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-label="1"></a><span class="co"># Temp_Ishinの平均値</span></span>
+<span id="cb49-2"><a aria-label="2"></a><span class="fu">mean</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 42.73273</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="co"># Temp_Ishinの標本不偏分散の平方根</span></span>
-<span id="cb51-2"><a></a><span class="fu">sd</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-label="1"></a><span class="co"># Temp_Ishinの標本不偏分散の平方根</span></span>
+<span id="cb51-2"><a aria-label="2"></a><span class="fu">sd</span>(ishin_df<span class="sc">$</span>Temp_Ishin)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 23.86197</code></pre>
 </div>
@@ -2085,11 +2088,11 @@ T = \frac{\bar{x} - \mu}{\mbox{SE}(x)}
 <div class="columns">
 <div class="column" style="width:34%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">1997</span>) <span class="co"># 下限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-label="1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">1997</span>) <span class="co"># 下限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.961153</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">1997</span>) <span class="co"># 上限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-label="1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">1997</span>) <span class="co"># 上限</span></span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.961153</code></pre>
 </div>
@@ -2246,20 +2249,20 @@ mean of x
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a><span class="co"># pop_vecを母集団とした場合、母平均は0.3</span></span>
-<span id="cb73-2"><a></a><span class="co"># n = 30の標本抽出を100回行う</span></span>
-<span id="cb73-3"><a></a>sample1   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
-<span id="cb73-4"><a></a>sample2   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
-<span id="cb73-5"><a></a>sample3   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
-<span id="cb73-6"><a></a>...</span>
-<span id="cb73-7"><a></a>sample100 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
-<span id="cb73-8"><a></a></span>
-<span id="cb73-9"><a></a><span class="co"># それぞれの標本から95%信頼区間を求める</span></span>
-<span id="cb73-10"><a></a><span class="fu">t.test</span>(sample1, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb73-11"><a></a><span class="fu">t.test</span>(sample2, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb73-12"><a></a><span class="fu">t.test</span>(sample3, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb73-13"><a></a>...</span>
-<span id="cb73-14"><a></a><span class="fu">t.test</span>(sample100, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-label="1"></a><span class="co"># pop_vecを母集団とした場合、母平均は0.3</span></span>
+<span id="cb73-2"><a aria-label="2"></a><span class="co"># n = 30の標本抽出を100回行う</span></span>
+<span id="cb73-3"><a aria-label="3"></a>sample1   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
+<span id="cb73-4"><a aria-label="4"></a>sample2   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
+<span id="cb73-5"><a aria-label="5"></a>sample3   <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
+<span id="cb73-6"><a aria-label="6"></a>...</span>
+<span id="cb73-7"><a aria-label="7"></a>sample100 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop_vec, <span class="dv">30</span>)</span>
+<span id="cb73-8"><a aria-label="8"></a></span>
+<span id="cb73-9"><a aria-label="9"></a><span class="co"># それぞれの標本から95%信頼区間を求める</span></span>
+<span id="cb73-10"><a aria-label="10"></a><span class="fu">t.test</span>(sample1, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb73-11"><a aria-label="11"></a><span class="fu">t.test</span>(sample2, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb73-12"><a aria-label="12"></a><span class="fu">t.test</span>(sample3, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb73-13"><a aria-label="13"></a>...</span>
+<span id="cb73-14"><a aria-label="14"></a><span class="fu">t.test</span>(sample100, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="コピーする" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
